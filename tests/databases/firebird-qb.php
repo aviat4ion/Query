@@ -39,21 +39,21 @@ class FirebirdQBTest extends UnitTestCase {
 	{
 		$query = $this->db->get('create_test ct');
 		
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestGetLimit()
 	{
 		$query = $this->db->get('create_test', 2);
 		
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestGetLimitSkip()
 	{
 		$query = $this->db->get('create_test', 2, 1);
 		
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestSelectWhereGet()
@@ -63,7 +63,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->where('id <', 800)
 			->get('create_test', 2, 1);
 
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestSelectWhereGet2()
@@ -73,7 +73,7 @@ class FirebirdQBTest extends UnitTestCase {
 			
 			->get('create_test', 2, 1);
 
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestSelectGet()
@@ -81,7 +81,7 @@ class FirebirdQBTest extends UnitTestCase {
 		$query = $this->db->select('id, key as k, val')
 			->get('create_test', 2, 1);
 
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestSelectFromGet()
@@ -91,7 +91,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->where('id >', 1)
 			->get();
 			
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestSelectFromLimitGet()
@@ -102,7 +102,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->limit(3)
 			->get();
 			
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestOrderBy()
@@ -116,7 +116,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->limit(5,2)
 			->get();
 			
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestOrderByRand()
@@ -129,7 +129,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->limit(5,2)
 			->get();
 			
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestOrWhere()
@@ -141,7 +141,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->limit(2, 1)
 			->get();
 		
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	/*function TestGroupBy()
@@ -157,7 +157,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->limit(5,2)
 			->get();
 			
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}*/
 	
 	function TestLike()
@@ -166,7 +166,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->like('key', 'og')
 			->get();
 			
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestWhereIn()
@@ -175,7 +175,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->where_in('key', array(12, 96, "works"))
 			->get();
 			
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestJoin()
@@ -184,7 +184,7 @@ class FirebirdQBTest extends UnitTestCase {
 			->join('create_join cj', 'cj.id = create_test.id')
 			->get();
 			
-		$this->assertTrue(is_resource($query));
+		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
 	function TestInsert()
