@@ -82,7 +82,7 @@ class Query_Builder {
 		switch($dbtype)
 		{
 			default:
-				$this->db = new $dbtype("host={$params->host};port={$params->port};", $params->user, $params->pass);
+				$this->db = new $dbtype("host={$params->host};port={$params->port};dbname={$this->database}", $params->user, $params->pass);
 			break;
 
 			case "sqlite":
