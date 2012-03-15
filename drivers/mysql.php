@@ -57,7 +57,7 @@ class MySQL extends DB_PDO {
 	public function get_dbs()
 	{
 		$res = $this->query("SHOW DATABASES");
-		return $this->fetchAll(PDO::FETCH_ASSOC);
+		return array_values($this->fetchAll(PDO::FETCH_ASSOC));
 	}
 	
 	// --------------------------------------------------------------------------
@@ -70,7 +70,16 @@ class MySQL extends DB_PDO {
 	public function get_tables()
 	{
 		$res = $this->query("SHOW TABLES");
-		return $res->fetchAll(PDO::FETCH_ASSOC);
+		
+		$tables = array();
+		$rows = $res->fetchAll(PDO::FETCH_NUM);
+		
+		foreach($rows as $r)
+		{
+			$tables[] = $r[0];
+		}
+		
+		return $tables;
 	}
 	
 	// --------------------------------------------------------------------------

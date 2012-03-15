@@ -29,7 +29,60 @@
  	 */
 	public function create_table($name, $columns, array $constraints=array(), array $indexes=array())
 	{
-		//TODO: implement
+		$column_array = array();
+		
+		// Reorganize into an array indexed with column information
+		// Eg $column_array[$colname] = array(
+		// 		'type' => ...,
+		// 		'constraint' => ...,
+		// 		'index' => ...,
+		// )
+		foreach($columns as $colname => $type)
+		{
+			if(is_numeric($colname))
+			{
+				$colname = $type;
+			}
+
+			$column_array[$colname] = array();
+			$column_array[$colname]['type'] = ($type !== $colname) ? $type : '';
+		}
+
+		if( ! empty($constraints))
+		{
+			foreach($constraints as $col => $const)
+			{
+				$column_array[$col]['constraint'] = "{$const} ({$col})";
+			}
+		}
+
+		// Join column definitons together 
+		$columns = array();
+		foreach($column_array as $n => $props)
+		{
+			$n = trim($n, '`');
+		
+			$str = "`{$n}` ";
+			$str .= (isset($props['type'])) ? "{$props['type']} " : "";
+
+			$columns[] = $str;
+		}
+		
+		// Add constraints
+		foreach($column_array as $n => $props)
+		{			
+			if (isset($props['constraint']))
+			{
+				$columns[] = $props['constraint'];
+			}	
+		}
+
+		// Generate the sql for the creation of the table
+		$sql = "CREATE TABLE IF NOT EXISTS `{$name}` (";
+		$sql .= implode(", ", $columns);
+		$sql .= ")";
+
+		return $sql;
 	}
 	
 	// --------------------------------------------------------------------------

@@ -21,7 +21,7 @@ class MySQLTest extends UnitTestCase {
 
 	function __construct()
 	{
-		
+		parent::__construct();
 	}
 	
 	function setUp()
@@ -58,6 +58,7 @@ class MySQLTest extends UnitTestCase {
 		if (empty($this->db))  return; 
 	
 		$tables = $this->db->get_tables();
+		
 		$this->assertTrue(is_array($tables));
 	}
 	
@@ -85,7 +86,7 @@ class MySQLTest extends UnitTestCase {
 		//Attempt to create the table
 		$sql = $this->db->sql->create_table('create_test', 
 			array(
-				'id' => 'INTEGER',
+				'id' => 'int(10)',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
 			), 
@@ -93,12 +94,13 @@ class MySQLTest extends UnitTestCase {
 				'id' => 'PRIMARY KEY'
 			)
 		);
+		
 		$this->db->query($sql);
 		
 		//Attempt to create the table
 		$sql = $this->db->sql->create_table('create_join', 
 			array(
-				'id' => 'INTEGER',
+				'id' => 'int(10)',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
 			), 
@@ -110,7 +112,9 @@ class MySQLTest extends UnitTestCase {
 
 		//Check
 		$dbs = $this->db->get_tables();
-		//$this->assertEqual($dbs['create_test'], 'CREATE TABLE "create_test" (id INTEGER PRIMARY KEY, key TEXT , val TEXT )');
+		
+		$this->assertTrue(in_array('create_test', $dbs));
+	
 	}
 	
 	/*function TestTruncate()
