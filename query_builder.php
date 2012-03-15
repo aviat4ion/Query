@@ -62,6 +62,19 @@ class Query_Builder {
 	 */
 	public function __construct($params)
 	{
+		// Convert array to object
+		if (is_array($params))
+		{
+			$p = new StdClass();
+			
+			foreach($params as $key => $val)
+			{
+				$p->$key = $val;
+			}
+			
+			$params = $p;
+		}
+	
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 
