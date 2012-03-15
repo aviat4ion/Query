@@ -142,8 +142,8 @@ class FirebirdTest extends UnitTestCase {
 			INSERT INTO "create_test" ("id", "key", "val") 
 			VALUES (?,?,?)
 SQL;
-		$this->db->prepare($sql);
-		$this->db->execute(array(1,"booger's", "Gross"));
+		$query = $this->db->prepare($sql);
+		$query->execute(array(1,"booger's", "Gross"));
 
 	}
 	

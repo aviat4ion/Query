@@ -19,7 +19,7 @@
  */
 class firebird extends DB_PDO {
 
-	protected $statement, $trans, $count, $result, $conn;
+	protected $statement, $statement_link, $trans, $count, $result, $conn;
 	
 	/**
 	 * Open the link to the database
@@ -83,69 +83,23 @@ class firebird extends DB_PDO {
 		
 		if (isset($this->trans))
 		{
-			$this->statement = @ibase_query($this->trans, $sql);
+			$this->statement_link = @ibase_query($this->trans, $sql);
 		}
 		else
 		{
-			$this->statement = @ibase_query($this->conn, $sql);
+			$this->statement_link = @ibase_query($this->conn, $sql);
 		}
 
 		// Throw the error as a exception
-		if ($this->statement === FALSE)
+		if ($this->statement_link === FALSE)
 		{
 			throw new PDOException(ibase_errmsg());
 		}
 		
-		return $this->statement;
+		return new FireBird_Result($this->statement_link);
 	}
 	
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Emulate PDO fetch public function
-	 * 
-	 * @param  int $fetch_style
-	 * @return mixed
-	 */
-	public function fetch($fetch_style=PDO::FETCH_ASSOC)
-	{
-		switch($fetch_style)
-		{
-			case PDO::FETCH_OBJ:
-				return ibase_fetch_object($this->statement, IBASE_FETCH_BLOBS);
-			break;
-
-			case PDO::FETCH_NUM:
-				return ibase_fetch_row($this->statement, IBASE_FETCH_BLOBS);
-			break;
-
-			default:
-				return ibase_fetch_assoc($this->statement, IBASE_FETCH_BLOBS);
-			break;
-		}
-	}
 	
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Emulate PDO fetchAll public function
-	 * 
-	 * @param  int  $fetch_style
-	 * @return mixed
-	 */
-	public function fetchAll($fetch_style=PDO::FETCH_ASSOC)
-	{
-		$all = array();
-
-		while($row = $this->fetch($fetch_style))
-		{
-			$all[] = $row;
-		}
-		
-		$this->result = $all;
-
-		return $all;
-	}
 	
 	// --------------------------------------------------------------------------
 
@@ -157,15 +111,15 @@ class firebird extends DB_PDO {
 	 */
 	public function prepare($query, $options=NULL)
 	{
-		$this->statement = @ibase_prepare($this->conn, $query);
+		$this->statement_link = @ibase_prepare($this->conn, $query);
 
 		// Throw the error as an exception
-		if ($this->statement === FALSE)
+		if ($this->statement_link === FALSE)
 		{
 			throw new PDOException(ibase_errmsg());
 		}
 
-		return $this->statement;
+		return new FireBird_Result($this->statement_link);
 	}
 	
 	// --------------------------------------------------------------------------
@@ -187,7 +141,7 @@ SQL;
 		
 		$tables = array();
 		
-		while($row = $this->fetch(PDO::FETCH_ASSOC))
+		while($row = $this->statement->fetch(PDO::FETCH_ASSOC))
 		{
 			$tables[] = $row['RDB$RELATION_NAME'];
 		}
@@ -214,24 +168,12 @@ SQL;
 
 		$tables = array();
 
-		while($row = $this->fetch(PDO::FETCH_ASSOC))
+		while($row = $this->statement->fetch(PDO::FETCH_ASSOC))
 		{
 			$tables[] = $row['RDB$RELATION_NAME'];
 		}
 		
 		return $tables;
-	}
-	
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Return the number of rows affected by the previous query
-	 * 
-	 * @return int
-	 */
-	public function affected_rows($statement="")
-	{
-		return ibase_affected_rows();
 	}
 	
 	// --------------------------------------------------------------------------
@@ -250,7 +192,7 @@ SQL;
 		}
 
 		//Fetch all the rows for the result
-		$this->result = $this->fetchAll();
+		$this->result = $this->statement->fetchAll();
 
 		return count($this->result);
 	}
@@ -296,23 +238,7 @@ SQL;
 		return ibase_rollback($this->trans);
 	}
 	
-	// --------------------------------------------------------------------------
 	
-	/**
-	 * Run a prepared statement query
-	 * 
-	 * @param  array $args
-	 * @return bool
-	 */
-	public function execute($args)
-	{
-		//Add the prepared statement as the first parameter
-		array_unshift($args, $this->statement);
-		
-		// Let php do all the hard stuff in converting 
-		// the array of arguments into a list of arguments
-		return call_user_func_array('ibase_execute', $args);
-	}
 	
 	// --------------------------------------------------------------------------
 	
@@ -330,7 +256,7 @@ SQL;
 		// Set the statement in the class variable for easy later access
 		$this->statement =& $query;
 		
-		return $this->execute($args);
+		return $query->execute($args);
 	}
 
 	// --------------------------------------------------------------------------
@@ -463,6 +389,125 @@ SQL;
 		}
 		
 		return $output_sql;
+	}
+}
+
+// --------------------------------------------------------------------------
+
+/**
+ * Firebird result class to emulate PDOStatement Class
+ */
+class Firebird_Result {
+
+	private $statement;
+	
+	/**
+	 * Create the object by passing the resource for
+	 * the query
+	 *
+	 * @param resource $link
+	 */
+	public function __construct($link)
+	{
+		$this->statement = $link;
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Emulate PDO fetch public function
+	 * 
+	 * @param  int $fetch_style
+	 * @return mixed
+	 */
+	public function fetch($fetch_style=PDO::FETCH_ASSOC, $statement=NULL)
+	{
+		if ( ! is_null($statement))
+		{
+			$this->statement = $statement;
+		}
+	
+		switch($fetch_style)
+		{
+			case PDO::FETCH_OBJ:
+				return ibase_fetch_object($this->statement, IBASE_FETCH_BLOBS);
+			break;
+
+			case PDO::FETCH_NUM:
+				return ibase_fetch_row($this->statement, IBASE_FETCH_BLOBS);
+			break;
+
+			default:
+				return ibase_fetch_assoc($this->statement, IBASE_FETCH_BLOBS);
+			break;
+		}
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Emulate PDO fetchAll public function
+	 * 
+	 * @param  int  $fetch_style
+	 * @return mixed
+	 */
+	public function fetchAll($fetch_style=PDO::FETCH_ASSOC, $statement=NULL)
+	{
+		$all = array();
+
+		while($row = $this->fetch($fetch_style, $statement))
+		{
+			$all[] = $row;
+		}
+		
+		$this->result = $all;
+
+		return $all;
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Run a prepared statement query
+	 * 
+	 * @param  array $args
+	 * @return bool
+	 */
+	public function execute($args)
+	{
+		//Add the prepared statement as the first parameter
+		array_unshift($args, $this->statement);
+		
+		// Let php do all the hard stuff in converting 
+		// the array of arguments into a list of arguments
+		return new Firebird_Result(call_user_func_array('ibase_execute', $args));
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Return the number of rows affected by the previous query
+	 * 
+	 * @return int
+	 */
+	public function rowCount($statement="")
+	{
+		return ibase_affected_rows();
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Method to emulate PDO->errorInfo / PDOStatement->errorInfo
+	 *
+	 * @return array
+	 */
+	public function errorInfo()
+	{
+		$code = ibase_errcode();
+		$msg = ibase_errmsg();
+
+		return array(0, $code, $msg);
 	}
 }
 // End of firebird-ibase.php
