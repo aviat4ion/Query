@@ -2,17 +2,17 @@
 
 A query builder/abstraction layer.
 
+## Requirements
+* Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
+* PHP 5.2+
+
 ## Databases Supported
 	
-	* Firebird
-	* MySQL
-	* PostgreSQL
-	* SQLite
-	* Others, via ODBC
-	
-## Requirements
-	* Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
-	
+* Firebird
+* MySQL
+* PostgreSQL
+* SQLite
+* Others, via ODBC
 	
 ## Connecting
 
@@ -42,6 +42,6 @@ Query uses the same interface as CodeIgniter's [Active Record class](http://code
 
 To retreive the results of a query, use the PDO methods `fetch` and `fetchAll`.
 
-	$query = $this->db->get('table_name');
+	$query = $db->get('table_name');
 	
 	$results = $query->fetchAll(PDO::FETCH_ASSOC);
