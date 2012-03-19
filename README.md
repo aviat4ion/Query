@@ -13,6 +13,11 @@ A query builder/abstraction layer, using prepared queries for security.
 * PostgreSQL
 * SQLite
 * Others, via ODBC
+
+## Including Query in your application
+
+To include Query in your PHP project, just include the `autoload.php` file. This will automatically load the classes that are supported by the current PHP installation.
+
 	
 ## Connecting
 

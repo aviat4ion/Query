@@ -23,6 +23,9 @@ define('DS', DIRECTORY_SEPARATOR);
 // it has to be set in your php path, or put in the tests folder
 require_once('simpletest/autorun.php');
 
+// Require base testing classes
+require_once(TEST_DIR.'/parent.php');
+
 
 // Bulk loading wrapper workaround for PHP < 5.4
 function do_include($path)

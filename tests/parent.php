@@ -12,32 +12,8 @@
 
 // --------------------------------------------------------------------------
 
-class MySQLQBTest extends QBTest {
+abstract class QBTest extends UnitTestCase {
 
-	function __construct()
- 	{
- 		parent::__construct();
- 		
- 		// Attempt to connect, if there is a test config file
-		if (is_file("../test_config.json"))
-		{
-			$params = json_decode(file_get_contents("../test_config.json"));
-			$params = $params->mysql;
-			$params->type = "mysql";
-			
-			$this->db = new Query_Builder($params);
-			
-			echo '<hr /> MySQL Queries <hr />';		
-			
-		}
- 	}
-
-	
-	function TestExists()
-	{
-		$this->assertTrue(in_array('mysql', pdo_drivers()));
-	}
-	
 	function TestGet()
 	{
 		if (empty($this->db))  return;
@@ -241,4 +217,18 @@ class MySQLQBTest extends QBTest {
 			
 		$this->assertIsA($query, 'PDOStatement');
 	}
+
+}
+
+// --------------------------------------------------------------------------
+
+abstract class DBTest extends UnitTestCase {
+
+	abstract function TestConnection();
+
+	function tearDown()
+	{
+		unset($this->db);
+	}
+
 }

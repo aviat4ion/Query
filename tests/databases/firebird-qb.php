@@ -15,7 +15,7 @@
 /**
  * Firebird Query Builder Tests
  */
-class FirebirdQBTest extends UnitTestCase {
+class FirebirdQBTest extends QBTest {
 
 	function __construct()
 	{

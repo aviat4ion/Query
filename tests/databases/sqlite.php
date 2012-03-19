@@ -17,11 +17,11 @@
  * 
  * @extends UnitTestCase
  */
-class SQLiteTest extends UnitTestCase {
+class SQLiteTest extends DBTest {
 	
 	function __construct()
 	{
-		parent::__construct();
+		//parent::__construct();
 	}
 	
 	function setUp()
