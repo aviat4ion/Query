@@ -38,7 +38,7 @@ Create a connection array or object similar to this:
 The parameters required depend on the database. 
 
 ### Running Queries
-Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `select_` methods, `count_all_results`, `distinct`, `having`, `or_having` or `count_all`.
+Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `select_` methods, `count_all_results`, `distinct`, `having`, `or_having`, `get_compiled_query`, `insert_batch`, `update_batch`, or `count_all` methods.
 
 To retreive the results of a query, use the PDO methods `fetch` and `fetchAll`.
 
