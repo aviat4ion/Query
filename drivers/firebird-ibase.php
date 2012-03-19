@@ -15,7 +15,7 @@
 /**
  * Firebird Database class
  * 
- * PDO-firebird isn't stable, so this is a wrapper of the ibase_ public functions.
+ * PDO-firebird isn't stable, so this is a wrapper of the fbird_ public functions.
  */
 class firebird extends DB_PDO {
 
@@ -30,12 +30,12 @@ class firebird extends DB_PDO {
 	 */
 	public function __construct($dbpath, $user='sysdba', $pass='masterkey')
 	{
-		$this->conn = @ibase_connect($dbpath, $user, $pass, 'utf-8');
+		$this->conn = @fbird_connect($dbpath, $user, $pass, 'utf-8');
 
 		// Throw an exception to make this match other pdo classes
 		if ( ! is_resource($this->conn))
 		{
-			throw new PDOException(ibase_errmsg());
+			throw new PDOException(fbird_errmsg());
 			die();
 		}
 		
@@ -50,8 +50,8 @@ class firebird extends DB_PDO {
 	 */
 	public function __destruct()
 	{
-		@ibase_close();
-		@ibase_free_result($this->statement);
+		@fbird_close();
+		@fbird_free_result($this->statement);
 	}
 	
 	// --------------------------------------------------------------------------
@@ -83,17 +83,17 @@ class firebird extends DB_PDO {
 		
 		if (isset($this->trans))
 		{
-			$this->statement_link = @ibase_query($this->trans, $sql);
+			$this->statement_link = @fbird_query($this->trans, $sql);
 		}
 		else
 		{
-			$this->statement_link = @ibase_query($this->conn, $sql);
+			$this->statement_link = @fbird_query($this->conn, $sql);
 		}
 
 		// Throw the error as a exception
 		if ($this->statement_link === FALSE)
 		{
-			throw new PDOException(ibase_errmsg());
+			throw new PDOException(fbird_errmsg());
 		}
 		
 		return new FireBird_Result($this->statement_link);
@@ -111,12 +111,12 @@ class firebird extends DB_PDO {
 	 */
 	public function prepare($query, $options=NULL)
 	{
-		$this->statement_link = @ibase_prepare($this->conn, $query);
+		$this->statement_link = @fbird_prepare($this->conn, $query);
 
 		// Throw the error as an exception
 		if ($this->statement_link === FALSE)
 		{
-			throw new PDOException(ibase_errmsg());
+			throw new PDOException(fbird_errmsg());
 		}
 
 		return new FireBird_Result($this->statement_link);
@@ -206,7 +206,7 @@ SQL;
 	 */
 	public function beginTransaction()
 	{
-		if(($this->trans = ibase_trans($this->conn)) !== NULL)
+		if(($this->trans = fbird_trans($this->conn)) !== NULL)
 		{
 			return TRUE;
 		}
@@ -223,7 +223,7 @@ SQL;
 	 */
 	public function commit()
 	{
-		return ibase_commit($this->trans);
+		return fbird_commit($this->trans);
 	}
 	
 	// --------------------------------------------------------------------------
@@ -235,7 +235,7 @@ SQL;
 	 */
 	public function rollBack()
 	{
-		return ibase_rollback($this->trans);
+		return fbird_rollback($this->trans);
 	}
 	
 	
@@ -286,8 +286,8 @@ SQL;
 	 */
 	public function errorInfo()
 	{
-		$code = ibase_errcode();
-		$msg = ibase_errmsg();
+		$code = fbird_errcode();
+		$msg = fbird_errmsg();
 
 		return array(0, $code, $msg);
 	}
@@ -430,15 +430,15 @@ class Firebird_Result {
 		switch($fetch_style)
 		{
 			case PDO::FETCH_OBJ:
-				return ibase_fetch_object($this->statement, IBASE_FETCH_BLOBS);
+				return fbird_fetch_object($this->statement, fbird_FETCH_BLOBS);
 			break;
 
 			case PDO::FETCH_NUM:
-				return ibase_fetch_row($this->statement, IBASE_FETCH_BLOBS);
+				return fbird_fetch_row($this->statement, fbird_FETCH_BLOBS);
 			break;
 
 			default:
-				return ibase_fetch_assoc($this->statement, IBASE_FETCH_BLOBS);
+				return fbird_fetch_assoc($this->statement, fbird_FETCH_BLOBS);
 			break;
 		}
 	}
@@ -480,7 +480,7 @@ class Firebird_Result {
 		
 		// Let php do all the hard stuff in converting 
 		// the array of arguments into a list of arguments
-		return new Firebird_Result(call_user_func_array('ibase_execute', $args));
+		return new Firebird_Result(call_user_func_array('fbird_execute', $args));
 	}
 	
 	// --------------------------------------------------------------------------
@@ -492,7 +492,7 @@ class Firebird_Result {
 	 */
 	public function rowCount($statement="")
 	{
-		return ibase_affected_rows();
+		return fbird_affected_rows();
 	}
 	
 	// --------------------------------------------------------------------------
@@ -504,10 +504,10 @@ class Firebird_Result {
 	 */
 	public function errorInfo()
 	{
-		$code = ibase_errcode();
-		$msg = ibase_errmsg();
+		$code = fbird_errcode();
+		$msg = fbird_errmsg();
 
 		return array(0, $code, $msg);
 	}
 }
-// End of firebird-ibase.php
+// End of firebird-fbird.php
