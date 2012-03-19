@@ -12,12 +12,7 @@
 
 // --------------------------------------------------------------------------
 
-class ODBCQBTest extends UnitTestCase {
-
-	function __construct()
-	{
-	
-	}
+class ODBCQBTest extends QBTest {
 	
 	function TestExists()
 	{

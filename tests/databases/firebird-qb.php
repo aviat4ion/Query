@@ -119,7 +119,7 @@ class FirebirdQBTest extends QBTest {
 		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
-	function TestOrderByRand()
+	function TestOrderByRandom()
 	{
 		$query = $this->db->select('id, key as k, val')
 			->from('create_test')
@@ -142,6 +142,11 @@ class FirebirdQBTest extends QBTest {
 			->get();
 		
 		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
+	function TestGroupBy()
+	{
+	
 	}
 	
 	/*function TestGroupBy()

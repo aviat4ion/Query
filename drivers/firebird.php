@@ -511,5 +511,37 @@ class Firebird_Result {
 
 		return array(0, $code, $msg);
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Method to emulate PDOStatement->errorCode()
+	 *
+	 * @return int
+	 */
+	public function errorCode()
+	{
+		return fbird_errcode();
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Method to emulate PDOStatement->debugDumpParams
+	 *
+	 * @return string
+	 */
+	public function debugDumpParams()
+	{
+		$params = array();
+		$num_params = fbird_num_params($this->statement);
+		
+		for($i=0; $i < $num_params; $i++)
+		{
+			$params[] = fbird_param_info($this->statement, $i);
+		}
+	
+		return print_r($params, TRUE);
+	}
 }
 // End of firebird-fbird.php

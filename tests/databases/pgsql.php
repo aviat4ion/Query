@@ -17,7 +17,7 @@
  * 
  * @extends UnitTestCase
  */
-class PgTest extends UnitTestCase {
+class PgTest extends DBTest {
 
 	function __construct()
 	{
@@ -36,11 +36,6 @@ class PgTest extends UnitTestCase {
 		}
 	}
 	
-	function tearDown()
-	{
-		unset($this->db);
-	}
-	
 	function TestExists()
 	{
 		$this->assertTrue(in_array('pgsql', pdo_drivers()));
@@ -51,32 +46,6 @@ class PgTest extends UnitTestCase {
 		if (empty($this->db))  return; 
 	
 		$this->assertIsA($this->db, 'PgSQL');
-	}
-	
-	function TestGetTables()
-	{
-		if (empty($this->db))  return; 
-	
-		$tables = $this->db->get_tables();
-		
-		$this->assertTrue(is_array($tables));
-	}
-	
-	function TestGetSystemTables()
-	{
-		if (empty($this->db))  return; 
-	
-		$tables = $this->db->get_system_tables();
-		
-		$this->assertTrue(is_array($tables));
-	}
-	
-	function TestCreateTransaction()
-	{
-		if (empty($this->db))  return; 
-	
-		$res = $this->db->beginTransaction();
-		$this->assertTrue($res);
 	}
 
 	/*function TestCreateTable()
@@ -118,67 +87,4 @@ class PgTest extends UnitTestCase {
 		$this->assertTrue(in_array('create_test', $dbs));
 	
 	}*/
-	
-	/*function TestTruncate()
-	{
-		if (empty($this->db))  return; 
-	
-		$this->db->truncate('create_test');
-		$this->assertIsA($this->db->affected_rows(), 'int');
-	}*/
-	
-	function TestPreparedStatements()
-	{
-		if (empty($this->db))  return; 
-	
-		$sql = <<<SQL
-			INSERT INTO "create_test" ("id", "key", "val") 
-			VALUES (?,?,?)
-SQL;
-		$statement = $this->db->prepare_query($sql, array(1,"boogers", "Gross"));
-		
-		$statement->execute();
-
-	}
-	
-	function TestPrepareExecute()
-	{
-		if (empty($this->db))  return; 
-	
-		$sql = <<<SQL
-			INSERT INTO "create_test" ("id", "key", "val") 
-			VALUES (?,?,?)
-SQL;
-		$this->db->prepare_execute($sql, array(
-			2, "works", 'also?'
-		));
-	
-	}
-	
-	function TestCommitTransaction()
-	{
-		if (empty($this->db))  return; 
-	
-		$res = $this->db->beginTransaction();
-		
-		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
-		$this->db->query($sql);
-	
-		$res = $this->db->commit();
-		$this->assertTrue($res);
-	}
-	
-	function TestRollbackTransaction()
-	{
-		if (empty($this->db))  return; 
-	
-		$res = $this->db->beginTransaction();
-		
-		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
-		$this->db->query($sql);
-	
-		$res = $this->db->rollback();
-		$this->assertTrue($res);
-	}
-
 }

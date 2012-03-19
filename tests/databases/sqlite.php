@@ -19,11 +19,6 @@
  */
 class SQLiteTest extends DBTest {
 	
-	function __construct()
-	{
-		//parent::__construct();
-	}
-	
 	function setUp()
 	{
 		$path = TEST_DIR.DS.'test_dbs'.DS.'test_sqlite.db';
@@ -40,25 +35,7 @@ class SQLiteTest extends DBTest {
 		$this->assertIsA($this->db, 'SQLite');
 	}
 	
-	function TestGetTables()
-	{
-		$tables = $this->db->get_tables();
-		$this->assertTrue(is_array($tables));
-	}
 	
-	function TestGetSystemTables()
-	{
-		$tables = $this->db->get_system_tables();
-		
-		$this->assertTrue(is_array($tables));
-	}
-	
-	function TestCreateTransaction()
-	{
-		$res = $this->db->beginTransaction();
-		$this->assertTrue($res);
-	}
-
 	function TestCreateTable()
 	{
 		//Attempt to create the table
@@ -92,58 +69,13 @@ class SQLiteTest extends DBTest {
 		$this->assertEqual($dbs['create_test'], 'CREATE TABLE "create_test" (id INTEGER PRIMARY KEY, key TEXT , val TEXT )');
 	}
 	
-	function TestTruncate()
+	/*function TestTruncate()
 	{
 		$this->db->truncate('create_test');
 		$this->assertIsA($this->db->affected_rows(), 'int');
-	}
+	}*/
 	
-	function TestPreparedStatements()
-	{
-		$sql = <<<SQL
-			INSERT INTO "create_test" ("id", "key", "val") 
-			VALUES (?,?,?)
-SQL;
-		$statement = $this->db->prepare_query($sql, array(1,"boogers", "Gross"));
-		
-		$statement->execute();
-
-	}
-	
-	function TestPrepareExecute()
-	{
-		$sql = <<<SQL
-			INSERT INTO "create_test" ("id", "key", "val") 
-			VALUES (?,?,?)
-SQL;
-		$this->db->prepare_execute($sql, array(
-			2, "works", 'also?'
-		));
-	
-	}
-	
-	function TestCommitTransaction()
-	{
-		$res = $this->db->beginTransaction();
-		
-		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
-		$this->db->query($sql);
-	
-		$res = $this->db->commit();
-		$this->assertTrue($res);
-	}
-	
-	function TestRollbackTransaction()
-	{
-		$res = $this->db->beginTransaction();
-		
-		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
-		$this->db->query($sql);
-	
-		$res = $this->db->rollback();
-		$this->assertTrue($res);
-	}
-		
+			
 	// This is really time intensive ! Run only when needed
 	/*function TestDeleteTable()
 	{

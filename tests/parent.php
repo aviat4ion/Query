@@ -9,9 +9,92 @@
  * @link 		https://github.com/aviat4ion/Query
  * @license 	http://philsturgeon.co.uk/code/dbad-license 
  */
+ 
+// --------------------------------------------------------------------------
+
+/**
+ * Parent Database Test Class
+ */
+abstract class DBTest extends UnitTestCase {
+
+	abstract function TestConnection();
+
+	function tearDown()
+	{
+		unset($this->db);
+	}
+	
+	function TestGetTables()
+	{
+		$tables = $this->db->get_tables();
+		$this->assertTrue(is_array($tables));
+	}
+	
+	function TestGetSystemTables()
+	{
+		$tables = $this->db->get_system_tables();
+		
+		$this->assertTrue(is_array($tables));
+	}
+	
+	function TestCreateTransaction()
+	{
+		$res = $this->db->beginTransaction();
+		$this->assertTrue($res);
+	}
+	
+	function TestPreparedStatements()
+	{
+		$sql = <<<SQL
+			INSERT INTO "create_test" ("id", "key", "val") 
+			VALUES (?,?,?)
+SQL;
+		$statement = $this->db->prepare_query($sql, array(1,"boogers", "Gross"));
+		
+		$statement->execute();
+
+	}
+	
+	function TestPrepareExecute()
+	{
+		$sql = <<<SQL
+			INSERT INTO "create_test" ("id", "key", "val") 
+			VALUES (?,?,?)
+SQL;
+		$this->db->prepare_execute($sql, array(
+			2, "works", 'also?'
+		));
+	
+	}
+	
+	function TestCommitTransaction()
+	{
+		$res = $this->db->beginTransaction();
+		
+		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
+		$this->db->query($sql);
+	
+		$res = $this->db->commit();
+		$this->assertTrue($res);
+	}
+	
+	function TestRollbackTransaction()
+	{
+		$res = $this->db->beginTransaction();
+		
+		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
+		$this->db->query($sql);
+	
+		$res = $this->db->rollback();
+		$this->assertTrue($res);
+	}
+}
 
 // --------------------------------------------------------------------------
 
+/**
+ * Query builder parent test class
+ */
 abstract class QBTest extends UnitTestCase {
 
 	function TestGet()
@@ -220,15 +303,3 @@ abstract class QBTest extends UnitTestCase {
 
 }
 
-// --------------------------------------------------------------------------
-
-abstract class DBTest extends UnitTestCase {
-
-	abstract function TestConnection();
-
-	function tearDown()
-	{
-		unset($this->db);
-	}
-
-}

@@ -17,18 +17,7 @@
  * 
  * @extends UnitTestCase
  */
-class FirebirdTest extends UnitTestCase {
-	
-	/**
-	 * __construct function.
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	function __construct()
-	{
-		parent::__construct();
-	}
+class FirebirdTest extends DBTest {
 	
 	function setUp()
 	{
