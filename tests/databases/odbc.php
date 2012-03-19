@@ -18,11 +18,6 @@
  * @extends UnitTestCase
  */
 class ODBCTest extends UnitTestCase {
-
-	function __construct()
-	{
-	
-	}
 	
 	function TestExists()
 	{
