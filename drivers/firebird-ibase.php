@@ -430,15 +430,15 @@ class Firebird_Result {
 		switch($fetch_style)
 		{
 			case PDO::FETCH_OBJ:
-				return fbird_fetch_object($this->statement, fbird_FETCH_BLOBS);
+				return fbird_fetch_object($this->statement, IBASE_FETCH_BLOBS);
 			break;
 
 			case PDO::FETCH_NUM:
-				return fbird_fetch_row($this->statement, fbird_FETCH_BLOBS);
+				return fbird_fetch_row($this->statement, IBASE_FETCH_BLOBS);
 			break;
 
 			default:
-				return fbird_fetch_assoc($this->statement, fbird_FETCH_BLOBS);
+				return fbird_fetch_assoc($this->statement, IBASE_FETCH_BLOBS);
 			break;
 		}
 	}
