@@ -61,9 +61,9 @@ foreach(pdo_drivers() as $d)
 }
 
 // Load Firebird if there is support
-if(function_exists('ibase_connect'))
+if(function_exists('fbird_connect'))
 {
-	require_once("{$src_path}firebird-ibase.php");
+	require_once("{$src_path}firebird.php");
 	require_once("{$src_path}firebird_sql.php");
 	require_once("{$test_path}firebird.php");
 	require_once("{$test_path}firebird-qb.php");
