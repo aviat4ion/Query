@@ -21,17 +21,21 @@ abstract class DBTest extends UnitTestCase {
 
 	function tearDown()
 	{
-		unset($this->db);
+		$this->db = NULL;
 	}
 	
 	function TestGetTables()
 	{
+		if (empty($this->db))  return;
+
 		$tables = $this->db->get_tables();
 		$this->assertTrue(is_array($tables));
 	}
 	
 	function TestGetSystemTables()
 	{
+		if (empty($this->db))  return;
+
 		$tables = $this->db->get_system_tables();
 		
 		$this->assertTrue(is_array($tables));
@@ -39,12 +43,16 @@ abstract class DBTest extends UnitTestCase {
 	
 	function TestCreateTransaction()
 	{
+		if (empty($this->db))  return;
+
 		$res = $this->db->beginTransaction();
 		$this->assertTrue($res);
 	}
 	
 	function TestPreparedStatements()
 	{
+		if (empty($this->db))  return;
+
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val") 
 			VALUES (?,?,?)
@@ -57,6 +65,8 @@ SQL;
 	
 	function TestPrepareExecute()
 	{
+		if (empty($this->db))  return;
+
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val") 
 			VALUES (?,?,?)
@@ -69,6 +79,8 @@ SQL;
 	
 	function TestCommitTransaction()
 	{
+		if (empty($this->db))  return;
+
 		$res = $this->db->beginTransaction();
 		
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
@@ -80,6 +92,8 @@ SQL;
 	
 	function TestRollbackTransaction()
 	{
+		if (empty($this->db))  return;
+		
 		$res = $this->db->beginTransaction();
 		
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
