@@ -480,7 +480,9 @@ class Firebird_Result {
 		
 		// Let php do all the hard stuff in converting 
 		// the array of arguments into a list of arguments
-		return new Firebird_Result(call_user_func_array('fbird_execute', $args));
+		$this->__construct(call_user_func_array('fbird_execute', $args));
+		
+		return $this;
 	}
 	
 	// --------------------------------------------------------------------------
