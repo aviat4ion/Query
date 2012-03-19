@@ -45,6 +45,26 @@ The parameters required depend on the database.
 ### Running Queries
 Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `select_` methods, `count_all_results`, `distinct`, `having`, `or_having`, `get_compiled_query`, `insert_batch`, `update_batch`, or `count_all` methods.
 
+An example of a moderately complex query:
+
+	$query = $db->select('id, key as k, val')
+		->from('table t')
+		->where('k >', 3)
+		->or_where('id !=' 5)
+		->order_by('val', 'DESC')
+		->limit(3, 1)
+		->get();
+		
+This will generate a query similar to (with this being the output for a Postgres database):
+
+	SELECT "id", "key" AS "k", "val"
+	FROM "table" "t"
+	WHERE "k" > ?
+	OR "id" != ?
+	ORDER BY "val" DESC
+	LIMIT 3 OFFSET 1
+
+
 To retreive the results of a query, use the PDO methods `fetch` and `fetchAll`.
 
 	$query = $db->get('table_name');
