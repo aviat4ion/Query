@@ -27,8 +27,7 @@ class MySQLQBTest extends QBTest {
 			
 			$this->db = new Query_Builder($params);
 			
-			echo '<hr /> MySQL Queries <hr />';		
-			
+			// echo '<hr /> MySQL Queries <hr />';	
 		}
  	}
 

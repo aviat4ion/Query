@@ -27,7 +27,7 @@ class PgSQLQBTest extends QBTest {
 			
 			$this->db = new Query_Builder($params);
 			
-			echo '<hr /> Postgres Queries <hr />';		
+			// echo '<hr /> Postgres Queries <hr />';		
 			
 		}
  	}

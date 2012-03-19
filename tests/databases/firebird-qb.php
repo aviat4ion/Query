@@ -32,7 +32,7 @@ class FirebirdQBTest extends QBTest {
 		$params->pass = 'masterkey';
 		$this->db = new Query_Builder($params);
 		
-		echo '<hr /> Firebird Queries <hr />';
+		// echo '<hr /> Firebird Queries <hr />';
 	}
 
 	function TestGet()

@@ -28,6 +28,6 @@
 		$params->host = 'localhost';
 		$this->db = new Query_Builder($params);
 		
-		echo '<hr /> SQLite Queries <hr />';
+		// echo '<hr /> SQLite Queries <hr />';
  	}
 }
