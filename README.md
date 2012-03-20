@@ -69,7 +69,7 @@ This will generate a query similar to (with this being the output for a Postgres
 	LIMIT 3 OFFSET 1
 
 
-To retreive the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or[fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
+To retreive the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
 
 	$query = $db->get('table_name');
 	
