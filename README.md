@@ -49,6 +49,28 @@ Query uses the same interface as CodeIgniter's [Active Record class](http://code
 
 To retreive the results of a query, use the PDO methods: [fetch](http://php.net/manual/en/pdostatement.fetch.php) and / or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
 
+An example of a moderately complex query:
+
+	$query = $db->select('id, key as k, val')
+		->from('table t')
+		->where('k >', 3)
+		->or_where('id !=' 5)
+		->order_by('val', 'DESC')
+		->limit(3, 1)
+		->get();
+		
+This will generate a query similar to (with this being the output for a Postgres database):
+
+	SELECT "id", "key" AS "k", "val"
+	FROM "table" "t"
+	WHERE "k" > ?
+	OR "id" != ?
+	ORDER BY "val" DESC
+	LIMIT 3 OFFSET 1
+
+
+To retreive the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or[fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
+
 	$query = $db->get('table_name');
 	
 	$results = $query->fetchAll(PDO::FETCH_ASSOC);
