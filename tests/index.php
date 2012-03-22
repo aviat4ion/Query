@@ -15,8 +15,8 @@
 /**
  * Unit test bootstrap - Using php simpletest
  */
-define('BASE_DIR', '../');
 define('TEST_DIR', dirname(__FILE__));
+define('BASE_DIR', str_replace(basename(TEST_DIR), '', TEST_DIR));
 define('DS', DIRECTORY_SEPARATOR);
 
 // Include simpletest
