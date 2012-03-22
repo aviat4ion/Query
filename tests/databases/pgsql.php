@@ -98,7 +98,6 @@ class PgTest extends DBTest {
 
 		//Check
 		$dbs = $this->db->get_tables();
-		print_r($dbs);
 		$this->assertTrue(in_array('create_test', $dbs));
 	
 	}
