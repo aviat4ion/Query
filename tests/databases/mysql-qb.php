@@ -29,7 +29,7 @@ class MySQLQBTest extends QBTest {
 			
 			// echo '<hr /> MySQL Queries <hr />';	
 		}
-		elseif ( ! empty($_ENV['TRAVIS_PHP_VERSION']))
+		elseif ( ! empty($_ENV['CI']))
 		{
 			$params = array(
 				'host' => '127.0.0.1',
