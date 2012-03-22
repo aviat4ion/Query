@@ -41,7 +41,7 @@ require_once(BASE_DIR.'query_builder.php');
 // Include db tests
 // Load db classes based on capability
 $src_path = BASE_DIR.'drivers/';
-$test_path = './databases/';
+$test_path = TEST_DIR.'/databases/';
 
 foreach(pdo_drivers() as $d)
 {
