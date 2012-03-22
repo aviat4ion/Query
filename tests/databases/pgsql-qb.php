@@ -37,7 +37,7 @@ class PgSQLQBTest extends QBTest {
 				'port' => '5432',
 				'database' => 'test',
 				'user' => 'postgres',
-				'pass' => NULL,
+				'pass' => '',
 				'type' => 'pgsql'
 			);
 		
