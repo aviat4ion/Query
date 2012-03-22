@@ -29,6 +29,10 @@ class MySQLTest extends DBTest {
 			
 			$this->db = new MySQL("host={$params->host};port={$params->port};dbname={$params->database}", $params->user, $params->pass);
 		}
+		else
+		{
+			$this->db = new MySQL('host=127.0.0.1;dbname=test', 'root');
+		}
 	}
 	
 	function TestExists()
