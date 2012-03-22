@@ -30,7 +30,7 @@ class PgSQLQBTest extends QBTest {
 			// echo '<hr /> Postgres Queries <hr />';		
 			
 		}
-		elseif ( ! empty(getenv('CI')))
+		elseif (($var = getenv('CI')))
 		{
 			$params = array(
 				'host' => '127.0.0.1',
