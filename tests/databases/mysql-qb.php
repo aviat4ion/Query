@@ -36,7 +36,8 @@ class MySQLQBTest extends QBTest {
 				'port' => '3306',
 				'database' => 'test',
 				'user' => 'root',
-				'pass' => NULL
+				'pass' => NULL,
+				'type' => 'mysql'
 			);
 		
 			$this->db = new Query_Builder($params);
