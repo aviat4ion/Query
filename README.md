@@ -2,6 +2,8 @@
 
 A query builder/abstraction layer, using prepared queries for security.
 
+[![Build Status](https://secure.travis-ci.org/timw4mail/Query.png)](http://travis-ci.org/timw4mail/Query)
+
 ## Requirements
 * Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
 * PHP 5.2+

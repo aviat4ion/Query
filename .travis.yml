@@ -1,0 +1,14 @@
+language: php
+php:
+	- 5.2
+	- 5.3
+	- 5.4
+env:
+	- DB=mysql
+	- DB=pgsql
+	- DB=sqlite
+before_script:
+	- mysql -e 'CREATE DATABASE test;'
+	- psql -c 'CREATE DATABASE test;' -U postgres
+script: 'php ./tests/index.php'
+	
