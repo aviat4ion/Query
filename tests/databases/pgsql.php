@@ -34,7 +34,7 @@ class PgTest extends DBTest {
 			
 			$this->db = new PgSQL("host={$params->host};port={$params->port};dbname={$params->database}", $params->user, $params->pass);
 		}
-		elseif ( ! empty($_ENV['CI']))
+		elseif ( ! empty(getenv('CI')))
 		{
 			$this->db = new PgSQL('host=127.0.0.1;port=5432;dbname=test', 'postgres');
 		}
