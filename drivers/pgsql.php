@@ -89,8 +89,15 @@ SQL;
 		$res = $this->query($sql);
 
 		$tables = $res->fetchAll(PDO::FETCH_ASSOC);
+		
+		$good_tables = array();
+		
+		foreach($tables as $t)
+		{
+			$good_tables[] = $t['tablename'];
+		}
 
-		return $tables;
+		return $good_tables;
 	}
 	
 	// --------------------------------------------------------------------------

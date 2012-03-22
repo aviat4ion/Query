@@ -52,9 +52,16 @@ class PgTest extends DBTest {
 		$this->assertIsA($this->db, 'PgSQL');
 	}
 
-	/*function TestCreateTable()
+	function TestCreateTable()
 	{
 		if (empty($this->db))  return; 
+		
+		// Drop the table(s) if they exist
+		$sql = 'DROP TABLE IF EXISTS "create_test"';
+		$this->db->query($sql);
+		$sql = 'DROP TABLE IF EXISTS "create_join"';
+		$this->db->query($sql);
+		
 	
 		//Attempt to create the table
 		$sql = $this->db->sql->create_table('create_test', 
@@ -83,12 +90,16 @@ class PgTest extends DBTest {
 		);
 		$this->db->query($sql);
 		
-		echo $sql.'<br />';
+		//echo $sql.'<br />';
+		
+		//Reset
+		unset($this->db);
+		$this->setUp();
 
 		//Check
 		$dbs = $this->db->get_tables();
-		
+		print_r($dbs);
 		$this->assertTrue(in_array('create_test', $dbs));
 	
-	}*/
+	}
 }
