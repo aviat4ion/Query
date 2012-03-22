@@ -29,6 +29,18 @@ class MySQLQBTest extends QBTest {
 			
 			// echo '<hr /> MySQL Queries <hr />';	
 		}
+		elseif ( ! empty($_ENV['TRAVIS']))
+		{
+			$params = array(
+				'host' => '127.0.0.1',
+				'port' => '3306',
+				'database' => 'test',
+				'user' => 'root',
+				'pass' => NULL
+			);
+		
+			$this->db = new Query_Builder($params);
+		}
  	}
 
 	
