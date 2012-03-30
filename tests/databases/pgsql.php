@@ -34,6 +34,10 @@ class PgTest extends DBTest {
 			
 			$this->db = new PgSQL("host={$params->host};port={$params->port};dbname={$params->database}", $params->user, $params->pass);
 		}
+		elseif (($var = getenv('CI')))
+		{
+			$this->db = new PgSQL('host=127.0.0.1;port=5432;dbname=test', 'postgres');
+		}
 	}
 	
 	function TestExists()
@@ -48,9 +52,16 @@ class PgTest extends DBTest {
 		$this->assertIsA($this->db, 'PgSQL');
 	}
 
-	/*function TestCreateTable()
+	function TestCreateTable()
 	{
 		if (empty($this->db))  return; 
+		
+		// Drop the table(s) if they exist
+		$sql = 'DROP TABLE IF EXISTS "create_test"';
+		$this->db->query($sql);
+		$sql = 'DROP TABLE IF EXISTS "create_join"';
+		$this->db->query($sql);
+		
 	
 		//Attempt to create the table
 		$sql = $this->db->sql->create_table('create_test', 
@@ -79,12 +90,15 @@ class PgTest extends DBTest {
 		);
 		$this->db->query($sql);
 		
-		echo $sql.'<br />';
+		//echo $sql.'<br />';
+		
+		//Reset
+		unset($this->db);
+		$this->setUp();
 
 		//Check
 		$dbs = $this->db->get_tables();
-		
 		$this->assertTrue(in_array('create_test', $dbs));
 	
-	}*/
+	}
 }

@@ -2,6 +2,8 @@
 
 A query builder/abstraction layer, using prepared queries for security.
 
+[![Build Status](https://secure.travis-ci.org/timw4mail/Query.png)](http://travis-ci.org/timw4mail/Query)
+
 ## Requirements
 * Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
 * PHP 5.2+
@@ -45,6 +47,10 @@ The parameters required depend on the database.
 ### Running Queries
 Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `select_` methods, `count_all_results`, `distinct`, `having`, `or_having`, `get_compiled_query`, `insert_batch`, `update_batch`, or `count_all` methods.
 
+#### Retrieving Results
+
+To retreive the results of a query, use the PDO methods: [fetch](http://php.net/manual/en/pdostatement.fetch.php) and / or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
+
 An example of a moderately complex query:
 
 	$query = $db->select('id, key as k, val')
@@ -65,7 +71,7 @@ This will generate a query similar to (with this being the output for a Postgres
 	LIMIT 3 OFFSET 1
 
 
-To retreive the results of a query, use the PDO methods `fetch` and `fetchAll`.
+To retreive the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
 
 	$query = $db->get('table_name');
 	

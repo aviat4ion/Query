@@ -29,6 +29,19 @@ class MySQLQBTest extends QBTest {
 			
 			// echo '<hr /> MySQL Queries <hr />';	
 		}
+		elseif (($var = getenv('CI')))
+		{
+			$params = array(
+				'host' => '127.0.0.1',
+				'port' => '3306',
+				'database' => 'test',
+				'user' => 'root',
+				'pass' => NULL,
+				'type' => 'mysql'
+			);
+		
+			$this->db = new Query_Builder($params);
+		}
  	}
 
 	

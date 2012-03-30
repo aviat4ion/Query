@@ -30,6 +30,19 @@ class PgSQLQBTest extends QBTest {
 			// echo '<hr /> Postgres Queries <hr />';		
 			
 		}
+		elseif (($var = getenv('CI')))
+		{
+			$params = array(
+				'host' => '127.0.0.1',
+				'port' => '5432',
+				'database' => 'test',
+				'user' => 'postgres',
+				'pass' => '',
+				'type' => 'pgsql'
+			);
+		
+			$this->db = new Query_Builder($params);
+		}
  	}
 	
 	function TestExists()
