@@ -7,13 +7,13 @@
  * @author 		Timothy J. Warren
  * @copyright	Copyright (c) 2012
  * @link 		https://github.com/aviat4ion/Query
- * @license 	http://philsturgeon.co.uk/code/dbad-license 
+ * @license 	http://philsturgeon.co.uk/code/dbad-license
  */
 
 // --------------------------------------------------------------------------
 
 /**
- * Convienience class for creating sql queries - also the class that 
+ * Convienience class for creating sql queries - also the class that
  * instantiates the specific db driver
  */
 class Query_Builder {
@@ -21,31 +21,29 @@ class Query_Builder {
 	// Compiled query component strings
 	private $select_string,
 		$from_string,
-		$insert_string,
-		$update_string,
 		$set_string,
 		$order_string,
 		$group_string;
-		
+
 	// Key value pairs
 	private $set_array,
 		$set_array_keys,
 		$order_array,
 		$group_array;
-		
+
 	// Values to apply to prepared statements
 	private $values;
-		
+
 	// Query-global components
-	private $limit, 
+	private $limit,
 		$offset;
-	
-	// Alias to $this->db->sql	
+
+	// Alias to $this->db->sql
 	private $sql;
-	
+
 	// Query component order mapping
 	// for complex select queries
-	// 
+	//
 	// Format:
 	//
 	// array(
@@ -57,7 +55,7 @@ class Query_Builder {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param object $conn_name - the name of the connection/parameters
 	 */
 	public function __construct($params)
@@ -66,49 +64,57 @@ class Query_Builder {
 		if (is_array($params))
 		{
 			$p = new StdClass();
-			
+
 			foreach($params as $key => $val)
 			{
 				$p->$key = $val;
 			}
-			
+
 			$params = $p;
 		}
-	
+
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 
-		// Initiate the constructor for the selected database
+		// Create the dsn for the database to connect to
 		switch($dbtype)
 		{
 			default:
-				$this->db = new $dbtype("host={$params->host};port={$params->port};dbname={$params->database}", $params->user, $params->pass);
+				$dsn = "host={$params->host};dbname={$params->database}";
+
+				if ( ! empty($params->port))
+				{
+					$dsn .= ";port={$params->port}";
+				}
 			break;
 
 			case "sqlite":
-				if ( ! empty($params->user) &&  ! empty($params->pass))
-				{
-					$this->db = new $dbtype($params->file, $params->user, $params->pass);
-				}
-				else
-				{
-					$this->db = new $dbtype($params->file);
-				}
+				$dsn = $params->file;
 			break;
 
 			case "firebird":
-				$this->db = new $dbtype("{$params->host}:{$params->file}", $params->user, $params->pass);
+				$dsn = "{$params->host}:{$params->file}";
 			break;
 		}
-		
+
+		// Create the database connection
+		if ( ! empty($params->user))
+		{
+			$this->db = new $dbtype($dsn, $params->user, $params->pass);
+		}
+		else
+		{
+			$this->db = new $dbtype($dsn);
+		}
+
 		// Make things just slightly shorter
 		$this->sql =& $this->db->sql;
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! Select Queries
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Specifies rows to select in a query
 	 *
@@ -133,7 +139,7 @@ class Query_Builder {
 
 		// Quote the identifiers
 		$safe_array = array_map(array($this->db, 'quote_ident'), $fields_array);
-		
+
 		unset($fields_array);
 
 		// Join the strings back together
@@ -146,14 +152,14 @@ class Query_Builder {
 		}
 
 		$this->select_string = implode(', ', $safe_array);
-		
+
 		unset($safe_array);
 
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Specify the database table to select from
 	 *
@@ -165,20 +171,20 @@ class Query_Builder {
 		// Split identifiers on spaces
 		$ident_array = explode(' ', trim($dbname));
 		$ident_array = array_map('trim', $ident_array);
-		
-		// Quote the identifiers 
+
+		// Quote the identifiers
 		$ident_array = array_map(array($this->db, 'quote_ident'), $ident_array);
-		
+
 		// Paste it back together
-		$this->from_string = implode(' ', $ident_array);		
-		
+		$this->from_string = implode(' ', $ident_array);
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! 'Like' methods
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Creates a Like clause in the sql statement
 	 *
@@ -188,12 +194,12 @@ class Query_Builder {
 	 * @return $this
 	 */
 	public function like($field, $val, $pos='both')
-	{	
+	{
 		$field = $this->db->quote_ident($field);
-		
+
 		// Add the like string into the order map
 		$l = $field. ' LIKE ?';
-			
+
 		if ($pos == 'before')
 		{
 			$val = "%{$val}";
@@ -206,21 +212,21 @@ class Query_Builder {
 		{
 			$val = "%{$val}%";
 		}
-		
+
 		$this->query_map[] = array(
 			'type' => 'like',
 			'conjunction' => (empty($this->query_map)) ? 'WHERE ' : ' AND ',
 			'string' => $l
 		);
-		
+
 		// Add to the values array
 		$this->values[] = $val;
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Generates an OR Like clause
 	 *
@@ -232,10 +238,10 @@ class Query_Builder {
 	public function or_like($field, $val, $pos='both')
 	{
 		$field = $this->db->quote_ident($field);
-		
+
 		// Add the like string into the order map
 		$l = $field. ' LIKE ?';
-			
+
 		if ($pos == 'before')
 		{
 			$val = "%{$val}";
@@ -248,21 +254,21 @@ class Query_Builder {
 		{
 			$val = "%{$val}%";
 		}
-		
+
 		$this->query_map[] = array(
 			'type' => 'like',
 			'conjunction' => (empty($this->query_map)) ? 'WHERE ' : ' OR ',
 			'string' => $l
 		);
-		
+
 		// Add to the values array
 		$this->values[] = $val;
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Generates a NOT LIKE clause
 	 *
@@ -274,10 +280,10 @@ class Query_Builder {
 	public function not_like($field, $val, $pos='both')
 	{
 		$field = $this->db->quote_ident($field);
-		
+
 		// Add the like string into the order map
 		$l = $field. ' NOT LIKE ?';
-			
+
 		if ($pos == 'before')
 		{
 			$val = "%{$val}";
@@ -290,21 +296,21 @@ class Query_Builder {
 		{
 			$val = "%{$val}%";
 		}
-		
+
 		$this->query_map[] = array(
 			'type' => 'like',
 			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : ' AND ',
 			'string' => $l
 		);
-		
+
 		// Add to the values array
 		$this->values[] = $val;
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Generates a OR NOT LIKE clause
 	 *
@@ -316,10 +322,10 @@ class Query_Builder {
 	public function or_not_like($field, $val, $pos='both')
 	{
 		$field = $this->db->quote_ident($field);
-		
+
 		// Add the like string into the order map
 		$l = $field. ' NOT LIKE ?';
-			
+
 		if ($pos == 'before')
 		{
 			$val = "%{$val}";
@@ -332,23 +338,23 @@ class Query_Builder {
 		{
 			$val = "%{$val}%";
 		}
-		
+
 		$this->query_map[] = array(
 			'type' => 'like',
 			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : ' OR ',
 			'string' => $l
 		);
-		
+
 		// Add to the values array
 		$this->values[] = $val;
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! 'Where' methods
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Do all the repeditive stuff for where type methods
 	 *
@@ -359,7 +365,7 @@ class Query_Builder {
 	private function _where($key, $val=array())
 	{
 		$where = array();
-	
+
 		// Key and value passed? Add them to the where array
 		if (is_scalar($key) && is_scalar($val))
 		{
@@ -375,18 +381,18 @@ class Query_Builder {
 				$this->values[] = $v;
 			}
 		}
-		
+
 		return $where;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Specify condition(s) in the where clause of a query
-	 * Note: this function works with key / value, or a 
+	 * Note: this function works with key / value, or a
 	 * passed array with key / value pairs
-	 * 
-	 * @param mixed $key 
+	 *
+	 * @param mixed $key
 	 * @param mixed $val
 	 * @return $this
 	 */
@@ -400,12 +406,12 @@ class Query_Builder {
 			// Split each key by spaces, in case there
 			// is an operator such as >, <, !=, etc.
 			$f_array = explode(' ', trim($f));
-			
+
 			$item = $this->db->quote_ident($f_array[0]);
-			
+
 			// Simple key value, or an operator
-			$item .= (count($f_array === 1)) ? '= ?' : " {$f_array[1]} ?"; 
-			
+			$item .= (count($f_array === 1)) ? '= ?' : " {$f_array[1]} ?";
+
 			// Put in the query map for select statements
 			$this->query_map[] = array(
 				'type' => 'where',
@@ -446,7 +452,7 @@ class Query_Builder {
 			{
 				$item = $this->db->quote_ident($f_array[0]) . " {$f_array[1]} ?";
 			}
-			
+
 			// Put in the query map for select statements
 			$this->query_map[] = array(
 				'type' => 'where',
@@ -471,20 +477,20 @@ class Query_Builder {
 	{
 		$field = $this->db->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
-		
+
 		foreach($val as $v)
 		{
 			$this->values[] = $v;
 		}
-		
+
 		$string = $field . ' IN ('.implode(',', $params).') ';
-	
+
 		$this->query_map[] = array(
 			'type' => 'where_in',
 			'conjunction' => ( ! empty($this->query_map)) ? ' AND ' : ' WHERE ',
 			'string' => $string
 		);
-	
+
 		return $this;
 	}
 
@@ -501,23 +507,23 @@ class Query_Builder {
 	{
 		$field = $this->db->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
-		
+
 		foreach($val as $v)
 		{
 			$this->values[] = $v;
 		}
-		
+
 		$string = $field . ' IN ('.implode(',', $params).') ';
-	
+
 		$this->query_map[] = array(
 			'type' => 'where_in',
 			'conjunction' => ( ! empty($this->query_map)) ? ' OR ' : ' WHERE ',
 			'string' => $string
 		);
-	
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -531,20 +537,20 @@ class Query_Builder {
 	{
 		$field = $this->db->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
-		
+
 		foreach($val as $v)
 		{
 			$this->values[] = $v;
 		}
-		
+
 		$string = $field.' NOT IN ('.implode(',', $params).') ';
-	
+
 		$this->query_map[] = array(
 			'type' => 'where_in',
 			'conjunction' => ( ! empty($this->query_map)) ? ' AND ' : ' WHERE ',
 			'string' => $string
 		);
-	
+
 		return $this;
 	}
 
@@ -552,7 +558,7 @@ class Query_Builder {
 
 	/**
 	 * OR WHERE NOT IN (FOO) clause
-	 * 
+	 *
 	 * @param string $field
 	 * @param mixed $val
 	 * @return $this
@@ -561,27 +567,27 @@ class Query_Builder {
 	{
 		$field = $this->db->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
-		
+
 		foreach($val as $v)
 		{
 			$this->values[] = $v;
 		}
-		
+
 		$string = $field.' NOT IN ('.implode(',', $params).') ';
-	
+
 		$this->query_map[] = array(
 			'type' => 'where_in',
 			'conjunction' => ( ! empty($this->query_map)) ? ' OR ' : ' WHERE ',
 			'string' => $string
 		);
-	
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Creates a join phrase in a compiled query
 	 *
@@ -591,27 +597,27 @@ class Query_Builder {
 	 * @return $this
 	 */
 	public function join($table, $condition, $type='')
-	{	
+	{
 		// Paste it back together
-		$table = implode(" ", array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));		
+		$table = implode(" ", array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));
 		//$condition = preg_replace('`(\W)`', " $1 ", $condition);
 		$cond_array = explode(' ', trim($condition));
 		$cond_array = array_map('trim', $cond_array);
-		
+
 		$condition = $table . ' ON ' . $this->db->quote_ident($cond_array[0])  . $cond_array[1] .
 				' ' . $this->db->quote_ident($cond_array[2]);
-		
+
 		$this->query_map[] = array(
 			'type' => 'join',
 			'conjunction' => strtoupper($type).' JOIN ',
 			'string' => $condition,
 		);
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Group the results by the selected field(s)
 	 *
@@ -628,14 +634,14 @@ class Query_Builder {
 		{
 			$this->group_array[] = $this->db->quote_ident($field);
 		}
-		
+
 		$this->group_string = ' GROUP BY ' . implode(', ', $this->group_array);
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Order the results by the selected field(s)
 	 *
@@ -650,29 +656,29 @@ class Query_Builder {
 		{
 			$type = (($rand = $this->sql->random()) !== FALSE ) ? $rand : 'ASC';
 		}
-	
+
 		// Set fields for later manipulation
 		$field = $this->db->quote_ident($field);
 		$this->order_array[$field] = $type;
-		
+
 		$order_clauses = array();
-		
+
 		// Flatten key/val pairs into an array of space-separated pairs
 		foreach($this->order_array as $k => $v)
 		{
 			$order_clauses[] = $k . ' ' . strtoupper($v);
 		}
-		
+
 		// Set the final string
-		$this->order_string = (empty($rand)) 
+		$this->order_string = (empty($rand))
 			? ' ORDER BY '.implode(',', $order_clauses)
 			: ' ORDER BY'.$rand;
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Set a limit on the current sql statement
 	 *
@@ -684,14 +690,14 @@ class Query_Builder {
 	{
 		$this->limit = $limit;
 		$this->offset = $offset;
-		
+
 		return $this;
 	}
 
 	// --------------------------------------------------------------------------
 	// ! Query execution methods
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Select and retrieve all records from the current table, and/or
 	 * execute current compiled query
@@ -714,7 +720,7 @@ class Query_Builder {
 		{
 			$this->limit($limit, $offset);
 		}
-		
+
 		$sql = $this->_compile();
 
 		// Do prepared statements for anything involving a "where" clause
@@ -723,17 +729,17 @@ class Query_Builder {
 			$result =  $this->db->prepare_execute($sql, $this->values);
 		}
 		else
-		{	
+		{
 			// Otherwise, a simple query will do.
 			$result =  $this->db->query($sql);
 		}
 
 		// Reset for next query
 		$this->_reset();
-		
+
 		return $result;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -750,13 +756,13 @@ class Query_Builder {
 		{
 			$this->set($data);
 		}
-		
+
 		$sql = $this->_compile("insert", $table);
-		
+
 		$res = $this->db->prepare_execute($sql, $this->values);
-		
+
 		$this->_reset();
-		
+
 		return $res;
 	}
 
@@ -776,17 +782,17 @@ class Query_Builder {
 		{
 			$this->set($data);
 		}
-	
+
 		$sql = $this->_compile('update', $table);
-		
+
 		$res = $this->db->prepare_execute($sql, $this->values);
-		
+
 		$this->_reset();
 
 		// Run the query
 		return $res;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -806,19 +812,19 @@ class Query_Builder {
 
 		// Create the SQL and parameters
 		$sql = $this->_compile("delete", $table);
-		
+
 		$res = $this->db->prepare_execute($sql, $this->values);
-		
+
 		$this->_reset();
 
 		// Delete the table rows, and return the result
 		return $res;
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! Query Grouping Methods
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
@@ -831,12 +837,12 @@ class Query_Builder {
 			'conjunction' => '',
 			'string' => ' ('
 		);
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
@@ -850,12 +856,12 @@ class Query_Builder {
 			'conjunction' => '',
 			'string' => ' OR ('
 		);
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
@@ -869,12 +875,12 @@ class Query_Builder {
 			'conjunction' => '',
 			'string' => ' OR NOT ('
 		);
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Ends a query group
 	 *
@@ -887,7 +893,7 @@ class Query_Builder {
 			'conjunction' => '',
 			'string' => ' ) '
 		);
-		
+
 		return $this;
 	}
 
@@ -919,27 +925,27 @@ class Query_Builder {
 				$this->values[] = $val;
 			}
 		}
-		
+
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
 		$this->set_array_keys = array_map(array($this->db, 'quote_ident'), array_keys($this->set_array));
-		
+
 		// Generate the "set" string
 		$this->set_string = implode('=?, ', $this->set_array_keys);
 		$this->set_string .= '=?';
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Clear out the class variables, so the next query can be run
 	 */
 	private function _reset()
 	{
 		// Only unset class variables that
-		// are not callable. Otherwise, we'll 
+		// are not callable. Otherwise, we'll
 		// delete class methods!
 		foreach($this as $name => $var)
 		{
@@ -948,25 +954,25 @@ class Query_Builder {
 				'db',
 				'sql'
 			);
-		
+
 			if (in_array($name, $save_properties))
 			{
 				continue;
 			}
-		
+
 			// Nothing query-generation related is safe!
 			if ( ! is_callable($this->$name))
 			{
 				unset($this->$name);
 			}
-			
+
 			// Set values as an empty array
 			$this->values = array();
 		}
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * String together the sql statements for sending to the db
 	 *
@@ -977,19 +983,19 @@ class Query_Builder {
 	private function _compile($type='', $table="")
 	{
 		$sql = '';
-	
+
 		switch($type)
 		{
 			default:
 				$sql = 'SELECT * FROM '.$this->from_string;
-				
+
 				// Set the select string
 				if ( ! empty($this->select_string))
 				{
 					// Replace the star with the selected fields
 					$sql = str_replace('*', $this->select_string, $sql);
 				}
-				
+
 				// Set the where string
 				if ( ! empty($this->query_map))
 				{
@@ -998,37 +1004,37 @@ class Query_Builder {
 						$sql .= $q['conjunction'] . $q['string'];
 					}
 				}
-				
+
 				// Set the group_by string
 				if ( ! empty($this->group_string))
 				{
 					$sql .= $this->group_string;
 				}
-				
+
 				// Set the order_by string
 				if ( ! empty($this->order_string))
 				{
 					$sql .= $this->order_string;
 				}
-				
+
 				// Set the limit via the class variables
 				if (isset($this->limit) && is_numeric($this->limit))
 				{
 					$sql = $this->sql->limit($sql, $this->limit, $this->offset);
 				}
 			break;
-			
+
 			case "insert":
 				$param_count = count($this->set_array);
 				$params = array_fill(0, $param_count, '?');
-				$sql = 'INSERT INTO '. $this->db->quote_ident($table) . 
-					' (' . implode(', ', $this->set_array_keys) . 
+				$sql = 'INSERT INTO '. $this->db->quote_ident($table) .
+					' (' . implode(', ', $this->set_array_keys) .
 					') VALUES ('.implode(', ', $params).')';
 			break;
-			
+
 			case "update":
 				$sql = 'UPDATE '.$this->db->quote_ident($table). ' SET '. $this->set_string;
-				
+
 				// Set the where string
 				if ( ! empty($this->query_map))
 				{
@@ -1038,7 +1044,7 @@ class Query_Builder {
 					}
 				}
 			break;
-			
+
 			case "delete":
 				$sql = 'DELETE FROM '.$this->db->quote_ident($table);
 
@@ -1053,9 +1059,9 @@ class Query_Builder {
 
 			break;
 		}
-		
+
 		// echo $sql.'<br />';
-		
+
 		return $sql;
 	}
 }
