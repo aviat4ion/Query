@@ -110,6 +110,25 @@ class Query_Builder {
 		// Make things just slightly shorter
 		$this->sql =& $this->db->sql;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Return methods from the driver object
+	 *
+	 * @param string $name
+	 * @param array $params
+	 * @return mixed
+	 */
+	public function __call($name, $params)
+	{
+		if (method_exists($this->db, $name))
+		{
+			return call_user_func_array(array($this->db, $name), $params);
+		}
+		
+		return NULL;
+	}
 
 	// --------------------------------------------------------------------------
 	// ! Select Queries
