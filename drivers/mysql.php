@@ -51,13 +51,22 @@ class MySQL extends DB_PDO {
 
 	/**
 	 * Get databases for the current connection
-	 * 
+	 *
 	 * @return array
 	 */
 	public function get_dbs()
 	{
 		$res = $this->query("SHOW DATABASES");
-		return array_values($this->fetchAll(PDO::FETCH_ASSOC));
+		$vals = array_values($res->fetchAll(PDO::FETCH_ASSOC));
+
+		$return = array();
+
+		foreach($vals as $v)
+		{
+			$return[] = $v['Database'];
+		}
+
+		return $return;
 	}
 	
 	// --------------------------------------------------------------------------

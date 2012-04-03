@@ -83,6 +83,18 @@ SQL;
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Not applicable to firebird
+	 *
+	 * @return FALSE
+	 */
+	public function get_dbs()
+	{
+		return FALSE;
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
 	 * List system tables for the current database
 	 * 
 	 * @return array

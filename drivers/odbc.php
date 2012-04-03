@@ -45,6 +45,18 @@ class ODBC extends DB_PDO {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Not applicable to firebird
+	 *
+	 * @return FALSE
+	 */
+	public function get_dbs()
+	{
+		return FALSE;
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
 	 * List system tables for the current database/connection
 	 * 
 	 * @return  array
