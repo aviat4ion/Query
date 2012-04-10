@@ -49,8 +49,6 @@ Query uses the same interface as CodeIgniter's [Active Record class](http://code
 
 #### Retrieving Results
 
-To retreive the results of a query, use the PDO methods: [fetch](http://php.net/manual/en/pdostatement.fetch.php) and / or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
-
 An example of a moderately complex query:
 
 	$query = $db->select('id, key as k, val')
