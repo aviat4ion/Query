@@ -35,7 +35,7 @@ class PgSQLQBTest extends QBTest {
 			$params = array(
 				'host' => '127.0.0.1',
 				'port' => '5432',
-				'conn_db' => 'test',
+				'database' => 'test',
 				'user' => 'postgres',
 				'pass' => '',
 				'type' => 'pgsql'
