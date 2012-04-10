@@ -34,7 +34,7 @@ class MySQLQBTest extends QBTest {
 			$params = array(
 				'host' => '127.0.0.1',
 				'port' => '3306',
-				'conn_db' => 'test',
+				'database' => 'test',
 				'user' => 'root',
 				'pass' => NULL,
 				'type' => 'mysql'
