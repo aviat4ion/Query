@@ -28,50 +28,22 @@ class ODBC extends DB_PDO {
 		$class = __CLASS__.'_sql';
 		$this->sql = new $class;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
-	 * List tables for the current database
-	 * 
-	 * @return mixed
+	 * Doesn't apply to ODBC
 	 */
-	public function get_tables()
-	{	
-		//Not possible reliably with this driver
-		return FALSE;
-	}
-	
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Not applicable to firebird
-	 *
-	 * @return FALSE
-	 */
-	public function get_dbs()
+	public function switch_db($name)
 	{
 		return FALSE;
 	}
-	
-	// --------------------------------------------------------------------------
 
-	/**
-	 * List system tables for the current database/connection
-	 * 
-	 * @return  array
-	 */
-	public function get_system_tables()
-	{
-		//No way of determining for ODBC
-		return array();
-	}
-	
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Empty the current database
-	 * 
+	 *
 	 * @return void
 	 */
 	public function truncate($table)
@@ -79,43 +51,17 @@ class ODBC extends DB_PDO {
 		$sql = "DELETE FROM {$table}";
 		$this->query($sql);
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Return the number of rows returned for a SELECT query
-	 * 
+	 *
 	 * @return int
 	 */
 	public function num_rows()
 	{
-		// TODO: Implement
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Create an SQL backup file for the current database's structure
-	 *
-	 * @return string
-	 */
-	public function backup_structure()
-	{
-		// Not applicable to ODBC
-		return '';	
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Create an SQL backup file for the current database's data
-	 *
-	 * @return string
-	 */
-	public function backup_data()
-	{
-		// Not applicable to ODBC
-		return '';
+		// @TODO: Implement
 	}
 }
-// End of odbc.php
+// End of odbc_driver.php

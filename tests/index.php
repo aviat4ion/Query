@@ -26,17 +26,8 @@ require_once('simpletest/autorun.php');
 // Require base testing classes
 require_once(TEST_DIR.'/parent.php');
 
-
-// Bulk loading wrapper workaround for PHP < 5.4
-function do_include($path)
-{
-	require_once($path);
-}
-
-// Include core tests;
-require_once(BASE_DIR.'db_pdo.php');
-require_once(BASE_DIR.'query_builder.php');
-
+// Include db classes
+require_once(BASE_DIR.'autoload.php');
 
 // Include db tests
 // Load db classes based on capability
@@ -52,12 +43,10 @@ foreach(pdo_drivers() as $d)
 		continue;
 	}
 
-	$src_file = "{$src_path}{$d}.php";
+	$src_dir = "{$src_path}{$d}";
 	
-	if(is_file($src_file))
+	if(is_dir($src_dir))
 	{
-		require_once("{$src_path}{$d}.php");
-		require_once("{$src_path}{$d}_sql.php");
 		require_once("{$test_path}{$d}.php");
 		require_once("{$test_path}{$d}-qb.php");
 	}
@@ -66,8 +55,6 @@ foreach(pdo_drivers() as $d)
 // Load Firebird if there is support
 if(function_exists('fbird_connect'))
 {
-	require_once("{$src_path}firebird.php");
-	require_once("{$src_path}firebird_sql.php");
 	require_once("{$test_path}firebird.php");
 	require_once("{$test_path}firebird-qb.php");
 }

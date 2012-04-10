@@ -17,34 +17,34 @@ class MySQLQBTest extends QBTest {
 	function __construct()
  	{
  		parent::__construct();
- 		
+
  		// Attempt to connect, if there is a test config file
 		if (is_file("../test_config.json"))
 		{
 			$params = json_decode(file_get_contents("../test_config.json"));
 			$params = $params->mysql;
 			$params->type = "mysql";
-			
+
 			$this->db = new Query_Builder($params);
-			
-			// echo '<hr /> MySQL Queries <hr />';	
+
+			// echo '<hr /> MySQL Queries <hr />';
 		}
 		elseif (($var = getenv('CI')))
 		{
 			$params = array(
 				'host' => '127.0.0.1',
 				'port' => '3306',
-				'database' => 'test',
+				'conn_db' => 'test',
 				'user' => 'root',
 				'pass' => NULL,
 				'type' => 'mysql'
 			);
-		
+
 			$this->db = new Query_Builder($params);
 		}
  	}
 
-	
+
 	function TestExists()
 	{
 		$this->assertTrue(in_array('mysql', pdo_drivers()));

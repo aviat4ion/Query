@@ -167,4 +167,25 @@ SQL;
 		$table_exists = in_array('create_test', $this->tables);
 		$this->assertFalse($table_exists);
 	}*/
+	
+	function TestGetSequences()
+	{
+		$this->assertTrue(is_array($this->db->get_sequences()));
+	}
+	
+	function TestGetProcedures()
+	{
+		$this->assertTrue(is_array($this->db->get_procedures()));
+	}
+	
+	function TestGetFunctions()
+	{
+		$this->assertTrue(is_array($this->db->get_functions()));
+	}
+	
+	function TestGetTriggers()
+	{
+		$this->assertTrue(is_array($this->db->get_triggers()));
+	}
+
 }

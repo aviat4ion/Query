@@ -7,7 +7,7 @@
  * @author 		Timothy J. Warren
  * @copyright	Copyright (c) 2012
  * @link 		https://github.com/aviat4ion/Query
- * @license 	http://philsturgeon.co.uk/code/dbad-license
+ * @license 	http://philsturgeon.co.uk/code/dbad-license 
  */
 
 // --------------------------------------------------------------------------
@@ -80,7 +80,12 @@ class Query_Builder {
 		switch($dbtype)
 		{
 			default:
-				$dsn = "host={$params->host};dbname={$params->database}";
+				$dsn = "dbname={$params->database}";
+
+				if ( ! empty($params->host))
+				{
+					$dsn .= ";host={$params->host}";
+				}
 
 				if ( ! empty($params->port))
 				{
@@ -109,25 +114,6 @@ class Query_Builder {
 
 		// Make things just slightly shorter
 		$this->sql =& $this->db->sql;
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Return methods from the driver object
-	 *
-	 * @param string $name
-	 * @param array $params
-	 * @return mixed
-	 */
-	public function __call($name, $params)
-	{
-		if (method_exists($this->db, $name))
-		{
-			return call_user_func_array(array($this->db, $name), $params);
-		}
-		
-		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -959,6 +945,25 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Calls a function further down the inheritence chain
+	 *
+	 * @param string $name
+	 * @param array $params
+	 * @return mixed
+	 */
+	public function __call($name, $params)
+	{
+		if (method_exists($this->db, $name))
+		{
+			return call_user_func_array(array($this->db, $name), $params);
+		}
+
+		return NULL;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Clear out the class variables, so the next query can be run
 	 */
 	private function _reset()
@@ -1078,8 +1083,6 @@ class Query_Builder {
 
 			break;
 		}
-
-		// echo $sql.'<br />';
 
 		return $sql;
 	}

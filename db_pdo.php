@@ -16,11 +16,14 @@
  * Base Database class
  *
  * Extends PDO to simplify cross-database issues
+ *
+ * @abstract
  */
 abstract class DB_PDO extends PDO {
 
 	public $manip;
 	protected $statement;
+	protected $escape_char = '"';
 
 	/**
 	 * PDO constructor wrapper
@@ -28,10 +31,12 @@ abstract class DB_PDO extends PDO {
 	public function __construct($dsn, $username=NULL, $password=NULL, $driver_options=array())
 	{
 		parent::__construct($dsn, $username, $password, $driver_options);
+
+		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
-	
+
 	// -------------------------------------------------------------------------
-	
+
 	/**
 	 * Simplifies prepared statements for database queries
 	 *
@@ -43,23 +48,23 @@ abstract class DB_PDO extends PDO {
 	{
 		// Prepare the sql
 		$query = $this->prepare($sql);
-		
+
 		if( ! (is_object($query) || is_resource($query)))
 		{
 			$this->get_last_error();
 			return FALSE;
 		}
-		
+
 		// Set the statement in the class variable for easy later access
 		$this->statement =& $query;
-		
-		
+
+
 		if( ! (is_array($data) || is_object($data)))
 		{
 			trigger_error("Invalid data argument");
 			return FALSE;
 		}
-		
+
 		// Bind the parameters
 		foreach($data as $k => $value)
 		{
@@ -67,18 +72,18 @@ abstract class DB_PDO extends PDO {
 			{
 				$k++;
 			}
-		
+
 			$res = $query->bindValue($k, $value);
-			
+
 			if( ! $res)
 			{
 				trigger_error("Parameter not successfully bound");
 				return FALSE;
 			}
 		}
-		
-		return $query; 
-		
+
+		return $query;
+
 	}
 
 	// -------------------------------------------------------------------------
@@ -91,7 +96,7 @@ abstract class DB_PDO extends PDO {
 	 * @return PDOStatement
 	 */
 	public function prepare_execute($sql, $params)
-	{	
+	{
 		$this->statement = $this->prepare_query($sql, $params);
 		$this->statement->execute();
 
@@ -128,21 +133,16 @@ abstract class DB_PDO extends PDO {
 	public function affected_rows($statement='')
 	{
 		if ( ! empty($statement))
-		{	
-			$this->statement = $statement;
-		}
-		
-		if (empty($this->statement))
 		{
-			return FALSE;
+			$this->statement = $statement;
 		}
 
 		// Return number of rows affected
 		return $this->statement->rowCount();
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Return the last error for the current database connection
 	 *
@@ -151,7 +151,7 @@ abstract class DB_PDO extends PDO {
 	public function get_last_error()
 	{
 		$info = $this->errorInfo();
-		
+
 		echo "Error: <pre>{$info[0]}:{$info[1]}\n{$info[2]}</pre>";
 	}
 
@@ -173,7 +173,9 @@ abstract class DB_PDO extends PDO {
 		// Split each identifier by the period
 		$hiers = explode('.', $ident);
 
-		return '"'.implode('"."', $hiers).'"';
+		return $this->escape_char .
+			implode("{$this->escape_char}.{$this->escape_char}", $hiers) . 
+			$this->escape_char;
 	}
 
 	// -------------------------------------------------------------------------
@@ -195,103 +197,163 @@ abstract class DB_PDO extends PDO {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Abstract public functions to override in child classes
-	 */
-	
-	/**
-	 * Return list of tables for the current database
-	 * 
+	 * Return schemas for databases that list them
+	 *
 	 * @return array
 	 */
-	abstract public function get_tables();
-	
+	public function get_schemas()
+	{
+		return FALSE;
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Method to simplify retreiving db results for meta-data queries
+	 *
+	 * @param string $sql
+	 * @param bool $filtered_index
+	 * @return mixed
+	 */
+	protected function driver_query($sql, $filtered_index=TRUE)
+	{
+		if ($sql === FALSE)
+		{
+			return FALSE;
+		}
+
+		$res = $this->query($sql);
+
+		$flag = ($filtered_index) ? PDO::FETCH_NUM : PDO::FETCH_ASSOC;
+		$all = $res->fetchAll($flag);
+
+		return ($filtered_index) ? db_filter($all, 0) : $all;
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Return list of tables for the current database
+	 *
+	 * @return array
+	 */
+	public function get_tables()
+	{
+		return $this->driver_query($this->sql->table_list());
+	}
+
+	// -------------------------------------------------------------------------
+
 	/**
 	 * Return list of dbs for the current connection, if possible
 	 *
 	 * @return array
 	 */
-	abstract public function get_dbs();
+	public function get_dbs()
+	{
+		return $this->driver_query($this->sql->db_list());
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Return list of views for the current database
+	 *
+	 * @return array
+	 */
+	public function get_views()
+	{
+		return $this->driver_query($this->sql->view_list());
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Return list of sequences for the current database, if they exist
+	 *
+	 * @return array
+	 */
+	public function get_sequences()
+	{
+		return $this->driver_query($this->sql->sequence_list());
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Return list of function for the current database
+	 *
+	 * @return array
+	 */
+	public function get_functions()
+	{
+		return $this->driver_query($this->sql->function_list(), FALSE);
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Return list of stored procedures for the current database
+	 *
+	 * @return array
+	 */
+	public function get_procedures()
+	{
+		return $this->driver_query($this->sql->procedure_list(), FALSE);
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Return list of triggers for the current database
+	 *
+	 * @return array
+	 */
+	public function get_triggers()
+	{
+		return $this->driver_query($this->sql->trigger_list(), FALSE);
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Retreives an array of non-user-created tables for
+	 * the connection/database
+	 *
+	 * @return array
+	 */
+	public function get_system_tables()
+	{
+		return $this->driver_query($this->sql->system_table_list());
+	}
+
+
+	// -------------------------------------------------------------------------
+	// ! Abstract public functions to override in child classes
+	// -------------------------------------------------------------------------
 
 	/**
 	 * Empty the passed table
-	 * 
+	 *
 	 * @param string $table
-	 * 
+	 *
 	 * @return void
 	 */
 	abstract public function truncate($table);
 
 	/**
 	 * Return the number of rows for the last SELECT query
-	 * 
+	 *
 	 * @return int
 	 */
 	abstract public function num_rows();
 
 	/**
-	 * Retreives an array of non-user-created tables for 
-	 * the connection/database
-	 * 
-	 * @return array
-	 */
-	abstract public function get_system_tables();
-	
-	/**
-	 * Return an SQL file with the database table structure
+	 * Connect to a different database
 	 *
-	 * @return string
-	 */
-	abstract public function backup_structure();
-	
-	/**
-	 * Return an SQL file with the database data as insert statements
-	 *
-	 * @return string
-	 */
-	abstract public function backup_data();
-}
-
-// -------------------------------------------------------------------------
-
-/**
- * Abstract parent for database manipulation subclasses
- */
-abstract class DB_SQL {
-	
-	/**
-	 * Get database-specific sql to create a new table
-	 * 
-	 * @param string $name 
-	 * @param array $columns 
-	 * @param array $constraints 
-	 * @param array $indexes 
-	 * @return string
-	 */
-	abstract public function create_table($name, $columns, array $constraints=array(), array $indexes=array());
-
-	/**
-	 * Get database-specific sql to drop a table
-	 * 
 	 * @param string $name
-	 * @return string
+	 * @return void
 	 */
-	abstract public function delete_table($name);
-
-	/**
-	 * Get database specific sql for limit clause
-	 *
-	 * @param string $sql
-	 * @param int $limiit
-	 * @param int $offset
-	 * @return string
-	 */
-	abstract public function limit($sql, $limit, $offset=FALSE);
-	
-	/**
-	 * Get the sql for random ordering
-	 *
-	 * @return string
-	 */
-	abstract public function random();
+	abstract public function switch_db($name);
 }
 // End of db_pdo.php

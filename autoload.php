@@ -14,34 +14,56 @@
 
 /**
  * Autoloader for loading available database classes
- *
  */
 
 define('BASE_PATH', dirname(__FILE__).'/');
 define('DRIVER_PATH', BASE_PATH.'drivers/');
 
+// Bulk loading wrapper workaround for PHP < 5.4
+function do_include($path)
+{
+	require_once($path);
+}
+
 // Load base classes
 require_once(BASE_PATH.'db_pdo.php');
+require_once(BASE_PATH.'db_sql.php');
 require_once(BASE_PATH.'query_builder.php');
 
 // Load PDO Drivers
 foreach(pdo_drivers() as $d)
 {
-	$f = DRIVER_PATH.$d.'.php';
-	$fsql = DRIVER_PATH.$d."_sql.php";
+	$dir = DRIVER_PATH.$d;
 
-	if(is_file($f) && $f !== 'firebird')
+	if(is_dir($dir))
 	{
-		require_once($f);
-		require_once($fsql);
+		array_map('do_include', glob($dir.'/*.php'));
 	}
 }
 
 // Load Firebird driver, if applicable
 if (function_exists('fbird_connect'))
 {
-	require_once(DRIVER_PATH.'firebird.php');
-	require_once(DRIVER_PATH.'firebird_sql.php');
+	array_map('do_include', glob(DRIVER_PATH.'/firebird/*.php'));
+}
+
+/**
+ * Filter out db rows into one array
+ *
+ * @param array $array
+ * @param mixed $index
+ * @return array
+ */
+function db_filter($array, $index)
+{
+	$new_array = array();
+
+	foreach($array as $a)
+	{
+		$new_array[] = $a[$index];
+	}
+
+	return $new_array;
 }
 
 // End of autoload.php
