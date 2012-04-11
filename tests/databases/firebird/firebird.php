@@ -21,7 +21,7 @@ class FirebirdTest extends DBTest {
 	
 	function setUp()
 	{
-		$dbpath = TEST_DIR.DS.'test_dbs'.DS.'FB_TEST_DB.FDB';
+		$dbpath = TEST_DIR.DS.'db_files'.DS.'FB_TEST_DB.FDB';
 		
 		// Test the db driver directly
 		$this->db = new Firebird('localhost:'.$dbpath);

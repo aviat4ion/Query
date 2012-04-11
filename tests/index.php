@@ -47,14 +47,12 @@ foreach(pdo_drivers() as $d)
 	
 	if(is_dir($src_dir))
 	{
-		require_once("{$test_path}{$d}.php");
-		require_once("{$test_path}{$d}-qb.php");
+		array_map('do_include', glob("{$test_path}{$d}/{$d}*.php"));
 	}
 }
 
 // Load Firebird if there is support
 if(function_exists('fbird_connect'))
 {
-	require_once("{$test_path}firebird.php");
-	require_once("{$test_path}firebird-qb.php");
+	array_map('do_include', glob("{$test_path}/firebird/firebird*.php"));
 }

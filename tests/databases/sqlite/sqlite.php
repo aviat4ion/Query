@@ -26,7 +26,7 @@ class SQLiteTest extends UnitTestCase {
 
 	function setUp()
 	{
-		$path = TEST_DIR.DS.'test_dbs'.DS.'test_sqlite.db';
+		$path = TEST_DIR.DS.'db_files'.DS.'test_sqlite.db';
 		$this->db = new SQLite($path);
 	}
 

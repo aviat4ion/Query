@@ -21,7 +21,7 @@
  	{
  		parent::__construct();
  	
- 		$path = TEST_DIR.DS.'test_dbs'.DS.'test_sqlite.db';
+ 		$path = TEST_DIR.DS.'db_files'.DS.'test_sqlite.db';
 		$params = new Stdclass();
 		$params->type = 'sqlite';
 		$params->file = $path;
