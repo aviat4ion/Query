@@ -46,17 +46,6 @@ class firebird extends DB_PDO {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Close the link to the database and any existing results
-	 */
-	public function __destruct()
-	{
-		@fbird_close();
-		@fbird_free_result($this->statement);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Doesn't apply to Firebird
 	 */
 	public function switch_db($name)

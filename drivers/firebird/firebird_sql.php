@@ -232,10 +232,9 @@ class Firebird_SQL extends DB_SQL {
 	public function table_list()
 	{
 		return <<<SQL
-			SELECT "RDB\$RELATION_NAME" FROM "RDB\$RELATIONS"
-			WHERE "RDB\$RELATION_NAME" NOT LIKE 'RDB$%'
-			AND "RDB\$RELATION_NAME" NOT LIKE 'MON$%'
-			AND "RDB\$VIEW_BLR" IS NOT NULL
+			SELECT "RDB\$RELATION_NAME"
+			FROM "RDB\$RELATIONS"
+			WHERE "RDB\$SYSTEM_FLAG"=0
 			ORDER BY "RDB\$RELATION_NAME" ASC
 SQL;
 	}
@@ -250,9 +249,10 @@ SQL;
 	public function system_table_list()
 	{
 		return <<<SQL
-			SELECT "RDB\$RELATION_NAME" FROM "RDB\$RELATIONS"
-			WHERE "RDB\$RELATION_NAME" LIKE 'RDB$%'
-			OR "RDB\$RELATION_NAME" LIKE 'MON$%';
+			SELECT "RDB\$RELATION_NAME"
+			FROM "RDB\$RELATIONS"
+			WHERE "RDB\$SYSTEM_FLAG"=1
+			ORDER BY "RDB\$RELATION_NAME" ASC
 SQL;
 	}
 	
@@ -266,10 +266,8 @@ SQL;
 	public function view_list()
 	{
 		return <<<SQL
-			SELECT "RDB\$RELATION_NAME"
-			FROM "RDB\$RELATIONS"
-			WHERE "RDB\$VIEW_BLR" IS NOT NULL
-			AND ("RDB\$SYSTEM_FLAG" IS NULL OR "RDB\$SYSTEM_FLAG" = 0)
+			SELECT DISTINCT "RDB\$VIEW_NAME"
+			FROM "RDB\$VIEW_RELATIONS"
 SQL;
 	}
 	
@@ -297,10 +295,7 @@ SQL;
 	 */
 	public function function_list()
 	{
-		return <<<SQL
-			SELECT * FROM "RDB\$FUNCTIONS"
-			WHERE "RDB\$SYSTEM_FLAG" = 0
-SQL;
+		return 'SELECT * FROM "RDB$FUNCTIONS"';
 	}
 	
 	// --------------------------------------------------------------------------
@@ -312,7 +307,23 @@ SQL;
 	 */
 	public function procedure_list()
 	{
-		return 'SELECT * FROM "RDB$PROCEDURES"';
+		return <<<SQL
+			SELECT "RDB\$PROCEDURE_NAME",
+				"RDB\$PROCEDURE_ID",
+				"RDB\$PROCEDURE_INPUTS",
+				"RDB\$PROCEDURE_OUTPUTS",
+				"RDB\$DESCRIPTION",
+				"RDB\$PROCEDURE_SOURCE",
+				"RDB\$SECURITY_CLASS",
+				"RDB\$OWNER_NAME",
+				"RDB\$RUNTIME",
+				"RDB\$SYSTEM_FLAG",
+				"RDB\$PROCEDURE_TYPE",
+				"RDB\$VALID_BLR"
+			FROM "RDB\$PROCEDURES"
+			ORDER BY "RDB\$PROCEDURE_NAME" ASC
+SQL;
+
 	}
 	
 	// --------------------------------------------------------------------------
@@ -330,5 +341,53 @@ SQL;
 			WHERE "RDB\$SYSTEM_FLAG" = 0
 SQL;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Return sql to list columns of the specified table
+	 * 
+	 * @param string $table
+	 * @return string 
+	 */
+	public function column_list($table)
+	{
+		return <<<SQL
+			SELECT r.RDB\$FIELD_NAME AS field_name,
+				r.RDB\$DESCRIPTION AS field_description,
+				r.RDB\$DEFAULT_VALUE AS field_default_value,
+				r.RDB\$NULL_FLAG AS field_not_null_constraint,
+				f.RDB\$FIELD_LENGTH AS field_length,
+				f.RDB\$FIELD_PRECISION AS field_precision,
+				f.RDB\$FIELD_SCALE AS field_scale,
+				CASE f.RDB\$FIELD_TYPE
+					WHEN 261 THEN 'BLOB'
+					WHEN 14 THEN 'CHAR'
+					WHEN 40 THEN 'CSTRING'
+					WHEN 11 THEN 'D_FLOAT'
+					WHEN 27 THEN 'DOUBLE'
+					WHEN 10 THEN 'FLOAT'
+					WHEN 16 THEN 'INT64'
+					WHEN 8 THEN 'INTEGER'
+					WHEN 9 THEN 'QUAD'
+					WHEN 7 THEN 'SMALLINT'
+					WHEN 12 THEN 'DATE'
+					WHEN 13 THEN 'TIME'
+					WHEN 35 THEN 'TIMESTAMP'
+					WHEN 37 THEN 'VARCHAR'
+				ELSE 'UNKNOWN'
+				END AS field_type,
+				f.RDB\$FIELD_SUB_TYPE AS field_subtype,
+				coll.RDB\$COLLATION_NAME AS field_collation,
+				cset.RDB\$CHARACTER_SET_NAME AS field_charset
+			FROM RDB\$RELATION_FIELDS r
+			LEFT JOIN RDB\$FIELDS f ON r.RDB\$FIELD_SOURCE = f.RDB\$FIELD_NAME
+			LEFT JOIN RDB\$COLLATIONS coll ON f.RDB\$COLLATION_ID = coll.RDB\$COLLATION_ID
+			LEFT JOIN RDB\$CHARACTER_SETS cset ON f.RDB\$CHARACTER_SET_ID = cset.RDB\$CHARACTER_SET_ID
+			WHERE r.RDB\$RELATION_NAME='{$table}'
+			ORDER BY r.RDB\$FIELD_POSITION
+SQL;
+	}
+
 }
 //End of firebird_sql.php

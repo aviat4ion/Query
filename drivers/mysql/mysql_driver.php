@@ -31,6 +31,10 @@ class MySQL extends DB_PDO {
 	 */
 	public function __construct($dsn, $username=null, $password=null, $options=array())
 	{
+		$options = array_merge($options, array(
+			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF-8 COLLATE 'UTF-8'",
+		));
+			
 		parent::__construct("mysql:$dsn", $username, $password, $options);
 
 		$class = __CLASS__.'_sql';

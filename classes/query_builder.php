@@ -53,6 +53,9 @@ class Query_Builder {
 	// )
 	private $query_map;
 
+	// Convenience property for connection management
+	public $conn_name = "";
+
 	/**
 	 * Constructor
 	 *
@@ -72,6 +75,11 @@ class Query_Builder {
 
 			$params = $p;
 		}
+		
+		// Let the connection work with 'conn_db' or 'database'		
+		$params->conn_db = ( ! isset($params->database))
+			? @$params->conn_db
+			: @$params->database;
 
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
@@ -80,7 +88,7 @@ class Query_Builder {
 		switch($dbtype)
 		{
 			default:
-				$dsn = "dbname={$params->database}";
+				$dsn = "dbname={$params->conn_db}";
 
 				if ( ! empty($params->host))
 				{
@@ -91,6 +99,7 @@ class Query_Builder {
 				{
 					$dsn .= ";port={$params->port}";
 				}
+				
 			break;
 
 			case "sqlite":
@@ -102,6 +111,9 @@ class Query_Builder {
 			break;
 		}
 
+		// Set the charset
+		//$dsn .= ";charset=utf-8";
+
 		// Create the database connection
 		if ( ! empty($params->user))
 		{
@@ -111,6 +123,12 @@ class Query_Builder {
 		{
 			$this->db = new $dbtype($dsn);
 		}
+
+		if (isset($params->name))
+		{
+			$this->conn_name = $params->name;
+		}
+
 
 		// Make things just slightly shorter
 		$this->sql =& $this->db->sql;

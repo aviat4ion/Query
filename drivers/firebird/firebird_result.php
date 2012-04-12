@@ -85,6 +85,20 @@ class Firebird_Result {
 
 		return $all;
 	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Emulate PDOStatement::fetchColumn
+	 * 
+	 * @param int $colum_num
+	 * @return mixed 
+	 */
+	public function fetchColumn($column_num=0)
+	{
+		$row = $this->fetch(PDO::FETCH_NUM);
+		return $row[$column_num];
+	}
 
 	// --------------------------------------------------------------------------
 

@@ -26,9 +26,7 @@ function do_include($path)
 }
 
 // Load base classes
-require_once(BASE_PATH.'db_pdo.php');
-require_once(BASE_PATH.'db_sql.php');
-require_once(BASE_PATH.'query_builder.php');
+array_map('do_include', glob(BASE_PATH.'classes/*.php'));
 
 // Load PDO Drivers
 foreach(pdo_drivers() as $d)

@@ -277,6 +277,29 @@ SQL;
 			ORDER BY "relname" ASC
 SQL;
 	}
-
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Return sql to list columns of the specified table
+	 * 
+	 * @param string $table
+	 * @return string 
+	 */
+	public function column_list($table)
+	{
+		return <<<SQL
+			SELECT ordinal_position,
+				column_name,
+				data_type,
+				column_default,
+				is_nullable,
+				character_maximum_length,
+				numeric_precision
+			FROM information_schema.columns
+			WHERE table_name = '{$table}'
+			ORDER BY ordinal_position;
+SQL;
+	}
 }
 //End of pgsql_manip.php
