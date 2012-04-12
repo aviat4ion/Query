@@ -7,7 +7,7 @@
  * @author 		Timothy J. Warren
  * @copyright	Copyright (c) 2012
  * @link 		https://github.com/aviat4ion/Query
- * @license 	http://philsturgeon.co.uk/code/dbad-license 
+ * @license 	http://philsturgeon.co.uk/code/dbad-license
  */
 
 // --------------------------------------------------------------------------
@@ -192,7 +192,6 @@ SQL;
 		return <<<SQL
 		 	SELECT "tablename" FROM "pg_tables"
 			WHERE "tablename" LIKE 'pg\_%'
-			OR "tablename" LIKE 'sql\%'
 SQL;
 	}
 
@@ -224,7 +223,7 @@ SQL;
 	public function trigger_list()
 	{
 		return <<<SQL
-			SELECT * 
+			SELECT *
 			FROM "information_schema"."triggers"
 			WHERE "trigger_schema" NOT IN
 				('pg_catalog', 'information_schema')
@@ -277,14 +276,14 @@ SQL;
 			ORDER BY "relname" ASC
 SQL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Return sql to list columns of the specified table
-	 * 
+	 *
 	 * @param string $table
-	 * @return string 
+	 * @return string
 	 */
 	public function column_list($table)
 	{
