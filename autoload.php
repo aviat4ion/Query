@@ -20,9 +20,12 @@ define('BASE_PATH', dirname(__FILE__).'/');
 define('DRIVER_PATH', BASE_PATH.'drivers/');
 
 // Bulk loading wrapper workaround for PHP < 5.4
-function do_include($path)
+if ( ! function_exists('do_include'))
 {
-	require_once($path);
+	function do_include($path)
+	{
+		require_once($path);
+	}
 }
 
 // Load base classes
