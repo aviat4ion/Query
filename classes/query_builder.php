@@ -19,7 +19,7 @@
 class Query_Builder {
 
 	// Compiled query component strings
-	private $select_string,
+	private $select_string = '',
 		$from_string,
 		$set_string,
 		$order_string,
@@ -171,7 +171,7 @@ class Query_Builder {
 			}
 		}
 
-		$this->select_string = implode(', ', $safe_array);
+		$this->select_string .= implode(', ', $safe_array);
 
 		unset($safe_array);
 
@@ -197,7 +197,7 @@ class Query_Builder {
 			: $field;
 			
 		// Create the select string
-		$this->select_string = $this->sql->max()."({$field}) AS {$as} ";
+		$this->select_string .= $this->sql->max()."({$field}) AS {$as} ";
 		
 		return $this;
 	}
@@ -221,7 +221,7 @@ class Query_Builder {
 			: $field;
 			
 		// Create the select string
-		$this->select_string = $this->sql->min()."({$field}) AS {$as} ";
+		$this->select_string .= $this->sql->min()."({$field}) AS {$as} ";
 		
 		return $this;
 	}
@@ -245,7 +245,7 @@ class Query_Builder {
 			: $field;
 			
 		// Create the select string
-		$this->select_string = $this->sql->avg()."({$field}) AS {$as} ";
+		$this->select_string .= $this->sql->avg()."({$field}) AS {$as} ";
 		
 		return $this;
 	}
@@ -269,11 +269,26 @@ class Query_Builder {
 			: $field;
 			
 		// Create the select string
-		$this->select_string = $this->sql->sum()."({$field}) AS {$as} ";
+		$this->select_string .= $this->sql->sum()."({$field}) AS {$as} ";
 		
 		return $this;
 	}
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Adds the 'distinct' keyword to a query
+	 *
+	 * @return $this
+	 */
+	public function distinct()
+	{
+		// Prepend the keyword to the select string
+		$this->select_string = $this->sql->distinct() . $this->select_string;
+		
+		return $this;
+	}
+	
 	// --------------------------------------------------------------------------
 
 	/**
@@ -1119,11 +1134,15 @@ class Query_Builder {
 			// Nothing query-generation related is safe!
 			if ( ! is_callable($this->$name))
 			{
-				unset($this->$name);
+				$this->$name = NULL;
 			}
 
 			// Set values as an empty array
 			$this->values = array();
+			
+			// Set select string as an empty string, for proper handling
+			// of the 'distinct' keyword
+			$this->select_string = '';
 		}
 	}
 
@@ -1215,6 +1234,8 @@ class Query_Builder {
 
 			break;
 		}
+		
+		// echo $sql . '<br />';
 
 		return $sql;
 	}

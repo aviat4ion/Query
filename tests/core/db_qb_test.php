@@ -13,46 +13,6 @@
 // --------------------------------------------------------------------------
 
 /**
- * Parent Database Test Class
- */
-abstract class DBTest extends UnitTestCase {
-
-	abstract function TestConnection();
-
-	function tearDown()
-	{
-		$this->db = NULL;
-	}
-
-	function TestGetTables()
-	{
-		if (empty($this->db))  return;
-
-		$tables = $this->db->get_tables();
-		$this->assertTrue(is_array($tables));
-	}
-
-	function TestGetSystemTables()
-	{
-		if (empty($this->db))  return;
-
-		$tables = $this->db->get_system_tables();
-
-		$this->assertTrue(is_array($tables));
-	}
-
-	function TestCreateTransaction()
-	{
-		if (empty($this->db))  return;
-
-		$res = $this->db->beginTransaction();
-		$this->assertTrue($res);
-	}
-}
-
-// --------------------------------------------------------------------------
-
-/**
  * Query builder parent test class
  */
 abstract class QBTest extends UnitTestCase {
@@ -142,6 +102,17 @@ abstract class QBTest extends UnitTestCase {
 		if (empty($this->db))  return;
 	
 		$query = $this->db->select_sum('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
+	function TestSelectDistinct()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_sum('id', 'di')
+			->distinct()
 			->get('create_test');
 			
 		$this->assertIsA($query, 'PDOStatement');
@@ -319,4 +290,4 @@ abstract class QBTest extends UnitTestCase {
 	}
 }
 
-// End of parent.php
+// End of db_qb_test.php

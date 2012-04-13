@@ -24,10 +24,13 @@ define('DS', DIRECTORY_SEPARATOR);
 require_once('simpletest/autorun.php');
 
 // Include db classes
-require_once(BASE_DIR.'autoload.php');
+require_once(BASE_DIR . 'autoload.php');
 
 // Require base testing classes
-array_map('do_include', glob(TEST_DIR . "/core/*.php"));
+require_once(TEST_DIR . '/core/core.php');
+require_once(TEST_DIR . '/core/settings.php');
+require_once(TEST_DIR . '/core/db_test.php');
+require_once(TEST_DIR . '/core/db_qb_test.php');
 
 // Include db tests
 // Load db classes based on capability

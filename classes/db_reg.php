@@ -54,6 +54,16 @@ class DB_Reg {
 		// Set the current key in the registry
 		self::$instance[$key] = new Query_Builder($db_params);
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Cleanup method
+	 */
+	public function __destruct()
+	{
+		unset(self::$instance);
+	}
 
 	// --------------------------------------------------------------------------
 

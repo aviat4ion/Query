@@ -52,7 +52,7 @@ abstract class DB_SQL {
 	 */
 	public function distinct()
 	{
-		return ' DISTINCT';
+		return ' DISTINCT ';
 	}
 	
 	// --------------------------------------------------------------------------

@@ -116,6 +116,17 @@ class FirebirdQBTest extends QBTest {
 		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
+	function TestSelectDistinct()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_sum('id', 'di')
+			->distinct()
+			->get('create_test');
+			
+		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
 	function TestGetWhere()
 	{
 		if (empty($this->db))  return;
