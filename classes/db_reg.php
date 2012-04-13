@@ -62,7 +62,7 @@ class DB_Reg {
 	 */
 	public function __destruct()
 	{
-		unset(self::$instance);
+		self::$instance = NULL;
 	}
 
 	// --------------------------------------------------------------------------
