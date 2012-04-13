@@ -27,9 +27,9 @@ class PgTest extends DBTest {
 	function setUp()
 	{
 		// Attempt to connect, if there is a test config file
-		if (is_file("../test_config.json"))
+		if (is_file(BASE_DIR . "test_config.json"))
 		{
-			$params = json_decode(file_get_contents("../test_config.json"));
+			$params = json_decode(file_get_contents(BASE_DIR . "test_config.json"));
 			$params = $params->pgsql;
 
 			$this->db = new PgSQL("host={$params->host};port={$params->port};dbname={$params->database}", $params->user, $params->pass);
