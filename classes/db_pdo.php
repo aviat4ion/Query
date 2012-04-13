@@ -27,6 +27,11 @@ abstract class DB_PDO extends PDO {
 
 	/**
 	 * PDO constructor wrapper
+	 *
+	 * @param string $dsn
+	 * @param string $username
+	 * @param string $password
+	 * @param array $driver_options
 	 */
 	public function __construct($dsn, $username=NULL, $password=NULL, $driver_options=array())
 	{
@@ -35,7 +40,9 @@ abstract class DB_PDO extends PDO {
 		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
-	// -------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// ! Concrete functions that can be overridden in child classes
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Simplifies prepared statements for database queries
@@ -327,9 +334,8 @@ abstract class DB_PDO extends PDO {
 		return $this->driver_query($this->sql->system_table_list());
 	}
 
-
 	// -------------------------------------------------------------------------
-	// ! Abstract public functions to override in child classes
+	// ! Abstract public functions to implement in child classes
 	// -------------------------------------------------------------------------
 
 	/**

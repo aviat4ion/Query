@@ -38,7 +38,7 @@ class Query_Builder {
 	private $limit,
 		$offset;
 
-	// Alias to $this->db->sql
+	// Alias to $this->sql
 	private $sql;
 
 	// Query component order mapping
@@ -59,7 +59,7 @@ class Query_Builder {
 	/**
 	 * Constructor
 	 *
-	 * @param object $conn_name - the name of the connection/parameters
+	 * @param object $params - the connection parametere
 	 */
 	public function __construct($params)
 	{
@@ -110,9 +110,6 @@ class Query_Builder {
 				$dsn = "{$params->host}:{$params->file}";
 			break;
 		}
-
-		// Set the charset
-		//$dsn .= ";charset=utf-8";
 
 		// Create the database connection
 		if ( ! empty($params->user))
@@ -180,6 +177,102 @@ class Query_Builder {
 
 		return $this;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Selects the maximum value of a field from a query
+	 *
+	 * @param string $field
+	 * @param string $as
+	 * @return $this
+	 */
+	public function select_max($field, $as=FALSE)
+	{
+		// Escape the identifiers
+		$field = $this->quote_ident($field);
+		
+		$as = ($as !== FALSE) 
+			? $this->quote_ident($as)
+			: $field;
+			
+		// Create the select string
+		$this->select_string = $this->sql->max()."({$field}) AS {$as} ";
+		
+		return $this;
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Selects the minimum value of a field from a query
+	 *
+	 * @param string $field
+	 * @param string $as
+	 * @return $this
+	 */
+	public function select_min($field, $as=FALSE)
+	{
+		// Escape the identifiers
+		$field = $this->quote_ident($field);
+		
+		$as = ($as !== FALSE) 
+			? $this->quote_ident($as)
+			: $field;
+			
+		// Create the select string
+		$this->select_string = $this->sql->min()."({$field}) AS {$as} ";
+		
+		return $this;
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Selects the average value of a field from a query
+	 *
+	 * @param string $field
+	 * @param string $as
+	 * @return $this
+	 */
+	public function select_avg($field, $as=FALSE)
+	{
+		// Escape the identifiers
+		$field = $this->quote_ident($field);
+		
+		$as = ($as !== FALSE) 
+			? $this->quote_ident($as)
+			: $field;
+			
+		// Create the select string
+		$this->select_string = $this->sql->avg()."({$field}) AS {$as} ";
+		
+		return $this;
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Selects the sum of a field from a query
+	 *
+	 * @param string $field
+	 * @param string $as
+	 * @return $this
+	 */
+	public function select_sum($field, $as=FALSE)
+	{
+		// Escape the identifiers
+		$field = $this->quote_ident($field);
+		
+		$as = ($as !== FALSE) 
+			? $this->quote_ident($as)
+			: $field;
+			
+		// Create the select string
+		$this->select_string = $this->sql->sum()."({$field}) AS {$as} ";
+		
+		return $this;
+	}
 
 	// --------------------------------------------------------------------------
 
@@ -218,7 +311,7 @@ class Query_Builder {
 	 */
 	public function like($field, $val, $pos='both')
 	{
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 
 		// Add the like string into the order map
 		$l = $field. ' LIKE ?';
@@ -260,7 +353,7 @@ class Query_Builder {
 	 */
 	public function or_like($field, $val, $pos='both')
 	{
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 
 		// Add the like string into the order map
 		$l = $field. ' LIKE ?';
@@ -302,7 +395,7 @@ class Query_Builder {
 	 */
 	public function not_like($field, $val, $pos='both')
 	{
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 
 		// Add the like string into the order map
 		$l = $field. ' NOT LIKE ?';
@@ -344,7 +437,7 @@ class Query_Builder {
 	 */
 	public function or_not_like($field, $val, $pos='both')
 	{
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 
 		// Add the like string into the order map
 		$l = $field. ' NOT LIKE ?';
@@ -430,7 +523,7 @@ class Query_Builder {
 			// is an operator such as >, <, !=, etc.
 			$f_array = explode(' ', trim($f));
 
-			$item = $this->db->quote_ident($f_array[0]);
+			$item = $this->quote_ident($f_array[0]);
 
 			// Simple key value, or an operator
 			$item .= (count($f_array === 1)) ? '= ?' : " {$f_array[1]} ?";
@@ -469,11 +562,11 @@ class Query_Builder {
 			// Simple key = val
 			if (count($f_array) === 1)
 			{
-				$item = $this->db->quote_ident($f_array[0]) . '= ?';
+				$item = $this->quote_ident($f_array[0]) . '= ?';
 			}
 			else // Other operators
 			{
-				$item = $this->db->quote_ident($f_array[0]) . " {$f_array[1]} ?";
+				$item = $this->quote_ident($f_array[0]) . " {$f_array[1]} ?";
 			}
 
 			// Put in the query map for select statements
@@ -498,7 +591,7 @@ class Query_Builder {
 	 */
 	public function where_in($field, $val=array())
 	{
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
 
 		foreach($val as $v)
@@ -528,7 +621,7 @@ class Query_Builder {
 	 */
 	public function or_where_in($field, $val=array())
 	{
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
 
 		foreach($val as $v)
@@ -558,7 +651,7 @@ class Query_Builder {
 	 */
 	public function where_not_in($field, $val=array())
 	{
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
 
 		foreach($val as $v)
@@ -588,7 +681,7 @@ class Query_Builder {
 	 */
 	public function or_where_not_in($field, $val=array())
 	{
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
 
 		foreach($val as $v)
@@ -627,8 +720,8 @@ class Query_Builder {
 		$cond_array = explode(' ', trim($condition));
 		$cond_array = array_map('trim', $cond_array);
 
-		$condition = $table . ' ON ' . $this->db->quote_ident($cond_array[0])  . $cond_array[1] .
-				' ' . $this->db->quote_ident($cond_array[2]);
+		$condition = $table . ' ON ' . $this->quote_ident($cond_array[0])  . $cond_array[1] .
+				' ' . $this->quote_ident($cond_array[2]);
 
 		$this->query_map[] = array(
 			'type' => 'join',
@@ -655,7 +748,7 @@ class Query_Builder {
 		}
 		else
 		{
-			$this->group_array[] = $this->db->quote_ident($field);
+			$this->group_array[] = $this->quote_ident($field);
 		}
 
 		$this->group_string = ' GROUP BY ' . implode(', ', $this->group_array);
@@ -681,7 +774,7 @@ class Query_Builder {
 		}
 
 		// Set fields for later manipulation
-		$field = $this->db->quote_ident($field);
+		$field = $this->quote_ident($field);
 		$this->order_array[$field] = $type;
 
 		$order_clauses = array();
@@ -825,12 +918,12 @@ class Query_Builder {
 		// Do prepared statements for anything involving a "where" clause
 		if ( ! empty($this->query_map))
 		{
-			$result =  $this->db->prepare_execute($sql, $this->values);
+			$result =  $this->prepare_execute($sql, $this->values);
 		}
 		else
 		{
 			// Otherwise, a simple query will do.
-			$result =  $this->db->query($sql);
+			$result =  $this->query($sql);
 		}
 
 		// Reset for next query
@@ -878,7 +971,7 @@ class Query_Builder {
 
 		$sql = $this->_compile("insert", $table);
 
-		$res = $this->db->prepare_execute($sql, $this->values);
+		$res = $this->prepare_execute($sql, $this->values);
 
 		$this->_reset();
 
@@ -904,7 +997,7 @@ class Query_Builder {
 
 		$sql = $this->_compile('update', $table);
 
-		$res = $this->db->prepare_execute($sql, $this->values);
+		$res = $this->prepare_execute($sql, $this->values);
 
 		$this->_reset();
 
@@ -932,7 +1025,7 @@ class Query_Builder {
 		// Create the SQL and parameters
 		$sql = $this->_compile("delete", $table);
 
-		$res = $this->db->prepare_execute($sql, $this->values);
+		$res = $this->prepare_execute($sql, $this->values);
 
 		$this->_reset();
 
@@ -1090,13 +1183,13 @@ class Query_Builder {
 			case "insert":
 				$param_count = count($this->set_array);
 				$params = array_fill(0, $param_count, '?');
-				$sql = 'INSERT INTO '. $this->db->quote_ident($table) .
+				$sql = 'INSERT INTO '. $this->quote_ident($table) .
 					' (' . implode(', ', $this->set_array_keys) .
 					') VALUES ('.implode(', ', $params).')';
 			break;
 
 			case "update":
-				$sql = 'UPDATE '.$this->db->quote_ident($table). ' SET '. $this->set_string;
+				$sql = 'UPDATE '.$this->quote_ident($table). ' SET '. $this->set_string;
 
 				// Set the where string
 				if ( ! empty($this->query_map))
@@ -1109,7 +1202,7 @@ class Query_Builder {
 			break;
 
 			case "delete":
-				$sql = 'DELETE FROM '.$this->db->quote_ident($table);
+				$sql = 'DELETE FROM '.$this->quote_ident($table);
 
 				// Set the where string
 				if ( ! empty($this->query_map))

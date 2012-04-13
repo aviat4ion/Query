@@ -107,6 +107,46 @@ abstract class QBTest extends UnitTestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 	
+	function TestSelectMax()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_max('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
+	function TestSelectMin()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_min('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
+	function TestSelectAvg()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_avg('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
+	function TestSelectSum()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_sum('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
 	function TestGetWhere()
 	{
 		if (empty($this->db))  return;

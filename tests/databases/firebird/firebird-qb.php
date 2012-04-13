@@ -76,6 +76,46 @@ class FirebirdQBTest extends QBTest {
 		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
+	function TestSelectMax()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_max('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
+	function TestSelectMin()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_min('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
+	function TestSelectAvg()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_avg('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
+	function TestSelectSum()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select_sum('id', 'di')
+			->get('create_test');
+			
+		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
 	function TestGetWhere()
 	{
 		if (empty($this->db))  return;
