@@ -23,11 +23,11 @@ define('DS', DIRECTORY_SEPARATOR);
 // it has to be set in your php path, or put in the tests folder
 require_once('simpletest/autorun.php');
 
-// Require base testing classes
-require_once(TEST_DIR.'/parent.php');
-
 // Include db classes
 require_once(BASE_DIR.'autoload.php');
+
+// Require base testing classes
+array_map('do_include', glob(TEST_DIR . "/core/*.php"));
 
 // Include db tests
 // Load db classes based on capability
