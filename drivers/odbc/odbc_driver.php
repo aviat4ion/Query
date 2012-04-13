@@ -21,6 +21,17 @@
   */
 class ODBC extends DB_PDO {
 
+	// Don't define the escape char - or define it in sub-drivers in a refactor
+	protected $escape_char = '';
+
+	/**
+	 * Use ODBC to connect to a database
+	 *
+	 * @param string $dsn
+	 * @param string $username
+	 * @param string $password
+	 * @param array $options
+	 */
 	public function __construct($dsn, $username=null, $password=null, $options=array())
 	{
 		parent::__construct("odbc:$dsn", $username, $password, $options);
@@ -33,6 +44,8 @@ class ODBC extends DB_PDO {
 
 	/**
 	 * Doesn't apply to ODBC
+	 *
+	 * @return bool
 	 */
 	public function switch_db($name)
 	{

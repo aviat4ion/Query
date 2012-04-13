@@ -106,6 +106,15 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+	
+	function TestGetWhere()
+	{
+		if (empty($this->db))  return;
+		
+		$query = $this->db->get_where('create_test', array('id !=' => 1), 2, 1);
+		
+		$this->assertIsA($query, 'PDOStatement');
+	}
 
 	function TestSelectGet()
 	{

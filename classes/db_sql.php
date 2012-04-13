@@ -17,6 +17,60 @@
  */
 abstract class DB_SQL {
 
+	// --------------------------------------------------------------------------
+	// ! Methods to override
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the max keyword sql
+	 *
+	 * @return string
+	 */
+	public function max()
+	{
+		return ' MAX';
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Get the min keyword sql
+	 *
+	 * @return string
+	 */
+	public function min()
+	{
+		return ' MIN';
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Get the 'distinct' keyword 
+	 *
+	 * @return string
+	 */
+	public function distinct()
+	{
+		return ' DISTINCT';
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Get the 'average' keyword
+	 *
+	 * @return string
+	 */
+	public function avg()
+	{
+		return ' AVG';
+	}
+	
+	// --------------------------------------------------------------------------
+	// ! Abstract Methods
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Get database-specific sql to create a new table
 	 *

@@ -76,6 +76,15 @@ class FirebirdQBTest extends QBTest {
 		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
+	function TestGetWhere()
+	{
+		if (empty($this->db))  return;
+		
+		$query = $this->db->get_where('create_test', array('id !=' => 1), 2, 1);
+		
+		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
 	function TestSelectGet()
 	{
 		$query = $this->db->select('id, key as k, val')

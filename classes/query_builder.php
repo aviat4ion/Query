@@ -718,6 +718,82 @@ class Query_Builder {
 	}
 
 	// --------------------------------------------------------------------------
+	// ! Query Grouping Methods
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Adds a paren to the current query for query grouping
+	 *
+	 * @return $this
+	 */
+	public function group_start()
+	{
+		$this->query_map[] = array(
+			'type' => 'group_start',
+			'conjunction' => '',
+			'string' => ' ('
+		);
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Adds a paren to the current query for query grouping,
+	 * prefixed with 'OR'
+	 *
+	 * @return $this
+	 */
+	public function or_group_start()
+	{
+		$this->query_map[] = array(
+			'type' => 'group_start',
+			'conjunction' => '',
+			'string' => ' OR ('
+		);
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Adds a paren to the current query for query grouping,
+	 * prefixed with 'OR NOT'
+	 *
+	 * @return $this
+	 */
+	public function or_not_group_start()
+	{
+		$this->query_map[] = array(
+			'type' => 'group_start',
+			'conjunction' => '',
+			'string' => ' OR NOT ('
+		);
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Ends a query group
+	 *
+	 * @return $this
+	 */
+	public function group_end()
+	{
+		$this->query_map[] = array(
+			'type' => 'group_end',
+			'conjunction' => '',
+			'string' => ' ) '
+		);
+
+		return $this;
+	}
+	
+	// --------------------------------------------------------------------------
 	// ! Query execution methods
 	// --------------------------------------------------------------------------
 
@@ -763,6 +839,26 @@ class Query_Builder {
 		return $result;
 	}
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Convience method for get() with a where clause
+	 *
+	 * @param string $table
+	 * @param array $where
+	 * @param int $limit
+	 * @param int $offset
+	 * @return object
+	 */
+	public function get_where($table, $where=array(), $limit=FALSE, $offset=FALSE)
+	{
+		// Create the where clause
+		$this->where($where);
+		
+		// Return the result
+		return $this->get($table, $limit, $offset);
+	}
+	
 	// --------------------------------------------------------------------------
 
 	/**
@@ -844,81 +940,6 @@ class Query_Builder {
 		return $res;
 	}
 
-	// --------------------------------------------------------------------------
-	// ! Query Grouping Methods
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Adds a paren to the current query for query grouping
-	 *
-	 * @return $this
-	 */
-	public function group_start()
-	{
-		$this->query_map[] = array(
-			'type' => 'group_start',
-			'conjunction' => '',
-			'string' => ' ('
-		);
-
-		return $this;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Adds a paren to the current query for query grouping,
-	 * prefixed with 'OR'
-	 *
-	 * @return $this
-	 */
-	public function or_group_start()
-	{
-		$this->query_map[] = array(
-			'type' => 'group_start',
-			'conjunction' => '',
-			'string' => ' OR ('
-		);
-
-		return $this;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Adds a paren to the current query for query grouping,
-	 * prefixed with 'OR NOT'
-	 *
-	 * @return $this
-	 */
-	public function or_not_group_start()
-	{
-		$this->query_map[] = array(
-			'type' => 'group_start',
-			'conjunction' => '',
-			'string' => ' OR NOT ('
-		);
-
-		return $this;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Ends a query group
-	 *
-	 * @return $this
-	 */
-	public function group_end()
-	{
-		$this->query_map[] = array(
-			'type' => 'group_end',
-			'conjunction' => '',
-			'string' => ' ) '
-		);
-
-		return $this;
-	}
 
 	// --------------------------------------------------------------------------
 	// ! Miscellaneous Methods
