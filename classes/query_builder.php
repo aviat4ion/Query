@@ -481,6 +481,34 @@ class Query_Builder {
 
 		return $this;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Generates a 'Having' clause
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @return $this
+	 */
+	public function having($key, $val=array())
+	{
+		// @todo Implement having
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Generates a 'Having' clause prefixed with 'OR'
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @return $this
+	 */
+	public function or_having($key, $val=array())
+	{
+		// @todo Implement or_having
+	}
 
 	// --------------------------------------------------------------------------
 	// ! 'Where' methods
@@ -717,6 +745,44 @@ class Query_Builder {
 
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Sets values for inserts / updates / deletes
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @return $this
+	 */
+	public function set($key, $val)
+	{
+		// Plain key, value pair
+		if (is_scalar($key) && is_scalar($val))
+		{
+			$this->set_array[$key] = $val;
+			$this->values[] = $val;
+		}
+		// Object or array
+		elseif ( ! is_scalar($key))
+		{
+			foreach($key as $k => $v)
+			{
+				$this->set_array[$k] = $v;
+				$this->values[] = $val;
+			}
+		}
+
+		// Use the keys of the array to make the insert/update string
+		// Escape the field names
+		$this->set_array_keys = array_map(array($this->db, 'quote_ident'), array_keys($this->set_array));
+
+		// Generate the "set" string
+		$this->set_string = implode('=?, ', $this->set_array_keys);
+		$this->set_string .= '=?';
+
+		return $this;
+	}
+	
 	// --------------------------------------------------------------------------
 
 	/**
@@ -968,6 +1034,33 @@ class Query_Builder {
 	}
 	
 	// --------------------------------------------------------------------------
+	
+	/**
+	 * Retreive the number of rows in the selected table
+	 *
+	 * @param string $table
+	 * @return int
+	 */
+	public function count_all($table)
+	{
+		//@todo Implement count_all
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Retrieve the number of results for the generated query - used
+	 * in place of the get() method
+	 *
+	 * @param string $table
+	 * @return int
+	 */
+	public function count_all_results($table='')
+	{
+		// @todo Implement count_all_results
+	}
+	
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Creates an insert clause, and executes it
@@ -1051,44 +1144,6 @@ class Query_Builder {
 
 	// --------------------------------------------------------------------------
 	// ! Miscellaneous Methods
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Sets values for inserts / updates / deletes
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
-	 * @return $this
-	 */
-	public function set($key, $val)
-	{
-		// Plain key, value pair
-		if (is_scalar($key) && is_scalar($val))
-		{
-			$this->set_array[$key] = $val;
-			$this->values[] = $val;
-		}
-		// Object or array
-		elseif ( ! is_scalar($key))
-		{
-			foreach($key as $k => $v)
-			{
-				$this->set_array[$k] = $v;
-				$this->values[] = $val;
-			}
-		}
-
-		// Use the keys of the array to make the insert/update string
-		// Escape the field names
-		$this->set_array_keys = array_map(array($this->db, 'quote_ident'), array_keys($this->set_array));
-
-		// Generate the "set" string
-		$this->set_string = implode('=?, ', $this->set_array_keys);
-		$this->set_string .= '=?';
-
-		return $this;
-	}
-
 	// --------------------------------------------------------------------------
 
 	/**
