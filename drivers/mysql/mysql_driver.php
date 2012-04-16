@@ -75,7 +75,12 @@ class MySQL extends DB_PDO {
 	 */
 	public function get_system_tables()
 	{
-		return array('information_schema');
+		$sql = 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES` 
+			WHERE `TABLE_SCHEMA`=\'information_schema\'';
+			
+		$res = $this->query($sql);
+		
+		return db_filter($res->fetchAll(PDO::FETCH_ASSOC), 'TABLE_NAME');
 	}
 
 	// --------------------------------------------------------------------------
