@@ -189,7 +189,8 @@ class MySQL_SQL extends DB_SQL{
 	 */
 	public function system_table_list()
 	{
-		return FALSE;
+		return 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES` 
+			WHERE `TABLE_SCHEMA`=\'information_schema\'';
 	}
 
 	// --------------------------------------------------------------------------

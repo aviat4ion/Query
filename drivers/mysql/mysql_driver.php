@@ -20,6 +20,7 @@
 class MySQL extends DB_PDO {
 
 	protected $escape_char = '`';
+	protected $system_db = 'information_schema';
 
 	/**
 	 * Connect to MySQL Database
@@ -64,23 +65,6 @@ class MySQL extends DB_PDO {
 	public function truncate($table)
 	{
 		$this->query("TRUNCATE `{$table}`");
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Returns system tables for the current database
-	 *
-	 * @return array
-	 */
-	public function get_system_tables()
-	{
-		$sql = 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES` 
-			WHERE `TABLE_SCHEMA`=\'information_schema\'';
-			
-		$res = $this->query($sql);
-		
-		return db_filter($res->fetchAll(PDO::FETCH_ASSOC), 'TABLE_NAME');
 	}
 
 	// --------------------------------------------------------------------------
