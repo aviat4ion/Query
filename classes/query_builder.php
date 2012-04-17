@@ -1043,7 +1043,9 @@ class Query_Builder {
 	 */
 	public function count_all($table)
 	{
-		//@todo Implement count_all
+		$sql = 'SELECT * FROM '.$this->quote_ident($table);
+		$res = $this->query($sql);
+		return count($res->fetchAll());
 	}
 	
 	// --------------------------------------------------------------------------
@@ -1290,7 +1292,7 @@ class Query_Builder {
 			break;
 		}
 		
-		// echo $sql . '<br />';
+		//echo $sql . '<br />';
 
 		return $sql;
 	}

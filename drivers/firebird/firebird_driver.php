@@ -17,7 +17,7 @@
  *
  * PDO-firebird isn't stable, so this is a wrapper of the fbird_ public functions.
  */
-class firebird extends DB_PDO {
+class Firebird extends DB_PDO {
 
 	protected $statement, $statement_link, $trans, $count, $result, $conn;
 
@@ -33,11 +33,11 @@ class firebird extends DB_PDO {
 		$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8');
 
 		// Throw an exception to make this match other pdo classes
-		/*if ( ! is_resource($this->conn))
+		if ( ! is_resource($this->conn))
 		{
 			throw new PDOException(fbird_errmsg());
 			die();
-		}*/
+		}
 
 		$class = __CLASS__."_sql";
 		$this->sql = new $class;
@@ -92,8 +92,6 @@ class firebird extends DB_PDO {
 		return new FireBird_Result($this->statement_link);
 	}
 
-
-
 	// --------------------------------------------------------------------------
 
 	/**
@@ -124,16 +122,7 @@ class firebird extends DB_PDO {
 	 */
 	public function num_rows()
 	{
-		// @todo: Redo this similar to the codeigniter driver
-		if(isset($this->result))
-		{
-			return count($this->result);
-		}
-
-		//Fetch all the rows for the result
-		$this->result = $this->statement->fetchAll();
-
-		return count($this->result);
+		return $this->statement->num_rows();
 	}
 
 	// --------------------------------------------------------------------------

@@ -139,7 +139,7 @@ SQL;
 	 */
 	public function num_rows()
 	{
-		return (isset($this->statement)) ? $this->statement->rowCount : FALSE;
+		return (isset($this->statement)) ? $this->statement->rowCount() : FALSE;
 	}
 }
 //End of sqlite_driver.php

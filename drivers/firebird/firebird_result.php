@@ -132,6 +132,18 @@ class Firebird_Result {
 	{
 		return fbird_affected_rows();
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Return the number of rows for the select query
+	 * 
+	 * @return int
+	 */
+	public function num_rows()
+	{
+		return count($this->fetchAll());
+	}
 
 	// --------------------------------------------------------------------------
 

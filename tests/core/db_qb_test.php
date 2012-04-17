@@ -17,6 +17,8 @@
  */
 abstract class QBTest extends UnitTestCase {
 
+	// ! Get Tests
+
 	function TestGet()
 	{
 		if (empty($this->db))  return;
@@ -43,6 +45,24 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+	
+	function TestGetWhere()
+	{
+		if (empty($this->db))  return;
+		
+		$query = $this->db->get_where('create_test', array('id !=' => 1), 2, 1);
+		
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
+	function TestGetViews()
+	{
+		if (empty($this->db))  return;
+	
+		$this->assertTrue(is_array($this->db->get_views()));
+	}
+	
+	// ! Select Tests
 
 	function TestSelectWhereGet()
 	{
@@ -117,15 +137,6 @@ abstract class QBTest extends UnitTestCase {
 			
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
-	function TestGetWhere()
-	{
-		if (empty($this->db))  return;
-		
-		$query = $this->db->get_where('create_test', array('id !=' => 1), 2, 1);
-		
-		$this->assertIsA($query, 'PDOStatement');
-	}
 
 	function TestSelectGet()
 	{
@@ -161,6 +172,8 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+	
+	// ! Query modifier tests
 
 	function TestOrderBy()
 	{
@@ -247,6 +260,8 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+	
+	// ! DB update tests
 
 	function TestInsert()
 	{
@@ -282,12 +297,16 @@ abstract class QBTest extends UnitTestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 	
-	function TestGetViews()
+	// ! Non-data read queries
+	
+	function TestCountAll()
 	{
 		if (empty($this->db))  return;
-	
-		$this->assertTrue(is_array($this->db->get_views()));
+		$query = $this->db->count_all('create_test');
+		
+		$this->assertTrue(is_numeric($query));
 	}
+	
 }
 
 // End of db_qb_test.php
