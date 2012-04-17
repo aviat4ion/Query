@@ -1082,12 +1082,8 @@ class Query_Builder {
 		$this->_reset();
 		
 		$rows = $result->fetchAll();
-		$count = count($rows);
 		
-		// Unset rows to save memory
-		$rows = NULL;
-		
-		return (int) $count;
+		return (int) count($rows);
 	}
 	
 	// --------------------------------------------------------------------------
