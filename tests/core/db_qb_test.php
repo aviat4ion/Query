@@ -307,6 +307,28 @@ abstract class QBTest extends UnitTestCase {
 		$this->assertTrue(is_numeric($query));
 	}
 	
+	function TestCountAllResults()
+	{
+		if (empty($this->db))  return;
+		$query = $this->db->count_all_results('create_test');
+		
+		$this->assertTrue(is_numeric($query));
+	}
+	
+	function TestCountAllResults2()
+	{
+		if (empty($this->db))  return;
+	
+		$query = $this->db->select('id, key as k, val')
+			->from('create_test')
+			->where(' id ', 1)
+			->or_where('key >', 0)
+			->limit(2, 1)
+			->count_all_results();
+			
+		$this->assertTrue(is_numeric($query));
+	}
+	
 }
 
 // End of db_qb_test.php

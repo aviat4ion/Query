@@ -1045,7 +1045,7 @@ class Query_Builder {
 	{
 		$sql = 'SELECT * FROM '.$this->quote_ident($table);
 		$res = $this->query($sql);
-		return count($res->fetchAll());
+		return (int) count($res->fetchAll());
 	}
 	
 	// --------------------------------------------------------------------------
@@ -1059,7 +1059,35 @@ class Query_Builder {
 	 */
 	public function count_all_results($table='')
 	{
-		// @todo Implement count_all_results
+		// Set the table
+		if ( ! empty($table))
+		{
+			$this->from($table);
+		}
+	
+		$sql = $this->_compile();
+
+		// Do prepared statements for anything involving a "where" clause
+		if ( ! empty($this->query_map))
+		{
+			$result =  $this->prepare_execute($sql, $this->values);
+		}
+		else
+		{
+			// Otherwise, a simple query will do.
+			$result =  $this->query($sql);
+		}
+
+		// Reset for next query
+		$this->_reset();
+		
+		$rows = $result->fetchAll();
+		$count = count($rows);
+		
+		// Unset rows to save memory
+		$rows = NULL;
+		
+		return (int) $count;
 	}
 	
 	// --------------------------------------------------------------------------
