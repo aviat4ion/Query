@@ -45,7 +45,7 @@ Create a connection array or object similar to this:
 The parameters required depend on the database. 
 
 ### Running Queries
-Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `having`, `or_having`, `insert_batch` or `update_batch` methods.
+Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `insert_batch` or `update_batch` methods.
 
 #### Retrieving Results
 

@@ -55,6 +55,34 @@ abstract class QBTest extends UnitTestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 	
+	function TestHaving()
+	{
+		if (empty($this->db))  return;
+		
+		$query = $this->db->select('id')
+			->from('create_test')
+			->group_by('id')
+			->having(array('id >' => 1))
+			->having('id !=', 3)
+			->get();
+			
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
+	function TestOrHaving()
+	{
+		if (empty($this->db))  return;
+		
+		$query = $this->db->select('id')
+			->from('create_test')
+			->group_by('id')
+			->having(array('id >' => 1))
+			->or_having('id !=', 3)
+			->get();
+			
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
 	function TestGetViews()
 	{
 		if (empty($this->db))  return;

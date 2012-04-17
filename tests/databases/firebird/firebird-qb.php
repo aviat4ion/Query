@@ -56,6 +56,34 @@ class FirebirdQBTest extends QBTest {
 		$this->assertIsA($query, 'Firebird_Result');
 	}
 	
+	function TestHaving()
+	{
+		if (empty($this->db))  return;
+		
+		$query = $this->db->select('id')
+			->from('create_test')
+			->group_by('id')
+			->having(array('id >' => 1))
+			->having('id !=', 3)
+			->get();
+			
+		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
+	function TestOrHaving()
+	{
+		if (empty($this->db))  return;
+		
+		$query = $this->db->select('id')
+			->from('create_test')
+			->group_by('id')
+			->having(array('id >' => 1))
+			->or_having('id !=', 3)
+			->get();
+			
+		$this->assertIsA($query, 'Firebird_Result');
+	}
+	
 	function TestSelectWhereGet()
 	{
 		$query = $this->db->select('id, key as k, val')

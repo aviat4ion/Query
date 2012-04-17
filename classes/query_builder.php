@@ -52,6 +52,9 @@ class Query_Builder {
 	// 		'string' => 'k=?'
 	// )
 	private $query_map;
+	
+	// Map for having clause
+	private $having_map;
 
 	// Convenience property for connection management
 	public $conn_name = "";
@@ -493,7 +496,28 @@ class Query_Builder {
 	 */
 	public function having($key, $val=array())
 	{
-		// @todo Implement having
+		$where = $this->_where($key, $val);
+		
+		// Create key/value placeholders
+		foreach($where as $f => $val)
+		{
+			// Split each key by spaces, in case there
+			// is an operator such as >, <, !=, etc.
+			$f_array = explode(' ', trim($f));
+
+			$item = $this->quote_ident($f_array[0]);
+
+			// Simple key value, or an operator
+			$item .= (count($f_array) === 1) ? '= ?' : " {$f_array[1]} ?";
+
+			// Put in the query map for select statements
+			$this->having_map[] = array(
+				'conjunction' => ( ! empty($this->having_map)) ? ' AND ' : ' HAVING ',
+				'string' => $item
+			);
+		}
+
+		return $this;
 	}
 	
 	// --------------------------------------------------------------------------
@@ -507,7 +531,28 @@ class Query_Builder {
 	 */
 	public function or_having($key, $val=array())
 	{
-		// @todo Implement or_having
+		$where = $this->_where($key, $val);
+		
+		// Create key/value placeholders
+		foreach($where as $f => $val)
+		{
+			// Split each key by spaces, in case there
+			// is an operator such as >, <, !=, etc.
+			$f_array = explode(' ', trim($f));
+
+			$item = $this->quote_ident($f_array[0]);
+
+			// Simple key value, or an operator
+			$item .= (count($f_array) === 1) ? '= ?' : " {$f_array[1]} ?";
+
+			// Put in the query map for select statements
+			$this->having_map[] = array(
+				'conjunction' => ( ! empty($this->having_map)) ? ' OR ' : ' HAVING ',
+				'string' => $item
+			);
+		}
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
@@ -515,7 +560,7 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Do all the repeditive stuff for where type methods
+	 * Do all the repeditive stuff for where/having type methods
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
@@ -569,7 +614,7 @@ class Query_Builder {
 			$item = $this->quote_ident($f_array[0]);
 
 			// Simple key value, or an operator
-			$item .= (count($f_array === 1)) ? '= ?' : " {$f_array[1]} ?";
+			$item .= (count($f_array) === 1) ? '= ?' : " {$f_array[1]} ?";
 
 			// Put in the query map for select statements
 			$this->query_map[] = array(
@@ -997,7 +1042,7 @@ class Query_Builder {
 		$sql = $this->_compile();
 
 		// Do prepared statements for anything involving a "where" clause
-		if ( ! empty($this->query_map))
+		if ( ! empty($this->query_map) || ! empty($this->having_map))
 		{
 			$result =  $this->prepare_execute($sql, $this->values);
 		}
@@ -1218,7 +1263,7 @@ class Query_Builder {
 				$this->$name = NULL;
 			}
 
-			// Set values as an empty array
+			// Set empty arrays
 			$this->values = array();
 			
 			// Set select string as an empty string, for proper handling
@@ -1265,6 +1310,15 @@ class Query_Builder {
 				if ( ! empty($this->group_string))
 				{
 					$sql .= $this->group_string;
+				}
+				
+				// Set the having string
+				if ( ! empty($this->having_map))
+				{
+					foreach($this->having_map as $h)
+					{
+						$sql .= $h['conjunction'] . $h['string'];
+					}
 				}
 
 				// Set the order_by string
