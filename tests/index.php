@@ -46,7 +46,7 @@ foreach(pdo_drivers() as $d)
 		continue;
 	}
 
-	$src_dir = "{$src_path}{$d}";
+	$src_dir = "{$test_path}{$d}";
 	
 	if(is_dir($src_dir))
 	{
