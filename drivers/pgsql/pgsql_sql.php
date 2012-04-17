@@ -173,10 +173,11 @@ SQL;
 	public function table_list()
 	{
 		return <<<SQL
-			SELECT "tablename" FROM "pg_tables"
-			WHERE "tablename" NOT LIKE 'pg_%'
-			AND "tablename" NOT LIKE 'sql_%'
-			ORDER BY "tablename" ASC
+			SELECT "table_name"
+  			FROM "information_schema"."tables"
+ 			WHERE "table_type" = 'BASE TABLE'
+   			AND "table_schema" NOT IN
+       			('pg_catalog', 'information_schema');
 SQL;
 	}
 
@@ -191,7 +192,7 @@ SQL;
 	{
 		return <<<SQL
 		 	SELECT "tablename" FROM "pg_tables"
-			WHERE "tablename" LIKE 'pg\_%'
+			WHERE "tablename" ~ '^(pg_|sql_)'
 SQL;
 	}
 
