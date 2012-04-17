@@ -16,9 +16,8 @@
  * Firebird result class to emulate PDOStatement Class - only implements
  * data-fetching methods
  *
- * @todo Implement more of the PDOStatement Class
  */
-class Firebird_Result {
+class Firebird_Result extends PDOStatement {
 
 	private $statement;
 
@@ -41,7 +40,7 @@ class Firebird_Result {
 	 * @param  int $fetch_style
 	 * @return mixed
 	 */
-	public function fetch($fetch_style=PDO::FETCH_ASSOC, $statement=NULL)
+	public function fetch($fetch_style=PDO::FETCH_ASSOC, $statement=NULL, $offset=NULL)
 	{
 		if ( ! is_null($statement))
 		{
@@ -72,7 +71,7 @@ class Firebird_Result {
 	 * @param  int  $fetch_style
 	 * @return mixed
 	 */
-	public function fetchAll($fetch_style=PDO::FETCH_ASSOC, $statement=NULL)
+	public function fetchAll($fetch_style=PDO::FETCH_ASSOC, $statement=NULL, $ctor_args=NULL)
 	{
 		$all = array();
 
@@ -108,7 +107,7 @@ class Firebird_Result {
 	 * @param  array $args
 	 * @return bool
 	 */
-	public function execute($args)
+	public function execute($args = NULL)
 	{
 		//Add the prepared statement as the first parameter
 		array_unshift($args, $this->statement);

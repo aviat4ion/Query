@@ -48,6 +48,8 @@ if (function_exists('fbird_connect'))
 	array_map('do_include', glob(DRIVER_PATH.'/firebird/*.php'));
 }
 
+// --------------------------------------------------------------------------
+
 /**
  * Filter out db rows into one array
  *
