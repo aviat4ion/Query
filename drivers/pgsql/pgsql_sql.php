@@ -174,10 +174,10 @@ SQL;
 	{
 		return <<<SQL
 			SELECT "table_name"
-  			FROM "information_schema"."tables"
- 			WHERE "table_type" = 'BASE TABLE'
-   			AND "table_schema" NOT IN
-       			('pg_catalog', 'information_schema');
+			FROM "information_schema"."tables"
+			WHERE "table_type" = 'BASE TABLE'
+			AND "table_schema" NOT IN
+				('pg_catalog', 'information_schema');
 SQL;
 	}
 
@@ -191,8 +191,11 @@ SQL;
 	public function system_table_list()
 	{
 		return <<<SQL
-		 	SELECT "tablename" FROM "pg_tables"
-			WHERE "tablename" ~ '^(pg_|sql_)'
+			SELECT "table_name"
+			FROM "information_schema"."tables"
+			WHERE "table_type" = 'BASE TABLE'
+			AND "table_schema" IN
+				('pg_catalog', 'information_schema');
 SQL;
 	}
 
