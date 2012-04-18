@@ -39,6 +39,8 @@ class Settings {
 	 */
 	private function __construct()
 	{
+		// For testing and use outside of OpenSQLManager, 
+		// define a different SETTINGS_DIR
 		if ( ! defined('SETTINGS_DIR'))
 		{
 			define('SETTINGS_DIR', '.');

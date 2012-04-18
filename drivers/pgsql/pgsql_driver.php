@@ -30,10 +30,6 @@ class pgSQL extends DB_PDO {
 	public function __construct($dsn, $username=null, $password=null, $options=array())
 	{
 		parent::__construct("pgsql:$dsn", $username, $password, $options);
-
-		//Get db manip class
-		$class = __CLASS__.'_sql';
-		$this->sql = new $class;
 	}
 
 	// --------------------------------------------------------------------------

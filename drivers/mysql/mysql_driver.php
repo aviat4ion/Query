@@ -37,9 +37,6 @@ class MySQL extends DB_PDO {
 		));
 			
 		parent::__construct("mysql:$dsn", $username, $password, $options);
-
-		$class = __CLASS__.'_sql';
-		$this->sql = new $class;
 	}
 
 	// --------------------------------------------------------------------------

@@ -17,27 +17,6 @@
   */
 class ODBC_SQL extends DB_SQL {
 
-	public function create_table($name, $columns, array $constraints=array(), array $indexes=array())
-	{
-		//ODBC can't know how to create a table
-		return FALSE;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Remove a table from the database
-	 *
-	 * @param string $name
-	 * @return string
-	 */
-	public function delete_table($name)
-	{
-		return "DROP TABLE {$name}";
-	}
-
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Limit clause
 	 *
@@ -64,32 +43,6 @@ class ODBC_SQL extends DB_SQL {
 	}
 
 	// --------------------------------------------------------------------------
-
-	/**
-	 * Create an SQL backup file for the current database's structure
-	 *
-	 * @return string
-	 */
-	public function backup_structure()
-	{
-		// Not applicable to ODBC
-		return '';
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Create an SQL backup file for the current database's data
-	 *
-	 * @return string
-	 */
-	public function backup_data()
-	{
-		// Not applicable to ODBC
-		return '';
-	}
-
-		// --------------------------------------------------------------------------
 
 	/**
 	 * Returns sql to list other databases

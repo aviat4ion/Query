@@ -21,9 +21,15 @@
  */
 abstract class DB_PDO extends PDO {
 
-	public $manip;
+	// Reference to last query 
 	protected $statement;
+	
+	// Character to escape identifiers
 	protected $escape_char = '"';
+	
+	// References to sub-classes
+	public $sql,
+		$util;
 
 	/**
 	 * PDO constructor wrapper
@@ -36,6 +42,14 @@ abstract class DB_PDO extends PDO {
 	public function __construct($dsn, $username=NULL, $password=NULL, $driver_options=array())
 	{
 		parent::__construct($dsn, $username, $password, $driver_options);
+		
+		// Load the sql class for the driver
+		$class = get_class($this)."_sql";
+		$this->sql = new $class();
+		
+		// Load the util class for the driver
+		$class = get_class($this)."_util";
+		$this->util = new $class($this);
 
 		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}

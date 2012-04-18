@@ -64,7 +64,7 @@ class PgTest extends DBTest {
 
 
 		//Attempt to create the table
-		$sql = $this->db->sql->create_table('create_test',
+		$sql = $this->db->util->create_table('create_test',
 			array(
 				'id' => 'integer',
 				'key' => 'TEXT',
@@ -78,7 +78,7 @@ class PgTest extends DBTest {
 		$this->db->query($sql);
 
 		//Attempt to create the table
-		$sql = $this->db->sql->create_table('create_join',
+		$sql = $this->db->util->create_table('create_join',
 			array(
 				'id' => 'integer',
 				'key' => 'TEXT',

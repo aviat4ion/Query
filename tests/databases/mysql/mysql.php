@@ -52,7 +52,7 @@ class MySQLTest extends DBTest {
 		if (empty($this->db))  return;
 
 		//Attempt to create the table
-		$sql = $this->db->sql->create_table('create_test',
+		$sql = $this->db->util->create_table('create_test',
 			array(
 				'id' => 'int(10)',
 				'key' => 'TEXT',
@@ -66,7 +66,7 @@ class MySQLTest extends DBTest {
 		$this->db->query($sql);
 
 		//Attempt to create the table
-		$sql = $this->db->sql->create_table('create_join',
+		$sql = $this->db->util->create_table('create_join',
 			array(
 				'id' => 'int(10)',
 				'key' => 'TEXT',

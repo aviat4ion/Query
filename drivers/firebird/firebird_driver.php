@@ -43,9 +43,19 @@ class Firebird extends DB_PDO {
 			throw new PDOException(fbird_errmsg());
 			die();
 		}
-
+		
+		// Load these classes here because this
+		// driver does not call the constructor
+		// of DB_PDO, which defines these two 
+		// class variables for the other drivers
+		
+		// Load the sql class
 		$class = __CLASS__."_sql";
-		$this->sql = new $class;
+		$this->sql = new $class();
+		
+		// Load the util class
+		$class = __CLASS__."_util";
+		$this->util = new $class($this);
 	}
 
 	// --------------------------------------------------------------------------

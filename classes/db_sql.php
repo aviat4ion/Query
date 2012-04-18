@@ -84,27 +84,6 @@ abstract class DB_SQL {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Get database-specific sql to create a new table
-	 *
-	 * @abstract
-	 * @param string $name
-	 * @param array $columns
-	 * @param array $constraints
-	 * @param array $indexes
-	 * @return string
-	 */
-	abstract public function create_table($name, $columns, array $constraints=array(), array $indexes=array());
-
-	/**
-	 * Get database-specific sql to drop a table
-	 *
-	 * @abstract
-	 * @param string $name
-	 * @return string
-	 */
-	abstract public function delete_table($name);
-
-	/**
 	 * Get database specific sql for limit clause
 	 *
 	 * @abstract
@@ -122,22 +101,6 @@ abstract class DB_SQL {
 	 * @return string
 	 */
 	abstract public function random();
-
-	/**
-	 * Return an SQL file with the database table structure
-	 *
-	 * @abstract
-	 * @return string
-	 */
-	abstract public function backup_structure();
-
-	/**
-	 * Return an SQL file with the database data as insert statements
-	 *
-	 * @abstract
-	 * @return string
-	 */
-	abstract public function backup_data();
 	
 	/**
 	 * Returns sql to list other databases
