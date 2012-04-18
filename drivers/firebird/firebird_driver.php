@@ -19,7 +19,12 @@
  */
 class Firebird extends DB_PDO {
 
-	protected $statement, $statement_link, $trans, $count, $result, $conn;
+	protected $statement, 
+		$statement_link, 
+		$trans, 
+		$count, 
+		$result, 
+		$conn;
 
 	/**
 	 * Open the link to the database
@@ -216,6 +221,18 @@ class Firebird extends DB_PDO {
 		$msg = fbird_errmsg();
 
 		return array(0, $code, $msg);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Method to emulate PDO->errorCode	 
+	 *
+	 * @return array
+	 */
+	public function errorCode()
+	{
+		return fbird_errcode();
 	}
 
 	// --------------------------------------------------------------------------
