@@ -31,6 +31,71 @@ class Firebird_Result extends PDOStatement {
 	{
 		$this->statement = $link;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Invalidate method for data consistency
+	 *
+	 * @param mixed $column
+	 * @param mixed &$param
+	 * @return FALSE
+	 */
+	public function bindColumn($column, &$param, $type=NULL, $maxlen=NULL, $driverdata=NULL)
+	{
+		return FALSE;
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Invalidate method for data consistency
+	 *
+	 * @param mixed $parameter
+	 * @param mixed &$variable
+	 * @param int $data_type
+	 * @return FALSE
+	 */
+	public function bindParam($parameter, &$variable, $data_type=NULL, $maxlen=NULL, $driverdata=NULL)
+	{
+		return FALSE;
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Invalidate method for data consistency
+	 *
+	 * @param mixed $parameter
+	 * @param mixed &$variable
+	 * @param int $data_type
+	 * @return FALSE
+	 */
+	public function bindValue($parameter, $variable, $data_type=NULL)
+	{
+		return FALSE;
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Run a prepared statement query
+	 *
+	 * @param  array $args
+	 * @return bool
+	 */
+	public function execute($args = NULL)
+	{
+		//Add the prepared statement as the first parameter
+		array_unshift($args, $this->statement);
+
+		// Let php do all the hard stuff in converting
+		// the array of arguments into a list of arguments
+		// Then pass the resource to the constructor
+		$this->__construct(call_user_func_array('fbird_execute', $args));
+
+		return $this;
+	}
 
 	// --------------------------------------------------------------------------
 
@@ -102,27 +167,6 @@ class Firebird_Result extends PDOStatement {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Run a prepared statement query
-	 *
-	 * @param  array $args
-	 * @return bool
-	 */
-	public function execute($args = NULL)
-	{
-		//Add the prepared statement as the first parameter
-		array_unshift($args, $this->statement);
-
-		// Let php do all the hard stuff in converting
-		// the array of arguments into a list of arguments
-		// Then pass the resource to the constructor
-		$this->__construct(call_user_func_array('fbird_execute', $args));
-
-		return $this;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Return the number of rows affected by the previous query
 	 *
 	 * @return int
@@ -142,6 +186,18 @@ class Firebird_Result extends PDOStatement {
 	public function num_rows()
 	{
 		return count($this->fetchAll());
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Method to emulate PDOStatement->errorCode
+	 *
+	 * @return string
+	 */
+	public function errorCode()
+	{
+		return fbird_errcode();
 	}
 
 	// --------------------------------------------------------------------------
