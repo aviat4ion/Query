@@ -30,6 +30,7 @@ class Firebird_Result extends PDOStatement {
 	public function __construct($link)
 	{
 		$this->statement = $link;
+		$this->setFetchMode(PDO::FETCH_ASSOC);
 	}
 	
 	// --------------------------------------------------------------------------
@@ -162,6 +163,19 @@ class Firebird_Result extends PDOStatement {
 	{
 		$row = $this->fetch(PDO::FETCH_NUM);
 		return $row[$column_num];
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Emulate PDOStatement::fetchObject, but only for the default use
+	 * 
+	 * @param int $colum_num
+	 * @return mixed 
+	 */
+	public function fetchObject($class_name='stdClass', $ctor_args=array())
+	{
+		return $this->fetch(PDO::FETCH_OBJ);
 	}
 
 	// --------------------------------------------------------------------------
