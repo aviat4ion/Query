@@ -140,9 +140,12 @@ class Firebird_Util extends DB_Util {
 		{
 			$sql = 'SELECT * FROM "'.trim($t).'"';
 			$res = $this->query($sql);
-			$obj_res = $this->fetchAll(PDO::FETCH_ASSOC);
-
-			unset($res);
+			$obj_res = $res->fetchAll(PDO::FETCH_ASSOC);
+			
+			// Don't add to the file if the table is empty
+			if (count($obj_res) < 1) continue;
+			
+			$res = NULL;
 
 			// Nab the column names by getting the keys of the first row
 			$columns = @array_keys($obj_res[0]);
@@ -163,12 +166,12 @@ class Firebird_Util extends DB_Util {
 
 				$row_string = 'INSERT INTO "'.trim($t).'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
 
-				unset($row);
+				$row = NULL;
 
 				$insert_rows[] = $row_string;
 			}
 
-			unset($obj_res);
+			$obj_res = NULL;
 
 			$output_sql .= "\n\nSET TRANSACTION;\n".implode("\n", $insert_rows)."\nCOMMIT;";
 		}

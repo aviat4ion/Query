@@ -171,9 +171,9 @@ abstract class DB_PDO extends PDO {
 	 */
 	public function get_last_error()
 	{
-		$info = $this->errorInfo();
+		list($i1, $i2, $i3) = $this->errorInfo();
 
-		echo "Error: <pre>{$info[0]}:{$info[1]}\n{$info[2]}</pre>";
+		echo "Error: <pre>{$i1}:{$i2}\n{$i3}</pre>";
 	}
 
 	// --------------------------------------------------------------------------

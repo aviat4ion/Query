@@ -28,6 +28,24 @@ abstract class DB_Util {
 	}
 	
 	// --------------------------------------------------------------------------
+	
+	/**
+	 * Enable calling driver methods
+	 *
+	 * @param string $method
+	 * @param array $args
+	 */
+	public function __call($method, $args)
+	{
+		if (method_exists($this->conn, $method))
+		{
+			return call_user_func_array(array($this->conn, $method), $args);
+		}
+		
+		return NULL;
+	}
+	
+	// --------------------------------------------------------------------------
 	// ! Abstract Methods
 	// --------------------------------------------------------------------------
 

@@ -121,10 +121,13 @@ class MySQL_Util extends DB_Util {
 	/**
 	 * Create an SQL backup file for the current database's data
 	 *
+	 * @param array $exclude
 	 * @return string
 	 */
-	public function backup_data()
+	public function backup_data($exclude=array())
 	{
+		$tables = $this->get_tables();
+	
 		// @todo Implement Backup function
 		return '';
 	}

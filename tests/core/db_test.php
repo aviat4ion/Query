@@ -48,5 +48,10 @@ abstract class DBTest extends UnitTestCase {
 		$res = $this->db->beginTransaction();
 		$this->assertTrue($res);
 	}
+	
+	function TestBackupData()
+	{
+		$this->assertTrue(is_string($this->db->util->backup_data()));
+	}
 }
 // End of db_test.php

@@ -187,5 +187,4 @@ SQL;
 	{
 		$this->assertTrue(is_array($this->db->get_triggers()));
 	}
-
 }
