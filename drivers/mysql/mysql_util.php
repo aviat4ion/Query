@@ -127,9 +127,52 @@ class MySQL_Util extends DB_Util {
 	public function backup_data($exclude=array())
 	{
 		$tables = $this->get_tables();
+		
+		// Filter out the tables you don't want
+		if( ! empty($exclude))
+		{
+			$tables = array_diff($tables, $exclude);
+		}
+		
+		$output_sql = '';
+		
+		// Select the rows from each Table
+		foreach($tables as &$t)
+		{
+			$sql = "SELECT * FROM `{$t}`";
+			$res = $this->query($sql);
+			$rows = $res->fetchAll(PDO::FETCH_ASSOC);
+			
+			$res = NULL;
+			
+			// Skip empty tables
+			if (count($rows) < 1) continue;
+			
+			// Nab the column names by getting the keys of the first row
+			$columns = @array_keys($rows[0]);
+
+			$insert_rows = array();
+			
+			// Create the insert statements
+			foreach($rows as &$row)
+			{
+				$row = array_values($row);
+				$row = array_map(array(&$this, 'quote'), $row);
+				$row = array_map('trim', $row);
+
+				$row_string = 'INSERT INTO `'.trim($t).'` (`'.implode('`,`', $columns).'`) VALUES ('.implode(',', $row).');';
+
+				$row = NULL;
+
+				$insert_rows[] = $row_string;
+			}
+			
+			$obj_res = NULL;
+
+			$output_sql .= "\n\n".implode("\n", $insert_rows)."\n";
+		}
 	
-		// @todo Implement Backup function
-		return '';
+		return $output_sql;
 	}
 }
 // End of mysql_util.php
