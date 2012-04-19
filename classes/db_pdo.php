@@ -16,20 +16,28 @@
  * Base Database class
  *
  * Extends PDO to simplify cross-database issues
- *
- * @abstract
  */
 abstract class DB_PDO extends PDO {
 
-	// Reference to last query 
+	/**
+	 * Reference to the last executed query
+	 */
 	protected $statement;
 	
-	// Character to escape identifiers
+	/**
+	 * Character to escape identifiers
+	 */
 	protected $escape_char = '"';
 	
-	// References to sub-classes
-	public $sql,
-		$util;
+	/**
+	 * Reference to sql sub class
+	 */
+	public $sql;
+	
+	/**
+	 * Reference to util sub class
+	 */
+	public $util;
 
 	/**
 	 * PDO constructor wrapper
@@ -230,30 +238,6 @@ abstract class DB_PDO extends PDO {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Method to simplify retreiving db results for meta-data queries
-	 *
-	 * @param string $sql
-	 * @param bool $filtered_index
-	 * @return mixed
-	 */
-	protected function driver_query($sql, $filtered_index=TRUE)
-	{
-		if ($sql === FALSE)
-		{
-			return FALSE;
-		}
-
-		$res = $this->query($sql);
-
-		$flag = ($filtered_index) ? PDO::FETCH_NUM : PDO::FETCH_ASSOC;
-		$all = $res->fetchAll($flag);
-
-		return ($filtered_index) ? db_filter($all, 0) : $all;
-	}
-
-	// -------------------------------------------------------------------------
-
-	/**
 	 * Return list of tables for the current database
 	 *
 	 * @return array
@@ -346,6 +330,30 @@ abstract class DB_PDO extends PDO {
 	public function get_system_tables()
 	{
 		return $this->driver_query($this->sql->system_table_list());
+	}
+
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Method to simplify retreiving db results for meta-data queries
+	 *
+	 * @param string $sql
+	 * @param bool $filtered_index
+	 * @return mixed
+	 */
+	protected function driver_query($sql, $filtered_index=TRUE)
+	{
+		if ($sql === FALSE)
+		{
+			return FALSE;
+		}
+
+		$res = $this->query($sql);
+
+		$flag = ($filtered_index) ? PDO::FETCH_NUM : PDO::FETCH_ASSOC;
+		$all = $res->fetchAll($flag);
+
+		return ($filtered_index) ? db_filter($all, 0) : $all;
 	}
 
 	// -------------------------------------------------------------------------

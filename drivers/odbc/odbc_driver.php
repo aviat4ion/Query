@@ -21,7 +21,9 @@
   */
 class ODBC extends DB_PDO {
 
-	// Don't define the escape char - or define it in sub-drivers in a refactor
+	/**
+	 * Don't define the escape char - or define it in sub-drivers in a refactor
+	 */
 	protected $escape_char = '';
 
 	/**
@@ -42,6 +44,7 @@ class ODBC extends DB_PDO {
 	/**
 	 * Doesn't apply to ODBC
 	 *
+	 * @param string $name
 	 * @return bool
 	 */
 	public function switch_db($name)
@@ -54,6 +57,7 @@ class ODBC extends DB_PDO {
 	/**
 	 * Empty the current database
 	 *
+	 * @param string $table
 	 * @return void
 	 */
 	public function truncate($table)

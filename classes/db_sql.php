@@ -88,7 +88,7 @@ abstract class DB_SQL {
 	 *
 	 * @abstract
 	 * @param string $sql
-	 * @param int $limiit
+	 * @param int $limit
 	 * @param int $offset
 	 * @return string
 	 */

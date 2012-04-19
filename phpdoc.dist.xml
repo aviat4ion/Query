@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+	<title>Query</title>
+	<parser>
+		<target>docs</target>
+	</parser>
+	<transformer>
+		<target>docs</target>
+	</transformer>
+	<transformations>
+        <template name="responsive" />
+    </transformations>
+	<files>
+		<directory>.</directory>
+		<directory>tests</directory>
+		<ignore>tests/*</ignore>
+	</files>
+</phpdoc>

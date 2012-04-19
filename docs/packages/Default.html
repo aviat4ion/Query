@@ -1,0 +1,320 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Query » Default</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Query</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu"></ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-map-marker"></i> Packages</li>
+<li>
+<a href="../packages/Default.html" title="Default"><i class="icon-folder-open"></i>Default</a><ul class="nav nav-list nav-packages"></ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-function"></i> Functions</li>
+<li class="function  "><a href="#db_filter" title="db_filter :: Filter out db rows into one array"><span class="description">Filter out db rows into one array</span><pre>db_filter</pre></a></li>
+<li class="function  "><a href="#do_include" title="do_include :: Bulk directory loading workaround for use
+with array_map and glob"><span class="description">Bulk directory loading workaround for use
+with array_map and glob</span><pre>do_include</pre></a></li>
+<li class="nav-header">
+<i class="icon-custom icon-class"></i> Classes</li>
+<li><a href="#DB_Reg" title="Connection registry">DB_Reg</a></li>
+<li><a href="#Settings" title="Class for manipulating datbase connections, and miscellaneous settings">Settings</a></li>
+<li><a href="#DB_SQL" title="Abstract parent for database manipulation subclasses">DB_SQL</a></li>
+<li><a href="#DB_PDO" title="Base Database class">DB_PDO</a></li>
+<li><a href="#Query_Builder" title="Convienience class for creating sql queries - also the class that
+instantiates the specific db driver">Query_Builder</a></li>
+<li><a href="#DB_Util" title="Abstract class defining database / table creation methods">DB_Util</a></li>
+<li><a href="#pgSQL_SQL" title="PostgreSQL specifc SQL">pgSQL_SQL</a></li>
+<li><a href="#PgSQL_Util" title="Posgres-specific backup, import and creation methods">PgSQL_Util</a></li>
+<li><a href="#pgSQL" title="PostgreSQL specifc class">pgSQL</a></li>
+<li><a href="#ODBC_Util" title="ODBC-specific backup, import and creation methods">ODBC_Util</a></li>
+<li><a href="#ODBC_SQL" title="ODBC SQL Class">ODBC_SQL</a></li>
+<li><a href="#ODBC" title="ODBC Database Driver">ODBC</a></li>
+<li><a href="#MySQL_Util" title="MySQL-specific backup, import and creation methods">MySQL_Util</a></li>
+<li><a href="#MySQL" title="MySQL specific class">MySQL</a></li>
+<li><a href="#MySQL_SQL" title="MySQL specifc SQL">MySQL_SQL</a></li>
+<li><a href="#SQLite_Util" title="SQLite-specific backup, import and creation methods">SQLite_Util</a></li>
+<li><a href="#SQLite" title="SQLite specific class">SQLite</a></li>
+<li><a href="#SQLite_SQL" title="SQLite Specific SQL">SQLite_SQL</a></li>
+<li><a href="#Firebird_SQL" title="Firebird Specific SQL">Firebird_SQL</a></li>
+<li><a href="#Firebird_Result" title="Firebird result class to emulate PDOStatement Class - only implements
+data-fetching methods">Firebird_Result</a></li>
+<li><a href="#Firebird" title="Firebird Database class">Firebird</a></li>
+<li><a href="#Firebird_Util" title="Firebird-specific backup, import and creation methods">Firebird_Util</a></li>
+<li class="nav-header">
+<i class="icon-custom icon-constant"></i> Constants</li>
+<li class="constant  "><a href="#BASE_PATH" title="BASE_PATH :: Reference to root path"><span class="description">Reference to root path</span><pre>BASE_PATH</pre></a></li>
+<li class="constant  "><a href="#DRIVER_PATH" title="DRIVER_PATH :: Path to driver classes"><span class="description">Path to driver classes</span><pre>DRIVER_PATH</pre></a></li>
+</ul>
+</div>
+<div class="span8 package-contents">
+<ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span>
+</li>
+<li class="active"><a href="../packages/Default.html">Default</a></li>
+</ul>
+<div class="package-indent">
+<h3>
+<i class="icon-custom icon-function"></i> Functions</h3>
+<a name="db_filter" id="db_filter"></a><div class="element clickable function  db_filter" data-toggle="collapse" data-target=".db_filter .collapse">
+<h2>Filter out db rows into one array</h2>
+<pre>db_filter(array $array, mixed $index) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$array</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$index</h4>
+<code>mixed</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="do_include" id="do_include"></a><div class="element clickable function  do_include" data-toggle="collapse" data-target=".do_include .collapse">
+<h2>Bulk directory loading workaround for use
+with array_map and glob</h2>
+<pre>do_include(string $path) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<a name="DB_PDO" id="DB_PDO"></a><div class="element ajax clickable class" href="../classes/DB_PDO.html">
+<h1>DB_PDO<a href="../classes/DB_PDO.html">¶</a>
+</h1>
+<p class="short_description">Base Database class</p>
+<div class="details collapse"></div>
+<a href="../classes/DB_PDO.html" class="more">« More »</a>
+</div>
+<a name="DB_Reg" id="DB_Reg"></a><div class="element ajax clickable class" href="../classes/DB_Reg.html">
+<h1>DB_Reg<a href="../classes/DB_Reg.html">¶</a>
+</h1>
+<p class="short_description">Connection registry</p>
+<div class="details collapse"></div>
+<a href="../classes/DB_Reg.html" class="more">« More »</a>
+</div>
+<a name="DB_SQL" id="DB_SQL"></a><div class="element ajax clickable class" href="../classes/DB_SQL.html">
+<h1>DB_SQL<a href="../classes/DB_SQL.html">¶</a>
+</h1>
+<p class="short_description">Abstract parent for database manipulation subclasses</p>
+<div class="details collapse"></div>
+<a href="../classes/DB_SQL.html" class="more">« More »</a>
+</div>
+<a name="DB_Util" id="DB_Util"></a><div class="element ajax clickable class" href="../classes/DB_Util.html">
+<h1>DB_Util<a href="../classes/DB_Util.html">¶</a>
+</h1>
+<p class="short_description">Abstract class defining database / table creation methods</p>
+<div class="details collapse"></div>
+<a href="../classes/DB_Util.html" class="more">« More »</a>
+</div>
+<a name="Firebird" id="Firebird"></a><div class="element ajax clickable class" href="../classes/Firebird.html">
+<h1>Firebird<a href="../classes/Firebird.html">¶</a>
+</h1>
+<p class="short_description">Firebird Database class</p>
+<div class="details collapse"></div>
+<a href="../classes/Firebird.html" class="more">« More »</a>
+</div>
+<a name="Firebird_Result" id="Firebird_Result"></a><div class="element ajax clickable class" href="../classes/Firebird_Result.html">
+<h1>Firebird_Result<a href="../classes/Firebird_Result.html">¶</a>
+</h1>
+<p class="short_description">Firebird result class to emulate PDOStatement Class - only implements
+data-fetching methods</p>
+<div class="details collapse"></div>
+<a href="../classes/Firebird_Result.html" class="more">« More »</a>
+</div>
+<a name="Firebird_SQL" id="Firebird_SQL"></a><div class="element ajax clickable class" href="../classes/Firebird_SQL.html">
+<h1>Firebird_SQL<a href="../classes/Firebird_SQL.html">¶</a>
+</h1>
+<p class="short_description">Firebird Specific SQL</p>
+<div class="details collapse"></div>
+<a href="../classes/Firebird_SQL.html" class="more">« More »</a>
+</div>
+<a name="Firebird_Util" id="Firebird_Util"></a><div class="element ajax clickable class" href="../classes/Firebird_Util.html">
+<h1>Firebird_Util<a href="../classes/Firebird_Util.html">¶</a>
+</h1>
+<p class="short_description">Firebird-specific backup, import and creation methods</p>
+<div class="details collapse"></div>
+<a href="../classes/Firebird_Util.html" class="more">« More »</a>
+</div>
+<a name="MySQL" id="MySQL"></a><div class="element ajax clickable class" href="../classes/MySQL.html">
+<h1>MySQL<a href="../classes/MySQL.html">¶</a>
+</h1>
+<p class="short_description">MySQL specific class</p>
+<div class="details collapse"></div>
+<a href="../classes/MySQL.html" class="more">« More »</a>
+</div>
+<a name="MySQL_SQL" id="MySQL_SQL"></a><div class="element ajax clickable class" href="../classes/MySQL_SQL.html">
+<h1>MySQL_SQL<a href="../classes/MySQL_SQL.html">¶</a>
+</h1>
+<p class="short_description">MySQL specifc SQL</p>
+<div class="details collapse"></div>
+<a href="../classes/MySQL_SQL.html" class="more">« More »</a>
+</div>
+<a name="MySQL_Util" id="MySQL_Util"></a><div class="element ajax clickable class" href="../classes/MySQL_Util.html">
+<h1>MySQL_Util<a href="../classes/MySQL_Util.html">¶</a>
+</h1>
+<p class="short_description">MySQL-specific backup, import and creation methods</p>
+<div class="details collapse"></div>
+<a href="../classes/MySQL_Util.html" class="more">« More »</a>
+</div>
+<a name="ODBC" id="ODBC"></a><div class="element ajax clickable class" href="../classes/ODBC.html">
+<h1>ODBC<a href="../classes/ODBC.html">¶</a>
+</h1>
+<p class="short_description">ODBC Database Driver</p>
+<div class="details collapse"></div>
+<a href="../classes/ODBC.html" class="more">« More »</a>
+</div>
+<a name="ODBC_SQL" id="ODBC_SQL"></a><div class="element ajax clickable class" href="../classes/ODBC_SQL.html">
+<h1>ODBC_SQL<a href="../classes/ODBC_SQL.html">¶</a>
+</h1>
+<p class="short_description">ODBC SQL Class</p>
+<div class="details collapse"></div>
+<a href="../classes/ODBC_SQL.html" class="more">« More »</a>
+</div>
+<a name="ODBC_Util" id="ODBC_Util"></a><div class="element ajax clickable class" href="../classes/ODBC_Util.html">
+<h1>ODBC_Util<a href="../classes/ODBC_Util.html">¶</a>
+</h1>
+<p class="short_description">ODBC-specific backup, import and creation methods</p>
+<div class="details collapse"></div>
+<a href="../classes/ODBC_Util.html" class="more">« More »</a>
+</div>
+<a name="PgSQL_Util" id="PgSQL_Util"></a><div class="element ajax clickable class" href="../classes/PgSQL_Util.html">
+<h1>PgSQL_Util<a href="../classes/PgSQL_Util.html">¶</a>
+</h1>
+<p class="short_description">Posgres-specific backup, import and creation methods</p>
+<div class="details collapse"></div>
+<a href="../classes/PgSQL_Util.html" class="more">« More »</a>
+</div>
+<a name="Query_Builder" id="Query_Builder"></a><div class="element ajax clickable class" href="../classes/Query_Builder.html">
+<h1>Query_Builder<a href="../classes/Query_Builder.html">¶</a>
+</h1>
+<p class="short_description">Convienience class for creating sql queries - also the class that
+instantiates the specific db driver</p>
+<div class="details collapse"></div>
+<a href="../classes/Query_Builder.html" class="more">« More »</a>
+</div>
+<a name="SQLite" id="SQLite"></a><div class="element ajax clickable class" href="../classes/SQLite.html">
+<h1>SQLite<a href="../classes/SQLite.html">¶</a>
+</h1>
+<p class="short_description">SQLite specific class</p>
+<div class="details collapse"></div>
+<a href="../classes/SQLite.html" class="more">« More »</a>
+</div>
+<a name="SQLite_SQL" id="SQLite_SQL"></a><div class="element ajax clickable class" href="../classes/SQLite_SQL.html">
+<h1>SQLite_SQL<a href="../classes/SQLite_SQL.html">¶</a>
+</h1>
+<p class="short_description">SQLite Specific SQL</p>
+<div class="details collapse"></div>
+<a href="../classes/SQLite_SQL.html" class="more">« More »</a>
+</div>
+<a name="SQLite_Util" id="SQLite_Util"></a><div class="element ajax clickable class" href="../classes/SQLite_Util.html">
+<h1>SQLite_Util<a href="../classes/SQLite_Util.html">¶</a>
+</h1>
+<p class="short_description">SQLite-specific backup, import and creation methods</p>
+<div class="details collapse"></div>
+<a href="../classes/SQLite_Util.html" class="more">« More »</a>
+</div>
+<a name="Settings" id="Settings"></a><div class="element ajax clickable class" href="../classes/Settings.html">
+<h1>Settings<a href="../classes/Settings.html">¶</a>
+</h1>
+<p class="short_description">Class for manipulating datbase connections, and miscellaneous settings</p>
+<div class="details collapse"></div>
+<a href="../classes/Settings.html" class="more">« More »</a>
+</div>
+<a name="pgSQL" id="pgSQL"></a><div class="element ajax clickable class" href="../classes/pgSQL.html">
+<h1>pgSQL<a href="../classes/pgSQL.html">¶</a>
+</h1>
+<p class="short_description">PostgreSQL specifc class</p>
+<div class="details collapse"></div>
+<a href="../classes/pgSQL.html" class="more">« More »</a>
+</div>
+<a name="pgSQL_SQL" id="pgSQL_SQL"></a><div class="element ajax clickable class" href="../classes/pgSQL_SQL.html">
+<h1>pgSQL_SQL<a href="../classes/pgSQL_SQL.html">¶</a>
+</h1>
+<p class="short_description">PostgreSQL specifc SQL</p>
+<div class="details collapse"></div>
+<a href="../classes/pgSQL_SQL.html" class="more">« More »</a>
+</div>
+<h3>
+<i class="icon-custom icon-constant"></i> Constants</h3>
+<a name="BASE_PATH" id="BASE_PATH"> </a><div class="element clickable constant  BASE_PATH" data-toggle="collapse" data-target=".BASE_PATH .collapse">
+<h2>Reference to root path</h2>
+<pre>BASE_PATH </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="DRIVER_PATH" id="DRIVER_PATH"> </a><div class="element clickable constant  DRIVER_PATH" data-toggle="collapse" data-target=".DRIVER_PATH .collapse">
+<h2>Path to driver classes</h2>
+<pre>DRIVER_PATH </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
+            generated on 2012-04-19T11:41:28-04:00.<br></footer></div>
+</div>
+</body>
+</html>

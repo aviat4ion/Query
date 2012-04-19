@@ -17,10 +17,15 @@
  */
 abstract class DB_Util {
 
+	/**
+	 * Reference to the current connection object
+	 */
 	private $conn;
 	
 	/**
 	 * Save a reference to the connection object for later use
+	 *
+	 * @param object &$conn
 	 */
 	public function __construct(&$conn)
 	{

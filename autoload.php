@@ -16,12 +16,25 @@
  * Autoloader for loading available database classes
  */
 
+/**
+ * Reference to root path
+ */
 define('BASE_PATH', dirname(__FILE__).'/');
+
+/**
+ * Path to driver classes
+ */
 define('DRIVER_PATH', BASE_PATH.'drivers/');
 
-// Bulk loading wrapper workaround for PHP < 5.4
 if ( ! function_exists('do_include'))
 {
+	/**
+	 * Bulk directory loading workaround for use
+	 * with array_map and glob
+	 *
+	 * @param string $path
+	 * @return void
+	 */
 	function do_include($path)
 	{
 		require_once($path);

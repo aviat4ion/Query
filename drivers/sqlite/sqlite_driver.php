@@ -19,12 +19,17 @@
  */
 class SQLite extends DB_PDO {
 
+	/**
+	 * Reference to the last executed sql query
+	 */
 	protected $statement;
 
 	/**
 	 * Open SQLite Database
 	 *
 	 * @param string $dsn
+	 * @param string $user
+	 * @param string $pass
 	 */
 	public function __construct($dsn, $user=NULL, $pass=NULL)
 	{
@@ -36,6 +41,8 @@ class SQLite extends DB_PDO {
 
 	/**
 	 * Doesn't apply to sqlite
+	 *
+	 * @param string $name
 	 */
 	public function switch_db($name)
 	{

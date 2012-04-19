@@ -19,6 +19,9 @@
  */
 class Firebird_Result extends PDOStatement {
 
+	/**
+	 * Reference to fbird resource
+	 */
 	private $statement;
 
 	/**
@@ -40,6 +43,9 @@ class Firebird_Result extends PDOStatement {
 	 *
 	 * @param mixed $column
 	 * @param mixed &$param
+	 * @param int $type
+	 * @param mixed $maxlen
+	 * @param array $driverdata
 	 * @return FALSE
 	 */
 	public function bindColumn($column, &$param, $type=NULL, $maxlen=NULL, $driverdata=NULL)
@@ -55,6 +61,8 @@ class Firebird_Result extends PDOStatement {
 	 * @param mixed $parameter
 	 * @param mixed &$variable
 	 * @param int $data_type
+	 * @param mixed $maxlen
+	 * @param array $driverdata
 	 * @return FALSE
 	 */
 	public function bindParam($parameter, &$variable, $data_type=NULL, $maxlen=NULL, $driverdata=NULL)
@@ -103,7 +111,9 @@ class Firebird_Result extends PDOStatement {
 	/**
 	 * Emulate PDO fetch public function
 	 *
-	 * @param  int $fetch_style
+	 * @param int $fetch_style
+	 * @param mixed $statement
+	 * @param mixed $offset
 	 * @return mixed
 	 */
 	public function fetch($fetch_style=PDO::FETCH_ASSOC, $statement=NULL, $offset=NULL)
@@ -134,7 +144,9 @@ class Firebird_Result extends PDOStatement {
 	/**
 	 * Emulate PDO fetchAll public function
 	 *
-	 * @param  int  $fetch_style
+	 * @param int  $fetch_style
+	 * @param mixed $statement
+	 * @param mixed $ctor_args
 	 * @return mixed
 	 */
 	public function fetchAll($fetch_style=PDO::FETCH_ASSOC, $statement=NULL, $ctor_args=NULL)
@@ -156,7 +168,7 @@ class Firebird_Result extends PDOStatement {
 	/**
 	 * Emulate PDOStatement::fetchColumn
 	 * 
-	 * @param int $colum_num
+	 * @param int $column_num
 	 * @return mixed 
 	 */
 	public function fetchColumn($column_num=0)
@@ -170,7 +182,8 @@ class Firebird_Result extends PDOStatement {
 	/**
 	 * Emulate PDOStatement::fetchObject, but only for the default use
 	 * 
-	 * @param int $colum_num
+	 * @param string $class_name
+	 * @param array $ctor_args
 	 * @return mixed 
 	 */
 	public function fetchObject($class_name='stdClass', $ctor_args=array())

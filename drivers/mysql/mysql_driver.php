@@ -19,16 +19,18 @@
  */
 class MySQL extends DB_PDO {
 
+	/**
+	 * Set the backtick as the MySQL escape character
+	 */
 	protected $escape_char = '`';
-	protected $system_db = 'information_schema';
 
 	/**
 	 * Connect to MySQL Database
 	 *
 	 * @param string $dsn
-	 * @param string $username=null
-	 * @param string $password=null
-	 * @param array $options=array()
+	 * @param string $username
+	 * @param string $password
+	 * @param array $options
 	 */
 	public function __construct($dsn, $username=null, $password=null, $options=array())
 	{

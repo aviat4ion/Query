@@ -1,0 +1,260 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Query » \DB_SQL</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Query</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu"></ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#avg" title="avg :: Get the 'average' keyword"><span class="description">Get the 'average' keyword</span><pre>avg()</pre></a></li>
+<li class="method public "><a href="#db_list" title="db_list :: Returns sql to list other databases"><span class="description">Returns sql to list other databases</span><pre>db_list()</pre></a></li>
+<li class="method public "><a href="#distinct" title="distinct :: Get the 'distinct' keyword"><span class="description">Get the 'distinct' keyword</span><pre>distinct()</pre></a></li>
+<li class="method public "><a href="#function_list" title="function_list :: Return sql to list functions"><span class="description">Return sql to list functions</span><pre>function_list()</pre></a></li>
+<li class="method public "><a href="#limit" title="limit :: Get database specific sql for limit clause"><span class="description">Get database specific sql for limit clause</span><pre>limit()</pre></a></li>
+<li class="method public "><a href="#max" title="max :: Get the max keyword sql"><span class="description">Get the max keyword sql</span><pre>max()</pre></a></li>
+<li class="method public "><a href="#min" title="min :: Get the min keyword sql"><span class="description">Get the min keyword sql</span><pre>min()</pre></a></li>
+<li class="method public "><a href="#procedure_list" title="procedure_list :: Return sql to list stored procedures"><span class="description">Return sql to list stored procedures</span><pre>procedure_list()</pre></a></li>
+<li class="method public "><a href="#random" title="random :: Get the sql for random ordering"><span class="description">Get the sql for random ordering</span><pre>random()</pre></a></li>
+<li class="method public "><a href="#sequence_list" title="sequence_list :: Return sql to list sequences"><span class="description">Return sql to list sequences</span><pre>sequence_list()</pre></a></li>
+<li class="method public "><a href="#sum" title="sum :: Get the 'sum' keyword"><span class="description">Get the 'sum' keyword</span><pre>sum()</pre></a></li>
+<li class="method public "><a href="#system_table_list" title="system_table_list :: Returns sql to list system tables"><span class="description">Returns sql to list system tables</span><pre>system_table_list()</pre></a></li>
+<li class="method public "><a href="#table_list" title="table_list :: Returns sql to list tables"><span class="description">Returns sql to list tables</span><pre>table_list()</pre></a></li>
+<li class="method public "><a href="#trigger_list" title="trigger_list :: Returns sql to list triggers"><span class="description">Returns sql to list triggers</span><pre>trigger_list()</pre></a></li>
+<li class="method public "><a href="#view_list" title="view_list :: Returns sql to list views"><span class="description">Returns sql to list views</span><pre>view_list()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CDB_SQL" id="\DB_SQL"></a><div href="../classes/DB_SQL.html" class="element class">
+<p class="short_description">Abstract parent for database manipulation subclasses</p>
+<div class="details">
+<p class="long_description"></p>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="avg" id="avg"></a><div class="element clickable method public avg" data-toggle="collapse" data-target=".avg .collapse">
+<h2>Get the 'average' keyword</h2>
+<pre>avg() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="db_list" id="db_list"></a><div class="element clickable method public db_list" data-toggle="collapse" data-target=".db_list .collapse">
+<h2>Returns sql to list other databases</h2>
+<pre>db_list() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="distinct" id="distinct"></a><div class="element clickable method public distinct" data-toggle="collapse" data-target=".distinct .collapse">
+<h2>Get the 'distinct' keyword</h2>
+<pre>distinct() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="function_list" id="function_list"></a><div class="element clickable method public function_list" data-toggle="collapse" data-target=".function_list .collapse">
+<h2>Return sql to list functions</h2>
+<pre>function_list() : FALSE</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>FALSE</code></div>
+</div></div>
+</div>
+<a name="limit" id="limit"></a><div class="element clickable method public limit" data-toggle="collapse" data-target=".limit .collapse">
+<h2>Get database specific sql for limit clause</h2>
+<pre>limit(string $sql, int $limit, int $offset) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>abstract</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$sql</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$limit</h4>
+<code>int</code>
+</div>
+<div class="subelement argument">
+<h4>$offset</h4>
+<code>int</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="max" id="max"></a><div class="element clickable method public max" data-toggle="collapse" data-target=".max .collapse">
+<h2>Get the max keyword sql</h2>
+<pre>max() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="min" id="min"></a><div class="element clickable method public min" data-toggle="collapse" data-target=".min .collapse">
+<h2>Get the min keyword sql</h2>
+<pre>min() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="procedure_list" id="procedure_list"></a><div class="element clickable method public procedure_list" data-toggle="collapse" data-target=".procedure_list .collapse">
+<h2>Return sql to list stored procedures</h2>
+<pre>procedure_list() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="random" id="random"></a><div class="element clickable method public random" data-toggle="collapse" data-target=".random .collapse">
+<h2>Get the sql for random ordering</h2>
+<pre>random() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>abstract</th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="sequence_list" id="sequence_list"></a><div class="element clickable method public sequence_list" data-toggle="collapse" data-target=".sequence_list .collapse">
+<h2>Return sql to list sequences</h2>
+<pre>sequence_list() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="sum" id="sum"></a><div class="element clickable method public sum" data-toggle="collapse" data-target=".sum .collapse">
+<h2>Get the 'sum' keyword</h2>
+<pre>sum() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="system_table_list" id="system_table_list"></a><div class="element clickable method public system_table_list" data-toggle="collapse" data-target=".system_table_list .collapse">
+<h2>Returns sql to list system tables</h2>
+<pre>system_table_list() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="table_list" id="table_list"></a><div class="element clickable method public table_list" data-toggle="collapse" data-target=".table_list .collapse">
+<h2>Returns sql to list tables</h2>
+<pre>table_list() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="trigger_list" id="trigger_list"></a><div class="element clickable method public trigger_list" data-toggle="collapse" data-target=".trigger_list .collapse">
+<h2>Returns sql to list triggers</h2>
+<pre>trigger_list() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="view_list" id="view_list"></a><div class="element clickable method public view_list" data-toggle="collapse" data-target=".view_list .collapse">
+<h2>Returns sql to list views</h2>
+<pre>view_list() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
+            generated on 2012-04-19T11:41:28-04:00.<br></footer></div>
+</div>
+</body>
+</html>

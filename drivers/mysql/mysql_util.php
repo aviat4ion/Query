@@ -17,18 +17,26 @@
  */
 class MySQL_Util extends DB_Util {
 
+	/**
+	 * Save a reference to the current connection object
+	 *
+	 * @param object &$conn
+	 * @return void
+	 */
 	public function __construct(&$conn)
 	{
 		parent::__construct($conn);
 	}
+	
+	// --------------------------------------------------------------------------
 	
 	/**
  	 * Convienience public function for creating a new MySQL table
  	 *
  	 * @param string $name
  	 * @param array $columns
- 	 * @param array $constraints=array()
- 	 * @param array $indexes=array()
+ 	 * @param array $constraints
+ 	 * @param array $indexes
  	 *
  	 * @return string
  	 */

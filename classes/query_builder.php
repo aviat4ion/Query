@@ -18,46 +18,102 @@
  */
 class Query_Builder {
 
-	// Compiled query component strings
-	private $select_string = '',
-		$from_string,
-		$set_string,
-		$order_string,
-		$group_string;
+	/**
+	 * Compiled 'select' clause
+	 */
+	private $select_string;
+	
+	/**
+	 * Compiled 'from' clause
+	 */	
+	private $from_string;
+	
+	/**
+	 * Compiled arguments for insert / update
+	 */
+	private $set_string;
+	
+	/**
+	 * Order by clause
+	 */
+	private $order_string;
+	
+	/**
+	 * Group by clause
+	 */
+	private $group_string;
+	
+	// --------------------------------------------------------------------------
 
-	// Key value pairs
-	private $set_array,
-		$set_array_keys,
-		$order_array,
-		$group_array;
+	/**
+	 * key/val pairs for insert/update statement
+	 */
+	private $set_array;
+	
+	/**
+	 * Keys for insert/update statement
+	 */
+	private $set_array_keys;
+	
+	/** 
+	 * Key/val pairs for order by clause
+	 */
+	private $order_array;
+	
+	/**
+	 * Key/val pairs for group by clause
+	 */
+	private $group_array;
+	
+	// --------------------------------------------------------------------------
 
-	// Values to apply to prepared statements
+	/**
+	 * Values to apply to prepared statements
+	 */
 	private $values;
 
-	// Query-global components
-	private $limit,
-		$offset;
+	/**
+	 * Value for limit string
+	 */
+	private $limit;
+	
+	/**
+	 * Value for offset in limit string
+	 */
+	private $offset;
 
-	// Alias to $this->sql
+	/**
+	 * Alias to $this->db->sql
+	 */
 	private $sql;
 
-	// Query component order mapping
-	// for complex select queries
-	//
-	// Format:
-	//
-	// array(
-	// 		'type' => 'where',
-	//		'conjunction' => ' AND ',
-	// 		'string' => 'k=?'
-	// )
+	/** 
+	 * Query component order mapping
+	 * for complex select queries
+	 *
+	 * Format:
+	 *
+	 * array(
+	 * 		'type' => 'where',
+	 *		'conjunction' => ' AND ',
+	 * 		'string' => 'k=?'
+	 * )
+	 */
 	private $query_map;
 	
-	// Map for having clause
+	/**
+	 * Map for having clause
+	 */
 	private $having_map;
 
-	// Convenience property for connection management
+	/**
+	 *  Convenience property for connection management
+	 */
 	public $conn_name = "";
+	
+	// --------------------------------------------------------------------------
+	// ! Start of methods
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Constructor

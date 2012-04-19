@@ -17,18 +17,26 @@
  */
 class Firebird_Util extends DB_Util {
 
+	/**
+	 * Save a reference to the current connection object
+	 *
+	 * @param object &$conn
+	 * @return void
+	 */
 	public function __construct(&$conn)
 	{
 		parent::__construct($conn);
 	}
+	
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Convienience public function to generate sql for creating a db table
 	 *
 	 * @param string $name
 	 * @param array $fields
-	 * @param array $constraints=array()
-	 * @param array $indexes=array()
+	 * @param array $constraints
+	 * @param array $indexes
 	 *
 	 * @return string
 	 */

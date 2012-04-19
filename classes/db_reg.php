@@ -20,6 +20,9 @@
  */
 class DB_Reg {
 
+	/**
+	 * Static array of connections
+	 */
 	private static $instance=array();
 
 	/**

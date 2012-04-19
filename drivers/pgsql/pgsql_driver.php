@@ -23,9 +23,9 @@ class pgSQL extends DB_PDO {
 	 * Connect to a PosgreSQL database
 	 *
 	 * @param string $dsn
-	 * @param string $username=null
-	 * @param string $password=null
-	 * @param array  $options=array()
+	 * @param string $username
+	 * @param string $password
+	 * @param array  $options
 	 */
 	public function __construct($dsn, $username=null, $password=null, $options=array())
 	{

@@ -19,17 +19,31 @@
  */
 class Firebird extends DB_PDO {
 
-	protected $statement, 
-		$statement_link, 
-		$trans, 
-		$count, 
-		$result, 
-		$conn;
+	/**
+	 * Reference to the last query executed
+	 */
+	protected $statement;
+	
+	/**
+	 * Reference to the resource returned by
+	 * the last query executed
+	 */
+	protected $statement_link;
+	
+	/**
+	 * Reference to the current transaction
+	 */
+	protected $trans; 
+	
+	/**
+	 * Reference to the connection resource
+	 */
+	protected $conn;
 
 	/**
 	 * Open the link to the database
 	 *
-	 * @param string $db
+	 * @param string $dbpath
 	 * @param string $user
 	 * @param string $pass
 	 */
@@ -62,6 +76,9 @@ class Firebird extends DB_PDO {
 
 	/**
 	 * Doesn't apply to Firebird
+	 *
+	 * @param string $name
+	 * @return FALSE
 	 */
 	public function switch_db($name)
 	{
@@ -92,8 +109,6 @@ class Firebird extends DB_PDO {
 	 */
 	public function query($sql)
 	{
-		$this->count = 0;
-
 		$this->statement_link = (isset($this->trans))
 			? fbird_query($this->trans, $sql)
 			: fbird_query($this->conn, $sql);
@@ -113,6 +128,7 @@ class Firebird extends DB_PDO {
 	 * Emulate PDO prepare
 	 *
 	 * @param string $query
+	 * @param array $options
 	 * @return $this
 	 */
 	public function prepare($query, $options=NULL)
@@ -206,6 +222,7 @@ class Firebird extends DB_PDO {
 	 * Method to emulate PDO->quote
 	 *
 	 * @param string $str
+	 * @param int $param_type
 	 * @return string
 	 */
 	public function quote($str, $param_type = NULL)
@@ -250,6 +267,8 @@ class Firebird extends DB_PDO {
 	/**
 	 * Bind a prepared query with arguments for executing
 	 *
+	 * @param string $sql
+	 * @param array $params
 	 * @return FALSE
 	 */
 	public function prepare_query($sql, $params)

@@ -19,9 +19,22 @@
  */
 class Settings {
 
+	/**
+	 * Settings object represented by the currently loaded JSON file
+	 */
 	private $current;
+	
+	/**
+	 * Singleton instance
+	 */
 	private static $instance;
 
+	/**
+	 * Static method to retreive current instance
+	 * of the singleton
+	 *
+	 * @return Settings
+	 */
 	public static function &get_instance()
 	{
 		if( ! isset(self::$instance))
@@ -152,6 +165,7 @@ class Settings {
 	/**
 	 * Edit a database connection
 	 *
+	 * @param string $name
 	 * @param array $params
 	 */
 	public function edit_db($name, $params)
