@@ -15,6 +15,9 @@
 /**
  * Convienience class for creating sql queries - also the class that
  * instantiates the specific db driver
+ *
+ * @package Query
+ * @subpackage Query
  */
 class Query_Builder {
 
@@ -507,7 +510,7 @@ class Query_Builder {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this;
+	 * @return $this
 	 */
 	public function or_not_like($field, $val, $pos='both')
 	{

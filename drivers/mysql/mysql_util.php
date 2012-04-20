@@ -4,16 +4,20 @@
  *
  * Free Query Builder / Database Abstraction Layer
  *
- * @author 		Timothy J. Warren
+ * @package		Query
+ * @author		Timothy J. Warren
  * @copyright	Copyright (c) 2012
  * @link 		https://github.com/aviat4ion/Query
- * @license 	http://philsturgeon.co.uk/code/dbad-license 
+ * @license		http://philsturgeon.co.uk/code/dbad-license
  */
 
 // --------------------------------------------------------------------------
 
 /**
  * MySQL-specific backup, import and creation methods
+ *
+ * @package Query
+ * @subpackage Drivers
  */
 class MySQL_Util extends DB_Util {
 
@@ -101,7 +105,7 @@ class MySQL_Util extends DB_Util {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Convience public function for droping a MySQL table
+	 * Convience public function for droping a table
 	 *
 	 * @param string $name
 	 * @return  string

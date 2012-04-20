@@ -17,6 +17,9 @@
  *
  * Decouples the Settings class from the query builder
  * and organizes database connections
+ *
+ * @package Query
+ * @subpackage Helper Classes
  */
 class DB_Reg {
 

@@ -3,6 +3,10 @@
 	<title>Query</title>
 	<parser>
 		<target>docs</target>
+		<!--<markers>
+			<item>@todo</item>
+			<item>@TODO</item>
+		</markers>-->
 	</parser>
 	<transformer>
 		<target>docs</target>

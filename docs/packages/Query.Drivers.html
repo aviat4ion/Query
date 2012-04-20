@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Query » default</title>
+<title>Query » Query\Drivers</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -55,85 +55,42 @@
 </div>
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
-<i class="icon-map-marker"></i> Namespaces</li>
+<i class="icon-map-marker"></i> Packages</li>
 <li>
-<a href="../namespaces/default.html" title="default"><i class="icon-th"></i>default</a><ul class="nav nav-list nav-namespaces"></ul>
+<a href="../packages/Query.Drivers.html" title="Drivers"><i class="icon-folder-open"></i>Drivers</a><ul class="nav nav-list nav-packages"></ul>
 </li>
+<li class="nav-header">
+<i class="icon-custom icon-class"></i> Classes</li>
+<li><a href="#PgSQL_SQL" title="PostgreSQL specifc SQL">PgSQL_SQL</a></li>
+<li><a href="#PgSQL_Util" title="Posgres-specific backup, import and creation methods">PgSQL_Util</a></li>
+<li><a href="#PgSQL" title="PostgreSQL specifc class">PgSQL</a></li>
+<li><a href="#ODBC_Util" title="ODBC-specific backup, import and creation methods">ODBC_Util</a></li>
+<li><a href="#ODBC_SQL" title="ODBC SQL Class">ODBC_SQL</a></li>
+<li><a href="#ODBC" title="ODBC Database Driver">ODBC</a></li>
+<li><a href="#MySQL_Util" title="MySQL-specific backup, import and creation methods">MySQL_Util</a></li>
+<li><a href="#MySQL" title="MySQL specific class">MySQL</a></li>
+<li><a href="#MySQL_SQL" title="MySQL specifc SQL">MySQL_SQL</a></li>
+<li><a href="#SQLite_Util" title="SQLite-specific backup, import and creation methods">SQLite_Util</a></li>
+<li><a href="#SQLite" title="SQLite specific class">SQLite</a></li>
+<li><a href="#SQLite_SQL" title="SQLite Specific SQL">SQLite_SQL</a></li>
+<li><a href="#Firebird_SQL" title="Firebird Specific SQL">Firebird_SQL</a></li>
+<li><a href="#Firebird_Result" title="Firebird result class to emulate PDOStatement Class - only implements
+data-fetching methods">Firebird_Result</a></li>
+<li><a href="#Firebird" title="Firebird Database class">Firebird</a></li>
+<li><a href="#Firebird_Util" title="Firebird-specific backup, import and creation methods">Firebird_Util</a></li>
 </ul>
 </div>
-<div class="span8 namespace-contents">
+<div class="span8 package-contents">
 <ul class="breadcrumb">
 <li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
+<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span>
 </li>
-<li class="active"><a href="../namespaces/default.html">default</a></li>
+<li><a href="../packages/Query.html">Query</a></li>
+<span class="divider">\</span><li class="active"><a href="../packages/Query.Drivers.html">Drivers</a></li>
 </ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-function"></i> Functions</h3>
-<a name="db_filter" id="db_filter"></a><div class="element clickable function  db_filter" data-toggle="collapse" data-target=".db_filter .collapse">
-<h2>Filter out db rows into one array</h2>
-<pre>db_filter(array $array, mixed $index) : array</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$array</h4>
-<code>array</code>
-</div>
-<div class="subelement argument">
-<h4>$index</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>array</code></div>
-</div></div>
-</div>
-<a name="do_include" id="do_include"></a><div class="element clickable function  do_include" data-toggle="collapse" data-target=".do_include .collapse">
-<h2>Bulk directory loading workaround for use
-with array_map and glob</h2>
-<pre>do_include(string $path) : void</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$path</h4>
-<code>string</code>
-</div>
-</div></div>
-</div>
+<div class="package-indent">
 <h3>
 <i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<a name="DB_PDO" id="DB_PDO"></a><div class="element ajax clickable class" href="../classes/DB_PDO.html">
-<h1>DB_PDO<a href="../classes/DB_PDO.html">¶</a>
-</h1>
-<p class="short_description">Base Database class</p>
-<div class="details collapse"></div>
-<a href="../classes/DB_PDO.html" class="more">« More »</a>
-</div>
-<a name="DB_Reg" id="DB_Reg"></a><div class="element ajax clickable class" href="../classes/DB_Reg.html">
-<h1>DB_Reg<a href="../classes/DB_Reg.html">¶</a>
-</h1>
-<p class="short_description">Connection registry</p>
-<div class="details collapse"></div>
-<a href="../classes/DB_Reg.html" class="more">« More »</a>
-</div>
-<a name="DB_SQL" id="DB_SQL"></a><div class="element ajax clickable class" href="../classes/DB_SQL.html">
-<h1>DB_SQL<a href="../classes/DB_SQL.html">¶</a>
-</h1>
-<p class="short_description">Abstract parent for database manipulation subclasses</p>
-<div class="details collapse"></div>
-<a href="../classes/DB_SQL.html" class="more">« More »</a>
-</div>
-<a name="DB_Util" id="DB_Util"></a><div class="element ajax clickable class" href="../classes/DB_Util.html">
-<h1>DB_Util<a href="../classes/DB_Util.html">¶</a>
-</h1>
-<p class="short_description">Abstract class defining database / table creation methods</p>
-<div class="details collapse"></div>
-<a href="../classes/DB_Util.html" class="more">« More »</a>
-</div>
 <a name="Firebird" id="Firebird"></a><div class="element ajax clickable class" href="../classes/Firebird.html">
 <h1>Firebird<a href="../classes/Firebird.html">¶</a>
 </h1>
@@ -226,14 +183,6 @@ data-fetching methods</p>
 <div class="details collapse"></div>
 <a href="../classes/PgSQL_Util.html" class="more">« More »</a>
 </div>
-<a name="Query_Builder" id="Query_Builder"></a><div class="element ajax clickable class" href="../classes/Query_Builder.html">
-<h1>Query_Builder<a href="../classes/Query_Builder.html">¶</a>
-</h1>
-<p class="short_description">Convienience class for creating sql queries - also the class that
-instantiates the specific db driver</p>
-<div class="details collapse"></div>
-<a href="../classes/Query_Builder.html" class="more">« More »</a>
-</div>
 <a name="SQLite" id="SQLite"></a><div class="element ajax clickable class" href="../classes/SQLite.html">
 <h1>SQLite<a href="../classes/SQLite.html">¶</a>
 </h1>
@@ -254,27 +203,6 @@ instantiates the specific db driver</p>
 <p class="short_description">SQLite-specific backup, import and creation methods</p>
 <div class="details collapse"></div>
 <a href="../classes/SQLite_Util.html" class="more">« More »</a>
-</div>
-<a name="Settings" id="Settings"></a><div class="element ajax clickable class" href="../classes/Settings.html">
-<h1>Settings<a href="../classes/Settings.html">¶</a>
-</h1>
-<p class="short_description">Class for manipulating datbase connections, and miscellaneous settings</p>
-<div class="details collapse"></div>
-<a href="../classes/Settings.html" class="more">« More »</a>
-</div>
-<h3>
-<i class="icon-custom icon-constant"></i> Constants</h3>
-<a name="BASE_PATH" id="BASE_PATH"> </a><div class="element clickable constant  BASE_PATH" data-toggle="collapse" data-target=".BASE_PATH .collapse">
-<h2>Reference to root path</h2>
-<pre>BASE_PATH </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
-</div>
-<a name="DRIVER_PATH" id="DRIVER_PATH"> </a><div class="element clickable constant  DRIVER_PATH" data-toggle="collapse" data-target=".DRIVER_PATH .collapse">
-<h2>Path to driver classes</h2>
-<pre>DRIVER_PATH </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 </div>
 </div>

@@ -14,8 +14,11 @@
 
 /**
  * PostgreSQL specifc SQL
+ *
+ * @package Query
+ * @subpackage Drivers
  */
-class pgSQL_SQL extends DB_SQL {
+class PgSQL_SQL extends DB_SQL {
 
 	/**
 	 * Limit clause

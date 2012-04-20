@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Query » \DB_SQL</title>
+<title>Query » \PgSQL_SQL</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -56,17 +56,18 @@
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods</li>
-<li class="method public "><a href="#avg" title="avg :: Get the 'average' keyword"><span class="description">Get the 'average' keyword</span><pre>avg()</pre></a></li>
+<li class="method public inherited"><a href="#avg" title="avg :: Get the 'average' keyword"><span class="description">Get the 'average' keyword</span><pre>avg()</pre></a></li>
+<li class="method public "><a href="#column_list" title="column_list :: Return sql to list columns of the specified table"><span class="description">Return sql to list columns of the specified table</span><pre>column_list()</pre></a></li>
 <li class="method public "><a href="#db_list" title="db_list :: Returns sql to list other databases"><span class="description">Returns sql to list other databases</span><pre>db_list()</pre></a></li>
-<li class="method public "><a href="#distinct" title="distinct :: Get the 'distinct' keyword"><span class="description">Get the 'distinct' keyword</span><pre>distinct()</pre></a></li>
+<li class="method public inherited"><a href="#distinct" title="distinct :: Get the 'distinct' keyword"><span class="description">Get the 'distinct' keyword</span><pre>distinct()</pre></a></li>
 <li class="method public "><a href="#function_list" title="function_list :: Return sql to list functions"><span class="description">Return sql to list functions</span><pre>function_list()</pre></a></li>
-<li class="method public "><a href="#limit" title="limit :: Get database specific sql for limit clause"><span class="description">Get database specific sql for limit clause</span><pre>limit()</pre></a></li>
-<li class="method public "><a href="#max" title="max :: Get the max keyword sql"><span class="description">Get the max keyword sql</span><pre>max()</pre></a></li>
-<li class="method public "><a href="#min" title="min :: Get the min keyword sql"><span class="description">Get the min keyword sql</span><pre>min()</pre></a></li>
+<li class="method public "><a href="#limit" title="limit :: Limit clause"><span class="description">Limit clause</span><pre>limit()</pre></a></li>
+<li class="method public inherited"><a href="#max" title="max :: Get the max keyword sql"><span class="description">Get the max keyword sql</span><pre>max()</pre></a></li>
+<li class="method public inherited"><a href="#min" title="min :: Get the min keyword sql"><span class="description">Get the min keyword sql</span><pre>min()</pre></a></li>
 <li class="method public "><a href="#procedure_list" title="procedure_list :: Return sql to list stored procedures"><span class="description">Return sql to list stored procedures</span><pre>procedure_list()</pre></a></li>
-<li class="method public "><a href="#random" title="random :: Get the sql for random ordering"><span class="description">Get the sql for random ordering</span><pre>random()</pre></a></li>
+<li class="method public "><a href="#random" title="random :: Random ordering keyword"><span class="description">Random ordering keyword</span><pre>random()</pre></a></li>
 <li class="method public "><a href="#sequence_list" title="sequence_list :: Return sql to list sequences"><span class="description">Return sql to list sequences</span><pre>sequence_list()</pre></a></li>
-<li class="method public "><a href="#sum" title="sum :: Get the 'sum' keyword"><span class="description">Get the 'sum' keyword</span><pre>sum()</pre></a></li>
+<li class="method public inherited"><a href="#sum" title="sum :: Get the 'sum' keyword"><span class="description">Get the 'sum' keyword</span><pre>sum()</pre></a></li>
 <li class="method public "><a href="#system_table_list" title="system_table_list :: Returns sql to list system tables"><span class="description">Returns sql to list system tables</span><pre>system_table_list()</pre></a></li>
 <li class="method public "><a href="#table_list" title="table_list :: Returns sql to list tables"><span class="description">Returns sql to list tables</span><pre>table_list()</pre></a></li>
 <li class="method public "><a href="#trigger_list" title="trigger_list :: Returns sql to list triggers"><span class="description">Returns sql to list triggers</span><pre>trigger_list()</pre></a></li>
@@ -74,18 +75,18 @@
 </ul>
 </div>
 <div class="span8">
-<a name="%5CDB_SQL" id="\DB_SQL"></a><div href="../classes/DB_SQL.html" class="element class">
-<p class="short_description">Abstract parent for database manipulation subclasses</p>
+<a name="%5CPgSQL_SQL" id="\PgSQL_SQL"></a><div href="../classes/PgSQL_SQL.html" class="element class">
+<p class="short_description">PostgreSQL specifc SQL</p>
 <div class="details">
 <p class="long_description"></p>
 <table class="table table-bordered">
 <tr>
 <th>package</th>
-<td><a href="..//packages/Query.Query.html">Query</a></td>
+<td><a href="..//packages/Query.Drivers.html">Query</a></td>
 </tr>
 <tr>
 <th>subpackage</th>
-<td>Query</td>
+<td>Drivers</td>
 </tr>
 </table>
 <h3>
@@ -93,9 +94,28 @@
 <a name="avg" id="avg"></a><div class="element clickable method public avg" data-toggle="collapse" data-target=".avg .collapse">
 <h2>Get the 'average' keyword</h2>
 <pre>avg() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_SQL::avg()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="column_list" id="column_list"></a><div class="element clickable method public column_list" data-toggle="collapse" data-target=".column_list .collapse">
+<h2>Return sql to list columns of the specified table</h2>
+<pre>column_list(string $table) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
@@ -113,9 +133,13 @@
 <a name="distinct" id="distinct"></a><div class="element clickable method public distinct" data-toggle="collapse" data-target=".distinct .collapse">
 <h2>Get the 'distinct' keyword</h2>
 <pre>distinct() : string</pre>
-<div class="labels"></div>
+<div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_SQL::distinct()</td>
+</tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
@@ -131,15 +155,11 @@
 </div></div>
 </div>
 <a name="limit" id="limit"></a><div class="element clickable method public limit" data-toggle="collapse" data-target=".limit .collapse">
-<h2>Get database specific sql for limit clause</h2>
+<h2>Limit clause</h2>
 <pre>limit(string $sql, int $limit, int $offset) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>abstract</th>
-<td></td>
-</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$sql</h4>
@@ -160,9 +180,13 @@
 <a name="max" id="max"></a><div class="element clickable method public max" data-toggle="collapse" data-target=".max .collapse">
 <h2>Get the max keyword sql</h2>
 <pre>max() : string</pre>
-<div class="labels"></div>
+<div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_SQL::max()</td>
+</tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
@@ -170,9 +194,13 @@
 <a name="min" id="min"></a><div class="element clickable method public min" data-toggle="collapse" data-target=".min .collapse">
 <h2>Get the min keyword sql</h2>
 <pre>min() : string</pre>
-<div class="labels"></div>
+<div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_SQL::min()</td>
+</tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
@@ -188,15 +216,11 @@
 </div></div>
 </div>
 <a name="random" id="random"></a><div class="element clickable method public random" data-toggle="collapse" data-target=".random .collapse">
-<h2>Get the sql for random ordering</h2>
+<h2>Random ordering keyword</h2>
 <pre>random() : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>abstract</th>
-<td></td>
-</tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
@@ -214,9 +238,13 @@
 <a name="sum" id="sum"></a><div class="element clickable method public sum" data-toggle="collapse" data-target=".sum .collapse">
 <h2>Get the 'sum' keyword</h2>
 <pre>sum() : string</pre>
-<div class="labels"></div>
+<div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_SQL::sum()</td>
+</tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>

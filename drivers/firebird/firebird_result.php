@@ -4,10 +4,11 @@
  *
  * Free Query Builder / Database Abstraction Layer
  *
- * @author 		Timothy J. Warren
+ * @package		Query
+ * @author		Timothy J. Warren
  * @copyright	Copyright (c) 2012
  * @link 		https://github.com/aviat4ion/Query
- * @license 	http://philsturgeon.co.uk/code/dbad-license 
+ * @license		http://philsturgeon.co.uk/code/dbad-license
  */
 
 // --------------------------------------------------------------------------
@@ -16,6 +17,8 @@
  * Firebird result class to emulate PDOStatement Class - only implements
  * data-fetching methods
  *
+ * @package Query
+ * @subpackage Drivers
  */
 class Firebird_Result extends PDOStatement {
 

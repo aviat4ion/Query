@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Query » \MySQL</title>
+<title>Query » \PgSQL</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -56,7 +56,7 @@
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods</li>
-<li class="method public "><a href="#__construct" title="__construct :: Connect to MySQL Database"><span class="description">Connect to MySQL Database</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#__construct" title="__construct :: Connect to a PosgreSQL database"><span class="description">Connect to a PosgreSQL database</span><pre>__construct()</pre></a></li>
 <li class="method public inherited"><a href="#__sleep" title="__sleep :: "><span class="description">__sleep()
         </span><pre>__sleep()</pre></a></li>
 <li class="method public inherited"><a href="#__wakeup" title="__wakeup :: "><span class="description">__wakeup()
@@ -84,7 +84,7 @@ method if the database does not support 'TRUNCATE';</span><pre>empty_table()</pr
 <li class="method public inherited"><a href="#get_last_error" title="get_last_error :: Return the last error for the current database connection"><span class="description">Return the last error for the current database connection</span><pre>get_last_error()</pre></a></li>
 <li class="method public inherited"><a href="#get_procedures" title="get_procedures :: Return list of stored procedures for the current database"><span class="description">Return list of stored procedures for the current database</span><pre>get_procedures()</pre></a></li>
 <li class="method public inherited"><a href="#get_query_data" title="get_query_data :: Retreives the data from a select query"><span class="description">Retreives the data from a select query</span><pre>get_query_data()</pre></a></li>
-<li class="method public inherited"><a href="#get_schemas" title="get_schemas :: Return schemas for databases that list them"><span class="description">Return schemas for databases that list them</span><pre>get_schemas()</pre></a></li>
+<li class="method public "><a href="#get_schemas" title="get_schemas :: Get a list of schemas for the current connection"><span class="description">Get a list of schemas for the current connection</span><pre>get_schemas()</pre></a></li>
 <li class="method public inherited"><a href="#get_sequences" title="get_sequences :: Return list of sequences for the current database, if they exist"><span class="description">Return list of sequences for the current database, if they exist</span><pre>get_sequences()</pre></a></li>
 <li class="method public inherited"><a href="#get_system_tables" title="get_system_tables :: Retreives an array of non-user-created tables for
 the connection/database"><span class="description">Retreives an array of non-user-created tables for
@@ -119,13 +119,13 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <li class="property public inherited"><a href="#%24sql" title="$sql :: Reference to sql sub class"><span class="description">Reference to sql sub class</span><pre>$sql</pre></a></li>
 <li class="property public inherited"><a href="#%24util" title="$util :: Reference to util sub class"><span class="description">Reference to util sub class</span><pre>$util</pre></a></li>
 <li class="nav-header protected">» Protected</li>
-<li class="property protected "><a href="#%24escape_char" title="$escape_char :: Set the backtick as the MySQL escape character"><span class="description">Set the backtick as the MySQL escape character</span><pre>$escape_char</pre></a></li>
+<li class="property protected inherited"><a href="#%24escape_char" title="$escape_char :: Character to escape identifiers"><span class="description">Character to escape identifiers</span><pre>$escape_char</pre></a></li>
 <li class="property protected inherited"><a href="#%24statement" title="$statement :: Reference to the last executed query"><span class="description">Reference to the last executed query</span><pre>$statement</pre></a></li>
 </ul>
 </div>
 <div class="span8">
-<a name="%5CMySQL" id="\MySQL"></a><div href="../classes/MySQL.html" class="element class">
-<p class="short_description">MySQL specific class</p>
+<a name="%5CPgSQL" id="\PgSQL"></a><div href="../classes/PgSQL.html" class="element class">
+<p class="short_description">PostgreSQL specifc class</p>
 <div class="details">
 <p class="long_description"><p>Extends PDO to simplify cross-database issues</p></p>
 <table class="table table-bordered">
@@ -141,7 +141,7 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
 <a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
-<h2>Connect to MySQL Database</h2>
+<h2>Connect to a PosgreSQL database</h2>
 <pre>__construct(string $dsn, string $username, string $password, array $options) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
@@ -451,15 +451,11 @@ method if the database does not support 'TRUNCATE';</h2>
 </div></div>
 </div>
 <a name="get_schemas" id="get_schemas"></a><div class="element clickable method public get_schemas" data-toggle="collapse" data-target=".get_schemas .collapse">
-<h2>Return schemas for databases that list them</h2>
+<h2>Get a list of schemas for the current connection</h2>
 <pre>get_schemas() : array</pre>
-<div class="labels"><span class="label">Inherited</span></div>
+<div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\DB_PDO::get_schemas()</td>
-</tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
@@ -820,10 +816,16 @@ the connection/database</h2>
 </div></div>
 </div>
 <a name="%24escape_char" id="$escape_char"> </a><div class="element clickable property protected $escape_char" data-toggle="collapse" data-target=".$escape_char .collapse">
-<h2>Set the backtick as the MySQL escape character</h2>
-<pre>$escape_char : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<h2>Character to escape identifiers</h2>
+<pre>$escape_char </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_PDO::$$escape_char</td>
+</tr></table>
+</div></div>
 </div>
 <a name="%24statement" id="$statement"> </a><div class="element clickable property protected $statement" data-toggle="collapse" data-target=".$statement .collapse">
 <h2>Reference to the last executed query</h2>
