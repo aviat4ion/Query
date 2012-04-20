@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Query
  */
-class Query_Builder {
+class Query_Builder extends StdClass {
 
 	/**
 	 * Compiled 'select' clause

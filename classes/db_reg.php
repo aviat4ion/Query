@@ -21,7 +21,7 @@
  * @package Query
  * @subpackage Helper Classes
  */
-class DB_Reg {
+class DB_Reg extends StdClass {
 
 	/**
 	 * Static array of connections
