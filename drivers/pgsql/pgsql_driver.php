@@ -63,18 +63,6 @@ class PgSQL extends DB_PDO {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Return the number of rows returned for a SELECT query
-	 *
-	 * @return int
-	 */
-	public function num_rows()
-	{
-		return (isset($this->statement)) ? $this->statement->rowCount() : FALSE;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Get a list of schemas for the current connection
 	 *
 	 * @return array

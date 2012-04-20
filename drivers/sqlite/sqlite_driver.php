@@ -135,17 +135,5 @@ SQL;
 
 		$this->statement->execute();
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Return the number of rows returned for a SELECT query
-	 *
-	 * @return int
-	 */
-	public function num_rows()
-	{
-		return (isset($this->statement)) ? $this->statement->rowCount() : FALSE;
-	}
 }
 //End of sqlite_driver.php

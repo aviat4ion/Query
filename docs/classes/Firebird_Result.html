@@ -85,7 +85,6 @@ the query</span><pre>__construct()</pre></a></li>
         </span><pre>getColumnMeta()</pre></a></li>
 <li class="method public "><a href="#nextRowset" title="nextRowset :: "><span class="description">nextRowset()
         </span><pre>nextRowset()</pre></a></li>
-<li class="method public "><a href="#num_rows" title="num_rows :: Return the number of rows for the select query"><span class="description">Return the number of rows for the select query</span><pre>num_rows()</pre></a></li>
 <li class="method public "><a href="#rowCount" title="rowCount :: Return the number of rows affected by the previous query"><span class="description">Return the number of rows affected by the previous query</span><pre>rowCount()</pre></a></li>
 <li class="method public "><a href="#setAttribute" title="setAttribute :: "><span class="description">setAttribute()
         </span><pre>setAttribute()</pre></a></li>
@@ -94,6 +93,8 @@ the query</span><pre>__construct()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
 <li class="nav-header private">» Private</li>
+<li class="property private "><a href="#%24result" title="$result :: Data pulled from query"><span class="description">Data pulled from query</span><pre>$result</pre></a></li>
+<li class="property private "><a href="#%24row" title="$row :: Current row in result array"><span class="description">Current row in result array</span><pre>$row</pre></a></li>
 <li class="property private "><a href="#%24statement" title="$statement :: Reference to fbird resource"><span class="description">Reference to fbird resource</span><pre>$statement</pre></a></li>
 </ul>
 </div>
@@ -377,7 +378,7 @@ the query</h2>
 </div>
 <a name="fetchObject" id="fetchObject"></a><div class="element clickable method public fetchObject" data-toggle="collapse" data-target=".fetchObject .collapse">
 <h2>Emulate PDOStatement::fetchObject, but only for the default use</h2>
-<pre>fetchObject(string $class_name, array $ctor_args) : mixed</pre>
+<pre>fetchObject(string $class_name, array $ctor_args) : <a href="http://php.net/manual/en/class.stdclass.php">\stdClass</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -391,7 +392,7 @@ the query</h2>
 <code>array</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.stdclass.php">\stdClass</a></code></div>
 </div></div>
 </div>
 <a name="getAttribute" id="getAttribute"></a><div class="element clickable method public getAttribute" data-toggle="collapse" data-target=".getAttribute .collapse">
@@ -433,16 +434,6 @@ the query</h2>
 </tr></table>
 </div></div>
 </div>
-<a name="num_rows" id="num_rows"></a><div class="element clickable method public num_rows" data-toggle="collapse" data-target=".num_rows .collapse">
-<h2>Return the number of rows for the select query</h2>
-<pre>num_rows() : int</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<h3>Returns</h3>
-<div class="subelement response"><code>int</code></div>
-</div></div>
-</div>
 <a name="rowCount" id="rowCount"></a><div class="element clickable method public rowCount" data-toggle="collapse" data-target=".rowCount .collapse">
 <h2>Return the number of rows affected by the previous query</h2>
 <pre>rowCount() : int</pre>
@@ -481,9 +472,27 @@ the query</h2>
 </div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
+<a name="%24result" id="$result"> </a><div class="element clickable property private $result" data-toggle="collapse" data-target=".$result .collapse">
+<h2>Data pulled from query</h2>
+<pre>$result </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>param</th>
+<td>&lt;p&gt;mixed&lt;/p&gt;</td>
+</tr></table>
+</div></div>
+</div>
+<a name="%24row" id="$row"> </a><div class="element clickable property private $row" data-toggle="collapse" data-target=".$row .collapse">
+<h2>Current row in result array</h2>
+<pre>$row : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
 <a name="%24statement" id="$statement"> </a><div class="element clickable property private $statement" data-toggle="collapse" data-target=".$statement .collapse">
 <h2>Reference to fbird resource</h2>
-<pre>$statement </pre>
+<pre>$statement : resource</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
@@ -494,7 +503,7 @@ the query</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-04-20T13:15:56-04:00.<br></footer></div>
+            generated on 2012-04-20T16:33:01-04:00.<br></footer></div>
 </div>
 </body>
 </html>

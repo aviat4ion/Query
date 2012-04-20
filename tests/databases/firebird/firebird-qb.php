@@ -34,5 +34,7 @@ class FirebirdQBTest extends QBTest {
 		$this->db = new Query_Builder($params);
 		
 		// echo '<hr /> Firebird Queries <hr />';
-	}	
+	}
+	
+		
 }

@@ -358,6 +358,13 @@ abstract class QBTest extends UnitTestCase {
 		$this->assertTrue(is_numeric($query));
 	}
 	
+	function TestNumRows()
+	{
+		$query = $this->db->get('create_test');
+		
+		$this->assertTrue(is_numeric($this->db->num_rows()));
+	}
+	
 }
 
 // End of db_qb_test.php

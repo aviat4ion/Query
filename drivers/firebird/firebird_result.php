@@ -24,8 +24,24 @@ class Firebird_Result extends PDOStatement {
 
 	/**
 	 * Reference to fbird resource
+	 *
+	 * @var resource
 	 */
 	private $statement;
+	
+	/**
+	 * Current row in result array
+	 *
+	 * @var int
+	 */
+	private $row;
+	
+	/**
+	 * Data pulled from query
+	 *
+	 * @param mixed
+	 */
+	private $result = array();
 
 	/**
 	 * Create the object by passing the resource for
@@ -37,6 +53,19 @@ class Firebird_Result extends PDOStatement {
 	{
 		$this->statement = $link;
 		$this->setFetchMode(PDO::FETCH_ASSOC);
+		$this->row = -1;
+		$this->result = array();
+		
+		// Create the result array, so that we can get row counts
+		// Check the resource type, because prepared statements are "interbase query"
+		// but we only want "interbase result" types when attempting to fetch data
+		if (is_resource($link) && get_resource_type($link) === "interbase result")
+		{
+			while($row = ibase_fetch_assoc($link, IBASE_FETCH_BLOBS))
+			{
+				$this->result[] = $row;
+			}
+		}
 	}
 	
 	// --------------------------------------------------------------------------
@@ -125,21 +154,38 @@ class Firebird_Result extends PDOStatement {
 		{
 			$this->statement = $statement;
 		}
-
+		
+		// If there is no result, continue
+		if (empty($this->result))
+		{
+			return FALSE;
+		}
+		
+		// Keep track of the current row being fetched
+		++$this->row;
+		
+		// Return false if the next row doesn't exist
+		if ( ! isset($this->result[$this->row]))
+		{
+			return FALSE;
+		}
+		
 		switch($fetch_style)
 		{
 			case PDO::FETCH_OBJ:
-				return fbird_fetch_object($this->statement, IBASE_FETCH_BLOBS);
+				$row = (object) $this->result[$this->row];
 			break;
 
 			case PDO::FETCH_NUM:
-				return fbird_fetch_row($this->statement, IBASE_FETCH_BLOBS);
+				$row = array_values($this->result[$this->row]);
 			break;
 
 			default:
-				return fbird_fetch_assoc($this->statement, IBASE_FETCH_BLOBS);
+				$row = $this->result[$this->row];
 			break;
 		}
+		
+		return $row;
 	}
 
 	// --------------------------------------------------------------------------
@@ -187,7 +233,7 @@ class Firebird_Result extends PDOStatement {
 	 * 
 	 * @param string $class_name
 	 * @param array $ctor_args
-	 * @return mixed 
+	 * @return stdClass 
 	 */
 	public function fetchObject($class_name='stdClass', $ctor_args=array())
 	{
@@ -203,19 +249,15 @@ class Firebird_Result extends PDOStatement {
 	 */
 	public function rowCount()
 	{
-		return fbird_affected_rows();
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Return the number of rows for the select query
-	 * 
-	 * @return int
-	 */
-	public function num_rows()
-	{
-		return count($this->fetchAll());
+		$rows = fbird_affected_rows();
+		
+		// Get the number of rows for the select query if you can
+		if ($rows === FALSE && is_resource($link) && get_resource_type($link) === "interbase result")
+		{
+			$rows = count($this->result);
+		}
+		
+		return $rows;
 	}
 	
 	// --------------------------------------------------------------------------

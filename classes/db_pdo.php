@@ -359,6 +359,20 @@ abstract class DB_PDO extends PDO {
 
 		return ($filtered_index) ? db_filter($all, 0) : $all;
 	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Return the number of rows returned for a SELECT query
+	 *
+	 * @return int
+	 */
+	public function num_rows()
+	{
+		return isset($this->statement) && is_object($this->statement) 
+			? $this->statement->rowCount() 
+			: FALSE;
+	}
 
 	// -------------------------------------------------------------------------
 	// ! Abstract public functions to implement in child classes
@@ -372,13 +386,6 @@ abstract class DB_PDO extends PDO {
 	 * @return void
 	 */
 	abstract public function truncate($table);
-
-	/**
-	 * Return the number of rows for the last SELECT query
-	 *
-	 * @return int
-	 */
-	abstract public function num_rows();
 
 	/**
 	 * Connect to a different database

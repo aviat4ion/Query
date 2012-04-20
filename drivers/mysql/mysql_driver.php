@@ -69,17 +69,5 @@ class MySQL extends DB_PDO {
 	{
 		$this->query("TRUNCATE `{$table}`");
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Return the number of rows returned for a SELECT query
-	 *
-	 * @return int
-	 */
-	public function num_rows()
-	{
-		return isset($this->statement) ? $this->statement->rowCount() : FALSE;
-	}
 }
 //End of mysql_driver.php

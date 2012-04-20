@@ -67,17 +67,5 @@ class ODBC extends DB_PDO {
 		$sql = "DELETE FROM {$table}";
 		$this->query($sql);
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Return the number of rows returned for a SELECT query
-	 *
-	 * @return int
-	 */
-	public function num_rows()
-	{
-		// @TODO: Implement
-	}
 }
 // End of odbc_driver.php

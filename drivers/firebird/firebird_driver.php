@@ -25,22 +25,30 @@ class Firebird extends DB_PDO {
 
 	/**
 	 * Reference to the last query executed
+	 *
+	 * @var object
 	 */
 	protected $statement;
 	
 	/**
 	 * Reference to the resource returned by
 	 * the last query executed
+	 *
+	 * @var resource
 	 */
 	protected $statement_link;
 	
 	/**
 	 * Reference to the current transaction
+	 *
+	 * @var resource
 	 */
 	protected $trans; 
 	
 	/**
 	 * Reference to the connection resource
+	 *
+	 * @var resource
 	 */
 	protected $conn;
 
@@ -122,8 +130,10 @@ class Firebird extends DB_PDO {
 		{
 			throw new PDOException(fbird_errmsg());
 		}
+		
+		$this->statement = new FireBird_Result($this->statement_link);
 
-		return new FireBird_Result($this->statement_link);
+		return $this->statement;
 	}
 
 	// --------------------------------------------------------------------------
@@ -145,19 +155,9 @@ class Firebird extends DB_PDO {
 			throw new PDOException(fbird_errmsg());
 		}
 
-		return new FireBird_Result($this->statement_link);
-	}
+		$this->statement = new FireBird_Result($this->statement_link);
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Return the number of rows returned for a SELECT query
-	 *
-	 * @return int
-	 */
-	public function num_rows()
-	{
-		return $this->statement->num_rows();
+		return $this->statement;
 	}
 
 	// --------------------------------------------------------------------------
@@ -215,7 +215,7 @@ class Firebird extends DB_PDO {
 		$query = $this->prepare($sql);
 
 		// Set the statement in the class variable for easy later access
-		$this->statement =& $query;
+		$this->statement_link =& $query;
 
 		return $query->execute($args);
 	}
