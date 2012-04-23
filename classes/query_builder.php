@@ -4,10 +4,11 @@
  *
  * Free Query Builder / Database Abstraction Layer
  *
- * @author 		Timothy J. Warren
+ * @package		Query
+ * @author		Timothy J. Warren
  * @copyright	Copyright (c) 2012
  * @link 		https://github.com/aviat4ion/Query
- * @license 	http://philsturgeon.co.uk/code/dbad-license 
+ * @license		http://philsturgeon.co.uk/code/dbad-license
  */
 
 // --------------------------------------------------------------------------
@@ -23,26 +24,36 @@ class Query_Builder {
 
 	/**
 	 * Compiled 'select' clause
+	 *
+	 * @var string
 	 */
 	private $select_string;
 	
 	/**
 	 * Compiled 'from' clause
+	 *
+	 * @var string
 	 */	
 	private $from_string;
 	
 	/**
 	 * Compiled arguments for insert / update
+	 *
+	 * @var string
 	 */
 	private $set_string;
 	
 	/**
 	 * Order by clause
+	 *
+	 * @var string
 	 */
 	private $order_string;
 	
 	/**
 	 * Group by clause
+	 *
+	 * @var string
 	 */
 	private $group_string;
 	
@@ -50,21 +61,29 @@ class Query_Builder {
 
 	/**
 	 * key/val pairs for insert/update statement
+	 *
+	 * @var array
 	 */
 	private $set_array;
 	
 	/**
 	 * Keys for insert/update statement
+	 *
+	 * @var array
 	 */
 	private $set_array_keys;
 	
 	/** 
 	 * Key/val pairs for order by clause
+	 *
+	 * @var array
 	 */
 	private $order_array;
 	
 	/**
 	 * Key/val pairs for group by clause
+	 *
+	 * @var array
 	 */
 	private $group_array;
 	
@@ -72,21 +91,29 @@ class Query_Builder {
 
 	/**
 	 * Values to apply to prepared statements
+	 *
+	 * @var array
 	 */
 	private $values;
 
 	/**
 	 * Value for limit string
+	 *
+	 * @var int
 	 */
 	private $limit;
 	
 	/**
 	 * Value for offset in limit string
+	 *
+	 * @var int
 	 */
 	private $offset;
 
 	/**
 	 * Alias to $this->db->sql
+	 *
+	 * @var DB_PDO
 	 */
 	private $sql;
 
@@ -101,16 +128,22 @@ class Query_Builder {
 	 *		'conjunction' => ' AND ',
 	 * 		'string' => 'k=?'
 	 * )
+	 *
+	 * @var array
 	 */
 	private $query_map;
 	
 	/**
 	 * Map for having clause
+	 *
+	 * @var array
 	 */
 	private $having_map;
 
 	/**
-	 *  Convenience property for connection management
+	 * Convenience property for connection management
+	 *
+	 * @var string
 	 */
 	public $conn_name = "";
 	

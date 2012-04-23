@@ -13,12 +13,12 @@
 
 // --------------------------------------------------------------------------
 
- /**
-  * ODBC SQL Class
-  *
-  * @package Query
-  * @subpackage Drivers
-  */
+/**
+ * ODBC SQL Class
+ *
+ * @package Query
+ * @subpackage Drivers
+ */
 class ODBC_SQL extends DB_SQL {
 
 	/**

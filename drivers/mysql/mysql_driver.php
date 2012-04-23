@@ -42,7 +42,7 @@ class MySQL extends DB_PDO {
 			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF-8 COLLATE 'UTF-8'",
 		));
 			
-		parent::__construct("mysql:$dsn", $username, $password, $options);
+		parent::__construct("mysql:{$dsn}", $username, $password, $options);
 	}
 
 	// --------------------------------------------------------------------------

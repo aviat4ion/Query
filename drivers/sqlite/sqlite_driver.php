@@ -23,6 +23,8 @@ class SQLite extends DB_PDO {
 
 	/**
 	 * Reference to the last executed sql query
+	 *
+	 * @var PDOStatement
 	 */
 	protected $statement;
 

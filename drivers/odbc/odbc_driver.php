@@ -38,7 +38,7 @@ class ODBC extends DB_PDO {
 	 */
 	public function __construct($dsn, $username=null, $password=null, $options=array())
 	{
-		parent::__construct("odbc:$dsn", $username, $password, $options);
+		parent::__construct("odbc:{$dsn}", $username, $password, $options);
 	}
 
 	// --------------------------------------------------------------------------
