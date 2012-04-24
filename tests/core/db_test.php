@@ -18,22 +18,28 @@
  */
 abstract class DBTest extends UnitTestCase {
 
-	abstract function TestConnection();
+	abstract public function TestConnection();
+	
+	// --------------------------------------------------------------------------
 
-	function tearDown()
+	public function tearDown()
 	{
 		$this->db = NULL;
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestGetTables()
+	public function TestGetTables()
 	{
 		if (empty($this->db))  return;
 
 		$tables = $this->db->get_tables();
 		$this->assertTrue(is_array($tables));
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestGetSystemTables()
+	public function TestGetSystemTables()
 	{
 		if (empty($this->db))  return;
 
@@ -41,8 +47,10 @@ abstract class DBTest extends UnitTestCase {
 
 		$this->assertTrue(is_array($tables));
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestCreateTransaction()
+	public function TestCreateTransaction()
 	{
 		if (empty($this->db))  return;
 
@@ -50,7 +58,9 @@ abstract class DBTest extends UnitTestCase {
 		$this->assertTrue($res);
 	}
 	
-	function TestBackupData()
+	// --------------------------------------------------------------------------
+	
+	public function TestBackupData()
 	{
 		$this->assertTrue(is_string($this->db->util->backup_data()));
 	}

@@ -19,47 +19,61 @@
  */
 class SQLiteTest extends UnitTestCase {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function setUp()
+	public function setUp()
 	{
 		$path = TEST_DIR.DS.'db_files'.DS.'test_sqlite.db';
 		$this->db = new SQLite($path);
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function tearDown()
+	public function tearDown()
 	{
 		unset($this->db);
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestConnection()
+	public function TestConnection()
 	{
 		$this->assertIsA($this->db, 'SQLite');
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestGetTables()
+	public function TestGetTables()
 	{
 		$tables = $this->db->get_tables();
 		$this->assertTrue(is_array($tables));
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestGetSystemTables()
+	public function TestGetSystemTables()
 	{
 		$tables = $this->db->get_system_tables();
 
 		$this->assertTrue(is_array($tables));
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestCreateTransaction()
+	public function TestCreateTransaction()
 	{
 		$res = $this->db->beginTransaction();
 		$this->assertTrue($res);
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestCreateTable()
+	public function TestCreateTable()
 	{
 		//Attempt to create the table
 		$sql = $this->db->util->create_table('create_test',
@@ -92,14 +106,18 @@ class SQLiteTest extends UnitTestCase {
 
 		$this->assertTrue(in_array('create_test', $dbs));
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestTruncate()
+	public function TestTruncate()
 	{
 		$this->db->truncate('create_test');
 		$this->assertIsA($this->db->affected_rows(), 'int');
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestPreparedStatements()
+	public function TestPreparedStatements()
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
@@ -110,8 +128,10 @@ SQL;
 		$statement->execute();
 
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestPrepareExecute()
+	public function TestPrepareExecute()
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
@@ -122,8 +142,10 @@ SQL;
 		));
 
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestCommitTransaction()
+	public function TestCommitTransaction()
 	{
 		$res = $this->db->beginTransaction();
 
@@ -133,8 +155,10 @@ SQL;
 		$res = $this->db->commit();
 		$this->assertTrue($res);
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestRollbackTransaction()
+	public function TestRollbackTransaction()
 	{
 		$res = $this->db->beginTransaction();
 
@@ -144,9 +168,11 @@ SQL;
 		$res = $this->db->rollback();
 		$this->assertTrue($res);
 	}
+	
+	// --------------------------------------------------------------------------
 
 	// This is really time intensive ! Run only when needed
-	/*function TestDeleteTable()
+	/*public function TestDeleteTable()
 	{
 		//Make sure the table exists to delete
 		$dbs = $this->db->get_tables();
@@ -160,13 +186,17 @@ SQL;
 		$dbs = $this->db->get_tables();
 		$this->assertFalse(in_array('create_test', $dbs));
 	}*/
+	
+	// --------------------------------------------------------------------------
 
-	function TestGetDBs()
+	public function TestGetDBs()
 	{
 		$this->assertFalse($this->db->get_dbs());
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestGetSchemas()
+	public function TestGetSchemas()
 	{
 		$this->assertFalse($this->db->get_schemas());
 	}

@@ -20,7 +20,7 @@
  */
 class MySQLTest extends DBTest {
 
-	function setUp()
+	public function setUp()
 	{
 		// Attempt to connect, if there is a test config file
 		if (is_file(BASE_DIR . "test_config.json"))
@@ -35,20 +35,26 @@ class MySQLTest extends DBTest {
 			$this->db = new MySQL('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestExists()
+	public function TestExists()
 	{
 		$this->assertTrue(in_array('mysql', pdo_drivers()));
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestConnection()
+	public function TestConnection()
 	{
 		if (empty($this->db))  return;
 
 		$this->assertIsA($this->db, 'MySQL');
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestCreateTable()
+	public function TestCreateTable()
 	{
 		if (empty($this->db))  return;
 
@@ -86,7 +92,9 @@ class MySQLTest extends DBTest {
 
 	}
 	
-	function TestTruncate()
+	// --------------------------------------------------------------------------
+	
+	public function TestTruncate()
 	{
 		$this->db->truncate('create_test');
 		$this->db->truncate('create_join');
@@ -95,7 +103,9 @@ class MySQLTest extends DBTest {
 		$cj_query = $this->db->query('SELECT * FROM create_join');
 	}
 	
-	function TestPreparedStatements()
+	// --------------------------------------------------------------------------
+	
+	public function TestPreparedStatements()
 	{
 		if (empty($this->db))  return;
 
@@ -108,8 +118,10 @@ SQL;
 		$statement->execute();
 
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestPrepareExecute()
+	public function TestPrepareExecute()
 	{
 		if (empty($this->db))  return;
 
@@ -122,8 +134,10 @@ SQL;
 		));
 
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestCommitTransaction()
+	public function TestCommitTransaction()
 	{
 		if (empty($this->db))  return;
 
@@ -135,8 +149,10 @@ SQL;
 		$res = $this->db->commit();
 		$this->assertTrue($res);
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestRollbackTransaction()
+	public function TestRollbackTransaction()
 	{
 		if (empty($this->db))  return;
 
@@ -149,24 +165,31 @@ SQL;
 		$this->assertTrue($res);
 	}
 	
-	function TestGetSchemas()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetSchemas()
 	{
 		$this->assertFalse($this->db->get_schemas());
 	}
 	
-	function TestGetsProcedures()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetsProcedures()
 	{
 		$this->assertTrue(is_array($this->db->get_procedures()));
 	}
 	
-	function TestGetTriggers()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetTriggers()
 	{
 		$this->assertTrue(is_array($this->db->get_triggers()));
 	}
 	
-	function TestGetSequences()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetSequences()
 	{
 		$this->assertFalse($this->db->get_sequences());
 	}
 }
-

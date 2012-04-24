@@ -14,7 +14,7 @@
 
 class PgSQLQBTest extends QBTest {
 
-	function __construct()
+	public function __construct()
  	{
  		parent::__construct();
 
@@ -44,8 +44,10 @@ class PgSQLQBTest extends QBTest {
 			$this->db = new Query_Builder($params);
 		}
  	}
+ 	
+ 	// --------------------------------------------------------------------------
 
-	function TestExists()
+	public function TestExists()
 	{
 		$this->assertTrue(in_array('pgsql', pdo_drivers()));
 	}

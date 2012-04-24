@@ -17,7 +17,7 @@
  */
 class SettingsTest extends UnitTestCase {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->settings =& Settings::get_instance();
@@ -25,46 +25,62 @@ class SettingsTest extends UnitTestCase {
 		// Make sure to delete 'foo' if it exists
 		$this->settings->remove_db('foo');
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestExists()
+	public function TestExists()
 	{
 		$this->assertIsA($this->settings, 'Settings');
 	}
 	
-	function TestGetEmptyDBs()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetEmptyDBs()
 	{
 		$this->assertTrue(is_object($this->settings->get_dbs()));
 	}
 	
-	function TestGetNull()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetNull()
 	{
 		$this->assertFalse(isset($this->settings->foo));
 	}
 	
-	function TestSet()
+	// --------------------------------------------------------------------------
+	
+	public function TestSet()
 	{
 		$bar = $this->settings->foo = 'bar';
 	
 		$this->assertEqual('bar', $bar);
 	}
 	
-	function TestGet()
+	// --------------------------------------------------------------------------
+	
+	public function TestGet()
 	{
 		$this->assertEqual('bar', $this->settings->foo);
 	}
 	
-	function TestSetDBProperty()
+	// --------------------------------------------------------------------------
+	
+	public function TestSetDBProperty()
 	{
 		$res = $this->settings->__set('dbs', 2);
 		$this->assertFalse($res);
 	}
 	
-	function TestGetEmptyDB()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetEmptyDB()
 	{
 		$this->assertFalse($this->settings->get_db('foo'));
 	}
 	
-	function TestAddDB()
+	// --------------------------------------------------------------------------
+	
+	public function TestAddDB()
 	{
 		$this->settings->add_db('foo', array());
 		

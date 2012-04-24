@@ -20,7 +20,7 @@
  */
 class FirebirdTest extends DBTest {
 	
-	function setUp()
+	public function setUp()
 	{
 		$dbpath = TEST_DIR.DS.'db_files'.DS.'FB_TEST_DB.FDB';
 		
@@ -29,24 +29,32 @@ class FirebirdTest extends DBTest {
 		$this->tables = $this->db->get_tables();
 	}
 	
-	function tearDown()
+	// --------------------------------------------------------------------------
+	
+	public function tearDown()
 	{
 		unset($this->db);
 		unset($this->tables);
 	}
+	
+	// --------------------------------------------------------------------------
 
-	function TestConnection()
+	public function TestConnection()
 	{
 		$this->assertIsA($this->db, 'Firebird');
 	}
 	
-	function TestGetTables()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetTables()
 	{
 		$tables = $this->tables;
 		$this->assertTrue(is_array($tables));
 	}
 	
-	function TestGetSystemTables()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetSystemTables()
 	{	
 		$only_system = TRUE;
 		
@@ -64,13 +72,17 @@ class FirebirdTest extends DBTest {
 		$this->assertTrue($only_system);
 	}
 	
-	function TestCreateTransaction()
+	// --------------------------------------------------------------------------
+	
+	public function TestCreateTransaction()
 	{
 		$res = $this->db->beginTransaction();
 		$this->assertTrue($res);
 	}
+	
+	// --------------------------------------------------------------------------
 
-	/*function TestCreateTable()
+	/*public function TestCreateTable()
 	{
 		//Attempt to create the table
 		$sql = $this->db->sql->create_table('create_join', array(
@@ -93,16 +105,18 @@ class FirebirdTest extends DBTest {
 		$this->assertTrue($table_exists);
 	}*/
 	
+	// --------------------------------------------------------------------------
 	
-	
-	function TestTruncate()
+	public function TestTruncate()
 	{
 		$this->db->truncate('create_test');
 		
 		$this->assertTrue($this->db->affected_rows() > 0);
 	}
 	
-	function TestCommitTransaction()
+	// --------------------------------------------------------------------------
+	
+	public function TestCommitTransaction()
 	{
 		$res = $this->db->beginTransaction();
 		
@@ -113,7 +127,9 @@ class FirebirdTest extends DBTest {
 		$this->assertTrue($res);
 	}
 	
-	function TestRollbackTransaction()
+	// --------------------------------------------------------------------------
+	
+	public function TestRollbackTransaction()
 	{
 		$res = $this->db->beginTransaction();
 		
@@ -124,9 +140,9 @@ class FirebirdTest extends DBTest {
 		$this->assertTrue($res);
 	}
 	
+	// --------------------------------------------------------------------------
 	
-	
-	function TestPreparedStatements()
+	public function TestPreparedStatements()
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val") 
@@ -137,7 +153,9 @@ SQL;
 
 	}
 	
-	function TestPrepareExecute()
+	// --------------------------------------------------------------------------
+	
+	public function TestPrepareExecute()
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val") 
@@ -149,12 +167,16 @@ SQL;
 	
 	}
 	
-	function TestPrepareQuery()
+	// --------------------------------------------------------------------------
+	
+	public function TestPrepareQuery()
 	{
 		$this->assertFalse($this->db->prepare_query('', array()));	
 	}
+	
+	// --------------------------------------------------------------------------
 
-	/*function TestDeleteTable()
+	/*public function TestDeleteTable()
 	{
 		//Attempt to delete the table
 		$sql = $this->db->sql->delete_table('create_test');
@@ -169,22 +191,30 @@ SQL;
 		$this->assertFalse($table_exists);
 	}*/
 	
-	function TestGetSequences()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetSequences()
 	{
 		$this->assertTrue(is_array($this->db->get_sequences()));
 	}
 	
-	function TestGetProcedures()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetProcedures()
 	{
 		$this->assertTrue(is_array($this->db->get_procedures()));
 	}
 	
-	function TestGetFunctions()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetpublic functions()
 	{
-		$this->assertTrue(is_array($this->db->get_functions()));
+		$this->assertTrue(is_array($this->db->get_public functions()));
 	}
 	
-	function TestGetTriggers()
+	// --------------------------------------------------------------------------
+	
+	public function TestGetTriggers()
 	{
 		$this->assertTrue(is_array($this->db->get_triggers()));
 	}

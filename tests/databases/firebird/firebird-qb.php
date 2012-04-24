@@ -18,7 +18,7 @@
  */
 class FirebirdQBTest extends QBTest {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		
@@ -35,6 +35,4 @@ class FirebirdQBTest extends QBTest {
 		
 		// echo '<hr /> Firebird Queries <hr />';
 	}
-	
-		
 }

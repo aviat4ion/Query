@@ -29,6 +29,8 @@ class CoreTest extends UnitTestCase {
 		parent::__construct();
 	}
 	
+	// --------------------------------------------------------------------------
+	
 	/**
 	 * TestPHPVersion function.
 	 * 
@@ -39,6 +41,8 @@ class CoreTest extends UnitTestCase {
 	{
 		$this->assertTrue(version_compare(PHP_VERSION, "5.2", "ge"));
 	}
+	
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * TestHasPDO function.

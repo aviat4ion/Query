@@ -15,7 +15,7 @@
 
 class MySQLQBTest extends QBTest {
 
-	function __construct()
+	public function __construct()
  	{
  		parent::__construct();
 
@@ -45,8 +45,9 @@ class MySQLQBTest extends QBTest {
 		}
  	}
 
+	// --------------------------------------------------------------------------
 
-	function TestExists()
+	public function TestExists()
 	{
 		$this->assertTrue(in_array('mysql', pdo_drivers()));
 	}
