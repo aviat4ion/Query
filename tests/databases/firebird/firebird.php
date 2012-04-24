@@ -207,9 +207,9 @@ SQL;
 	
 	// --------------------------------------------------------------------------
 	
-	public function TestGetpublic functions()
+	public function TestGetFunctions()
 	{
-		$this->assertTrue(is_array($this->db->get_public functions()));
+		$this->assertTrue(is_array($this->db->get_functions()));
 	}
 	
 	// --------------------------------------------------------------------------
