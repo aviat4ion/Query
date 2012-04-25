@@ -47,7 +47,14 @@ The parameters required depend on the database.
 ### Running Queries
 Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `insert_batch` or `update_batch` methods.
 
-#### Retrieving Results
+####You can also run queries manually. 
+
+To run a prepared statement, call
+`$db->prepare_execute($sql, $params)`. 
+
+To run a plain query, `$db->query($sql)`
+
+### Retrieving Results:
 
 An example of a moderately complex query:
 
