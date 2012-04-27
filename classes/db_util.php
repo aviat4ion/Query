@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Query
  */
-abstract class DB_Util extends StdClass {
+abstract class DB_Util {
 
 	/**
 	 * Reference to the current connection object

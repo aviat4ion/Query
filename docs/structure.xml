@@ -297,7 +297,7 @@ directly - the settings should be safe!]]></description>
       </method>
     </class>
   </file>
-  <file path="classes/db_sql.php" hash="d61f3207d6204bdedc300eaab671504c" package="Query">
+  <file path="classes/db_sql.php" hash="ac302192ccf945708ea13bd46d7427ac" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -310,7 +310,7 @@ directly - the settings should be safe!]]></description>
     <class final="false" abstract="true" namespace="default" line="22" package="Query\Query">
       <name>DB_SQL</name>
       <full_name>\DB_SQL</full_name>
-      <extends>\StdClass</extends>
+      <extends/>
       <docblock line="16">
         <description><![CDATA[Abstract parent for database manipulation subclasses]]></description>
         <long-description><![CDATA[]]></long-description>
@@ -2126,7 +2126,7 @@ in place of the get() method]]></description>
       </method>
     </class>
   </file>
-  <file path="classes/db_util.php" hash="8d50059d870a6ad3f9cc60b464a6e2cf" package="Query">
+  <file path="classes/db_util.php" hash="1a56d6f40af0e6860d9ae0dbcde8451c" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -2139,7 +2139,7 @@ in place of the get() method]]></description>
     <class final="false" abstract="true" namespace="default" line="22" package="Query\Query">
       <name>DB_Util</name>
       <full_name>\DB_Util</full_name>
-      <extends>\StdClass</extends>
+      <extends/>
       <docblock line="16">
         <description><![CDATA[Abstract class defining database / table creation methods]]></description>
         <long-description><![CDATA[]]></long-description>
