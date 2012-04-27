@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project version="2.0.0a2" title="Query">
-  <file path="classes/db_reg.php" hash="4db07479d2dfdd5a403c7ffae83ceb23" package="Default">
+  <file path="classes/db_reg.php" hash="980acf99913c157e25ad2ab66d52e6c4" package="Default">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -12,7 +12,7 @@
     <class final="false" abstract="false" namespace="default" line="24" package="Query\Helper Classes">
       <name>DB_Reg</name>
       <full_name>\DB_Reg</full_name>
-      <extends/>
+      <extends>\StdClass</extends>
       <docblock line="15">
         <description><![CDATA[Connection registry]]></description>
         <long-description><![CDATA[<p>Decouples the Settings class from the query builder
@@ -95,7 +95,7 @@ and organizes database connections</p>]]></long-description>
       </method>
     </class>
   </file>
-  <file path="classes/settings.php" hash="69d30a582c8ec7f2a29151aab896ce1e" package="Query">
+  <file path="classes/settings.php" hash="e26c038a9d6e5ed9cfd65344c4dfc312" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -108,7 +108,7 @@ and organizes database connections</p>]]></long-description>
     <class final="false" abstract="false" namespace="default" line="22" package="Query\Helper Classes">
       <name>Settings</name>
       <full_name>\Settings</full_name>
-      <extends/>
+      <extends>\StdClass</extends>
       <docblock line="16">
         <description><![CDATA[Class for manipulating datbase connections, and miscellaneous settings]]></description>
         <long-description><![CDATA[]]></long-description>
@@ -922,7 +922,7 @@ the connection/database]]></description>
       </method>
     </class>
   </file>
-  <file path="classes/query_builder.php" hash="092cb9175598edaa9153839c22c7d3a0" package="Query">
+  <file path="classes/query_builder.php" hash="6aee959ed8b12f7b744e9b459d5f5340" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -935,7 +935,7 @@ the connection/database]]></description>
     <class final="false" abstract="false" namespace="default" line="23" package="Query\Query">
       <name>Query_Builder</name>
       <full_name>\Query_Builder</full_name>
-      <extends/>
+      <extends>\StdClass</extends>
       <docblock line="16">
         <description><![CDATA[Convienience class for creating sql queries - also the class that
 instantiates the specific db driver]]></description>
