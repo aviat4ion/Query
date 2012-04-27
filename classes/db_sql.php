@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Query
  */
-abstract class DB_SQL {
+abstract class DB_SQL extends StdClass {
 
 	// --------------------------------------------------------------------------
 	// ! Methods to override
