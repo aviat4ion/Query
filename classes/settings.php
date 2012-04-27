@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Helper Classes
  */
-class Settings extends StdClass {
+class Settings {
 
 	/**
 	 * Settings object represented by the currently loaded JSON file
