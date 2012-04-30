@@ -463,32 +463,20 @@ class Query_Builder {
 	 */
 	public function or_like($field, $val, $pos='both')
 	{
-		$field = $this->quote_ident($field);
+		// Do the like method
+		$this->like($field, $val, $pos);
+		
+		$l = $field. ' LIKE ?';
+		
+		// Pop the incorrect query mapping off of the array
+		array_pop($this->query_map);
 
 		// Add the like string into the order map
-		$l = $field. ' LIKE ?';
-
-		if ($pos == 'before')
-		{
-			$val = "%{$val}";
-		}
-		elseif ($pos == 'after')
-		{
-			$val = "{$val}%";
-		}
-		else
-		{
-			$val = "%{$val}%";
-		}
-
 		$this->query_map[] = array(
 			'type' => 'like',
 			'conjunction' => (empty($this->query_map)) ? 'WHERE ' : ' OR ',
 			'string' => $l
 		);
-
-		// Add to the values array
-		$this->values[] = $val;
 
 		return $this;
 	}
@@ -505,32 +493,20 @@ class Query_Builder {
 	 */
 	public function not_like($field, $val, $pos='both')
 	{
-		$field = $this->quote_ident($field);
+		// Do the like method
+		$this->like($field, $val, $pos);
+		
+		// Pop the incorrect query mapping off of the array
+		array_pop($this->query_map);
 
 		// Add the like string into the order map
 		$l = $field. ' NOT LIKE ?';
-
-		if ($pos == 'before')
-		{
-			$val = "%{$val}";
-		}
-		elseif ($pos == 'after')
-		{
-			$val = "{$val}%";
-		}
-		else
-		{
-			$val = "%{$val}%";
-		}
 
 		$this->query_map[] = array(
 			'type' => 'like',
 			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : ' AND ',
 			'string' => $l
 		);
-
-		// Add to the values array
-		$this->values[] = $val;
 
 		return $this;
 	}
@@ -547,32 +523,20 @@ class Query_Builder {
 	 */
 	public function or_not_like($field, $val, $pos='both')
 	{
-		$field = $this->quote_ident($field);
+		// Do the like method
+		$this->like($field, $val, $pos);
+		
+		// Pop the incorrect query mapping off of the array
+		array_pop($this->query_map);
 
 		// Add the like string into the order map
 		$l = $field. ' NOT LIKE ?';
-
-		if ($pos == 'before')
-		{
-			$val = "%{$val}";
-		}
-		elseif ($pos == 'after')
-		{
-			$val = "{$val}%";
-		}
-		else
-		{
-			$val = "%{$val}%";
-		}
 
 		$this->query_map[] = array(
 			'type' => 'like',
 			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : ' OR ',
 			'string' => $l
 		);
-
-		// Add to the values array
-		$this->values[] = $val;
 
 		return $this;
 	}
@@ -801,13 +765,14 @@ class Query_Builder {
 	 */
 	public function or_where_in($field, $val=array())
 	{
+		// Do the were_in method
+		$this->where_in($field, $val);
+		
+		// Pop the incorrect query mapping off of the array
+		array_pop($this->query_map);
+	
 		$field = $this->quote_ident($field);
 		$params = array_fill(0, count($val), '?');
-
-		foreach($val as $v)
-		{
-			$this->values[] = $v;
-		}
 
 		$string = $field . ' IN ('.implode(',', $params).') ';
 
@@ -932,7 +897,6 @@ class Query_Builder {
 	 */
 	public function join($table, $condition, $type='')
 	{
-		// Paste it back together
 		$table = implode(" ", array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));
 		//$condition = preg_replace('`(\W)`', " $1 ", $condition);
 		$cond_array = explode(' ', trim($condition));
@@ -1373,7 +1337,7 @@ class Query_Builder {
 	 * @param string $table
 	 * @return $string
 	 */
-	private function _compile($type='', $table="")
+	private function _compile($type='', $table='')
 	{
 		$sql = '';
 
