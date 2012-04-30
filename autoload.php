@@ -20,12 +20,12 @@
 /**
  * Reference to root path
  */
-define('BASE_PATH', dirname(__FILE__).'/');
+define('QBASE_PATH', dirname(__FILE__).'/');
 
 /**
  * Path to driver classes
  */
-define('DRIVER_PATH', BASE_PATH.'drivers/');
+define('QDRIVER_PATH', QBASE_PATH.'drivers/');
 
 if ( ! function_exists('do_include'))
 {
@@ -43,12 +43,12 @@ if ( ! function_exists('do_include'))
 }
 
 // Load base classes
-array_map('do_include', glob(BASE_PATH.'classes/*.php'));
+array_map('do_include', glob(QBASE_PATH.'classes/*.php'));
 
 // Load PDO Drivers
 foreach(pdo_drivers() as $d)
 {
-	$dir = DRIVER_PATH.$d;
+	$dir = QDRIVER_PATH.$d;
 
 	if(is_dir($dir))
 	{
@@ -59,7 +59,7 @@ foreach(pdo_drivers() as $d)
 // Load Firebird driver, if applicable
 if (function_exists('fbird_connect'))
 {
-	array_map('do_include', glob(DRIVER_PATH.'/firebird/*.php'));
+	array_map('do_include', glob(QDRIVER_PATH.'/firebird/*.php'));
 }
 
 // --------------------------------------------------------------------------

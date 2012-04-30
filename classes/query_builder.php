@@ -395,21 +395,22 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 	// ! 'Like' methods
 	// --------------------------------------------------------------------------
-
+	
 	/**
-	 * Creates a Like clause in the sql statement
+	 * Simplify 'like' methods
 	 *
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @param string $like
+	 * @param string $conj
 	 */
-	public function like($field, $val, $pos='both')
+	private function _like($field, $val, $pos, $like='LIKE', $conj='AND')
 	{
 		$field = $this->quote_ident($field);
 
 		// Add the like string into the order map
-		$l = $field. ' LIKE ?';
+		$l = $field. " {$like} ?";
 
 		if ($pos == 'before')
 		{
@@ -423,16 +424,30 @@ class Query_Builder {
 		{
 			$val = "%{$val}%";
 		}
-
+		
 		$this->query_map[] = array(
 			'type' => 'like',
-			'conjunction' => (empty($this->query_map)) ? 'WHERE ' : ' AND ',
+			'conjunction' => (empty($this->query_map)) ? 'WHERE ' : " {$conj} ",
 			'string' => $l
 		);
-
+		
 		// Add to the values array
 		$this->values[] = $val;
+	} 
+	
+	// --------------------------------------------------------------------------
 
+	/**
+	 * Creates a Like clause in the sql statement
+	 *
+	 * @param string $field
+	 * @param mixed $val
+	 * @param string $pos
+	 * @return $this
+	 */
+	public function like($field, $val, $pos='both')
+	{
+		$this->_like($field, $val, $pos);
 		return $this;
 	}
 
@@ -448,21 +463,7 @@ class Query_Builder {
 	 */
 	public function or_like($field, $val, $pos='both')
 	{
-		// Do the like method
-		$this->like($field, $val, $pos);
-		
-		$l = $field. ' LIKE ?';
-		
-		// Pop the incorrect query mapping off of the array
-		array_pop($this->query_map);
-
-		// Add the like string into the order map
-		$this->query_map[] = array(
-			'type' => 'like',
-			'conjunction' => (empty($this->query_map)) ? 'WHERE ' : ' OR ',
-			'string' => $l
-		);
-
+		$this->_like($field, $val, $pos, 'LIKE', 'OR');
 		return $this;
 	}
 
@@ -478,21 +479,7 @@ class Query_Builder {
 	 */
 	public function not_like($field, $val, $pos='both')
 	{
-		// Do the like method
-		$this->like($field, $val, $pos);
-		
-		// Pop the incorrect query mapping off of the array
-		array_pop($this->query_map);
-
-		// Add the like string into the order map
-		$l = $field. ' NOT LIKE ?';
-
-		$this->query_map[] = array(
-			'type' => 'like',
-			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : ' AND ',
-			'string' => $l
-		);
-
+		$this->_like($field, $val, $pos, 'NOT LIKE');
 		return $this;
 	}
 
@@ -508,21 +495,7 @@ class Query_Builder {
 	 */
 	public function or_not_like($field, $val, $pos='both')
 	{
-		// Do the like method
-		$this->like($field, $val, $pos);
-		
-		// Pop the incorrect query mapping off of the array
-		array_pop($this->query_map);
-
-		// Add the like string into the order map
-		$l = $field. ' NOT LIKE ?';
-
-		$this->query_map[] = array(
-			'type' => 'like',
-			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : ' OR ',
-			'string' => $l
-		);
-
+		$this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
 		return $this;
 	}
 	
@@ -629,6 +602,36 @@ class Query_Builder {
 
 		return $where;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Simplify where_in methods
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param string
+	 * @param string
+	 * @return void
+	 */
+	private function _where_in($key, $val=array(), $in='IN', $conj='AND')
+	{
+		$field = $this->quote_ident($field);
+		$params = array_fill(0, count($val), '?');
+
+		foreach($val as $v)
+		{
+			$this->values[] = $v;
+		}
+
+		$string = $field . " {$in} ".implode(',', $params).') ';
+
+		$this->query_map[] = array(
+			'type' => 'where_in',
+			'conjunction' => ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ',
+			'string' => $string
+		);
+	}
 
 	// --------------------------------------------------------------------------
 
@@ -720,22 +723,7 @@ class Query_Builder {
 	 */
 	public function where_in($field, $val=array())
 	{
-		$field = $this->quote_ident($field);
-		$params = array_fill(0, count($val), '?');
-
-		foreach($val as $v)
-		{
-			$this->values[] = $v;
-		}
-
-		$string = $field . ' IN ('.implode(',', $params).') ';
-
-		$this->query_map[] = array(
-			'type' => 'where_in',
-			'conjunction' => ( ! empty($this->query_map)) ? ' AND ' : ' WHERE ',
-			'string' => $string
-		);
-
+		$this->_where_in($field, $val);
 		return $this;
 	}
 
@@ -750,23 +738,7 @@ class Query_Builder {
 	 */
 	public function or_where_in($field, $val=array())
 	{
-		// Do the were_in method
-		$this->where_in($field, $val);
-		
-		// Pop the incorrect query mapping off of the array
-		array_pop($this->query_map);
-	
-		$field = $this->quote_ident($field);
-		$params = array_fill(0, count($val), '?');
-
-		$string = $field . ' IN ('.implode(',', $params).') ';
-
-		$this->query_map[] = array(
-			'type' => 'where_in',
-			'conjunction' => ( ! empty($this->query_map)) ? ' OR ' : ' WHERE ',
-			'string' => $string
-		);
-
+		$this->_where_in($field, $val, 'IN', 'OR');
 		return $this;
 	}
 
@@ -781,22 +753,7 @@ class Query_Builder {
 	 */
 	public function where_not_in($field, $val=array())
 	{
-		$field = $this->quote_ident($field);
-		$params = array_fill(0, count($val), '?');
-
-		foreach($val as $v)
-		{
-			$this->values[] = $v;
-		}
-
-		$string = $field.' NOT IN ('.implode(',', $params).') ';
-
-		$this->query_map[] = array(
-			'type' => 'where_in',
-			'conjunction' => ( ! empty($this->query_map)) ? ' AND ' : ' WHERE ',
-			'string' => $string
-		);
-
+		$this->_where_in($field, $val, 'NOT IN', 'AND');
 		return $this;
 	}
 
@@ -811,22 +768,7 @@ class Query_Builder {
 	 */
 	public function or_where_not_in($field, $val=array())
 	{
-		$field = $this->quote_ident($field);
-		$params = array_fill(0, count($val), '?');
-
-		foreach($val as $v)
-		{
-			$this->values[] = $v;
-		}
-
-		$string = $field.' NOT IN ('.implode(',', $params).') ';
-
-		$this->query_map[] = array(
-			'type' => 'where_in',
-			'conjunction' => ( ! empty($this->query_map)) ? ' OR ' : ' WHERE ',
-			'string' => $string
-		);
-
+		$this->_where_in($field, $val, 'NOT IN', 'OR');
 		return $this;
 	}
 

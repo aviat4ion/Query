@@ -107,9 +107,11 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 <li class="method public "><a href="#where_not_in" title="where_not_in :: WHERE NOT IN (FOO) clause"><span class="description">WHERE NOT IN (FOO) clause</span><pre>where_not_in()</pre></a></li>
 <li class="nav-header private">» Private</li>
 <li class="method private "><a href="#_compile" title="_compile :: String together the sql statements for sending to the db"><span class="description">String together the sql statements for sending to the db</span><pre>_compile()</pre></a></li>
+<li class="method private "><a href="#_like" title="_like :: Simplify 'like' methods"><span class="description">Simplify 'like' methods</span><pre>_like()</pre></a></li>
 <li class="method private "><a href="#_reset" title="_reset :: Clear out the class variables, so the next query can be run"><span class="description">Clear out the class variables, so the next query can be run</span><pre>_reset()</pre></a></li>
 <li class="method private "><a href="#_select" title="_select :: Method to simplify select_ methods"><span class="description">Method to simplify select_ methods</span><pre>_select()</pre></a></li>
 <li class="method private "><a href="#_where" title="_where :: Do all the repeditive stuff for where/having type methods"><span class="description">Do all the repeditive stuff for where/having type methods</span><pre>_where()</pre></a></li>
+<li class="method private "><a href="#_where_in" title="_where_in :: Simplify where_in methods"><span class="description">Simplify where_in methods</span><pre>_where_in()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
 <li class="property public "><a href="#%24conn_name" title="$conn_name :: Convenience property for connection management"><span class="description">Convenience property for connection management</span><pre>$conn_name</pre></a></li>
@@ -949,6 +951,35 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>\$string</code></div>
 </div></div>
 </div>
+<a name="_like" id="_like"></a><div class="element clickable method private _like" data-toggle="collapse" data-target="._like .collapse">
+<h2>Simplify 'like' methods</h2>
+<pre>_like(string $field, mixed $val, string $pos, string $like, string $conj) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$field</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$val</h4>
+<code>mixed</code>
+</div>
+<div class="subelement argument">
+<h4>$pos</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$like</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$conj</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
 <a name="_reset" id="_reset"></a><div class="element clickable method private _reset" data-toggle="collapse" data-target="._reset .collapse">
 <h2>Clear out the class variables, so the next query can be run</h2>
 <pre>_reset() </pre>
@@ -991,6 +1022,29 @@ passed array with key / value pairs</h2>
 </div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="_where_in" id="_where_in"></a><div class="element clickable method private _where_in" data-toggle="collapse" data-target="._where_in .collapse">
+<h2>Simplify where_in methods</h2>
+<pre>_where_in(mixed $key, mixed $val, $in, $conj) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$key</h4>
+<code>mixed</code>
+</div>
+<div class="subelement argument">
+<h4>$val</h4>
+<code>mixed</code>
+</div>
+<div class="subelement argument">
+<h4>$in</h4>
+<code></code><p>string</p></div>
+<div class="subelement argument">
+<h4>$conj</h4>
+<code></code><p>string</p></div>
 </div></div>
 </div>
 <h3>
@@ -1099,7 +1153,7 @@ for complex select queries</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-04-30T15:29:34-04:00.<br></footer></div>
+            generated on 2012-04-30T16:05:55-04:00.<br></footer></div>
 </div>
 </body>
 </html>

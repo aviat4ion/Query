@@ -22,7 +22,7 @@ class FirebirdQBTest extends QBTest {
 	{
 		parent::__construct();
 		
-		$dbpath = TEST_DIR.DS.'db_files'.DS.'FB_TEST_DB.FDB';
+		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
 		// Test the query builder
 		$params = new Stdclass();
