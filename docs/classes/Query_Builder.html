@@ -108,6 +108,7 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 <li class="nav-header private">» Private</li>
 <li class="method private "><a href="#_compile" title="_compile :: String together the sql statements for sending to the db"><span class="description">String together the sql statements for sending to the db</span><pre>_compile()</pre></a></li>
 <li class="method private "><a href="#_reset" title="_reset :: Clear out the class variables, so the next query can be run"><span class="description">Clear out the class variables, so the next query can be run</span><pre>_reset()</pre></a></li>
+<li class="method private "><a href="#_select" title="_select :: Method to simplify select_ methods"><span class="description">Method to simplify select_ methods</span><pre>_select()</pre></a></li>
 <li class="method private "><a href="#_where" title="_where :: Do all the repeditive stuff for where/having type methods"><span class="description">Do all the repeditive stuff for where/having type methods</span><pre>_where()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
@@ -954,6 +955,25 @@ passed array with key / value pairs</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
+<a name="_select" id="_select"></a><div class="element clickable method private _select" data-toggle="collapse" data-target="._select .collapse">
+<h2>Method to simplify select_ methods</h2>
+<pre>_select(string $field, string $as) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$field</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$as</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
 <a name="_where" id="_where"></a><div class="element clickable method private _where" data-toggle="collapse" data-target="._where .collapse">
 <h2>Do all the repeditive stuff for where/having type methods</h2>
 <pre>_where(mixed $key, mixed $val) : array</pre>
@@ -1079,7 +1099,7 @@ for complex select queries</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-04-30T14:49:04-04:00.<br></footer></div>
+            generated on 2012-04-30T15:29:34-04:00.<br></footer></div>
 </div>
 </body>
 </html>

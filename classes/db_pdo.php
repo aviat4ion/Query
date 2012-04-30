@@ -25,21 +25,29 @@ abstract class DB_PDO extends PDO {
 
 	/**
 	 * Reference to the last executed query
+	 *
+	 * @var mixed
 	 */
 	protected $statement;
 	
 	/**
 	 * Character to escape identifiers
+	 *
+	 * @var string
 	 */
 	protected $escape_char = '"';
 	
 	/**
 	 * Reference to sql sub class
+	 *
+	 * @var Object
 	 */
 	public $sql;
 	
 	/**
 	 * Reference to util sub class
+	 *
+	 * @var Object
 	 */
 	public $util;
 
