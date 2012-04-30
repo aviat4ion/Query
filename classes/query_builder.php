@@ -870,7 +870,11 @@ class Query_Builder {
 			foreach($key as $k => $v)
 			{
 				$this->set_array[$k] = $v;
-				$this->values[] = $val;
+				
+				foreach($vals as $v)
+				{
+					$this->values[] = $v;
+				}
 			}
 		}
 
