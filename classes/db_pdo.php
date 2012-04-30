@@ -202,6 +202,9 @@ abstract class DB_PDO extends PDO {
 		{
 			return array_map(array($this, 'quote_ident'), $ident);
 		}
+		
+		// Remove existing escape characters
+		$ident = str_replace($this->escape_char, '', $ident);
 
 		// Split each identifier by the period
 		$hiers = explode('.', $ident);

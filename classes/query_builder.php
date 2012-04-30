@@ -22,6 +22,10 @@
  */
 class Query_Builder {
 
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Strings
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Compiled 'select' clause
 	 *
@@ -58,14 +62,9 @@ class Query_Builder {
 	private $group_string;
 	
 	// --------------------------------------------------------------------------
+	// ! SQL Clause Arrays
+	// --------------------------------------------------------------------------
 
-	/**
-	 * key/val pairs for insert/update statement
-	 *
-	 * @var array
-	 */
-	private $set_array;
-	
 	/**
 	 * Keys for insert/update statement
 	 *
@@ -87,6 +86,8 @@ class Query_Builder {
 	 */
 	private $group_array;
 	
+	// --------------------------------------------------------------------------
+	// ! Other Class vars
 	// --------------------------------------------------------------------------
 
 	/**
@@ -856,12 +857,12 @@ class Query_Builder {
 	 * @param mixed $val
 	 * @return $this
 	 */
-	public function set($key, $val)
+	public function set($key, $val = NULL)
 	{
 		// Plain key, value pair
 		if (is_scalar($key) && is_scalar($val))
 		{
-			$this->set_array[$key] = $val;
+			$this->set_array_keys[] = $key;
 			$this->values[] = $val;
 		}
 		// Object or array
@@ -869,18 +870,14 @@ class Query_Builder {
 		{
 			foreach($key as $k => $v)
 			{
-				$this->set_array[$k] = $v;
-				
-				foreach($vals as $v)
-				{
-					$this->values[] = $v;
-				}
+				$this->set_array_keys[] = $k;
+				$this->values[] = $v;
 			}
 		}
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
-		$this->set_array_keys = array_map(array($this->db, 'quote_ident'), array_keys($this->set_array));
+		$this->set_array_keys = array_map(array($this->db, 'quote_ident'), $this->set_array_keys);
 
 		// Generate the "set" string
 		$this->set_string = implode('=?, ', $this->set_array_keys);
@@ -1395,7 +1392,7 @@ class Query_Builder {
 			break;
 
 			case "insert":
-				$param_count = count($this->set_array);
+				$param_count = count($this->set_array_keys);
 				$params = array_fill(0, $param_count, '?');
 				$sql = 'INSERT INTO '. $this->quote_ident($table) .
 					' (' . implode(', ', $this->set_array_keys) .
