@@ -428,7 +428,7 @@ class Query_Builder {
 		
 		$this->query_map[] = array(
 			'type' => 'like',
-			'conjunction' => (empty($this->query_map)) ? 'WHERE ' : " {$conj} ",
+			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : " {$conj} ",
 			'string' => $l
 		);
 		
@@ -1204,6 +1204,8 @@ class Query_Builder {
 
 	/**
 	 * Clear out the class variables, so the next query can be run
+	 *
+	 * @return void
 	 */
 	private function _reset()
 	{
@@ -1336,7 +1338,7 @@ class Query_Builder {
 			break;
 		}
 		
-		//echo $sql . '<br />';
+		echo $sql . '<br />';
 
 		return $sql;
 	}

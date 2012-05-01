@@ -113,6 +113,7 @@ method if the database does not support 'TRUNCATE';</span><pre>empty_table()</pr
 <li class="method public "><a href="#truncate" title="truncate :: Empty a table"><span class="description">Empty a table</span><pre>truncate()</pre></a></li>
 <li class="method public "><a href="#unload_database" title="unload_database :: Unload a database from the current connection"><span class="description">Unload a database from the current connection</span><pre>unload_database()</pre></a></li>
 <li class="nav-header protected">» Protected</li>
+<li class="method protected inherited"><a href="#_quote" title="_quote :: Helper method for quote_ident"><span class="description">Helper method for quote_ident</span><pre>_quote()</pre></a></li>
 <li class="method protected inherited"><a href="#driver_query" title="driver_query :: Method to simplify retreiving db results for meta-data queries"><span class="description">Method to simplify retreiving db results for meta-data queries</span><pre>driver_query()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
@@ -791,6 +792,25 @@ method if the database does not support 'TRUNCATE';</h2>
 </div>
 </div></div>
 </div>
+<a name="_quote" id="_quote"></a><div class="element clickable method protected _quote" data-toggle="collapse" data-target="._quote .collapse">
+<h2>Helper method for quote_ident</h2>
+<pre>_quote(mixed $str) : mixed</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_PDO::_quote()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$str</h4>
+<code>mixed</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
 <a name="driver_query" id="driver_query"></a><div class="element clickable method protected driver_query" data-toggle="collapse" data-target=".driver_query .collapse">
 <h2>Method to simplify retreiving db results for meta-data queries</h2>
 <pre>driver_query(string $sql, bool $filtered_index) : mixed</pre>
@@ -865,7 +885,7 @@ method if the database does not support 'TRUNCATE';</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-05-01T13:44:57-04:00.<br></footer></div>
+            generated on 2012-05-01T14:03:17-04:00.<br></footer></div>
 </div>
 </body>
 </html>

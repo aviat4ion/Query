@@ -211,15 +211,35 @@ abstract class DB_PDO extends PDO {
 			return array_map(array($this, 'quote_ident'), $ident);
 		}
 		
-		// Remove existing escape characters
-		$ident = str_replace($this->escape_char, '', $ident);
+		// If the string is already quoted, return the string
+		if (($pos = strpos($ident, $this->escape_char)) !== FALSE  && $pos === 0)
+		{
+			return $ident;
+		}
 
 		// Split each identifier by the period
 		$hiers = explode('.', $ident);
 
-		return $this->escape_char .
-			implode("{$this->escape_char}.{$this->escape_char}", $hiers) . 
-			$this->escape_char;
+		// Return the re-compiled string
+		return implode('.', array_map(array($this, '_quote'), $hiers));
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Helper method for quote_ident
+	 *
+	 * @param mixed $str
+	 * @return mixed
+	 */
+	protected function _quote($str)
+	{
+		if ( ! is_string($str) && is_numeric($str))
+		{
+			return $str;
+		}
+		
+		return "{$this->escape_char}{$str}{$this->escape_char}";
 	}
 
 	// -------------------------------------------------------------------------
