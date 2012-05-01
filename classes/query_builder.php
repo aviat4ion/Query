@@ -404,6 +404,7 @@ class Query_Builder {
 	 * @param string $pos
 	 * @param string $like
 	 * @param string $conj
+	 * @return $this
 	 */
 	private function _like($field, $val, $pos, $like='LIKE', $conj='AND')
 	{
@@ -433,6 +434,8 @@ class Query_Builder {
 		
 		// Add to the values array
 		$this->values[] = $val;
+		
+		return $this;
 	} 
 	
 	// --------------------------------------------------------------------------
@@ -447,8 +450,7 @@ class Query_Builder {
 	 */
 	public function like($field, $val, $pos='both')
 	{
-		$this->_like($field, $val, $pos);
-		return $this;
+		return $this->_like($field, $val, $pos, 'LIKE', 'AND');
 	}
 
 	// --------------------------------------------------------------------------
@@ -463,8 +465,7 @@ class Query_Builder {
 	 */
 	public function or_like($field, $val, $pos='both')
 	{
-		$this->_like($field, $val, $pos, 'LIKE', 'OR');
-		return $this;
+		return $this->_like($field, $val, $pos, 'LIKE', 'OR');
 	}
 
 	// --------------------------------------------------------------------------
@@ -479,8 +480,7 @@ class Query_Builder {
 	 */
 	public function not_like($field, $val, $pos='both')
 	{
-		$this->_like($field, $val, $pos, 'NOT LIKE');
-		return $this;
+		return $this->_like($field, $val, $pos, 'NOT LIKE', 'AND');
 	}
 
 	// --------------------------------------------------------------------------
@@ -495,7 +495,44 @@ class Query_Builder {
 	 */
 	public function or_not_like($field, $val, $pos='both')
 	{
-		$this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
+		return $this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
+	}
+	
+	// --------------------------------------------------------------------------
+	// ! Having methods
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Simplify building having clauses
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param string $conj
+	 * @return $this
+	 */
+	private function _having($key, $val=array(), $conj='AND')
+	{
+		$where = $this->_where($key, $val);
+		
+		// Create key/value placeholders
+		foreach($where as $f => $val)
+		{
+			// Split each key by spaces, in case there
+			// is an operator such as >, <, !=, etc.
+			$f_array = explode(' ', trim($f));
+
+			$item = $this->quote_ident($f_array[0]);
+
+			// Simple key value, or an operator
+			$item .= (count($f_array) === 1) ? '= ?' : " {$f_array[1]} ?";
+
+			// Put in the query map for select statements
+			$this->having_map[] = array(
+				'conjunction' => ( ! empty($this->having_map)) ? " {$conj} " : ' HAVING ',
+				'string' => $item
+			);
+		}
+		
 		return $this;
 	}
 	
@@ -510,28 +547,7 @@ class Query_Builder {
 	 */
 	public function having($key, $val=array())
 	{
-		$where = $this->_where($key, $val);
-		
-		// Create key/value placeholders
-		foreach($where as $f => $val)
-		{
-			// Split each key by spaces, in case there
-			// is an operator such as >, <, !=, etc.
-			$f_array = explode(' ', trim($f));
-
-			$item = $this->quote_ident($f_array[0]);
-
-			// Simple key value, or an operator
-			$item .= (count($f_array) === 1) ? '= ?' : " {$f_array[1]} ?";
-
-			// Put in the query map for select statements
-			$this->having_map[] = array(
-				'conjunction' => ( ! empty($this->having_map)) ? ' AND ' : ' HAVING ',
-				'string' => $item
-			);
-		}
-
-		return $this;
+		return $this->_having($key, $val, 'AND');
 	}
 	
 	// --------------------------------------------------------------------------
@@ -545,28 +561,7 @@ class Query_Builder {
 	 */
 	public function or_having($key, $val=array())
 	{
-		$where = $this->_where($key, $val);
-		
-		// Create key/value placeholders
-		foreach($where as $f => $val)
-		{
-			// Split each key by spaces, in case there
-			// is an operator such as >, <, !=, etc.
-			$f_array = explode(' ', trim($f));
-
-			$item = $this->quote_ident($f_array[0]);
-
-			// Simple key value, or an operator
-			$item .= (count($f_array) === 1) ? '= ?' : " {$f_array[1]} ?";
-
-			// Put in the query map for select statements
-			$this->having_map[] = array(
-				'conjunction' => ( ! empty($this->having_map)) ? ' OR ' : ' HAVING ',
-				'string' => $item
-			);
-		}
-
-		return $this;
+		return $this->_having($key, $val, 'OR');
 	}
 
 	// --------------------------------------------------------------------------
@@ -606,45 +601,14 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Simplify where_in methods
+	 * Simplify generating where string
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @param string
-	 * @param string
-	 * @return void
-	 */
-	private function _where_in($key, $val=array(), $in='IN', $conj='AND')
-	{
-		$field = $this->quote_ident($field);
-		$params = array_fill(0, count($val), '?');
-
-		foreach($val as $v)
-		{
-			$this->values[] = $v;
-		}
-
-		$string = $field . " {$in} ".implode(',', $params).') ';
-
-		$this->query_map[] = array(
-			'type' => 'where_in',
-			'conjunction' => ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ',
-			'string' => $string
-		);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Specify condition(s) in the where clause of a query
-	 * Note: this function works with key / value, or a
-	 * passed array with key / value pairs
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
+	 * @param string $conj
 	 * @return $this
 	 */
-	public function where($key, $val=array())
+	private function _where_string($key, $val=array(), $conj='AND')
 	{
 		$where = $this->_where($key, $val);
 
@@ -663,12 +627,60 @@ class Query_Builder {
 			// Put in the query map for select statements
 			$this->query_map[] = array(
 				'type' => 'where',
-				'conjunction' => ( ! empty($this->query_map)) ? ' AND ' : ' WHERE ',
+				'conjunction' => ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ',
 				'string' => $item
 			);
 		}
 
 		return $this;
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Simplify where_in methods
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param string
+	 * @param string
+	 * @return $this
+	 */
+	private function _where_in($key, $val=array(), $in='IN', $conj='AND')
+	{
+		$key = $this->quote_ident($key);
+		$params = array_fill(0, count($val), '?');
+
+		foreach($val as $v)
+		{
+			$this->values[] = $v;
+		}
+
+		$string = $key . " {$in} ".implode(',', $params).') ';
+
+		$this->query_map[] = array(
+			'type' => 'where_in',
+			'conjunction' => ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ',
+			'string' => $string
+		);
+		
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Specify condition(s) in the where clause of a query
+	 * Note: this function works with key / value, or a
+	 * passed array with key / value pairs
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @return $this
+	 */
+	public function where($key, $val=array())
+	{
+		return $this->_where_string($key, $val, 'AND');
 	}
 
 	// --------------------------------------------------------------------------
@@ -676,40 +688,13 @@ class Query_Builder {
 	/**
 	 * Where clause prefixed with "OR"
 	 *
-	 * @param string $field
+	 * @param string $key
 	 * @param mixed $val
 	 * @return $this
 	 */
-	public function or_where($field, $val=array())
+	public function or_where($key, $val=array())
 	{
-		$where = $this->_where($field, $val);
-
-		// Create key/value placeholders
-		foreach($where as $f => $val)
-		{
-			// Split each key by spaces, incase there
-			// is an operator such as >, <, !=, etc.
-			$f_array = explode(' ', trim($f));
-
-			// Simple key = val
-			if (count($f_array) === 1)
-			{
-				$item = $this->quote_ident($f_array[0]) . '= ?';
-			}
-			else // Other operators
-			{
-				$item = $this->quote_ident($f_array[0]) . " {$f_array[1]} ?";
-			}
-
-			// Put in the query map for select statements
-			$this->query_map[] = array(
-				'type' => 'where',
-				'conjunction' => ( ! empty($this->query_map)) ? ' OR ' : ' WHERE ',
-				'string' => $item
-			);
-		}
-
-		return $this;
+		return $this->_where_string($key, $val, 'OR');
 	}
 
 	// --------------------------------------------------------------------------
@@ -723,8 +708,7 @@ class Query_Builder {
 	 */
 	public function where_in($field, $val=array())
 	{
-		$this->_where_in($field, $val);
-		return $this;
+		return $this->_where_in($field, $val);
 	}
 
 	// --------------------------------------------------------------------------
@@ -738,8 +722,7 @@ class Query_Builder {
 	 */
 	public function or_where_in($field, $val=array())
 	{
-		$this->_where_in($field, $val, 'IN', 'OR');
-		return $this;
+		return $this->_where_in($field, $val, 'IN', 'OR');
 	}
 
 	// --------------------------------------------------------------------------
@@ -753,8 +736,7 @@ class Query_Builder {
 	 */
 	public function where_not_in($field, $val=array())
 	{
-		$this->_where_in($field, $val, 'NOT IN', 'AND');
-		return $this;
+		return $this->_where_in($field, $val, 'NOT IN', 'AND');
 	}
 
 	// --------------------------------------------------------------------------
@@ -768,8 +750,7 @@ class Query_Builder {
 	 */
 	public function or_where_not_in($field, $val=array())
 	{
-		$this->_where_in($field, $val, 'NOT IN', 'OR');
-		return $this;
+		return $this->_where_in($field, $val, 'NOT IN', 'OR');
 	}
 
 	// --------------------------------------------------------------------------
