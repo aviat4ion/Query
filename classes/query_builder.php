@@ -158,21 +158,17 @@ class Query_Builder {
 		// Convert array to object
 		if (is_array($params))
 		{
-			$p = new StdClass();
-
-			foreach($params as $key => $val)
-			{
-				$p->$key = $val;
-			}
-
+			$p = new ArrayObject($params);
 			$params = $p;
 		}
 		
-		// Let the connection work with 'conn_db' or 'database'		
-		$params->conn_db = ( ! isset($params->database))
-			? @$params->conn_db
-			: @$params->database;
-
+		// Let the connection work with 'conn_db' or 'database'	
+		if (isset($params->database))
+		{
+			$params->conn_db = $params->database;
+		}
+		
+		
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 
@@ -213,6 +209,7 @@ class Query_Builder {
 			$this->db = new $dbtype($dsn);
 		}
 
+		// Set the connection name property, if applicable
 		if (isset($params->name))
 		{
 			$this->conn_name = $params->name;

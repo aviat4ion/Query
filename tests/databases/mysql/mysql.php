@@ -25,10 +25,10 @@ class MySQLTest extends DBTest {
 		// Attempt to connect, if there is a test config file
 		if (is_file(QBASE_DIR . "test_config.json"))
 		{
-			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
-			$params = $params->mysql;
+			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"), TRUE);
+			$params = $params['mysql'];
 
-			$this->db = new MySQL("host={$params->host};port={$params->port};dbname={$params->database}", $params->user, $params->pass);
+			$this->db = new MySQL("host={$params['host']};port={$params['port']};dbname={$params['database']}", $params['user'], $params['pass']);
 		}
 		elseif (($var = getenv('CI')))
 		{
