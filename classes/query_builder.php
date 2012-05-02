@@ -158,7 +158,7 @@ class Query_Builder {
 		// Convert array to object
 		if (is_array($params))
 		{
-			$p = new ArrayObject($params);
+			$p = new ArrayObject($params, ArrayObject::ARRAY_AS_PROPS);
 			$params = $p;
 		}
 		
