@@ -124,7 +124,7 @@ class MySQL_Util extends DB_Util {
 	 */
 	public function backup_structure()
 	{
-		// @todo Implement Backup function
+		// TODO Implement Backup function
 		return '';
 	}
 

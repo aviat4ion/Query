@@ -161,5 +161,12 @@ abstract class DB_SQL {
 	 * @return string
 	 */
 	abstract public function sequence_list();
+	
+	/**
+	 * Return sql to list database field types
+	 *
+	 * @return string
+	 */
+	abstract public function type_list();
 }
 // End of db_sql.php

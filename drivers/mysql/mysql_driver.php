@@ -54,7 +54,7 @@ class MySQL extends DB_PDO {
 	 */
 	public function switch_db($name)
 	{
-		// @todo Implement
+		// TODO Implement
 		return FALSE;
 	}
 

@@ -153,6 +153,18 @@ SQL;
 	{
 		return FALSE;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * SQL to show list of field types
+	 *
+	 * @return string
+	 */
+	public function type_list()
+	{
+		// TODO implement type_list method
+	}
 
 }
 //End of sqlite_sql.php

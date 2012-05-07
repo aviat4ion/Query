@@ -237,6 +237,18 @@ SQL;
 			ORDER BY r.RDB\$FIELD_POSITION
 SQL;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * SQL to show list of field types
+	 *
+	 * @return string
+	 */
+	public function type_list()
+	{
+		// TODO implement type_list method
+	}
 
 }
 //End of firebird_sql.php

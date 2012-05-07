@@ -802,7 +802,7 @@ class Query_Builder {
 	 */
 	public function join($table, $condition, $type='')
 	{
-		// @todo make able to handle operators without spaces
+		// TODO make able to handle operators without spaces
 	
 		$table = implode(" ", array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));
 		//$condition = preg_replace('`(\W)`', " $1 ", $condition);

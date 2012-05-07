@@ -147,5 +147,17 @@ class MySQL_SQL extends DB_SQL {
 	{
 		return FALSE;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * SQL to show list of field types
+	 *
+	 * @return string
+	 */
+	public function type_list()
+	{
+		// TODO implement type_list method
+	}
 }
 //End of mysql_sql.php

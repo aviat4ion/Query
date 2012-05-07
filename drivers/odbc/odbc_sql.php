@@ -141,5 +141,17 @@ class ODBC_SQL extends DB_SQL {
 	{
 		return FALSE;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * SQL to show list of field types
+	 *
+	 * @return FALSE
+	 */
+	public function type_list()
+	{
+		return FALSE;
+	}
 }
 // End of odbc_sql.php

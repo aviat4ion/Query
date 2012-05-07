@@ -114,7 +114,7 @@ class Firebird_Util extends DB_Util {
 	 */
 	public function backup_structure()
 	{
-		// @todo Implement Backup structure function
+		// TODO Implement Backup structure function
 		return '';
 	}
 
