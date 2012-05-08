@@ -159,11 +159,11 @@ SQL;
 	/**
 	 * SQL to show list of field types
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function type_list()
 	{
-		// TODO implement type_list method
+		return array('INTEGER', 'REAL', 'TEXT', 'BLOB');
 	}
 
 }

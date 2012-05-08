@@ -165,7 +165,7 @@ abstract class DB_SQL {
 	/**
 	 * Return sql to list database field types
 	 *
-	 * @return string
+	 * @return mixed
 	 */
 	abstract public function type_list();
 }

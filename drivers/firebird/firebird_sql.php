@@ -247,7 +247,9 @@ SQL;
 	 */
 	public function type_list()
 	{
-		// TODO implement type_list method
+		return <<<SQL
+			SELECT "RDB\$FIELD_TYPE" FROM "RDB\$FIELDS"
+SQL;
 	}
 
 }

@@ -219,7 +219,12 @@ SQL;
 	 */
 	public function type_list()
 	{
-		// TODO implement type_list method
+		return <<<SQL
+			SELECT "typname" FROM "pg_catalog"."pg_type"
+			WHERE "typname" !~ '^pg_|_'
+			AND "typtype" != 'c'
+			ORDER BY "typname"
+SQL;
 	}
 }
 //End of pgsql_manip.php

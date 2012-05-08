@@ -297,7 +297,7 @@ directly - the settings should be safe!]]></description>
       </method>
     </class>
   </file>
-  <file path="classes/db_sql.php" hash="e4e2b39d8a22d3087bc3dd4130b09f7f" package="Query">
+  <file path="classes/db_sql.php" hash="a14aa879628ad8b4e40abff2635c19b7" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -514,8 +514,8 @@ directly - the settings should be safe!]]></description>
         <docblock line="165">
           <description><![CDATA[Return sql to list database field types]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="165" name="return" description="" type="string">
-            <type by_reference="false">string</type>
+          <tag line="165" name="return" description="" type="mixed">
+            <type by_reference="false">mixed</type>
           </tag>
         </docblock>
       </method>
@@ -2582,7 +2582,7 @@ with array_map and glob]]></description>
       </argument>
     </function>
   </file>
-  <file path="drivers/pgsql/pgsql_sql.php" hash="e93703a77d9f6fae134d552e5143a03b" package="Default">
+  <file path="drivers/pgsql/pgsql_sql.php" hash="8804b614fabfb9157e6cf80ca2386c02" package="Default">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -2591,9 +2591,6 @@ with array_map and glob]]></description>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
-    <markers>
-      <todo line="222">implement type_list method</todo>
-    </markers>
     <class final="false" abstract="false" namespace="default" line="21" package="Query\Drivers">
       <name>PgSQL_SQL</name>
       <full_name>\PgSQL_SQL</full_name>
@@ -4120,7 +4117,7 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/sqlite/sqlite_sql.php" hash="97b8b49e8e8c751eabfa5f84e34a08de" package="Query">
+  <file path="drivers/sqlite/sqlite_sql.php" hash="e807c384e4ac6d63fe2312bfdf87f1de" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -4130,9 +4127,6 @@ with array_map and glob]]></description>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
-    <markers>
-      <todo line="166">implement type_list method</todo>
-    </markers>
     <class final="false" abstract="false" namespace="default" line="22" package="Query\Drivers">
       <name>SQLite_SQL</name>
       <full_name>\SQLite_SQL</full_name>
@@ -4283,14 +4277,14 @@ with array_map and glob]]></description>
         <docblock line="159">
           <description><![CDATA[SQL to show list of field types]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="159" name="return" description="" type="string">
-            <type by_reference="false">string</type>
+          <tag line="159" name="return" description="" type="array">
+            <type by_reference="false">array</type>
           </tag>
         </docblock>
       </method>
     </class>
   </file>
-  <file path="drivers/firebird/firebird_sql.php" hash="3909bf4e8041b197439888166ea8f709" package="Query">
+  <file path="drivers/firebird/firebird_sql.php" hash="cf2676fc79642a0e9f91c13402b0e2df" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -4300,9 +4294,6 @@ with array_map and glob]]></description>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
-    <markers>
-      <todo line="250">implement type_list method</todo>
-    </markers>
     <class final="false" abstract="false" namespace="default" line="22" package="Query\Drivers">
       <name>Firebird_SQL</name>
       <full_name>\Firebird_SQL</full_name>
@@ -5323,7 +5314,7 @@ the last query executed]]></description>
     <package name="Query" full_name="Query\Query"/>
   </package>
   <namespace name="default" full_name="default"/>
-  <marker count="10">todo</marker>
+  <marker count="7">todo</marker>
   <marker count="0">fixme</marker>
   <deprecated count="0"/>
 </project>
