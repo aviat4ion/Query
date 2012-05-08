@@ -35,4 +35,16 @@ class FirebirdQBTest extends QBTest {
 		
 		// echo '<hr /> Firebird Queries <hr />';
 	}
+	
+	public function TestTypeList()
+	{
+		$sql = $this->db->sql->type_list();
+		$query = $this->db->query($sql);
+		
+		$this->assertIsA($query, 'PDOStatement');
+		
+		$res = $query->fetchAll(PDO::FETCH_ASSOC);
+		
+		$this->assertTrue(is_array($res));
+	}
 }

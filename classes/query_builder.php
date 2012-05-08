@@ -116,7 +116,7 @@ class Query_Builder {
 	 *
 	 * @var DB_PDO
 	 */
-	private $sql;
+	public $sql;
 
 	/** 
 	 * Query component order mapping

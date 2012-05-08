@@ -222,7 +222,7 @@ SQL;
 		return <<<SQL
 			SELECT "typname" FROM "pg_catalog"."pg_type"
 			WHERE "typname" !~ '^pg_|_'
-			AND "typtype" != 'c'
+			AND "typtype" = 'b'
 			ORDER BY "typname"
 SQL;
 	}
