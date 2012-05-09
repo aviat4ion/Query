@@ -124,6 +124,20 @@ class MySQL_Util extends DB_Util {
 	 */
 	public function backup_structure()
 	{
+		$sql = '';
+	
+		// Get databases
+		$dbs = $this->conn->get_dbs();
+		
+		foreach($dbs as $d)
+		{
+			// Get the list of tables
+			
+			// Get the sql for the table
+			$query = $this->conn->query("SHOW CREATE TABLE {$table}");
+			
+		}
+	
 		// TODO Implement Backup function
 		return '';
 	}

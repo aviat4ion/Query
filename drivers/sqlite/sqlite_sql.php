@@ -165,6 +165,19 @@ SQL;
 	{
 		return array('INTEGER', 'REAL', 'TEXT', 'BLOB');
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * SQL to show infromation about columns in a table
+	 *
+	 * @param string $table
+	 * @return string
+	 */
+	public function column_list($table)
+	{
+		return 'PRAGMA table_info("'.$table.'")';
+	}
 
 }
 //End of sqlite_sql.php

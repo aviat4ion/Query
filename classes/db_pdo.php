@@ -366,6 +366,31 @@ abstract class DB_PDO extends PDO {
 	{
 		return $this->driver_query($this->sql->system_table_list());
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Retrieve column information for the current database table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function get_columns($table)
+	{
+		return $this->driver_query($this->sql->column_list($table), FALSE);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Retrieve list of data types for the database
+	 *
+	 * @return array
+	 */
+	public function get_types()
+	{
+		return $this->driver_query($this->sql->type_list(), FALSE);
+	}
 
 	// -------------------------------------------------------------------------
 
@@ -378,9 +403,16 @@ abstract class DB_PDO extends PDO {
 	 */
 	protected function driver_query($sql, $filtered_index=TRUE)
 	{
+		// Return if the query doesn't apply to the driver
 		if ($sql === FALSE)
 		{
 			return FALSE;
+		}
+		
+		// Return predefined data
+		if (is_array($sql))
+		{
+			return $sql;
 		}
 
 		$res = $this->query($sql);

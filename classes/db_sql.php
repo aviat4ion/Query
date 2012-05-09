@@ -168,5 +168,14 @@ abstract class DB_SQL {
 	 * @return mixed
 	 */
 	abstract public function type_list();
+	
+	/**
+	 * Get information about the columns in the 
+	 * specified table
+	 *
+	 * @param string
+	 * @return string
+	 */
+	abstract public function column_list($table);
 }
 // End of db_sql.php

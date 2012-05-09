@@ -68,10 +68,15 @@ class MySQL_SQL extends DB_SQL {
 	/**
 	 * Returns sql to list tables
 	 *
+	 * @param string $database
 	 * @return string
 	 */
-	public function table_list()
+	public function table_list($database='')
 	{
+		if ( ! empty($database))
+		{
+			return "SHOW TABLES FROM `{$database}`";
+		}
 		return 'SHOW TABLES';
 	}
 
@@ -157,7 +162,20 @@ class MySQL_SQL extends DB_SQL {
 	 */
 	public function type_list()
 	{
-		// TODO implement type_list method
+		return "SELECT DISTINCT `DATA_TYPE` FROM `information_schema`.`COLUMNS`";
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * SQL to show infromation about columns in a table
+	 *
+	 * @param string $table
+	 * @return string
+	 */
+	public function column_list($table)
+	{
+		return "SHOW FULL COLUMNS FROM {$table}";
 	}
 }
 //End of mysql_sql.php

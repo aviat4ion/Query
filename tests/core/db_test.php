@@ -64,5 +64,21 @@ abstract class DBTest extends UnitTestCase {
 	{
 		$this->assertTrue(is_string($this->db->util->backup_data()));
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function TestGetColumns()
+	{
+		$cols = $this->db->get_columns('create_test');
+		$this->assertTrue(is_array($cols));
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function TestGetTypes()
+	{
+		$types = $this->db->get_types();
+		$this->assertTrue(is_array($types));
+	}
 }
 // End of db_test.php

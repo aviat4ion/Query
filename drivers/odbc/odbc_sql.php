@@ -153,5 +153,19 @@ class ODBC_SQL extends DB_SQL {
 	{
 		return FALSE;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * SQL to show infromation about columns in a table
+	 *
+	 * @param string $table
+	 * @return FALSE
+	 */
+	public function column_list($table)
+	{
+		return FALSE;
+	}
+	
 }
 // End of odbc_sql.php
