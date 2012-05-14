@@ -237,7 +237,7 @@ class Query_Builder {
 		$fields_array = array_map('trim', $fields_array);
 
 		// Split on 'As'
-		foreach ($fields_array as $key => $field)
+		foreach ($fields_array as $key => &$field)
 		{
 			if (stripos($field, 'as') !== FALSE)
 			{
@@ -512,7 +512,7 @@ class Query_Builder {
 		$where = $this->_where($key, $val);
 		
 		// Create key/value placeholders
-		foreach($where as $f => $val)
+		foreach($where as $f => &$val)
 		{
 			// Split each key by spaces, in case there
 			// is an operator such as >, <, !=, etc.
@@ -585,7 +585,7 @@ class Query_Builder {
 		// Array or object, loop through and add to the where array
 		elseif ( ! is_scalar($key))
 		{
-			foreach($key as $k => $v)
+			foreach($key as $k => &$v)
 			{
 				$where[$k] = $v;
 				$this->values[] = $v;
@@ -610,7 +610,7 @@ class Query_Builder {
 		$where = $this->_where($key, $val);
 
 		// Create key/value placeholders
-		foreach($where as $f => $val)
+		foreach($where as $f => &$val)
 		{
 			// Split each key by spaces, in case there
 			// is an operator such as >, <, !=, etc.
@@ -648,7 +648,7 @@ class Query_Builder {
 		$key = $this->quote_ident($key);
 		$params = array_fill(0, count($val), '?');
 
-		foreach($val as $v)
+		foreach($val as &$v)
 		{
 			$this->values[] = $v;
 		}
@@ -772,7 +772,7 @@ class Query_Builder {
 		// Object or array
 		elseif ( ! is_scalar($key))
 		{
-			foreach($key as $k => $v)
+			foreach($key as $k => &$v)
 			{
 				$this->set_array_keys[] = $k;
 				$this->values[] = $v;
@@ -869,7 +869,7 @@ class Query_Builder {
 		$order_clauses = array();
 
 		// Flatten key/val pairs into an array of space-separated pairs
-		foreach($this->order_array as $k => $v)
+		foreach($this->order_array as $k => &$v)
 		{
 			$order_clauses[] = $k . ' ' . strtoupper($v);
 		}
@@ -1209,7 +1209,7 @@ class Query_Builder {
 		// Only unset class variables that
 		// are not callable. Otherwise, we'll
 		// delete class methods!
-		foreach($this as $name => $var)
+		foreach($this as $name => &$var)
 		{
 			// Skip properties that are needed for every query
 			if (in_array($name, array(
@@ -1265,7 +1265,7 @@ class Query_Builder {
 				// Set the where string
 				if ( ! empty($this->query_map))
 				{
-					foreach($this->query_map as $q)
+					foreach($this->query_map as &$q)
 					{
 						$sql .= $q['conjunction'] . $q['string'];
 					}
@@ -1280,7 +1280,7 @@ class Query_Builder {
 				// Set the having string
 				if ( ! empty($this->having_map))
 				{
-					foreach($this->having_map as $h)
+					foreach($this->having_map as &$h)
 					{
 						$sql .= $h['conjunction'] . $h['string'];
 					}
@@ -1313,7 +1313,7 @@ class Query_Builder {
 				// Set the where string
 				if ( ! empty($this->query_map))
 				{
-					foreach($this->query_map as $q)
+					foreach($this->query_map as &$q)
 					{
 						$sql .= $q['conjunction'] . $q['string'];
 					}
@@ -1326,7 +1326,7 @@ class Query_Builder {
 				// Set the where string
 				if ( ! empty($this->query_map))
 				{
-					foreach($this->query_map as $q)
+					foreach($this->query_map as &$q)
 					{
 						$sql .= $q['conjunction'] . $q['string'];
 					}
