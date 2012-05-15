@@ -129,12 +129,20 @@ class MySQL_Util extends DB_Util {
 		// Get databases
 		$dbs = $this->conn->get_dbs();
 		
-		foreach($dbs as $d)
+		foreach($dbs as &$d)
 		{
 			// Get the list of tables
+			$tables = $this->conn->driver_query("SHOW TABLES FROM `{$database}`");
 			
-			// Get the sql for the table
-			$query = $this->conn->query("SHOW CREATE TABLE {$table}");
+			// Get the list of views
+		    $views = $this->conn->driver_query("SHOW VIEWS FROM `{$database}`");
+			
+			$tav = array_merge($tabes,$views);
+			
+			foreach($tav as &$table)
+			{
+				$string = $this->conn->driver_query("SHOW CREATE TABLE {$table}");
+			}
 			
 		}
 	
