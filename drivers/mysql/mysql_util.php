@@ -124,30 +124,30 @@ class MySQL_Util extends DB_Util {
 	 */
 	public function backup_structure()
 	{
-		$sql = '';
+		$string = array();
 	
 		// Get databases
-		$dbs = $this->conn->get_dbs();
+		$dbs = $this->get_dbs();
 		
 		foreach($dbs as &$d)
 		{
-			// Get the list of tables
-			$tables = $this->conn->driver_query("SHOW TABLES FROM `{$database}`");
-			
-			// Get the list of views
-		    $views = $this->conn->driver_query("SHOW VIEWS FROM `{$database}`");
-			
-			$tav = array_merge($tabes,$views);
-			
-			foreach($tav as &$table)
+			// Skip built-in dbs
+			if ($d == 'mysql')
 			{
-				$string = $this->conn->driver_query("SHOW CREATE TABLE {$table}");
+				continue;
 			}
+		
+			// Get the list of tables
+			$tables = $this->driver_query("SHOW TABLES FROM `{$d}`");
 			
+			foreach($tables as &$table)
+			{
+				$array = $this->driver_query("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
+				$string[] = $array[0]['Create Table'];
+			}
 		}
 	
-		// TODO Implement Backup function
-		return '';
+		return implode("\n\n", $string);
 	}
 
 	// --------------------------------------------------------------------------

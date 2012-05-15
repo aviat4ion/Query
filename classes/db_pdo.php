@@ -401,7 +401,7 @@ abstract class DB_PDO extends PDO {
 	 * @param bool $filtered_index
 	 * @return mixed
 	 */
-	protected function driver_query($sql, $filtered_index=TRUE)
+	public function driver_query($sql, $filtered_index=TRUE)
 	{
 		// Return if the query doesn't apply to the driver
 		if ($sql === FALSE)

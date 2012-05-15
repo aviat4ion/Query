@@ -192,4 +192,9 @@ SQL;
 	{
 		$this->assertFalse($this->db->get_sequences());
 	}
+	
+	public function TestBackup()
+	{
+		$this->assertTrue(is_string($this->db->util->backup_structure()));
+	}
 }
