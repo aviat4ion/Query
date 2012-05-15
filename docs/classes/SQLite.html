@@ -35,7 +35,7 @@
                 <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
-                <span class="label label-info">6</span>
+                <span class="label label-info">5</span>
 </li></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
@@ -68,6 +68,7 @@
         </span><pre>beginTransaction()</pre></a></li>
 <li class="method public inherited"><a href="#commit" title="commit :: "><span class="description">commit()
         </span><pre>commit()</pre></a></li>
+<li class="method public inherited"><a href="#driver_query" title="driver_query :: Method to simplify retreiving db results for meta-data queries"><span class="description">Method to simplify retreiving db results for meta-data queries</span><pre>driver_query()</pre></a></li>
 <li class="method public inherited"><a href="#empty_table" title="empty_table :: Deletes all the rows from a table. Does the same as the truncate
 method if the database does not support 'TRUNCATE';"><span class="description">Deletes all the rows from a table. Does the same as the truncate
 method if the database does not support 'TRUNCATE';</span><pre>empty_table()</pre></a></li>
@@ -118,7 +119,6 @@ method if the database does not support 'TRUNCATE';</span><pre>empty_table()</pr
 <li class="method public "><a href="#unload_database" title="unload_database :: Unload a database from the current connection"><span class="description">Unload a database from the current connection</span><pre>unload_database()</pre></a></li>
 <li class="nav-header protected">» Protected</li>
 <li class="method protected inherited"><a href="#_quote" title="_quote :: Helper method for quote_ident"><span class="description">Helper method for quote_ident</span><pre>_quote()</pre></a></li>
-<li class="method protected inherited"><a href="#driver_query" title="driver_query :: Method to simplify retreiving db results for meta-data queries"><span class="description">Method to simplify retreiving db results for meta-data queries</span><pre>driver_query()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
 <li class="property public inherited"><a href="#%24sql" title="$sql :: Reference to sql sub class"><span class="description">Reference to sql sub class</span><pre>$sql</pre></a></li>
@@ -259,6 +259,29 @@ method if the database does not support 'TRUNCATE';</span><pre>empty_table()</pr
 <td>\DB_PDO::commit()</td>
 </tr>
 </table>
+</div></div>
+</div>
+<a name="driver_query" id="driver_query"></a><div class="element clickable method public driver_query" data-toggle="collapse" data-target=".driver_query .collapse">
+<h2>Method to simplify retreiving db results for meta-data queries</h2>
+<pre>driver_query(string $sql, bool $filtered_index) : mixed</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_PDO::driver_query()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$sql</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$filtered_index</h4>
+<code>bool</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
 <a name="empty_table" id="empty_table"></a><div class="element clickable method public empty_table" data-toggle="collapse" data-target=".empty_table .collapse">
@@ -848,29 +871,6 @@ method if the database does not support 'TRUNCATE';</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a name="driver_query" id="driver_query"></a><div class="element clickable method protected driver_query" data-toggle="collapse" data-target=".driver_query .collapse">
-<h2>Method to simplify retreiving db results for meta-data queries</h2>
-<pre>driver_query(string $sql, bool $filtered_index) : mixed</pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\DB_PDO::driver_query()</td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$sql</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$filtered_index</h4>
-<code>bool</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
 <a name="%24sql" id="$sql"> </a><div class="element clickable property public $sql" data-toggle="collapse" data-target=".$sql .collapse">
@@ -922,7 +922,7 @@ method if the database does not support 'TRUNCATE';</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-05-09T13:54:12-04:00.<br></footer></div>
+            generated on 2012-05-15T15:40:47-04:00.<br></footer></div>
 </div>
 </body>
 </html>

@@ -539,7 +539,7 @@ specified table]]></description>
       </method>
     </class>
   </file>
-  <file path="classes/db_pdo.php" hash="13e0b7b4c531f3c1ef6ae4fd22a663c6" package="Query">
+  <file path="classes/db_pdo.php" hash="0938453e3e9c073bd1a90396db729de6" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -934,7 +934,7 @@ the connection/database]]></description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="default" line="404" package="">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="404" package="">
         <name>driver_query</name>
         <type>function</type>
         <docblock line="397">
@@ -1012,7 +1012,7 @@ the connection/database]]></description>
       </method>
     </class>
   </file>
-  <file path="classes/query_builder.php" hash="81f35b2c0bcb35ae19653d3ba60f65b3" package="Query">
+  <file path="classes/query_builder.php" hash="2cc609a7a6aec8cccb54daae849d5b0a" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -2556,7 +2556,7 @@ in place of the get() method]]></description>
       </method>
     </class>
   </file>
-  <file path="autoload.php" hash="170d8d1f4b74767beb653875962976ae" package="Query">
+  <file path="autoload.php" hash="a6ff7327887d32dc2a65056ce8fd18af" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -3478,7 +3478,7 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/mysql/mysql_util.php" hash="e5a21ea43032c6f27b727f4adcce1bd4" package="Query">
+  <file path="drivers/mysql/mysql_util.php" hash="1a1574382ec8d888d096a55d5ebb613b" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -3488,9 +3488,6 @@ with array_map and glob]]></description>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
-    <markers>
-      <todo line="141">Implement Backup function</todo>
-    </markers>
     <class final="false" abstract="false" namespace="default" line="22" package="Query\Drivers">
       <name>MySQL_Util</name>
       <full_name>\MySQL_Util</full_name>
@@ -3593,20 +3590,20 @@ with array_map and glob]]></description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="153" package="">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="161" package="">
         <name>backup_data</name>
         <type>function</type>
-        <docblock line="147">
+        <docblock line="155">
           <description><![CDATA[Create an SQL backup file for the current database's data]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="147" name="param" description="" type="array" variable="$exclude">
+          <tag line="155" name="param" description="" type="array" variable="$exclude">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="147" name="return" description="" type="string">
+          <tag line="155" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="153">
+        <argument line="161">
           <name>$exclude</name>
           <default><![CDATA[array()]]></default>
           <type/>
@@ -5424,7 +5421,7 @@ the last query executed]]></description>
     <package name="Query" full_name="Query\Query"/>
   </package>
   <namespace name="default" full_name="default"/>
-  <marker count="6">todo</marker>
+  <marker count="5">todo</marker>
   <marker count="0">fixme</marker>
   <deprecated count="0"/>
 </project>
