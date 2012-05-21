@@ -50,6 +50,13 @@ if ( ! function_exists('do_include'))
 function query_autoload($class)
 {
 	$class = strtolower($class);
+	
+	// Load Firebird separately
+	if ($class === 'firebird')
+	{
+		return;
+	}
+	
 	$class_path = QBASE_PATH . "classes/{$class}.php";
 	
 	$driver_path = QDRIVER_PATH . "{$class}";
