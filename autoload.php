@@ -42,19 +42,33 @@ if ( ! function_exists('do_include'))
 	}
 }
 
-// Load base classes
-array_map('do_include', glob(QBASE_PATH.'classes/*.php'));
-
-// Load PDO Drivers
-foreach(pdo_drivers() as $d)
+/**
+ * Load a Query class
+ *
+ * @param string $class
+ */
+function query_autoload($class)
 {
-	$dir = QDRIVER_PATH.$d;
+	$class = strtolower($class);
+	$class_path = QBASE_PATH . "classes/{$class}.php";
+	
+	$driver_path = QDRIVER_PATH . "{$class}";
 
-	if(is_dir($dir))
+	if (is_file($class_path))
 	{
-		array_map('do_include', glob($dir.'/*.php'));
+		require_once($class_path);
+	}
+	elseif (is_dir($driver_path))
+	{
+		if (in_array($class, pdo_drivers()))
+		{
+			array_map('do_include', glob("{$driver_path}/*.php"));
+		}
 	}
 }
+
+// Set up autoloader
+spl_autoload_register('query_autoload');
 
 // Load Firebird driver, if applicable
 if (function_exists('fbird_connect'))

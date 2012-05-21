@@ -2556,7 +2556,7 @@ in place of the get() method]]></description>
       </method>
     </class>
   </file>
-  <file path="autoload.php" hash="a6ff7327887d32dc2a65056ce8fd18af" package="Query">
+  <file path="autoload.php" hash="99fd89b2c8459ee8769eab7144a8abdd" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -2602,28 +2602,44 @@ with array_map and glob]]></description>
         <type/>
       </argument>
     </function>
-    <function namespace="default" line="74" package="Query">
+    <function namespace="default" line="50" package="Query">
+      <name>query_autoload</name>
+      <type>function</type>
+      <docblock line="45">
+        <description><![CDATA[Load a Query class]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="45" name="param" description="" type="string" variable="$class">
+          <type by_reference="false">string</type>
+        </tag>
+      </docblock>
+      <argument line="50">
+        <name>$class</name>
+        <default><![CDATA[]]></default>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="default" line="88" package="Query">
       <name>db_filter</name>
       <type>function</type>
-      <docblock line="67">
+      <docblock line="81">
         <description><![CDATA[Filter out db rows into one array]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="67" name="param" description="" type="array" variable="$array">
+        <tag line="81" name="param" description="" type="array" variable="$array">
           <type by_reference="false">array</type>
         </tag>
-        <tag line="67" name="param" description="" type="mixed" variable="$index">
+        <tag line="81" name="param" description="" type="mixed" variable="$index">
           <type by_reference="false">mixed</type>
         </tag>
-        <tag line="67" name="return" description="" type="array">
+        <tag line="81" name="return" description="" type="array">
           <type by_reference="false">array</type>
         </tag>
       </docblock>
-      <argument line="74">
+      <argument line="88">
         <name>$array</name>
         <default><![CDATA[]]></default>
         <type/>
       </argument>
-      <argument line="74">
+      <argument line="88">
         <name>$index</name>
         <default><![CDATA[]]></default>
         <type/>
