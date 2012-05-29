@@ -50,15 +50,16 @@ if ( ! function_exists('do_include'))
 function query_autoload($class)
 {
 	$class = strtolower($class);
-	
+
 	// Load Firebird separately
-	if ($class === 'firebird')
+	if (function_exists('fbird_connect') && $class === 'firebird')
 	{
+		array_map('do_include', glob(QDRIVER_PATH.'/firebird/*.php'));
 		return;
 	}
-	
+
 	$class_path = QBASE_PATH . "classes/{$class}.php";
-	
+
 	$driver_path = QDRIVER_PATH . "{$class}";
 
 	if (is_file($class_path))
@@ -76,12 +77,6 @@ function query_autoload($class)
 
 // Set up autoloader
 spl_autoload_register('query_autoload');
-
-// Load Firebird driver, if applicable
-if (function_exists('fbird_connect'))
-{
-	array_map('do_include', glob(QDRIVER_PATH.'/firebird/*.php'));
-}
 
 // --------------------------------------------------------------------------
 
