@@ -40,7 +40,7 @@ $test_path = QTEST_DIR.'/databases/';
 
 foreach(pdo_drivers() as $d)
 {
-	// PDO firebird isn't stable enough to 
+	// PDO firebird isn't stable enough to
 	// bother, so skip it.
 	if ($d === 'firebird')
 	{
@@ -48,7 +48,7 @@ foreach(pdo_drivers() as $d)
 	}
 
 	$src_dir = "{$test_path}{$d}";
-	
+
 	if(is_dir($src_dir))
 	{
 		require_once("{$test_path}{$d}/{$d}.php");
@@ -57,7 +57,7 @@ foreach(pdo_drivers() as $d)
 }
 
 // Load Firebird if there is support
-if(function_exists('fbird_connect'))
+if (function_exists('fbird_connect') && ! ($var = getenv('CI')))
 {
 	require_once("{$test_path}/firebird/firebird.php");
 	require_once("{$test_path}/firebird/firebird-qb.php");
