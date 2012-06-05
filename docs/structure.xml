@@ -1,302 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project version="2.0.0a2" title="Query">
-  <file path="classes/db_reg.php" hash="4db07479d2dfdd5a403c7ffae83ceb23" package="Default">
-    <docblock line="2">
-      <description><![CDATA[Query]]></description>
-      <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
-      <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
-      <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
-      <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
-    </docblock>
-    <class final="false" abstract="false" namespace="default" line="24" package="Query\Helper Classes">
-      <name>DB_Reg</name>
-      <full_name>\DB_Reg</full_name>
-      <extends/>
-      <docblock line="15">
-        <description><![CDATA[Connection registry]]></description>
-        <long-description><![CDATA[<p>Decouples the Settings class from the query builder
-and organizes database connections</p>]]></long-description>
-        <tag line="15" name="package" description="Query"/>
-        <tag line="15" name="subpackage" description="Helper Classes"/>
-      </docblock>
-      <property final="false" static="true" visibility="private" line="29" package="Default">
-        <name>$instance</name>
-        <default><![CDATA[array()]]></default>
-        <docblock line="26">
-          <description><![CDATA[Static array of connections]]></description>
-          <long-description><![CDATA[]]></long-description>
-        </docblock>
-      </property>
-      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="37" package="">
-        <name>get_db</name>
-        <type>function</type>
-        <docblock line="31">
-          <description><![CDATA[Registry access method]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="31" name="param" description="" type="string" variable="$key">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="31" name="return" description="" type="object">
-            <type by_reference="false">object</type>
-          </tag>
-        </docblock>
-        <argument line="37">
-          <name>$key</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="default" line="55" package="">
-        <name>__construct</name>
-        <type>function</type>
-        <docblock line="50">
-          <description><![CDATA[Private constructor]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="50" name="param" description="" type="string" variable="$key">
-            <type by_reference="false">string</type>
-          </tag>
-        </docblock>
-        <argument line="55">
-          <name>$key</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="71" package="">
-        <name>get_connections</name>
-        <type>function</type>
-        <docblock line="66">
-          <description><![CDATA[Return exiting connections]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="66" name="return" description="" type="array">
-            <type by_reference="false">array</type>
-          </tag>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="84" package="">
-        <name>remove_db</name>
-        <type>function</type>
-        <docblock line="78">
-          <description><![CDATA[Remove a database connection]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="78" name="param" description="" type="string" variable="$key">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="78" name="return" description="" type="void">
-            <type by_reference="false">void</type>
-          </tag>
-        </docblock>
-        <argument line="84">
-          <name>$key</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-    </class>
-  </file>
-  <file path="classes/settings.php" hash="69d30a582c8ec7f2a29151aab896ce1e" package="Query">
-    <docblock line="2">
-      <description><![CDATA[Query]]></description>
-      <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
-      <tag line="2" name="package" description="Query"/>
-      <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
-      <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
-      <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
-    </docblock>
-    <class final="false" abstract="false" namespace="default" line="22" package="Query\Helper Classes">
-      <name>Settings</name>
-      <full_name>\Settings</full_name>
-      <extends/>
-      <docblock line="16">
-        <description><![CDATA[Class for manipulating datbase connections, and miscellaneous settings]]></description>
-        <long-description><![CDATA[]]></long-description>
-        <tag line="16" name="package" description="Query"/>
-        <tag line="16" name="subpackage" description="Helper Classes"/>
-      </docblock>
-      <property final="false" static="false" visibility="private" line="27" package="Default">
-        <name>$current</name>
-        <default><![CDATA[]]></default>
-        <docblock line="24">
-          <description><![CDATA[Settings object represented by the currently loaded JSON file]]></description>
-          <long-description><![CDATA[]]></long-description>
-        </docblock>
-      </property>
-      <property final="false" static="true" visibility="private" line="32" package="Default">
-        <name>$instance</name>
-        <default><![CDATA[]]></default>
-        <docblock line="29">
-          <description><![CDATA[Singleton instance]]></description>
-          <long-description><![CDATA[]]></long-description>
-        </docblock>
-      </property>
-      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="40" package="">
-        <name>get_instance</name>
-        <type>function</type>
-        <docblock line="34">
-          <description><![CDATA[Static method to retreive current instance
-of the singleton]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="34" name="return" description="" type="\Settings">
-            <type by_reference="false">\Settings</type>
-          </tag>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="default" line="55" package="">
-        <name>__construct</name>
-        <type>function</type>
-        <docblock line="51">
-          <description><![CDATA[Load the settings file - private so it can't be loaded
-directly - the settings should be safe!]]></description>
-          <long-description><![CDATA[]]></long-description>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="90" package="">
-        <name>__destruct</name>
-        <type>function</type>
-        <docblock line="87">
-          <description><![CDATA[Output the settings on destruct]]></description>
-          <long-description><![CDATA[]]></long-description>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="107" package="">
-        <name>__get</name>
-        <type>function</type>
-        <docblock line="101">
-          <description><![CDATA[Magic method to simplify isset checking for config options]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="101" name="param" description="" type="string" variable="$key">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="101" name="return" description="" type="mixed">
-            <type by_reference="false">mixed</type>
-          </tag>
-        </docblock>
-        <argument line="107">
-          <name>$key</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="122" package="">
-        <name>__set</name>
-        <type>function</type>
-        <docblock line="116">
-          <description><![CDATA[Magic method to simplify setting config options]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="116" name="param" description="" type="string" variable="$key">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="116" name="param" description="mixed" type="" variable="$val"/>
-        </docblock>
-        <argument line="122">
-          <name>$key</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-        <argument line="122">
-          <name>$val</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="141" package="">
-        <name>add_db</name>
-        <type>function</type>
-        <docblock line="135">
-          <description><![CDATA[Add a database connection]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="135" name="param" description="" type="string" variable="$name">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="135" name="param" description="" type="array" variable="$params">
-            <type by_reference="false">array</type>
-          </tag>
-        </docblock>
-        <argument line="141">
-          <name>$name</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-        <argument line="141">
-          <name>$params</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="173" package="">
-        <name>edit_db</name>
-        <type>function</type>
-        <docblock line="167">
-          <description><![CDATA[Edit a database connection]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="167" name="param" description="" type="string" variable="$name">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="167" name="param" description="" type="array" variable="$params">
-            <type by_reference="false">array</type>
-          </tag>
-        </docblock>
-        <argument line="173">
-          <name>$name</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-        <argument line="173">
-          <name>$params</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="216" package="">
-        <name>remove_db</name>
-        <type>function</type>
-        <docblock line="211">
-          <description><![CDATA[Remove a database connection]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="211" name="param" description="" type="string" variable="$name">
-            <type by_reference="false">string</type>
-          </tag>
-        </docblock>
-        <argument line="216">
-          <name>$name</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="237" package="">
-        <name>get_dbs</name>
-        <type>function</type>
-        <docblock line="232">
-          <description><![CDATA[Retreive all db connections]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="232" name="return" description="" type="array">
-            <type by_reference="false">array</type>
-          </tag>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="250" package="">
-        <name>get_db</name>
-        <type>function</type>
-        <docblock line="244">
-          <description><![CDATA[Retreive a specific database connection]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="244" name="param" description="" type="string" variable="$name">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="244" name="return" description="" type="object">
-            <type by_reference="false">object</type>
-          </tag>
-        </docblock>
-        <argument line="250">
-          <name>$name</name>
-          <default><![CDATA[]]></default>
-          <type/>
-        </argument>
-      </method>
-    </class>
-  </file>
   <file path="classes/db_sql.php" hash="14cb2bdd5a651d09acb10a4f583d4927" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
@@ -2556,7 +2259,7 @@ in place of the get() method]]></description>
       </method>
     </class>
   </file>
-  <file path="autoload.php" hash="99fd89b2c8459ee8769eab7144a8abdd" package="Query">
+  <file path="autoload.php" hash="97d18851c6b630eb798cae8da19e1a22" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -2618,28 +2321,28 @@ with array_map and glob]]></description>
         <type/>
       </argument>
     </function>
-    <function namespace="default" line="88" package="Query">
+    <function namespace="default" line="90" package="Query">
       <name>db_filter</name>
       <type>function</type>
-      <docblock line="81">
+      <docblock line="83">
         <description><![CDATA[Filter out db rows into one array]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="81" name="param" description="" type="array" variable="$array">
+        <tag line="83" name="param" description="" type="array" variable="$array">
           <type by_reference="false">array</type>
         </tag>
-        <tag line="81" name="param" description="" type="mixed" variable="$index">
+        <tag line="83" name="param" description="" type="mixed" variable="$index">
           <type by_reference="false">mixed</type>
         </tag>
-        <tag line="81" name="return" description="" type="array">
+        <tag line="83" name="return" description="" type="array">
           <type by_reference="false">array</type>
         </tag>
       </docblock>
-      <argument line="88">
+      <argument line="90">
         <name>$array</name>
         <default><![CDATA[]]></default>
         <type/>
       </argument>
-      <argument line="88">
+      <argument line="90">
         <name>$index</name>
         <default><![CDATA[]]></default>
         <type/>
@@ -5433,7 +5136,6 @@ the last query executed]]></description>
   <package name="Default" full_name="Default"/>
   <package name="Query" full_name="Query">
     <package name="Drivers" full_name="Query\Drivers"/>
-    <package name="Helper Classes" full_name="Query\Helper Classes"/>
     <package name="Query" full_name="Query\Query"/>
   </package>
   <namespace name="default" full_name="default"/>
