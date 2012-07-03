@@ -43,12 +43,16 @@ class MySQLQBTest extends QBTest {
 
 			$this->db = new Query_Builder($params);
 		}
+		else
+		{
+			die("Error with mysql credentials");
+		}
  	}
 
 	// --------------------------------------------------------------------------
 
 	public function TestExists()
 	{
-		$this->assertTrue(in_array('mysql', pdo_drivers()));
+		$this->assertTrue(in_array('mysql', PDO::getAvailableDrivers()));
 	}
 }

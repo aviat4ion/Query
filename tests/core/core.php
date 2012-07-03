@@ -64,7 +64,7 @@ class CoreTest extends UnitTestCase {
 			'sqlite',
 		);
 		
-		$drivers = pdo_drivers();
+		$drivers = PDO::getAvailableDrivers();
 		
 		$num_supported = count(array_intersect($drivers, $supported));
 		

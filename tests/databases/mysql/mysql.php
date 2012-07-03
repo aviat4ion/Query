@@ -40,7 +40,7 @@ class MySQLTest extends DBTest {
 
 	public function TestExists()
 	{
-		$this->assertTrue(in_array('mysql', pdo_drivers()));
+		$this->assertTrue(in_array('mysql', PDO::getAvailableDrivers()));
 	}
 	
 	// --------------------------------------------------------------------------

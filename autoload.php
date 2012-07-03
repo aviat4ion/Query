@@ -68,7 +68,7 @@ function query_autoload($class)
 	}
 	elseif (is_dir($driver_path))
 	{
-		if (in_array($class, pdo_drivers()))
+		if (in_array($class, PDO::getAvailableDrivers()))
 		{
 			array_map('do_include', glob("{$driver_path}/*.php"));
 		}

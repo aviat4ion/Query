@@ -37,7 +37,7 @@ require_once(QTEST_DIR . '/core/db_qb_test.php');
 $src_path = QBASE_DIR.'drivers/';
 $test_path = QTEST_DIR.'/databases/';
 
-foreach(pdo_drivers() as $d)
+foreach(PDO::getAvailableDrivers() as $d)
 {
 	// PDO firebird isn't stable enough to
 	// bother, so skip it.
@@ -48,7 +48,7 @@ foreach(pdo_drivers() as $d)
 
 	$src_dir = "{$test_path}{$d}";
 
-	if(is_dir($src_dir))
+	if (is_dir($src_dir))
 	{
 		require_once("{$test_path}{$d}/{$d}.php");
 		require_once("{$test_path}{$d}/{$d}-qb.php");
