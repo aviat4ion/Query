@@ -34,7 +34,7 @@ class PgTest extends DBTest {
 			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
 			$params = $params->pgsql;
 
-			$this->db = new PgSQL("host={$params->host};port={$params->port};dbname={$params->database}", $params->user, $params->pass);
+			$this->db = new PgSQL("pgsql:host={$params->host};dbname={$params->database}", $params->user, $params->pass);
 		}
 		elseif (($var = getenv('CI')))
 		{
@@ -46,7 +46,7 @@ class PgTest extends DBTest {
 
 	public function TestExists()
 	{
-		$this->assertTrue(in_array('pgsql', pdo_drivers()));
+		$this->assertTrue(in_array('pgsql', PDO::getAvailableDrivers()));
 	}
 	
 	// --------------------------------------------------------------------------

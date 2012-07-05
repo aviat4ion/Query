@@ -49,6 +49,6 @@ class PgSQLQBTest extends QBTest {
 
 	public function TestExists()
 	{
-		$this->assertTrue(in_array('pgsql', pdo_drivers()));
+		$this->assertTrue(in_array('pgsql', PDO::getAvailableDrivers()));
 	}
 }

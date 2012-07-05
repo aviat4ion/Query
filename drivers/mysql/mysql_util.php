@@ -171,7 +171,7 @@ class MySQL_Util extends DB_Util {
 		$output_sql = '';
 		
 		// Select the rows from each Table
-		foreach($tables as &$t)
+		foreach($tables as $t)
 		{
 			$sql = "SELECT * FROM `{$t}`";
 			$res = $this->query($sql);
@@ -188,10 +188,15 @@ class MySQL_Util extends DB_Util {
 			$insert_rows = array();
 			
 			// Create the insert statements
-			foreach($rows as &$row)
+			foreach($rows as $row)
 			{
 				$row = array_values($row);
-				$row = array_map(array(&$this, 'quote'), $row);
+				
+				// Workaround for Quercus
+				foreach($row as &$r)
+				{
+					$r = $this->quote($r);
+				}
 				$row = array_map('trim', $row);
 
 				$row_string = 'INSERT INTO `'.trim($t).'` (`'.implode('`,`', $columns).'`) VALUES ('.implode(',', $row).');';

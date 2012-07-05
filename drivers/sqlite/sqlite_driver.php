@@ -36,7 +36,7 @@ class SQLite extends DB_PDO {
 	 * @param string $pass
 	 */
 	public function __construct($dsn, $user=NULL, $pass=NULL)
-	{
+	{	
 		// DSN is simply `sqlite:/path/to/db`
 		parent::__construct("sqlite:{$dsn}", $user, $pass);
 	}

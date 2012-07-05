@@ -158,7 +158,13 @@ class Query_Builder {
 		// Convert array to object
 		if (is_array($params))
 		{
-			$p = new ArrayObject($params, ArrayObject::ARRAY_AS_PROPS);
+			$p = new stdClass();
+			
+			foreach($params as $k => $v)
+			{
+				$p->$k = $v;
+			}
+			
 			$params = $p;
 		}
 		
@@ -171,12 +177,20 @@ class Query_Builder {
 		
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
+		
+		$dsn = '';
+		
+		// Add the driver type to the dsn
+		if ($dbtype !== 'firebird' && $dbtype !== 'sqlite')
+		{
+			$dsn = strtolower($dbtype).':'.$dsn;
+		}
 
 		// Create the dsn for the database to connect to
 		switch($dbtype)
 		{
 			default:
-				$dsn = "dbname={$params->conn_db}";
+				$dsn .= "dbname={$params->conn_db}";
 
 				if ( ! empty($params->host))
 				{
@@ -191,14 +205,14 @@ class Query_Builder {
 			break;
 
 			case "sqlite":
-				$dsn = $params->file;
+				$dsn .= $params->file;
 			break;
 
 			case "firebird":
 				$dsn = "{$params->host}:{$params->file}";
 			break;
 		}
-
+		
 		// Create the database connection
 		if ( ! empty($params->user))
 		{
@@ -1209,7 +1223,7 @@ class Query_Builder {
 		// Only unset class variables that
 		// are not callable. Otherwise, we'll
 		// delete class methods!
-		foreach($this as $name => &$var)
+		foreach($this as $name => $var)
 		{
 			// Skip properties that are needed for every query
 			if (in_array($name, array(

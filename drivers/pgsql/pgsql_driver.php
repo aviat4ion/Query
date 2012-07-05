@@ -31,7 +31,12 @@ class PgSQL extends DB_PDO {
 	 */
 	public function __construct($dsn, $username=null, $password=null, $options=array())
 	{
-		parent::__construct("pgsql:{$dsn}", $username, $password, $options);
+		if (strpos($dsn, 'pgsql') === FALSE)
+		{
+			$dsn = 'pgsql:'.$dsn;
+		}
+	
+		parent::__construct($dsn, $username, $password, $options);
 	}
 
 	// --------------------------------------------------------------------------
