@@ -1,0 +1,19 @@
+{
+	"name":"aviat4ion/query",
+	"type":"library",
+	"description":"Database Query Builder and Abstraction layer",
+	"keywords":["database", "query builder"],
+	"homepage":"https://github.com/aviat4ion/Query",
+	"license":"dbad-license",
+	"authors": [
+		{
+			"name": "Timothy J. Warren",
+			"email": "tim@timshomepage.net",
+			"homepage": "https://timshomepage.net",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.2.0"
+	}
+}
