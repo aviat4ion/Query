@@ -10,7 +10,7 @@ A query builder/abstraction layer, using prepared queries for security.
 
 ## Databases Supported
 	
-* Firebird
+* Firebird (via interbase extension)
 * MySQL
 * PostgreSQL
 * SQLite
