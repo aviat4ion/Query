@@ -425,6 +425,29 @@ abstract class QBTest extends UnitTestCase {
 		$this->assertTrue(is_numeric($this->db->num_rows()));
 	}
 	
+	// --------------------------------------------------------------------------
+	// ! Other Tests
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Handles invalid drivers
+	 */
+	public function TestBadDriver()
+	{
+		$params = array(
+			'host' => '127.0.0.1',
+			'port' => '3306',
+			'database' => 'test',
+			'user' => 'root',
+			'pass' => NULL,
+			'type' => 'QGYFHGEG'
+		);
+		
+		$this->expectException('BadDBDriverException');
+		
+		$this->db = new Query_Builder($params);
+	}
+	
 }
 
 // End of db_qb_test.php

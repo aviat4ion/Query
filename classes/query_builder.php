@@ -14,6 +14,26 @@
 // --------------------------------------------------------------------------
 
 /**
+ * Generic exception for bad drivers
+ *
+ * @package Query
+ * @subpackage Query
+ */
+class BadDBDriverException extends UnexpectedValueException {}
+
+// --------------------------------------------------------------------------
+
+/**
+ * Generic exception for bad connection strings
+ *
+ * @package Query
+ * @subpackage Query
+ */
+class BadConnectionException extends UnexpectedValueException {}
+
+// --------------------------------------------------------------------------
+
+/**
  * Convienience class for creating sql queries - also the class that
  * instantiates the specific db driver
  *
@@ -185,6 +205,12 @@ class Query_Builder {
 		{
 			$dsn = strtolower($dbtype).':'.$dsn;
 		}
+		
+		// Make sure the class exists
+		if ( ! class_exists($dbtype))
+		{
+			throw new BadDBDriverException('Database driver does not exist, or is not supported');
+		}
 
 		// Create the dsn for the database to connect to
 		switch($dbtype)
@@ -213,14 +239,22 @@ class Query_Builder {
 			break;
 		}
 		
-		// Create the database connection
-		if ( ! empty($params->user))
+		
+		try 
 		{
-			$this->db = new $dbtype($dsn, $params->user, $params->pass);
+			// Create the database connection
+			if ( ! empty($params->user))
+			{
+				$this->db = new $dbtype($dsn, $params->user, $params->pass);
+			}
+			else
+			{
+				$this->db = new $dbtype($dsn);
+			}
 		}
-		else
+		catch(Exception $e)
 		{
-			$this->db = new $dbtype($dsn);
+			throw new BadConnectionException('Connection failed, invalid arguments');
 		}
 
 		// Set the connection name property, if applicable
