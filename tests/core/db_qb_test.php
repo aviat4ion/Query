@@ -458,7 +458,7 @@ abstract class QBTest extends UnitTestCase {
 			'database' => 'test',
 			'user' => NULL,
 			'pass' => NULL,
-			'type' => 'mysql'
+			'type' => 'pgsql'
 		);
 		
 		$this->expectException('BadConnectionException');
