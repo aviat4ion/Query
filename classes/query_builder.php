@@ -254,7 +254,7 @@ class Query_Builder {
 		}
 		catch(Exception $e)
 		{
-			throw new BadConnectionException('Connection failed, invalid arguments');
+			throw new BadConnectionException('Connection failed, invalid arguments', 2, $e);
 		}
 
 		// Set the connection name property, if applicable

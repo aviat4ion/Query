@@ -426,7 +426,7 @@ abstract class QBTest extends UnitTestCase {
 	}
 	
 	// --------------------------------------------------------------------------
-	// ! Other Tests
+	// ! Error Tests
 	// --------------------------------------------------------------------------
 	
 	/**
@@ -448,6 +448,24 @@ abstract class QBTest extends UnitTestCase {
 		$this->db = new Query_Builder($params);
 	}
 	
+	// --------------------------------------------------------------------------
+	
+	public function TestBadConnection()
+	{
+		$params = array(
+			'host' => '127.0.0.1',
+			'port' => '3306',
+			'database' => 'test',
+			'user' => NULL,
+			'pass' => NULL,
+			'type' => 'mysql'
+		);
+		
+		$this->expectException('BadConnectionException');
+		
+		$this->db = new Query_Builder($params);
+	
+	}
 }
 
 // End of db_qb_test.php
