@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Query
  */
-class BadDBDriverException extends UnexpectedValueException {}
+class BadDBDriverException extends InvalidArgumentException {}
 
 // --------------------------------------------------------------------------
 

@@ -30,6 +30,7 @@ require_once(QBASE_DIR . 'autoload.php');
 // Require base testing classes
 require_once(QTEST_DIR . '/core/core.php');
 require_once(QTEST_DIR . '/core/db_test.php');
+require_once(QTEST_DIR . '/core/db_qp_test.php');
 require_once(QTEST_DIR . '/core/db_qb_test.php');
 
 // Include db tests
