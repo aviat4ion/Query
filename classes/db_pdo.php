@@ -29,21 +29,21 @@ abstract class DB_PDO extends PDO {
 	 * @var mixed
 	 */
 	protected $statement;
-	
+
 	/**
 	 * Character to escape identifiers
 	 *
 	 * @var string
 	 */
 	protected $escape_char = '"';
-	
+
 	/**
 	 * Reference to sql sub class
 	 *
 	 * @var Object
 	 */
 	public $sql;
-	
+
 	/**
 	 * Reference to util sub class
 	 *
@@ -62,11 +62,11 @@ abstract class DB_PDO extends PDO {
 	public function __construct($dsn, $username=NULL, $password=NULL, $driver_options=array())
 	{
 		parent::__construct($dsn, $username, $password, $driver_options);
-		
+
 		// Load the sql class for the driver
 		$class = get_class($this)."_sql";
 		$this->sql = new $class();
-		
+
 		// Load the util class for the driver
 		$class = get_class($this)."_util";
 		$this->util = new $class($this);
@@ -210,7 +210,7 @@ abstract class DB_PDO extends PDO {
 		{
 			return array_map(array($this, 'quote_ident'), $ident);
 		}
-		
+
 		// If the string is already quoted, return the string
 		if (($pos = strpos($ident, $this->escape_char)) !== FALSE  && $pos === 0)
 		{
@@ -223,9 +223,9 @@ abstract class DB_PDO extends PDO {
 		// Return the re-compiled string
 		return implode('.', array_map(array($this, '_quote'), $hiers));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Helper method for quote_ident
 	 *
@@ -238,7 +238,7 @@ abstract class DB_PDO extends PDO {
 		{
 			return $str;
 		}
-		
+
 		return "{$this->escape_char}{$str}{$this->escape_char}";
 	}
 
@@ -366,9 +366,9 @@ abstract class DB_PDO extends PDO {
 	{
 		return $this->driver_query($this->sql->system_table_list());
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Retrieve column information for the current database table
 	 *
@@ -379,9 +379,9 @@ abstract class DB_PDO extends PDO {
 	{
 		return $this->driver_query($this->sql->column_list($table), FALSE);
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Retrieve list of data types for the database
 	 *
@@ -408,7 +408,7 @@ abstract class DB_PDO extends PDO {
 		{
 			return FALSE;
 		}
-		
+
 		// Return predefined data
 		if (is_array($sql))
 		{
@@ -422,7 +422,7 @@ abstract class DB_PDO extends PDO {
 
 		return ($filtered_index) ? db_filter($all, 0) : $all;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -432,8 +432,8 @@ abstract class DB_PDO extends PDO {
 	 */
 	public function num_rows()
 	{
-		return isset($this->statement) && is_object($this->statement) 
-			? $this->statement->rowCount() 
+		return isset($this->statement) && is_object($this->statement)
+			? $this->statement->rowCount()
 			: FALSE;
 	}
 

@@ -13,6 +13,9 @@
 
 // --------------------------------------------------------------------------
 
+/**
+ * Tests for the Query Parser
+ */
 class QPTest extends UnitTestCase {
 
 	public function __construct()
@@ -22,16 +25,33 @@ class QPTest extends UnitTestCase {
 
 	public function TestGeneric()
 	{
-		$this->parser->__construct('table1.field1=table2.field2');
+		$matches = $this->parser->parse_join('table1.field1=table2.field2');
+		$this->assertIdentical($matches['combined'], array(
+			'table1.field1', '=', 'table2.field2'
+		));
+	}
 
-		//echo '<pre>'.print_r($this->parser->matches, TRUE).'</pre>';
+	public function TestGeneric2()
+	{
+		$matches = $this->parser->parse_join('db1.table1.field1!=db2.table2.field2');
+		$this->assertIdentical($matches['combined'], array(
+			'db1.table1.field1','!=','db2.table2.field2'
+		));
+	}
+
+	public function TestWUnderscore()
+	{
+		$matches = $this->parser->parse_join('table_1.field1 = tab_le2.field_2');
+		$this->assertIdentical($matches['combined'], array(
+			'table_1.field1', '=', 'tab_le2.field_2'
+		));
 	}
 
 	public function TestFunction()
 	{
-		$this->parser->__construct('table1.field1 > SUM(3+5)');
-
-		//echo '<pre>'.print_r($this->parser->matches, TRUE).'</pre>';
+		$matches = $this->parser->parse_join('table1.field1 > SUM(3+5)');
+		$this->assertIdentical($matches['combined'], array(
+			'table1.field1', '>', 'SUM(3+5)'
+		));
 	}
-
 }

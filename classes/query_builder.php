@@ -52,35 +52,35 @@ class Query_Builder {
 	 * @var string
 	 */
 	private $select_string;
-	
+
 	/**
 	 * Compiled 'from' clause
 	 *
 	 * @var string
-	 */	
+	 */
 	private $from_string;
-	
+
 	/**
 	 * Compiled arguments for insert / update
 	 *
 	 * @var string
 	 */
 	private $set_string;
-	
+
 	/**
 	 * Order by clause
 	 *
 	 * @var string
 	 */
 	private $order_string;
-	
+
 	/**
 	 * Group by clause
 	 *
 	 * @var string
 	 */
 	private $group_string;
-	
+
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Arrays
 	// --------------------------------------------------------------------------
@@ -91,21 +91,21 @@ class Query_Builder {
 	 * @var array
 	 */
 	private $set_array_keys;
-	
-	/** 
+
+	/**
 	 * Key/val pairs for order by clause
 	 *
 	 * @var array
 	 */
 	private $order_array;
-	
+
 	/**
 	 * Key/val pairs for group by clause
 	 *
 	 * @var array
 	 */
 	private $group_array;
-	
+
 	// --------------------------------------------------------------------------
 	// ! Other Class vars
 	// --------------------------------------------------------------------------
@@ -123,7 +123,7 @@ class Query_Builder {
 	 * @var int
 	 */
 	private $limit;
-	
+
 	/**
 	 * Value for offset in limit string
 	 *
@@ -138,7 +138,7 @@ class Query_Builder {
 	 */
 	public $sql;
 
-	/** 
+	/**
 	 * Query component order mapping
 	 * for complex select queries
 	 *
@@ -153,13 +153,20 @@ class Query_Builder {
 	 * @var array
 	 */
 	private $query_map;
-	
+
 	/**
 	 * Map for having clause
 	 *
 	 * @var array
 	 */
 	private $having_map;
+
+	/**
+	 * Query parser to safely escape conditions
+	 *
+	 * @var object
+	 */
+	private $parser;
 
 	/**
 	 * Convenience property for connection management
@@ -179,33 +186,33 @@ class Query_Builder {
 		if (is_array($params))
 		{
 			$p = new stdClass();
-			
+
 			foreach($params as $k => $v)
 			{
 				$p->$k = $v;
 			}
-			
+
 			$params = $p;
 		}
-		
-		// Let the connection work with 'conn_db' or 'database'	
+
+		// Let the connection work with 'conn_db' or 'database'
 		if (isset($params->database))
 		{
 			$params->conn_db = $params->database;
 		}
-		
-		
+
+
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
-		
+
 		$dsn = '';
-		
+
 		// Add the driver type to the dsn
 		if ($dbtype !== 'firebird' && $dbtype !== 'sqlite')
 		{
 			$dsn = strtolower($dbtype).':'.$dsn;
 		}
-		
+
 		// Make sure the class exists
 		if ( ! class_exists($dbtype))
 		{
@@ -227,7 +234,7 @@ class Query_Builder {
 				{
 					$dsn .= ";port={$params->port}";
 				}
-				
+
 			break;
 
 			case "sqlite":
@@ -238,9 +245,9 @@ class Query_Builder {
 				$dsn = "{$params->host}:{$params->file}";
 			break;
 		}
-		
-		
-		try 
+
+
+		try
 		{
 			// Create the database connection
 			if ( ! empty($params->user))
@@ -263,6 +270,8 @@ class Query_Builder {
 			$this->conn_name = $params->name;
 		}
 
+		// Instantiate the Query Parser
+		$this->parser = new Query_Parser();
 
 		// Make things just slightly shorter
 		$this->sql =& $this->db->sql;
@@ -314,9 +323,9 @@ class Query_Builder {
 
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Method to simplify select_ methods
 	 *
@@ -328,16 +337,16 @@ class Query_Builder {
 	{
 		// Escape the identifiers
 		$field = $this->quote_ident($field);
-		
-		$as = ($as !== FALSE) 
+
+		$as = ($as !== FALSE)
 			? $this->quote_ident($as)
 			: $field;
-			
+
 		return "({$field}) AS {$as} ";
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Selects the maximum value of a field from a query
 	 *
@@ -351,9 +360,9 @@ class Query_Builder {
 		$this->select_string .= $this->sql->max().$this->_select($field, $as);
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Selects the minimum value of a field from a query
 	 *
@@ -362,14 +371,14 @@ class Query_Builder {
 	 * @return $this
 	 */
 	public function select_min($field, $as=FALSE)
-	{			
+	{
 		// Create the select string
 		$this->select_string .= $this->sql->min().$this->_select($field, $as);
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Selects the average value of a field from a query
 	 *
@@ -383,9 +392,9 @@ class Query_Builder {
 		$this->select_string .= $this->sql->avg().$this->_select($field, $as);
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Selects the sum of a field from a query
 	 *
@@ -401,7 +410,7 @@ class Query_Builder {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
@@ -413,7 +422,7 @@ class Query_Builder {
 		$this->select_string = $this->sql->distinct() . $this->select_string;
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -440,7 +449,7 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 	// ! 'Like' methods
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Simplify 'like' methods
 	 *
@@ -470,19 +479,19 @@ class Query_Builder {
 		{
 			$val = "%{$val}%";
 		}
-		
+
 		$this->query_map[] = array(
 			'type' => 'like',
 			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : " {$conj} ",
 			'string' => $l
 		);
-		
+
 		// Add to the values array
 		$this->values[] = $val;
-		
+
 		return $this;
-	} 
-	
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -542,11 +551,11 @@ class Query_Builder {
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! Having methods
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Simplify building having clauses
 	 *
@@ -558,7 +567,7 @@ class Query_Builder {
 	private function _having($key, $val=array(), $conj='AND')
 	{
 		$where = $this->_where($key, $val);
-		
+
 		// Create key/value placeholders
 		foreach($where as $f => &$val)
 		{
@@ -577,12 +586,12 @@ class Query_Builder {
 				'string' => $item
 			);
 		}
-		
+
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Generates a 'Having' clause
 	 *
@@ -594,9 +603,9 @@ class Query_Builder {
 	{
 		return $this->_having($key, $val, 'AND');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Generates a 'Having' clause prefixed with 'OR'
 	 *
@@ -642,9 +651,9 @@ class Query_Builder {
 
 		return $where;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Simplify generating where string
 	 *
@@ -679,9 +688,9 @@ class Query_Builder {
 
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Simplify where_in methods
 	 *
@@ -708,7 +717,7 @@ class Query_Builder {
 			'conjunction' => ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ',
 			'string' => $string
 		);
-		
+
 		return $this;
 	}
 
@@ -801,7 +810,7 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Sets values for inserts / updates / deletes
 	 *
@@ -837,7 +846,7 @@ class Query_Builder {
 
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -850,15 +859,26 @@ class Query_Builder {
 	 */
 	public function join($table, $condition, $type='')
 	{
-		// TODO make able to handle operators without spaces
-	
 		$table = implode(" ", array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));
-		//$condition = preg_replace('`(\W)`', " $1 ", $condition);
-		$cond_array = explode(' ', trim($condition));
-		$cond_array = array_map('trim', $cond_array);
 
-		$condition = $table . ' ON ' . $this->quote_ident($cond_array[0])  . $cond_array[1] .
-				' ' . $this->quote_ident($cond_array[2]);
+		$parser = new query_parser();
+
+		// Parse out the join condition
+		$parts = $parser->parse_join($condition);
+		$count = count($parts['identifiers']);
+
+		// Go through and quote the identifiers
+		for($i=0; $i <= $count; $i++)
+		{
+			if (in_array($parts['combined'][$i], $parts['identifiers']) && ! is_numeric($parts['combined'][$i]))
+			{
+				$parts['combined'][$i] = $this->quote_ident($parts['combined'][$i]);
+			}
+		}
+
+		$parsed_condition = implode(' ', $parts['combined']);
+
+		$condition = $table . ' ON ' . $parsed_condition;
 
 		$this->query_map[] = array(
 			'type' => 'join',
@@ -1022,7 +1042,7 @@ class Query_Builder {
 
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! Query execution methods
 	// --------------------------------------------------------------------------
@@ -1070,7 +1090,7 @@ class Query_Builder {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Convience method for get() with a where clause
 	 *
@@ -1084,13 +1104,13 @@ class Query_Builder {
 	{
 		// Create the where clause
 		$this->where($where);
-		
+
 		// Return the result
 		return $this->get($table, $limit, $offset);
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Retreive the number of rows in the selected table
 	 *
@@ -1103,9 +1123,9 @@ class Query_Builder {
 		$res = $this->query($sql);
 		return (int) count($res->fetchAll());
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Retrieve the number of results for the generated query - used
 	 * in place of the get() method
@@ -1120,7 +1140,7 @@ class Query_Builder {
 		{
 			$this->from($table);
 		}
-	
+
 		$sql = $this->_compile();
 
 		// Do prepared statements for anything involving a "where" clause
@@ -1136,12 +1156,12 @@ class Query_Builder {
 
 		// Reset for next query
 		$this->_reset();
-		
+
 		$rows = $result->fetchAll();
-		
+
 		return (int) count($rows);
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -1276,7 +1296,7 @@ class Query_Builder {
 
 			// Set empty arrays
 			$this->values = array();
-			
+
 			// Set select string as an empty string, for proper handling
 			// of the 'distinct' keyword
 			$this->select_string = '';
@@ -1295,7 +1315,7 @@ class Query_Builder {
 	private function _compile($type='', $table='')
 	{
 		$sql = '';
-		
+
 		$table = $this->quote_ident($table);
 
 		switch($type)
@@ -1324,7 +1344,7 @@ class Query_Builder {
 				{
 					$sql .= $this->group_string;
 				}
-				
+
 				// Set the having string
 				if ( ! empty($this->having_map))
 				{
@@ -1350,7 +1370,7 @@ class Query_Builder {
 			case "insert":
 				$param_count = count($this->set_array_keys);
 				$params = array_fill(0, $param_count, '?');
-				$sql = "INSERT INTO {$table} (" 
+				$sql = "INSERT INTO {$table} ("
 					. implode(', ', $this->set_array_keys) .
 					') VALUES ('.implode(', ', $params).')';
 			break;
@@ -1382,7 +1402,7 @@ class Query_Builder {
 
 			break;
 		}
-		
+
 		//echo $sql . '<br />';
 
 		return $sql;
