@@ -211,14 +211,19 @@ abstract class DB_PDO extends PDO {
 			return array_map(array($this, 'quote_ident'), $ident);
 		}
 
-		// If the string is already quoted, return the string
-		if (($pos = strpos($ident, $this->escape_char)) !== FALSE  && $pos === 0)
+		// Handle comma-separated identifiers
+		if (strpos($ident, ',') !== FALSE)
 		{
-			return $ident;
+			$parts = explode(',', $ident);
+			$parts = array_map('mb_trim', $parts);
+			$parts = array_map(array($this, 'quote_ident'), $parts);
+			$ident = implode(',', $parts);
 		}
+
 
 		// Split each identifier by the period
 		$hiers = explode('.', $ident);
+		$hiers = array_map('mb_trim', $hiers);
 
 		// Return the re-compiled string
 		return implode('.', array_map(array($this, '_quote'), $hiers));
@@ -234,7 +239,14 @@ abstract class DB_PDO extends PDO {
 	 */
 	protected function _quote($str)
 	{
+		// Don't quote numbers
 		if ( ! is_string($str) && is_numeric($str))
+		{
+			return $str;
+		}
+
+		// Don't add additional quotes
+		if (strpos($str, $this->escape_char) === 0 || strrpos($str, $this->escape_char) === 0)
 		{
 			return $str;
 		}

@@ -42,6 +42,20 @@ if ( ! function_exists('do_include'))
 	}
 }
 
+if ( ! function_exists('mb_trim'))
+{
+	/**
+	 * Multibyte-safe trim function
+	 *
+	 * @param string
+	 * @return string
+	 */
+	function mb_trim($string)
+	{
+		return preg_replace("/(^\s+)|(\s+$)/us", "", $string);
+	}
+}
+
 /**
  * Load a Query class
  *

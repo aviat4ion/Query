@@ -162,13 +162,6 @@ class Query_Builder {
 	private $having_map;
 
 	/**
-	 * Query parser to safely escape conditions
-	 *
-	 * @var object
-	 */
-	private $parser;
-
-	/**
 	 * Convenience property for connection management
 	 *
 	 * @var string
@@ -317,7 +310,7 @@ class Query_Builder {
 			}
 		}
 
-		$this->select_string .= implode(', ', $safe_array);
+		$this->select_string .= implode(',', $safe_array);
 
 		unset($safe_array);
 
@@ -676,7 +669,7 @@ class Query_Builder {
 			$item = $this->quote_ident($f_array[0]);
 
 			// Simple key value, or an operator
-			$item .= (count($f_array) === 1) ? '= ?' : " {$f_array[1]} ?";
+			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
 
 			// Put in the query map for select statements
 			$this->query_map[] = array(
@@ -841,7 +834,7 @@ class Query_Builder {
 		$this->set_array_keys = array_map(array($this->db, 'quote_ident'), $this->set_array_keys);
 
 		// Generate the "set" string
-		$this->set_string = implode('=?, ', $this->set_array_keys);
+		$this->set_string = implode('=?,', $this->set_array_keys);
 		$this->set_string .= '=?';
 
 		return $this;
@@ -859,7 +852,7 @@ class Query_Builder {
 	 */
 	public function join($table, $condition, $type='')
 	{
-		$table = implode(" ", array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));
+		$table = implode(' ', array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));
 
 		$parser = new query_parser();
 
@@ -876,7 +869,7 @@ class Query_Builder {
 			}
 		}
 
-		$parsed_condition = implode(' ', $parts['combined']);
+		$parsed_condition = implode('', $parts['combined']);
 
 		$condition = $table . ' ON ' . $parsed_condition;
 
@@ -908,7 +901,7 @@ class Query_Builder {
 			$this->group_array[] = $this->quote_ident($field);
 		}
 
-		$this->group_string = ' GROUP BY ' . implode(', ', $this->group_array);
+		$this->group_string = ' GROUP BY ' . implode(',', $this->group_array);
 
 		return $this;
 	}
@@ -1371,8 +1364,8 @@ class Query_Builder {
 				$param_count = count($this->set_array_keys);
 				$params = array_fill(0, $param_count, '?');
 				$sql = "INSERT INTO {$table} ("
-					. implode(', ', $this->set_array_keys) .
-					') VALUES ('.implode(', ', $params).')';
+					. implode(',', $this->set_array_keys) .
+					') VALUES ('.implode(',', $params).')';
 			break;
 
 			case "update":
