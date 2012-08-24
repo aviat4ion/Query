@@ -173,6 +173,19 @@ abstract class QBTest extends UnitTestCase {
 
 	// --------------------------------------------------------------------------
 
+	public function TestWhereIn()
+	{
+		if (empty($this->db)) return;
+
+		$query = $this->db->from('create_test')
+			->where_in('id', array(0, 6, 56, 563, 341))
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
 	public function TestSelectAvg()
 	{
 		if (empty($this->db))  return;

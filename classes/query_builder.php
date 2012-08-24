@@ -698,12 +698,12 @@ class Query_Builder {
 		$key = $this->quote_ident($key);
 		$params = array_fill(0, count($val), '?');
 
-		foreach($val as &$v)
+		foreach($val as $v)
 		{
 			$this->values[] = $v;
 		}
 
-		$string = $key . " {$in} ".implode(',', $params).') ';
+		$string = $key . " {$in} (".implode(',', $params).') ';
 
 		$this->query_map[] = array(
 			'type' => 'where_in',
@@ -1396,7 +1396,7 @@ class Query_Builder {
 			break;
 		}
 
-		//echo $sql . '<br />';
+		// echo $sql . '<br />';
 
 		return $sql;
 	}
