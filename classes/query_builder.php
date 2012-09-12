@@ -169,6 +169,17 @@ class Query_Builder {
 	public $conn_name = "";
 
 	/**
+	 * List of sql queries executed
+	 *
+	 * @var array
+	 */
+	public $queries;
+
+	// --------------------------------------------------------------------------
+	// ! Methods
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Constructor
 	 *
 	 * @param object $params - the connection parametere
@@ -571,7 +582,7 @@ class Query_Builder {
 			$item = $this->quote_ident($f_array[0]);
 
 			// Simple key value, or an operator
-			$item .= (count($f_array) === 1) ? '= ?' : " {$f_array[1]} ?";
+			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
 
 			// Put in the query map for select statements
 			$this->having_map[] = array(
@@ -1395,6 +1406,8 @@ class Query_Builder {
 
 			break;
 		}
+
+		$this->queries[] = $sql;
 
 		// echo $sql . '<br />';
 
