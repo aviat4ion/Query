@@ -1247,9 +1247,114 @@ class Query_Builder {
 		return $res;
 	}
 
+	// --------------------------------------------------------------------------
+	// ! Query Returning Methods
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Returns the generated 'select' sql query
+	 *
+	 * @param string $table
+	 * @param bool $reset
+	 * @return string
+	 */
+	public function get_compiled_select($table='', $reset=TRUE)
+	{
+		// Set the table
+		if ( ! empty($table))
+		{
+			$this->from($table);
+		}
+
+		$sql = $this->_compile();
+
+		// Reset the query builder for the next query
+		if ($reset)
+		{
+			$this->_reset();
+		}
+
+		return $sql;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Returns the generated 'insert' sql query
+	 *
+	 * @param string $table
+	 * @param bool $reset
+	 * @return string
+	 */
+	public function get_compiled_insert($table, $reset=TRUE)
+	{
+		$sql = $this->_compile("insert", $table);
+
+		// Reset the query builder for the next query
+		if ($reset)
+		{
+			$this->_reset();
+		}
+
+		return $sql;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Returns the generated 'insert' sql query
+	 *
+	 * @param string $table
+	 * @param bool $reset
+	 * @return string
+	 */
+	public function get_compiled_update($table='', $reset=TRUE)
+	{
+		$sql = $this->_compile('update', $table);
+
+		// Reset the query builder for the next query
+		if ($reset)
+		{
+			$this->_reset();
+		}
+
+		return $sql;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Returns the generated 'insert' sql query
+	 *
+	 * @param string $table
+	 * @param bool $reset
+	 * @return string
+	 */
+	public function get_compiled_delete($table="", $reset=TRUE)
+	{
+		$sql = $this->_compile("delete", $table);
+
+		// Reset the query builder for the next query
+		if ($reset)
+		{
+			$this->_reset();
+		}
+
+		return $sql;
+	}
 
 	// --------------------------------------------------------------------------
 	// ! Miscellaneous Methods
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Resets the query builder for the next query
+	 */
+	public function reset_query()
+	{
+		$this->_reset();
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -1286,7 +1391,8 @@ class Query_Builder {
 			// Skip properties that are needed for every query
 			if (in_array($name, array(
 				'db',
-				'sql'
+				'sql',
+				'queries',
 			)))
 			{
 				continue;
