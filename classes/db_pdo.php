@@ -107,7 +107,7 @@ abstract class DB_PDO extends PDO {
 		}
 
 		// Bind the parameters
-		foreach($data as $k => &$value)
+		foreach($data as $k => $value)
 		{
 			if(is_numeric($k))
 			{
@@ -219,7 +219,6 @@ abstract class DB_PDO extends PDO {
 			$parts = array_map(array($this, 'quote_ident'), $parts);
 			$ident = implode(',', $parts);
 		}
-
 
 		// Split each identifier by the period
 		$hiers = explode('.', $ident);

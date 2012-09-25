@@ -105,7 +105,7 @@ function db_filter($array, $index)
 {
 	$new_array = array();
 
-	foreach($array as &$a)
+	foreach($array as $a)
 	{
 		$new_array[] = $a[$index];
 	}

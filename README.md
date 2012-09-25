@@ -1,6 +1,6 @@
 # Query
 
-A query builder/abstraction layer, using prepared queries for security.
+A query builder/database abstraction layer, using prepared queries for security.
 
 [![Build Status](https://secure.travis-ci.org/timw4mail/Query.png)](http://travis-ci.org/timw4mail/Query)
 
