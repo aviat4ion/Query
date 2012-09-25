@@ -139,6 +139,13 @@ class Query_Builder {
 	public $sql;
 
 	/**
+	 * Database table prefix
+	 *
+	 * @var string
+	 */
+	public $table_prefix = '';
+
+	/**
 	 * Query component order mapping
 	 * for complex select queries
 	 *
@@ -221,6 +228,12 @@ class Query_Builder {
 		if ( ! class_exists($dbtype))
 		{
 			throw new BadDBDriverException('Database driver does not exist, or is not supported');
+		}
+
+		// Set the table prefix, if it exists
+		if (isset($params->prefix))
+		{
+			$this->table_prefix = $params->prefix;
 		}
 
 		// Create the dsn for the database to connect to
@@ -1088,7 +1101,7 @@ class Query_Builder {
 		}
 
 		// Reset for next query
-		$this->_reset();
+		$this->reset_query();
 
 		return $result;
 	}
@@ -1159,7 +1172,7 @@ class Query_Builder {
 		}
 
 		// Reset for next query
-		$this->_reset();
+		$this->reset_query();
 
 		$rows = $result->fetchAll();
 
@@ -1187,7 +1200,7 @@ class Query_Builder {
 
 		$res = $this->prepare_execute($sql, $this->values);
 
-		$this->_reset();
+		$this->reset_query();
 
 		return $res;
 	}
@@ -1213,7 +1226,7 @@ class Query_Builder {
 
 		$res = $this->prepare_execute($sql, $this->values);
 
-		$this->_reset();
+		$this->reset_query();
 
 		// Run the query
 		return $res;
@@ -1241,7 +1254,7 @@ class Query_Builder {
 
 		$res = $this->prepare_execute($sql, $this->values);
 
-		$this->_reset();
+		$this->reset_query();
 
 		// Delete the table rows, and return the result
 		return $res;
@@ -1271,7 +1284,7 @@ class Query_Builder {
 		// Reset the query builder for the next query
 		if ($reset)
 		{
-			$this->_reset();
+			$this->reset_query();
 		}
 
 		return $sql;
@@ -1293,7 +1306,7 @@ class Query_Builder {
 		// Reset the query builder for the next query
 		if ($reset)
 		{
-			$this->_reset();
+			$this->reset_query();
 		}
 
 		return $sql;
@@ -1315,7 +1328,7 @@ class Query_Builder {
 		// Reset the query builder for the next query
 		if ($reset)
 		{
-			$this->_reset();
+			$this->reset_query();
 		}
 
 		return $sql;
@@ -1337,7 +1350,7 @@ class Query_Builder {
 		// Reset the query builder for the next query
 		if ($reset)
 		{
-			$this->_reset();
+			$this->reset_query();
 		}
 
 		return $sql;
@@ -1348,40 +1361,11 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Resets the query builder for the next query
-	 */
-	public function reset_query()
-	{
-		$this->_reset();
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Calls a function further down the inheritence chain
-	 *
-	 * @param string $name
-	 * @param array $params
-	 * @return mixed
-	 */
-	public function __call($name, $params)
-	{
-		if (method_exists($this->db, $name))
-		{
-			return call_user_func_array(array($this->db, $name), $params);
-		}
-
-		return NULL;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Clear out the class variables, so the next query can be run
 	 *
 	 * @return void
 	 */
-	private function _reset()
+	public function reset_query()
 	{
 		// Only unset class variables that
 		// are not callable. Otherwise, we'll
@@ -1411,6 +1395,42 @@ class Query_Builder {
 			// of the 'distinct' keyword
 			$this->select_string = '';
 		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Auto-prefix table names
+	 *
+	 * @param string $table
+	 * @return string
+	 */
+	private function prefix($table)
+	{
+		// If there isn't a prefix, just return
+		if (empty($this->table_prefix))
+		{
+			return $table;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Calls a function further down the inheritence chain
+	 *
+	 * @param string $name
+	 * @param array $params
+	 * @return mixed
+	 */
+	public function __call($name, $params)
+	{
+		if (method_exists($this->db, $name))
+		{
+			return call_user_func_array(array($this->db, $name), $params);
+		}
+
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
