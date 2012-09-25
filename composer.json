@@ -2,7 +2,7 @@
 	"name":"aviat4ion/query",
 	"type":"library",
 	"description":"Database Query Builder and Abstraction layer",
-	"keywords":["database", "query builder"],
+	"keywords":["database", "query builder", "mysql", "firebird", "sqlite", "postgres"],
 	"homepage":"https://github.com/aviat4ion/Query",
 	"license":"dbad-license",
 	"authors": [{
