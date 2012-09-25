@@ -302,7 +302,7 @@ class Query_Builder {
 		{
 			if (stripos($field, 'as') !== FALSE)
 			{
-				$fields_array[$key] = preg_split('`as`i', $field);
+				$fields_array[$key] = preg_split('` as `i', $field);
 				$fields_array[$key] = array_map('trim', $fields_array[$key]);
 			}
 		}
