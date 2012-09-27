@@ -52,6 +52,13 @@ abstract class DB_PDO extends PDO {
 	public $util;
 
 	/**
+	 * Last query executed
+	 *
+	 * @var string
+	 */
+	public $last_query;
+
+	/**
 	 * PDO constructor wrapper
 	 *
 	 * @param string $dsn
@@ -443,9 +450,16 @@ abstract class DB_PDO extends PDO {
 	 */
 	public function num_rows()
 	{
-		return isset($this->statement) && is_object($this->statement)
-			? $this->statement->rowCount()
-			: FALSE;
+		$regex = '/^SELECT\s+(?:ALL\s+|DISTINCT\s+)?(?:.*?)\s+FROM\s+(.*)$/i';
+		$output = array();
+
+		if (preg_match($regex, $this->last_query, $output) > 0)
+		{
+			$stmt = $this->query("SELECT COUNT(*) FROM {$output[1]}", PDO::FETCH_NUM);
+			return $stmt->fetchColumn();
+		}
+
+		return FALSE;
 	}
 
 	// -------------------------------------------------------------------------

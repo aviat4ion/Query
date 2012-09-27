@@ -33,6 +33,18 @@ abstract class QBTest extends UnitTestCase {
 
 	// --------------------------------------------------------------------------
 
+	public function TestGetWNumRows()
+	{
+		if (empty($this->db))  return;
+
+		$query = $this->db->get('create_test');
+		$numrows = count($query->fetchAll(PDO::FETCH_NUM));
+
+		$this->assertEqual($this->db->num_rows(), $numrows);
+	}
+
+	// --------------------------------------------------------------------------
+
 	public function TestGetLimit()
 	{
 		if (empty($this->db))  return;

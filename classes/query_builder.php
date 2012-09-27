@@ -1511,7 +1511,7 @@ class Query_Builder {
 				// Set the where string
 				if ( ! empty($this->query_map))
 				{
-					foreach($this->query_map as &$q)
+					foreach($this->query_map as $q)
 					{
 						$sql .= $q['conjunction'] . $q['string'];
 					}
@@ -1524,7 +1524,7 @@ class Query_Builder {
 				// Set the where string
 				if ( ! empty($this->query_map))
 				{
-					foreach($this->query_map as &$q)
+					foreach($this->query_map as $q)
 					{
 						$sql .= $q['conjunction'] . $q['string'];
 					}
@@ -1533,7 +1533,11 @@ class Query_Builder {
 			break;
 		}
 
+		// Add the query to the list of executed queries
 		$this->queries[] = $sql;
+
+		// Set the last query to get rowcounts properly
+		$this->db->last_query = $sql;
 
 		// echo $sql . '<br />';
 
