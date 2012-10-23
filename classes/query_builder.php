@@ -311,7 +311,7 @@ class Query_Builder {
 		$fields_array = array_map('trim', $fields_array);
 
 		// Split on 'As'
-		foreach ($fields_array as $key => &$field)
+		foreach ($fields_array as $key => $field)
 		{
 			if (stripos($field, 'as') !== FALSE)
 			{
@@ -586,7 +586,7 @@ class Query_Builder {
 		$where = $this->_where($key, $val);
 
 		// Create key/value placeholders
-		foreach($where as $f => &$val)
+		foreach($where as $f => $val)
 		{
 			// Split each key by spaces, in case there
 			// is an operator such as >, <, !=, etc.
@@ -659,7 +659,7 @@ class Query_Builder {
 		// Array or object, loop through and add to the where array
 		elseif ( ! is_scalar($key))
 		{
-			foreach($key as $k => &$v)
+			foreach($key as $k => $v)
 			{
 				$where[$k] = $v;
 				$this->values[] = $v;
@@ -684,7 +684,7 @@ class Query_Builder {
 		$where = $this->_where($key, $val);
 
 		// Create key/value placeholders
-		foreach($where as $f => &$val)
+		foreach($where as $f => $val)
 		{
 			// Split each key by spaces, in case there
 			// is an operator such as >, <, !=, etc.
@@ -846,7 +846,7 @@ class Query_Builder {
 		// Object or array
 		elseif ( ! is_scalar($key))
 		{
-			foreach($key as $k => &$v)
+			foreach($key as $k => $v)
 			{
 				$this->set_array_keys[] = $k;
 				$this->values[] = $v;
@@ -954,7 +954,7 @@ class Query_Builder {
 		$order_clauses = array();
 
 		// Flatten key/val pairs into an array of space-separated pairs
-		foreach($this->order_array as $k => &$v)
+		foreach($this->order_array as $k => $v)
 		{
 			$order_clauses[] = $k . ' ' . strtoupper($v);
 		}
@@ -1279,15 +1279,7 @@ class Query_Builder {
 			$this->from($table);
 		}
 
-		$sql = $this->_compile();
-
-		// Reset the query builder for the next query
-		if ($reset)
-		{
-			$this->reset_query();
-		}
-
-		return $sql;
+		return $this->_get_compile('select', $table, $reset);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1301,15 +1293,7 @@ class Query_Builder {
 	 */
 	public function get_compiled_insert($table, $reset=TRUE)
 	{
-		$sql = $this->_compile("insert", $table);
-
-		// Reset the query builder for the next query
-		if ($reset)
-		{
-			$this->reset_query();
-		}
-
-		return $sql;
+		return $this->_get_compile('insert', $table, $reset);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1323,15 +1307,7 @@ class Query_Builder {
 	 */
 	public function get_compiled_update($table='', $reset=TRUE)
 	{
-		$sql = $this->_compile('update', $table);
-
-		// Reset the query builder for the next query
-		if ($reset)
-		{
-			$this->reset_query();
-		}
-
-		return $sql;
+		return $this->_get_compile('update', $table, $reset);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1345,7 +1321,22 @@ class Query_Builder {
 	 */
 	public function get_compiled_delete($table="", $reset=TRUE)
 	{
-		$sql = $this->_compile("delete", $table);
+		return $this->_get_compile('delete', $table, $reset);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Helper function for returning sql strings
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @param bool
+	 * @resturn string
+	 */
+	protected function _get_compiled($type, $table, $reset)
+	{
+		$sql = $this->_compile($type, $table);
 
 		// Reset the query builder for the next query
 		if ($reset)
@@ -1463,7 +1454,7 @@ class Query_Builder {
 				// Set the where string
 				if ( ! empty($this->query_map))
 				{
-					foreach($this->query_map as &$q)
+					foreach($this->query_map as $q)
 					{
 						$sql .= $q['conjunction'] . $q['string'];
 					}
@@ -1478,7 +1469,7 @@ class Query_Builder {
 				// Set the having string
 				if ( ! empty($this->having_map))
 				{
-					foreach($this->having_map as &$h)
+					foreach($this->having_map as $h)
 					{
 						$sql .= $h['conjunction'] . $h['string'];
 					}

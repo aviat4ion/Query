@@ -446,6 +446,7 @@ abstract class DB_PDO extends PDO {
 	/**
 	 * Return the number of rows returned for a SELECT query
 	 *
+	 * @see http://us3.php.net/manual/en/pdostatement.rowcount.php#87110
 	 * @return int
 	 */
 	public function num_rows()

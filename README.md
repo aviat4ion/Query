@@ -81,3 +81,23 @@ To retreive the results of a query, use the PDO method [fetch](http://php.net/ma
 	$query = $db->get('table_name');
 	
 	$results = $query->fetchAll(PDO::FETCH_ASSOC);
+	
+	
+### Inserting / Updating
+
+An example of an insert query:
+
+	$query = $db->set('foo', 'bar')
+		->set('foobar', 'baz')
+		->where('foo !=', 'bar')
+		->insert('table');
+		
+An example of an update query:
+
+	$query = $db->set('foo', 'bar')
+		->set('foobar', 'baz')
+		->where('foo !=', 'bar')
+		->update('table');
+		
+The `set` method can also take an array as a paramater, instead of setting individual values.
+
