@@ -115,7 +115,14 @@ class Query_Builder {
 	 *
 	 * @var array
 	 */
-	private $values;
+	private $values = array();
+	
+	/**
+	 * Values to apply to where clauses in prepared statements
+	 *
+	 * @var array
+	 */
+	private $where_values = array();
 
 	/**
 	 * Value for limit string
@@ -504,7 +511,7 @@ class Query_Builder {
 		);
 
 		// Add to the values array
-		$this->values[] = $val;
+		$this->where_values[] = $val;
 
 		return $this;
 	}
@@ -654,7 +661,7 @@ class Query_Builder {
 		if (is_scalar($key) && is_scalar($val))
 		{
 			$where[$key] = $val;
-			$this->values[] = $val;
+			$this->where_values[] = $val;
 		}
 		// Array or object, loop through and add to the where array
 		elseif ( ! is_scalar($key))
@@ -662,7 +669,7 @@ class Query_Builder {
 			foreach($key as $k => $v)
 			{
 				$where[$k] = $v;
-				$this->values[] = $v;
+				$this->where_values[] = $v;
 			}
 		}
 
@@ -724,7 +731,7 @@ class Query_Builder {
 
 		foreach($val as $v)
 		{
-			$this->values[] = $v;
+			$this->where_values[] = $v;
 		}
 
 		$string = $key . " {$in} (".implode(',', $params).') ';
@@ -1092,12 +1099,12 @@ class Query_Builder {
 		// Do prepared statements for anything involving a "where" clause
 		if ( ! empty($this->query_map) || ! empty($this->having_map))
 		{
-			$result =  $this->prepare_execute($sql, $this->values);
+			$result = $this->_run($sql);
 		}
 		else
 		{
 			// Otherwise, a simple query will do.
-			$result =  $this->query($sql);
+			$result = $this->query($sql);
 		}
 
 		// Reset for next query
@@ -1163,7 +1170,7 @@ class Query_Builder {
 		// Do prepared statements for anything involving a "where" clause
 		if ( ! empty($this->query_map))
 		{
-			$result =  $this->prepare_execute($sql, $this->values);
+			$result =  $this->_run($sql);
 		}
 		else
 		{
@@ -1197,8 +1204,7 @@ class Query_Builder {
 		}
 
 		$sql = $this->_compile("insert", $table);
-
-		$res = $this->prepare_execute($sql, $this->values);
+		$res = $this->_run($sql);
 
 		$this->reset_query();
 
@@ -1223,8 +1229,7 @@ class Query_Builder {
 		}
 
 		$sql = $this->_compile('update', $table);
-
-		$res = $this->prepare_execute($sql, $this->values);
+		$res = $this->_run($sql);
 
 		$this->reset_query();
 
@@ -1251,8 +1256,7 @@ class Query_Builder {
 
 		// Create the SQL and parameters
 		$sql = $this->_compile("delete", $table);
-
-		$res = $this->prepare_execute($sql, $this->values);
+		$res = $this->_run($sql);
 
 		$this->reset_query();
 
@@ -1334,7 +1338,7 @@ class Query_Builder {
 	 * @param bool
 	 * @resturn string
 	 */
-	protected function _get_compiled($type, $table, $reset)
+	protected function _get_compile($type, $table, $reset)
 	{
 		$sql = $this->_compile($type, $table);
 
@@ -1388,6 +1392,20 @@ class Query_Builder {
 		}
 	}
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Executes the compiled query
+	 *
+	 * @param string $sql
+	 * @return mixed
+	 */
+	private function _run($sql)
+	{
+		$vals = array_merge($this->values, (array) $this->where_values);
+		return $this->prepare_execute($sql, $vals);
+	}
+	
 	// --------------------------------------------------------------------------
 
 	/**

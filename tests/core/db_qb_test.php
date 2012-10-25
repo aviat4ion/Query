@@ -407,6 +407,40 @@ abstract class QBTest extends UnitTestCase {
 
 	// --------------------------------------------------------------------------
 
+	public function TestSetArrayUpdate()
+	{
+		if (empty($this->db))  return;
+
+		$array = array(
+			'id' => 4,
+			'key' => 'gogle',
+			'val' => 'non-word'
+		);
+
+		$query = $this->db->set($array)
+			->where('id', 4)
+			->update('create_test');
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function TestWhereSetUpdate()
+	{
+		if (empty($this->db))  return;
+
+		$query = $this->db->where('id', 4)
+			->set('id', 4)
+			->set('key', 'gogle')
+			->set('val', 'non-word')
+			->update('create_test');
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
 	public function TestDelete()
 	{
 		if (empty($this->db))  return;
