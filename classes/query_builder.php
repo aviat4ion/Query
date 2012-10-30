@@ -116,7 +116,7 @@ class Query_Builder {
 	 * @var array
 	 */
 	private $values = array();
-	
+
 	/**
 	 * Values to apply to where clauses in prepared statements
 	 *
@@ -1094,23 +1094,15 @@ class Query_Builder {
 			$this->limit($limit, $offset);
 		}
 
-		$sql = $this->_compile();
-
 		// Do prepared statements for anything involving a "where" clause
 		if ( ! empty($this->query_map) || ! empty($this->having_map))
 		{
-			$result = $this->_run($sql);
+			return $this->_run("get", $table);
 		}
 		else
 		{
-			// Otherwise, a simple query will do.
-			$result = $this->query($sql);
+			return $this->_run("get", $table, TRUE);
 		}
-
-		// Reset for next query
-		$this->reset_query();
-
-		return $result;
 	}
 
 	// --------------------------------------------------------------------------
@@ -1165,21 +1157,16 @@ class Query_Builder {
 			$this->from($table);
 		}
 
-		$sql = $this->_compile();
-
 		// Do prepared statements for anything involving a "where" clause
 		if ( ! empty($this->query_map))
 		{
-			$result =  $this->_run($sql);
+			$result = $this->_run('get', $table);
 		}
 		else
 		{
 			// Otherwise, a simple query will do.
-			$result =  $this->query($sql);
+			$result =  $this->_run('get', $table, TRUE);
 		}
-
-		// Reset for next query
-		$this->reset_query();
 
 		$rows = $result->fetchAll();
 
@@ -1203,12 +1190,7 @@ class Query_Builder {
 			$this->set($data);
 		}
 
-		$sql = $this->_compile("insert", $table);
-		$res = $this->_run($sql);
-
-		$this->reset_query();
-
-		return $res;
+		return $this->_run("insert", $table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1228,13 +1210,7 @@ class Query_Builder {
 			$this->set($data);
 		}
 
-		$sql = $this->_compile('update', $table);
-		$res = $this->_run($sql);
-
-		$this->reset_query();
-
-		// Run the query
-		return $res;
+		return $this->_run("update", $table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1254,14 +1230,7 @@ class Query_Builder {
 			$this->where($where);
 		}
 
-		// Create the SQL and parameters
-		$sql = $this->_compile("delete", $table);
-		$res = $this->_run($sql);
-
-		$this->reset_query();
-
-		// Delete the table rows, and return the result
-		return $res;
+		return $this->_run("delete", $table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1393,19 +1362,33 @@ class Query_Builder {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Executes the compiled query
 	 *
-	 * @param string $sql
+	 * @param string type
+	 * @param string table
 	 * @return mixed
 	 */
-	private function _run($sql)
+	private function _run($type, $table, $simple=FALSE)
 	{
+		$sql = $this->_compile($type, $table);
 		$vals = array_merge($this->values, (array) $this->where_values);
-		return $this->prepare_execute($sql, $vals);
+
+		if ($simple)
+		{
+			$res = $this->query($sql);
+		}
+		else
+		{
+			$res = $this->prepare_execute($sql, $vals);
+		}
+
+		$this->reset_query();
+
+		return $res;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -1460,6 +1443,7 @@ class Query_Builder {
 		switch($type)
 		{
 			default:
+			case "get":
 				$sql = "SELECT * FROM {$this->from_string}";
 
 				// Set the select string
