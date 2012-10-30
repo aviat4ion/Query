@@ -32,7 +32,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">0</span></a></li>
+                <span class="label label-info">18</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">4</span>
@@ -97,7 +97,7 @@ prefixed with 'OR NOT'</span><pre>or_not_group_start()</pre></a></li>
 <li class="method public "><a href="#or_where_in" title='or_where_in :: Where in statement prefixed with "or"'><span class="description">Where in statement prefixed with "or"</span><pre>or_where_in()</pre></a></li>
 <li class="method public "><a href="#or_where_not_in" title="or_where_not_in :: OR WHERE NOT IN (FOO) clause"><span class="description">OR WHERE NOT IN (FOO) clause</span><pre>or_where_not_in()</pre></a></li>
 <li class="method public "><a href="#order_by" title="order_by :: Order the results by the selected field(s)"><span class="description">Order the results by the selected field(s)</span><pre>order_by()</pre></a></li>
-<li class="method public "><a href="#reset_query" title="reset_query :: Resets the query builder for the next query"><span class="description">Resets the query builder for the next query</span><pre>reset_query()</pre></a></li>
+<li class="method public "><a href="#reset_query" title="reset_query :: Clear out the class variables, so the next query can be run"><span class="description">Clear out the class variables, so the next query can be run</span><pre>reset_query()</pre></a></li>
 <li class="method public "><a href="#select" title="select :: Specifies rows to select in a query"><span class="description">Specifies rows to select in a query</span><pre>select()</pre></a></li>
 <li class="method public "><a href="#select_avg" title="select_avg :: Selects the average value of a field from a query"><span class="description">Selects the average value of a field from a query</span><pre>select_avg()</pre></a></li>
 <li class="method public "><a href="#select_max" title="select_max :: Selects the maximum value of a field from a query"><span class="description">Selects the maximum value of a field from a query</span><pre>select_max()</pre></a></li>
@@ -112,36 +112,38 @@ Note: this function works with key / value, or a
 passed array with key / value pairs</span><pre>where()</pre></a></li>
 <li class="method public "><a href="#where_in" title="where_in :: Where clause with 'IN' statement"><span class="description">Where clause with 'IN' statement</span><pre>where_in()</pre></a></li>
 <li class="method public "><a href="#where_not_in" title="where_not_in :: WHERE NOT IN (FOO) clause"><span class="description">WHERE NOT IN (FOO) clause</span><pre>where_not_in()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#_get_compile" title="_get_compile :: Helper function for returning sql strings"><span class="description">Helper function for returning sql strings</span><pre>_get_compile()</pre></a></li>
 <li class="nav-header private">» Private</li>
 <li class="method private "><a href="#_compile" title="_compile :: String together the sql statements for sending to the db"><span class="description">String together the sql statements for sending to the db</span><pre>_compile()</pre></a></li>
 <li class="method private "><a href="#_having" title="_having :: Simplify building having clauses"><span class="description">Simplify building having clauses</span><pre>_having()</pre></a></li>
 <li class="method private "><a href="#_like" title="_like :: Simplify 'like' methods"><span class="description">Simplify 'like' methods</span><pre>_like()</pre></a></li>
-<li class="method private "><a href="#_reset" title="_reset :: Clear out the class variables, so the next query can be run"><span class="description">Clear out the class variables, so the next query can be run</span><pre>_reset()</pre></a></li>
+<li class="method private "><a href="#_run" title="_run :: Executes the compiled query"><span class="description">Executes the compiled query</span><pre>_run()</pre></a></li>
 <li class="method private "><a href="#_select" title="_select :: Method to simplify select_ methods"><span class="description">Method to simplify select_ methods</span><pre>_select()</pre></a></li>
 <li class="method private "><a href="#_where" title="_where :: Do all the repeditive stuff for where/having type methods"><span class="description">Do all the repeditive stuff for where/having type methods</span><pre>_where()</pre></a></li>
 <li class="method private "><a href="#_where_in" title="_where_in :: Simplify where_in methods"><span class="description">Simplify where_in methods</span><pre>_where_in()</pre></a></li>
 <li class="method private "><a href="#_where_string" title="_where_string :: Simplify generating where string"><span class="description">Simplify generating where string</span><pre>_where_string()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
-<li class="property public "><a href="#%24conn_name" title="$conn_name :: Convenience property for connection management"><span class="description">Convenience property for connection management</span><pre>$conn_name</pre></a></li>
-<li class="property public "><a href="#%24queries" title="$queries :: List of sql queries executed"><span class="description">List of sql queries executed</span><pre>$queries</pre></a></li>
-<li class="property public "><a href="#%24sql" title="$sql :: Alias to $this-&gt;db-&gt;sql"><span class="description">Alias to $this-&gt;db-&gt;sql</span><pre>$sql</pre></a></li>
+<li class="property public "><a href="#%24conn_name" title="$conn_name :: "><span class="description">$conn_name</span><pre>$conn_name</pre></a></li>
+<li class="property public "><a href="#%24queries" title="$queries :: "><span class="description">$queries</span><pre>$queries</pre></a></li>
+<li class="property public "><a href="#%24sql" title="$sql :: "><span class="description">$sql</span><pre>$sql</pre></a></li>
+<li class="property public "><a href="#%24table_prefix" title="$table_prefix :: "><span class="description">$table_prefix</span><pre>$table_prefix</pre></a></li>
 <li class="nav-header private">» Private</li>
-<li class="property private "><a href="#%24from_string" title="$from_string :: Compiled 'from' clause"><span class="description">Compiled 'from' clause</span><pre>$from_string</pre></a></li>
-<li class="property private "><a href="#%24group_array" title="$group_array :: Key/val pairs for group by clause"><span class="description">Key/val pairs for group by clause</span><pre>$group_array</pre></a></li>
-<li class="property private "><a href="#%24group_string" title="$group_string :: Group by clause"><span class="description">Group by clause</span><pre>$group_string</pre></a></li>
-<li class="property private "><a href="#%24having_map" title="$having_map :: Map for having clause"><span class="description">Map for having clause</span><pre>$having_map</pre></a></li>
-<li class="property private "><a href="#%24limit" title="$limit :: Value for limit string"><span class="description">Value for limit string</span><pre>$limit</pre></a></li>
-<li class="property private "><a href="#%24offset" title="$offset :: Value for offset in limit string"><span class="description">Value for offset in limit string</span><pre>$offset</pre></a></li>
-<li class="property private "><a href="#%24order_array" title="$order_array :: Key/val pairs for order by clause"><span class="description">Key/val pairs for order by clause</span><pre>$order_array</pre></a></li>
-<li class="property private "><a href="#%24order_string" title="$order_string :: Order by clause"><span class="description">Order by clause</span><pre>$order_string</pre></a></li>
-<li class="property private "><a href="#%24query_map" title="$query_map :: Query component order mapping
-for complex select queries"><span class="description">Query component order mapping
-for complex select queries</span><pre>$query_map</pre></a></li>
-<li class="property private "><a href="#%24select_string" title="$select_string :: Compiled 'select' clause"><span class="description">Compiled 'select' clause</span><pre>$select_string</pre></a></li>
-<li class="property private "><a href="#%24set_array_keys" title="$set_array_keys :: Keys for insert/update statement"><span class="description">Keys for insert/update statement</span><pre>$set_array_keys</pre></a></li>
-<li class="property private "><a href="#%24set_string" title="$set_string :: Compiled arguments for insert / update"><span class="description">Compiled arguments for insert / update</span><pre>$set_string</pre></a></li>
-<li class="property private "><a href="#%24values" title="$values :: Values to apply to prepared statements"><span class="description">Values to apply to prepared statements</span><pre>$values</pre></a></li>
+<li class="property private "><a href="#%24from_string" title="$from_string :: "><span class="description">$from_string</span><pre>$from_string</pre></a></li>
+<li class="property private "><a href="#%24group_array" title="$group_array :: "><span class="description">$group_array</span><pre>$group_array</pre></a></li>
+<li class="property private "><a href="#%24group_string" title="$group_string :: "><span class="description">$group_string</span><pre>$group_string</pre></a></li>
+<li class="property private "><a href="#%24having_map" title="$having_map :: "><span class="description">$having_map</span><pre>$having_map</pre></a></li>
+<li class="property private "><a href="#%24limit" title="$limit :: "><span class="description">$limit</span><pre>$limit</pre></a></li>
+<li class="property private "><a href="#%24offset" title="$offset :: "><span class="description">$offset</span><pre>$offset</pre></a></li>
+<li class="property private "><a href="#%24order_array" title="$order_array :: "><span class="description">$order_array</span><pre>$order_array</pre></a></li>
+<li class="property private "><a href="#%24order_string" title="$order_string :: "><span class="description">$order_string</span><pre>$order_string</pre></a></li>
+<li class="property private "><a href="#%24query_map" title="$query_map :: "><span class="description">$query_map</span><pre>$query_map</pre></a></li>
+<li class="property private "><a href="#%24select_string" title="$select_string :: "><span class="description">$select_string</span><pre>$select_string</pre></a></li>
+<li class="property private "><a href="#%24set_array_keys" title="$set_array_keys :: "><span class="description">$set_array_keys</span><pre>$set_array_keys</pre></a></li>
+<li class="property private "><a href="#%24set_string" title="$set_string :: "><span class="description">$set_string</span><pre>$set_string</pre></a></li>
+<li class="property private "><a href="#%24values" title="$values :: "><span class="description">$values</span><pre>$values</pre></a></li>
+<li class="property private "><a href="#%24where_values" title="$where_values :: "><span class="description">$where_values</span><pre>$where_values</pre></a></li>
 </ul>
 </div>
 <div class="span8">
@@ -795,8 +797,8 @@ prefixed with 'OR NOT'</h2>
 </div></div>
 </div>
 <a name="reset_query" id="reset_query"></a><div class="element clickable method public reset_query" data-toggle="collapse" data-target=".reset_query .collapse">
-<h2>Resets the query builder for the next query</h2>
-<pre>reset_query() </pre>
+<h2>Clear out the class variables, so the next query can be run</h2>
+<pre>reset_query() : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
@@ -1024,6 +1026,30 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
+<a name="_get_compile" id="_get_compile"></a><div class="element clickable method protected _get_compile" data-toggle="collapse" data-target="._get_compile .collapse">
+<h2>Helper function for returning sql strings</h2>
+<pre>_get_compile(string $type, string $table, $reset) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>resturn</th>
+<td>string</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$reset</h4>
+<code></code><p>bool</p></div>
+</div></div>
+</div>
 <a name="_compile" id="_compile"></a><div class="element clickable method private _compile" data-toggle="collapse" data-target="._compile .collapse">
 <h2>String together the sql statements for sending to the db</h2>
 <pre>_compile(string $type, string $table) : \$string</pre>
@@ -1105,11 +1131,28 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
-<a name="_reset" id="_reset"></a><div class="element clickable method private _reset" data-toggle="collapse" data-target="._reset .collapse">
-<h2>Clear out the class variables, so the next query can be run</h2>
-<pre>_reset() : void</pre>
+<a name="_run" id="_run"></a><div class="element clickable method private _run" data-toggle="collapse" data-target="._run .collapse">
+<h2>Executes the compiled query</h2>
+<pre>_run(string $type, string $table, bool $simple) : mixed</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$simple</h4>
+<code>bool</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
 </div>
 <a name="_select" id="_select"></a><div class="element clickable method private _select" data-toggle="collapse" data-target="._select .collapse">
 <h2>Method to simplify select_ methods</h2>
@@ -1208,105 +1251,110 @@ passed array with key / value pairs</h2>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
 <a name="%24conn_name" id="$conn_name"> </a><div class="element clickable property public $conn_name" data-toggle="collapse" data-target=".$conn_name .collapse">
-<h2>Convenience property for connection management</h2>
-<pre>$conn_name : string</pre>
+<h2>$conn_name</h2>
+<pre>$conn_name </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24queries" id="$queries"> </a><div class="element clickable property public $queries" data-toggle="collapse" data-target=".$queries .collapse">
-<h2>List of sql queries executed</h2>
-<pre>$queries : array</pre>
+<h2>$queries</h2>
+<pre>$queries </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24sql" id="$sql"> </a><div class="element clickable property public $sql" data-toggle="collapse" data-target=".$sql .collapse">
-<h2>Alias to $this-&gt;db-&gt;sql</h2>
-<pre>$sql : <a href="../classes/DB_PDO.html">\DB_PDO</a></pre>
+<h2>$sql</h2>
+<pre>$sql </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24table_prefix" id="$table_prefix"> </a><div class="element clickable property public $table_prefix" data-toggle="collapse" data-target=".$table_prefix .collapse">
+<h2>$table_prefix</h2>
+<pre>$table_prefix </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24from_string" id="$from_string"> </a><div class="element clickable property private $from_string" data-toggle="collapse" data-target=".$from_string .collapse">
-<h2>Compiled 'from' clause</h2>
-<pre>$from_string : string</pre>
+<h2>$from_string</h2>
+<pre>$from_string </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24group_array" id="$group_array"> </a><div class="element clickable property private $group_array" data-toggle="collapse" data-target=".$group_array .collapse">
-<h2>Key/val pairs for group by clause</h2>
-<pre>$group_array : array</pre>
+<h2>$group_array</h2>
+<pre>$group_array </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24group_string" id="$group_string"> </a><div class="element clickable property private $group_string" data-toggle="collapse" data-target=".$group_string .collapse">
-<h2>Group by clause</h2>
-<pre>$group_string : string</pre>
+<h2>$group_string</h2>
+<pre>$group_string </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24having_map" id="$having_map"> </a><div class="element clickable property private $having_map" data-toggle="collapse" data-target=".$having_map .collapse">
-<h2>Map for having clause</h2>
-<pre>$having_map : array</pre>
+<h2>$having_map</h2>
+<pre>$having_map </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24limit" id="$limit"> </a><div class="element clickable property private $limit" data-toggle="collapse" data-target=".$limit .collapse">
-<h2>Value for limit string</h2>
-<pre>$limit : int</pre>
+<h2>$limit</h2>
+<pre>$limit </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24offset" id="$offset"> </a><div class="element clickable property private $offset" data-toggle="collapse" data-target=".$offset .collapse">
-<h2>Value for offset in limit string</h2>
-<pre>$offset : int</pre>
+<h2>$offset</h2>
+<pre>$offset </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24order_array" id="$order_array"> </a><div class="element clickable property private $order_array" data-toggle="collapse" data-target=".$order_array .collapse">
-<h2>Key/val pairs for order by clause</h2>
-<pre>$order_array : array</pre>
+<h2>$order_array</h2>
+<pre>$order_array </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24order_string" id="$order_string"> </a><div class="element clickable property private $order_string" data-toggle="collapse" data-target=".$order_string .collapse">
-<h2>Order by clause</h2>
-<pre>$order_string : string</pre>
+<h2>$order_string</h2>
+<pre>$order_string </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24query_map" id="$query_map"> </a><div class="element clickable property private $query_map" data-toggle="collapse" data-target=".$query_map .collapse">
-<h2>Query component order mapping
-for complex select queries</h2>
-<pre>$query_map : array</pre>
+<h2>$query_map</h2>
+<pre>$query_map </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"><p>Format:</p>
-
-<p>array(
-        'type' => 'where',
-    'conjunction' => ' AND ',
-        'string' => 'k=?'
-)</p></p></div></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24select_string" id="$select_string"> </a><div class="element clickable property private $select_string" data-toggle="collapse" data-target=".$select_string .collapse">
-<h2>Compiled 'select' clause</h2>
-<pre>$select_string : string</pre>
+<h2>$select_string</h2>
+<pre>$select_string </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24set_array_keys" id="$set_array_keys"> </a><div class="element clickable property private $set_array_keys" data-toggle="collapse" data-target=".$set_array_keys .collapse">
-<h2>Keys for insert/update statement</h2>
-<pre>$set_array_keys : array</pre>
+<h2>$set_array_keys</h2>
+<pre>$set_array_keys </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24set_string" id="$set_string"> </a><div class="element clickable property private $set_string" data-toggle="collapse" data-target=".$set_string .collapse">
-<h2>Compiled arguments for insert / update</h2>
-<pre>$set_string : string</pre>
+<h2>$set_string</h2>
+<pre>$set_string </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
 <a name="%24values" id="$values"> </a><div class="element clickable property private $values" data-toggle="collapse" data-target=".$values .collapse">
-<h2>Values to apply to prepared statements</h2>
-<pre>$values : array</pre>
+<h2>$values</h2>
+<pre>$values </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24where_values" id="$where_values"> </a><div class="element clickable property private $where_values" data-toggle="collapse" data-target=".$where_values .collapse">
+<h2>$where_values</h2>
+<pre>$where_values </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
@@ -1317,7 +1365,7 @@ for complex select queries</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-09-13T15:45:05Z.<br></footer></div>
+            generated on 2012-10-30T16:14:25Z.<br></footer></div>
 </div>
 </body>
 </html>

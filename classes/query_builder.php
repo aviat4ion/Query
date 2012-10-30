@@ -46,147 +46,74 @@ class Query_Builder {
 	// ! SQL Clause Strings
 	// --------------------------------------------------------------------------
 
-	/**
-	 * Compiled 'select' clause
-	 *
-	 * @var string
-	 */
+	// Compiled 'select' clause
 	private $select_string;
 
-	/**
-	 * Compiled 'from' clause
-	 *
-	 * @var string
-	 */
+	// Compiled 'from' clause
 	private $from_string;
 
-	/**
-	 * Compiled arguments for insert / update
-	 *
-	 * @var string
-	 */
+	// Compiled arguments for insert / update
 	private $set_string;
 
-	/**
-	 * Order by clause
-	 *
-	 * @var string
-	 */
+	// Order by clause
 	private $order_string;
 
-	/**
-	 * Group by clause
-	 *
-	 * @var string
-	 */
+	// Group by clause
 	private $group_string;
 
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Arrays
 	// --------------------------------------------------------------------------
 
-	/**
-	 * Keys for insert/update statement
-	 *
-	 * @var array
-	 */
+	// Keys for insert/update statement
 	private $set_array_keys;
 
-	/**
-	 * Key/val pairs for order by clause
-	 *
-	 * @var array
-	 */
+	// Key/val pairs for order by clause
 	private $order_array;
 
-	/**
-	 * Key/val pairs for group by clause
-	 *
-	 * @var array
-	 */
+	// Key/val pairs for group by clause
 	private $group_array;
 
 	// --------------------------------------------------------------------------
 	// ! Other Class vars
 	// --------------------------------------------------------------------------
 
-	/**
-	 * Values to apply to prepared statements
-	 *
-	 * @var array
-	 */
+	// Values to apply to prepared statements
 	private $values = array();
 
-	/**
-	 * Values to apply to where clauses in prepared statements
-	 *
-	 * @var array
-	 */
+	// Values to apply to where clauses in prepared statements
 	private $where_values = array();
 
-	/**
-	 * Value for limit string
-	 *
-	 * @var int
-	 */
+	// Value for limit string
 	private $limit;
 
-	/**
-	 * Value for offset in limit string
-	 *
-	 * @var int
-	 */
+	// Value for offset in limit string
 	private $offset;
 
-	/**
-	 * Alias to $this->db->sql
-	 *
-	 * @var DB_PDO
-	 */
+	// Alias to $this->db->sql
 	public $sql;
 
-	/**
-	 * Database table prefix
-	 *
-	 * @var string
-	 */
+	// Database table prefix
 	public $table_prefix = '';
 
-	/**
-	 * Query component order mapping
-	 * for complex select queries
-	 *
-	 * Format:
-	 *
-	 * array(
-	 * 		'type' => 'where',
-	 *		'conjunction' => ' AND ',
-	 * 		'string' => 'k=?'
-	 * )
-	 *
-	 * @var array
-	 */
+	// Query component order mapping
+	// for complex select queries
+	//
+	// Format:
+	// array(
+	// 		'type' => 'where',
+	//		'conjunction' => ' AND ',
+	// 		'string' => 'k=?'
+	// )
 	private $query_map;
 
-	/**
-	 * Map for having clause
-	 *
-	 * @var array
-	 */
+	// Map for having clause
 	private $having_map;
 
-	/**
-	 * Convenience property for connection management
-	 *
-	 * @var string
-	 */
+	// Convenience property for connection management
 	public $conn_name = "";
 
-	/**
-	 * List of sql queries executed
-	 *
-	 * @var array
-	 */
+	// List of sql queries executed
 	public $queries;
 
 	// --------------------------------------------------------------------------
@@ -274,14 +201,9 @@ class Query_Builder {
 		try
 		{
 			// Create the database connection
-			if ( ! empty($params->user))
-			{
-				$this->db = new $dbtype($dsn, $params->user, $params->pass);
-			}
-			else
-			{
-				$this->db = new $dbtype($dsn);
-			}
+			$this->db = ( ! empty($params->user))
+				? new $dbtype($dsn, $params->user, $params->pass)
+				: new $dbtype($dsn);
 		}
 		catch(Exception $e)
 		{
@@ -1336,12 +1258,10 @@ class Query_Builder {
 		// delete class methods!
 		foreach($this as $name => $var)
 		{
+			$skip = array('db','sql','queries','table_prefix');
+
 			// Skip properties that are needed for every query
-			if (in_array($name, array(
-				'db',
-				'sql',
-				'queries',
-			)))
+			if (in_array($name, $skip))
 			{
 				continue;
 			}
@@ -1366,8 +1286,9 @@ class Query_Builder {
 	/**
 	 * Executes the compiled query
 	 *
-	 * @param string type
-	 * @param string table
+	 * @param string $type
+	 * @param string $table
+	 * @param bool $simple
 	 * @return mixed
 	 */
 	private function _run($type, $table, $simple=FALSE)
@@ -1375,35 +1296,13 @@ class Query_Builder {
 		$sql = $this->_compile($type, $table);
 		$vals = array_merge($this->values, (array) $this->where_values);
 
-		if ($simple)
-		{
-			$res = $this->query($sql);
-		}
-		else
-		{
-			$res = $this->prepare_execute($sql, $vals);
-		}
+		$res = ($simple)
+			? $this->query($sql)
+			: $this->prepare_execute($sql, $vals);
 
 		$this->reset_query();
 
 		return $res;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Auto-prefix table names
-	 *
-	 * @param string $table
-	 * @return string
-	 */
-	private function prefix($table)
-	{
-		// If there isn't a prefix, just return
-		if (empty($this->table_prefix))
-		{
-			return $table;
-		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -1452,42 +1351,6 @@ class Query_Builder {
 					// Replace the star with the selected fields
 					$sql = str_replace('*', $this->select_string, $sql);
 				}
-
-				// Set the where string
-				if ( ! empty($this->query_map))
-				{
-					foreach($this->query_map as $q)
-					{
-						$sql .= $q['conjunction'] . $q['string'];
-					}
-				}
-
-				// Set the group_by string
-				if ( ! empty($this->group_string))
-				{
-					$sql .= $this->group_string;
-				}
-
-				// Set the having string
-				if ( ! empty($this->having_map))
-				{
-					foreach($this->having_map as $h)
-					{
-						$sql .= $h['conjunction'] . $h['string'];
-					}
-				}
-
-				// Set the order_by string
-				if ( ! empty($this->order_string))
-				{
-					$sql .= $this->order_string;
-				}
-
-				// Set the limit via the class variables
-				if (isset($this->limit) && is_numeric($this->limit))
-				{
-					$sql = $this->sql->limit($sql, $this->limit, $this->offset);
-				}
 			break;
 
 			case "insert":
@@ -1500,30 +1363,47 @@ class Query_Builder {
 
 			case "update":
 				$sql = "UPDATE {$table} SET {$this->set_string}";
-
-				// Set the where string
-				if ( ! empty($this->query_map))
-				{
-					foreach($this->query_map as $q)
-					{
-						$sql .= $q['conjunction'] . $q['string'];
-					}
-				}
 			break;
 
 			case "delete":
 				$sql = "DELETE FROM {$table}";
-
-				// Set the where string
-				if ( ! empty($this->query_map))
-				{
-					foreach($this->query_map as $q)
-					{
-						$sql .= $q['conjunction'] . $q['string'];
-					}
-				}
-
 			break;
+		}
+
+		// Set the where string
+		if ( ! empty($this->query_map))
+		{
+			foreach($this->query_map as $q)
+			{
+				$sql .= $q['conjunction'] . $q['string'];
+			}
+		}
+
+		// Set the group_by string
+		if ( ! empty($this->group_string))
+		{
+			$sql .= $this->group_string;
+		}
+
+		// Set the order_by string
+		if ( ! empty($this->order_string))
+		{
+			$sql .= $this->order_string;
+		}
+
+		// Set the limit via the class variables
+		if (isset($this->limit) && is_numeric($this->limit))
+		{
+			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
+		}
+
+		// Set the having string
+		if ( ! empty($this->having_map))
+		{
+			foreach($this->having_map as $h)
+			{
+				$sql .= $h['conjunction'] . $h['string'];
+			}
 		}
 
 		// Add the query to the list of executed queries
