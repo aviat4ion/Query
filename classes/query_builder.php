@@ -14,26 +14,6 @@
 // --------------------------------------------------------------------------
 
 /**
- * Generic exception for bad drivers
- *
- * @package Query
- * @subpackage Query
- */
-class BadDBDriverException extends InvalidArgumentException {}
-
-// --------------------------------------------------------------------------
-
-/**
- * Generic exception for bad connection strings
- *
- * @package Query
- * @subpackage Query
- */
-class BadConnectionException extends UnexpectedValueException {}
-
-// --------------------------------------------------------------------------
-
-/**
  * Convienience class for creating sql queries - also the class that
  * instantiates the specific db driver
  *
@@ -130,33 +110,59 @@ class Query_Builder {
 		// Convert array to object
 		if (is_array($params))
 		{
-			$p = new stdClass();
+			$params = new ArrayObject($params, ArrayObject::STD_PROP_LIST | ArrayObject::ARRAY_AS_PROPS);
+		}
+		
+		$params->type = strtolower($params->type);
+		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 
-			foreach($params as $k => $v)
-			{
-				$p->$k = $v;
-			}
+		// Generate dsn
+		$dsn = $this->_connect($dbtype, $params);
 
-			$params = $p;
+		try
+		{
+			// Create the database connection
+			$this->db = ( ! empty($params->user))
+				? new $dbtype($dsn, $params->user, $params->pass)
+				: new $dbtype($dsn);
+		}
+		catch(Exception $e)
+		{
+			throw new BadConnectionException('Connection failed, invalid arguments', 2);
 		}
 
+		// Set the connection name property, if applicable
+		if (isset($params->name))
+		{
+			$this->conn_name = $params->name;
+		}
+
+		// Instantiate the Query Parser
+		$this->parser = new Query_Parser();
+
+		// Make things just slightly shorter
+		$this->sql =& $this->db->sql;
+	}
+	
+	/**
+	 * Create the dsn for connection to the database
+	 *
+	 * @param string $dbtype
+	 * @param object $params
+	 * @return string
+	 */
+	private function _connect($dbtype, &$params)
+	{
 		// Let the connection work with 'conn_db' or 'database'
 		if (isset($params->database))
 		{
 			$params->conn_db = $params->database;
 		}
 
-
-		$params->type = strtolower($params->type);
-		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
-
-		$dsn = '';
-
 		// Add the driver type to the dsn
-		if ($dbtype !== 'firebird' && $dbtype !== 'sqlite')
-		{
-			$dsn = strtolower($dbtype).':'.$dsn;
-		}
+		$dsn = ($dbtype !== 'firebird' && $dbtype !== 'sqlite')
+			? strtolower($dbtype).':'
+			: '';
 
 		// Make sure the class exists
 		if ( ! class_exists($dbtype))
@@ -196,31 +202,8 @@ class Query_Builder {
 				$dsn = "{$params->host}:{$params->file}";
 			break;
 		}
-
-
-		try
-		{
-			// Create the database connection
-			$this->db = ( ! empty($params->user))
-				? new $dbtype($dsn, $params->user, $params->pass)
-				: new $dbtype($dsn);
-		}
-		catch(Exception $e)
-		{
-			throw new BadConnectionException('Connection failed, invalid arguments', 2);
-		}
-
-		// Set the connection name property, if applicable
-		if (isset($params->name))
-		{
-			$this->conn_name = $params->name;
-		}
-
-		// Instantiate the Query Parser
-		$this->parser = new Query_Parser();
-
-		// Make things just slightly shorter
-		$this->sql =& $this->db->sql;
+		
+		return $dsn;
 	}
 
 	// --------------------------------------------------------------------------
@@ -303,7 +286,7 @@ class Query_Builder {
 	public function select_max($field, $as=FALSE)
 	{
 		// Create the select string
-		$this->select_string .= $this->sql->max().$this->_select($field, $as);
+		$this->select_string .= ' MAX'.$this->_select($field, $as);
 		return $this;
 	}
 
@@ -319,7 +302,7 @@ class Query_Builder {
 	public function select_min($field, $as=FALSE)
 	{
 		// Create the select string
-		$this->select_string .= $this->sql->min().$this->_select($field, $as);
+		$this->select_string .= ' MIN'.$this->_select($field, $as);
 		return $this;
 	}
 
@@ -335,7 +318,7 @@ class Query_Builder {
 	public function select_avg($field, $as=FALSE)
 	{
 		// Create the select string
-		$this->select_string .= $this->sql->avg().$this->_select($field, $as);
+		$this->select_string .= ' AVG'.$this->_select($field, $as);
 		return $this;
 	}
 
@@ -351,7 +334,7 @@ class Query_Builder {
 	public function select_sum($field, $as=FALSE)
 	{
 		// Create the select string
-		$this->select_string .= $this->sql->sum().$this->_select($field, $as);
+		$this->select_string .= ' SUM'.$this->_select($field, $as);
 		return $this;
 	}
 
@@ -365,7 +348,7 @@ class Query_Builder {
 	public function distinct()
 	{
 		// Prepend the keyword to the select string
-		$this->select_string = $this->sql->distinct() . $this->select_string;
+		$this->select_string = ' DISTINCT '.$this->select_string;
 		return $this;
 	}
 
@@ -807,10 +790,8 @@ class Query_Builder {
 	{
 		$table = implode(' ', array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));
 
-		$parser = new query_parser();
-
 		// Parse out the join condition
-		$parts = $parser->parse_join($condition);
+		$parts = $this->parser->parse_join($condition);
 		$count = count($parts['identifiers']);
 
 		// Go through and quote the identifiers
@@ -1253,12 +1234,9 @@ class Query_Builder {
 	 */
 	public function reset_query()
 	{
-		// Only unset class variables that
-		// are not callable. Otherwise, we'll
-		// delete class methods!
 		foreach($this as $name => $var)
 		{
-			$skip = array('db','sql','queries','table_prefix');
+			$skip = array('db','sql','queries','table_prefix','parser','conn_name');
 
 			// Skip properties that are needed for every query
 			if (in_array($name, $skip))
@@ -1267,10 +1245,7 @@ class Query_Builder {
 			}
 
 			// Nothing query-generation related is safe!
-			if ( ! is_callable($this->$name))
-			{
-				$this->$name = NULL;
-			}
+			$this->$name = NULL;
 
 			// Set empty arrays
 			$this->values = array();
@@ -1412,7 +1387,7 @@ class Query_Builder {
 		// Set the last query to get rowcounts properly
 		$this->db->last_query = $sql;
 
-		// echo $sql . '<br />';
+		//echo $sql . '<br />';
 
 		return $sql;
 	}
