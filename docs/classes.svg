@@ -52,9 +52,24 @@
 <path fill="none" stroke="black" d="M244.421,-448C199.3,-448 128.295,-448 81.9376,-448"/>
 <polygon fill="none" stroke="black" points="81.8642,-444.5 71.8642,-448 81.8642,-451.5 81.8642,-444.5"/>
 </g>
+<!-- \\Query_Builder -->
+<g id="node5" class="node"><title>\\Query_Builder</title>
+<a xlink:href="classes.query_builder.html" xlink:title="Query_Builder" target="_parent">
+<polygon fill="none" stroke="black" points="636,-1168 532,-1168 532,-1132 636,-1132 636,-1168"/>
+<text text-anchor="middle" x="584" y="-1146.6" font-family="Courier,monospace" font-size="11.00">Query_Builder</text>
+</a>
+</g>
+<!-- \\DB_Util -->
+<g id="node6" class="node"><title>\\DB_Util</title>
+<a xlink:href="classes.db_util.html" xlink:title="«abstract»&lt;br/&gt;DB_Util" target="_parent">
+<polygon fill="none" stroke="black" points="329,-1006 245,-1006 245,-970 329,-970 329,-1006"/>
+<text text-anchor="start" x="253" y="-993.433" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="263" y="-980.233" font-family="Courier,monospace" font-size="11.00">DB_Util</text>
+</a>
+</g>
 <!-- \\BadDBDriverException -->
-<g id="node5" class="node"><title>\\BadDBDriverException</title>
-<a xlink:href="classes.query_builder.html" xlink:title="BadDBDriverException" target="_parent">
+<g id="node7" class="node"><title>\\BadDBDriverException</title>
+<a xlink:href="common.html" xlink:title="BadDBDriverException" target="_parent">
 <polygon fill="none" stroke="black" points="659,-304 509,-304 509,-268 659,-268 659,-304"/>
 <text text-anchor="middle" x="584" y="-282.6" font-family="Courier,monospace" font-size="11.00">BadDBDriverException</text>
 </a>
@@ -70,8 +85,8 @@
 <polygon fill="none" stroke="black" points="415.351,-136.174 404.768,-135.674 412.73,-142.664 415.351,-136.174"/>
 </g>
 <!-- \\BadConnectionException -->
-<g id="node6" class="node"><title>\\BadConnectionException</title>
-<a xlink:href="classes.query_builder.html" xlink:title="BadConnectionException" target="_parent">
+<g id="node8" class="node"><title>\\BadConnectionException</title>
+<a xlink:href="common.html" xlink:title="BadConnectionException" target="_parent">
 <polygon fill="none" stroke="black" points="666,-250 502,-250 502,-214 666,-214 666,-250"/>
 <text text-anchor="middle" x="584" y="-228.6" font-family="Courier,monospace" font-size="11.00">BadConnectionException</text>
 </a>
@@ -85,21 +100,6 @@
 <g id="edge7" class="edge"><title>\\BadConnectionException&#45;&gt;\\UnexpectedValueException</title>
 <path fill="none" stroke="black" d="M516.365,-213.859C511.289,-211.277 506.428,-208.339 502,-205 456.528,-170.71 477.626,-130.229 430,-99 422.863,-94.32 415.119,-90.405 407.053,-87.1346"/>
 <polygon fill="none" stroke="black" points="408.047,-83.7705 397.454,-83.5843 405.619,-90.3358 408.047,-83.7705"/>
-</g>
-<!-- \\Query_Builder -->
-<g id="node7" class="node"><title>\\Query_Builder</title>
-<a xlink:href="classes.query_builder.html" xlink:title="Query_Builder" target="_parent">
-<polygon fill="none" stroke="black" points="636,-1060 532,-1060 532,-1024 636,-1024 636,-1060"/>
-<text text-anchor="middle" x="584" y="-1038.6" font-family="Courier,monospace" font-size="11.00">Query_Builder</text>
-</a>
-</g>
-<!-- \\DB_Util -->
-<g id="node8" class="node"><title>\\DB_Util</title>
-<a xlink:href="classes.db_util.html" xlink:title="«abstract»&lt;br/&gt;DB_Util" target="_parent">
-<polygon fill="none" stroke="black" points="329,-1006 245,-1006 245,-970 329,-970 329,-1006"/>
-<text text-anchor="start" x="253" y="-993.433" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="263" y="-980.233" font-family="Courier,monospace" font-size="11.00">DB_Util</text>
-</a>
 </g>
 <!-- \\PgSQL_SQL -->
 <g id="node9" class="node"><title>\\PgSQL_SQL</title>
@@ -116,14 +116,14 @@
 <!-- \\PgSQL_Util -->
 <g id="node10" class="node"><title>\\PgSQL_Util</title>
 <a xlink:href="drivers.pgsql.pgsql_util.html" xlink:title="PgSQL_Util" target="_parent">
-<polygon fill="none" stroke="black" points="626,-1168 542,-1168 542,-1132 626,-1132 626,-1168"/>
-<text text-anchor="middle" x="584" y="-1146.6" font-family="Courier,monospace" font-size="11.00">PgSQL_Util</text>
+<polygon fill="none" stroke="black" points="626,-1114 542,-1114 542,-1078 626,-1078 626,-1114"/>
+<text text-anchor="middle" x="584" y="-1092.6" font-family="Courier,monospace" font-size="11.00">PgSQL_Util</text>
 </a>
 </g>
 <!-- \\PgSQL_Util&#45;&gt;\\DB_Util -->
 <g id="edge11" class="edge"><title>\\PgSQL_Util&#45;&gt;\\DB_Util</title>
-<path fill="none" stroke="black" d="M541.945,-1138.31C528.886,-1134.11 514.615,-1128.93 502,-1123 433.666,-1090.88 360.507,-1041.29 319.583,-1012"/>
-<polygon fill="none" stroke="black" points="321.513,-1009.08 311.353,-1006.07 317.421,-1014.76 321.513,-1009.08"/>
+<path fill="none" stroke="black" d="M541.747,-1082.47C528.941,-1078.26 514.862,-1073.54 502,-1069 446.048,-1049.26 382.529,-1025.11 339.128,-1008.34"/>
+<polygon fill="none" stroke="black" points="340.227,-1005.02 329.637,-1004.67 337.7,-1011.54 340.227,-1005.02"/>
 </g>
 <!-- \\PgSQL -->
 <g id="node11" class="node"><title>\\PgSQL</title>
@@ -140,14 +140,14 @@
 <!-- \\ODBC_Util -->
 <g id="node12" class="node"><title>\\ODBC_Util</title>
 <a xlink:href="drivers.odbc.odbc_util.html" xlink:title="ODBC_Util" target="_parent">
-<polygon fill="none" stroke="black" points="622,-1114 546,-1114 546,-1078 622,-1078 622,-1114"/>
-<text text-anchor="middle" x="584" y="-1092.6" font-family="Courier,monospace" font-size="11.00">ODBC_Util</text>
+<polygon fill="none" stroke="black" points="622,-1060 546,-1060 546,-1024 622,-1024 622,-1060"/>
+<text text-anchor="middle" x="584" y="-1038.6" font-family="Courier,monospace" font-size="11.00">ODBC_Util</text>
 </a>
 </g>
 <!-- \\ODBC_Util&#45;&gt;\\DB_Util -->
 <g id="edge15" class="edge"><title>\\ODBC_Util&#45;&gt;\\DB_Util</title>
-<path fill="none" stroke="black" d="M545.093,-1083.56C531.426,-1079.09 515.993,-1073.94 502,-1069 446.048,-1049.26 382.529,-1025.11 339.128,-1008.34"/>
-<polygon fill="none" stroke="black" points="340.227,-1005.02 329.637,-1004.67 337.7,-1011.54 340.227,-1005.02"/>
+<path fill="none" stroke="black" d="M545.477,-1035C492.953,-1025.45 398.67,-1008.3 339.653,-997.573"/>
+<polygon fill="none" stroke="black" points="340.244,-994.123 329.779,-995.778 338.991,-1001.01 340.244,-994.123"/>
 </g>
 <!-- \\ODBC_SQL -->
 <g id="node13" class="node"><title>\\ODBC_SQL</title>

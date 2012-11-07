@@ -32,7 +32,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">18</span></a></li>
+                <span class="label label-info">24</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">4</span>
@@ -111,6 +111,7 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <li class="method public inherited"><a href="#quote" title="quote :: "><span class="description">quote()
         </span><pre>quote()</pre></a></li>
 <li class="method public inherited"><a href="#quote_ident" title="quote_ident :: Surrounds the string with the databases identifier escape characters"><span class="description">Surrounds the string with the databases identifier escape characters</span><pre>quote_ident()</pre></a></li>
+<li class="method public inherited"><a href="#quote_table" title="quote_table :: Quote database table name, and set prefix"><span class="description">Quote database table name, and set prefix</span><pre>quote_table()</pre></a></li>
 <li class="method public inherited"><a href="#rollBack" title="rollBack :: "><span class="description">rollBack()
         </span><pre>rollBack()</pre></a></li>
 <li class="method public inherited"><a href="#setAttribute" title="setAttribute :: "><span class="description">setAttribute()
@@ -118,15 +119,17 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <li class="method public "><a href="#switch_db" title="switch_db :: Connect to a different database"><span class="description">Connect to a different database</span><pre>switch_db()</pre></a></li>
 <li class="method public "><a href="#truncate" title="truncate :: Empty a table"><span class="description">Empty a table</span><pre>truncate()</pre></a></li>
 <li class="nav-header protected">» Protected</li>
+<li class="method protected inherited"><a href="#_prefix" title="_prefix :: Sets the table prefix on the passed string"><span class="description">Sets the table prefix on the passed string</span><pre>_prefix()</pre></a></li>
 <li class="method protected inherited"><a href="#_quote" title="_quote :: Helper method for quote_ident"><span class="description">Helper method for quote_ident</span><pre>_quote()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
-<li class="property public inherited"><a href="#%24last_query" title="$last_query :: Last query executed"><span class="description">Last query executed</span><pre>$last_query</pre></a></li>
-<li class="property public inherited"><a href="#%24sql" title="$sql :: Reference to sql sub class"><span class="description">Reference to sql sub class</span><pre>$sql</pre></a></li>
-<li class="property public inherited"><a href="#%24util" title="$util :: Reference to util sub class"><span class="description">Reference to util sub class</span><pre>$util</pre></a></li>
+<li class="property public inherited"><a href="#%24last_query" title="$last_query :: "><span class="description">$last_query</span><pre>$last_query</pre></a></li>
+<li class="property public inherited"><a href="#%24sql" title="$sql :: "><span class="description">$sql</span><pre>$sql</pre></a></li>
+<li class="property public inherited"><a href="#%24table_prefix" title="$table_prefix :: "><span class="description">$table_prefix</span><pre>$table_prefix</pre></a></li>
+<li class="property public inherited"><a href="#%24util" title="$util :: "><span class="description">$util</span><pre>$util</pre></a></li>
 <li class="nav-header protected">» Protected</li>
-<li class="property protected inherited"><a href="#%24escape_char" title="$escape_char :: Character to escape identifiers"><span class="description">Character to escape identifiers</span><pre>$escape_char</pre></a></li>
-<li class="property protected inherited"><a href="#%24statement" title="$statement :: Reference to the last executed query"><span class="description">Reference to the last executed query</span><pre>$statement</pre></a></li>
+<li class="property protected inherited"><a href="#%24escape_char" title="$escape_char :: "><span class="description">$escape_char</span><pre>$escape_char</pre></a></li>
+<li class="property protected inherited"><a href="#%24statement" title="$statement :: "><span class="description">$statement</span><pre>$statement</pre></a></li>
 </ul>
 </div>
 <div class="span8">
@@ -774,6 +777,25 @@ the connection/database</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
+<a name="quote_table" id="quote_table"></a><div class="element clickable method public quote_table" data-toggle="collapse" data-target=".quote_table .collapse">
+<h2>Quote database table name, and set prefix</h2>
+<pre>quote_table(mixed $table) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_PDO::quote_table()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>mixed</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
 <a name="rollBack" id="rollBack"></a><div class="element clickable method public rollBack" data-toggle="collapse" data-target=".rollBack .collapse">
 <h2>rollBack()
         </h2>
@@ -838,6 +860,25 @@ the connection/database</h2>
 </div>
 </div></div>
 </div>
+<a name="_prefix" id="_prefix"></a><div class="element clickable method protected _prefix" data-toggle="collapse" data-target="._prefix .collapse">
+<h2>Sets the table prefix on the passed string</h2>
+<pre>_prefix(string $str) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_PDO::_prefix()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$str</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
 <a name="_quote" id="_quote"></a><div class="element clickable method protected _quote" data-toggle="collapse" data-target="._quote .collapse">
 <h2>Helper method for quote_ident</h2>
 <pre>_quote(mixed $str) : mixed</pre>
@@ -860,8 +901,8 @@ the connection/database</h2>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
 <a name="%24last_query" id="$last_query"> </a><div class="element clickable property public $last_query" data-toggle="collapse" data-target=".$last_query .collapse">
-<h2>Last query executed</h2>
-<pre>$last_query : string</pre>
+<h2>$last_query</h2>
+<pre>$last_query </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -872,8 +913,8 @@ the connection/database</h2>
 </div></div>
 </div>
 <a name="%24sql" id="$sql"> </a><div class="element clickable property public $sql" data-toggle="collapse" data-target=".$sql .collapse">
-<h2>Reference to sql sub class</h2>
-<pre>$sql : Object</pre>
+<h2>$sql</h2>
+<pre>$sql </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -883,9 +924,21 @@ the connection/database</h2>
 </tr></table>
 </div></div>
 </div>
+<a name="%24table_prefix" id="$table_prefix"> </a><div class="element clickable property public $table_prefix" data-toggle="collapse" data-target=".$table_prefix .collapse">
+<h2>$table_prefix</h2>
+<pre>$table_prefix </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_PDO::$$table_prefix</td>
+</tr></table>
+</div></div>
+</div>
 <a name="%24util" id="$util"> </a><div class="element clickable property public $util" data-toggle="collapse" data-target=".$util .collapse">
-<h2>Reference to util sub class</h2>
-<pre>$util : Object</pre>
+<h2>$util</h2>
+<pre>$util </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -896,8 +949,8 @@ the connection/database</h2>
 </div></div>
 </div>
 <a name="%24escape_char" id="$escape_char"> </a><div class="element clickable property protected $escape_char" data-toggle="collapse" data-target=".$escape_char .collapse">
-<h2>Character to escape identifiers</h2>
-<pre>$escape_char : string</pre>
+<h2>$escape_char</h2>
+<pre>$escape_char </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -908,8 +961,8 @@ the connection/database</h2>
 </div></div>
 </div>
 <a name="%24statement" id="$statement"> </a><div class="element clickable property protected $statement" data-toggle="collapse" data-target=".$statement .collapse">
-<h2>Reference to the last executed query</h2>
-<pre>$statement : mixed</pre>
+<h2>$statement</h2>
+<pre>$statement </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -926,7 +979,7 @@ the connection/database</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-10-30T16:14:25Z.<br></footer></div>
+            generated on 2012-11-07T08:57:16-05:00.<br></footer></div>
 </div>
 </body>
 </html>

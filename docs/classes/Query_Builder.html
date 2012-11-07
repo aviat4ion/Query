@@ -32,7 +32,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">18</span></a></li>
+                <span class="label label-info">24</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">4</span>
@@ -112,10 +112,10 @@ Note: this function works with key / value, or a
 passed array with key / value pairs</span><pre>where()</pre></a></li>
 <li class="method public "><a href="#where_in" title="where_in :: Where clause with 'IN' statement"><span class="description">Where clause with 'IN' statement</span><pre>where_in()</pre></a></li>
 <li class="method public "><a href="#where_not_in" title="where_not_in :: WHERE NOT IN (FOO) clause"><span class="description">WHERE NOT IN (FOO) clause</span><pre>where_not_in()</pre></a></li>
-<li class="nav-header protected">» Protected</li>
-<li class="method protected "><a href="#_get_compile" title="_get_compile :: Helper function for returning sql strings"><span class="description">Helper function for returning sql strings</span><pre>_get_compile()</pre></a></li>
 <li class="nav-header private">» Private</li>
 <li class="method private "><a href="#_compile" title="_compile :: String together the sql statements for sending to the db"><span class="description">String together the sql statements for sending to the db</span><pre>_compile()</pre></a></li>
+<li class="method private "><a href="#_connect" title="_connect :: Create the dsn for connection to the database"><span class="description">Create the dsn for connection to the database</span><pre>_connect()</pre></a></li>
+<li class="method private "><a href="#_get_compile" title="_get_compile :: Helper function for returning sql strings"><span class="description">Helper function for returning sql strings</span><pre>_get_compile()</pre></a></li>
 <li class="method private "><a href="#_having" title="_having :: Simplify building having clauses"><span class="description">Simplify building having clauses</span><pre>_having()</pre></a></li>
 <li class="method private "><a href="#_like" title="_like :: Simplify 'like' methods"><span class="description">Simplify 'like' methods</span><pre>_like()</pre></a></li>
 <li class="method private "><a href="#_run" title="_run :: Executes the compiled query"><span class="description">Executes the compiled query</span><pre>_run()</pre></a></li>
@@ -264,7 +264,7 @@ in place of the get() method</h2>
 </div>
 <a name="from" id="from"></a><div class="element clickable method public from" data-toggle="collapse" data-target=".from .collapse">
 <h2>Specify the database table to select from</h2>
-<pre>from(string $dbname) : <a href="../classes/Query_Builder.html">\Query_Builder</a></pre>
+<pre>from(string $tblname) : <a href="../classes/Query_Builder.html">\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -274,7 +274,7 @@ in place of the get() method</h2>
 </tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$dbname</h4>
+<h4>$tblname</h4>
 <code>string</code>
 </div>
 <h3>Returns</h3>
@@ -1026,7 +1026,45 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
-<a name="_get_compile" id="_get_compile"></a><div class="element clickable method protected _get_compile" data-toggle="collapse" data-target="._get_compile .collapse">
+<a name="_compile" id="_compile"></a><div class="element clickable method private _compile" data-toggle="collapse" data-target="._compile .collapse">
+<h2>String together the sql statements for sending to the db</h2>
+<pre>_compile(string $type, string $table) : \$string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\$string</code></div>
+</div></div>
+</div>
+<a name="_connect" id="_connect"></a><div class="element clickable method private _connect" data-toggle="collapse" data-target="._connect .collapse">
+<h2>Create the dsn for connection to the database</h2>
+<pre>_connect(string $dbtype, object $params) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$dbtype</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$params</h4>
+<code>object</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="_get_compile" id="_get_compile"></a><div class="element clickable method private _get_compile" data-toggle="collapse" data-target="._get_compile .collapse">
 <h2>Helper function for returning sql strings</h2>
 <pre>_get_compile(string $type, string $table, $reset) </pre>
 <div class="labels"></div>
@@ -1048,25 +1086,6 @@ passed array with key / value pairs</h2>
 <div class="subelement argument">
 <h4>$reset</h4>
 <code></code><p>bool</p></div>
-</div></div>
-</div>
-<a name="_compile" id="_compile"></a><div class="element clickable method private _compile" data-toggle="collapse" data-target="._compile .collapse">
-<h2>String together the sql statements for sending to the db</h2>
-<pre>_compile(string $type, string $table) : \$string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$type</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>\$string</code></div>
 </div></div>
 </div>
 <a name="_having" id="_having"></a><div class="element clickable method private _having" data-toggle="collapse" data-target="._having .collapse">
@@ -1365,7 +1384,7 @@ passed array with key / value pairs</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-10-30T16:14:25Z.<br></footer></div>
+            generated on 2012-11-07T08:57:16-05:00.<br></footer></div>
 </div>
 </body>
 </html>
