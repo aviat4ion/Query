@@ -40,13 +40,13 @@ class PgSQLQBTest extends QBTest {
 				'user' => 'postgres',
 				'pass' => '',
 				'type' => 'pgsql',
-				'prefix' => 'create'
+				'prefix' => 'create_'
 			);
 
 			$this->db = new Query_Builder($params);
 		}
  	}
- 	
+
  	// --------------------------------------------------------------------------
 
 	public function TestExists()
