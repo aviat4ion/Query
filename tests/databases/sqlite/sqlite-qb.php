@@ -26,6 +26,7 @@
 		$params->type = 'sqlite';
 		$params->file = $path;
 		$params->host = 'localhost';
+		$params->prefix = 'create_';
 		$this->db = new Query_Builder($params);
 		
 		// echo '<hr /> SQLite Queries <hr />';

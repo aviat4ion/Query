@@ -23,40 +23,23 @@
  */
 abstract class DB_PDO extends PDO {
 
-	/**
-	 * Reference to the last executed query
-	 *
-	 * @var mixed
-	 */
+	// Reference to the last executed query
 	protected $statement;
 
-	/**
-	 * Character to escape identifiers
-	 *
-	 * @var string
-	 */
+	// Character to escape identifiers
 	protected $escape_char = '"';
 
-	/**
-	 * Reference to sql sub class
-	 *
-	 * @var Object
-	 */
+	// Reference to sql sub class
 	public $sql;
 
-	/**
-	 * Reference to util sub class
-	 *
-	 * @var Object
-	 */
+	// Reference to util sub class
 	public $util;
 
-	/**
-	 * Last query executed
-	 *
-	 * @var string
-	 */
+	// Last query executed
 	public $last_query;
+	
+	// Prefix to apply to table namesa
+	public $table_prefix = '';
 
 	/**
 	 * PDO constructor wrapper
@@ -204,6 +187,68 @@ abstract class DB_PDO extends PDO {
 	}
 
 	// --------------------------------------------------------------------------
+	
+	/**
+	 * Quote database table name, and set prefix
+	 *  
+	 * @param mixed $table
+	 * @return string
+	 */
+	public function quote_table($table)
+	{
+		// An array is only passed if it's a table with alias
+		if (is_array($table))
+		{
+			$table =& $table[0];
+		}
+		
+		// If there isn't a prefix set, just quote the table name
+		if (empty($this->table_prefix))
+		{
+			return $this->quote_ident($table);
+		}
+		
+		// Split indentifier by period, will split into:
+		// database.schema.table OR
+		// schema.table OR
+		// database.table OR
+		// table
+		$idents = (array) explode('.', $table);
+		$segments = count($idents);
+		
+		// Reference the last item in the split string
+		$last =& $idents[$segments - 1];
+		
+	    // Quote the last item
+	    $last = $this->_prefix($last);
+	    
+	    // Rejoin
+	    $table = implode('.', $idents); 
+		
+		// Finally, quote the table
+		return $this->quote_ident($table);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/** 
+	 * Sets the table prefix on the passed string
+	 * 
+	 * @param string $str
+	 * @return string
+	 */
+	protected function _prefix($str)
+	{
+		// Don't prefix an already prefixed table
+		if (strpos($str, $this->table_prefix) !== FALSE)
+		{
+			return $str;
+		}
+		
+		return $this->table_prefix.$str;
+	}
+	
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Surrounds the string with the databases identifier escape characters
@@ -215,7 +260,7 @@ abstract class DB_PDO extends PDO {
 	{
 		if (is_array($ident))
 		{
-			return array_map(array($this, 'quote_ident'), $ident);
+			return array_map(array($this, __METHOD__), $ident);
 		}
 
 		// Handle comma-separated identifiers
@@ -223,7 +268,7 @@ abstract class DB_PDO extends PDO {
 		{
 			$parts = explode(',', $ident);
 			$parts = array_map('mb_trim', $parts);
-			$parts = array_map(array($this, 'quote_ident'), $parts);
+			$parts = array_map(array($this, __METHOD__), $parts);
 			$ident = implode(',', $parts);
 		}
 
@@ -471,7 +516,6 @@ abstract class DB_PDO extends PDO {
 	 * Empty the passed table
 	 *
 	 * @param string $table
-	 *
 	 * @return void
 	 */
 	abstract public function truncate($table);

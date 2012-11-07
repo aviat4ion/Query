@@ -25,6 +25,7 @@ class MySQLQBTest extends QBTest {
 			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
 			$params = $params->mysql;
 			$params->type = "MySQL";
+			$params->prefix = "create_";
 
 			$this->db = new Query_Builder($params);
 
@@ -38,7 +39,8 @@ class MySQLQBTest extends QBTest {
 				'database' => 'test',
 				'user' => 'root',
 				'pass' => NULL,
-				'type' => 'mysql'
+				'type' => 'mysql',
+				'prefix' => 'create_'
 			);
 
 			$this->db = new Query_Builder($params);

@@ -130,6 +130,13 @@ class Query_Builder {
 		{
 			throw new BadConnectionException('Connection failed, invalid arguments', 2);
 		}
+		
+		// Set the table prefix, if it exists
+		if (isset($params->prefix))
+		{
+			$this->table_prefix = $params->prefix;
+			$this->db->table_prefix = $params->prefix;
+		}
 
 		// Set the connection name property, if applicable
 		if (isset($params->name))
@@ -168,12 +175,6 @@ class Query_Builder {
 		if ( ! class_exists($dbtype))
 		{
 			throw new BadDBDriverException('Database driver does not exist, or is not supported');
-		}
-
-		// Set the table prefix, if it exists
-		if (isset($params->prefix))
-		{
-			$this->table_prefix = $params->prefix;
 		}
 
 		// Create the dsn for the database to connect to
@@ -220,7 +221,7 @@ class Query_Builder {
 	{
 		// Split fields by comma
 		$fields_array = explode(",", $fields);
-		$fields_array = array_map('trim', $fields_array);
+		$fields_array = array_map('mb_trim', $fields_array);
 
 		// Split on 'As'
 		foreach ($fields_array as $key => $field)
@@ -228,7 +229,7 @@ class Query_Builder {
 			if (stripos($field, 'as') !== FALSE)
 			{
 				$fields_array[$key] = preg_split('` as `i', $field);
-				$fields_array[$key] = array_map('trim', $fields_array[$key]);
+				$fields_array[$key] = array_map('mb_trim', $fields_array[$key]);
 			}
 		}
 
@@ -357,17 +358,18 @@ class Query_Builder {
 	/**
 	 * Specify the database table to select from
 	 *
-	 * @param string $dbname
+	 * @param string $tblname
 	 * @return $this
 	 */
-	public function from($dbname)
+	public function from($tblname)
 	{
 		// Split identifiers on spaces
-		$ident_array = explode(' ', trim($dbname));
-		$ident_array = array_map('trim', $ident_array);
+		$ident_array = explode(' ', trim($tblname));
+		$ident_array = array_map('mb_trim', $ident_array);
 
 		// Quote the identifiers
-		$ident_array = array_map(array($this->db, 'quote_ident'), $ident_array);
+		$ident_array[0] = $this->db->quote_table($ident_array[0]);
+		$ident_array = $this->db->quote_ident($ident_array);
 
 		// Paste it back together
 		$this->from_string = implode(' ', $ident_array);
@@ -788,7 +790,11 @@ class Query_Builder {
 	 */
 	public function join($table, $condition, $type='')
 	{
-		$table = implode(' ', array_map(array($this->db, 'quote_ident'), explode(' ', trim($table))));
+		// Prefix and quote table name
+		$table = explode(' ', mb_trim($table));
+		$table[0] = $this->db->quote_table($table[0]);
+		$table = $this->db->quote_ident($table);
+		$table = implode(' ', $table);
 
 		// Parse out the join condition
 		$parts = $this->parser->parse_join($condition);
@@ -1038,7 +1044,7 @@ class Query_Builder {
 	 */
 	public function count_all($table)
 	{
-		$sql = 'SELECT * FROM '.$this->quote_ident($table);
+		$sql = 'SELECT * FROM '.$this->quote_table($table);
 		$res = $this->query($sql);
 		return (int) count($res->fetchAll());
 	}
@@ -1210,7 +1216,7 @@ class Query_Builder {
 	 * @param bool
 	 * @resturn string
 	 */
-	protected function _get_compile($type, $table, $reset)
+	private function _get_compile($type, $table, $reset)
 	{
 		$sql = $this->_compile($type, $table);
 
@@ -1312,7 +1318,7 @@ class Query_Builder {
 	{
 		$sql = '';
 
-		$table = $this->quote_ident($table);
+		$table = $this->quote_table($table);
 
 		switch($type)
 		{
@@ -1345,7 +1351,7 @@ class Query_Builder {
 			break;
 		}
 
-		// Set the where string
+		// Set the where clause
 		if ( ! empty($this->query_map))
 		{
 			foreach($this->query_map as $q)
@@ -1354,31 +1360,31 @@ class Query_Builder {
 			}
 		}
 
-		// Set the group_by string
+		// Set the group_by clause
 		if ( ! empty($this->group_string))
 		{
 			$sql .= $this->group_string;
 		}
 
-		// Set the order_by string
+		// Set the order_by clause
 		if ( ! empty($this->order_string))
 		{
 			$sql .= $this->order_string;
 		}
 
-		// Set the limit via the class variables
-		if (isset($this->limit) && is_numeric($this->limit))
-		{
-			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
-		}
-
-		// Set the having string
+		// Set the having clause
 		if ( ! empty($this->having_map))
 		{
 			foreach($this->having_map as $h)
 			{
 				$sql .= $h['conjunction'] . $h['string'];
 			}
+		}
+		
+		// Set the limit via the class variables
+		if (isset($this->limit) && is_numeric($this->limit))
+		{
+			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
 		}
 
 		// Add the query to the list of executed queries
@@ -1387,7 +1393,7 @@ class Query_Builder {
 		// Set the last query to get rowcounts properly
 		$this->db->last_query = $sql;
 
-		//echo $sql . '<br />';
+		// echo $sql . '<br />';
 
 		return $sql;
 	}

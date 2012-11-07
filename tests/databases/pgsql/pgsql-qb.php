@@ -24,6 +24,7 @@ class PgSQLQBTest extends QBTest {
 			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
 			$params = $params->pgsql;
 			$params->type = "pgsql";
+			$params->prefix = 'create_';
 
 			$this->db = new Query_Builder($params);
 
@@ -38,7 +39,8 @@ class PgSQLQBTest extends QBTest {
 				'database' => 'test',
 				'user' => 'postgres',
 				'pass' => '',
-				'type' => 'pgsql'
+				'type' => 'pgsql',
+				'prefix' => 'create'
 			);
 
 			$this->db = new Query_Builder($params);

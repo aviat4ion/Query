@@ -32,6 +32,17 @@ abstract class QBTest extends UnitTestCase {
 	}
 
 	// --------------------------------------------------------------------------
+	
+	public function TestPrefixGet()
+	{
+		if (empty($this->db))  return;
+
+		$query = $this->db->from('test')->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
+	// --------------------------------------------------------------------------
 
 	public function TestGetWNumRows()
 	{
@@ -153,7 +164,7 @@ abstract class QBTest extends UnitTestCase {
 		if (empty($this->db))  return;
 
 		$query = $this->db->select_max('id', 'di')
-			->get('create_test');
+			->get('test');
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -367,8 +378,8 @@ abstract class QBTest extends UnitTestCase {
 	{
 		if (empty($this->db))  return;
 
-		$query = $this->db->from('create_test')
-			->join('create_join cj', 'cj.id = create_test.id')
+		$query = $this->db->from('create_test ct')
+			->join('join cj', 'cj.id = ct.id')
 			->get();
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -385,7 +396,7 @@ abstract class QBTest extends UnitTestCase {
 		$query = $this->db->set('id', 4)
 			->set('key', 4)
 			->set('val', 5)
-			->insert('create_test');
+			->insert('test');
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -434,7 +445,7 @@ abstract class QBTest extends UnitTestCase {
 			->set('id', 4)
 			->set('key', 'gogle')
 			->set('val', 'non-word')
-			->update('create_test');
+			->update('test');
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -457,7 +468,7 @@ abstract class QBTest extends UnitTestCase {
 	public function TestCountAll()
 	{
 		if (empty($this->db))  return;
-		$query = $this->db->count_all('create_test');
+		$query = $this->db->count_all('test');
 
 		$this->assertTrue(is_numeric($query));
 	}
@@ -467,7 +478,7 @@ abstract class QBTest extends UnitTestCase {
 	public function TestCountAllResults()
 	{
 		if (empty($this->db))  return;
-		$query = $this->db->count_all_results('create_test');
+		$query = $this->db->count_all_results('test');
 
 		$this->assertTrue(is_numeric($query));
 	}
@@ -479,7 +490,7 @@ abstract class QBTest extends UnitTestCase {
 		if (empty($this->db))  return;
 
 		$query = $this->db->select('id, key as k, val')
-			->from('create_test')
+			->from('test')
 			->where(' id ', 1)
 			->or_where('key >', 0)
 			->limit(2, 1)

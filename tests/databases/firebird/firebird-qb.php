@@ -31,6 +31,7 @@ class FirebirdQBTest extends QBTest {
 		$params->host = 'localhost';
 		$params->user = 'sysdba';
 		$params->pass = 'masterkey';
+		$params->prefix = 'create_';
 		$this->db = new Query_Builder($params);
 		
 		// echo '<hr /> Firebird Queries <hr />';

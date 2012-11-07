@@ -33,7 +33,7 @@ abstract class DB_Util {
 	 */
 	public function __construct(&$conn)
 	{
-		$this->conn =& $conn; 
+		$this->conn = $conn; 
 	}
 	
 	// --------------------------------------------------------------------------
