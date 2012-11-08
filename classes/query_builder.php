@@ -73,9 +73,6 @@ class Query_Builder {
 	// Alias to $this->db->sql
 	public $sql;
 
-	// Database table prefix
-	public $table_prefix = '';
-
 	// Query component order mapping
 	// for complex select queries
 	//
@@ -134,7 +131,6 @@ class Query_Builder {
 		// Set the table prefix, if it exists
 		if (isset($params->prefix))
 		{
-			$this->table_prefix = $params->prefix;
 			$this->db->table_prefix = $params->prefix;
 		}
 
@@ -234,7 +230,7 @@ class Query_Builder {
 		}
 
 		// Quote the identifiers
-		$safe_array = array_map(array($this->db, 'quote_ident'), $fields_array);
+		$safe_array = $this->db->quote_ident($fields_array);
 
 		unset($fields_array);
 
@@ -266,10 +262,10 @@ class Query_Builder {
 	private function _select($field, $as = FALSE)
 	{
 		// Escape the identifiers
-		$field = $this->quote_ident($field);
+		$field = $this->db->quote_ident($field);
 
 		$as = ($as !== FALSE)
-			? $this->quote_ident($as)
+			? $this->db->quote_ident($as)
 			: $field;
 
 		return "({$field}) AS {$as} ";
@@ -393,7 +389,7 @@ class Query_Builder {
 	 */
 	private function _like($field, $val, $pos, $like='LIKE', $conj='AND')
 	{
-		$field = $this->quote_ident($field);
+		$field = $this->db->quote_ident($field);
 
 		// Add the like string into the order map
 		$l = $field. " {$like} ?";
@@ -506,7 +502,7 @@ class Query_Builder {
 			// is an operator such as >, <, !=, etc.
 			$f_array = explode(' ', trim($f));
 
-			$item = $this->quote_ident($f_array[0]);
+			$item = $this->db->quote_ident($f_array[0]);
 
 			// Simple key value, or an operator
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
@@ -604,7 +600,7 @@ class Query_Builder {
 			// is an operator such as >, <, !=, etc.
 			$f_array = explode(' ', trim($f));
 
-			$item = $this->quote_ident($f_array[0]);
+			$item = $this->db->quote_ident($f_array[0]);
 
 			// Simple key value, or an operator
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
@@ -633,7 +629,7 @@ class Query_Builder {
 	 */
 	private function _where_in($key, $val=array(), $in='IN', $conj='AND')
 	{
-		$key = $this->quote_ident($key);
+		$key = $this->db->quote_ident($key);
 		$params = array_fill(0, count($val), '?');
 
 		foreach($val as $v)
@@ -769,7 +765,7 @@ class Query_Builder {
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
-		$this->set_array_keys = array_map(array($this->db, 'quote_ident'), $this->set_array_keys);
+		$this->set_array_keys = $this->db->quote_ident($this->set_array_keys);
 
 		// Generate the "set" string
 		$this->set_string = implode('=?,', $this->set_array_keys);
@@ -805,7 +801,7 @@ class Query_Builder {
 		{
 			if (in_array($parts['combined'][$i], $parts['identifiers']) && ! is_numeric($parts['combined'][$i]))
 			{
-				$parts['combined'][$i] = $this->quote_ident($parts['combined'][$i]);
+				$parts['combined'][$i] = $this->db->quote_ident($parts['combined'][$i]);
 			}
 		}
 
@@ -834,11 +830,11 @@ class Query_Builder {
 	{
 		if ( ! is_scalar($field))
 		{
-			$this->group_array = array_map(array($this->db, 'quote_ident'), $field);
+			$this->group_array = $this->db->quote_ident($field);
 		}
 		else
 		{
-			$this->group_array[] = $this->quote_ident($field);
+			$this->group_array[] = $this->db->quote_ident($field);
 		}
 
 		$this->group_string = ' GROUP BY ' . implode(',', $this->group_array);
@@ -864,7 +860,7 @@ class Query_Builder {
 		}
 
 		// Set fields for later manipulation
-		$field = $this->quote_ident($field);
+		$field = $this->db->quote_ident($field);
 		$this->order_array[$field] = $type;
 
 		$order_clauses = array();
@@ -1044,8 +1040,8 @@ class Query_Builder {
 	 */
 	public function count_all($table)
 	{
-		$sql = 'SELECT * FROM '.$this->quote_table($table);
-		$res = $this->query($sql);
+		$sql = 'SELECT * FROM '.$this->db->quote_table($table);
+		$res = $this->db->query($sql);
 		return (int) count($res->fetchAll());
 	}
 
@@ -1278,8 +1274,8 @@ class Query_Builder {
 		$vals = array_merge($this->values, (array) $this->where_values);
 
 		$res = ($simple)
-			? $this->query($sql)
-			: $this->prepare_execute($sql, $vals);
+			? $this->db->query($sql)
+			: $this->db->prepare_execute($sql, $vals);
 
 		$this->reset_query();
 
@@ -1318,7 +1314,7 @@ class Query_Builder {
 	{
 		$sql = '';
 
-		$table = $this->quote_table($table);
+		$table = $this->db->quote_table($table);
 
 		switch($type)
 		{

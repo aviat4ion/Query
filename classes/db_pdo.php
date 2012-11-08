@@ -62,6 +62,15 @@ abstract class DB_PDO extends PDO {
 		$this->util = new $class($this);
 
 		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		// Set additional driver options, if they exist
+		if ( ! empty($driver_options) && is_array($driver_options))
+		{
+			foreach($driver_options as $key => $val)
+			{
+				$this->setAttribute($key, $val);
+			}
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -191,17 +200,11 @@ abstract class DB_PDO extends PDO {
 	/**
 	 * Quote database table name, and set prefix
 	 *  
-	 * @param mixed $table
+	 * @param string $table
 	 * @return string
 	 */
 	public function quote_table($table)
-	{
-		// An array is only passed if it's a table with alias
-		if (is_array($table))
-		{
-			$table =& $table[0];
-		}
-		
+	{		
 		// If there isn't a prefix set, just quote the table name
 		if (empty($this->table_prefix))
 		{
