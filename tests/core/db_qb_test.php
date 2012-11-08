@@ -32,7 +32,7 @@ abstract class QBTest extends UnitTestCase {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	public function TestPrefixGet()
 	{
 		if (empty($this->db))  return;
@@ -41,7 +41,7 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function TestGetWNumRows()
@@ -528,7 +528,7 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->expectException('BadDBDriverException');
 
-		$this->db = new Query_Builder($params);
+		$this->db = Query($params);
 	}
 
 	// --------------------------------------------------------------------------
@@ -546,7 +546,7 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->expectException('BadConnectionException');
 
-		$this->db = new Query_Builder($params);
+		$this->db = Query($params);
 
 	}
 }

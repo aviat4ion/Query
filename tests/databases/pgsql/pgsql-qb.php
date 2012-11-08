@@ -25,11 +25,6 @@ class PgSQLQBTest extends QBTest {
 			$params = $params->pgsql;
 			$params->type = "pgsql";
 			$params->prefix = 'create_';
-
-			$this->db = new Query_Builder($params);
-
-			// echo '<hr /> Postgres Queries <hr />';
-
 		}
 		elseif (($var = getenv('CI')))
 		{
@@ -42,9 +37,9 @@ class PgSQLQBTest extends QBTest {
 				'type' => 'pgsql',
 				'prefix' => 'create_'
 			);
-
-			$this->db = new Query_Builder($params);
 		}
+
+		$this->db = Query($params);
  	}
 
  	// --------------------------------------------------------------------------

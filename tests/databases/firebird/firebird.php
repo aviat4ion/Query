@@ -38,6 +38,13 @@ class FirebirdTest extends DBTest {
 	}
 	
 	// --------------------------------------------------------------------------
+	
+	public function TestExists()
+	{
+		$this->assertTrue(function_exists('ibase_connect'));
+	}	
+	
+	// --------------------------------------------------------------------------
 
 	public function TestConnection()
 	{
@@ -85,7 +92,7 @@ class FirebirdTest extends DBTest {
 	/*public function TestCreateTable()
 	{
 		//Attempt to create the table
-		$sql = $this->db->sql->create_table('create_join', array(
+		$sql = $this->db->util->create_table('create_test', array(
 			'id' => 'SMALLINT', 
 			'key' => 'VARCHAR(64)', 
 			'val' => 'BLOB SUB_TYPE TEXT'
@@ -100,7 +107,7 @@ class FirebirdTest extends DBTest {
 		//Check
 		$table_exists = (bool)in_array('create_test', $this->tables);
 		
-		echo "create_test exists :".(int)$table_exists.'<br />';
+		//echo "create_test exists :".(int)$table_exists.'<br />';
 		
 		$this->assertTrue($table_exists);
 	}*/
@@ -179,7 +186,7 @@ SQL;
 	/*public function TestDeleteTable()
 	{
 		//Attempt to delete the table
-		$sql = $this->db->sql->delete_table('create_test');
+		$sql = $this->db->util->delete_table('create_test');
 		$this->db->query($sql);
 		
 		//Reset

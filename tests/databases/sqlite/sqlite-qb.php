@@ -7,28 +7,28 @@
  * @author 		Timothy J. Warren
  * @copyright	Copyright (c) 2012
  * @link 		https://github.com/aviat4ion/OpenSQLManager
- * @license 	http://philsturgeon.co.uk/code/dbad-license 
+ * @license 	http://philsturgeon.co.uk/code/dbad-license
  */
 
 // --------------------------------------------------------------------------
 
 /**
- * Class for testing Query Builder with SQLite 
+ * Class for testing Query Builder with SQLite
  */
  class SQLiteQBTest extends QBTest {
- 
+
  	public function __construct()
  	{
  		parent::__construct();
- 	
+
  		$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
 		$params = new Stdclass();
 		$params->type = 'sqlite';
 		$params->file = $path;
 		$params->host = 'localhost';
 		$params->prefix = 'create_';
-		$this->db = new Query_Builder($params);
-		
+		$this->db = Query($params);
+
 		// echo '<hr /> SQLite Queries <hr />';
  	}
 }

@@ -40,7 +40,7 @@ Create a connection array or object similar to this:
 		'file' => '/path/to/db/file',
 	);
 	
-	$db = new Query_Builder($params);
+	$db = Query($params);
 
 The parameters required depend on the database. 
 

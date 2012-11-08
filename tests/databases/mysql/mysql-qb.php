@@ -25,11 +25,7 @@ class MySQLQBTest extends QBTest {
 			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
 			$params = $params->mysql;
 			$params->type = "MySQL";
-			$params->prefix = "create_";
-
-			$this->db = new Query_Builder($params);
-
-			// echo '<hr /> MySQL Queries <hr />';
+			$params->prefix = "create_";;
 		}
 		elseif (($var = getenv('CI')))
 		{
@@ -42,13 +38,9 @@ class MySQLQBTest extends QBTest {
 				'type' => 'mysql',
 				'prefix' => 'create_'
 			);
+		}
 
-			$this->db = new Query_Builder($params);
-		}
-		else
-		{
-			die("Error with mysql credentials");
-		}
+		$this->db = Query($params);
  	}
 
 	// --------------------------------------------------------------------------

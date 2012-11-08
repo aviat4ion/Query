@@ -21,7 +21,7 @@ class FirebirdQBTest extends QBTest {
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
 		// Test the query builder
@@ -32,20 +32,20 @@ class FirebirdQBTest extends QBTest {
 		$params->user = 'sysdba';
 		$params->pass = 'masterkey';
 		$params->prefix = 'create_';
-		$this->db = new Query_Builder($params);
-		
+		$this->db = Query($params);
+
 		// echo '<hr /> Firebird Queries <hr />';
 	}
-	
+
 	public function TestTypeList()
 	{
 		$sql = $this->db->sql->type_list();
 		$query = $this->db->query($sql);
-		
+
 		$this->assertIsA($query, 'PDOStatement');
-		
+
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$this->assertTrue(is_array($res));
 	}
 }
