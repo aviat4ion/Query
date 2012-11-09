@@ -89,14 +89,34 @@ function db_filter($array, $index)
 	return $new_array;
 }
 
+// --------------------------------------------------------------------------
+
 /**
  * Connection function
  *
  * @param mixed $params
  * @return Query_Builder
  */
-function Query($params)
+function Query($params = '')
 {
+	static $connections;
+	
+	// If there's existing connection(s) just return it
+	if ( ! empty($connections))
+	{
+		// If the paramater is a string, use it as an array index
+		if (is_scalar($params) && isset($connections[$params]))
+		{
+			return $connections[$params];
+		}
+		elseif (empty($params) && isset($connections[0]))
+		{
+			return end($connections);
+		}
+	}
+	
+	// --------------------------------------------------------------------------
+
 	// Convert array to object
 	if (is_array($params))
 	{
@@ -122,6 +142,8 @@ function Query($params)
 	{
 		throw new BadDBDriverException('Database driver does not exist, or is not supported');
 	}
+	
+	// --------------------------------------------------------------------------
 
 	// Create the dsn for the database to connect to
 	switch($dbtype)
@@ -161,15 +183,30 @@ function Query($params)
 	{
 		throw new BadConnectionException('Connection failed, invalid arguments', 2);
 	}
+	
+	// --------------------------------------------------------------------------
 
 	// Set the table prefix, if it exists
 	if (isset($params->prefix))
 	{
 		$db->table_prefix = $params->prefix;
 	}
+	
+	// Create the database connection
+	$conn = new Query_Builder($db, $params);
+	
+	// Save it for later
+	if (isset($params->alias))
+	{
+		$connections[$params->alias] =& $conn;
+	}
+	else
+	{
+		$connections[] =& $conn;
+	}
 
 	// Return the Query Builder object
-	return new Query_Builder($db, $params);
+	return $conn;
 }
 
 // End of common.php

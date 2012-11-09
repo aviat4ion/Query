@@ -21,6 +21,15 @@ abstract class QBTest extends UnitTestCase {
 	// --------------------------------------------------------------------------
 	// ! Get Tests
 	// --------------------------------------------------------------------------
+	
+	public function TestQueryFunctionAlias()
+	{
+		if (empty($this->db)) return;
+		
+		$db = Query();
+		
+		$this->assertReference($this->db, $db);
+	}
 
 	public function TestGet()
 	{
