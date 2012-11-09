@@ -2469,7 +2469,7 @@ in place of the get() method]]></description>
       </argument>
     </function>
   </file>
-  <file path="common.php" hash="c9726ca0e20463be7e405ffc7c8cf5a4" package="Query">
+  <file path="common.php" hash="ee98955dddef16a2b1e1e91a89795860" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -2543,22 +2543,22 @@ with array_map and glob]]></description>
         <type/>
       </argument>
     </function>
-    <function namespace="default" line="98" package="Query">
+    <function namespace="default" line="100" package="Query">
       <name>Query</name>
       <type>function</type>
-      <docblock line="92">
+      <docblock line="94">
         <description><![CDATA[Connection function]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="92" name="param" description="" type="mixed" variable="$params">
+        <tag line="94" name="param" description="" type="mixed" variable="$params">
           <type by_reference="false">mixed</type>
         </tag>
-        <tag line="92" name="return" description="" type="\Query_Builder">
+        <tag line="94" name="return" description="" type="\Query_Builder">
           <type by_reference="false">\Query_Builder</type>
         </tag>
       </docblock>
-      <argument line="98">
+      <argument line="100">
         <name>$params</name>
-        <default><![CDATA[]]></default>
+        <default><![CDATA['']]></default>
         <type/>
       </argument>
     </function>

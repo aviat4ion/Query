@@ -38,11 +38,33 @@ Create a connection array or object similar to this:
 		// Only required
 		// SQLite or Firebird
 		'file' => '/path/to/db/file',
+		
+		// Optional paramaters
+		'prefix' => 'tbl_', 	// Database table prefix
+		'alias' => 'old' 		// Connection name for the Query function
 	);
 	
 	$db = Query($params);
 
 The parameters required depend on the database. 
+	
+### Query function	
+
+You can use the `Query()` function as a reference to the last connected database. E.g.
+
+	Query()->get('table_name');
+	
+or
+ 
+	$result = Query()->query($sql);
+	
+If the `alias` key is set in the parameters, you can refer to a specific database connection
+
+	// Set the alias in the connection parameters
+	$params['alias'] = 'old';
+
+	// Connect to the legacy database
+	Query('old')->query($sql); 
 
 ### Running Queries
 Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `insert_batch`, `update_batch` or caching methods.
