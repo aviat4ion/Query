@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class ODBC_SQL extends DB_SQL {
+class ODBC_SQL implements iDB_SQL {
 
 	/**
 	 * Limit clause

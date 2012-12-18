@@ -14,12 +14,12 @@
 // --------------------------------------------------------------------------
 
 /**
- * Abstract parent for database manipulation subclasses
+ * parent for database manipulation subclasses
  *
  * @package Query
  * @subpackage Query
  */
-abstract class DB_SQL {
+interface iDB_SQL {
 
 	/**
 	 * Get database specific sql for limit clause
@@ -30,7 +30,7 @@ abstract class DB_SQL {
 	 * @param int $offset
 	 * @return string
 	 */
-	abstract public function limit($sql, $limit, $offset=FALSE);
+	public function limit($sql, $limit, $offset=FALSE);
 
 	/**
 	 * Get the sql for random ordering
@@ -38,70 +38,70 @@ abstract class DB_SQL {
 	 * @abstract
 	 * @return string
 	 */
-	abstract public function random();
+	public function random();
 	
 	/**
 	 * Returns sql to list other databases
 	 *
 	 * @return string
 	 */
-	abstract public function db_list();
+	public function db_list();
 
 	/**
 	 * Returns sql to list tables
 	 *
 	 * @return string
 	 */
-	abstract public function table_list();
+	public function table_list();
 
 	/**
 	 * Returns sql to list system tables
 	 *
 	 * @return string
 	 */
-	abstract public function system_table_list();
+	public function system_table_list();
 
 	/**
 	 * Returns sql to list views
 	 *
 	 * @return string
 	 */
-	abstract public function view_list();
+	public function view_list();
 
 	/**
 	 * Returns sql to list triggers
 	 *
 	 * @return string
 	 */
-	abstract public function trigger_list();
+	public function trigger_list();
 
 	/**
 	 * Return sql to list functions
 	 *
 	 * @return FALSE
 	 */
-	abstract public function function_list();
+	public function function_list();
 
 	/**
 	 * Return sql to list stored procedures
 	 *
 	 * @return string
 	 */
-	abstract public function procedure_list();
+	public function procedure_list();
 
 	/**
 	 * Return sql to list sequences
 	 *
 	 * @return string
 	 */
-	abstract public function sequence_list();
+	public function sequence_list();
 	
 	/**
 	 * Return sql to list database field types
 	 *
 	 * @return mixed
 	 */
-	abstract public function type_list();
+	public function type_list();
 	
 	/**
 	 * Get information about the columns in the 
@@ -110,6 +110,6 @@ abstract class DB_SQL {
 	 * @param string
 	 * @return string
 	 */
-	abstract public function column_list($table);
+	public function column_list($table);
 }
 // End of db_sql.php

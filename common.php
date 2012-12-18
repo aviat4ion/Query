@@ -192,7 +192,7 @@ function Query($params = '')
 		$db->table_prefix = $params->prefix;
 	}
 	
-	// Create the database connection
+	// Create the Query Builder object
 	$conn = new Query_Builder($db, $params);
 	
 	// Save it for later

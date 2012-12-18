@@ -18,7 +18,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class PgSQL_SQL extends DB_SQL {
+class PgSQL_SQL implements iDB_SQL {
 
 	/**
 	 * Limit clause

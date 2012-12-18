@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class MySQL_SQL extends DB_SQL {
+class MySQL_SQL implements iDB_SQL {
 
 	/**
 	 * Limit clause

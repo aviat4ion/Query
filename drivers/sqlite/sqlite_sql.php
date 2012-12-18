@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class SQLite_SQL extends DB_SQL {
+class SQLite_SQL implements iDB_SQL {
 
 	/**
 	 * Limit clause

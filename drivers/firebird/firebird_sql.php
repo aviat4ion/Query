@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class Firebird_SQL extends DB_SQL {
+class Firebird_SQL implements iDB_SQL {
 
 	/**
 	 * Limit clause

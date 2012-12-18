@@ -87,19 +87,6 @@ class Firebird extends DB_PDO {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Doesn't apply to Firebird
-	 *
-	 * @param string $name
-	 * @return FALSE
-	 */
-	public function switch_db($name)
-	{
-		return FALSE;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Empty a database table
 	 *
 	 * @param string $table

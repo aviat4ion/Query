@@ -522,13 +522,5 @@ abstract class DB_PDO extends PDO {
 	 * @return void
 	 */
 	abstract public function truncate($table);
-
-	/**
-	 * Connect to a different database
-	 *
-	 * @param string $name
-	 * @return void
-	 */
-	abstract public function switch_db($name);
 }
 // End of db_pdo.php

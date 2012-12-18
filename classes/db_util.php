@@ -96,3 +96,4 @@ abstract class DB_Util {
 	abstract public function backup_data();
 
 }
+// End of db_util.php

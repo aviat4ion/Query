@@ -44,18 +44,6 @@ class SQLite extends DB_PDO {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Doesn't apply to sqlite
-	 *
-	 * @param string $name
-	 */
-	public function switch_db($name)
-	{
-		return FALSE;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Empty a table
 	 *
 	 * @param string $table

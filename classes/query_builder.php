@@ -20,55 +20,55 @@
  * @package Query
  * @subpackage Query
  */
-class Query_Builder {
+class Query_Builder implements iQuery_Builder {
 
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Strings
 	// --------------------------------------------------------------------------
 
 	// Compiled 'select' clause
-	private $select_string;
+	protected $select_string;
 
 	// Compiled 'from' clause
-	private $from_string;
+	protected $from_string;
 
 	// Compiled arguments for insert / update
-	private $set_string;
+	protected $set_string;
 
 	// Order by clause
-	private $order_string;
+	protected $order_string;
 
 	// Group by clause
-	private $group_string;
+	protected $group_string;
 
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Arrays
 	// --------------------------------------------------------------------------
 
 	// Keys for insert/update statement
-	private $set_array_keys;
+	protected $set_array_keys;
 
 	// Key/val pairs for order by clause
-	private $order_array;
+	protected $order_array;
 
 	// Key/val pairs for group by clause
-	private $group_array;
+	protected $group_array;
 
 	// --------------------------------------------------------------------------
 	// ! Other Class vars
 	// --------------------------------------------------------------------------
 
 	// Values to apply to prepared statements
-	private $values = array();
+	protected $values = array();
 
 	// Values to apply to where clauses in prepared statements
-	private $where_values = array();
+	protected $where_values = array();
 
 	// Value for limit string
-	private $limit;
+	protected $limit;
 
 	// Value for offset in limit string
-	private $offset;
+	protected $offset;
 
 	// Alias to $this->db->sql
 	public $sql;
@@ -82,10 +82,10 @@ class Query_Builder {
 	//		'conjunction' => ' AND ',
 	// 		'string' => 'k=?'
 	// )
-	private $query_map;
+	protected $query_map;
 
 	// Map for having clause
-	private $having_map;
+	protected $having_map;
 
 	// Convenience property for connection management
 	public $conn_name = "";
@@ -103,7 +103,7 @@ class Query_Builder {
 	 * @param DB_PDO $db
 	 * @param object $params - the connection parameters
 	 */
-	public function __construct(&$db, &$params)
+	public function __construct(&$db, $params)
 	{
 		$this->db = $db;
 
@@ -176,7 +176,7 @@ class Query_Builder {
 	 * @param string $as
 	 * @return string
 	 */
-	private function _select($field, $as = FALSE)
+	protected function _select($field, $as = FALSE)
 	{
 		// Escape the identifiers
 		$field = $this->db->quote_ident($field);
@@ -304,7 +304,7 @@ class Query_Builder {
 	 * @param string $conj
 	 * @return $this
 	 */
-	private function _like($field, $val, $pos, $like='LIKE', $conj='AND')
+	protected function _like($field, $val, $pos, $like='LIKE', $conj='AND')
 	{
 		$field = $this->db->quote_ident($field);
 
@@ -408,7 +408,7 @@ class Query_Builder {
 	 * @param string $conj
 	 * @return $this
 	 */
-	private function _having($key, $val=array(), $conj='AND')
+	protected function _having($key, $val=array(), $conj='AND')
 	{
 		$where = $this->_where($key, $val);
 
@@ -473,7 +473,7 @@ class Query_Builder {
 	 * @param mixed $val
 	 * @return array
 	 */
-	private function _where($key, $val=array())
+	protected function _where($key, $val=array())
 	{
 		$where = array();
 
@@ -506,7 +506,7 @@ class Query_Builder {
 	 * @param string $conj
 	 * @return $this
 	 */
-	private function _where_string($key, $val=array(), $conj='AND')
+	protected function _where_string($key, $val=array(), $conj='AND')
 	{
 		$where = $this->_where($key, $val);
 
@@ -544,7 +544,7 @@ class Query_Builder {
 	 * @param string
 	 * @return $this
 	 */
-	private function _where_in($key, $val=array(), $in='IN', $conj='AND')
+	protected function _where_in($key, $val=array(), $in='IN', $conj='AND')
 	{
 		$key = $this->db->quote_ident($key);
 		$params = array_fill(0, count($val), '?');
@@ -1056,7 +1056,7 @@ class Query_Builder {
 	}
 
 	// --------------------------------------------------------------------------
-	// ! Query Returning Methods
+	// ! SQL Returning Methods
 	// --------------------------------------------------------------------------
 
 	/**
@@ -1094,7 +1094,7 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Returns the generated 'insert' sql query
+	 * Returns the generated 'update' sql query
 	 *
 	 * @param string $table
 	 * @param bool $reset
@@ -1108,7 +1108,7 @@ class Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Returns the generated 'insert' sql query
+	 * Returns the generated 'delete' sql query
 	 *
 	 * @param string $table
 	 * @param bool $reset
@@ -1129,7 +1129,7 @@ class Query_Builder {
 	 * @param bool
 	 * @resturn string
 	 */
-	private function _get_compile($type, $table, $reset)
+	protected function _get_compile($type, $table, $reset)
 	{
 		$sql = $this->_compile($type, $table);
 
@@ -1185,7 +1185,7 @@ class Query_Builder {
 	 * @param bool $simple
 	 * @return mixed
 	 */
-	private function _run($type, $table, $simple=FALSE)
+	protected function _run($type, $table, $simple=FALSE)
 	{
 		$sql = $this->_compile($type, $table);
 		$vals = array_merge($this->values, (array) $this->where_values);
@@ -1227,7 +1227,7 @@ class Query_Builder {
 	 * @param string $table
 	 * @return $string
 	 */
-	private function _compile($type='', $table='')
+	protected function _compile($type='', $table='')
 	{
 		$sql = '';
 

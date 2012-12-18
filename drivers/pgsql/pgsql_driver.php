@@ -42,19 +42,6 @@ class PgSQL extends DB_PDO {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Connect to a different database
-	 *
-	 * @param string $name
-	 */
-	public function switch_db($name)
-	{
-		// TODO Implement
-		return FALSE;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Empty a table
 	 *
 	 * @param string $table

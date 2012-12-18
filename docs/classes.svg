@@ -10,14 +10,14 @@
 <title>G</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-1242 687,-1242 687,5 -4,5"/>
 <g id="graph2" class="cluster"><title>cluster_default</title>
-<polyline fill="none" stroke="none" points="248,-152 662,-152 "/>
+<polyline fill="none" stroke="none" points="235,-152 662,-152 "/>
 <path fill="none" stroke="none" d="M662,-152C668,-152 674,-158 674,-164"/>
 <polyline fill="none" stroke="none" points="674,-164 674,-1218 "/>
 <path fill="none" stroke="none" d="M674,-1218C674,-1224 668,-1230 662,-1230"/>
-<polyline fill="none" stroke="none" points="662,-1230 248,-1230 "/>
-<path fill="none" stroke="none" d="M248,-1230C242,-1230 236,-1224 236,-1218"/>
-<polyline fill="none" stroke="none" points="236,-1218 236,-164 "/>
-<path fill="none" stroke="none" d="M236,-164C236,-158 242,-152 248,-152"/>
+<polyline fill="none" stroke="none" points="662,-1230 235,-1230 "/>
+<path fill="none" stroke="none" d="M235,-1230C229,-1230 223,-1224 223,-1218"/>
+<polyline fill="none" stroke="none" points="223,-1218 223,-164 "/>
+<path fill="none" stroke="none" d="M223,-164C223,-158 229,-152 235,-152"/>
 </g>
 <!-- \\Query_Parser -->
 <g id="node2" class="node"><title>\\Query_Parser</title>
@@ -26,16 +26,8 @@
 <text text-anchor="middle" x="584" y="-1200.6" font-family="Courier,monospace" font-size="11.00">Query_Parser</text>
 </a>
 </g>
-<!-- \\DB_SQL -->
-<g id="node3" class="node"><title>\\DB_SQL</title>
-<a xlink:href="classes.db_sql.html" xlink:title="«abstract»&lt;br/&gt;DB_SQL" target="_parent">
-<polygon fill="none" stroke="black" points="329,-736 245,-736 245,-700 329,-700 329,-736"/>
-<text text-anchor="start" x="253" y="-723.433" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="266.5" y="-710.233" font-family="Courier,monospace" font-size="11.00">DB_SQL</text>
-</a>
-</g>
 <!-- \\DB_PDO -->
-<g id="node4" class="node"><title>\\DB_PDO</title>
+<g id="node3" class="node"><title>\\DB_PDO</title>
 <a xlink:href="classes.db_pdo.html" xlink:title="«abstract»&lt;br/&gt;DB_PDO" target="_parent">
 <polygon fill="none" stroke="black" points="329,-466 245,-466 245,-430 329,-430 329,-466"/>
 <text text-anchor="start" x="253" y="-453.433" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
@@ -43,7 +35,7 @@
 </a>
 </g>
 <!-- \\PDO -->
-<g id="node26" class="node"><title>\\PDO</title>
+<g id="node27" class="node"><title>\\PDO</title>
 <ellipse fill="none" stroke="black" cx="36" cy="-448" rx="35.0527" ry="18"/>
 <text text-anchor="middle" x="36" y="-443.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\PDO</text>
 </g>
@@ -53,14 +45,33 @@
 <polygon fill="none" stroke="black" points="81.8642,-444.5 71.8642,-448 81.8642,-451.5 81.8642,-444.5"/>
 </g>
 <!-- \\Query_Builder -->
-<g id="node5" class="node"><title>\\Query_Builder</title>
+<g id="node4" class="node"><title>\\Query_Builder</title>
 <a xlink:href="classes.query_builder.html" xlink:title="Query_Builder" target="_parent">
 <polygon fill="none" stroke="black" points="636,-1168 532,-1168 532,-1132 636,-1132 636,-1168"/>
 <text text-anchor="middle" x="584" y="-1146.6" font-family="Courier,monospace" font-size="11.00">Query_Builder</text>
 </a>
 </g>
+<!-- \\iQuery_Builder -->
+<g id="node6" class="node"><title>\\iQuery_Builder</title>
+<a xlink:href="classes.iquery_builder.html" xlink:title="iQuery_Builder" target="_parent">
+<polygon fill="none" stroke="black" points="342,-1168 232,-1168 232,-1132 342,-1132 342,-1168"/>
+<text text-anchor="middle" x="287" y="-1146.6" font-family="Courier,monospace" font-size="11.00">iQuery_Builder</text>
+</a>
+</g>
+<!-- \\Query_Builder&#45;&gt;\\iQuery_Builder -->
+<g id="edge31" class="edge"><title>\\Query_Builder&#45;&gt;\\iQuery_Builder</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M531.927,-1150C482.07,-1150 406.665,-1150 352.701,-1150"/>
+<polygon fill="none" stroke="black" points="352.547,-1146.5 342.547,-1150 352.547,-1153.5 352.547,-1146.5"/>
+</g>
+<!-- \\iDB_SQL -->
+<g id="node5" class="node"><title>\\iDB_SQL</title>
+<a xlink:href="classes.idb_sql.html" xlink:title="iDB_SQL" target="_parent">
+<polygon fill="none" stroke="black" points="319,-736 255,-736 255,-700 319,-700 319,-736"/>
+<text text-anchor="middle" x="287" y="-714.6" font-family="Courier,monospace" font-size="11.00">iDB_SQL</text>
+</a>
+</g>
 <!-- \\DB_Util -->
-<g id="node6" class="node"><title>\\DB_Util</title>
+<g id="node7" class="node"><title>\\DB_Util</title>
 <a xlink:href="classes.db_util.html" xlink:title="«abstract»&lt;br/&gt;DB_Util" target="_parent">
 <polygon fill="none" stroke="black" points="329,-1006 245,-1006 245,-970 329,-970 329,-1006"/>
 <text text-anchor="start" x="253" y="-993.433" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
@@ -68,14 +79,14 @@
 </a>
 </g>
 <!-- \\BadDBDriverException -->
-<g id="node7" class="node"><title>\\BadDBDriverException</title>
+<g id="node8" class="node"><title>\\BadDBDriverException</title>
 <a xlink:href="common.html" xlink:title="BadDBDriverException" target="_parent">
 <polygon fill="none" stroke="black" points="659,-304 509,-304 509,-268 659,-268 659,-304"/>
 <text text-anchor="middle" x="584" y="-282.6" font-family="Courier,monospace" font-size="11.00">BadDBDriverException</text>
 </a>
 </g>
 <!-- \\InvalidArgumentException -->
-<g id="node28" class="node"><title>\\InvalidArgumentException</title>
+<g id="node29" class="node"><title>\\InvalidArgumentException</title>
 <ellipse fill="none" stroke="black" cx="287" cy="-126" rx="138.86" ry="18"/>
 <text text-anchor="middle" x="287" y="-121.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\InvalidArgumentException</text>
 </g>
@@ -85,14 +96,14 @@
 <polygon fill="none" stroke="black" points="415.351,-136.174 404.768,-135.674 412.73,-142.664 415.351,-136.174"/>
 </g>
 <!-- \\BadConnectionException -->
-<g id="node8" class="node"><title>\\BadConnectionException</title>
+<g id="node9" class="node"><title>\\BadConnectionException</title>
 <a xlink:href="common.html" xlink:title="BadConnectionException" target="_parent">
 <polygon fill="none" stroke="black" points="666,-250 502,-250 502,-214 666,-214 666,-250"/>
 <text text-anchor="middle" x="584" y="-228.6" font-family="Courier,monospace" font-size="11.00">BadConnectionException</text>
 </a>
 </g>
 <!-- \\UnexpectedValueException -->
-<g id="node30" class="node"><title>\\UnexpectedValueException</title>
+<g id="node31" class="node"><title>\\UnexpectedValueException</title>
 <ellipse fill="none" stroke="black" cx="287" cy="-72" rx="142.885" ry="18"/>
 <text text-anchor="middle" x="287" y="-67.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\UnexpectedValueException</text>
 </g>
@@ -102,199 +113,199 @@
 <polygon fill="none" stroke="black" points="408.047,-83.7705 397.454,-83.5843 405.619,-90.3358 408.047,-83.7705"/>
 </g>
 <!-- \\PgSQL_SQL -->
-<g id="node9" class="node"><title>\\PgSQL_SQL</title>
+<g id="node10" class="node"><title>\\PgSQL_SQL</title>
 <a xlink:href="drivers.pgsql.pgsql_sql.html" xlink:title="PgSQL_SQL" target="_parent">
 <polygon fill="none" stroke="black" points="622,-844 546,-844 546,-808 622,-808 622,-844"/>
 <text text-anchor="middle" x="584" y="-822.6" font-family="Courier,monospace" font-size="11.00">PgSQL_SQL</text>
 </a>
 </g>
-<!-- \\PgSQL_SQL&#45;&gt;\\DB_SQL -->
-<g id="edge9" class="edge"><title>\\PgSQL_SQL&#45;&gt;\\DB_SQL</title>
-<path fill="none" stroke="black" d="M545.093,-813.561C531.426,-809.093 515.993,-803.937 502,-799 446.048,-779.258 382.529,-755.111 339.128,-738.343"/>
-<polygon fill="none" stroke="black" points="340.227,-735.016 329.637,-734.671 337.7,-741.544 340.227,-735.016"/>
+<!-- \\PgSQL_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge33" class="edge"><title>\\PgSQL_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M545.093,-813.561C531.426,-809.093 515.993,-803.937 502,-799 441.327,-777.593 371.756,-751.005 328.588,-734.264"/>
+<polygon fill="none" stroke="black" points="329.85,-730.999 319.262,-730.641 327.316,-737.524 329.85,-730.999"/>
 </g>
 <!-- \\PgSQL_Util -->
-<g id="node10" class="node"><title>\\PgSQL_Util</title>
+<g id="node11" class="node"><title>\\PgSQL_Util</title>
 <a xlink:href="drivers.pgsql.pgsql_util.html" xlink:title="PgSQL_Util" target="_parent">
 <polygon fill="none" stroke="black" points="626,-1114 542,-1114 542,-1078 626,-1078 626,-1114"/>
 <text text-anchor="middle" x="584" y="-1092.6" font-family="Courier,monospace" font-size="11.00">PgSQL_Util</text>
 </a>
 </g>
 <!-- \\PgSQL_Util&#45;&gt;\\DB_Util -->
-<g id="edge11" class="edge"><title>\\PgSQL_Util&#45;&gt;\\DB_Util</title>
+<g id="edge9" class="edge"><title>\\PgSQL_Util&#45;&gt;\\DB_Util</title>
 <path fill="none" stroke="black" d="M541.747,-1082.47C528.941,-1078.26 514.862,-1073.54 502,-1069 446.048,-1049.26 382.529,-1025.11 339.128,-1008.34"/>
 <polygon fill="none" stroke="black" points="340.227,-1005.02 329.637,-1004.67 337.7,-1011.54 340.227,-1005.02"/>
 </g>
 <!-- \\PgSQL -->
-<g id="node11" class="node"><title>\\PgSQL</title>
+<g id="node12" class="node"><title>\\PgSQL</title>
 <a xlink:href="drivers.pgsql.pgsql_driver.html" xlink:title="PgSQL" target="_parent">
 <polygon fill="none" stroke="black" points="611,-574 557,-574 557,-538 611,-538 611,-574"/>
 <text text-anchor="middle" x="584" y="-552.6" font-family="Courier,monospace" font-size="11.00">PgSQL</text>
 </a>
 </g>
 <!-- \\PgSQL&#45;&gt;\\DB_PDO -->
-<g id="edge13" class="edge"><title>\\PgSQL&#45;&gt;\\DB_PDO</title>
+<g id="edge11" class="edge"><title>\\PgSQL&#45;&gt;\\DB_PDO</title>
 <path fill="none" stroke="black" d="M556.942,-547.408C540.912,-542.239 520.233,-535.433 502,-529 446.048,-509.258 382.529,-485.111 339.128,-468.343"/>
 <polygon fill="none" stroke="black" points="340.227,-465.016 329.637,-464.671 337.7,-471.544 340.227,-465.016"/>
 </g>
 <!-- \\ODBC_Util -->
-<g id="node12" class="node"><title>\\ODBC_Util</title>
+<g id="node13" class="node"><title>\\ODBC_Util</title>
 <a xlink:href="drivers.odbc.odbc_util.html" xlink:title="ODBC_Util" target="_parent">
 <polygon fill="none" stroke="black" points="622,-1060 546,-1060 546,-1024 622,-1024 622,-1060"/>
 <text text-anchor="middle" x="584" y="-1038.6" font-family="Courier,monospace" font-size="11.00">ODBC_Util</text>
 </a>
 </g>
 <!-- \\ODBC_Util&#45;&gt;\\DB_Util -->
-<g id="edge15" class="edge"><title>\\ODBC_Util&#45;&gt;\\DB_Util</title>
+<g id="edge13" class="edge"><title>\\ODBC_Util&#45;&gt;\\DB_Util</title>
 <path fill="none" stroke="black" d="M545.477,-1035C492.953,-1025.45 398.67,-1008.3 339.653,-997.573"/>
 <polygon fill="none" stroke="black" points="340.244,-994.123 329.779,-995.778 338.991,-1001.01 340.244,-994.123"/>
 </g>
 <!-- \\ODBC_SQL -->
-<g id="node13" class="node"><title>\\ODBC_SQL</title>
+<g id="node14" class="node"><title>\\ODBC_SQL</title>
 <a xlink:href="drivers.odbc.odbc_sql.html" xlink:title="ODBC_SQL" target="_parent">
 <polygon fill="none" stroke="black" points="619,-790 549,-790 549,-754 619,-754 619,-790"/>
 <text text-anchor="middle" x="584" y="-768.6" font-family="Courier,monospace" font-size="11.00">ODBC_SQL</text>
 </a>
 </g>
-<!-- \\ODBC_SQL&#45;&gt;\\DB_SQL -->
-<g id="edge17" class="edge"><title>\\ODBC_SQL&#45;&gt;\\DB_SQL</title>
-<path fill="none" stroke="black" d="M548.764,-765.593C497.054,-756.192 400.231,-738.588 339.94,-727.626"/>
-<polygon fill="none" stroke="black" points="340.324,-724.138 329.859,-725.793 339.072,-731.025 340.324,-724.138"/>
+<!-- \\ODBC_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge35" class="edge"><title>\\ODBC_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M548.764,-765.593C493.827,-755.605 387.971,-736.358 329.099,-725.654"/>
+<polygon fill="none" stroke="black" points="329.489,-722.168 319.024,-723.823 328.237,-729.055 329.489,-722.168"/>
 </g>
 <!-- \\ODBC -->
-<g id="node14" class="node"><title>\\ODBC</title>
+<g id="node15" class="node"><title>\\ODBC</title>
 <a xlink:href="drivers.odbc.odbc_driver.html" xlink:title="ODBC" target="_parent">
 <polygon fill="none" stroke="black" points="611,-520 557,-520 557,-484 611,-484 611,-520"/>
 <text text-anchor="middle" x="584" y="-498.6" font-family="Courier,monospace" font-size="11.00">ODBC</text>
 </a>
 </g>
 <!-- \\ODBC&#45;&gt;\\DB_PDO -->
-<g id="edge19" class="edge"><title>\\ODBC&#45;&gt;\\DB_PDO</title>
+<g id="edge15" class="edge"><title>\\ODBC&#45;&gt;\\DB_PDO</title>
 <path fill="none" stroke="black" d="M556.856,-497.065C507.751,-488.137 403.375,-469.159 339.79,-457.598"/>
 <polygon fill="none" stroke="black" points="340.031,-454.085 329.566,-455.739 338.779,-460.972 340.031,-454.085"/>
 </g>
 <!-- \\MySQL_Util -->
-<g id="node15" class="node"><title>\\MySQL_Util</title>
+<g id="node16" class="node"><title>\\MySQL_Util</title>
 <a xlink:href="drivers.mysql.mysql_util.html" xlink:title="MySQL_Util" target="_parent">
 <polygon fill="none" stroke="black" points="626,-1006 542,-1006 542,-970 626,-970 626,-1006"/>
 <text text-anchor="middle" x="584" y="-984.6" font-family="Courier,monospace" font-size="11.00">MySQL_Util</text>
 </a>
 </g>
 <!-- \\MySQL_Util&#45;&gt;\\DB_Util -->
-<g id="edge21" class="edge"><title>\\MySQL_Util&#45;&gt;\\DB_Util</title>
+<g id="edge17" class="edge"><title>\\MySQL_Util&#45;&gt;\\DB_Util</title>
 <path fill="none" stroke="black" d="M541.447,-988C488.447,-988 397.876,-988 340.305,-988"/>
 <polygon fill="none" stroke="black" points="339.956,-984.5 329.956,-988 339.956,-991.5 339.956,-984.5"/>
 </g>
 <!-- \\MySQL -->
-<g id="node16" class="node"><title>\\MySQL</title>
+<g id="node17" class="node"><title>\\MySQL</title>
 <a xlink:href="drivers.mysql.mysql_driver.html" xlink:title="MySQL" target="_parent">
 <polygon fill="none" stroke="black" points="611,-466 557,-466 557,-430 611,-430 611,-466"/>
 <text text-anchor="middle" x="584" y="-444.6" font-family="Courier,monospace" font-size="11.00">MySQL</text>
 </a>
 </g>
 <!-- \\MySQL&#45;&gt;\\DB_PDO -->
-<g id="edge23" class="edge"><title>\\MySQL&#45;&gt;\\DB_PDO</title>
+<g id="edge19" class="edge"><title>\\MySQL&#45;&gt;\\DB_PDO</title>
 <path fill="none" stroke="black" d="M556.856,-448C507.751,-448 403.375,-448 339.79,-448"/>
 <polygon fill="none" stroke="black" points="339.566,-444.5 329.566,-448 339.566,-451.5 339.566,-444.5"/>
 </g>
 <!-- \\MySQL_SQL -->
-<g id="node17" class="node"><title>\\MySQL_SQL</title>
+<g id="node18" class="node"><title>\\MySQL_SQL</title>
 <a xlink:href="drivers.mysql.mysql_sql.html" xlink:title="MySQL_SQL" target="_parent">
 <polygon fill="none" stroke="black" points="623,-736 545,-736 545,-700 623,-700 623,-736"/>
 <text text-anchor="middle" x="584" y="-714.6" font-family="Courier,monospace" font-size="11.00">MySQL_SQL</text>
 </a>
 </g>
-<!-- \\MySQL_SQL&#45;&gt;\\DB_SQL -->
-<g id="edge25" class="edge"><title>\\MySQL_SQL&#45;&gt;\\DB_SQL</title>
-<path fill="none" stroke="black" d="M544.867,-718C492.265,-718 398.579,-718 339.781,-718"/>
-<polygon fill="none" stroke="black" points="339.584,-714.5 329.584,-718 339.584,-721.5 339.584,-714.5"/>
+<!-- \\MySQL_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge37" class="edge"><title>\\MySQL_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M544.867,-718C489.111,-718 387.199,-718 329.599,-718"/>
+<polygon fill="none" stroke="black" points="329.381,-714.5 319.381,-718 329.381,-721.5 329.381,-714.5"/>
 </g>
 <!-- \\SQLite_Util -->
-<g id="node18" class="node"><title>\\SQLite_Util</title>
+<g id="node19" class="node"><title>\\SQLite_Util</title>
 <a xlink:href="drivers.sqlite.sqlite_util.html" xlink:title="SQLite_Util" target="_parent">
 <polygon fill="none" stroke="black" points="629,-952 539,-952 539,-916 629,-916 629,-952"/>
 <text text-anchor="middle" x="584" y="-930.6" font-family="Courier,monospace" font-size="11.00">SQLite_Util</text>
 </a>
 </g>
 <!-- \\SQLite_Util&#45;&gt;\\DB_Util -->
-<g id="edge27" class="edge"><title>\\SQLite_Util&#45;&gt;\\DB_Util</title>
+<g id="edge21" class="edge"><title>\\SQLite_Util&#45;&gt;\\DB_Util</title>
 <path fill="none" stroke="black" d="M538.245,-942.319C484.784,-952.039 396.477,-968.095 340.06,-978.353"/>
 <polygon fill="none" stroke="black" points="339.125,-974.965 329.912,-980.198 340.377,-981.852 339.125,-974.965"/>
 </g>
 <!-- \\SQLite -->
-<g id="node19" class="node"><title>\\SQLite</title>
+<g id="node20" class="node"><title>\\SQLite</title>
 <a xlink:href="drivers.sqlite.sqlite_driver.html" xlink:title="SQLite" target="_parent">
 <polygon fill="none" stroke="black" points="612,-412 556,-412 556,-376 612,-376 612,-412"/>
 <text text-anchor="middle" x="584" y="-390.6" font-family="Courier,monospace" font-size="11.00">SQLite</text>
 </a>
 </g>
 <!-- \\SQLite&#45;&gt;\\DB_PDO -->
-<g id="edge29" class="edge"><title>\\SQLite&#45;&gt;\\DB_PDO</title>
+<g id="edge23" class="edge"><title>\\SQLite&#45;&gt;\\DB_PDO</title>
 <path fill="none" stroke="black" d="M555.42,-400.405C524.567,-407.21 473.936,-418.061 430,-426 400.191,-431.386 366.734,-436.58 339.68,-440.567"/>
 <polygon fill="none" stroke="black" points="339.035,-437.124 329.646,-442.034 340.047,-444.05 339.035,-437.124"/>
 </g>
 <!-- \\SQLite_SQL -->
-<g id="node20" class="node"><title>\\SQLite_SQL</title>
+<g id="node21" class="node"><title>\\SQLite_SQL</title>
 <a xlink:href="drivers.sqlite.sqlite_sql.html" xlink:title="SQLite_SQL" target="_parent">
 <polygon fill="none" stroke="black" points="626,-682 542,-682 542,-646 626,-646 626,-682"/>
 <text text-anchor="middle" x="584" y="-660.6" font-family="Courier,monospace" font-size="11.00">SQLite_SQL</text>
 </a>
 </g>
-<!-- \\SQLite_SQL&#45;&gt;\\DB_SQL -->
-<g id="edge31" class="edge"><title>\\SQLite_SQL&#45;&gt;\\DB_SQL</title>
-<path fill="none" stroke="black" d="M541.763,-671.68C488.583,-681.349 397.223,-697.959 339.576,-708.441"/>
-<polygon fill="none" stroke="black" points="338.785,-705.027 329.573,-710.26 340.037,-711.914 338.785,-705.027"/>
+<!-- \\SQLite_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge39" class="edge"><title>\\SQLite_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M541.763,-671.68C485.225,-681.959 385.535,-700.085 329.079,-710.349"/>
+<polygon fill="none" stroke="black" points="328.273,-706.938 319.06,-712.171 329.525,-713.825 328.273,-706.938"/>
 </g>
 <!-- \\Firebird_SQL -->
-<g id="node21" class="node"><title>\\Firebird_SQL</title>
+<g id="node22" class="node"><title>\\Firebird_SQL</title>
 <a xlink:href="drivers.firebird.firebird_sql.html" xlink:title="Firebird_SQL" target="_parent">
 <polygon fill="none" stroke="black" points="632,-628 536,-628 536,-592 632,-592 632,-628"/>
 <text text-anchor="middle" x="584" y="-606.6" font-family="Courier,monospace" font-size="11.00">Firebird_SQL</text>
 </a>
 </g>
-<!-- \\Firebird_SQL&#45;&gt;\\DB_SQL -->
-<g id="edge33" class="edge"><title>\\Firebird_SQL&#45;&gt;\\DB_SQL</title>
-<path fill="none" stroke="black" d="M535.322,-625.653C524.333,-629.291 512.742,-633.21 502,-637 446.048,-656.742 382.529,-680.889 339.128,-697.657"/>
-<polygon fill="none" stroke="black" points="337.7,-694.456 329.637,-701.329 340.227,-700.984 337.7,-694.456"/>
+<!-- \\Firebird_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge41" class="edge"><title>\\Firebird_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M535.322,-625.653C524.333,-629.291 512.742,-633.21 502,-637 441.327,-658.407 371.756,-684.995 328.588,-701.736"/>
+<polygon fill="none" stroke="black" points="327.316,-698.476 319.262,-705.359 329.85,-705.001 327.316,-698.476"/>
 </g>
 <!-- \\Firebird_Result -->
-<g id="node22" class="node"><title>\\Firebird_Result</title>
+<g id="node23" class="node"><title>\\Firebird_Result</title>
 <a xlink:href="drivers.firebird.firebird_result.html" xlink:title="Firebird_Result" target="_parent">
 <polygon fill="none" stroke="black" points="642,-196 526,-196 526,-160 642,-160 642,-196"/>
 <text text-anchor="middle" x="584" y="-174.6" font-family="Courier,monospace" font-size="11.00">Firebird_Result</text>
 </a>
 </g>
 <!-- \\PDOStatement -->
-<g id="node45" class="node"><title>\\PDOStatement</title>
+<g id="node41" class="node"><title>\\PDOStatement</title>
 <ellipse fill="none" stroke="black" cx="287" cy="-18" rx="85.1942" ry="18"/>
 <text text-anchor="middle" x="287" y="-13.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\PDOStatement</text>
 </g>
 <!-- \\Firebird_Result&#45;&gt;\\PDOStatement -->
-<g id="edge35" class="edge"><title>\\Firebird_Result&#45;&gt;\\PDOStatement</title>
+<g id="edge25" class="edge"><title>\\Firebird_Result&#45;&gt;\\PDOStatement</title>
 <path fill="none" stroke="black" d="M568.617,-159.537C543.074,-130.208 488.863,-73.3967 430,-45 413.026,-36.8113 393.802,-31.1023 375.082,-27.1231"/>
 <polygon fill="none" stroke="black" points="375.542,-23.6464 365.053,-25.141 374.184,-30.5136 375.542,-23.6464"/>
 </g>
 <!-- \\Firebird -->
-<g id="node23" class="node"><title>\\Firebird</title>
+<g id="node24" class="node"><title>\\Firebird</title>
 <a xlink:href="drivers.firebird.firebird_driver.html" xlink:title="Firebird" target="_parent">
 <polygon fill="none" stroke="black" points="619,-358 549,-358 549,-322 619,-322 619,-358"/>
 <text text-anchor="middle" x="584" y="-336.6" font-family="Courier,monospace" font-size="11.00">Firebird</text>
 </a>
 </g>
 <!-- \\Firebird&#45;&gt;\\DB_PDO -->
-<g id="edge37" class="edge"><title>\\Firebird&#45;&gt;\\DB_PDO</title>
+<g id="edge27" class="edge"><title>\\Firebird&#45;&gt;\\DB_PDO</title>
 <path fill="none" stroke="black" d="M548.914,-348.465C533.935,-352.851 516.582,-358.991 502,-367 465.738,-386.918 467.783,-409.147 430,-426 401.827,-438.566 367.775,-444.139 339.968,-446.536"/>
 <polygon fill="none" stroke="black" points="339.354,-443.072 329.642,-447.307 339.875,-450.053 339.354,-443.072"/>
 </g>
 <!-- \\Firebird_Util -->
-<g id="node24" class="node"><title>\\Firebird_Util</title>
+<g id="node25" class="node"><title>\\Firebird_Util</title>
 <a xlink:href="drivers.firebird.firebird_util.html" xlink:title="Firebird_Util" target="_parent">
 <polygon fill="none" stroke="black" points="636,-898 532,-898 532,-862 636,-862 636,-898"/>
 <text text-anchor="middle" x="584" y="-876.6" font-family="Courier,monospace" font-size="11.00">Firebird_Util</text>
 </a>
 </g>
 <!-- \\Firebird_Util&#45;&gt;\\DB_Util -->
-<g id="edge39" class="edge"><title>\\Firebird_Util&#45;&gt;\\DB_Util</title>
+<g id="edge29" class="edge"><title>\\Firebird_Util&#45;&gt;\\DB_Util</title>
 <path fill="none" stroke="black" d="M531.833,-896.81C521.902,-900.114 511.611,-903.609 502,-907 446.048,-926.742 382.529,-950.889 339.128,-967.657"/>
 <polygon fill="none" stroke="black" points="337.7,-964.456 329.637,-971.329 340.227,-970.984 337.7,-964.456"/>
 </g>
