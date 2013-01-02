@@ -5,7 +5,7 @@
  * Free Database manager for Open Source Databases
  *
  * @author 		Timothy J. Warren
- * @copyright	Copyright (c) 2012
+ * @copyright	Copyright (c) 2012 - 2013
  * @link 		https://github.com/aviat4ion/OpenSQLManager
  * @license 	http://philsturgeon.co.uk/code/dbad-license
  */

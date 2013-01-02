@@ -6,7 +6,7 @@
  *
  * @package		Query
  * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012
+ * @copyright	Copyright (c) 2012 - 2013
  * @link 		https://github.com/aviat4ion/Query
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
@@ -100,7 +100,7 @@ function db_filter($array, $index)
 function Query($params = '')
 {
 	static $connections;
-	
+
 	// If there's existing connection(s) just return it
 	if ( ! empty($connections))
 	{
@@ -109,12 +109,12 @@ function Query($params = '')
 		{
 			return $connections[$params];
 		}
-		elseif (empty($params) && isset($connections[0]))
+		elseif (empty($params) && isset($connections[0])) // Otherwise, return the last one
 		{
 			return end($connections);
 		}
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	// Convert array to object
@@ -142,7 +142,7 @@ function Query($params = '')
 	{
 		throw new BadDBDriverException('Database driver does not exist, or is not supported');
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	// Create the dsn for the database to connect to
@@ -183,7 +183,7 @@ function Query($params = '')
 	{
 		throw new BadConnectionException('Connection failed, invalid arguments', 2);
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	// Set the table prefix, if it exists
@@ -191,10 +191,10 @@ function Query($params = '')
 	{
 		$db->table_prefix = $params->prefix;
 	}
-	
+
 	// Create the Query Builder object
 	$conn = new Query_Builder($db, $params);
-	
+
 	// Save it for later
 	if (isset($params->alias))
 	{

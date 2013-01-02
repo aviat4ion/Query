@@ -5,7 +5,7 @@
  * Free Query Builder / Database Abstraction Layer
  *
  * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012
+ * @copyright	Copyright (c) 2012 - 2013
  * @link 		https://github.com/aviat4ion/Query
  * @license		http://philsturgeon.co.uk/code/dbad-license
  * @package		Query
