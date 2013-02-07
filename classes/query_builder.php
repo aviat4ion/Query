@@ -103,7 +103,7 @@ class Query_Builder implements iQuery_Builder {
 	 * @param DB_PDO $db
 	 * @param object $params - the connection parameters
 	 */
-	public function __construct(&$db, $params)
+	public function __construct($db, $params)
 	{
 		$this->db = $db;
 
@@ -117,7 +117,7 @@ class Query_Builder implements iQuery_Builder {
 		$this->parser = new Query_Parser();
 
 		// Make things just slightly shorter
-		$this->sql =& $this->db->sql;
+		$this->sql = $this->db->sql;
 	}
 
 	// --------------------------------------------------------------------------

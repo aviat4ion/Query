@@ -96,7 +96,7 @@ abstract class DB_PDO extends PDO {
 		}
 
 		// Set the statement in the class variable for easy later access
-		$this->statement =& $query;
+		$this->statement = $query;
 
 
 		if( ! (is_array($data) || is_object($data)))

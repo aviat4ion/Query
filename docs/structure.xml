@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project version="2.0.0a2" title="Query">
-  <file path="classes/query_parser.php" hash="25771b2eb2a605968892611a0250ef04" package="Query">
+  <file path="classes/query_parser.php" hash="1c64042730f9b7aef4ad7ed401e2a274" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -98,13 +98,13 @@
       </method>
     </class>
   </file>
-  <file path="classes/db_pdo.php" hash="f523169cebb46880c4cd601b0e1a6df6" package="Query">
+  <file path="classes/db_pdo.php" hash="0830df1a0053f5aa873a00f33230ab25" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -579,13 +579,13 @@ the connection/database]]></description>
       </method>
     </class>
   </file>
-  <file path="classes/query_builder.php" hash="1e903d569d2cf08394a7446d04ed0dd6" package="Query">
+  <file path="classes/query_builder.php" hash="35702ce75a03e51325ec66d05f12e4be" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -2060,12 +2060,12 @@ in place of the get() method]]></description>
       </method>
     </class>
   </file>
-  <file path="classes/idb_sql.php" hash="3fe43621cfb5b4618f99ab99d858d0d4" package="Query">
+  <file path="classes/idb_sql.php" hash="845daf929416add8585e81dcc3fcc74c" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
       <tag line="2" name="package" description="Query"/>
@@ -2247,13 +2247,13 @@ specified table]]></description>
       </method>
     </interface>
   </file>
-  <file path="classes/iquery_builder.php" hash="7805b4cd6b7d7e5798361dd2ecd49bc7" package="Query">
+  <file path="classes/iquery_builder.php" hash="6506bb7b60447f024501330809643e1f" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -3281,13 +3281,13 @@ in place of the get() method]]></description>
       </method>
     </interface>
   </file>
-  <file path="classes/db_util.php" hash="f73643c03b590eeca3bcdc6ea014e871" package="Query">
+  <file path="classes/db_util.php" hash="dc7951c57dc06ec5a1a997f40caf14fc" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -3315,7 +3315,7 @@ in place of the get() method]]></description>
         <docblock line="29">
           <description><![CDATA[Save a reference to the connection object for later use]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="29" name="param" description="&amp;$conn" type="object" variable="$conn">
+          <tag line="29" name="param" description="" type="object" variable="$conn">
             <type by_reference="false">object</type>
           </tag>
         </docblock>
@@ -3439,13 +3439,13 @@ in place of the get() method]]></description>
       </method>
     </class>
   </file>
-  <file path="autoload.php" hash="7101f1c5425880be2dc57a0b5a9f7b50" package="Query">
+  <file path="autoload.php" hash="b4809418736de74a636101819f2ba2fa" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -3485,13 +3485,13 @@ in place of the get() method]]></description>
       </argument>
     </function>
   </file>
-  <file path="common.php" hash="da854f672c8d89447e314b444d976ce5" package="Query">
+  <file path="common.php" hash="e43f78d39a7599eb44291581225c6346" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -3601,12 +3601,12 @@ with array_map and glob]]></description>
       </docblock>
     </class>
   </file>
-  <file path="drivers/pgsql/pgsql_sql.php" hash="52905141d0a17c71b8f8ea2c17517a1b" package="Default">
+  <file path="drivers/pgsql/pgsql_sql.php" hash="bd58a99e97a23d660b1de9548048b175" package="Default">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -3787,13 +3787,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/pgsql/pgsql_util.php" hash="816ab084697ad27d38ec2b93bac0cbc5" package="Query">
+  <file path="drivers/pgsql/pgsql_util.php" hash="232394fcf8ef0d57611093d5efbc134d" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -3923,13 +3923,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/pgsql/pgsql_driver.php" hash="2b6ace6949ad36d175338b6deacd0d63" package="Query">
+  <file path="drivers/pgsql/pgsql_driver.php" hash="ccdbd5f862a41d8abd68dfb34871dbc7" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -4012,13 +4012,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/odbc/odbc_util.php" hash="e3254c43700cf53c79566c0590e5ca29" package="Query">
+  <file path="drivers/odbc/odbc_util.php" hash="f4220b2e86cbee7329f85d419fd7d23c" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -4137,13 +4137,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/odbc/odbc_sql.php" hash="0d575fd6d120a666a0597d9962eefad4" package="Query">
+  <file path="drivers/odbc/odbc_sql.php" hash="5187e48fbbad272f6906cbe630cddc96" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -4324,13 +4324,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/odbc/odbc_driver.php" hash="7463d2c5935b882936076f0110ba7e96" package="Query">
+  <file path="drivers/odbc/odbc_driver.php" hash="21b5bca5c1acff6950b123062a68f087" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -4413,13 +4413,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/mysql/mysql_util.php" hash="6db0980771c6970cdd15443a8dd4b287" package="Query">
+  <file path="drivers/mysql/mysql_util.php" hash="3ca27484a6d5aedd3cb6e56d9f33290a" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -4546,13 +4546,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/mysql/mysql_driver.php" hash="7ee51ee5d0687c391da1d528aea8d562" package="Query">
+  <file path="drivers/mysql/mysql_driver.php" hash="e403f5fd4a9308feb81a0cfbf452b56a" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -4635,13 +4635,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/mysql/mysql_sql.php" hash="475d11427659e614b66ab2e68b71aa07" package="Query">
+  <file path="drivers/mysql/mysql_sql.php" hash="ae46d0289fcf1bd97489d63aea28353a" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -4830,13 +4830,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/sqlite/sqlite_util.php" hash="18cd637365896dd9cf94066e517cdaa8" package="Query">
+  <file path="drivers/sqlite/sqlite_util.php" hash="eb3c58fa8bf9bb273ac838b13c2aded7" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -4963,13 +4963,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/sqlite/sqlite_driver.php" hash="0b3e970136fdf6c2acdc0ae7e5041394" package="Query">
+  <file path="drivers/sqlite/sqlite_driver.php" hash="618f0a64de20f7d6d70f7d3fe2a2c7de" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -5106,13 +5106,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/sqlite/sqlite_sql.php" hash="2518198411cb1d40441ff02bdc873864" package="Query">
+  <file path="drivers/sqlite/sqlite_sql.php" hash="d20f6f6b123b84146decc8546f416bed" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -5293,13 +5293,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/firebird/firebird_sql.php" hash="28ad225bffe02beabb969633be324f33" package="Query">
+  <file path="drivers/firebird/firebird_sql.php" hash="f3e770a33dbd356605b707d83b505f10" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -5480,13 +5480,13 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/firebird/firebird_result.php" hash="d713425d6dc82a16618de449f0ef39f9" package="Query">
+  <file path="drivers/firebird/firebird_result.php" hash="71ef606e173509e5ba52fea00cdf9493" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -5856,13 +5856,13 @@ the query]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/firebird/firebird_driver.php" hash="193b38c4b6a47ae29903810ee7f4daeb" package="Query">
+  <file path="drivers/firebird/firebird_driver.php" hash="e8f74bb0de8f55b76fbe7c3177dd4a55" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
@@ -6153,13 +6153,13 @@ the last query executed]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/firebird/firebird_util.php" hash="a3d7c263c45909cc13e414913fcb9b68" package="Query">
+  <file path="drivers/firebird/firebird_util.php" hash="4bb834086d2cff626c27e2c405616e00" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
       <tag line="2" name="package" description="Query"/>
       <tag line="2" name="author" description="Timothy J. Warren"/>
-      <tag line="2" name="copyright" description="Copyright (c) 2012"/>
+      <tag line="2" name="copyright" description="Copyright (c) 2012 - 2013"/>
       <tag line="2" name="link" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag line="2" name="license" description="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>

@@ -29,9 +29,9 @@ abstract class DB_Util {
 	/**
 	 * Save a reference to the connection object for later use
 	 *
-	 * @param object &$conn
+	 * @param object $conn
 	 */
-	public function __construct(&$conn)
+	public function __construct($conn)
 	{
 		$this->conn = $conn; 
 	}

@@ -198,11 +198,11 @@ function Query($params = '')
 	// Save it for later
 	if (isset($params->alias))
 	{
-		$connections[$params->alias] =& $conn;
+		$connections[$params->alias] = $conn;
 	}
 	else
 	{
-		$connections[] =& $conn;
+		$connections[] = $conn;
 	}
 
 	// Return the Query Builder object
