@@ -116,6 +116,8 @@ class Query_Builder implements iQuery_Builder {
 		// Instantiate the Query Parser
 		$this->parser = new Query_Parser();
 
+		$this->queries['total_time'] = 0;
+
 		// Make things just slightly shorter
 		$this->sql = $this->db->sql;
 	}
@@ -1190,9 +1192,30 @@ class Query_Builder implements iQuery_Builder {
 		$sql = $this->_compile($type, $table);
 		$vals = array_merge($this->values, (array) $this->where_values);
 
+		$start_time = microtime(TRUE);
+
 		$res = ($simple)
 			? $this->db->query($sql)
 			: $this->db->prepare_execute($sql, $vals);
+
+		$end_time = microtime(TRUE);
+
+		$total_time = number_format($end_time - $start_time, 5);
+
+		// Add the interpreted query to the list of executed queries
+		$esql = str_replace('?', '%s', $sql);
+		array_unshift($vals, $esql);
+
+		$this->queries[] = array(
+			'time' => $total_time,
+			'sql' => call_user_func_array('sprintf', $vals),
+		);
+		$this->queries['total_time'] += $total_time;
+
+		array_shift($vals);
+
+		// Set the last query to get rowcounts properly
+		$this->db->last_query = $sql;
 
 		$this->reset_query();
 
@@ -1299,14 +1322,6 @@ class Query_Builder implements iQuery_Builder {
 		{
 			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
 		}
-
-		// Add the query to the list of executed queries
-		$this->queries[] = $sql;
-
-		// Set the last query to get rowcounts properly
-		$this->db->last_query = $sql;
-
-		// echo $sql . '<br />';
 
 		return $sql;
 	}

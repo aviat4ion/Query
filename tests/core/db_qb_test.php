@@ -18,16 +18,21 @@
  */
 abstract class QBTest extends UnitTestCase {
 
+	public function __destruct()
+	{
+		// echo '<pre>' . print_r($this->db->queries, TRUE) . '</pre>';
+	}
+
 	// --------------------------------------------------------------------------
 	// ! Get Tests
 	// --------------------------------------------------------------------------
-	
+
 	public function TestQueryFunctionAlias()
 	{
 		if (empty($this->db)) return;
-		
+
 		$db = Query();
-		
+
 		$this->assertReference($this->db, $db);
 	}
 

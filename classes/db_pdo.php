@@ -37,7 +37,7 @@ abstract class DB_PDO extends PDO {
 
 	// Last query executed
 	public $last_query;
-	
+
 	// Prefix to apply to table namesa
 	public $table_prefix = '';
 
@@ -62,7 +62,7 @@ abstract class DB_PDO extends PDO {
 		$this->util = new $class($this);
 
 		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
+
 		// Set additional driver options, if they exist
 		if ( ! empty($driver_options) && is_array($driver_options))
 		{
@@ -196,21 +196,21 @@ abstract class DB_PDO extends PDO {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Quote database table name, and set prefix
-	 *  
+	 *
 	 * @param string $table
 	 * @return string
 	 */
 	public function quote_table($table)
-	{		
+	{
 		// If there isn't a prefix set, just quote the table name
 		if (empty($this->table_prefix))
 		{
 			return $this->quote_ident($table);
 		}
-		
+
 		// Split indentifier by period, will split into:
 		// database.schema.table OR
 		// schema.table OR
@@ -218,25 +218,25 @@ abstract class DB_PDO extends PDO {
 		// table
 		$idents = (array) explode('.', $table);
 		$segments = count($idents);
-		
+
 		// Reference the last item in the split string
 		$last =& $idents[$segments - 1];
-		
+
 	    // Quote the last item
 	    $last = $this->_prefix($last);
-	    
+
 	    // Rejoin
-	    $table = implode('.', $idents); 
-		
+	    $table = implode('.', $idents);
+
 		// Finally, quote the table
 		return $this->quote_ident($table);
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
-	/** 
+
+	/**
 	 * Sets the table prefix on the passed string
-	 * 
+	 *
 	 * @param string $str
 	 * @return string
 	 */
@@ -247,10 +247,10 @@ abstract class DB_PDO extends PDO {
 		{
 			return $str;
 		}
-		
+
 		return $this->table_prefix.$str;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
