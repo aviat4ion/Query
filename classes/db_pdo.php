@@ -279,8 +279,23 @@ abstract class DB_PDO extends PDO {
 		$hiers = explode('.', $ident);
 		$hiers = array_map('mb_trim', $hiers);
 
-		// Return the re-compiled string
-		return implode('.', array_map(array($this, '_quote'), $hiers));
+		// Re-compile the string
+		$raw = implode('.', array_map(array($this, '_quote'), $hiers));
+
+		// Fix functions
+		$funcs = array();
+		preg_match_all("#{$this->escape_char}([a-zA-Z0-9_]+(\((.*?)\))){$this->escape_char}#iu", $raw, $funcs, PREG_SET_ORDER);
+		foreach($funcs as $f)
+		{
+			// Unquote the function
+			$raw = str_replace($f[0], $f[1], $raw);
+
+			// Quote the inside identifiers
+			$raw = str_replace($f[3], $this->quote_ident($f[3]), $raw);
+		}
+
+		return $raw;
+
 	}
 
 	// --------------------------------------------------------------------------

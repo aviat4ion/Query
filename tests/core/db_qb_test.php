@@ -36,6 +36,22 @@ abstract class QBTest extends UnitTestCase {
 		$this->assertReference($this->db, $db);
 	}
 
+	// --------------------------------------------------------------------------
+
+	public function TestFunctionGet()
+	{
+		if (empty($this->db))  return;
+
+		$query = $this->db->select('id, COUNT(id) as count')
+			->from('test')
+			->group_by('id')
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
 	public function TestGet()
 	{
 		if (empty($this->db))  return;
