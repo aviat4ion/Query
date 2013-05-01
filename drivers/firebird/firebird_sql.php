@@ -55,7 +55,7 @@ class Firebird_SQL implements iDB_SQL {
 	 */
 	public function random()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 		
@@ -64,11 +64,11 @@ class Firebird_SQL implements iDB_SQL {
 	/**
 	 * Returns sql to list other databases
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function db_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------

@@ -1020,6 +1020,41 @@ class Query_Builder implements iQuery_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Creates a batch insert clause and executes it
+	 *
+	 * @param string $table
+	 * @param mixed $data
+	 * @return mixed
+	 */
+	public function insert_batch($table, $data=array())
+	{
+		// Bail out on Firebird and ODBC
+		$driver = str_replace('_sql', '', mb_strtolower(get_class($this->sql)));
+		
+		if ($driver == 'firebird' || $driver == 'odbc')
+		{
+			return NULL;
+		}
+	
+		// Can't use normal set, because it doesn't handle multidimensional arrays
+		foreach($data as $key => $arr)
+		{
+			foreach($arr as $k => $v)
+			{
+				$this->set_array_keys[$key][] = $k;
+				$this->values[] = $v;
+			}
+			
+			// Escape the field names
+			$this->set_array_keys[$key] = $this->db->quote_ident($this->set_array_keys[$key]);
+		}
+		
+		return $this->_run("insert_batch", $table);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Creates an update clause, and executes it
 	 *
 	 * @param string $table
@@ -1192,6 +1227,15 @@ class Query_Builder implements iQuery_Builder {
 		$sql = $this->_compile($type, $table);
 		$vals = array_merge($this->values, (array) $this->where_values);
 
+		// Add quotes to 'string' values
+		foreach($vals as &$v)
+		{
+			if ( ! is_numeric($v))
+			{
+				$v = "'{$v}'";
+			}
+		}
+
 		$start_time = microtime(TRUE);
 
 		$res = ($simple)
@@ -1217,6 +1261,7 @@ class Query_Builder implements iQuery_Builder {
 		// Set the last query to get rowcounts properly
 		$this->db->last_query = $sql;
 
+		// Reset class state for next query
 		$this->reset_query();
 
 		return $res;
@@ -1276,6 +1321,25 @@ class Query_Builder implements iQuery_Builder {
 				$sql = "INSERT INTO {$table} ("
 					. implode(',', $this->set_array_keys) .
 					') VALUES ('.implode(',', $params).')';
+			break;
+			
+			case "insert_batch":
+				$param_count = count($this->set_array_keys[0]);
+				$params = array_fill(0, $param_count, '?');
+				$sql = "INSERT INTO {$table} ("
+					. implode(',', $this->set_array_keys[0]) 
+					. ') VALUES ( '
+					. implode(',', $params) . ')';
+					
+				// Remove the first set from the array
+				array_shift($this->set_array_keys);
+				
+				// Add another set of placeholders for each batch group	
+				foreach($this->set_array_keys as $group)
+				{
+					$sql .= ',('.implode(',', $params).')';
+				}
+				
 			break;
 
 			case "update":

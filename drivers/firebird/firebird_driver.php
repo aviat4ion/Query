@@ -161,7 +161,7 @@ class Firebird extends DB_PDO {
 			return TRUE;
 		}
 
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -260,13 +260,13 @@ class Firebird extends DB_PDO {
 	 *
 	 * @param string $sql
 	 * @param array $params
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function prepare_query($sql, $params)
 	{
 		// You can't bind query statements before execution with
 		// the firebird database
-		return FALSE;
+		return NULL;
 	}
 }
 // End of firebird_driver.php

@@ -20,7 +20,7 @@ abstract class QBTest extends UnitTestCase {
 
 	public function __destruct()
 	{
-		// echo '<pre>' . print_r($this->db->queries, TRUE) . '</pre>';
+		//echo '<pre>' . print_r($this->db->queries, TRUE) . '</pre>';
 	}
 
 	// --------------------------------------------------------------------------
@@ -416,6 +416,32 @@ abstract class QBTest extends UnitTestCase {
 	}
 
 	// --------------------------------------------------------------------------
+
+	public function TestLeftJoin()
+	{
+		if (empty($this->db))  return;
+
+		$query = $this->db->from('create_test ct')
+			->join('join cj', 'cj.id = ct.id', 'left')
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function TestInnerJoin()
+	{
+		if (empty($this->db))  return;
+
+		$query = $this->db->from('create_test ct')
+			->join('join cj', 'cj.id = ct.id', 'inner')
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
 	// ! DB update tests
 	// --------------------------------------------------------------------------
 
@@ -427,6 +453,35 @@ abstract class QBTest extends UnitTestCase {
 			->set('key', 4)
 			->set('val', 5)
 			->insert('test');
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+	
+	// --------------------------------------------------------------------------
+
+	public function TestInsertBatch()
+	{
+		if (empty($this->db))  return;
+		
+		$insert_array = array(
+			array(
+				'id' => 6,
+				'key' => 2,
+				'val' => 3
+			),
+			array(
+				'id' => 5,
+				'key' => 6,
+				'val' => 7
+			),
+			array(
+				'id' => 8,
+				'key' => 1,
+				'val' => 2
+			)
+		);
+
+		$query = $this->db->insert_batch('test', $insert_array);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}

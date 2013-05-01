@@ -43,7 +43,7 @@ class ODBC_SQL implements iDB_SQL {
 	 */
 	public function random()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -51,11 +51,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * Returns sql to list other databases
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function db_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -63,11 +63,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * Returns sql to list tables
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function table_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -75,11 +75,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * Returns sql to list system tables
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function system_table_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -87,11 +87,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * Returns sql to list views
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function view_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -99,11 +99,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * Returns sql to list triggers
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function trigger_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -111,11 +111,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * Return sql to list functions
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function function_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -123,11 +123,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * Return sql to list stored procedures
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function procedure_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -135,11 +135,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * Return sql to list sequences
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function sequence_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------
@@ -147,11 +147,11 @@ class ODBC_SQL implements iDB_SQL {
 	/**
 	 * SQL to show list of field types
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function type_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------
@@ -160,11 +160,11 @@ class ODBC_SQL implements iDB_SQL {
 	 * SQL to show infromation about columns in a table
 	 *
 	 * @param string $table
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function column_list($table)
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 }

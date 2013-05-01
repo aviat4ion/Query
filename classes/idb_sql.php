@@ -78,7 +78,7 @@ interface iDB_SQL {
 	/**
 	 * Return sql to list functions
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function function_list();
 
@@ -111,5 +111,6 @@ interface iDB_SQL {
 	 * @return string
 	 */
 	public function column_list($table);
+
 }
 // End of db_sql.php

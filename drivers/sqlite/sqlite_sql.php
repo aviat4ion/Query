@@ -56,11 +56,11 @@ class SQLite_SQL implements iDB_SQL {
 	/**
 	 * Returns sql to list other databases
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function db_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -89,7 +89,7 @@ SQL;
 	 */
 	public function system_table_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -111,11 +111,11 @@ SQL;
 	/**
 	 * Returns sql to list triggers
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function trigger_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -123,11 +123,11 @@ SQL;
 	/**
 	 * Return sql to list functions
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function function_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -135,11 +135,11 @@ SQL;
 	/**
 	 * Return sql to list stored procedures
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function procedure_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -147,11 +147,11 @@ SQL;
 	/**
 	 * Return sql to list sequences
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function sequence_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------

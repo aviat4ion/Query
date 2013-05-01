@@ -144,11 +144,11 @@ SQL;
 	/**
 	 * Return sql to list functions
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function function_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------

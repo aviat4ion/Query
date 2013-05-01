@@ -46,7 +46,7 @@ class ODBC_Util extends DB_Util {
 	public function create_table($name, $columns, array $constraints=array(), array $indexes=array())
 	{
 		//ODBC can't know how to create a table
-		return FALSE;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------

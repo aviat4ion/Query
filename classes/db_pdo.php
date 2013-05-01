@@ -61,6 +61,7 @@ abstract class DB_PDO extends PDO {
 		$class = get_class($this)."_util";
 		$this->util = new $class($this);
 
+		// Set PDO to display errors as exceptions
 		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		// Set additional driver options, if they exist
@@ -92,7 +93,7 @@ abstract class DB_PDO extends PDO {
 		if( ! (is_object($query) || is_resource($query)))
 		{
 			$this->get_last_error();
-			return FALSE;
+			return NULL;
 		}
 
 		// Set the statement in the class variable for easy later access
@@ -102,7 +103,7 @@ abstract class DB_PDO extends PDO {
 		if( ! (is_array($data) || is_object($data)))
 		{
 			trigger_error("Invalid data argument");
-			return FALSE;
+			return NULL;
 		}
 
 		// Bind the parameters
@@ -118,7 +119,7 @@ abstract class DB_PDO extends PDO {
 			if( ! $res)
 			{
 				trigger_error("Parameter not successfully bound");
-				return FALSE;
+				return NULL;
 			}
 		}
 
@@ -348,7 +349,7 @@ abstract class DB_PDO extends PDO {
 	 */
 	public function get_schemas()
 	{
-		return FALSE;
+		return NULL;
 	}
 
 	// -------------------------------------------------------------------------
@@ -485,9 +486,9 @@ abstract class DB_PDO extends PDO {
 	public function driver_query($sql, $filtered_index=TRUE)
 	{
 		// Return if the query doesn't apply to the driver
-		if ($sql === FALSE)
+		if ($sql === NULL)
 		{
-			return FALSE;
+			return NULL;
 		}
 
 		// Return predefined data
@@ -523,7 +524,7 @@ abstract class DB_PDO extends PDO {
 			return $stmt->fetchColumn();
 		}
 
-		return FALSE;
+		return NULL;
 	}
 
 	// -------------------------------------------------------------------------

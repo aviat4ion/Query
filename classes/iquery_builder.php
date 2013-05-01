@@ -32,7 +32,7 @@ interface iQuery_Builder {
 	 * @return $this
 	 */
 	public function select($fields);
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -252,7 +252,7 @@ interface iQuery_Builder {
 	 * @return $this
 	 */
 	public function set($key, $val = NULL);
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -385,7 +385,7 @@ interface iQuery_Builder {
 	 * @return int
 	 */
 	public function count_all_results($table='');
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -396,6 +396,17 @@ interface iQuery_Builder {
 	 * @return mixed
 	 */
 	public function insert($table, $data=array());
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Creates a batch insert clause, and executes it
+	 *
+	 * @param string $table
+	 * @param mixed $data
+	 * @return mixed
+	 */
+	public function insert_batch($table, $data=array());
 
 	// --------------------------------------------------------------------------
 

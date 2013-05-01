@@ -78,11 +78,11 @@ class Firebird_Result extends PDOStatement {
 	 * @param int $type
 	 * @param mixed $maxlen
 	 * @param array $driverdata
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function bindColumn($column, &$param, $type=NULL, $maxlen=NULL, $driverdata=NULL)
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------
@@ -95,11 +95,11 @@ class Firebird_Result extends PDOStatement {
 	 * @param int $data_type
 	 * @param mixed $maxlen
 	 * @param array $driverdata
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function bindParam($parameter, &$variable, $data_type=NULL, $maxlen=NULL, $driverdata=NULL)
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------
@@ -110,11 +110,11 @@ class Firebird_Result extends PDOStatement {
 	 * @param mixed $parameter
 	 * @param mixed &$variable
 	 * @param int $data_type
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function bindValue($parameter, $variable, $data_type=NULL)
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------
@@ -158,16 +158,16 @@ class Firebird_Result extends PDOStatement {
 		// If there is no result, continue
 		if (empty($this->result))
 		{
-			return FALSE;
+			return NULL;
 		}
 		
 		// Keep track of the current row being fetched
 		++$this->row;
 		
-		// Return false if the next row doesn't exist
+		// return NULL if the next row doesn't exist
 		if ( ! isset($this->result[$this->row]))
 		{
-			return FALSE;
+			return NULL;
 		}
 		
 		switch($fetch_style)

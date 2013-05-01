@@ -80,6 +80,7 @@ execute current compiled query</span><pre>get()</pre></a></li>
 <li class="method public "><a href="#group_start" title="group_start :: Adds a paren to the current query for query grouping"><span class="description">Adds a paren to the current query for query grouping</span><pre>group_start()</pre></a></li>
 <li class="method public "><a href="#having" title="having :: Generates a 'Having' clause"><span class="description">Generates a 'Having' clause</span><pre>having()</pre></a></li>
 <li class="method public "><a href="#insert" title="insert :: Creates an insert clause, and executes it"><span class="description">Creates an insert clause, and executes it</span><pre>insert()</pre></a></li>
+<li class="method public "><a href="#insert_batch" title="insert_batch :: Creates a batch insert clause and executes it"><span class="description">Creates a batch insert clause and executes it</span><pre>insert_batch()</pre></a></li>
 <li class="method public "><a href="#join" title="join :: Creates a join phrase in a compiled query"><span class="description">Creates a join phrase in a compiled query</span><pre>join()</pre></a></li>
 <li class="method public "><a href="#like" title="like :: Creates a Like clause in the sql statement"><span class="description">Creates a Like clause in the sql statement</span><pre>like()</pre></a></li>
 <li class="method public "><a href="#limit" title="limit :: Set a limit on the current sql statement"><span class="description">Set a limit on the current sql statement</span><pre>limit()</pre></a></li>
@@ -483,6 +484,25 @@ execute current compiled query</h2>
 <a name="insert" id="insert"></a><div class="element clickable method public insert" data-toggle="collapse" data-target=".insert .collapse">
 <h2>Creates an insert clause, and executes it</h2>
 <pre>insert(string $table, mixed $data) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>mixed</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="insert_batch" id="insert_batch"></a><div class="element clickable method public insert_batch" data-toggle="collapse" data-target=".insert_batch .collapse">
+<h2>Creates a batch insert clause and executes it</h2>
+<pre>insert_batch(string $table, mixed $data) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -1361,7 +1381,7 @@ passed array with key / value pairs</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2013-04-25T08:15:20-04:00.<br></footer></div>
+            generated on 2013-05-01T15:58:51-04:00.<br></footer></div>
 </div>
 </body>
 </html>

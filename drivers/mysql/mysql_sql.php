@@ -146,11 +146,11 @@ class MySQL_SQL implements iDB_SQL {
 	/**
 	 * Return sql to list sequences
 	 *
-	 * @return FALSE
+	 * @return NULL
 	 */
 	public function sequence_list()
 	{
-		return FALSE;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------
