@@ -465,17 +465,17 @@ abstract class QBTest extends UnitTestCase {
 		
 		$insert_array = array(
 			array(
-				'id' => 6,
+				'id' => 11,
 				'key' => 2,
 				'val' => 3
 			),
 			array(
-				'id' => 5,
+				'id' => 12,
 				'key' => 6,
 				'val' => 7
 			),
 			array(
-				'id' => 8,
+				'id' => 13,
 				'key' => 1,
 				'val' => 2
 			)

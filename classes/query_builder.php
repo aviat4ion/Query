@@ -1039,9 +1039,11 @@ class Query_Builder implements iQuery_Builder {
 		// Can't use normal set, because it doesn't handle multidimensional arrays
 		foreach($data as $key => $arr)
 		{
+			$this->set_array_keys[$key] = array();
+		
 			foreach($arr as $k => $v)
 			{
-				$this->set_array_keys[$key][] = $k;
+				array_push($this->set_array_keys[$key], $k);
 				$this->values[] = $v;
 			}
 			
