@@ -400,17 +400,6 @@ interface iQuery_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Creates a batch insert clause, and executes it
-	 *
-	 * @param string $table
-	 * @param mixed $data
-	 * @return mixed
-	 */
-	public function insert_batch($table, $data=array());
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Creates an update clause, and executes it
 	 *
 	 * @param string $table

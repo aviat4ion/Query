@@ -1020,43 +1020,6 @@ class Query_Builder implements iQuery_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Creates a batch insert clause and executes it
-	 *
-	 * @param string $table
-	 * @param mixed $data
-	 * @return mixed
-	 */
-	public function insert_batch($table, $data=array())
-	{
-		// Bail out on Firebird and ODBC
-		$driver = str_replace('_sql', '', mb_strtolower(get_class($this->sql)));
-		
-		if ($driver == 'firebird' || $driver == 'odbc')
-		{
-			return NULL;
-		}
-	
-		// Can't use normal set, because it doesn't handle multidimensional arrays
-		foreach($data as $key => $arr)
-		{
-			$this->set_array_keys[$key] = array();
-		
-			foreach($arr as $k => $v)
-			{
-				array_push($this->set_array_keys[$key], $k);
-				$this->values[] = $v;
-			}
-			
-			// Escape the field names
-			$this->set_array_keys[$key] = $this->db->quote_ident($this->set_array_keys[$key]);
-		}
-		
-		return $this->_run("insert_batch", $table);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Creates an update clause, and executes it
 	 *
 	 * @param string $table
@@ -1323,25 +1286,6 @@ class Query_Builder implements iQuery_Builder {
 				$sql = "INSERT INTO {$table} ("
 					. implode(',', $this->set_array_keys) .
 					') VALUES ('.implode(',', $params).')';
-			break;
-			
-			case "insert_batch":
-				$param_count = count($this->set_array_keys[0]);
-				$params = array_fill(0, $param_count, '?');
-				$sql = "INSERT INTO {$table} ("
-					. implode(',', $this->set_array_keys[0]) 
-					. ') VALUES ( '
-					. implode(',', $params) . ')';
-					
-				// Remove the first set from the array
-				array_shift($this->set_array_keys);
-				
-				// Add another set of placeholders for each batch group	
-				foreach($this->set_array_keys as $group)
-				{
-					$sql .= ',('.implode(',', $params).')';
-				}
-				
 			break;
 
 			case "update":

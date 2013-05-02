@@ -456,35 +456,6 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
-	// --------------------------------------------------------------------------
-
-	public function TestInsertBatch()
-	{
-		if (empty($this->db))  return;
-		
-		$insert_array = array(
-			array(
-				'id' => 11,
-				'key' => 2,
-				'val' => 3
-			),
-			array(
-				'id' => 12,
-				'key' => 6,
-				'val' => 7
-			),
-			array(
-				'id' => 13,
-				'key' => 1,
-				'val' => 2
-			)
-		);
-
-		$query = $this->db->insert_batch('test', $insert_array);
-
-		$this->assertIsA($query, 'PDOStatement');
-	}
 
 	// --------------------------------------------------------------------------
 
