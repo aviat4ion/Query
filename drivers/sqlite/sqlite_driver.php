@@ -125,5 +125,20 @@ SQL;
 
 		$this->statement->execute();
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/** 
+	 * Create sql for batch insert
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return string
+	 */
+	public function insert_batch($table, $data=array())
+	{
+		// This is not very applicable to the firebird database
+		return NULL;
+	}
 }
 //End of sqlite_driver.php

@@ -65,6 +65,8 @@ class FirebirdQBTest extends QBTest {
 
 		$this->assertNull($query);
 	}
+	
+	// --------------------------------------------------------------------------
 
 	public function TestTypeList()
 	{

@@ -31,4 +31,33 @@
 
 		// echo '<hr /> SQLite Queries <hr />';
  	}
+ 	
+ 	// --------------------------------------------------------------------------
+ 	
+ 	public function TestInsertBatch()
+	{
+		if (empty($this->db))  return;
+		
+		$insert_array = array(
+			array(
+				'id' => 6,
+				'key' => 2,
+				'val' => 3
+			),
+			array(
+				'id' => 5,
+				'key' => 6,
+				'val' => 7
+			),
+			array(
+				'id' => 8,
+				'key' => 1,
+				'val' => 2
+			)
+		);
+
+		$query = $this->db->insert_batch('test', $insert_array);
+
+		$this->assertNull($query);
+	}
 }

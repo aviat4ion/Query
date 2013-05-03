@@ -99,6 +99,7 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <li class="method public inherited"><a href="#get_views" title="get_views :: Return list of views for the current database"><span class="description">Return list of views for the current database</span><pre>get_views()</pre></a></li>
 <li class="method public inherited"><a href="#inTransaction" title="inTransaction :: "><span class="description">inTransaction()
         </span><pre>inTransaction()</pre></a></li>
+<li class="method public inherited"><a href="#insert_batch" title="insert_batch :: Create sql for batch insert"><span class="description">Create sql for batch insert</span><pre>insert_batch()</pre></a></li>
 <li class="method public inherited"><a href="#lastInsertId" title="lastInsertId :: "><span class="description">lastInsertId()
         </span><pre>lastInsertId()</pre></a></li>
 <li class="method public inherited"><a href="#num_rows" title="num_rows :: Return the number of rows returned for a SELECT query"><span class="description">Return the number of rows returned for a SELECT query</span><pre>num_rows()</pre></a></li>
@@ -618,6 +619,29 @@ the connection/database</h2>
 </table>
 </div></div>
 </div>
+<a name="insert_batch" id="insert_batch"></a><div class="element clickable method public insert_batch" data-toggle="collapse" data-target=".insert_batch .collapse">
+<h2>Create sql for batch insert</h2>
+<pre>insert_batch(string $table, array $data) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DB_PDO::insert_batch()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
 <a name="lastInsertId" id="lastInsertId"></a><div class="element clickable method public lastInsertId" data-toggle="collapse" data-target=".lastInsertId .collapse">
 <h2>lastInsertId()
         </h2>
@@ -963,7 +987,7 @@ the connection/database</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2013-05-02T12:51:15-04:00.<br></footer></div>
+            generated on 2013-05-03T13:07:08-04:00.<br></footer></div>
 </div>
 </body>
 </html>

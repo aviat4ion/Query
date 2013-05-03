@@ -1016,6 +1016,28 @@ class Query_Builder implements iQuery_Builder {
 
 		return $this->_run("insert", $table);
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/** 
+	 * Create sql for batch insert
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return string
+	 */
+	public function insert_batch($table, $data=array())
+	{
+		// Get the generated values and sql string
+		list($sql, $data) = $this->db->insert_batch($table, $data);
+		
+		if ( ! is_null($sql))
+		{
+			return $this->_run('', $table, FALSE, $sql, $data);
+		}
+		
+		return NULL;
+	}
 
 	// --------------------------------------------------------------------------
 
@@ -1185,13 +1207,22 @@ class Query_Builder implements iQuery_Builder {
 	 * @param string $type
 	 * @param string $table
 	 * @param bool $simple
+	 * @param string $sql
+	 * @param mixed $vals
 	 * @return mixed
 	 */
-	protected function _run($type, $table, $simple=FALSE)
+	protected function _run($type, $table, $simple=FALSE, $sql=NULL, $vals=NULL)
 	{
-		$sql = $this->_compile($type, $table);
-		$vals = array_merge($this->values, (array) $this->where_values);
-
+		if (is_null($sql))
+		{
+			$sql = $this->_compile($type, $table);
+		}
+	
+		if (is_null($vals))
+		{
+			$vals = array_merge($this->values, (array) $this->where_values);
+		}
+		
 		// Add quotes to 'string' values
 		foreach($vals as &$v)
 		{

@@ -98,7 +98,7 @@
       </method>
     </class>
   </file>
-  <file path="classes/db_pdo.php" hash="7dd92d54828bc8d3bdda32110461a26d" package="Query">
+  <file path="classes/db_pdo.php" hash="af9d6d9d4467fed310bdf3db8a80e2b5" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -577,9 +577,36 @@ the connection/database]]></description>
           <type/>
         </argument>
       </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="551" package="">
+        <name>insert_batch</name>
+        <type>function</type>
+        <docblock line="544">
+          <description><![CDATA[Create sql for batch insert]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="544" name="param" description="" type="string" variable="$table">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="544" name="param" description="" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="544" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="551">
+          <name>$table</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="551">
+          <name>$data</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
     </class>
   </file>
-  <file path="classes/query_builder.php" hash="c6d0516df04257774de596c04dd26627" package="Query">
+  <file path="classes/query_builder.php" hash="1b38488025b183317fd68abbfd28e7c3" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -1766,19 +1793,19 @@ in place of the get() method]]></description>
         </argument>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1029" package="">
-        <name>update</name>
+        <name>insert_batch</name>
         <type>function</type>
         <docblock line="1022">
-          <description><![CDATA[Creates an update clause, and executes it]]></description>
+          <description><![CDATA[Create sql for batch insert]]></description>
           <long-description><![CDATA[]]></long-description>
           <tag line="1022" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1022" name="param" description="" type="mixed" variable="$data">
-            <type by_reference="false">mixed</type>
+          <tag line="1022" name="param" description="" type="array" variable="$data">
+            <type by_reference="false">array</type>
           </tag>
-          <tag line="1022" name="return" description="" type="mixed">
-            <type by_reference="false">mixed</type>
+          <tag line="1022" name="return" description="" type="string">
+            <type by_reference="false">string</type>
           </tag>
         </docblock>
         <argument line="1029">
@@ -1792,267 +1819,310 @@ in place of the get() method]]></description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1049" package="">
-        <name>delete</name>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1051" package="">
+        <name>update</name>
         <type>function</type>
-        <docblock line="1042">
-          <description><![CDATA[Deletes data from a table]]></description>
+        <docblock line="1044">
+          <description><![CDATA[Creates an update clause, and executes it]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1042" name="param" description="" type="string" variable="$table">
+          <tag line="1044" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1042" name="param" description="" type="mixed" variable="$where">
+          <tag line="1044" name="param" description="" type="mixed" variable="$data">
             <type by_reference="false">mixed</type>
           </tag>
-          <tag line="1042" name="return" description="" type="mixed">
+          <tag line="1044" name="return" description="" type="mixed">
             <type by_reference="false">mixed</type>
           </tag>
         </docblock>
-        <argument line="1049">
+        <argument line="1051">
           <name>$table</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="1049">
+        <argument line="1051">
+          <name>$data</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1071" package="">
+        <name>delete</name>
+        <type>function</type>
+        <docblock line="1064">
+          <description><![CDATA[Deletes data from a table]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="1064" name="param" description="" type="string" variable="$table">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="1064" name="param" description="" type="mixed" variable="$where">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="1064" name="return" description="" type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="1071">
+          <name>$table</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="1071">
           <name>$where</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1071" package="">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1093" package="">
         <name>get_compiled_select</name>
         <type>function</type>
-        <docblock line="1064">
+        <docblock line="1086">
           <description><![CDATA[Returns the generated 'select' sql query]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1064" name="param" description="" type="string" variable="$table">
+          <tag line="1086" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1064" name="param" description="" type="bool" variable="$reset">
+          <tag line="1086" name="param" description="" type="bool" variable="$reset">
             <type by_reference="false">bool</type>
           </tag>
-          <tag line="1064" name="return" description="" type="string">
+          <tag line="1086" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="1071">
+        <argument line="1093">
           <name>$table</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
-        <argument line="1071">
+        <argument line="1093">
           <name>$reset</name>
           <default><![CDATA[TRUE]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1091" package="">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1113" package="">
         <name>get_compiled_insert</name>
         <type>function</type>
-        <docblock line="1084">
+        <docblock line="1106">
           <description><![CDATA[Returns the generated 'insert' sql query]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1084" name="param" description="" type="string" variable="$table">
+          <tag line="1106" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1084" name="param" description="" type="bool" variable="$reset">
+          <tag line="1106" name="param" description="" type="bool" variable="$reset">
             <type by_reference="false">bool</type>
           </tag>
-          <tag line="1084" name="return" description="" type="string">
+          <tag line="1106" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="1091">
+        <argument line="1113">
           <name>$table</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="1091">
+        <argument line="1113">
           <name>$reset</name>
           <default><![CDATA[TRUE]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1105" package="">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1127" package="">
         <name>get_compiled_update</name>
         <type>function</type>
-        <docblock line="1098">
+        <docblock line="1120">
           <description><![CDATA[Returns the generated 'update' sql query]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1098" name="param" description="" type="string" variable="$table">
+          <tag line="1120" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1098" name="param" description="" type="bool" variable="$reset">
+          <tag line="1120" name="param" description="" type="bool" variable="$reset">
             <type by_reference="false">bool</type>
           </tag>
-          <tag line="1098" name="return" description="" type="string">
+          <tag line="1120" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="1105">
+        <argument line="1127">
           <name>$table</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
-        <argument line="1105">
+        <argument line="1127">
           <name>$reset</name>
           <default><![CDATA[TRUE]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1119" package="">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1141" package="">
         <name>get_compiled_delete</name>
         <type>function</type>
-        <docblock line="1112">
+        <docblock line="1134">
           <description><![CDATA[Returns the generated 'delete' sql query]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1112" name="param" description="" type="string" variable="$table">
+          <tag line="1134" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1112" name="param" description="" type="bool" variable="$reset">
+          <tag line="1134" name="param" description="" type="bool" variable="$reset">
             <type by_reference="false">bool</type>
           </tag>
-          <tag line="1112" name="return" description="" type="string">
+          <tag line="1134" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="1119">
+        <argument line="1141">
           <name>$table</name>
           <default><![CDATA[""]]></default>
           <type/>
         </argument>
-        <argument line="1119">
+        <argument line="1141">
           <name>$reset</name>
           <default><![CDATA[TRUE]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="default" line="1134" package="">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="default" line="1156" package="">
         <name>_get_compile</name>
         <type>function</type>
-        <docblock line="1126">
+        <docblock line="1148">
           <description><![CDATA[Helper function for returning sql strings]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1126" name="param" description="" type="string" variable="$type">
+          <tag line="1148" name="param" description="" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1126" name="param" description="" type="string" variable="$table">
+          <tag line="1148" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1126" name="param" description="bool" type="" variable="$reset"/>
-          <tag line="1126" name="resturn" description="string"/>
+          <tag line="1148" name="param" description="bool" type="" variable="$reset"/>
+          <tag line="1148" name="resturn" description="string"/>
         </docblock>
-        <argument line="1134">
+        <argument line="1156">
           <name>$type</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="1134">
+        <argument line="1156">
           <name>$table</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="1134">
+        <argument line="1156">
           <name>$reset</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1156" package="">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1178" package="">
         <name>reset_query</name>
         <type>function</type>
-        <docblock line="1151">
+        <docblock line="1173">
           <description><![CDATA[Clear out the class variables, so the next query can be run]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1151" name="return" description="" type="void">
+          <tag line="1173" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="default" line="1190" package="">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="default" line="1214" package="">
         <name>_run</name>
         <type>function</type>
-        <docblock line="1182">
+        <docblock line="1204">
           <description><![CDATA[Executes the compiled query]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1182" name="param" description="" type="string" variable="$type">
+          <tag line="1204" name="param" description="" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1182" name="param" description="" type="string" variable="$table">
+          <tag line="1204" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1182" name="param" description="" type="bool" variable="$simple">
+          <tag line="1204" name="param" description="" type="bool" variable="$simple">
             <type by_reference="false">bool</type>
           </tag>
-          <tag line="1182" name="return" description="" type="mixed">
+          <tag line="1204" name="param" description="" type="string" variable="$sql">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="1204" name="param" description="" type="mixed" variable="$vals">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="1204" name="return" description="" type="mixed">
             <type by_reference="false">mixed</type>
           </tag>
         </docblock>
-        <argument line="1190">
+        <argument line="1214">
           <name>$type</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="1190">
+        <argument line="1214">
           <name>$table</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="1190">
+        <argument line="1214">
           <name>$simple</name>
           <default><![CDATA[FALSE]]></default>
           <type/>
         </argument>
+        <argument line="1214">
+          <name>$sql</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+        <argument line="1214">
+          <name>$vals</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1244" package="">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="1275" package="">
         <name>__call</name>
         <type>function</type>
-        <docblock line="1237">
+        <docblock line="1268">
           <description><![CDATA[Calls a function further down the inheritence chain]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1237" name="param" description="" type="string" variable="$name">
+          <tag line="1268" name="param" description="" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1237" name="param" description="" type="array" variable="$params">
+          <tag line="1268" name="param" description="" type="array" variable="$params">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="1237" name="return" description="" type="mixed">
+          <tag line="1268" name="return" description="" type="mixed">
             <type by_reference="false">mixed</type>
           </tag>
         </docblock>
-        <argument line="1244">
+        <argument line="1275">
           <name>$name</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="1244">
+        <argument line="1275">
           <name>$params</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="default" line="1263" package="">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="default" line="1294" package="">
         <name>_compile</name>
         <type>function</type>
-        <docblock line="1256">
+        <docblock line="1287">
           <description><![CDATA[String together the sql statements for sending to the db]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="1256" name="param" description="" type="string" variable="$type">
+          <tag line="1287" name="param" description="" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1256" name="param" description="" type="string" variable="$table">
+          <tag line="1287" name="param" description="" type="string" variable="$table">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="1256" name="return" description="" type="\$string">
+          <tag line="1287" name="return" description="" type="\$string">
             <type by_reference="false">\$string</type>
           </tag>
         </docblock>
-        <argument line="1263">
+        <argument line="1294">
           <name>$type</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
-        <argument line="1263">
+        <argument line="1294">
           <name>$table</name>
           <default><![CDATA['']]></default>
           <type/>
@@ -4324,7 +4394,7 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/odbc/odbc_driver.php" hash="21b5bca5c1acff6950b123062a68f087" package="Query">
+  <file path="drivers/odbc/odbc_driver.php" hash="ab6f81ed29a97fd41936c3a047a8a83d" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -4408,6 +4478,33 @@ with array_map and glob]]></description>
         <argument line="52">
           <name>$table</name>
           <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="67" package="">
+        <name>insert_batch</name>
+        <type>function</type>
+        <docblock line="60">
+          <description><![CDATA[Create sql for batch insert]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="60" name="param" description="" type="string" variable="$table">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="60" name="param" description="" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="60" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="67">
+          <name>$table</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="67">
+          <name>$data</name>
+          <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
@@ -4963,7 +5060,7 @@ with array_map and glob]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/sqlite/sqlite_driver.php" hash="618f0a64de20f7d6d70f7d3fe2a2c7de" package="Query">
+  <file path="drivers/sqlite/sqlite_driver.php" hash="eb144d4791dbb339cf335ac30bbc5a5d" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -5101,6 +5198,33 @@ with array_map and glob]]></description>
         <argument line="118">
           <name>$name</name>
           <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="138" package="">
+        <name>insert_batch</name>
+        <type>function</type>
+        <docblock line="131">
+          <description><![CDATA[Create sql for batch insert]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="131" name="param" description="" type="string" variable="$table">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="131" name="param" description="" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="131" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="138">
+          <name>$table</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="138">
+          <name>$data</name>
+          <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
@@ -5856,7 +5980,7 @@ the query]]></description>
       </method>
     </class>
   </file>
-  <file path="drivers/firebird/firebird_driver.php" hash="b3d355826e6725b4fd55b75fb49e47d6" package="Query">
+  <file path="drivers/firebird/firebird_driver.php" hash="3383f1a61909f305b279e6b2b7da73b6" package="Query">
     <docblock line="2">
       <description><![CDATA[Query]]></description>
       <long-description><![CDATA[<p>Free Query Builder / Database Abstraction Layer</p>]]></long-description>
@@ -6148,6 +6272,33 @@ the last query executed]]></description>
         <argument line="265">
           <name>$params</name>
           <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="281" package="">
+        <name>insert_batch</name>
+        <type>function</type>
+        <docblock line="274">
+          <description><![CDATA[Create sql for batch insert]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="274" name="param" description="" type="string" variable="$table">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="274" name="param" description="" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="274" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="281">
+          <name>$table</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="281">
+          <name>$data</name>
+          <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>

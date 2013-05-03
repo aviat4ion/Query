@@ -54,5 +54,20 @@ class ODBC extends DB_PDO {
 		$sql = "DELETE FROM {$table}";
 		$this->query($sql);
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/** 
+	 * Create sql for batch insert
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return string
+	 */
+	public function insert_batch($table, $data=array())
+	{
+		// This is not very applicable to the firebird database
+		return NULL;
+	}
 }
 // End of odbc_driver.php

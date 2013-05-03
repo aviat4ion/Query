@@ -538,5 +538,44 @@ abstract class DB_PDO extends PDO {
 	 * @return void
 	 */
 	abstract public function truncate($table);
+	
+	// --------------------------------------------------------------------------
+	
+	/** 
+	 * Create sql for batch insert
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return string
+	 */
+	public function insert_batch($table, $data=array())
+	{
+		if ( ! is_array($data[0])) return NULL;
+	
+		$table = $this->quote_table($table);
+		$fields = array_keys($data[0]);
+		$vals = array();
+	
+		$sql = "INSERT INTO {$table} (";
+		$sql .= implode(',', $this->quote_ident($fields));
+		$sql .= ") VALUES ";
+		
+		$params = array_fill(0, count($fields), '?');
+		$param_string = implode(',', $params);
+		
+		// Remove the first array after use, as it is a special case
+		$sql .= "({$param_string})";
+		$vals = array_values($data[0]);
+		array_shift($data);
+		
+		// Add another grouping for each 
+		foreach($data as $group)
+		{
+			$sql .= ",({$param_string})";
+			$vals = array_merge($vals, array_values($group));
+		}
+		
+		return array($sql, $vals);
+	}
 }
 // End of db_pdo.php
