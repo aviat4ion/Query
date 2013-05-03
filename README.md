@@ -67,7 +67,7 @@ If the `alias` key is set in the parameters, you can refer to a specific databas
 	Query('old')->query($sql); 
 
 ### Running Queries
-Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `insert_batch`, `update_batch` or caching methods.
+Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `update_batch` or caching methods.
 
 ####You can also run queries manually. 
 
