@@ -51,6 +51,8 @@ abstract class DB_PDO extends PDO {
 	 */
 	public function __construct($dsn, $username=NULL, $password=NULL, $driver_options=array())
 	{
+		// Set PDO to display errors as exceptions
+		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 		parent::__construct($dsn, $username, $password, $driver_options);
 
 		// Load the sql class for the driver
@@ -60,9 +62,6 @@ abstract class DB_PDO extends PDO {
 		// Load the util class for the driver
 		$class = get_class($this)."_util";
 		$this->util = new $class($this);
-
-		// Set PDO to display errors as exceptions
-		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		// Set additional driver options, if they exist
 		if ( ! empty($driver_options) && is_array($driver_options))
