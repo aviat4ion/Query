@@ -631,7 +631,7 @@ abstract class QBTest extends UnitTestCase {
 
 		$this->expectException('BadConnectionException');
 
-		$this->db = Query($params);
+		$this->db = @Query($params);
 
 	}
 }
