@@ -622,11 +622,11 @@ abstract class QBTest extends UnitTestCase {
 	{
 		$params = array(
 			'host' => '127.0.0.1',
-			'port' => '3306',
+			'port' => '987896',
 			'database' => 'test',
 			'user' => NULL,
 			'pass' => NULL,
-			'type' => 'pgsql'
+			'type' => 'mysql'
 		);
 
 		$this->expectException('BadConnectionException');
