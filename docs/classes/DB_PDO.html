@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -20,7 +20,6 @@
 <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
                                     API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a>Packages</a></li>
-<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
 <li><a href="../packages/Query.html"><i class="icon-folder-open"></i> Query</a></li>
 </ul>
 </li>
@@ -32,11 +31,9 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">23</span></a></li>
+                <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul><li>todo 
-                <span class="label label-info">2</span>
-</li></ul></a></li>
+                <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
 </ul>
@@ -57,90 +54,78 @@
 </div>
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
-<i class="icon-custom icon-method"></i> Methods</li>
-<li class="method public "><a href="#__construct" title="__construct :: PDO constructor wrapper"><span class="description">PDO constructor wrapper</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#__sleep" title="__sleep :: "><span class="description">__sleep()
-        </span><pre>__sleep()</pre></a></li>
-<li class="method public "><a href="#__wakeup" title="__wakeup :: "><span class="description">__wakeup()
-        </span><pre>__wakeup()</pre></a></li>
-<li class="method public "><a href="#affected_rows" title="affected_rows :: Returns number of rows affected by an INSERT, UPDATE, DELETE type query"><span class="description">Returns number of rows affected by an INSERT, UPDATE, DELETE type query</span><pre>affected_rows()</pre></a></li>
-<li class="method public "><a href="#beginTransaction" title="beginTransaction :: "><span class="description">beginTransaction()
-        </span><pre>beginTransaction()</pre></a></li>
-<li class="method public "><a href="#commit" title="commit :: "><span class="description">commit()
-        </span><pre>commit()</pre></a></li>
-<li class="method public "><a href="#driver_query" title="driver_query :: Method to simplify retreiving db results for meta-data queries"><span class="description">Method to simplify retreiving db results for meta-data queries</span><pre>driver_query()</pre></a></li>
-<li class="method public "><a href="#empty_table" title="empty_table :: Deletes all the rows from a table. Does the same as the truncate
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct() :: PDO constructor wrapper"><span class="description">PDO constructor wrapper</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_affected_rows" title="affected_rows() :: Returns number of rows affected by an INSERT, UPDATE, DELETE type query"><span class="description">Returns number of rows affected by an INSERT, UPDATE, DELETE type query</span><pre>affected_rows()</pre></a></li>
+<li class="method public "><a href="#method_driver_query" title="driver_query() :: Method to simplify retreiving db results for meta-data queries"><span class="description">Method to simplify retreiving db results for meta-data queries</span><pre>driver_query()</pre></a></li>
+<li class="method public "><a href="#method_empty_table" title="empty_table() :: Deletes all the rows from a table. Does the same as the truncate
 method if the database does not support 'TRUNCATE';"><span class="description">Deletes all the rows from a table. Does the same as the truncate
 method if the database does not support 'TRUNCATE';</span><pre>empty_table()</pre></a></li>
-<li class="method public "><a href="#errorCode" title="errorCode :: "><span class="description">errorCode()
-        </span><pre>errorCode()</pre></a></li>
-<li class="method public "><a href="#errorInfo" title="errorInfo :: "><span class="description">errorInfo()
-        </span><pre>errorInfo()</pre></a></li>
-<li class="method public "><a href="#exec" title="exec :: "><span class="description">exec()
-        </span><pre>exec()</pre></a></li>
-<li class="method public "><a href="#getAttribute" title="getAttribute :: "><span class="description">getAttribute()
-        </span><pre>getAttribute()</pre></a></li>
-<li class="method public "><a href="#getAvailableDrivers" title="getAvailableDrivers :: "><span class="description">getAvailableDrivers()
-        </span><pre>getAvailableDrivers()</pre></a></li>
-<li class="method public "><a href="#get_columns" title="get_columns :: Retrieve column information for the current database table"><span class="description">Retrieve column information for the current database table</span><pre>get_columns()</pre></a></li>
-<li class="method public "><a href="#get_dbs" title="get_dbs :: Return list of dbs for the current connection, if possible"><span class="description">Return list of dbs for the current connection, if possible</span><pre>get_dbs()</pre></a></li>
-<li class="method public "><a href="#get_functions" title="get_functions :: Return list of function for the current database"><span class="description">Return list of function for the current database</span><pre>get_functions()</pre></a></li>
-<li class="method public "><a href="#get_last_error" title="get_last_error :: Return the last error for the current database connection"><span class="description">Return the last error for the current database connection</span><pre>get_last_error()</pre></a></li>
-<li class="method public "><a href="#get_procedures" title="get_procedures :: Return list of stored procedures for the current database"><span class="description">Return list of stored procedures for the current database</span><pre>get_procedures()</pre></a></li>
-<li class="method public "><a href="#get_query_data" title="get_query_data :: Retreives the data from a select query"><span class="description">Retreives the data from a select query</span><pre>get_query_data()</pre></a></li>
-<li class="method public "><a href="#get_schemas" title="get_schemas :: Return schemas for databases that list them"><span class="description">Return schemas for databases that list them</span><pre>get_schemas()</pre></a></li>
-<li class="method public "><a href="#get_sequences" title="get_sequences :: Return list of sequences for the current database, if they exist"><span class="description">Return list of sequences for the current database, if they exist</span><pre>get_sequences()</pre></a></li>
-<li class="method public "><a href="#get_system_tables" title="get_system_tables :: Retreives an array of non-user-created tables for
+<li class="method public "><a href="#method_get_columns" title="get_columns() :: Retrieve column information for the current database table"><span class="description">Retrieve column information for the current database table</span><pre>get_columns()</pre></a></li>
+<li class="method public "><a href="#method_get_dbs" title="get_dbs() :: Return list of dbs for the current connection, if possible"><span class="description">Return list of dbs for the current connection, if possible</span><pre>get_dbs()</pre></a></li>
+<li class="method public "><a href="#method_get_functions" title="get_functions() :: Return list of function for the current database"><span class="description">Return list of function for the current database</span><pre>get_functions()</pre></a></li>
+<li class="method public "><a href="#method_get_last_error" title="get_last_error() :: Return the last error for the current database connection"><span class="description">Return the last error for the current database connection</span><pre>get_last_error()</pre></a></li>
+<li class="method public "><a href="#method_get_procedures" title="get_procedures() :: Return list of stored procedures for the current database"><span class="description">Return list of stored procedures for the current database</span><pre>get_procedures()</pre></a></li>
+<li class="method public "><a href="#method_get_query_data" title="get_query_data() :: Retreives the data from a select query"><span class="description">Retreives the data from a select query</span><pre>get_query_data()</pre></a></li>
+<li class="method public "><a href="#method_get_schemas" title="get_schemas() :: Return schemas for databases that list them"><span class="description">Return schemas for databases that list them</span><pre>get_schemas()</pre></a></li>
+<li class="method public "><a href="#method_get_sequences" title="get_sequences() :: Return list of sequences for the current database, if they exist"><span class="description">Return list of sequences for the current database, if they exist</span><pre>get_sequences()</pre></a></li>
+<li class="method public "><a href="#method_get_system_tables" title="get_system_tables() :: Retreives an array of non-user-created tables for
 the connection/database"><span class="description">Retreives an array of non-user-created tables for
 the connection/database</span><pre>get_system_tables()</pre></a></li>
-<li class="method public "><a href="#get_tables" title="get_tables :: Return list of tables for the current database"><span class="description">Return list of tables for the current database</span><pre>get_tables()</pre></a></li>
-<li class="method public "><a href="#get_triggers" title="get_triggers :: Return list of triggers for the current database"><span class="description">Return list of triggers for the current database</span><pre>get_triggers()</pre></a></li>
-<li class="method public "><a href="#get_types" title="get_types :: Retrieve list of data types for the database"><span class="description">Retrieve list of data types for the database</span><pre>get_types()</pre></a></li>
-<li class="method public "><a href="#get_views" title="get_views :: Return list of views for the current database"><span class="description">Return list of views for the current database</span><pre>get_views()</pre></a></li>
-<li class="method public "><a href="#inTransaction" title="inTransaction :: "><span class="description">inTransaction()
-        </span><pre>inTransaction()</pre></a></li>
-<li class="method public "><a href="#insert_batch" title="insert_batch :: Create sql for batch insert"><span class="description">Create sql for batch insert</span><pre>insert_batch()</pre></a></li>
-<li class="method public "><a href="#lastInsertId" title="lastInsertId :: "><span class="description">lastInsertId()
-        </span><pre>lastInsertId()</pre></a></li>
-<li class="method public "><a href="#num_rows" title="num_rows :: Return the number of rows returned for a SELECT query"><span class="description">Return the number of rows returned for a SELECT query</span><pre>num_rows()</pre></a></li>
-<li class="method public "><a href="#prepare" title="prepare :: "><span class="description">prepare()
-        </span><pre>prepare()</pre></a></li>
-<li class="method public "><a href="#prepare_execute" title="prepare_execute :: Create and execute a prepared statement with the provided parameters"><span class="description">Create and execute a prepared statement with the provided parameters</span><pre>prepare_execute()</pre></a></li>
-<li class="method public "><a href="#prepare_query" title="prepare_query :: Simplifies prepared statements for database queries"><span class="description">Simplifies prepared statements for database queries</span><pre>prepare_query()</pre></a></li>
-<li class="method public "><a href="#query" title="query :: "><span class="description">query()
-        </span><pre>query()</pre></a></li>
-<li class="method public "><a href="#quote" title="quote :: "><span class="description">quote()
-        </span><pre>quote()</pre></a></li>
-<li class="method public "><a href="#quote_ident" title="quote_ident :: Surrounds the string with the databases identifier escape characters"><span class="description">Surrounds the string with the databases identifier escape characters</span><pre>quote_ident()</pre></a></li>
-<li class="method public "><a href="#quote_table" title="quote_table :: Quote database table name, and set prefix"><span class="description">Quote database table name, and set prefix</span><pre>quote_table()</pre></a></li>
-<li class="method public "><a href="#rollBack" title="rollBack :: "><span class="description">rollBack()
-        </span><pre>rollBack()</pre></a></li>
-<li class="method public "><a href="#setAttribute" title="setAttribute :: "><span class="description">setAttribute()
-        </span><pre>setAttribute()</pre></a></li>
-<li class="method public "><a href="#truncate" title="truncate :: Empty the passed table"><span class="description">Empty the passed table</span><pre>truncate()</pre></a></li>
-<li class="nav-header protected">» Protected</li>
-<li class="method protected "><a href="#_prefix" title="_prefix :: Sets the table prefix on the passed string"><span class="description">Sets the table prefix on the passed string</span><pre>_prefix()</pre></a></li>
-<li class="method protected "><a href="#_quote" title="_quote :: Helper method for quote_ident"><span class="description">Helper method for quote_ident</span><pre>_quote()</pre></a></li>
+<li class="method public "><a href="#method_get_tables" title="get_tables() :: Return list of tables for the current database"><span class="description">Return list of tables for the current database</span><pre>get_tables()</pre></a></li>
+<li class="method public "><a href="#method_get_triggers" title="get_triggers() :: Return list of triggers for the current database"><span class="description">Return list of triggers for the current database</span><pre>get_triggers()</pre></a></li>
+<li class="method public "><a href="#method_get_types" title="get_types() :: Retrieve list of data types for the database"><span class="description">Retrieve list of data types for the database</span><pre>get_types()</pre></a></li>
+<li class="method public "><a href="#method_get_views" title="get_views() :: Return list of views for the current database"><span class="description">Return list of views for the current database</span><pre>get_views()</pre></a></li>
+<li class="method public "><a href="#method_insert_batch" title="insert_batch() :: Create sql for batch insert"><span class="description">Create sql for batch insert</span><pre>insert_batch()</pre></a></li>
+<li class="method public "><a href="#method_num_rows" title="num_rows() :: Return the number of rows returned for a SELECT query"><span class="description">Return the number of rows returned for a SELECT query</span><pre>num_rows()</pre></a></li>
+<li class="method public "><a href="#method_prepare_execute" title="prepare_execute() :: Create and execute a prepared statement with the provided parameters"><span class="description">Create and execute a prepared statement with the provided parameters</span><pre>prepare_execute()</pre></a></li>
+<li class="method public "><a href="#method_prepare_query" title="prepare_query() :: Simplifies prepared statements for database queries"><span class="description">Simplifies prepared statements for database queries</span><pre>prepare_query()</pre></a></li>
+<li class="method public "><a href="#method_quote_ident" title="quote_ident() :: Surrounds the string with the databases identifier escape characters"><span class="description">Surrounds the string with the databases identifier escape characters</span><pre>quote_ident()</pre></a></li>
+<li class="method public "><a href="#method_quote_table" title="quote_table() :: Quote database table name, and set prefix"><span class="description">Quote database table name, and set prefix</span><pre>quote_table()</pre></a></li>
+<li class="method public "><a href="#method_truncate" title="truncate() :: Empty the passed table"><span class="description">Empty the passed table</span><pre>truncate()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected "><a href="#method__prefix" title="_prefix() :: Sets the table prefix on the passed string"><span class="description">Sets the table prefix on the passed string</span><pre>_prefix()</pre></a></li>
+<li class="method protected "><a href="#method__quote" title="_quote() :: Helper method for quote_ident"><span class="description">Helper method for quote_ident</span><pre>_quote()</pre></a></li>
+</ul>
+</li>
 <li class="nav-header">
-<i class="icon-custom icon-property"></i> Properties</li>
-<li class="property public "><a href="#%24last_query" title="$last_query :: "><span class="description">$last_query</span><pre>$last_query</pre></a></li>
-<li class="property public "><a href="#%24sql" title="$sql :: "><span class="description">$sql</span><pre>$sql</pre></a></li>
-<li class="property public "><a href="#%24table_prefix" title="$table_prefix :: "><span class="description">$table_prefix</span><pre>$table_prefix</pre></a></li>
-<li class="property public "><a href="#%24util" title="$util :: "><span class="description">$util</span><pre>$util</pre></a></li>
-<li class="nav-header protected">» Protected</li>
-<li class="property protected "><a href="#%24escape_char" title="$escape_char :: "><span class="description">$escape_char</span><pre>$escape_char</pre></a></li>
-<li class="property protected "><a href="#%24statement" title="$statement :: "><span class="description">$statement</span><pre>$statement</pre></a></li>
+<i class="icon-custom icon-property"></i> Properties
+                    <ul>
+<li class="property public "><a href="#property_last_query" title="$last_query() :: "><span class="description"></span><pre>$last_query</pre></a></li>
+<li class="property public "><a href="#property_sql" title="$sql() :: "><span class="description"></span><pre>$sql</pre></a></li>
+<li class="property public "><a href="#property_table_prefix" title="$table_prefix() :: "><span class="description"></span><pre>$table_prefix</pre></a></li>
+<li class="property public "><a href="#property_util" title="$util() :: "><span class="description"></span><pre>$util</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected "><a href="#property_escape_char" title="$escape_char() :: "><span class="description"></span><pre>$escape_char</pre></a></li>
+<li class="property protected "><a href="#property_statement" title="$statement() :: "><span class="description"></span><pre>$statement</pre></a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="span8">
-<a name="%5CDB_PDO" id="\DB_PDO"></a><div href="../classes/DB_PDO.html" class="element class">
+<a id="\DB_PDO"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/DB_PDO.html">DB_PDO</a>
+</li>
+</ul>
+<div class="element class">
 <p class="short_description">Base Database class</p>
 <div class="details">
-<p class="long_description"><p>Extends PDO to simplify cross-database issues</p></p>
+<div class="long_description">Extends PDO to simplify cross-database issues</div>
 <table class="table table-bordered">
 <tr>
 <th>package</th>
-<td><a href="..//packages/Query.Query.html">Query</a></td>
+<td><a href="../packages/Query.Query.html">Query</a></td>
 </tr>
 <tr>
 <th>subpackage</th>
@@ -149,12 +134,12 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 </table>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
-<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
 <h2>PDO constructor wrapper</h2>
 <pre>__construct(string $dsn, string $username, string $password, array $driver_options) </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$dsn</h4>
@@ -174,79 +159,27 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 </div>
 </div></div>
 </div>
-<a name="__sleep" id="__sleep"></a><div class="element clickable method public __sleep" data-toggle="collapse" data-target=".__sleep .collapse">
-<h2>__sleep()
-        </h2>
-<pre>__sleep() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::__sleep()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="__wakeup" id="__wakeup"></a><div class="element clickable method public __wakeup" data-toggle="collapse" data-target=".__wakeup .collapse">
-<h2>__wakeup()
-        </h2>
-<pre>__wakeup() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::__wakeup()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="affected_rows" id="affected_rows"></a><div class="element clickable method public affected_rows" data-toggle="collapse" data-target=".affected_rows .collapse">
+<a id="method_affected_rows"></a><div class="element clickable method public method_affected_rows" data-toggle="collapse" data-target=".method_affected_rows .collapse">
 <h2>Returns number of rows affected by an INSERT, UPDATE, DELETE type query</h2>
-<pre>affected_rows(<a href="http://php.net/manual/en/class.pdostatement.php">\PDOStatement</a> $statement) : int</pre>
+<pre>affected_rows(\PDOStatement $statement) : int</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$statement</h4>
-<code><a href="http://php.net/manual/en/class.pdostatement.php">\PDOStatement</a></code>
+<code><a href="PDOStatement.html">\PDOStatement</a></code>
 </div>
 <h3>Returns</h3>
 <div class="subelement response"><code>int</code></div>
 </div></div>
 </div>
-<a name="beginTransaction" id="beginTransaction"></a><div class="element clickable method public beginTransaction" data-toggle="collapse" data-target=".beginTransaction .collapse">
-<h2>beginTransaction()
-        </h2>
-<pre>beginTransaction() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::beginTransaction()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="commit" id="commit"></a><div class="element clickable method public commit" data-toggle="collapse" data-target=".commit .collapse">
-<h2>commit()
-        </h2>
-<pre>commit() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::commit()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="driver_query" id="driver_query"></a><div class="element clickable method public driver_query" data-toggle="collapse" data-target=".driver_query .collapse">
+<a id="method_driver_query"></a><div class="element clickable method public method_driver_query" data-toggle="collapse" data-target=".method_driver_query .collapse">
 <h2>Method to simplify retreiving db results for meta-data queries</h2>
 <pre>driver_query(string $sql, bool $filtered_index) : mixed</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$sql</h4>
@@ -260,13 +193,13 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a name="empty_table" id="empty_table"></a><div class="element clickable method public empty_table" data-toggle="collapse" data-target=".empty_table .collapse">
+<a id="method_empty_table"></a><div class="element clickable method public method_empty_table" data-toggle="collapse" data-target=".method_empty_table .collapse">
 <h2>Deletes all the rows from a table. Does the same as the truncate
 method if the database does not support 'TRUNCATE';</h2>
 <pre>empty_table(string $table) : mixed</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -276,77 +209,12 @@ method if the database does not support 'TRUNCATE';</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a name="errorCode" id="errorCode"></a><div class="element clickable method public errorCode" data-toggle="collapse" data-target=".errorCode .collapse">
-<h2>errorCode()
-        </h2>
-<pre>errorCode() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::errorCode()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="errorInfo" id="errorInfo"></a><div class="element clickable method public errorInfo" data-toggle="collapse" data-target=".errorInfo .collapse">
-<h2>errorInfo()
-        </h2>
-<pre>errorInfo() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::errorInfo()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="exec" id="exec"></a><div class="element clickable method public exec" data-toggle="collapse" data-target=".exec .collapse">
-<h2>exec()
-        </h2>
-<pre>exec() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::exec()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="getAttribute" id="getAttribute"></a><div class="element clickable method public getAttribute" data-toggle="collapse" data-target=".getAttribute .collapse">
-<h2>getAttribute()
-        </h2>
-<pre>getAttribute() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::getAttribute()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="getAvailableDrivers" id="getAvailableDrivers"></a><div class="element clickable method public getAvailableDrivers" data-toggle="collapse" data-target=".getAvailableDrivers .collapse">
-<h2>getAvailableDrivers()
-        </h2>
-<pre>getAvailableDrivers() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::getAvailableDrivers()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="get_columns" id="get_columns"></a><div class="element clickable method public get_columns" data-toggle="collapse" data-target=".get_columns .collapse">
+<a id="method_get_columns"></a><div class="element clickable method public method_get_columns" data-toggle="collapse" data-target=".method_get_columns .collapse">
 <h2>Retrieve column information for the current database table</h2>
 <pre>get_columns(string $table) : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -356,151 +224,138 @@ method if the database does not support 'TRUNCATE';</h2>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_dbs" id="get_dbs"></a><div class="element clickable method public get_dbs" data-toggle="collapse" data-target=".get_dbs .collapse">
+<a id="method_get_dbs"></a><div class="element clickable method public method_get_dbs" data-toggle="collapse" data-target=".method_get_dbs .collapse">
 <h2>Return list of dbs for the current connection, if possible</h2>
 <pre>get_dbs() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_functions" id="get_functions"></a><div class="element clickable method public get_functions" data-toggle="collapse" data-target=".get_functions .collapse">
+<a id="method_get_functions"></a><div class="element clickable method public method_get_functions" data-toggle="collapse" data-target=".method_get_functions .collapse">
 <h2>Return list of function for the current database</h2>
 <pre>get_functions() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_last_error" id="get_last_error"></a><div class="element clickable method public get_last_error" data-toggle="collapse" data-target=".get_last_error .collapse">
+<a id="method_get_last_error"></a><div class="element clickable method public method_get_last_error" data-toggle="collapse" data-target=".method_get_last_error .collapse">
 <h2>Return the last error for the current database connection</h2>
 <pre>get_last_error() : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="get_procedures" id="get_procedures"></a><div class="element clickable method public get_procedures" data-toggle="collapse" data-target=".get_procedures .collapse">
+<a id="method_get_procedures"></a><div class="element clickable method public method_get_procedures" data-toggle="collapse" data-target=".method_get_procedures .collapse">
 <h2>Return list of stored procedures for the current database</h2>
 <pre>get_procedures() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_query_data" id="get_query_data"></a><div class="element clickable method public get_query_data" data-toggle="collapse" data-target=".get_query_data .collapse">
+<a id="method_get_query_data"></a><div class="element clickable method public method_get_query_data" data-toggle="collapse" data-target=".method_get_query_data .collapse">
 <h2>Retreives the data from a select query</h2>
-<pre>get_query_data(<a href="http://php.net/manual/en/class.pdostatement.php">\PDOStatement</a> $statement) : array</pre>
+<pre>get_query_data(\PDOStatement $statement) : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$statement</h4>
-<code><a href="http://php.net/manual/en/class.pdostatement.php">\PDOStatement</a></code>
+<code><a href="PDOStatement.html">\PDOStatement</a></code>
 </div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_schemas" id="get_schemas"></a><div class="element clickable method public get_schemas" data-toggle="collapse" data-target=".get_schemas .collapse">
+<a id="method_get_schemas"></a><div class="element clickable method public method_get_schemas" data-toggle="collapse" data-target=".method_get_schemas .collapse">
 <h2>Return schemas for databases that list them</h2>
 <pre>get_schemas() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_sequences" id="get_sequences"></a><div class="element clickable method public get_sequences" data-toggle="collapse" data-target=".get_sequences .collapse">
+<a id="method_get_sequences"></a><div class="element clickable method public method_get_sequences" data-toggle="collapse" data-target=".method_get_sequences .collapse">
 <h2>Return list of sequences for the current database, if they exist</h2>
 <pre>get_sequences() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_system_tables" id="get_system_tables"></a><div class="element clickable method public get_system_tables" data-toggle="collapse" data-target=".get_system_tables .collapse">
+<a id="method_get_system_tables"></a><div class="element clickable method public method_get_system_tables" data-toggle="collapse" data-target=".method_get_system_tables .collapse">
 <h2>Retreives an array of non-user-created tables for
 the connection/database</h2>
 <pre>get_system_tables() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_tables" id="get_tables"></a><div class="element clickable method public get_tables" data-toggle="collapse" data-target=".get_tables .collapse">
+<a id="method_get_tables"></a><div class="element clickable method public method_get_tables" data-toggle="collapse" data-target=".method_get_tables .collapse">
 <h2>Return list of tables for the current database</h2>
 <pre>get_tables() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_triggers" id="get_triggers"></a><div class="element clickable method public get_triggers" data-toggle="collapse" data-target=".get_triggers .collapse">
+<a id="method_get_triggers"></a><div class="element clickable method public method_get_triggers" data-toggle="collapse" data-target=".method_get_triggers .collapse">
 <h2>Return list of triggers for the current database</h2>
 <pre>get_triggers() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_types" id="get_types"></a><div class="element clickable method public get_types" data-toggle="collapse" data-target=".get_types .collapse">
+<a id="method_get_types"></a><div class="element clickable method public method_get_types" data-toggle="collapse" data-target=".method_get_types .collapse">
 <h2>Retrieve list of data types for the database</h2>
 <pre>get_types() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="get_views" id="get_views"></a><div class="element clickable method public get_views" data-toggle="collapse" data-target=".get_views .collapse">
+<a id="method_get_views"></a><div class="element clickable method public method_get_views" data-toggle="collapse" data-target=".method_get_views .collapse">
 <h2>Return list of views for the current database</h2>
 <pre>get_views() : array</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="inTransaction" id="inTransaction"></a><div class="element clickable method public inTransaction" data-toggle="collapse" data-target=".inTransaction .collapse">
-<h2>inTransaction()
-        </h2>
-<pre>inTransaction() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::inTransaction()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="insert_batch" id="insert_batch"></a><div class="element clickable method public insert_batch" data-toggle="collapse" data-target=".insert_batch .collapse">
+<a id="method_insert_batch"></a><div class="element clickable method public method_insert_batch" data-toggle="collapse" data-target=".method_insert_batch .collapse">
 <h2>Create sql for batch insert</h2>
 <pre>insert_batch(string $table, array $data) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -514,52 +369,26 @@ the connection/database</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="lastInsertId" id="lastInsertId"></a><div class="element clickable method public lastInsertId" data-toggle="collapse" data-target=".lastInsertId .collapse">
-<h2>lastInsertId()
-        </h2>
-<pre>lastInsertId() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::lastInsertId()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="num_rows" id="num_rows"></a><div class="element clickable method public num_rows" data-toggle="collapse" data-target=".num_rows .collapse">
+<a id="method_num_rows"></a><div class="element clickable method public method_num_rows" data-toggle="collapse" data-target=".method_num_rows .collapse">
 <h2>Return the number of rows returned for a SELECT query</h2>
 <pre>num_rows() : int</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>see</th>
-<td>\http://us3.php.net/manual/en/pdostatement.rowcount.php#87110</td>
+<td><a href="%5Chttp://us3.php.net/manual/en/pdostatement.rowcount.php#87110"></a></td>
 </tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>int</code></div>
 </div></div>
 </div>
-<a name="prepare" id="prepare"></a><div class="element clickable method public prepare" data-toggle="collapse" data-target=".prepare .collapse">
-<h2>prepare()
-        </h2>
-<pre>prepare() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::prepare()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="prepare_execute" id="prepare_execute"></a><div class="element clickable method public prepare_execute" data-toggle="collapse" data-target=".prepare_execute .collapse">
+<a id="method_prepare_execute"></a><div class="element clickable method public method_prepare_execute" data-toggle="collapse" data-target=".method_prepare_execute .collapse">
 <h2>Create and execute a prepared statement with the provided parameters</h2>
-<pre>prepare_execute(string $sql, array $params) : <a href="http://php.net/manual/en/class.pdostatement.php">\PDOStatement</a></pre>
+<pre>prepare_execute(string $sql, array $params) : <a href="PDOStatement.html">\PDOStatement</a></pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$sql</h4>
@@ -570,15 +399,15 @@ the connection/database</h2>
 <code>array</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="http://php.net/manual/en/class.pdostatement.php">\PDOStatement</a></code></div>
+<div class="subelement response"><code><a href="PDOStatement.html">\PDOStatement</a></code></div>
 </div></div>
 </div>
-<a name="prepare_query" id="prepare_query"></a><div class="element clickable method public prepare_query" data-toggle="collapse" data-target=".prepare_query .collapse">
+<a id="method_prepare_query"></a><div class="element clickable method public method_prepare_query" data-toggle="collapse" data-target=".method_prepare_query .collapse">
 <h2>Simplifies prepared statements for database queries</h2>
 <pre>prepare_query(string $sql, array $data) : mixed</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$sql</h4>
@@ -593,38 +422,12 @@ the connection/database</h2>
 <code>mixed</code>PDOStatement / FALSE</div>
 </div></div>
 </div>
-<a name="query" id="query"></a><div class="element clickable method public query" data-toggle="collapse" data-target=".query .collapse">
-<h2>query()
-        </h2>
-<pre>query() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::query()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="quote" id="quote"></a><div class="element clickable method public quote" data-toggle="collapse" data-target=".quote .collapse">
-<h2>quote()
-        </h2>
-<pre>quote() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::quote()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="quote_ident" id="quote_ident"></a><div class="element clickable method public quote_ident" data-toggle="collapse" data-target=".quote_ident .collapse">
+<a id="method_quote_ident"></a><div class="element clickable method public method_quote_ident" data-toggle="collapse" data-target=".method_quote_ident .collapse">
 <h2>Surrounds the string with the databases identifier escape characters</h2>
 <pre>quote_ident(mixed $ident) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$ident</h4>
@@ -634,12 +437,12 @@ the connection/database</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="quote_table" id="quote_table"></a><div class="element clickable method public quote_table" data-toggle="collapse" data-target=".quote_table .collapse">
+<a id="method_quote_table"></a><div class="element clickable method public method_quote_table" data-toggle="collapse" data-target=".method_quote_table .collapse">
 <h2>Quote database table name, and set prefix</h2>
 <pre>quote_table(string $table) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -649,38 +452,12 @@ the connection/database</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="rollBack" id="rollBack"></a><div class="element clickable method public rollBack" data-toggle="collapse" data-target=".rollBack .collapse">
-<h2>rollBack()
-        </h2>
-<pre>rollBack() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::rollBack()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="setAttribute" id="setAttribute"></a><div class="element clickable method public setAttribute" data-toggle="collapse" data-target=".setAttribute .collapse">
-<h2>setAttribute()
-        </h2>
-<pre>setAttribute() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PDO::setAttribute()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="truncate" id="truncate"></a><div class="element clickable method public truncate" data-toggle="collapse" data-target=".truncate .collapse">
+<a id="method_truncate"></a><div class="element clickable method public method_truncate" data-toggle="collapse" data-target=".method_truncate .collapse">
 <h2>Empty the passed table</h2>
 <pre>truncate(string $table) : void</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -688,12 +465,12 @@ the connection/database</h2>
 </div>
 </div></div>
 </div>
-<a name="_prefix" id="_prefix"></a><div class="element clickable method protected _prefix" data-toggle="collapse" data-target="._prefix .collapse">
+<a id="method__prefix"></a><div class="element clickable method protected method__prefix" data-toggle="collapse" data-target=".method__prefix .collapse">
 <h2>Sets the table prefix on the passed string</h2>
 <pre>_prefix(string $str) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$str</h4>
@@ -703,12 +480,12 @@ the connection/database</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="_quote" id="_quote"></a><div class="element clickable method protected _quote" data-toggle="collapse" data-target="._quote .collapse">
+<a id="method__quote"></a><div class="element clickable method protected method__quote" data-toggle="collapse" data-target=".method__quote .collapse">
 <h2>Helper method for quote_ident</h2>
 <pre>_quote(mixed $str) : mixed</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$str</h4>
@@ -720,41 +497,41 @@ the connection/database</h2>
 </div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
-<a name="%24last_query" id="$last_query"> </a><div class="element clickable property public $last_query" data-toggle="collapse" data-target=".$last_query .collapse">
+<a id="property_last_query"> </a><div class="element clickable property public property_last_query" data-toggle="collapse" data-target=".property_last_query .collapse">
 <h2>$last_query</h2>
 <pre>$last_query </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a name="%24sql" id="$sql"> </a><div class="element clickable property public $sql" data-toggle="collapse" data-target=".$sql .collapse">
+<a id="property_sql"> </a><div class="element clickable property public property_sql" data-toggle="collapse" data-target=".property_sql .collapse">
 <h2>$sql</h2>
 <pre>$sql </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a name="%24table_prefix" id="$table_prefix"> </a><div class="element clickable property public $table_prefix" data-toggle="collapse" data-target=".$table_prefix .collapse">
+<a id="property_table_prefix"> </a><div class="element clickable property public property_table_prefix" data-toggle="collapse" data-target=".property_table_prefix .collapse">
 <h2>$table_prefix</h2>
 <pre>$table_prefix </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a name="%24util" id="$util"> </a><div class="element clickable property public $util" data-toggle="collapse" data-target=".$util .collapse">
+<a id="property_util"> </a><div class="element clickable property public property_util" data-toggle="collapse" data-target=".property_util .collapse">
 <h2>$util</h2>
 <pre>$util </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a name="%24escape_char" id="$escape_char"> </a><div class="element clickable property protected $escape_char" data-toggle="collapse" data-target=".$escape_char .collapse">
+<a id="property_escape_char"> </a><div class="element clickable property protected property_escape_char" data-toggle="collapse" data-target=".property_escape_char .collapse">
 <h2>$escape_char</h2>
 <pre>$escape_char </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a name="%24statement" id="$statement"> </a><div class="element clickable property protected $statement" data-toggle="collapse" data-target=".$statement .collapse">
+<a id="property_statement"> </a><div class="element clickable property protected property_statement" data-toggle="collapse" data-target=".property_statement .collapse">
 <h2>$statement</h2>
 <pre>$statement </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 </div>
 </div>
@@ -762,8 +539,9 @@ the connection/database</h2>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2013-05-03T13:07:08-04:00.<br></footer></div>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.1.0
+</a> and<br>
+            generated on 2013-12-06T22:52:34-05:00.<br></footer></div>
 </div>
 </body>
 </html>

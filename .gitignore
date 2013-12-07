@@ -4,3 +4,7 @@ tests/db_files/*
 ._*
 tests/settings.json
 .php_cs
+coverage/*
+vendor/*
+composer.lock
+docs/phpdoc*

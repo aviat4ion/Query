@@ -42,6 +42,7 @@ class FirebirdTest extends DBTest {
 	public function TestExists()
 	{
 		$this->assertTrue(function_exists('ibase_connect'));
+		$this->assertTrue(function_exists('fbird_connect'));
 	}	
 	
 	// --------------------------------------------------------------------------

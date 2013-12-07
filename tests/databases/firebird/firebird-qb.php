@@ -26,6 +26,7 @@ class FirebirdQBTest extends QBTest {
 
 		// Test the query builder
 		$params = new Stdclass();
+		$params->name = 'fire';
 		$params->type = 'firebird';
 		$params->file = $dbpath;
 		$params->host = 'localhost';

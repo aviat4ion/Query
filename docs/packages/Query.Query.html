@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -20,7 +20,6 @@
 <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
                                     API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a>Packages</a></li>
-<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
 <li><a href="../packages/Query.html"><i class="icon-folder-open"></i> Query</a></li>
 </ul>
 </li>
@@ -32,11 +31,9 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">23</span></a></li>
+                <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul><li>todo 
-                <span class="label label-info">2</span>
-</li></ul></a></li>
+                <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
 </ul>
@@ -77,59 +74,58 @@ instantiates the specific db driver">Query_Builder</a></li>
 </ul>
 </div>
 <div class="span8 package-contents">
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span>
+<ul class="breadcrumb"><li>
+<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li><a href="../packages/Query.html">Query</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../packages/Query.Query.html">Query</a>
 </li>
-<li><a href="../packages/Query.html">Query</a></li>
-<span class="divider">\</span><li class="active"><a href="../packages/Query.Query.html">Query</a></li>
-</ul>
+</li></ul>
 <div class="package-indent">
 <h3>
 <i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<a name="iDB_SQL" id="iDB_SQL"></a><div class="element ajax clickable interface" href="../classes/iDB_SQL.html">
+<div id="iDB_SQL" class="element ajax clickable interface">
 <h1>iDB_SQL<a href="../classes/iDB_SQL.html">¶</a>
 </h1>
 <p class="short_description">parent for database manipulation subclasses</p>
 <div class="details collapse"></div>
 <a href="../classes/iDB_SQL.html" class="more">« More »</a>
 </div>
-<a name="iQuery_Builder" id="iQuery_Builder"></a><div class="element ajax clickable interface" href="../classes/iQuery_Builder.html">
+<div id="iQuery_Builder" class="element ajax clickable interface">
 <h1>iQuery_Builder<a href="../classes/iQuery_Builder.html">¶</a>
 </h1>
 <p class="short_description">Interface defining the Query Builder class</p>
 <div class="details collapse"></div>
 <a href="../classes/iQuery_Builder.html" class="more">« More »</a>
 </div>
-<a name="BadConnectionException" id="BadConnectionException"></a><div class="element ajax clickable class" href="../classes/BadConnectionException.html">
+<div id="BadConnectionException" class="element ajax clickable class">
 <h1>BadConnectionException<a href="../classes/BadConnectionException.html">¶</a>
 </h1>
 <p class="short_description">Generic exception for bad connection strings</p>
 <div class="details collapse"></div>
 <a href="../classes/BadConnectionException.html" class="more">« More »</a>
 </div>
-<a name="BadDBDriverException" id="BadDBDriverException"></a><div class="element ajax clickable class" href="../classes/BadDBDriverException.html">
+<div id="BadDBDriverException" class="element ajax clickable class">
 <h1>BadDBDriverException<a href="../classes/BadDBDriverException.html">¶</a>
 </h1>
 <p class="short_description">Generic exception for bad drivers</p>
 <div class="details collapse"></div>
 <a href="../classes/BadDBDriverException.html" class="more">« More »</a>
 </div>
-<a name="DB_PDO" id="DB_PDO"></a><div class="element ajax clickable class" href="../classes/DB_PDO.html">
+<div id="DB_PDO" class="element ajax clickable class">
 <h1>DB_PDO<a href="../classes/DB_PDO.html">¶</a>
 </h1>
 <p class="short_description">Base Database class</p>
 <div class="details collapse"></div>
 <a href="../classes/DB_PDO.html" class="more">« More »</a>
 </div>
-<a name="DB_Util" id="DB_Util"></a><div class="element ajax clickable class" href="../classes/DB_Util.html">
+<div id="DB_Util" class="element ajax clickable class">
 <h1>DB_Util<a href="../classes/DB_Util.html">¶</a>
 </h1>
 <p class="short_description">Abstract class defining database / table creation methods</p>
 <div class="details collapse"></div>
 <a href="../classes/DB_Util.html" class="more">« More »</a>
 </div>
-<a name="Query_Builder" id="Query_Builder"></a><div class="element ajax clickable class" href="../classes/Query_Builder.html">
+<div id="Query_Builder" class="element ajax clickable class">
 <h1>Query_Builder<a href="../classes/Query_Builder.html">¶</a>
 </h1>
 <p class="short_description">Convienience class for creating sql queries - also the class that
@@ -137,7 +133,7 @@ instantiates the specific db driver</p>
 <div class="details collapse"></div>
 <a href="../classes/Query_Builder.html" class="more">« More »</a>
 </div>
-<a name="Query_Parser" id="Query_Parser"></a><div class="element ajax clickable class" href="../classes/Query_Parser.html">
+<div id="Query_Parser" class="element ajax clickable class">
 <h1>Query_Parser<a href="../classes/Query_Parser.html">¶</a>
 </h1>
 <p class="short_description">Utility Class to parse sql clauses for properly escaping identifiers</p>
@@ -149,8 +145,9 @@ instantiates the specific db driver</p>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2013-05-03T13:07:08-04:00.<br></footer></div>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.1.0
+</a> and<br>
+            generated on 2013-12-06T22:52:34-05:00.<br></footer></div>
 </div>
 </body>
 </html>

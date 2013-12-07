@@ -82,7 +82,7 @@ class Query_Builder implements iQuery_Builder {
 	//		'conjunction' => ' AND ',
 	// 		'string' => 'k=?'
 	// )
-	protected $query_map;
+	protected $query_map = array();
 
 	// Map for having clause
 	protected $having_map;
@@ -523,11 +523,28 @@ class Query_Builder implements iQuery_Builder {
 
 			// Simple key value, or an operator
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
+			
+			// Get the type of the first item in the query map
+			$first_item = end($this->query_map);
+			
+			// Determine the correct conjunction
+			if (empty($this->query_map))
+			{
+				$conj = ' WHERE ';
+			}
+			elseif ($first_item['type'] === 'group_start')
+			{
+				$conj = '';
+			}
+			else 
+			{
+				$conj = " {$conj} ";
+			}
 
 			// Put in the query map for select statements
 			$this->query_map[] = array(
 				'type' => 'where',
-				'conjunction' => ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ',
+				'conjunction' => $conj,
 				'string' => $item
 			);
 		}
@@ -542,8 +559,8 @@ class Query_Builder implements iQuery_Builder {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @param string
-	 * @param string
+	 * @param string $in - The (not) in fragment
+	 * @param string $conj - The where in conjunction
 	 * @return $this
 	 */
 	protected function _where_in($key, $val=array(), $in='IN', $conj='AND')
@@ -749,7 +766,8 @@ class Query_Builder implements iQuery_Builder {
 	{
 		if ( ! is_scalar($field))
 		{
-			$this->group_array = $this->db->quote_ident($field);
+			$new_group_array = array_map(array($this->db, 'quote_ident'), $field);
+			$this->group_array = array_merge($this->group_array, $new_group_array);
 		}
 		else
 		{
@@ -828,8 +846,8 @@ class Query_Builder implements iQuery_Builder {
 	{
 		$this->query_map[] = array(
 			'type' => 'group_start',
-			'conjunction' => '',
-			'string' => ' ('
+			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : ' ',
+			'string' => '('
 		);
 
 		return $this;
@@ -885,7 +903,7 @@ class Query_Builder implements iQuery_Builder {
 		$this->query_map[] = array(
 			'type' => 'group_end',
 			'conjunction' => '',
-			'string' => ' ) '
+			'string' => ')'
 		);
 
 		return $this;
@@ -1150,7 +1168,7 @@ class Query_Builder implements iQuery_Builder {
 	 *
 	 * @param string $type
 	 * @param string $table
-	 * @param bool
+	 * @param bool $reset
 	 * @resturn string
 	 */
 	protected function _get_compile($type, $table, $reset)
@@ -1192,6 +1210,7 @@ class Query_Builder implements iQuery_Builder {
 
 			// Set empty arrays
 			$this->values = array();
+			$this->query_map = array();
 
 			// Set select string as an empty string, for proper handling
 			// of the 'distinct' keyword
@@ -1331,7 +1350,7 @@ class Query_Builder implements iQuery_Builder {
 		// Set the where clause
 		if ( ! empty($this->query_map))
 		{
-			foreach($this->query_map as $q)
+			foreach($this->query_map as $k => $q)
 			{
 				$sql .= $q['conjunction'] . $q['string'];
 			}

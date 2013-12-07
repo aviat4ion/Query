@@ -13,6 +13,10 @@
 	<files>
 		<directory>.</directory>
 		<directory>tests</directory>
+		<directory>coverage</directory>
+		<directory>vendor</directory>
 		<ignore>tests/*</ignore>
+		<ignore>coverage/*</ignore>
+		<ignore>vendor/*</ignore>
 	</files>
 </phpdoc>

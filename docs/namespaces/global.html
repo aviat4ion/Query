@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Query » Query\Drivers</title>
+<title>Query » global</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -54,12 +54,32 @@
 </div>
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
-<i class="icon-map-marker"></i> Packages</li>
+<i class="icon-map-marker"></i> Namespaces</li>
 <li>
-<a href="../packages/Query.Drivers.html" title="Drivers"><i class="icon-folder-open"></i>Drivers</a><ul class="nav nav-list nav-packages"></ul>
+<span class="empty-namespace"><i class="icon-stop"></i>global</span><ul class="nav nav-list nav-namespaces"></ul>
 </li>
 <li class="nav-header">
+<i class="icon-custom icon-function"></i> Functions</li>
+<li class="function  "><a href="#function_Query" title="Query() :: Connection function"><span class="description">Connection function</span><pre>Query</pre></a></li>
+<li class="function  "><a href="#function_db_filter" title="db_filter() :: Filter out db rows into one array"><span class="description">Filter out db rows into one array</span><pre>db_filter</pre></a></li>
+<li class="function  "><a href="#function_do_include" title="do_include() :: Bulk directory loading workaround for use
+with array_map and glob"><span class="description">Bulk directory loading workaround for use
+with array_map and glob</span><pre>do_include</pre></a></li>
+<li class="function  "><a href="#function_mb_trim" title="mb_trim() :: Multibyte-safe trim function"><span class="description">Multibyte-safe trim function</span><pre>mb_trim</pre></a></li>
+<li class="function  "><a href="#function_query_autoload" title="query_autoload() :: Load a Query class"><span class="description">Load a Query class</span><pre>query_autoload</pre></a></li>
+<li class="nav-header">
+<i class="icon-custom icon-interface"></i> Interfaces</li>
+<li><a href="#iDB_SQL" title="parent for database manipulation subclasses">iDB_SQL</a></li>
+<li><a href="#iQuery_Builder" title="Interface defining the Query Builder class">iQuery_Builder</a></li>
+<li class="nav-header">
 <i class="icon-custom icon-class"></i> Classes</li>
+<li><a href="#Query_Parser" title="Utility Class to parse sql clauses for properly escaping identifiers">Query_Parser</a></li>
+<li><a href="#DB_PDO" title="Base Database class">DB_PDO</a></li>
+<li><a href="#Query_Builder" title="Convienience class for creating sql queries - also the class that
+instantiates the specific db driver">Query_Builder</a></li>
+<li><a href="#DB_Util" title="Abstract class defining database / table creation methods">DB_Util</a></li>
+<li><a href="#BadDBDriverException" title="Generic exception for bad drivers">BadDBDriverException</a></li>
+<li><a href="#BadConnectionException" title="Generic exception for bad connection strings">BadConnectionException</a></li>
 <li><a href="#PgSQL_SQL" title="PostgreSQL specifc SQL">PgSQL_SQL</a></li>
 <li><a href="#PgSQL_Util" title="Posgres-specific backup, import and creation methods">PgSQL_Util</a></li>
 <li><a href="#PgSQL" title="PostgreSQL specifc class">PgSQL</a></li>
@@ -77,133 +97,13 @@
 data-fetching methods">Firebird_Result</a></li>
 <li><a href="#Firebird" title="Firebird Database class">Firebird</a></li>
 <li><a href="#Firebird_Util" title="Firebird-specific backup, import and creation methods">Firebird_Util</a></li>
+<li class="nav-header">
+<i class="icon-custom icon-constant"></i> Constants</li>
+<li class="constant  "><a href="#constant_QBASE_PATH" title="QBASE_PATH() :: Reference to root path"><span class="description">Reference to root path</span><pre>QBASE_PATH</pre></a></li>
+<li class="constant  "><a href="#constant_QDRIVER_PATH" title="QDRIVER_PATH() :: Path to driver classes"><span class="description">Path to driver classes</span><pre>QDRIVER_PATH</pre></a></li>
 </ul>
 </div>
-<div class="span8 package-contents">
-<ul class="breadcrumb"><li>
-<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li><a href="../packages/Query.html">Query</a></li>
-<li class="active">
-<span class="divider">\</span><a href="../packages/Query.Drivers.html">Drivers</a>
-</li>
-</li></ul>
-<div class="package-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Firebird" class="element ajax clickable class">
-<h1>Firebird<a href="../classes/Firebird.html">¶</a>
-</h1>
-<p class="short_description">Firebird Database class</p>
-<div class="details collapse"></div>
-<a href="../classes/Firebird.html" class="more">« More »</a>
-</div>
-<div id="Firebird_Result" class="element ajax clickable class">
-<h1>Firebird_Result<a href="../classes/Firebird_Result.html">¶</a>
-</h1>
-<p class="short_description">Firebird result class to emulate PDOStatement Class - only implements
-data-fetching methods</p>
-<div class="details collapse"></div>
-<a href="../classes/Firebird_Result.html" class="more">« More »</a>
-</div>
-<div id="Firebird_SQL" class="element ajax clickable class">
-<h1>Firebird_SQL<a href="../classes/Firebird_SQL.html">¶</a>
-</h1>
-<p class="short_description">Firebird Specific SQL</p>
-<div class="details collapse"></div>
-<a href="../classes/Firebird_SQL.html" class="more">« More »</a>
-</div>
-<div id="Firebird_Util" class="element ajax clickable class">
-<h1>Firebird_Util<a href="../classes/Firebird_Util.html">¶</a>
-</h1>
-<p class="short_description">Firebird-specific backup, import and creation methods</p>
-<div class="details collapse"></div>
-<a href="../classes/Firebird_Util.html" class="more">« More »</a>
-</div>
-<div id="MySQL" class="element ajax clickable class">
-<h1>MySQL<a href="../classes/MySQL.html">¶</a>
-</h1>
-<p class="short_description">MySQL specific class</p>
-<div class="details collapse"></div>
-<a href="../classes/MySQL.html" class="more">« More »</a>
-</div>
-<div id="MySQL_SQL" class="element ajax clickable class">
-<h1>MySQL_SQL<a href="../classes/MySQL_SQL.html">¶</a>
-</h1>
-<p class="short_description">MySQL specifc SQL</p>
-<div class="details collapse"></div>
-<a href="../classes/MySQL_SQL.html" class="more">« More »</a>
-</div>
-<div id="MySQL_Util" class="element ajax clickable class">
-<h1>MySQL_Util<a href="../classes/MySQL_Util.html">¶</a>
-</h1>
-<p class="short_description">MySQL-specific backup, import and creation methods</p>
-<div class="details collapse"></div>
-<a href="../classes/MySQL_Util.html" class="more">« More »</a>
-</div>
-<div id="ODBC" class="element ajax clickable class">
-<h1>ODBC<a href="../classes/ODBC.html">¶</a>
-</h1>
-<p class="short_description">ODBC Database Driver</p>
-<div class="details collapse"></div>
-<a href="../classes/ODBC.html" class="more">« More »</a>
-</div>
-<div id="ODBC_SQL" class="element ajax clickable class">
-<h1>ODBC_SQL<a href="../classes/ODBC_SQL.html">¶</a>
-</h1>
-<p class="short_description">ODBC SQL Class</p>
-<div class="details collapse"></div>
-<a href="../classes/ODBC_SQL.html" class="more">« More »</a>
-</div>
-<div id="ODBC_Util" class="element ajax clickable class">
-<h1>ODBC_Util<a href="../classes/ODBC_Util.html">¶</a>
-</h1>
-<p class="short_description">ODBC-specific backup, import and creation methods</p>
-<div class="details collapse"></div>
-<a href="../classes/ODBC_Util.html" class="more">« More »</a>
-</div>
-<div id="PgSQL" class="element ajax clickable class">
-<h1>PgSQL<a href="../classes/PgSQL.html">¶</a>
-</h1>
-<p class="short_description">PostgreSQL specifc class</p>
-<div class="details collapse"></div>
-<a href="../classes/PgSQL.html" class="more">« More »</a>
-</div>
-<div id="PgSQL_SQL" class="element ajax clickable class">
-<h1>PgSQL_SQL<a href="../classes/PgSQL_SQL.html">¶</a>
-</h1>
-<p class="short_description">PostgreSQL specifc SQL</p>
-<div class="details collapse"></div>
-<a href="../classes/PgSQL_SQL.html" class="more">« More »</a>
-</div>
-<div id="PgSQL_Util" class="element ajax clickable class">
-<h1>PgSQL_Util<a href="../classes/PgSQL_Util.html">¶</a>
-</h1>
-<p class="short_description">Posgres-specific backup, import and creation methods</p>
-<div class="details collapse"></div>
-<a href="../classes/PgSQL_Util.html" class="more">« More »</a>
-</div>
-<div id="SQLite" class="element ajax clickable class">
-<h1>SQLite<a href="../classes/SQLite.html">¶</a>
-</h1>
-<p class="short_description">SQLite specific class</p>
-<div class="details collapse"></div>
-<a href="../classes/SQLite.html" class="more">« More »</a>
-</div>
-<div id="SQLite_SQL" class="element ajax clickable class">
-<h1>SQLite_SQL<a href="../classes/SQLite_SQL.html">¶</a>
-</h1>
-<p class="short_description">SQLite Specific SQL</p>
-<div class="details collapse"></div>
-<a href="../classes/SQLite_SQL.html" class="more">« More »</a>
-</div>
-<div id="SQLite_Util" class="element ajax clickable class">
-<h1>SQLite_Util<a href="../classes/SQLite_Util.html">¶</a>
-</h1>
-<p class="short_description">SQLite-specific backup, import and creation methods</p>
-<div class="details collapse"></div>
-<a href="../classes/SQLite_Util.html" class="more">« More »</a>
-</div>
-</div>
-</div>
+<div class="span8 namespace-contents"></div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>

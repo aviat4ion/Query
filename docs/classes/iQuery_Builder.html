@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -20,7 +20,6 @@
 <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
                                     API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a>Packages</a></li>
-<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
 <li><a href="../packages/Query.html"><i class="icon-folder-open"></i> Query</a></li>
 </ul>
 </li>
@@ -32,11 +31,9 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">23</span></a></li>
+                <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul><li>todo 
-                <span class="label label-info">2</span>
-</li></ul></a></li>
+                <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
 </ul>
@@ -55,72 +52,81 @@
 <span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
 </div>
-<ul class="side-nav nav nav-list">
-<li class="nav-header">
-<i class="icon-custom icon-method"></i> Methods</li>
-<li class="method public "><a href="#count_all" title="count_all :: Retreive the number of rows in the selected table"><span class="description">Retreive the number of rows in the selected table</span><pre>count_all()</pre></a></li>
-<li class="method public "><a href="#count_all_results" title="count_all_results :: Retrieve the number of results for the generated query - used
+<ul class="side-nav nav nav-list"><li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_count_all" title="count_all() :: Retreive the number of rows in the selected table"><span class="description">Retreive the number of rows in the selected table</span><pre>count_all()</pre></a></li>
+<li class="method public "><a href="#method_count_all_results" title="count_all_results() :: Retrieve the number of results for the generated query - used
 in place of the get() method"><span class="description">Retrieve the number of results for the generated query - used
 in place of the get() method</span><pre>count_all_results()</pre></a></li>
-<li class="method public "><a href="#delete" title="delete :: Deletes data from a table"><span class="description">Deletes data from a table</span><pre>delete()</pre></a></li>
-<li class="method public "><a href="#distinct" title="distinct :: Adds the 'distinct' keyword to a query"><span class="description">Adds the 'distinct' keyword to a query</span><pre>distinct()</pre></a></li>
-<li class="method public "><a href="#from" title="from :: Specify the database table to select from"><span class="description">Specify the database table to select from</span><pre>from()</pre></a></li>
-<li class="method public "><a href="#get" title="get :: Select and retrieve all records from the current table, and/or
+<li class="method public "><a href="#method_delete" title="delete() :: Deletes data from a table"><span class="description">Deletes data from a table</span><pre>delete()</pre></a></li>
+<li class="method public "><a href="#method_distinct" title="distinct() :: Adds the 'distinct' keyword to a query"><span class="description">Adds the 'distinct' keyword to a query</span><pre>distinct()</pre></a></li>
+<li class="method public "><a href="#method_from" title="from() :: Specify the database table to select from"><span class="description">Specify the database table to select from</span><pre>from()</pre></a></li>
+<li class="method public "><a href="#method_get" title="get() :: Select and retrieve all records from the current table, and/or
 execute current compiled query"><span class="description">Select and retrieve all records from the current table, and/or
 execute current compiled query</span><pre>get()</pre></a></li>
-<li class="method public "><a href="#get_compiled_delete" title="get_compiled_delete :: Returns the generated 'delete' sql query"><span class="description">Returns the generated 'delete' sql query</span><pre>get_compiled_delete()</pre></a></li>
-<li class="method public "><a href="#get_compiled_insert" title="get_compiled_insert :: Returns the generated 'insert' sql query"><span class="description">Returns the generated 'insert' sql query</span><pre>get_compiled_insert()</pre></a></li>
-<li class="method public "><a href="#get_compiled_select" title="get_compiled_select :: Returns the generated 'select' sql query"><span class="description">Returns the generated 'select' sql query</span><pre>get_compiled_select()</pre></a></li>
-<li class="method public "><a href="#get_compiled_update" title="get_compiled_update :: Returns the generated 'update' sql query"><span class="description">Returns the generated 'update' sql query</span><pre>get_compiled_update()</pre></a></li>
-<li class="method public "><a href="#get_where" title="get_where :: Convience method for get() with a where clause"><span class="description">Convience method for get() with a where clause</span><pre>get_where()</pre></a></li>
-<li class="method public "><a href="#group_by" title="group_by :: Group the results by the selected field(s)"><span class="description">Group the results by the selected field(s)</span><pre>group_by()</pre></a></li>
-<li class="method public "><a href="#group_end" title="group_end :: Ends a query group"><span class="description">Ends a query group</span><pre>group_end()</pre></a></li>
-<li class="method public "><a href="#group_start" title="group_start :: Adds a paren to the current query for query grouping"><span class="description">Adds a paren to the current query for query grouping</span><pre>group_start()</pre></a></li>
-<li class="method public "><a href="#having" title="having :: Generates a 'Having' clause"><span class="description">Generates a 'Having' clause</span><pre>having()</pre></a></li>
-<li class="method public "><a href="#insert" title="insert :: Creates an insert clause, and executes it"><span class="description">Creates an insert clause, and executes it</span><pre>insert()</pre></a></li>
-<li class="method public "><a href="#join" title="join :: Creates a join phrase in a compiled query"><span class="description">Creates a join phrase in a compiled query</span><pre>join()</pre></a></li>
-<li class="method public "><a href="#like" title="like :: Creates a Like clause in the sql statement"><span class="description">Creates a Like clause in the sql statement</span><pre>like()</pre></a></li>
-<li class="method public "><a href="#limit" title="limit :: Set a limit on the current sql statement"><span class="description">Set a limit on the current sql statement</span><pre>limit()</pre></a></li>
-<li class="method public "><a href="#not_like" title="not_like :: Generates a NOT LIKE clause"><span class="description">Generates a NOT LIKE clause</span><pre>not_like()</pre></a></li>
-<li class="method public "><a href="#or_group_start" title="or_group_start :: Adds a paren to the current query for query grouping,
+<li class="method public "><a href="#method_get_compiled_delete" title="get_compiled_delete() :: Returns the generated 'delete' sql query"><span class="description">Returns the generated 'delete' sql query</span><pre>get_compiled_delete()</pre></a></li>
+<li class="method public "><a href="#method_get_compiled_insert" title="get_compiled_insert() :: Returns the generated 'insert' sql query"><span class="description">Returns the generated 'insert' sql query</span><pre>get_compiled_insert()</pre></a></li>
+<li class="method public "><a href="#method_get_compiled_select" title="get_compiled_select() :: Returns the generated 'select' sql query"><span class="description">Returns the generated 'select' sql query</span><pre>get_compiled_select()</pre></a></li>
+<li class="method public "><a href="#method_get_compiled_update" title="get_compiled_update() :: Returns the generated 'update' sql query"><span class="description">Returns the generated 'update' sql query</span><pre>get_compiled_update()</pre></a></li>
+<li class="method public "><a href="#method_get_where" title="get_where() :: Convience method for get() with a where clause"><span class="description">Convience method for get() with a where clause</span><pre>get_where()</pre></a></li>
+<li class="method public "><a href="#method_group_by" title="group_by() :: Group the results by the selected field(s)"><span class="description">Group the results by the selected field(s)</span><pre>group_by()</pre></a></li>
+<li class="method public "><a href="#method_group_end" title="group_end() :: Ends a query group"><span class="description">Ends a query group</span><pre>group_end()</pre></a></li>
+<li class="method public "><a href="#method_group_start" title="group_start() :: Adds a paren to the current query for query grouping"><span class="description">Adds a paren to the current query for query grouping</span><pre>group_start()</pre></a></li>
+<li class="method public "><a href="#method_having" title="having() :: Generates a 'Having' clause"><span class="description">Generates a 'Having' clause</span><pre>having()</pre></a></li>
+<li class="method public "><a href="#method_insert" title="insert() :: Creates an insert clause, and executes it"><span class="description">Creates an insert clause, and executes it</span><pre>insert()</pre></a></li>
+<li class="method public "><a href="#method_join" title="join() :: Creates a join phrase in a compiled query"><span class="description">Creates a join phrase in a compiled query</span><pre>join()</pre></a></li>
+<li class="method public "><a href="#method_like" title="like() :: Creates a Like clause in the sql statement"><span class="description">Creates a Like clause in the sql statement</span><pre>like()</pre></a></li>
+<li class="method public "><a href="#method_limit" title="limit() :: Set a limit on the current sql statement"><span class="description">Set a limit on the current sql statement</span><pre>limit()</pre></a></li>
+<li class="method public "><a href="#method_not_like" title="not_like() :: Generates a NOT LIKE clause"><span class="description">Generates a NOT LIKE clause</span><pre>not_like()</pre></a></li>
+<li class="method public "><a href="#method_or_group_start" title="or_group_start() :: Adds a paren to the current query for query grouping,
 prefixed with 'OR'"><span class="description">Adds a paren to the current query for query grouping,
 prefixed with 'OR'</span><pre>or_group_start()</pre></a></li>
-<li class="method public "><a href="#or_having" title="or_having :: Generates a 'Having' clause prefixed with 'OR'"><span class="description">Generates a 'Having' clause prefixed with 'OR'</span><pre>or_having()</pre></a></li>
-<li class="method public "><a href="#or_like" title="or_like :: Generates an OR Like clause"><span class="description">Generates an OR Like clause</span><pre>or_like()</pre></a></li>
-<li class="method public "><a href="#or_not_group_start" title="or_not_group_start :: Adds a paren to the current query for query grouping,
+<li class="method public "><a href="#method_or_having" title="or_having() :: Generates a 'Having' clause prefixed with 'OR'"><span class="description">Generates a 'Having' clause prefixed with 'OR'</span><pre>or_having()</pre></a></li>
+<li class="method public "><a href="#method_or_like" title="or_like() :: Generates an OR Like clause"><span class="description">Generates an OR Like clause</span><pre>or_like()</pre></a></li>
+<li class="method public "><a href="#method_or_not_group_start" title="or_not_group_start() :: Adds a paren to the current query for query grouping,
 prefixed with 'OR NOT'"><span class="description">Adds a paren to the current query for query grouping,
 prefixed with 'OR NOT'</span><pre>or_not_group_start()</pre></a></li>
-<li class="method public "><a href="#or_not_like" title="or_not_like :: Generates a OR NOT LIKE clause"><span class="description">Generates a OR NOT LIKE clause</span><pre>or_not_like()</pre></a></li>
-<li class="method public "><a href="#or_where" title='or_where :: Where clause prefixed with "OR"'><span class="description">Where clause prefixed with "OR"</span><pre>or_where()</pre></a></li>
-<li class="method public "><a href="#or_where_in" title='or_where_in :: Where in statement prefixed with "or"'><span class="description">Where in statement prefixed with "or"</span><pre>or_where_in()</pre></a></li>
-<li class="method public "><a href="#or_where_not_in" title="or_where_not_in :: OR WHERE NOT IN (FOO) clause"><span class="description">OR WHERE NOT IN (FOO) clause</span><pre>or_where_not_in()</pre></a></li>
-<li class="method public "><a href="#order_by" title="order_by :: Order the results by the selected field(s)"><span class="description">Order the results by the selected field(s)</span><pre>order_by()</pre></a></li>
-<li class="method public "><a href="#reset_query" title="reset_query :: Clear out the class variables, so the next query can be run"><span class="description">Clear out the class variables, so the next query can be run</span><pre>reset_query()</pre></a></li>
-<li class="method public "><a href="#select" title="select :: Specifies rows to select in a query"><span class="description">Specifies rows to select in a query</span><pre>select()</pre></a></li>
-<li class="method public "><a href="#select_avg" title="select_avg :: Selects the average value of a field from a query"><span class="description">Selects the average value of a field from a query</span><pre>select_avg()</pre></a></li>
-<li class="method public "><a href="#select_max" title="select_max :: Selects the maximum value of a field from a query"><span class="description">Selects the maximum value of a field from a query</span><pre>select_max()</pre></a></li>
-<li class="method public "><a href="#select_min" title="select_min :: Selects the minimum value of a field from a query"><span class="description">Selects the minimum value of a field from a query</span><pre>select_min()</pre></a></li>
-<li class="method public "><a href="#select_sum" title="select_sum :: Selects the sum of a field from a query"><span class="description">Selects the sum of a field from a query</span><pre>select_sum()</pre></a></li>
-<li class="method public "><a href="#set" title="set :: Sets values for inserts / updates / deletes"><span class="description">Sets values for inserts / updates / deletes</span><pre>set()</pre></a></li>
-<li class="method public "><a href="#update" title="update :: Creates an update clause, and executes it"><span class="description">Creates an update clause, and executes it</span><pre>update()</pre></a></li>
-<li class="method public "><a href="#where" title="where :: Specify condition(s) in the where clause of a query
+<li class="method public "><a href="#method_or_not_like" title="or_not_like() :: Generates a OR NOT LIKE clause"><span class="description">Generates a OR NOT LIKE clause</span><pre>or_not_like()</pre></a></li>
+<li class="method public "><a href="#method_or_where" title='or_where() :: Where clause prefixed with "OR"'><span class="description">Where clause prefixed with "OR"</span><pre>or_where()</pre></a></li>
+<li class="method public "><a href="#method_or_where_in" title='or_where_in() :: Where in statement prefixed with "or"'><span class="description">Where in statement prefixed with "or"</span><pre>or_where_in()</pre></a></li>
+<li class="method public "><a href="#method_or_where_not_in" title="or_where_not_in() :: OR WHERE NOT IN (FOO) clause"><span class="description">OR WHERE NOT IN (FOO) clause</span><pre>or_where_not_in()</pre></a></li>
+<li class="method public "><a href="#method_order_by" title="order_by() :: Order the results by the selected field(s)"><span class="description">Order the results by the selected field(s)</span><pre>order_by()</pre></a></li>
+<li class="method public "><a href="#method_reset_query" title="reset_query() :: Clear out the class variables, so the next query can be run"><span class="description">Clear out the class variables, so the next query can be run</span><pre>reset_query()</pre></a></li>
+<li class="method public "><a href="#method_select" title="select() :: Specifies rows to select in a query"><span class="description">Specifies rows to select in a query</span><pre>select()</pre></a></li>
+<li class="method public "><a href="#method_select_avg" title="select_avg() :: Selects the average value of a field from a query"><span class="description">Selects the average value of a field from a query</span><pre>select_avg()</pre></a></li>
+<li class="method public "><a href="#method_select_max" title="select_max() :: Selects the maximum value of a field from a query"><span class="description">Selects the maximum value of a field from a query</span><pre>select_max()</pre></a></li>
+<li class="method public "><a href="#method_select_min" title="select_min() :: Selects the minimum value of a field from a query"><span class="description">Selects the minimum value of a field from a query</span><pre>select_min()</pre></a></li>
+<li class="method public "><a href="#method_select_sum" title="select_sum() :: Selects the sum of a field from a query"><span class="description">Selects the sum of a field from a query</span><pre>select_sum()</pre></a></li>
+<li class="method public "><a href="#method_set" title="set() :: Sets values for inserts / updates / deletes"><span class="description">Sets values for inserts / updates / deletes</span><pre>set()</pre></a></li>
+<li class="method public "><a href="#method_update" title="update() :: Creates an update clause, and executes it"><span class="description">Creates an update clause, and executes it</span><pre>update()</pre></a></li>
+<li class="method public "><a href="#method_where" title="where() :: Specify condition(s) in the where clause of a query
 Note: this function works with key / value, or a
 passed array with key / value pairs"><span class="description">Specify condition(s) in the where clause of a query
 Note: this function works with key / value, or a
 passed array with key / value pairs</span><pre>where()</pre></a></li>
-<li class="method public "><a href="#where_in" title="where_in :: Where clause with 'IN' statement"><span class="description">Where clause with 'IN' statement</span><pre>where_in()</pre></a></li>
-<li class="method public "><a href="#where_not_in" title="where_not_in :: WHERE NOT IN (FOO) clause"><span class="description">WHERE NOT IN (FOO) clause</span><pre>where_not_in()</pre></a></li>
+<li class="method public "><a href="#method_where_in" title="where_in() :: Where clause with 'IN' statement"><span class="description">Where clause with 'IN' statement</span><pre>where_in()</pre></a></li>
+<li class="method public "><a href="#method_where_not_in" title="where_not_in() :: WHERE NOT IN (FOO) clause"><span class="description">WHERE NOT IN (FOO) clause</span><pre>where_not_in()</pre></a></li>
 </ul>
+</li></ul>
 </div>
 <div class="span8">
-<a name="%5CiQuery_Builder" id="\iQuery_Builder"></a><div href="../classes/iQuery_Builder.html" class="element interface">
+<a id="\iQuery_Builder"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/iQuery_Builder.html">iQuery_Builder</a>
+</li>
+</ul>
+<div class="element interface">
 <p class="short_description">Interface defining the Query Builder class</p>
 <div class="details">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>package</th>
-<td><a href="..//packages/Query.Query.html">Query</a></td>
+<td><a href="../packages/Query.Query.html">Query</a></td>
 </tr>
 <tr>
 <th>subpackage</th>
@@ -129,12 +135,12 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 </table>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
-<a name="count_all" id="count_all"></a><div class="element clickable method public count_all" data-toggle="collapse" data-target=".count_all .collapse">
+<a id="method_count_all"></a><div class="element clickable method public method_count_all" data-toggle="collapse" data-target=".method_count_all .collapse">
 <h2>Retreive the number of rows in the selected table</h2>
 <pre>count_all(string $table) : int</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -144,13 +150,13 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 <div class="subelement response"><code>int</code></div>
 </div></div>
 </div>
-<a name="count_all_results" id="count_all_results"></a><div class="element clickable method public count_all_results" data-toggle="collapse" data-target=".count_all_results .collapse">
+<a id="method_count_all_results"></a><div class="element clickable method public method_count_all_results" data-toggle="collapse" data-target=".method_count_all_results .collapse">
 <h2>Retrieve the number of results for the generated query - used
 in place of the get() method</h2>
 <pre>count_all_results(string $table) : int</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -160,12 +166,12 @@ in place of the get() method</h2>
 <div class="subelement response"><code>int</code></div>
 </div></div>
 </div>
-<a name="delete" id="delete"></a><div class="element clickable method public delete" data-toggle="collapse" data-target=".delete .collapse">
+<a id="method_delete"></a><div class="element clickable method public method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
 <h2>Deletes data from a table</h2>
 <pre>delete(string $table, mixed $where) : mixed</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -179,26 +185,26 @@ in place of the get() method</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a name="distinct" id="distinct"></a><div class="element clickable method public distinct" data-toggle="collapse" data-target=".distinct .collapse">
+<a id="method_distinct"></a><div class="element clickable method public method_distinct" data-toggle="collapse" data-target=".method_distinct .collapse">
 <h2>Adds the 'distinct' keyword to a query</h2>
-<pre>distinct() : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>distinct() : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
 </tr></table>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="from" id="from"></a><div class="element clickable method public from" data-toggle="collapse" data-target=".from .collapse">
+<a id="method_from"></a><div class="element clickable method public method_from" data-toggle="collapse" data-target=".method_from .collapse">
 <h2>Specify the database table to select from</h2>
-<pre>from(string $tblname) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>from(string $tblname) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -209,21 +215,18 @@ in place of the get() method</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="get" id="get"></a><div class="element clickable method public get" data-toggle="collapse" data-target=".get .collapse">
+<a id="method_get"></a><div class="element clickable method public method_get" data-toggle="collapse" data-target=".method_get .collapse">
 <h2>Select and retrieve all records from the current table, and/or
 execute current compiled query</h2>
-<pre>get($table, int $limit, int $offset) : object</pre>
+<pre>get(mixed $table, int $limit, int $offset) : object</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code></code>
-</div>
+<div class="subelement argument"><h4>$table</h4></div>
 <div class="subelement argument">
 <h4>$limit</h4>
 <code>int</code>
@@ -236,12 +239,12 @@ execute current compiled query</h2>
 <div class="subelement response"><code>object</code></div>
 </div></div>
 </div>
-<a name="get_compiled_delete" id="get_compiled_delete"></a><div class="element clickable method public get_compiled_delete" data-toggle="collapse" data-target=".get_compiled_delete .collapse">
+<a id="method_get_compiled_delete"></a><div class="element clickable method public method_get_compiled_delete" data-toggle="collapse" data-target=".method_get_compiled_delete .collapse">
 <h2>Returns the generated 'delete' sql query</h2>
 <pre>get_compiled_delete(string $table, bool $reset) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -255,12 +258,12 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="get_compiled_insert" id="get_compiled_insert"></a><div class="element clickable method public get_compiled_insert" data-toggle="collapse" data-target=".get_compiled_insert .collapse">
+<a id="method_get_compiled_insert"></a><div class="element clickable method public method_get_compiled_insert" data-toggle="collapse" data-target=".method_get_compiled_insert .collapse">
 <h2>Returns the generated 'insert' sql query</h2>
 <pre>get_compiled_insert(string $table, bool $reset) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -274,12 +277,12 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="get_compiled_select" id="get_compiled_select"></a><div class="element clickable method public get_compiled_select" data-toggle="collapse" data-target=".get_compiled_select .collapse">
+<a id="method_get_compiled_select"></a><div class="element clickable method public method_get_compiled_select" data-toggle="collapse" data-target=".method_get_compiled_select .collapse">
 <h2>Returns the generated 'select' sql query</h2>
 <pre>get_compiled_select(string $table, bool $reset) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -293,12 +296,12 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="get_compiled_update" id="get_compiled_update"></a><div class="element clickable method public get_compiled_update" data-toggle="collapse" data-target=".get_compiled_update .collapse">
+<a id="method_get_compiled_update"></a><div class="element clickable method public method_get_compiled_update" data-toggle="collapse" data-target=".method_get_compiled_update .collapse">
 <h2>Returns the generated 'update' sql query</h2>
 <pre>get_compiled_update(string $table, bool $reset) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -312,12 +315,12 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="get_where" id="get_where"></a><div class="element clickable method public get_where" data-toggle="collapse" data-target=".get_where .collapse">
+<a id="method_get_where"></a><div class="element clickable method public method_get_where" data-toggle="collapse" data-target=".method_get_where .collapse">
 <h2>Convience method for get() with a where clause</h2>
 <pre>get_where(string $table, array $where, int $limit, int $offset) : object</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -339,12 +342,12 @@ execute current compiled query</h2>
 <div class="subelement response"><code>object</code></div>
 </div></div>
 </div>
-<a name="group_by" id="group_by"></a><div class="element clickable method public group_by" data-toggle="collapse" data-target=".group_by .collapse">
+<a id="method_group_by"></a><div class="element clickable method public method_group_by" data-toggle="collapse" data-target=".method_group_by .collapse">
 <h2>Group the results by the selected field(s)</h2>
-<pre>group_by(mixed $field) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>group_by(mixed $field) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -355,43 +358,43 @@ execute current compiled query</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="group_end" id="group_end"></a><div class="element clickable method public group_end" data-toggle="collapse" data-target=".group_end .collapse">
+<a id="method_group_end"></a><div class="element clickable method public method_group_end" data-toggle="collapse" data-target=".method_group_end .collapse">
 <h2>Ends a query group</h2>
-<pre>group_end() : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>group_end() : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
 </tr></table>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="group_start" id="group_start"></a><div class="element clickable method public group_start" data-toggle="collapse" data-target=".group_start .collapse">
+<a id="method_group_start"></a><div class="element clickable method public method_group_start" data-toggle="collapse" data-target=".method_group_start .collapse">
 <h2>Adds a paren to the current query for query grouping</h2>
-<pre>group_start() : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>group_start() : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
 </tr></table>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="having" id="having"></a><div class="element clickable method public having" data-toggle="collapse" data-target=".having .collapse">
+<a id="method_having"></a><div class="element clickable method public method_having" data-toggle="collapse" data-target=".method_having .collapse">
 <h2>Generates a 'Having' clause</h2>
-<pre>having(mixed $key, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>having(mixed $key, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -406,15 +409,15 @@ execute current compiled query</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="insert" id="insert"></a><div class="element clickable method public insert" data-toggle="collapse" data-target=".insert .collapse">
+<a id="method_insert"></a><div class="element clickable method public method_insert" data-toggle="collapse" data-target=".method_insert .collapse">
 <h2>Creates an insert clause, and executes it</h2>
 <pre>insert(string $table, mixed $data) : mixed</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -428,12 +431,12 @@ execute current compiled query</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a name="join" id="join"></a><div class="element clickable method public join" data-toggle="collapse" data-target=".join .collapse">
+<a id="method_join"></a><div class="element clickable method public method_join" data-toggle="collapse" data-target=".method_join .collapse">
 <h2>Creates a join phrase in a compiled query</h2>
-<pre>join(string $table, string $condition, string $type) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>join(string $table, string $condition, string $type) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -452,15 +455,15 @@ execute current compiled query</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="like" id="like"></a><div class="element clickable method public like" data-toggle="collapse" data-target=".like .collapse">
+<a id="method_like"></a><div class="element clickable method public method_like" data-toggle="collapse" data-target=".method_like .collapse">
 <h2>Creates a Like clause in the sql statement</h2>
-<pre>like(string $field, mixed $val, string $pos) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>like(string $field, mixed $val, string $pos) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -479,15 +482,15 @@ execute current compiled query</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="limit" id="limit"></a><div class="element clickable method public limit" data-toggle="collapse" data-target=".limit .collapse">
+<a id="method_limit"></a><div class="element clickable method public method_limit" data-toggle="collapse" data-target=".method_limit .collapse">
 <h2>Set a limit on the current sql statement</h2>
 <pre>limit(int $limit, int $offset) : string</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$limit</h4>
@@ -501,12 +504,12 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="not_like" id="not_like"></a><div class="element clickable method public not_like" data-toggle="collapse" data-target=".not_like .collapse">
+<a id="method_not_like"></a><div class="element clickable method public method_not_like" data-toggle="collapse" data-target=".method_not_like .collapse">
 <h2>Generates a NOT LIKE clause</h2>
-<pre>not_like(string $field, mixed $val, string $pos) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>not_like(string $field, mixed $val, string $pos) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -525,30 +528,30 @@ execute current compiled query</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="or_group_start" id="or_group_start"></a><div class="element clickable method public or_group_start" data-toggle="collapse" data-target=".or_group_start .collapse">
+<a id="method_or_group_start"></a><div class="element clickable method public method_or_group_start" data-toggle="collapse" data-target=".method_or_group_start .collapse">
 <h2>Adds a paren to the current query for query grouping,
 prefixed with 'OR'</h2>
-<pre>or_group_start() : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>or_group_start() : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
 </tr></table>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="or_having" id="or_having"></a><div class="element clickable method public or_having" data-toggle="collapse" data-target=".or_having .collapse">
+<a id="method_or_having"></a><div class="element clickable method public method_or_having" data-toggle="collapse" data-target=".method_or_having .collapse">
 <h2>Generates a 'Having' clause prefixed with 'OR'</h2>
-<pre>or_having(mixed $key, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>or_having(mixed $key, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -563,15 +566,15 @@ prefixed with 'OR'</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="or_like" id="or_like"></a><div class="element clickable method public or_like" data-toggle="collapse" data-target=".or_like .collapse">
+<a id="method_or_like"></a><div class="element clickable method public method_or_like" data-toggle="collapse" data-target=".method_or_like .collapse">
 <h2>Generates an OR Like clause</h2>
-<pre>or_like(string $field, mixed $val, string $pos) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>or_like(string $field, mixed $val, string $pos) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -590,30 +593,30 @@ prefixed with 'OR'</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="or_not_group_start" id="or_not_group_start"></a><div class="element clickable method public or_not_group_start" data-toggle="collapse" data-target=".or_not_group_start .collapse">
+<a id="method_or_not_group_start"></a><div class="element clickable method public method_or_not_group_start" data-toggle="collapse" data-target=".method_or_not_group_start .collapse">
 <h2>Adds a paren to the current query for query grouping,
 prefixed with 'OR NOT'</h2>
-<pre>or_not_group_start() : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>or_not_group_start() : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
 </tr></table>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="or_not_like" id="or_not_like"></a><div class="element clickable method public or_not_like" data-toggle="collapse" data-target=".or_not_like .collapse">
+<a id="method_or_not_like"></a><div class="element clickable method public method_or_not_like" data-toggle="collapse" data-target=".method_or_not_like .collapse">
 <h2>Generates a OR NOT LIKE clause</h2>
-<pre>or_not_like(string $field, mixed $val, string $pos) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>or_not_like(string $field, mixed $val, string $pos) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -632,15 +635,15 @@ prefixed with 'OR NOT'</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="or_where" id="or_where"></a><div class="element clickable method public or_where" data-toggle="collapse" data-target=".or_where .collapse">
+<a id="method_or_where"></a><div class="element clickable method public method_or_where" data-toggle="collapse" data-target=".method_or_where .collapse">
 <h2>Where clause prefixed with "OR"</h2>
-<pre>or_where(string $key, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>or_where(string $key, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -655,15 +658,15 @@ prefixed with 'OR NOT'</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="or_where_in" id="or_where_in"></a><div class="element clickable method public or_where_in" data-toggle="collapse" data-target=".or_where_in .collapse">
+<a id="method_or_where_in"></a><div class="element clickable method public method_or_where_in" data-toggle="collapse" data-target=".method_or_where_in .collapse">
 <h2>Where in statement prefixed with "or"</h2>
-<pre>or_where_in(string $field, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>or_where_in(string $field, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -678,15 +681,15 @@ prefixed with 'OR NOT'</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="or_where_not_in" id="or_where_not_in"></a><div class="element clickable method public or_where_not_in" data-toggle="collapse" data-target=".or_where_not_in .collapse">
+<a id="method_or_where_not_in"></a><div class="element clickable method public method_or_where_not_in" data-toggle="collapse" data-target=".method_or_where_not_in .collapse">
 <h2>OR WHERE NOT IN (FOO) clause</h2>
-<pre>or_where_not_in(string $field, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>or_where_not_in(string $field, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -701,15 +704,15 @@ prefixed with 'OR NOT'</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="order_by" id="order_by"></a><div class="element clickable method public order_by" data-toggle="collapse" data-target=".order_by .collapse">
+<a id="method_order_by"></a><div class="element clickable method public method_order_by" data-toggle="collapse" data-target=".method_order_by .collapse">
 <h2>Order the results by the selected field(s)</h2>
-<pre>order_by(string $field, string $type) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>order_by(string $field, string $type) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -724,21 +727,21 @@ prefixed with 'OR NOT'</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="reset_query" id="reset_query"></a><div class="element clickable method public reset_query" data-toggle="collapse" data-target=".reset_query .collapse">
+<a id="method_reset_query"></a><div class="element clickable method public method_reset_query" data-toggle="collapse" data-target=".method_reset_query .collapse">
 <h2>Clear out the class variables, so the next query can be run</h2>
 <pre>reset_query() : void</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a name="select" id="select"></a><div class="element clickable method public select" data-toggle="collapse" data-target=".select .collapse">
+<a id="method_select"></a><div class="element clickable method public method_select" data-toggle="collapse" data-target=".method_select .collapse">
 <h2>Specifies rows to select in a query</h2>
-<pre>select(string $fields) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>select(string $fields) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -749,15 +752,15 @@ prefixed with 'OR NOT'</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="select_avg" id="select_avg"></a><div class="element clickable method public select_avg" data-toggle="collapse" data-target=".select_avg .collapse">
+<a id="method_select_avg"></a><div class="element clickable method public method_select_avg" data-toggle="collapse" data-target=".method_select_avg .collapse">
 <h2>Selects the average value of a field from a query</h2>
-<pre>select_avg(string $field, string $as) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>select_avg(string $field, string $as) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -772,15 +775,15 @@ prefixed with 'OR NOT'</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="select_max" id="select_max"></a><div class="element clickable method public select_max" data-toggle="collapse" data-target=".select_max .collapse">
+<a id="method_select_max"></a><div class="element clickable method public method_select_max" data-toggle="collapse" data-target=".method_select_max .collapse">
 <h2>Selects the maximum value of a field from a query</h2>
-<pre>select_max(string $field, string $as) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>select_max(string $field, string $as) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -795,15 +798,15 @@ prefixed with 'OR NOT'</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="select_min" id="select_min"></a><div class="element clickable method public select_min" data-toggle="collapse" data-target=".select_min .collapse">
+<a id="method_select_min"></a><div class="element clickable method public method_select_min" data-toggle="collapse" data-target=".method_select_min .collapse">
 <h2>Selects the minimum value of a field from a query</h2>
-<pre>select_min(string $field, string $as) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>select_min(string $field, string $as) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -818,15 +821,15 @@ prefixed with 'OR NOT'</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="select_sum" id="select_sum"></a><div class="element clickable method public select_sum" data-toggle="collapse" data-target=".select_sum .collapse">
+<a id="method_select_sum"></a><div class="element clickable method public method_select_sum" data-toggle="collapse" data-target=".method_select_sum .collapse">
 <h2>Selects the sum of a field from a query</h2>
-<pre>select_sum(string $field, string $as) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>select_sum(string $field, string $as) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -841,15 +844,15 @@ prefixed with 'OR NOT'</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="set" id="set"></a><div class="element clickable method public set" data-toggle="collapse" data-target=".set .collapse">
+<a id="method_set"></a><div class="element clickable method public method_set" data-toggle="collapse" data-target=".method_set .collapse">
 <h2>Sets values for inserts / updates / deletes</h2>
-<pre>set(mixed $key, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>set(mixed $key, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -864,15 +867,15 @@ prefixed with 'OR NOT'</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="update" id="update"></a><div class="element clickable method public update" data-toggle="collapse" data-target=".update .collapse">
+<a id="method_update"></a><div class="element clickable method public method_update" data-toggle="collapse" data-target=".method_update .collapse">
 <h2>Creates an update clause, and executes it</h2>
 <pre>update(string $table, mixed $data) : mixed</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$table</h4>
@@ -886,14 +889,14 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a name="where" id="where"></a><div class="element clickable method public where" data-toggle="collapse" data-target=".where .collapse">
+<a id="method_where"></a><div class="element clickable method public method_where" data-toggle="collapse" data-target=".method_where .collapse">
 <h2>Specify condition(s) in the where clause of a query
 Note: this function works with key / value, or a
 passed array with key / value pairs</h2>
-<pre>where(mixed $key, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>where(mixed $key, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -908,15 +911,15 @@ passed array with key / value pairs</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="where_in" id="where_in"></a><div class="element clickable method public where_in" data-toggle="collapse" data-target=".where_in .collapse">
+<a id="method_where_in"></a><div class="element clickable method public method_where_in" data-toggle="collapse" data-target=".method_where_in .collapse">
 <h2>Where clause with 'IN' statement</h2>
-<pre>where_in(mixed $field, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>where_in(mixed $field, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -931,15 +934,15 @@ passed array with key / value pairs</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
-<a name="where_not_in" id="where_not_in"></a><div class="element clickable method public where_not_in" data-toggle="collapse" data-target=".where_not_in .collapse">
+<a id="method_where_not_in"></a><div class="element clickable method public method_where_not_in" data-toggle="collapse" data-target=".method_where_not_in .collapse">
 <h2>WHERE NOT IN (FOO) clause</h2>
-<pre>where_not_in(string $field, mixed $val) : <a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></pre>
+<pre>where_not_in(string $field, mixed $val) : \iQuery_Builder</pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="span8">
-<p class="long_description"></p>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>fluent</th>
 <td>This method is part of a fluent interface and will return the same instance</td>
@@ -954,7 +957,7 @@ passed array with key / value pairs</h2>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/iQuery_Builder.html">\iQuery_Builder</a></code></div>
+<div class="subelement response"><code>\iQuery_Builder</code></div>
 </div></div>
 </div>
 </div>
@@ -963,8 +966,9 @@ passed array with key / value pairs</h2>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2013-05-03T13:07:08-04:00.<br></footer></div>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.1.0
+</a> and<br>
+            generated on 2013-12-06T22:52:34-05:00.<br></footer></div>
 </div>
 </body>
 </html>

@@ -51,7 +51,17 @@ function run_local_tests() {
         $suite = $loader->createSuiteFromClasses(
                 basename(initial_file()),
                 $loader->selectRunnableTests($candidates));
-        return $suite->run(new DefaultReporter());
+        if (function_exists("xdebug_start_code_coverage")) {
+		    $coverage = new PHP_CodeCoverage;
+		    $coverage->start('Query');
+		}
+		$ret = $suite->run(new DefaultReporter());
+		if (function_exists("xdebug_start_code_coverage")) {
+			$coverage->stop();
+			$writer = new PHP_CodeCoverage_Report_HTML;
+			$writer->process($coverage, QBASE_DIR . '/coverage/');
+		}
+        return $ret;
     } catch (Exception $stack_frame_fix) {
         print $stack_frame_fix->getMessage();
         return false;
