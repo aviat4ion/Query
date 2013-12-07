@@ -39,6 +39,16 @@ class FirebirdQBTest extends QBTest {
 	}
 	
 	// --------------------------------------------------------------------------
+	
+	public function TestGetCompiledSelect()
+	{
+		$sql = $this->db->get_compiled_select('create_test');
+		$qb_res = $this->db->get('create_test');
+		$sql_res = $this->db->query($sql);
+		
+		$this->assertIsA($qb_res, 'Firebird_Result');
+		$this->assertIsA($sql_res, 'Firebird_Result');
+	}
 
 	public function TestInsertBatch()
 	{

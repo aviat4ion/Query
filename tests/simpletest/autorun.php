@@ -51,12 +51,12 @@ function run_local_tests() {
         $suite = $loader->createSuiteFromClasses(
                 basename(initial_file()),
                 $loader->selectRunnableTests($candidates));
-        if (function_exists("xdebug_start_code_coverage")) {
+        if (function_exists("xdebug_start_code_coverage") && is_dir(QBASE_DIR.'/vendor/')) {
 		    $coverage = new PHP_CodeCoverage;
 		    $coverage->start('Query');
 		}
 		$ret = $suite->run(new DefaultReporter());
-		if (function_exists("xdebug_start_code_coverage")) {
+		if (function_exists("xdebug_start_code_coverage") && is_dir(QBASE_DIR.'/vendor/')) {
 			$coverage->stop();
 			$writer = new PHP_CodeCoverage_Report_HTML;
 			$writer->process($coverage, QBASE_DIR . '/coverage/');

@@ -21,8 +21,14 @@ define('QBASE_DIR', str_replace(basename(QTEST_DIR), '', QTEST_DIR));
 define('QDS', DIRECTORY_SEPARATOR);
 
 // Include simpletest
-// it has to be set in your php path, or put in the tests folder
+// it has to be in the tests folder
 require_once('simpletest/autorun.php');
+
+// Require composer items, if they exist
+if (is_dir(QBASE_DIR.'/vendor/'))
+{
+	require_once(QBASE_DIR.'/vendor/autoload.php');
+}
 
 // Include db classes
 require_once(QBASE_DIR . 'autoload.php');

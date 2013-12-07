@@ -793,11 +793,11 @@ abstract class QBTest extends UnitTestCase {
 	
 	public function TestGetCompiledSelect()
 	{
-		$sql = $this->db->from('create_test')->get_compled_select('', FALSE);
-		$qb_res = $this->db->get();
+		$sql = $this->db->get_compiled_select('create_test');
+		$qb_res = $this->db->get('create_test');
 		$sql_res = $this->db->query($sql);
 		
-		$this->assertEqual($qb_res, $sql_res);
+		$this->assertClone($qb_res, $sql_res);
 	}
 
 	// --------------------------------------------------------------------------
