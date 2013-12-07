@@ -13,6 +13,3 @@ before_script:
   - phpenv config-add ./tests/php_test.ini
 
 script: php ./tests/index.php
-
-install:
-  - composer install --dev
