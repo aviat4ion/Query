@@ -80,5 +80,6 @@ abstract class DBTest extends UnitTestCase {
 		$types = $this->db->get_types();
 		$this->assertTrue(is_array($types));
 	}
+	
 }
 // End of db_test.php

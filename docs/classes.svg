@@ -20,247 +20,247 @@
 <path fill="none" stroke="gray" d="M230,-164C230,-158 236,-152 242,-152"/>
 <text text-anchor="middle" x="447" y="-1237.1" font-family="Times Roman,serif" font-size="11.00" fill="gray">\</text>
 </g>
-<!-- \\Query_Parser -->
-<g id="node2" class="node"><title>\\Query_Parser</title>
-<polygon fill="none" stroke="black" points="624,-1222 534,-1222 534,-1186 624,-1186 624,-1222"/>
-<text text-anchor="middle" x="579" y="-1200.6" font-family="Times Roman,serif" font-size="11.00">Query_Parser</text>
-</g>
 <!-- \\DB_PDO -->
-<g id="node3" class="node"><title>\\DB_PDO</title>
-<polygon fill="none" stroke="black" points="325,-466 249,-466 249,-430 325,-430 325,-466"/>
-<text text-anchor="start" x="257.5" y="-453.433" font-family="Times Roman,serif" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="264" y="-440.233" font-family="Times Roman,serif" font-size="11.00">DB_PDO</text>
+<g id="node2" class="node"><title>\\DB_PDO</title>
+<polygon fill="none" stroke="black" points="325,-520 249,-520 249,-484 325,-484 325,-520"/>
+<text text-anchor="start" x="257.5" y="-507.433" font-family="Times Roman,serif" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="264" y="-494.233" font-family="Times Roman,serif" font-size="11.00">DB_PDO</text>
 </g>
 <!-- \\PDO -->
 <g id="node27" class="node"><title>\\PDO</title>
-<ellipse fill="none" stroke="black" cx="36" cy="-448" rx="35.0527" ry="18"/>
-<text text-anchor="middle" x="36" y="-443.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\PDO</text>
+<ellipse fill="none" stroke="black" cx="36" cy="-502" rx="35.0527" ry="18"/>
+<text text-anchor="middle" x="36" y="-497.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\PDO</text>
 </g>
 <!-- \\DB_PDO&#45;&gt;\\PDO -->
 <g id="edge3" class="edge"><title>\\DB_PDO&#45;&gt;\\PDO</title>
-<path fill="none" stroke="black" d="M248.879,-448C204.032,-448 129.635,-448 81.7269,-448"/>
-<polygon fill="none" stroke="black" points="81.6312,-444.5 71.6312,-448 81.6311,-451.5 81.6312,-444.5"/>
+<path fill="none" stroke="black" d="M248.879,-502C204.032,-502 129.635,-502 81.7269,-502"/>
+<polygon fill="none" stroke="black" points="81.6312,-498.5 71.6312,-502 81.6311,-505.5 81.6312,-498.5"/>
 </g>
-<!-- \\Query_Builder -->
-<g id="node4" class="node"><title>\\Query_Builder</title>
-<polygon fill="none" stroke="black" points="626,-1168 532,-1168 532,-1132 626,-1132 626,-1168"/>
-<text text-anchor="middle" x="579" y="-1146.6" font-family="Times Roman,serif" font-size="11.00">Query_Builder</text>
+<!-- \\Firebird_Result -->
+<g id="node3" class="node"><title>\\Firebird_Result</title>
+<polygon fill="none" stroke="black" points="627,-358 531,-358 531,-322 627,-322 627,-358"/>
+<text text-anchor="middle" x="579" y="-336.6" font-family="Times Roman,serif" font-size="11.00">Firebird_Result</text>
 </g>
-<!-- \\iQuery_Builder -->
-<g id="node25" class="node"><title>\\iQuery_Builder</title>
-<polygon fill="none" stroke="black" points="336,-1168 238,-1168 238,-1132 336,-1132 336,-1168"/>
-<text text-anchor="middle" x="287" y="-1146.6" font-family="Times Roman,serif" font-size="11.00">iQuery_Builder</text>
+<!-- \\PDOStatement -->
+<g id="node29" class="node"><title>\\PDOStatement</title>
+<ellipse fill="none" stroke="black" cx="287" cy="-126" rx="85.1942" ry="18"/>
+<text text-anchor="middle" x="287" y="-121.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\PDOStatement</text>
 </g>
-<!-- \\Query_Builder&#45;&gt;\\iQuery_Builder -->
-<g id="edge5" class="edge"><title>\\Query_Builder&#45;&gt;\\iQuery_Builder</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M531.435,-1150C480.879,-1150 400.848,-1150 346.235,-1150"/>
-<polygon fill="none" stroke="black" points="346.007,-1146.5 336.007,-1150 346.007,-1153.5 346.007,-1146.5"/>
+<!-- \\Firebird_Result&#45;&gt;\\PDOStatement -->
+<g id="edge5" class="edge"><title>\\Firebird_Result&#45;&gt;\\PDOStatement</title>
+<path fill="none" stroke="black" d="M530.433,-329.744C520.145,-325.821 509.994,-320.422 502,-313 443.364,-258.561 493.404,-196.803 430,-148 416.189,-137.37 399.361,-130.886 382.164,-127.081"/>
+<polygon fill="none" stroke="black" points="382.497,-123.581 372.017,-125.14 381.181,-130.457 382.497,-123.581"/>
+</g>
+<!-- \\Firebird_Util -->
+<g id="node4" class="node"><title>\\Firebird_Util</title>
+<polygon fill="none" stroke="black" points="620,-1168 538,-1168 538,-1132 620,-1132 620,-1168"/>
+<text text-anchor="middle" x="579" y="-1146.6" font-family="Times Roman,serif" font-size="11.00">Firebird_Util</text>
 </g>
 <!-- \\DB_Util -->
-<g id="node5" class="node"><title>\\DB_Util</title>
-<polygon fill="none" stroke="black" points="325,-1006 249,-1006 249,-970 325,-970 325,-1006"/>
-<text text-anchor="start" x="257.5" y="-993.433" font-family="Times Roman,serif" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="266.5" y="-980.233" font-family="Times Roman,serif" font-size="11.00">DB_Util</text>
+<g id="node10" class="node"><title>\\DB_Util</title>
+<polygon fill="none" stroke="black" points="325,-1060 249,-1060 249,-1024 325,-1024 325,-1060"/>
+<text text-anchor="start" x="257.5" y="-1047.43" font-family="Times Roman,serif" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="266.5" y="-1034.23" font-family="Times Roman,serif" font-size="11.00">DB_Util</text>
 </g>
-<!-- \\BadDBDriverException -->
-<g id="node6" class="node"><title>\\BadDBDriverException</title>
-<polygon fill="none" stroke="black" points="650,-304 508,-304 508,-268 650,-268 650,-304"/>
-<text text-anchor="middle" x="579" y="-282.6" font-family="Times Roman,serif" font-size="11.00">BadDBDriverException</text>
+<!-- \\Firebird_Util&#45;&gt;\\DB_Util -->
+<g id="edge7" class="edge"><title>\\Firebird_Util&#45;&gt;\\DB_Util</title>
+<path fill="none" stroke="black" d="M537.778,-1135.74C526.185,-1131.68 513.582,-1127.21 502,-1123 444.323,-1102.03 378.311,-1077 334.819,-1060.38"/>
+<polygon fill="none" stroke="black" points="335.941,-1057.06 325.351,-1056.75 333.439,-1063.6 335.941,-1057.06"/>
 </g>
-<!-- \\InvalidArgumentException -->
-<g id="node30" class="node"><title>\\InvalidArgumentException</title>
-<ellipse fill="none" stroke="black" cx="287" cy="-126" rx="138.86" ry="18"/>
-<text text-anchor="middle" x="287" y="-121.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\InvalidArgumentException</text>
+<!-- \\Query_Builder -->
+<g id="node5" class="node"><title>\\Query_Builder</title>
+<polygon fill="none" stroke="black" points="626,-1222 532,-1222 532,-1186 626,-1186 626,-1222"/>
+<text text-anchor="middle" x="579" y="-1200.6" font-family="Times Roman,serif" font-size="11.00">Query_Builder</text>
 </g>
-<!-- \\BadDBDriverException&#45;&gt;\\InvalidArgumentException -->
-<g id="edge7" class="edge"><title>\\BadDBDriverException&#45;&gt;\\InvalidArgumentException</title>
-<path fill="none" stroke="black" d="M515.792,-267.846C510.904,-265.262 506.232,-262.327 502,-259 455.775,-222.654 479.379,-179.93 430,-148 425,-144.767 419.701,-141.944 414.199,-139.483"/>
-<polygon fill="none" stroke="black" points="415.351,-136.174 404.768,-135.674 412.73,-142.664 415.351,-136.174"/>
+<!-- \\iQuery_Builder -->
+<g id="node24" class="node"><title>\\iQuery_Builder</title>
+<polygon fill="none" stroke="black" points="336,-1222 238,-1222 238,-1186 336,-1186 336,-1222"/>
+<text text-anchor="middle" x="287" y="-1200.6" font-family="Times Roman,serif" font-size="11.00">iQuery_Builder</text>
 </g>
-<!-- \\BadConnectionException -->
-<g id="node7" class="node"><title>\\BadConnectionException</title>
-<polygon fill="none" stroke="black" points="656,-250 502,-250 502,-214 656,-214 656,-250"/>
-<text text-anchor="middle" x="579" y="-228.6" font-family="Times Roman,serif" font-size="11.00">BadConnectionException</text>
+<!-- \\Query_Builder&#45;&gt;\\iQuery_Builder -->
+<g id="edge9" class="edge"><title>\\Query_Builder&#45;&gt;\\iQuery_Builder</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M531.435,-1204C480.879,-1204 400.848,-1204 346.235,-1204"/>
+<polygon fill="none" stroke="black" points="346.007,-1200.5 336.007,-1204 346.007,-1207.5 346.007,-1200.5"/>
 </g>
-<!-- \\UnexpectedValueException -->
-<g id="node32" class="node"><title>\\UnexpectedValueException</title>
-<ellipse fill="none" stroke="black" cx="287" cy="-72" rx="142.885" ry="18"/>
-<text text-anchor="middle" x="287" y="-67.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\UnexpectedValueException</text>
+<!-- \\Firebird -->
+<g id="node6" class="node"><title>\\Firebird</title>
+<polygon fill="none" stroke="black" points="608,-628 550,-628 550,-592 608,-592 608,-628"/>
+<text text-anchor="middle" x="579" y="-606.6" font-family="Times Roman,serif" font-size="11.00">Firebird</text>
 </g>
-<!-- \\BadConnectionException&#45;&gt;\\UnexpectedValueException -->
-<g id="edge9" class="edge"><title>\\BadConnectionException&#45;&gt;\\UnexpectedValueException</title>
-<path fill="none" stroke="black" d="M516.256,-213.95C511.211,-211.337 506.379,-208.369 502,-205 456.859,-170.276 477.626,-130.229 430,-99 422.863,-94.32 415.119,-90.405 407.053,-87.1346"/>
-<polygon fill="none" stroke="black" points="408.047,-83.7705 397.454,-83.5843 405.619,-90.3358 408.047,-83.7705"/>
+<!-- \\Firebird&#45;&gt;\\DB_PDO -->
+<g id="edge11" class="edge"><title>\\Firebird&#45;&gt;\\DB_PDO</title>
+<path fill="none" stroke="black" d="M549.692,-599.901C535.297,-594.895 517.71,-588.713 502,-583 444.323,-562.026 378.311,-537.004 334.819,-520.376"/>
+<polygon fill="none" stroke="black" points="335.941,-517.058 325.351,-516.753 333.439,-523.596 335.941,-517.058"/>
 </g>
-<!-- \\PgSQL_SQL -->
-<g id="node8" class="node"><title>\\PgSQL_SQL</title>
-<polygon fill="none" stroke="black" points="619,-844 539,-844 539,-808 619,-808 619,-844"/>
-<text text-anchor="middle" x="579" y="-822.6" font-family="Times Roman,serif" font-size="11.00">PgSQL_SQL</text>
+<!-- \\MySQL_Util -->
+<g id="node7" class="node"><title>\\MySQL_Util</title>
+<polygon fill="none" stroke="black" points="618,-1114 540,-1114 540,-1078 618,-1078 618,-1114"/>
+<text text-anchor="middle" x="579" y="-1092.6" font-family="Times Roman,serif" font-size="11.00">MySQL_Util</text>
+</g>
+<!-- \\MySQL_Util&#45;&gt;\\DB_Util -->
+<g id="edge13" class="edge"><title>\\MySQL_Util&#45;&gt;\\DB_Util</title>
+<path fill="none" stroke="black" d="M539.316,-1088.66C486.212,-1078.84 392.123,-1061.44 335.065,-1050.89"/>
+<polygon fill="none" stroke="black" points="335.675,-1047.44 325.205,-1049.07 334.402,-1054.33 335.675,-1047.44"/>
+</g>
+<!-- \\ODBC_SQL -->
+<g id="node8" class="node"><title>\\ODBC_SQL</title>
+<polygon fill="none" stroke="black" points="617,-898 541,-898 541,-862 617,-862 617,-898"/>
+<text text-anchor="middle" x="579" y="-876.6" font-family="Times Roman,serif" font-size="11.00">ODBC_SQL</text>
 </g>
 <!-- \\iDB_SQL -->
-<g id="node24" class="node"><title>\\iDB_SQL</title>
-<polygon fill="none" stroke="black" points="318,-736 256,-736 256,-700 318,-700 318,-736"/>
-<text text-anchor="middle" x="287" y="-714.6" font-family="Times Roman,serif" font-size="11.00">iDB_SQL</text>
+<g id="node25" class="node"><title>\\iDB_SQL</title>
+<polygon fill="none" stroke="black" points="318,-790 256,-790 256,-754 318,-754 318,-790"/>
+<text text-anchor="middle" x="287" y="-768.6" font-family="Times Roman,serif" font-size="11.00">iDB_SQL</text>
 </g>
-<!-- \\PgSQL_SQL&#45;&gt;\\iDB_SQL -->
-<g id="edge11" class="edge"><title>\\PgSQL_SQL&#45;&gt;\\iDB_SQL</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M538.973,-812.161C527.056,-807.988 513.982,-803.357 502,-799 441.314,-776.932 371.402,-750.382 328.201,-733.844"/>
-<polygon fill="none" stroke="black" points="329.199,-730.479 318.609,-730.169 326.694,-737.015 329.199,-730.479"/>
-</g>
-<!-- \\PgSQL_Util -->
-<g id="node9" class="node"><title>\\PgSQL_Util</title>
-<polygon fill="none" stroke="black" points="617,-1114 541,-1114 541,-1078 617,-1078 617,-1114"/>
-<text text-anchor="middle" x="579" y="-1092.6" font-family="Times Roman,serif" font-size="11.00">PgSQL_Util</text>
-</g>
-<!-- \\PgSQL_Util&#45;&gt;\\DB_Util -->
-<g id="edge13" class="edge"><title>\\PgSQL_Util&#45;&gt;\\DB_Util</title>
-<path fill="none" stroke="black" d="M540.948,-1082.85C528.512,-1078.5 514.647,-1073.6 502,-1069 444.323,-1048.03 378.311,-1023 334.819,-1006.38"/>
-<polygon fill="none" stroke="black" points="335.941,-1003.06 325.351,-1002.75 333.439,-1009.6 335.941,-1003.06"/>
-</g>
-<!-- \\PgSQL -->
-<g id="node10" class="node"><title>\\PgSQL</title>
-<polygon fill="none" stroke="black" points="606,-574 552,-574 552,-538 606,-538 606,-574"/>
-<text text-anchor="middle" x="579" y="-552.6" font-family="Times Roman,serif" font-size="11.00">PgSQL</text>
-</g>
-<!-- \\PgSQL&#45;&gt;\\DB_PDO -->
-<g id="edge15" class="edge"><title>\\PgSQL&#45;&gt;\\DB_PDO</title>
-<path fill="none" stroke="black" d="M551.863,-546.656C537.09,-541.525 518.508,-535.003 502,-529 444.323,-508.026 378.311,-483.004 334.819,-466.376"/>
-<polygon fill="none" stroke="black" points="335.941,-463.058 325.351,-462.753 333.439,-469.596 335.941,-463.058"/>
+<!-- \\ODBC_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge15" class="edge"><title>\\ODBC_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M540.948,-866.852C528.512,-862.503 514.647,-857.599 502,-853 441.314,-830.932 371.402,-804.382 328.201,-787.844"/>
+<polygon fill="none" stroke="black" points="329.199,-784.479 318.609,-784.169 326.694,-791.015 329.199,-784.479"/>
 </g>
 <!-- \\ODBC_Util -->
-<g id="node11" class="node"><title>\\ODBC_Util</title>
+<g id="node9" class="node"><title>\\ODBC_Util</title>
 <polygon fill="none" stroke="black" points="615,-1060 543,-1060 543,-1024 615,-1024 615,-1060"/>
 <text text-anchor="middle" x="579" y="-1038.6" font-family="Times Roman,serif" font-size="11.00">ODBC_Util</text>
 </g>
 <!-- \\ODBC_Util&#45;&gt;\\DB_Util -->
 <g id="edge17" class="edge"><title>\\ODBC_Util&#45;&gt;\\DB_Util</title>
-<path fill="none" stroke="black" d="M542.314,-1035.22C489.861,-1025.52 393.362,-1007.67 335.2,-996.914"/>
-<polygon fill="none" stroke="black" points="335.626,-993.433 325.156,-995.056 334.353,-1000.32 335.626,-993.433"/>
-</g>
-<!-- \\ODBC_SQL -->
-<g id="node12" class="node"><title>\\ODBC_SQL</title>
-<polygon fill="none" stroke="black" points="617,-790 541,-790 541,-754 617,-754 617,-790"/>
-<text text-anchor="middle" x="579" y="-768.6" font-family="Times Roman,serif" font-size="11.00">ODBC_SQL</text>
-</g>
-<!-- \\ODBC_SQL&#45;&gt;\\iDB_SQL -->
-<g id="edge19" class="edge"><title>\\ODBC_SQL&#45;&gt;\\iDB_SQL</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M540.826,-764.94C486.106,-754.821 385.729,-736.258 328.978,-725.763"/>
-<polygon fill="none" stroke="black" points="329.379,-722.278 318.91,-723.901 328.106,-729.161 329.379,-722.278"/>
-</g>
-<!-- \\ODBC -->
-<g id="node13" class="node"><title>\\ODBC</title>
-<polygon fill="none" stroke="black" points="606,-520 552,-520 552,-484 606,-484 606,-520"/>
-<text text-anchor="middle" x="579" y="-498.6" font-family="Times Roman,serif" font-size="11.00">ODBC</text>
-</g>
-<!-- \\ODBC&#45;&gt;\\DB_PDO -->
-<g id="edge21" class="edge"><title>\\ODBC&#45;&gt;\\DB_PDO</title>
-<path fill="none" stroke="black" d="M551.792,-496.968C502.303,-487.816 396.973,-468.338 335.113,-456.898"/>
-<polygon fill="none" stroke="black" points="335.672,-453.442 325.203,-455.065 334.399,-460.325 335.672,-453.442"/>
-</g>
-<!-- \\MySQL_Util -->
-<g id="node14" class="node"><title>\\MySQL_Util</title>
-<polygon fill="none" stroke="black" points="618,-1006 540,-1006 540,-970 618,-970 618,-1006"/>
-<text text-anchor="middle" x="579" y="-984.6" font-family="Times Roman,serif" font-size="11.00">MySQL_Util</text>
-</g>
-<!-- \\MySQL_Util&#45;&gt;\\DB_Util -->
-<g id="edge23" class="edge"><title>\\MySQL_Util&#45;&gt;\\DB_Util</title>
-<path fill="none" stroke="black" d="M539.316,-988C486.322,-988 392.513,-988 335.42,-988"/>
-<polygon fill="none" stroke="black" points="335.205,-984.5 325.205,-988 335.205,-991.5 335.205,-984.5"/>
-</g>
-<!-- \\MySQL -->
-<g id="node15" class="node"><title>\\MySQL</title>
-<polygon fill="none" stroke="black" points="606,-466 552,-466 552,-430 606,-430 606,-466"/>
-<text text-anchor="middle" x="579" y="-444.6" font-family="Times Roman,serif" font-size="11.00">MySQL</text>
-</g>
-<!-- \\MySQL&#45;&gt;\\DB_PDO -->
-<g id="edge25" class="edge"><title>\\MySQL&#45;&gt;\\DB_PDO</title>
-<path fill="none" stroke="black" d="M551.266,-448C501.608,-448 396.953,-448 335.287,-448"/>
-<polygon fill="none" stroke="black" points="335.035,-444.5 325.035,-448 335.035,-451.5 335.035,-444.5"/>
-</g>
-<!-- \\MySQL_SQL -->
-<g id="node16" class="node"><title>\\MySQL_SQL</title>
-<polygon fill="none" stroke="black" points="620,-736 538,-736 538,-700 620,-700 620,-736"/>
-<text text-anchor="middle" x="579" y="-714.6" font-family="Times Roman,serif" font-size="11.00">MySQL_SQL</text>
-</g>
-<!-- \\MySQL_SQL&#45;&gt;\\iDB_SQL -->
-<g id="edge27" class="edge"><title>\\MySQL_SQL&#45;&gt;\\iDB_SQL</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M537.783,-718C482.4,-718 384.499,-718 328.813,-718"/>
-<polygon fill="none" stroke="black" points="328.595,-714.5 318.595,-718 328.595,-721.5 328.595,-714.5"/>
+<path fill="none" stroke="black" d="M542.314,-1042C489.861,-1042 393.362,-1042 335.2,-1042"/>
+<polygon fill="none" stroke="black" points="335.156,-1038.5 325.156,-1042 335.156,-1045.5 335.156,-1038.5"/>
 </g>
 <!-- \\SQLite_Util -->
-<g id="node17" class="node"><title>\\SQLite_Util</title>
-<polygon fill="none" stroke="black" points="617,-952 541,-952 541,-916 617,-916 617,-952"/>
-<text text-anchor="middle" x="579" y="-930.6" font-family="Times Roman,serif" font-size="11.00">SQLite_Util</text>
+<g id="node11" class="node"><title>\\SQLite_Util</title>
+<polygon fill="none" stroke="black" points="617,-1006 541,-1006 541,-970 617,-970 617,-1006"/>
+<text text-anchor="middle" x="579" y="-984.6" font-family="Times Roman,serif" font-size="11.00">SQLite_Util</text>
 </g>
 <!-- \\SQLite_Util&#45;&gt;\\DB_Util -->
-<g id="edge29" class="edge"><title>\\SQLite_Util&#45;&gt;\\DB_Util</title>
-<path fill="none" stroke="black" d="M540.225,-941.171C487.246,-950.968 392.288,-968.529 334.918,-979.139"/>
-<polygon fill="none" stroke="black" points="334.205,-975.711 325.008,-980.971 335.478,-982.594 334.205,-975.711"/>
+<g id="edge19" class="edge"><title>\\SQLite_Util&#45;&gt;\\DB_Util</title>
+<path fill="none" stroke="black" d="M540.225,-995.171C487.246,-1004.97 392.288,-1022.53 334.918,-1033.14"/>
+<polygon fill="none" stroke="black" points="334.205,-1029.71 325.008,-1034.97 335.478,-1036.59 334.205,-1029.71"/>
+</g>
+<!-- \\PgSQL_Util -->
+<g id="node12" class="node"><title>\\PgSQL_Util</title>
+<polygon fill="none" stroke="black" points="617,-952 541,-952 541,-916 617,-916 617,-952"/>
+<text text-anchor="middle" x="579" y="-930.6" font-family="Times Roman,serif" font-size="11.00">PgSQL_Util</text>
+</g>
+<!-- \\PgSQL_Util&#45;&gt;\\DB_Util -->
+<g id="edge21" class="edge"><title>\\PgSQL_Util&#45;&gt;\\DB_Util</title>
+<path fill="none" stroke="black" d="M540.948,-947.148C528.512,-951.497 514.647,-956.401 502,-961 444.323,-981.974 378.311,-1007 334.819,-1023.62"/>
+<polygon fill="none" stroke="black" points="333.439,-1020.4 325.351,-1027.25 335.941,-1026.94 333.439,-1020.4"/>
+</g>
+<!-- \\PgSQL_SQL -->
+<g id="node13" class="node"><title>\\PgSQL_SQL</title>
+<polygon fill="none" stroke="black" points="619,-844 539,-844 539,-808 619,-808 619,-844"/>
+<text text-anchor="middle" x="579" y="-822.6" font-family="Times Roman,serif" font-size="11.00">PgSQL_SQL</text>
+</g>
+<!-- \\PgSQL_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge23" class="edge"><title>\\PgSQL_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M538.705,-818.548C483.474,-808.334 384.742,-790.075 328.755,-779.722"/>
+<polygon fill="none" stroke="black" points="329.288,-776.261 318.819,-777.884 328.015,-783.144 329.288,-776.261"/>
+</g>
+<!-- \\MySQL_SQL -->
+<g id="node14" class="node"><title>\\MySQL_SQL</title>
+<polygon fill="none" stroke="black" points="620,-790 538,-790 538,-754 620,-754 620,-790"/>
+<text text-anchor="middle" x="579" y="-768.6" font-family="Times Roman,serif" font-size="11.00">MySQL_SQL</text>
+</g>
+<!-- \\MySQL_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge25" class="edge"><title>\\MySQL_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M537.783,-772C482.4,-772 384.499,-772 328.813,-772"/>
+<polygon fill="none" stroke="black" points="328.595,-768.5 318.595,-772 328.595,-775.5 328.595,-768.5"/>
+</g>
+<!-- \\Firebird_SQL -->
+<g id="node15" class="node"><title>\\Firebird_SQL</title>
+<polygon fill="none" stroke="black" points="621,-736 537,-736 537,-700 621,-700 621,-736"/>
+<text text-anchor="middle" x="579" y="-714.6" font-family="Times Roman,serif" font-size="11.00">Firebird_SQL</text>
+</g>
+<!-- \\Firebird_SQL&#45;&gt;\\iDB_SQL -->
+<g id="edge27" class="edge"><title>\\Firebird_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M536.228,-725.91C480.57,-736.203 383.933,-754.074 328.771,-764.275"/>
+<polygon fill="none" stroke="black" points="327.842,-760.888 318.645,-766.148 329.115,-767.771 327.842,-760.888"/>
 </g>
 <!-- \\SQLite -->
-<g id="node18" class="node"><title>\\SQLite</title>
-<polygon fill="none" stroke="black" points="606,-412 552,-412 552,-376 606,-376 606,-412"/>
-<text text-anchor="middle" x="579" y="-390.6" font-family="Times Roman,serif" font-size="11.00">SQLite</text>
+<g id="node16" class="node"><title>\\SQLite</title>
+<polygon fill="none" stroke="black" points="606,-574 552,-574 552,-538 606,-538 606,-574"/>
+<text text-anchor="middle" x="579" y="-552.6" font-family="Times Roman,serif" font-size="11.00">SQLite</text>
 </g>
 <!-- \\SQLite&#45;&gt;\\DB_PDO -->
-<g id="edge31" class="edge"><title>\\SQLite&#45;&gt;\\DB_PDO</title>
-<path fill="none" stroke="black" d="M551.907,-400.321C522.121,-407.153 472.804,-418.118 430,-426 398.567,-431.788 363.052,-437.258 335.279,-441.295"/>
-<polygon fill="none" stroke="black" points="334.437,-437.88 325.039,-442.77 335.435,-444.809 334.437,-437.88"/>
+<g id="edge29" class="edge"><title>\\SQLite&#45;&gt;\\DB_PDO</title>
+<path fill="none" stroke="black" d="M551.792,-550.968C502.303,-541.816 396.973,-522.338 335.113,-510.898"/>
+<polygon fill="none" stroke="black" points="335.672,-507.442 325.203,-509.065 334.399,-514.325 335.672,-507.442"/>
 </g>
 <!-- \\SQLite_SQL -->
-<g id="node19" class="node"><title>\\SQLite_SQL</title>
+<g id="node17" class="node"><title>\\SQLite_SQL</title>
 <polygon fill="none" stroke="black" points="619,-682 539,-682 539,-646 619,-646 619,-682"/>
 <text text-anchor="middle" x="579" y="-660.6" font-family="Times Roman,serif" font-size="11.00">SQLite_SQL</text>
 </g>
 <!-- \\SQLite_SQL&#45;&gt;\\iDB_SQL -->
-<g id="edge33" class="edge"><title>\\SQLite_SQL&#45;&gt;\\iDB_SQL</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M538.705,-671.452C483.474,-681.666 384.742,-699.925 328.755,-710.278"/>
-<polygon fill="none" stroke="black" points="328.015,-706.856 318.819,-712.116 329.288,-713.739 328.015,-706.856"/>
+<g id="edge31" class="edge"><title>\\SQLite_SQL&#45;&gt;\\iDB_SQL</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M538.973,-677.839C527.056,-682.012 513.982,-686.643 502,-691 441.314,-713.068 371.402,-739.618 328.201,-756.156"/>
+<polygon fill="none" stroke="black" points="326.694,-752.985 318.609,-759.831 329.199,-759.521 326.694,-752.985"/>
 </g>
-<!-- \\Firebird_SQL -->
-<g id="node20" class="node"><title>\\Firebird_SQL</title>
-<polygon fill="none" stroke="black" points="621,-628 537,-628 537,-592 621,-592 621,-628"/>
-<text text-anchor="middle" x="579" y="-606.6" font-family="Times Roman,serif" font-size="11.00">Firebird_SQL</text>
+<!-- \\ODBC -->
+<g id="node18" class="node"><title>\\ODBC</title>
+<polygon fill="none" stroke="black" points="606,-520 552,-520 552,-484 606,-484 606,-520"/>
+<text text-anchor="middle" x="579" y="-498.6" font-family="Times Roman,serif" font-size="11.00">ODBC</text>
 </g>
-<!-- \\Firebird_SQL&#45;&gt;\\iDB_SQL -->
-<g id="edge35" class="edge"><title>\\Firebird_SQL&#45;&gt;\\iDB_SQL</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M536.173,-624.821C525.029,-628.731 513.05,-632.982 502,-637 441.314,-659.068 371.402,-685.618 328.201,-702.156"/>
-<polygon fill="none" stroke="black" points="326.694,-698.985 318.609,-705.831 329.199,-705.521 326.694,-698.985"/>
+<!-- \\ODBC&#45;&gt;\\DB_PDO -->
+<g id="edge33" class="edge"><title>\\ODBC&#45;&gt;\\DB_PDO</title>
+<path fill="none" stroke="black" d="M551.792,-502C502.406,-502 397.407,-502 335.496,-502"/>
+<polygon fill="none" stroke="black" points="335.203,-498.5 325.203,-502 335.203,-505.5 335.203,-498.5"/>
 </g>
-<!-- \\Firebird_Result -->
-<g id="node21" class="node"><title>\\Firebird_Result</title>
-<polygon fill="none" stroke="black" points="627,-196 531,-196 531,-160 627,-160 627,-196"/>
-<text text-anchor="middle" x="579" y="-174.6" font-family="Times Roman,serif" font-size="11.00">Firebird_Result</text>
+<!-- \\PgSQL -->
+<g id="node19" class="node"><title>\\PgSQL</title>
+<polygon fill="none" stroke="black" points="606,-466 552,-466 552,-430 606,-430 606,-466"/>
+<text text-anchor="middle" x="579" y="-444.6" font-family="Times Roman,serif" font-size="11.00">PgSQL</text>
 </g>
-<!-- \\PDOStatement -->
-<g id="node47" class="node"><title>\\PDOStatement</title>
-<ellipse fill="none" stroke="black" cx="287" cy="-18" rx="85.1942" ry="18"/>
-<text text-anchor="middle" x="287" y="-13.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\PDOStatement</text>
+<!-- \\PgSQL&#45;&gt;\\DB_PDO -->
+<g id="edge35" class="edge"><title>\\PgSQL&#45;&gt;\\DB_PDO</title>
+<path fill="none" stroke="black" d="M551.907,-454.321C522.121,-461.153 472.804,-472.118 430,-480 398.567,-485.788 363.052,-491.258 335.279,-495.295"/>
+<polygon fill="none" stroke="black" points="334.437,-491.88 325.039,-496.77 335.435,-498.809 334.437,-491.88"/>
 </g>
-<!-- \\Firebird_Result&#45;&gt;\\PDOStatement -->
-<g id="edge37" class="edge"><title>\\Firebird_Result&#45;&gt;\\PDOStatement</title>
-<path fill="none" stroke="black" d="M564.649,-159.998C540.297,-130.794 487.857,-73.4973 430,-45 413.189,-36.72 394.116,-30.9715 375.503,-26.9826"/>
-<polygon fill="none" stroke="black" points="376.018,-23.5165 365.527,-24.9979 374.652,-30.382 376.018,-23.5165"/>
+<!-- \\BadDBDriverException -->
+<g id="node20" class="node"><title>\\BadDBDriverException</title>
+<polygon fill="none" stroke="black" points="650,-304 508,-304 508,-268 650,-268 650,-304"/>
+<text text-anchor="middle" x="579" y="-282.6" font-family="Times Roman,serif" font-size="11.00">BadDBDriverException</text>
 </g>
-<!-- \\Firebird -->
-<g id="node22" class="node"><title>\\Firebird</title>
-<polygon fill="none" stroke="black" points="608,-358 550,-358 550,-322 608,-322 608,-358"/>
-<text text-anchor="middle" x="579" y="-336.6" font-family="Times Roman,serif" font-size="11.00">Firebird</text>
+<!-- \\InvalidArgumentException -->
+<g id="node46" class="node"><title>\\InvalidArgumentException</title>
+<ellipse fill="none" stroke="black" cx="287" cy="-72" rx="138.86" ry="18"/>
+<text text-anchor="middle" x="287" y="-67.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\InvalidArgumentException</text>
 </g>
-<!-- \\Firebird&#45;&gt;\\DB_PDO -->
-<g id="edge39" class="edge"><title>\\Firebird&#45;&gt;\\DB_PDO</title>
-<path fill="none" stroke="black" d="M549.812,-347.602C534.963,-352.113 516.944,-358.604 502,-367 465.931,-387.264 467.783,-409.147 430,-426 400.273,-439.26 364,-444.733 335.425,-446.904"/>
-<polygon fill="none" stroke="black" points="335.024,-443.423 325.272,-447.563 335.478,-450.408 335.024,-443.423"/>
+<!-- \\BadDBDriverException&#45;&gt;\\InvalidArgumentException -->
+<g id="edge37" class="edge"><title>\\BadDBDriverException&#45;&gt;\\InvalidArgumentException</title>
+<path fill="none" stroke="black" d="M514.091,-267.872C509.746,-265.293 505.653,-262.353 502,-259 444.551,-206.27 491.254,-147.258 430,-99 423.79,-94.1079 416.963,-90.0083 409.76,-86.5805"/>
+<polygon fill="none" stroke="black" points="411.025,-83.3149 400.455,-82.589 408.266,-89.7479 411.025,-83.3149"/>
 </g>
-<!-- \\Firebird_Util -->
-<g id="node23" class="node"><title>\\Firebird_Util</title>
-<polygon fill="none" stroke="black" points="620,-898 538,-898 538,-862 620,-862 620,-898"/>
-<text text-anchor="middle" x="579" y="-876.6" font-family="Times Roman,serif" font-size="11.00">Firebird_Util</text>
+<!-- \\BadConnectionException -->
+<g id="node21" class="node"><title>\\BadConnectionException</title>
+<polygon fill="none" stroke="black" points="656,-196 502,-196 502,-160 656,-160 656,-196"/>
+<text text-anchor="middle" x="579" y="-174.6" font-family="Times Roman,serif" font-size="11.00">BadConnectionException</text>
 </g>
-<!-- \\Firebird_Util&#45;&gt;\\DB_Util -->
-<g id="edge41" class="edge"><title>\\Firebird_Util&#45;&gt;\\DB_Util</title>
-<path fill="none" stroke="black" d="M537.778,-894.258C526.185,-898.321 513.582,-902.788 502,-907 444.323,-927.974 378.311,-952.996 334.819,-969.624"/>
-<polygon fill="none" stroke="black" points="333.439,-966.404 325.351,-973.247 335.941,-972.942 333.439,-966.404"/>
+<!-- \\UnexpectedValueException -->
+<g id="node48" class="node"><title>\\UnexpectedValueException</title>
+<ellipse fill="none" stroke="black" cx="287" cy="-18" rx="142.885" ry="18"/>
+<text text-anchor="middle" x="287" y="-13.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\UnexpectedValueException</text>
+</g>
+<!-- \\BadConnectionException&#45;&gt;\\UnexpectedValueException -->
+<g id="edge39" class="edge"><title>\\BadConnectionException&#45;&gt;\\UnexpectedValueException</title>
+<path fill="none" stroke="black" d="M564.649,-159.998C540.297,-130.794 487.857,-73.4973 430,-45 420.639,-40.3894 410.577,-36.5637 400.283,-33.3896"/>
+<polygon fill="none" stroke="black" points="400.935,-29.9357 390.358,-30.5418 399.005,-36.6642 400.935,-29.9357"/>
+</g>
+<!-- \\Query_Parser -->
+<g id="node22" class="node"><title>\\Query_Parser</title>
+<polygon fill="none" stroke="black" points="624,-250 534,-250 534,-214 624,-214 624,-250"/>
+<text text-anchor="middle" x="579" y="-228.6" font-family="Times Roman,serif" font-size="11.00">Query_Parser</text>
+</g>
+<!-- \\MySQL -->
+<g id="node23" class="node"><title>\\MySQL</title>
+<polygon fill="none" stroke="black" points="606,-412 552,-412 552,-376 606,-376 606,-412"/>
+<text text-anchor="middle" x="579" y="-390.6" font-family="Times Roman,serif" font-size="11.00">MySQL</text>
+</g>
+<!-- \\MySQL&#45;&gt;\\DB_PDO -->
+<g id="edge41" class="edge"><title>\\MySQL&#45;&gt;\\DB_PDO</title>
+<path fill="none" stroke="black" d="M551.274,-401.161C536.158,-405.686 517.438,-412.327 502,-421 465.931,-441.264 467.783,-463.147 430,-480 400.273,-493.26 364,-498.733 335.425,-500.904"/>
+<polygon fill="none" stroke="black" points="335.024,-497.423 325.272,-501.563 335.478,-504.408 335.024,-497.423"/>
 </g>
 </g>
 </svg>

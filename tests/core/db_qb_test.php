@@ -782,6 +782,8 @@ abstract class QBTest extends UnitTestCase {
 
 	public function TestNumRows()
 	{
+	    if (empty($this->db))  return;
+		
 		$query = $this->db->get('create_test');
 
 		$this->assertTrue(is_numeric($this->db->num_rows()));
@@ -793,11 +795,49 @@ abstract class QBTest extends UnitTestCase {
 	
 	public function TestGetCompiledSelect()
 	{
+		if (empty($this->db))  return;
+		
 		$sql = $this->db->get_compiled_select('create_test');
 		$qb_res = $this->db->get('create_test');
 		$sql_res = $this->db->query($sql);
 		
 		$this->assertClone($qb_res, $sql_res);
+	}
+	
+	public function TestGetCompiledUpdate()
+	{
+		if (empty($this->db))  return;
+		
+		$sql = $this->db->set(array(
+			'id' => 4,
+			'key' => 'foo',
+			'val' => 'baz'
+		))->get_compiled_update('create_test');
+		
+		$this->assertTrue(is_string($sql));
+	}
+	
+	public function TestGetCompiledInsert()
+	{
+		if (empty($this->db))  return;
+		
+		$sql = $this->db->set(array(
+			'id' => 4,
+			'key' => 'foo',
+			'val' => 'baz'
+		))->get_compiled_insert('create_test');
+		
+		$this->assertTrue(is_string($sql));
+	}
+	
+	public function TestGetCompiledDelete()
+	{
+		if (empty($this->db))  return;
+		
+		$sql = $this->db->where('id', 4)
+			->get_compiled_delete('create_test');
+			
+		$this->assertTrue(is_string($sql));
 	}
 
 	// --------------------------------------------------------------------------
@@ -848,6 +888,20 @@ abstract class QBTest extends UnitTestCase {
 	public function TestBadMethod()
 	{
 		$res = $this->db->foo();
+		$this->assertEqual(NULL, $res);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function TestBadNumRows()
+	{
+		$this->db->set(array(
+			'id' => 999,
+			'key' => 'ring',
+			'val' => 'sale'
+		))->insert('create_test');
+		
+		$res = $this->db->num_rows();
 		$this->assertEqual(NULL, $res);
 	}
 }

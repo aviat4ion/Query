@@ -146,25 +146,6 @@ abstract class DB_PDO extends PDO {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Retreives the data from a select query
-	 *
-	 * @param PDOStatement $statement
-	 * @return array
-	 */
-	public function get_query_data($statement)
-	{
-		$this->statement =& $statement;
-
-		// Execute the query
-		$this->statement->execute();
-
-		// Return the data array fetched
-		return $this->statement->fetchAll(PDO::FETCH_ASSOC);
-	}
-
-	// -------------------------------------------------------------------------
-
-	/**
 	 * Returns number of rows affected by an INSERT, UPDATE, DELETE type query
 	 *
 	 * @param PDOStatement $statement
@@ -488,12 +469,6 @@ abstract class DB_PDO extends PDO {
 		if ($sql === NULL)
 		{
 			return NULL;
-		}
-
-		// Return predefined data
-		if (is_array($sql))
-		{
-			return $sql;
 		}
 
 		$res = $this->query($sql);
