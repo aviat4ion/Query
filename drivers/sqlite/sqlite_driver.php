@@ -69,12 +69,7 @@ class SQLite extends DB_PDO {
 	public function get_tables()
 	{
 		$tables = array();
-		$sql = <<<SQL
-			SELECT "name"
-			FROM "sqlite_master"
-			WHERE "type"='table'
-			ORDER BY "name" DESC
-SQL;
+		$sql = $this->sql->table_list();
 
 		$res = $this->query($sql);
 		return db_filter($res->fetchAll(PDO::FETCH_ASSOC), 'name');

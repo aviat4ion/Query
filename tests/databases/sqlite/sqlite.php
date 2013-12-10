@@ -200,4 +200,24 @@ SQL;
 	{
 		$this->assertFalse($this->db->get_schemas());
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function TestNullMethods()
+	{
+		$sql = $this->db->sql->system_table_list();
+		$this->assertEqual(NULL, $sql);
+		
+		$sql = $this->db->sql->trigger_list();
+		$this->assertEqual(NULL, $sql);
+		
+		$sql = $this->db->sql->function_list();
+		$this->assertEqual(NULL, $sql);
+		
+		$sql = $this->db->sql->procedure_list();
+		$this->assertEqual(NULL, $sql);
+		
+		$sql = $this->db->sql->sequence_list();
+		$this->assertEqual(NULL, $sql);
+	}
 }
