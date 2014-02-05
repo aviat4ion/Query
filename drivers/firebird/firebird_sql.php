@@ -45,6 +45,19 @@ class Firebird_SQL implements iDB_SQL {
 
 		return $sql;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Get the query plan for the sql query
+	 *
+	 * @param string $sql
+	 * @return string
+	 */
+	public function explain($sql)
+	{
+		return $sql;
+	}
 
 	// --------------------------------------------------------------------------
 

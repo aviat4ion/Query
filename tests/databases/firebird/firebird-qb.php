@@ -90,4 +90,5 @@ class FirebirdQBTest extends QBTest {
 
 		$this->assertTrue(is_array($res));
 	}
+
 }

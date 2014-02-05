@@ -85,6 +85,15 @@ interface iQuery_Builder {
 	 * @return $this
 	 */
 	public function distinct();
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Shows the query plan for the query
+	 *
+	 * @return $this
+	 */
+	public function explain();
 
 	// --------------------------------------------------------------------------
 
@@ -181,9 +190,10 @@ interface iQuery_Builder {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
+	 @ @param bool $escape
 	 * @return $this
 	 */
-	public function where($key, $val=array());
+	public function where($key, $val=array(), $escape = NULL);
 
 	// --------------------------------------------------------------------------
 

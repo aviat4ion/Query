@@ -92,6 +92,9 @@ class Query_Builder implements iQuery_Builder {
 
 	// List of sql queries executed
 	public $queries;
+	
+	// Whether to do only an explain on the query
+	protected $explain = FALSE;
 
 	// --------------------------------------------------------------------------
 	// ! Methods
@@ -265,6 +268,19 @@ class Query_Builder implements iQuery_Builder {
 	{
 		// Prepend the keyword to the select string
 		$this->select_string = ' DISTINCT '.$this->select_string;
+		return $this;
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Tell the database to give you the query plan instead of result set
+	 *
+	 * @return $this
+	 */
+	public function explain()
+	{
+		$this->explain = TRUE;
 		return $this;
 	}
 
@@ -593,9 +609,10 @@ class Query_Builder implements iQuery_Builder {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
+	 * @param mixed $escape
 	 * @return $this
 	 */
-	public function where($key, $val=array())
+	public function where($key, $val=array(), $escape=NULL)
 	{
 		return $this->_where_string($key, $val, 'AND');
 	}
@@ -1381,6 +1398,12 @@ class Query_Builder implements iQuery_Builder {
 		if (isset($this->limit) && is_numeric($this->limit))
 		{
 			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
+		}
+		
+		// See what needs to happen to only return the query plan
+		if (isset($this->explain) && $this->explain === TRUE)
+		{
+			$sql = $this->sql->explain($sql);
 		}
 
 		return $sql;

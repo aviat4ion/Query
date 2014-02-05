@@ -60,4 +60,28 @@
 
 		$this->assertNull($query);
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function testQueryExplain()
+	{
+		$query = $this->db->select('id, key as k, val')
+			->explain()
+			->where('id >', 1)
+			->where('id <', 900)
+			->get('create_test', 2, 1);
+			
+		$res = $query->fetchAll(PDO::FETCH_ASSOC);
+		
+		$expected = array (
+		  array (
+		    'selectid' => '0',
+		    'order' => '0',
+		    'from' => '0',
+		    'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
+		  ),
+		);
+		
+		$this->assertEqual($expected, $res);
+	}
 }

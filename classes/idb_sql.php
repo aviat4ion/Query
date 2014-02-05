@@ -31,6 +31,14 @@ interface iDB_SQL {
 	 * @return string
 	 */
 	public function limit($sql, $limit, $offset=FALSE);
+	
+	/**
+	 * Modify the query to get the query plan
+	 *
+	 * @param string $sql
+	 * @return string
+	 */
+	public function explain($sql);
 
 	/**
 	 * Get the sql for random ordering

@@ -38,6 +38,19 @@ class MySQL_SQL implements iDB_SQL {
 
 		return $sql." LIMIT {$offset}, {$limit}";
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Get the query plan for the sql query
+	 *
+	 * @param string $sql
+	 * @return string
+	 */
+	public function explain($sql)
+	{
+		return "EXPLAIN EXTENDED {$sql}";
+	}
 
 	// --------------------------------------------------------------------------
 

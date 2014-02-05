@@ -49,4 +49,35 @@ class MySQLQBTest extends QBTest {
 	{
 		$this->assertTrue(in_array('mysql', PDO::getAvailableDrivers()));
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function testQueryExplain()
+	{
+		$query = $this->db->select('id, key as k, val')
+			->explain()
+			->where('id >', 1)
+			->where('id <', 900)
+			->get('create_test', 2, 1);
+			
+		$res = $query->fetchAll(PDO::FETCH_ASSOC);
+		
+		$expected = array (
+		  array (
+		    'id' => '1',
+		    'select_type' => 'SIMPLE',
+		    'table' => 'create_test',
+		    'type' => 'range',
+		    'possible_keys' => 'PRIMARY',
+		    'key' => 'PRIMARY',
+		    'key_len' => '4',
+		    'ref' => NULL,
+		    'rows' => '1',
+		    'filtered' => '100.00',
+		    'Extra' => 'Using where',
+		  )
+		);
+		
+		$this->assertEqual($expected, $res);
+	}
 }
