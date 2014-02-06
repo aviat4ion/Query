@@ -90,5 +90,21 @@ class FirebirdQBTest extends QBTest {
 
 		$this->assertTrue(is_array($res));
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function testQueryExplain()
+	{
+		$res = $this->db->select('id, key as k, val')
+			->explain()
+			->where('id >', 1)
+			->where('id <', 900)
+			->limit(2, 1)
+			->get_compiled_select('create_test');
+		
+		$expected = 'SELECT FIRST 2 SKIP 1 "id","key" AS "k","val" FROM "create_test" WHERE "id" > ? AND "id" < ?';
+		
+		$this->assertEqual($expected, $res);
+	}
 
 }
