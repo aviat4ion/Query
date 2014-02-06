@@ -1,5 +1,12 @@
 language: php
 
+before_setup:
+  - sudo add-apt-repository ppa:mapopa -qq
+  - sudo apt-get update -qq
+  - sudo apt-get install firebird2.5-classic -qq
+  - sudo dpkg-reconfigure firebird2.5-classic -qq
+  - sudo apt-get install php5-interbase -qq
+
 php:
   - 5.2
   - 5.3

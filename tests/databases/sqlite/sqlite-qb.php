@@ -73,17 +73,51 @@
 			
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
 		
-		var_export($res);
+		$expected_possibilities = array();
 		
-		$expected = array (
-		  array (
-		    'selectid' => '0',
-		    'order' => '0',
-		    'from' => '0',
-		    'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
-		  ),
+		$expected_possibilities[] = array(
+			array(
+				'order' => '0',
+				'from' => '0',
+				'detail' => 'TABLE create_test USING PRIMARY KEY',
+			)
 		);
 		
-		//$this->assertEqual($expected, $res);
+		$expected_possibilities[] = array (
+			array (
+				'selectid' => '0',
+				'order' => '0',
+				'from' => '0',
+				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~60000 rows)',
+			),
+		);
+		
+		$expected_possibilities[] = array (
+			array (
+				'selectid' => '0',
+				'order' => '0',
+				'from' => '0',
+				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
+			),
+		);
+		
+		$passed = FALSE;
+		
+		// Check for a matching possibility
+		foreach($expected_possibilities as $ep)
+		{
+			if ($res == $ep)
+			{
+				$this->assertTrue(TRUE);
+				$passed = TRUE;
+			}
+		}
+		
+		// Well, apparently not an expected possibility
+		if ( ! $passed)
+		{
+			var_export($res);
+			$this->assertTrue(FALSE);
+		}
 	}
 }
