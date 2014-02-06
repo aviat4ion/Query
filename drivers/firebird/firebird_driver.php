@@ -59,7 +59,7 @@ class Firebird extends DB_PDO {
 	 * @param string $user
 	 * @param string $pass
 	 */
-	public function __construct($dbpath, $user='sysdba', $pass='masterkey')
+	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey')
 	{
 		$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8');
 
@@ -67,7 +67,6 @@ class Firebird extends DB_PDO {
 		if ( ! is_resource($this->conn))
 		{
 			throw new PDOException(fbird_errmsg());
-			die();
 		}
 		
 		// Load these classes here because this
