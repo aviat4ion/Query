@@ -1,17 +1,18 @@
 language: php
 
-before_setup:
-  - sudo add-apt-repository ppa:mapopa -qq
-  - sudo apt-get update -qq
-  - sudo apt-get install firebird2.5-classic -qq
-  - sudo dpkg-reconfigure firebird2.5-classic -qq
-  - sudo apt-get install php5-interbase -qq
-
 php:
   - 5.2
   - 5.3
   - 5.4
   - 5.5
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq firebird2.5-super firebird2.5-dev
+  - sudo sed /ENABLE_FIREBIRD_SERVER=/s/no/yes/ -i /etc/default/firebird2.5
+  - cat /etc/default/firebird2.5 | grep ENABLE_FIREBIRD_SERVER
+  - sudo service firebird2.5-super start
+  - sudo apt-get install php5-interbase -qq
 
 before_script:
   - sh -c "psql -c 'DROP DATABASE IF EXISTS test;' -U postgres"
