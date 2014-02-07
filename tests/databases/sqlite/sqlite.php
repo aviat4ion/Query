@@ -40,6 +40,109 @@ class SQLiteTest extends UnitTestCase {
 	}
 	
 	// --------------------------------------------------------------------------
+	// ! Util Method tests
+	// --------------------------------------------------------------------------
+	
+		public function TestCreateTable()
+	{
+		//Attempt to create the table
+		$sql = $this->db->util->create_table('create_test',
+			array(
+				'id' => 'INTEGER',
+				'key' => 'TEXT',
+				'val' => 'TEXT',
+			),
+			array(
+				'id' => 'PRIMARY KEY'
+			)
+		);
+		$this->db->query($sql);
+
+		//Attempt to create the table
+		$sql = $this->db->util->create_table('create_join',
+			array(
+				'id' => 'INTEGER',
+				'key' => 'TEXT',
+				'val' => 'TEXT',
+			),
+			array(
+				'id' => 'PRIMARY KEY'
+			)
+		);
+		$this->db->query($sql);
+		
+		// A table to delete
+		$sql = $this->db->util->create_table('create_delete',
+			array(
+				'id' => 'INTEGER',
+				'key' => 'TEXT',
+				'val' => 'TEXT',
+			),
+			array(
+				'id' => 'PRIMARY KEY'
+			)
+		);
+		$this->db->query($sql);
+
+		//Check
+		$dbs = $this->db->get_tables();
+
+		$this->assertTrue(in_array('create_test', $dbs));
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function TestBackupData()
+	{
+		$sql = mb_trim($this->db->util->backup_data());
+		
+		$sql_array = explode("\n", $sql);
+		
+		$expected = <<<SQL
+INSERT INTO "create_test" ("id","key","val") VALUES (1,'boogers','Gross');
+INSERT INTO "create_test" ("id","key","val") VALUES (2,'works','also?');
+INSERT INTO "create_test" ("id","key","val") VALUES (10,12,14);
+INSERT INTO "create_test" ("id","key","val") VALUES (587,1,2);
+INSERT INTO "create_test" ("id","key","val") VALUES (999,'''ring''','''sale''');	
+SQL;
+		$expected_array = explode("\n", $sql);
+		$this->assertEqual($expected_array, $sql_array);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function TestBackupStructure() 
+	{
+		$sql = mb_trim($this->db->util->backup_structure());
+		
+		$expected = <<<SQL
+CREATE TABLE "create_test" (id INTEGER PRIMARY KEY, key TEXT , val TEXT );
+CREATE TABLE "create_join" (id INTEGER PRIMARY KEY, key TEXT , val TEXT );
+CREATE TABLE "create_delete" (id INTEGER PRIMARY KEY, key TEXT , val TEXT );
+SQL;
+
+		$expected_array = explode("\n", $expected);
+		$result_array = explode("\n", $sql);
+		
+		$this->assertEqual($expected_array, $result_array);
+	}
+	
+	// --------------------------------------------------------------------------
+
+	public function TestDeleteTable()
+	{
+		$sql = $this->db->util->delete_table('create_delete');
+		
+		$this->db->query($sql);
+		
+		//Check
+		$dbs = $this->db->get_tables();
+		$this->assertFalse(in_array('create_delete', $dbs));
+	}
+	
+	// --------------------------------------------------------------------------
+	// ! General Tests
+	// --------------------------------------------------------------------------
 
 	public function TestConnection()
 	{
@@ -69,42 +172,6 @@ class SQLiteTest extends UnitTestCase {
 	{
 		$res = $this->db->beginTransaction();
 		$this->assertTrue($res);
-	}
-	
-	// --------------------------------------------------------------------------
-
-	public function TestCreateTable()
-	{
-		//Attempt to create the table
-		$sql = $this->db->util->create_table('create_test',
-			array(
-				'id' => 'INTEGER',
-				'key' => 'TEXT',
-				'val' => 'TEXT',
-			),
-			array(
-				'id' => 'PRIMARY KEY'
-			)
-		);
-		$this->db->query($sql);
-
-		//Attempt to create the table
-		$sql = $this->db->util->create_table('create_join',
-			array(
-				'id' => 'INTEGER',
-				'key' => 'TEXT',
-				'val' => 'TEXT',
-			),
-			array(
-				'id' => 'PRIMARY KEY'
-			)
-		);
-		$this->db->query($sql);
-
-		//Check
-		$dbs = $this->db->get_tables();
-
-		$this->assertTrue(in_array('create_test', $dbs));
 	}
 	
 	// --------------------------------------------------------------------------
@@ -171,24 +238,6 @@ SQL;
 	
 	// --------------------------------------------------------------------------
 
-	// This is really time intensive ! Run only when needed
-	/*public function TestDeleteTable()
-	{
-		//Make sure the table exists to delete
-		$dbs = $this->db->get_tables();
-		$this->assertTrue(isset($dbs['create_test']));
-
-		//Attempt to delete the table
-		$sql = $this->db->sql->delete_table('create_test');
-		$this->db->query($sql);
-
-		//Check
-		$dbs = $this->db->get_tables();
-		$this->assertFalse(in_array('create_test', $dbs));
-	}*/
-	
-	// --------------------------------------------------------------------------
-
 	public function TestGetDBs()
 	{
 		$this->assertFalse($this->db->get_dbs());
@@ -201,6 +250,8 @@ SQL;
 		$this->assertFalse($this->db->get_schemas());
 	}
 	
+	// --------------------------------------------------------------------------
+	// ! SQL Tests
 	// --------------------------------------------------------------------------
 	
 	public function TestNullMethods()

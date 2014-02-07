@@ -137,9 +137,12 @@ class SQLite_Util extends DB_Util {
 			$obj_res = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			unset($res);
+			
+			// If the row is empty, continue;
+			if (empty($obj_res)) continue;
 
 			// Nab the column names by getting the keys of the first row
-			$columns = array_keys($obj_res[0]);
+			$columns = array_keys(current($obj_res));
 
 			$insert_rows = array();
 
@@ -190,7 +193,7 @@ class SQLite_Util extends DB_Util {
 			$sql_array[] = $r['sql'];
 		}
 
-		$sql_structure = implode("\n\n", $sql_array);
+		$sql_structure = implode(";\n", $sql_array) . ";";
 
 		return $sql_structure;
 	}
