@@ -94,7 +94,7 @@ class Firebird_SQL implements iDB_SQL {
 	public function table_list()
 	{
 		return <<<SQL
-			SELECT "RDB\$RELATION_NAME"
+			SELECT TRIM("RDB\$RELATION_NAME")
 			FROM "RDB\$RELATIONS"
 			WHERE "RDB\$SYSTEM_FLAG"=0
 			ORDER BY "RDB\$RELATION_NAME" ASC
@@ -111,7 +111,7 @@ SQL;
 	public function system_table_list()
 	{
 		return <<<SQL
-			SELECT "RDB\$RELATION_NAME"
+			SELECT TRIM("RDB\$RELATION_NAME")
 			FROM "RDB\$RELATIONS"
 			WHERE "RDB\$SYSTEM_FLAG"=1
 			ORDER BY "RDB\$RELATION_NAME" ASC

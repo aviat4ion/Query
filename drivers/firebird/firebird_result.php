@@ -148,13 +148,8 @@ class Firebird_Result extends PDOStatement {
 	 * @param mixed $offset
 	 * @return mixed
 	 */
-	public function fetch($fetch_style=PDO::FETCH_ASSOC, $statement=NULL, $offset=NULL)
-	{
-		if ( ! is_null($statement))
-		{
-			$this->statement = $statement;
-		}
-		
+	public function fetch($fetch_style=PDO::FETCH_ASSOC, $cursor_orientation = PDO::FETCH_ORI_NEXT, $cursor_offset=NULL)
+	{	
 		// If there is no result, continue
 		if (empty($this->result))
 		{

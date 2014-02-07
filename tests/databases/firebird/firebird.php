@@ -39,6 +39,23 @@ class FirebirdTest extends DBTest {
 	
 	// --------------------------------------------------------------------------
 	
+	/**
+	 * coverage for methods in result class that aren't implemented
+	 */
+	public function TestNullResultMethods()
+	{
+		$obj = $this->db->query('SELECT "id" FROM "create_test"');
+		
+		$val = "bar";
+			
+		$this->assertNull($obj->bindColumn('foo', $val));
+		$this->assertNull($obj->bindParam('foo', $val));
+		$this->assertNull($obj->bindValue('foo', $val));
+	
+	}
+	
+	// --------------------------------------------------------------------------
+	
 	public function TestExists()
 	{
 		$this->assertTrue(function_exists('ibase_connect'));
@@ -89,29 +106,33 @@ class FirebirdTest extends DBTest {
 	}
 	
 	// --------------------------------------------------------------------------
+	// ! Create / Delete Tables
+	// --------------------------------------------------------------------------
 
-	/*public function TestCreateTable()
+	public function TestCreateTable()
 	{
 		//Attempt to create the table
-		$sql = $this->db->util->create_table('create_test', array(
+		$sql = $this->db->util->create_table('create_delete', array(
 			'id' => 'SMALLINT', 
 			'key' => 'VARCHAR(64)', 
 			'val' => 'BLOB SUB_TYPE TEXT'
 		));
 		$this->db->query($sql);
 		
-		//This test fails for an unknown reason, when clearly the table exists
-		//Reset
-		$this->tearDown();
-		$this->setUp();
+		//Check
+		$this->assertTrue(in_array('create_delete', $this->db->get_tables()));
+	}
+	
+	public function TestDeleteTable()
+	{
+		//Attempt to delete the table
+		$sql = $this->db->util->delete_table('create_delete');
+		$this->db->query($sql);
 		
 		//Check
-		$table_exists = (bool)in_array('create_test', $this->tables);
-		
-		//echo "create_test exists :".(int)$table_exists.'<br />';
-		
-		$this->assertTrue($table_exists);
-	}*/
+		$table_exists = in_array('create_delete', $this->db->get_tables());
+		$this->assertFalse($table_exists);
+	}
 	
 	// --------------------------------------------------------------------------
 	
@@ -177,27 +198,30 @@ SQL;
 	
 	// --------------------------------------------------------------------------
 	
+	public function TestFetch()
+	{
+		$res = $this->db->query('SELECT "key","val" FROM "create_test"');
+		
+		// Object
+		$fetchObj = $res->fetchObject();
+		$this->assertIsA($fetchObj, 'stdClass');
+		
+		// Associative array
+		$fetchAssoc = $res->fetch(PDO::FETCH_ASSOC);
+		$this->assertTrue(array_key_exists('key', $fetchAssoc));
+		
+		// Numeric array
+		$res2 = $this->db->query('SELECT "id","key","val" FROM "create_test"');
+		$fetch = $res2->fetch(PDO::FETCH_NUM);
+		$this->assertTrue(is_array($fetch));
+	}
+	
+	// --------------------------------------------------------------------------
+	
 	public function TestPrepareQuery()
 	{
 		$this->assertFalse($this->db->prepare_query('', array()));	
 	}
-	
-	// --------------------------------------------------------------------------
-
-	/*public function TestDeleteTable()
-	{
-		//Attempt to delete the table
-		$sql = $this->db->util->delete_table('create_test');
-		$this->db->query($sql);
-		
-		//Reset
-		$this->tearDown();
-		$this->setUp();
-		
-		//Check
-		$table_exists = in_array('create_test', $this->tables);
-		$this->assertFalse($table_exists);
-	}*/
 	
 	// --------------------------------------------------------------------------
 	
