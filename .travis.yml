@@ -12,9 +12,9 @@ before_install:
   - sudo sed /ENABLE_FIREBIRD_SERVER=/s/no/yes/ -i /etc/default/firebird2.5
   - cat /etc/default/firebird2.5 | grep ENABLE_FIREBIRD_SERVER
   - sudo service firebird2.5-super start
-  - sudo apt-get install php5-interbase -qq
 
 before_script:
+  - sudo apt-get install php5-interbase -qq
   - sh -c "psql -c 'DROP DATABASE IF EXISTS test;' -U postgres"
   - sh -c "psql -c 'create database test;' -U postgres"
   - sh -c "mysql -e 'create database IF NOT EXISTS test;'"
