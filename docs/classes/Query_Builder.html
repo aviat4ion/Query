@@ -64,6 +64,7 @@ in place of the get() method"><span class="description">Retrieve the number of r
 in place of the get() method</span><pre>count_all_results()</pre></a></li>
 <li class="method public "><a href="#method_delete" title="delete() :: Deletes data from a table"><span class="description">Deletes data from a table</span><pre>delete()</pre></a></li>
 <li class="method public "><a href="#method_distinct" title="distinct() :: Adds the 'distinct' keyword to a query"><span class="description">Adds the 'distinct' keyword to a query</span><pre>distinct()</pre></a></li>
+<li class="method public "><a href="#method_explain" title="explain() :: Tell the database to give you the query plan instead of result set"><span class="description">Tell the database to give you the query plan instead of result set</span><pre>explain()</pre></a></li>
 <li class="method public "><a href="#method_from" title="from() :: Specify the database table to select from"><span class="description">Specify the database table to select from</span><pre>from()</pre></a></li>
 <li class="method public "><a href="#method_get" title="get() :: Select and retrieve all records from the current table, and/or
 execute current compiled query"><span class="description">Select and retrieve all records from the current table, and/or
@@ -136,6 +137,7 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
+<li class="property protected "><a href="#property_explain" title="$explain() :: "><span class="description"></span><pre>$explain</pre></a></li>
 <li class="property protected "><a href="#property_from_string" title="$from_string() :: "><span class="description"></span><pre>$from_string</pre></a></li>
 <li class="property protected "><a href="#property_group_array" title="$group_array() :: "><span class="description"></span><pre>$group_array</pre></a></li>
 <li class="property protected "><a href="#property_group_string" title="$group_string() :: "><span class="description"></span><pre>$group_string</pre></a></li>
@@ -271,6 +273,20 @@ in place of the get() method</h2>
 <a id="method_distinct"></a><div class="element clickable method public method_distinct" data-toggle="collapse" data-target=".method_distinct .collapse">
 <h2>Adds the 'distinct' keyword to a query</h2>
 <pre>distinct() : \Query_Builder</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>\Query_Builder</code></div>
+</div></div>
+</div>
+<a id="method_explain"></a><div class="element clickable method public method_explain" data-toggle="collapse" data-target=".method_explain .collapse">
+<h2>Tell the database to give you the query plan instead of result set</h2>
+<pre>explain() : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -995,7 +1011,7 @@ prefixed with 'OR NOT'</h2>
 <h2>Specify condition(s) in the where clause of a query
 Note: this function works with key / value, or a
 passed array with key / value pairs</h2>
-<pre>where(mixed $key, mixed $val) : \Query_Builder</pre>
+<pre>where(mixed $key, mixed $val, mixed $escape) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1010,6 +1026,10 @@ passed array with key / value pairs</h2>
 </div>
 <div class="subelement argument">
 <h4>$val</h4>
+<code>mixed</code>
+</div>
+<div class="subelement argument">
+<h4>$escape</h4>
 <code>mixed</code>
 </div>
 <h3>Returns</h3>
@@ -1319,6 +1339,12 @@ passed array with key / value pairs</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
+<a id="property_explain"> </a><div class="element clickable property protected property_explain" data-toggle="collapse" data-target=".property_explain .collapse">
+<h2>$explain</h2>
+<pre>$explain </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="property_from_string"> </a><div class="element clickable property protected property_from_string" data-toggle="collapse" data-target=".property_from_string .collapse">
 <h2>$from_string</h2>
 <pre>$from_string </pre>
@@ -1411,7 +1437,7 @@ passed array with key / value pairs</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.1.0
 </a> and<br>
-            generated on 2013-12-09T19:45:45-05:00.<br></footer></div>
+            generated on 2014-02-07T16:51:34-05:00.<br></footer></div>
 </div>
 </body>
 </html>

@@ -43,6 +43,7 @@ abstract class DB_Util {
 	 *
 	 * @param string $method
 	 * @param array $args
+	 * @return mixed
 	 */
 	public function __call($method, $args)
 	{
@@ -50,8 +51,6 @@ abstract class DB_Util {
 		{
 			return call_user_func_array(array($this->conn, $method), $args);
 		}
-		
-		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------

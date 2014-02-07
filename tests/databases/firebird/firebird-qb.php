@@ -21,12 +21,18 @@ class FirebirdQBTest extends QBTest {
 	public function __construct()
 	{
 		parent::__construct();
-
+		// echo '<hr /> Firebird Queries <hr />';
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function setUp()
+	{
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
 		// Test the query builder
 		$params = new Stdclass();
-		$params->name = 'fire';
+		$params->alias = 'fire';
 		$params->type = 'firebird';
 		$params->file = $dbpath;
 		$params->host = 'localhost';
@@ -34,8 +40,40 @@ class FirebirdQBTest extends QBTest {
 		$params->pass = 'masterkey';
 		$params->prefix = 'create_';
 		$this->db = Query($params);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function TestGetNamedConnectionException()
+	{
+		try 
+		{
+			$db = Query('fire');
+		}
+		catch(InvalidArgumentException $e)
+		{
+			$this->assertTrue(TRUE);
+		}
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function TestGetNamedConnection()
+	{
+		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
-		// echo '<hr /> Firebird Queries <hr />';
+		// Test the query builder
+		$params = new Stdclass();
+		$params->alias = 'fire';
+		$params->type = 'firebird';
+		$params->file = $dbpath;
+		$params->host = 'localhost';
+		$params->user = 'sysdba';
+		$params->pass = 'masterkey';
+		$params->prefix = 'create_';
+		$f_conn = Query($params);
+	
+		$this->assertReference($f_conn, Query('fire'));
 	}
 	
 	// --------------------------------------------------------------------------

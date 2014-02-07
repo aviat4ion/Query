@@ -31,7 +31,7 @@ define('QDRIVER_PATH', QBASE_PATH.'drivers/');
 require(QBASE_PATH.'common.php');
 
 /**
- * Load a Query class
+ * Load query classes
  *
  * @param string $class
  */

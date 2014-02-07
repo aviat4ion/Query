@@ -59,7 +59,7 @@ if ( ! function_exists('mb_trim'))
 	/**
 	 * Multibyte-safe trim function
 	 *
-	 * @param string
+	 * @param string $string
 	 * @return string
 	 */
 	function mb_trim($string)
@@ -96,25 +96,32 @@ function db_filter($array, $index)
  *
  * @param mixed $params
  * @return Query_Builder
+ * @throws InvalidArgumentException
+ * @throws BadDBDriverException
+ * @throws BadConnectionException
  */
-function Query($params = '')
+function &Query($params = '')
 {
 	static $connections;
-
-	// If there's existing connection(s) just return it
-	if ( ! empty($connections))
+	
+	// If you are getting a previously created connection
+	if (is_scalar($params))
 	{
 		// If the paramater is a string, use it as an array index
 		if (is_scalar($params) && isset($connections[$params]))
 		{
 			return $connections[$params];
 		}
-		elseif (empty($params) && isset($connections[0])) // Otherwise, return the last one
+		elseif (empty($params) && ! empty($connections)) // Otherwise, return the last one
 		{
 			return end($connections);
 		}
+		
+		throw new InvalidArgumentException("The specified connection does not exist");
 	}
 
+	// --------------------------------------------------------------------------
+	// Parse argument array / object
 	// --------------------------------------------------------------------------
 
 	// Convert array to object
@@ -143,6 +150,8 @@ function Query($params = '')
 		throw new BadDBDriverException('Database driver does not exist, or is not supported');
 	}
 
+	// --------------------------------------------------------------------------
+	// Attempt to connect
 	// --------------------------------------------------------------------------
 
 	// Create the dsn for the database to connect to
@@ -184,6 +193,8 @@ function Query($params = '')
 		throw new BadConnectionException('Connection failed, invalid arguments', 2);
 	}
 
+	// --------------------------------------------------------------------------
+	// Save connection
 	// --------------------------------------------------------------------------
 
 	// Set the table prefix, if it exists

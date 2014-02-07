@@ -26,7 +26,7 @@ class PgSQLQBTest extends QBTest {
 			$params->type = "pgsql";
 			$params->prefix = 'create_';
 		}
-		elseif (($var = getenv('CI')))
+		elseif (($var = getenv('CI'))) // Travis CI Connection Info
 		{
 			$params = array(
 				'host' => '127.0.0.1',
