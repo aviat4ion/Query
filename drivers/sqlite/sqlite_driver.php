@@ -88,38 +88,6 @@ class SQLite extends DB_PDO {
 		// that is of any importance.
 		return array('sqlite_master');
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Load a database for the current connection
-	 *
-	 * @param string $db
-	 * @param string $name
-	 */
-	public function load_database($db, $name)
-	{
-		$sql = 'ATTACH DATABASE "'.$db.'" AS "'.$name.'"';
-		$this->query($sql);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Unload a database from the current connection
-	 *
-	 * @param string $name
-	 */
-	public function unload_database($name)
-	{
-		$sql = 'DETACH DATABASE ":name"';
-
-		$this->prepare_query($sql, array(
-			':name' => $name,
-		));
-
-		$this->statement->execute();
-	}
 	
 	// --------------------------------------------------------------------------
 	
