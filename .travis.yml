@@ -13,3 +13,7 @@ before_script:
   - sh -c "mysql -e 'create database IF NOT EXISTS test;'"
 
 script: php ./tests/index.php
+
+matrix:
+  allow_failures:
+    - php: hhvm
