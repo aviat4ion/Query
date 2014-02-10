@@ -123,6 +123,7 @@ class Query_Builder implements iQuery_Builder {
 
 		// Make things just slightly shorter
 		$this->sql = $this->db->sql;
+		$this->util = $this->db->util;
 	}
 
 	// --------------------------------------------------------------------------

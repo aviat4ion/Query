@@ -61,7 +61,7 @@ class Firebird extends DB_PDO {
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey')
 	{
-		$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8');
+		$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8', 0);
 
 		// Throw an exception to make this match other pdo classes
 		if ( ! is_resource($this->conn))
@@ -81,6 +81,14 @@ class Firebird extends DB_PDO {
 		// Load the util class
 		$class = __CLASS__."_util";
 		$this->util = new $class($this);
+	}
+	
+	/**
+	 * Clean up database connections
+	 */
+	public function __destruct()
+	{
+		fbird_close($this->conn);	
 	}
 
 	// --------------------------------------------------------------------------
@@ -104,9 +112,15 @@ class Firebird extends DB_PDO {
 	 *
 	 * @param string $sql
 	 * @return $this
+	 * @throws PDOException
 	 */
 	public function query($sql)
 	{
+		if (empty($sql))
+		{
+			throw new PDOException("Query method requires an sql query!");
+		}
+		
 		$this->statement_link = (isset($this->trans))
 			? fbird_query($this->trans, $sql)
 			: fbird_query($this->conn, $sql);
@@ -114,7 +128,7 @@ class Firebird extends DB_PDO {
 		// Throw the error as a exception
 		if ($this->statement_link === FALSE)
 		{
-			throw new PDOException(fbird_errmsg());
+			throw new PDOException(fbird_errmsg() . "Last query:" . $this->last_query);
 		}
 		
 		$this->statement = new FireBird_Result($this->statement_link);
@@ -130,6 +144,7 @@ class Firebird extends DB_PDO {
 	 * @param string $query
 	 * @param array $options
 	 * @return $this
+	 * @throws PDOException
 	 */
 	public function prepare($query, $options=NULL)
 	{
@@ -201,7 +216,7 @@ class Firebird extends DB_PDO {
 		$query = $this->prepare($sql);
 
 		// Set the statement in the class variable for easy later access
-		$this->statement_link =& $query;
+		$this->statement_link =& $query; 
 
 		return $query->execute($args);
 	}

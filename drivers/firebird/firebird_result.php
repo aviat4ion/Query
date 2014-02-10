@@ -65,6 +65,9 @@ class Firebird_Result extends PDOStatement {
 			{
 				$this->result[] = $row;
 			}
+			
+			// Free the result resource
+			fbird_free_result($link);
 		}
 	}
 	
@@ -247,7 +250,7 @@ class Firebird_Result extends PDOStatement {
 		$rows = fbird_affected_rows();
 		
 		// Get the number of rows for the select query if you can
-		if ($rows === FALSE && is_resource($link) && get_resource_type($link) === "interbase result")
+		if ($rows === FALSE && is_resource($this->statement) && get_resource_type($this->statement) === "interbase result")
 		{
 			$rows = count($this->result);
 		}
