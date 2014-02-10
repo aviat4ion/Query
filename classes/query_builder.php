@@ -1259,15 +1259,6 @@ class Query_Builder implements iQuery_Builder {
 		{
 			$vals = array_merge($this->values, (array) $this->where_values);
 		}
-		
-		// Add quotes to 'string' values
-		foreach($vals as &$v)
-		{
-			if ( ! is_numeric($v))
-			{
-				$v = "'{$v}'";
-			}
-		}
 
 		$start_time = microtime(TRUE);
 
