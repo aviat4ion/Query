@@ -91,14 +91,7 @@ class Query_Parser {
 
 		foreach($array as $row)
 		{
-			if (is_array($row))
-			{
-				$new_array[] = $row[0];
-			}
-			else
-			{
-				$new_array[] = $row;
-			}
+			$new_array[] =  (is_array($row)) ? $row[0] : $row;
 		}
 
 		return $new_array;

@@ -47,10 +47,7 @@ abstract class DB_Util {
 	 */
 	public function __call($method, $args)
 	{
-		if (method_exists($this->conn, $method))
-		{
-			return call_user_func_array(array($this->conn, $method), $args);
-		}
+		return call_user_func_array(array($this->conn, $method), $args);
 	}
 	
 	// --------------------------------------------------------------------------

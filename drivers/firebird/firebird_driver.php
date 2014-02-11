@@ -64,10 +64,7 @@ class Firebird extends DB_PDO {
 		$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8', 0);
 
 		// Throw an exception to make this match other pdo classes
-		if ( ! is_resource($this->conn))
-		{
-			throw new PDOException(fbird_errmsg());
-		}
+		if ( ! is_resource($this->conn)) throw new PDOException(fbird_errmsg());
 		
 		// Load these classes here because this
 		// driver does not call the constructor
@@ -81,14 +78,6 @@ class Firebird extends DB_PDO {
 		// Load the util class
 		$class = __CLASS__."_util";
 		$this->util = new $class($this);
-	}
-	
-	/**
-	 * Clean up database connections
-	 */
-	public function __destruct()
-	{
-		fbird_close($this->conn);	
 	}
 
 	// --------------------------------------------------------------------------
@@ -116,20 +105,15 @@ class Firebird extends DB_PDO {
 	 */
 	public function query($sql)
 	{
-		if (empty($sql))
-		{
-			throw new PDOException("Query method requires an sql query!");
-		}
+		if (empty($sql)) throw new PDOException("Query method requires an sql query!");
 		
 		$this->statement_link = (isset($this->trans))
 			? fbird_query($this->trans, $sql)
 			: fbird_query($this->conn, $sql);
 
 		// Throw the error as a exception
-		if ($this->statement_link === FALSE)
-		{
-			throw new PDOException(fbird_errmsg() . "Last query:" . $this->last_query);
-		}
+		$err_string = fbird_errmsg() . "Last query:" . $this->last_query;
+		if ($this->statement_link === FALSE) throw new PDOException($err_string);
 		
 		$this->statement = new FireBird_Result($this->statement_link);
 
@@ -151,10 +135,7 @@ class Firebird extends DB_PDO {
 		$this->statement_link = fbird_prepare($this->conn, $query);
 
 		// Throw the error as an exception
-		if ($this->statement_link === FALSE)
-		{
-			throw new PDOException(fbird_errmsg());
-		}
+		if ($this->statement_link === FALSE) throw new PDOException(fbird_errmsg());
 
 		$this->statement = new FireBird_Result($this->statement_link);
 
@@ -170,12 +151,7 @@ class Firebird extends DB_PDO {
 	 */
 	public function beginTransaction()
 	{
-		if(($this->trans = fbird_trans($this->conn)) !== NULL)
-		{
-			return TRUE;
-		}
-
-		return NULL;
+		return (($this->trans = fbird_trans($this->conn)) !== NULL) ? TRUE : NULL;
 	}
 
 	// --------------------------------------------------------------------------

@@ -83,26 +83,19 @@ abstract class DB_PDO extends PDO {
 	 * @param string $sql
 	 * @param array $data
 	 * @return mixed PDOStatement / FALSE
+	 * @throws InvalidArgumentException
 	 */
 	public function prepare_query($sql, $data)
 	{
 		// Prepare the sql
 		$query = $this->prepare($sql);
 
-		if( ! (is_object($query) || is_resource($query)))
-		{
-			$this->get_last_error();
-			return NULL;
-		}
-
 		// Set the statement in the class variable for easy later access
 		$this->statement = $query;
 
-
 		if( ! (is_array($data) || is_object($data)))
 		{
-			trigger_error("Invalid data argument");
-			return NULL;
+			throw new InvalidArgumentException("Invalid data argument");
 		}
 
 		// Bind the parameters
@@ -114,16 +107,9 @@ abstract class DB_PDO extends PDO {
 			}
 
 			$res = $query->bindValue($k, $value);
-
-			if( ! $res)
-			{
-				trigger_error("Parameter not successfully bound");
-				return NULL;
-			}
 		}
 
 		return $query;
-
 	}
 
 	// -------------------------------------------------------------------------
@@ -160,20 +146,6 @@ abstract class DB_PDO extends PDO {
 
 		// Return number of rows affected
 		return $this->statement->rowCount();
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Return the last error for the current database connection
-	 *
-	 * @return string
-	 */
-	public function get_last_error()
-	{
-		list($i1, $i2, $i3) = $this->errorInfo();
-
-		echo "Error: <pre>{$i1}:{$i2}\n{$i3}</pre>";
 	}
 
 	// --------------------------------------------------------------------------
@@ -289,14 +261,11 @@ abstract class DB_PDO extends PDO {
 	 */
 	protected function _quote($str)
 	{
-		// Don't quote numbers
-		if ( ! is_string($str) && is_numeric($str))
-		{
-			return $str;
-		}
-
-		// Don't add additional quotes
-		if (strpos($str, $this->escape_char) === 0 || strrpos($str, $this->escape_char) === 0)
+		// Don't add additional quotes, or quote numbers
+		if (strpos($str, $this->escape_char) === 0 || 
+			strrpos($str, $this->escape_char) === 0 ||
+			( ! is_string($str) && is_numeric($str))
+		)
 		{
 			return $str;
 		}

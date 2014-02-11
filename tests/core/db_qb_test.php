@@ -29,6 +29,22 @@ abstract class QBTest extends UnitTestCase {
 	// --------------------------------------------------------------------------
 	// ! Get Tests
 	// --------------------------------------------------------------------------
+	
+	public function TestInvalidConnectionName()
+	{
+		if (empty($this->db)) return;
+	
+		try 
+		{
+			$db = Query('foo');
+		}
+		catch (InvalidArgumentException $e)
+		{
+			$this->assertTrue(TRUE);
+		}
+	}
+	
+	// --------------------------------------------------------------------------
 
 	public function TestQueryFunctionAlias()
 	{
