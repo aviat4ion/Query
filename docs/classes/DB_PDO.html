@@ -59,13 +59,9 @@
 <li class="method public "><a href="#method___construct" title="__construct() :: PDO constructor wrapper"><span class="description">PDO constructor wrapper</span><pre>__construct()</pre></a></li>
 <li class="method public "><a href="#method_affected_rows" title="affected_rows() :: Returns number of rows affected by an INSERT, UPDATE, DELETE type query"><span class="description">Returns number of rows affected by an INSERT, UPDATE, DELETE type query</span><pre>affected_rows()</pre></a></li>
 <li class="method public "><a href="#method_driver_query" title="driver_query() :: Method to simplify retreiving db results for meta-data queries"><span class="description">Method to simplify retreiving db results for meta-data queries</span><pre>driver_query()</pre></a></li>
-<li class="method public "><a href="#method_empty_table" title="empty_table() :: Deletes all the rows from a table. Does the same as the truncate
-method if the database does not support 'TRUNCATE';"><span class="description">Deletes all the rows from a table. Does the same as the truncate
-method if the database does not support 'TRUNCATE';</span><pre>empty_table()</pre></a></li>
 <li class="method public "><a href="#method_get_columns" title="get_columns() :: Retrieve column information for the current database table"><span class="description">Retrieve column information for the current database table</span><pre>get_columns()</pre></a></li>
 <li class="method public "><a href="#method_get_dbs" title="get_dbs() :: Return list of dbs for the current connection, if possible"><span class="description">Return list of dbs for the current connection, if possible</span><pre>get_dbs()</pre></a></li>
 <li class="method public "><a href="#method_get_functions" title="get_functions() :: Return list of function for the current database"><span class="description">Return list of function for the current database</span><pre>get_functions()</pre></a></li>
-<li class="method public "><a href="#method_get_last_error" title="get_last_error() :: Return the last error for the current database connection"><span class="description">Return the last error for the current database connection</span><pre>get_last_error()</pre></a></li>
 <li class="method public "><a href="#method_get_procedures" title="get_procedures() :: Return list of stored procedures for the current database"><span class="description">Return list of stored procedures for the current database</span><pre>get_procedures()</pre></a></li>
 <li class="method public "><a href="#method_get_schemas" title="get_schemas() :: Return schemas for databases that list them"><span class="description">Return schemas for databases that list them</span><pre>get_schemas()</pre></a></li>
 <li class="method public "><a href="#method_get_sequences" title="get_sequences() :: Return list of sequences for the current database, if they exist"><span class="description">Return list of sequences for the current database, if they exist</span><pre>get_sequences()</pre></a></li>
@@ -192,22 +188,6 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a id="method_empty_table"></a><div class="element clickable method public method_empty_table" data-toggle="collapse" data-target=".method_empty_table .collapse">
-<h2>Deletes all the rows from a table. Does the same as the truncate
-method if the database does not support 'TRUNCATE';</h2>
-<pre>empty_table(string $table) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
 <a id="method_get_columns"></a><div class="element clickable method public method_get_columns" data-toggle="collapse" data-target=".method_get_columns .collapse">
 <h2>Retrieve column information for the current database table</h2>
 <pre>get_columns(string $table) : array</pre>
@@ -241,16 +221,6 @@ method if the database does not support 'TRUNCATE';</h2>
 <div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>array</code></div>
-</div></div>
-</div>
-<a id="method_get_last_error"></a><div class="element clickable method public method_get_last_error" data-toggle="collapse" data-target=".method_get_last_error .collapse">
-<h2>Return the last error for the current database connection</h2>
-<pre>get_last_error() : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method_get_procedures"></a><div class="element clickable method public method_get_procedures" data-toggle="collapse" data-target=".method_get_procedures .collapse">
@@ -401,6 +371,11 @@ the connection/database</h2>
 <h4>$data</h4>
 <code>array</code>
 </div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="InvalidArgumentException.html">\InvalidArgumentException</a></code></th>
+<td></td>
+</tr></table>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>mixed</code>PDOStatement / FALSE</div>
@@ -525,7 +500,7 @@ the connection/database</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.1.0
 </a> and<br>
-            generated on 2014-02-07T16:51:34-05:00.<br></footer></div>
+            generated on 2014-02-12T19:09:30-05:00.<br></footer></div>
 </div>
 </body>
 </html>

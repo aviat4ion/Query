@@ -166,7 +166,7 @@ class Query_Builder implements iQuery_Builder {
 			}
 		}
 
-		$this->select_string .= implode(',', $safe_array);
+		$this->select_string .= implode(', ', $safe_array);
 
 		unset($safe_array);
 
@@ -296,7 +296,7 @@ class Query_Builder implements iQuery_Builder {
 	public function from($tblname)
 	{
 		// Split identifiers on spaces
-		$ident_array = explode(' ', trim($tblname));
+		$ident_array = explode(' ', mb_trim($tblname));
 		$ident_array = array_map('mb_trim', $ident_array);
 
 		// Quote the identifiers
@@ -547,7 +547,7 @@ class Query_Builder implements iQuery_Builder {
 			// Determine the correct conjunction
 			if (empty($this->query_map))
 			{
-				$conj = ' WHERE ';
+				$conj = "\nWHERE ";
 			}
 			elseif ($first_item['type'] === 'group_start')
 			{
@@ -765,7 +765,7 @@ class Query_Builder implements iQuery_Builder {
 
 		$this->query_map[] = array(
 			'type' => 'join',
-			'conjunction' => strtoupper($type).' JOIN ',
+			'conjunction' => "\n" . strtoupper($type) . ' JOIN ',
 			'string' => $condition,
 		);
 
@@ -828,8 +828,8 @@ class Query_Builder implements iQuery_Builder {
 
 		// Set the final string
 		$this->order_string = (empty($rand))
-			? ' ORDER BY '.implode(',', $order_clauses)
-			: ' ORDER BY'.$rand;
+			? "\nORDER BY ".implode(', ', $order_clauses)
+			: "\nORDER BY".$rand;
 
 		return $this;
 	}
@@ -1218,10 +1218,7 @@ class Query_Builder implements iQuery_Builder {
 			$skip = array('db','sql','queries','table_prefix','parser','conn_name');
 
 			// Skip properties that are needed for every query
-			if (in_array($name, $skip))
-			{
-				continue;
-			}
+			if (in_array($name, $skip)) continue;
 
 			// Nothing query-generation related is safe!
 			$this->$name = NULL;
@@ -1271,7 +1268,7 @@ class Query_Builder implements iQuery_Builder {
 		$total_time = number_format($end_time - $start_time, 5);
 
 		// Add the interpreted query to the list of executed queries
-		$esql = str_replace('?', '%s', $sql);
+		$esql = str_replace('?', "%s", $sql);
 		array_unshift($vals, $esql);
 
 		$this->queries[] = array(
@@ -1329,7 +1326,7 @@ class Query_Builder implements iQuery_Builder {
 		{
 			default:
 			case "get":
-				$sql = "SELECT * FROM {$this->from_string}";
+				$sql = "SELECT * \nFROM {$this->from_string}";
 
 				// Set the select string
 				if ( ! empty($this->select_string))

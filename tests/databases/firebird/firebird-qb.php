@@ -138,11 +138,16 @@ class FirebirdQBTest extends QBTest {
 			->where('id >', 1)
 			->where('id <', 900)
 			->limit(2, 1)
-			->get_compiled_select('create_test');
+			->get_compiled_select();
+			
+		$res2 = $this->db->select('id, key as k, val')
+			->where('id >', 1)
+			->where('id <', 900)
+			->limit(2, 1)
+			->get_compiled_select();
 		
-		$expected = 'SELECT FIRST 2 SKIP 1 "id","key" AS "k","val" FROM "create_test" WHERE "id" > ? AND "id" < ?';
-		
-		$this->assertEqual($expected, $res);
+		// Queries are equal because explain is not a keyword in Firebird
+		$this->assertEqual($res, $res2);
 	}
 
 }
