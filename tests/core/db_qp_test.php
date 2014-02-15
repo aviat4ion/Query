@@ -16,9 +16,9 @@
 /**
  * Tests for the Query Parser
  */
-class QPTest extends UnitTestCase {
+class QPTest extends Query_TestCase {
 
-	public function __construct()
+	public function setUp()
 	{
 		$this->parser = new Query_Parser();
 	}
@@ -31,7 +31,7 @@ class QPTest extends UnitTestCase {
 		));
 	}
 
-	public function TestGeneric2()
+	public function testGeneric2()
 	{
 		$matches = $this->parser->parse_join('db1.table1.field1!=db2.table2.field2');
 		$this->assertIdentical($matches['combined'], array(
@@ -39,7 +39,7 @@ class QPTest extends UnitTestCase {
 		));
 	}
 
-	public function TestWUnderscore()
+	public function testWUnderscore()
 	{
 		$matches = $this->parser->parse_join('table_1.field1 = tab_le2.field_2');
 		$this->assertIdentical($matches['combined'], array(
@@ -47,7 +47,7 @@ class QPTest extends UnitTestCase {
 		));
 	}
 
-	public function TestFunction()
+	public function testFunction()
 	{
 		$matches = $this->parser->parse_join('table1.field1 > SUM(3+5)');
 		$this->assertIdentical($matches['combined'], array(

@@ -708,7 +708,7 @@ class Query_Builder implements iQuery_Builder {
 			$this->values[] = $val;
 		}
 		// Object or array
-		elseif ( ! is_scalar($key))
+		elseif (is_array($key) || is_object($key))
 		{
 			foreach($key as $k => $v)
 			{
@@ -719,7 +719,7 @@ class Query_Builder implements iQuery_Builder {
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
-		$this->set_array_keys = $this->db->quote_ident($this->set_array_keys);
+		$this->set_array_keys = array_map(array($this->db, '_quote'), $this->set_array_keys);
 
 		// Generate the "set" string
 		$this->set_string = implode('=?,', $this->set_array_keys);
@@ -1258,10 +1258,15 @@ class Query_Builder implements iQuery_Builder {
 		}
 
 		$start_time = microtime(TRUE);
-
-		$res = ($simple)
-			? $this->db->query($sql)
-			: $this->db->prepare_execute($sql, $vals);
+		
+		if ($simple)
+		{
+			$res = $this->db->query($sql);
+		}
+		else
+		{
+			$res = $this->db->prepare_execute($sql, $vals);
+		}
 
 		$end_time = microtime(TRUE);
 
@@ -1296,6 +1301,7 @@ class Query_Builder implements iQuery_Builder {
 	 * @param string $name
 	 * @param array $params
 	 * @return mixed
+	 * @throws BadMethodCallException
 	 */
 	public function __call($name, $params)
 	{
@@ -1304,7 +1310,7 @@ class Query_Builder implements iQuery_Builder {
 			return call_user_func_array(array($this->db, $name), $params);
 		}
 
-		return NULL;
+		throw new BadMethodCallException("Method does not exist");
 	}
 
 	// --------------------------------------------------------------------------

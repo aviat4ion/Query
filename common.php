@@ -100,7 +100,7 @@ function db_filter($array, $index)
  * @throws BadDBDriverException
  * @throws BadConnectionException
  */
-function &Query($params = '')
+function Query($params = '')
 {
 	static $connections;
 	

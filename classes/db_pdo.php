@@ -213,7 +213,7 @@ abstract class DB_PDO extends PDO {
 	 * @return string
 	 */
 	public function quote_ident($ident)
-	{
+	{   
 		if (is_array($ident))
 		{
 			return array_map(array($this, __METHOD__), $ident);
@@ -223,7 +223,7 @@ abstract class DB_PDO extends PDO {
 		if (strpos($ident, ',') !== FALSE)
 		{
 			$parts = explode(',', $ident);
-			$parts = array_map('mb_trim', $parts);
+			$parts = array_map('mb_trim', $parts); 
 			$parts = array_map(array($this, __METHOD__), $parts);
 			$ident = implode(',', $parts);
 		}
@@ -259,7 +259,7 @@ abstract class DB_PDO extends PDO {
 	 * @param mixed $str
 	 * @return mixed
 	 */
-	protected function _quote($str)
+	public function _quote($str)
 	{
 		// Don't add additional quotes, or quote numbers
 		if (strpos($str, $this->escape_char) === 0 || 

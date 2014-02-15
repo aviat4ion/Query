@@ -16,7 +16,7 @@
  * 
  * @extends UnitTestCase
  */
-class CoreTest extends UnitTestCase {
+class CoreTest extends Query_TestCase {
 	
 	/**
 	 * __construct function.
@@ -37,7 +37,7 @@ class CoreTest extends UnitTestCase {
 	 * @access public
 	 * @return void
 	 */
-	public function TestPHPVersion()
+	public function testPHPVersion()
 	{
 		$this->assertTrue(version_compare(PHP_VERSION, "5.2", "ge"));
 	}
@@ -50,7 +50,7 @@ class CoreTest extends UnitTestCase {
 	 * @access public
 	 * @return void
 	 */
-	public function TestHasPDO()
+	public function testHasPDO()
 	{
 		// PDO class exists
 		$this->assertTrue(class_exists('PDO'));

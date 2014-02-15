@@ -13,7 +13,7 @@ before_script:
   - sh -c "psql -c 'create database test;' -U postgres"
   - sh -c "mysql -e 'create database IF NOT EXISTS test;'"
 
-script: php ./tests/index.php
+script: phpunit ./tests/
 
 matrix:
   allow_failures:
