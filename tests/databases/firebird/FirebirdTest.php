@@ -25,6 +25,11 @@ class FirebirdTest extends DBtest {
 	{	
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 		
+		if ( ! function_exists('fbird_connect'))
+		{
+			$this->markTestSkipped('Firebird extension does not exist');
+		}
+		
 		// test the db driver directly
 		$this->db = new Firebird('localhost:'.$dbpath);
 		$this->tables = $this->db->get_tables();

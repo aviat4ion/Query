@@ -85,7 +85,14 @@ require_once(QTEST_DIR . '/core/db_test.php');
 require_once(QTEST_DIR . '/core/db_qp_test.php');
 require_once(QTEST_DIR . '/core/db_qb_test.php');
 
-// Load firebird classes for testing
-array_map('do_include', glob(QDRIVER_PATH.'/firebird/*.php'));
+// If Firebird (interbase) extension does not exist,
+// create a fake class to suppress errors from skipped tests
+if ( ! function_exists('fbird_connect'))
+{
+	class Firebird {
+		public $sql;
+		public $util;
+	}
+}
 
 // End of bootstrap.php
