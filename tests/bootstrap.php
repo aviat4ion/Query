@@ -73,7 +73,7 @@ class Query_TestCase extends PHPUnit_Framework_TestCase {
  * Unit test bootstrap - Using phpunit
  */
 define('QTEST_DIR', realpath(dirname(__FILE__)));
-define('QBASE_DIR', realpath("../").'/');
+define('QBASE_DIR', realpath(QTEST_DIR.'/../') . '/');
 define('QDS', DIRECTORY_SEPARATOR);
 
 // Include db classes
