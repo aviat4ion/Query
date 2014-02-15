@@ -85,4 +85,7 @@ require_once(QTEST_DIR . '/core/db_test.php');
 require_once(QTEST_DIR . '/core/db_qp_test.php');
 require_once(QTEST_DIR . '/core/db_qb_test.php');
 
+// Load firebird classes for testing
+array_map('do_include', glob(QDRIVER_PATH.'/firebird/*.php'));
+
 // End of bootstrap.php
