@@ -12,8 +12,9 @@ before_script:
   - sh -c "psql -c 'DROP DATABASE IF EXISTS test;' -U postgres"
   - sh -c "psql -c 'create database test;' -U postgres"
   - sh -c "mysql -e 'create database IF NOT EXISTS test;'"
+  - sh -c "cd tests"
 
-script: phpunit ./tests/
+script: phpunit
 
 matrix:
   allow_failures:
