@@ -19,6 +19,12 @@ class PgSQLQBTest extends QBTest {
 
 	public function setUp()
  	{
+ 		// If the database isn't installed, skip the tests
+		if ( ! class_exists("PgSQL"))
+		{
+			$this->markTestSkipped();
+		}
+ 		
  		// Attempt to connect, if there is a test config file
 		if (is_file(QBASE_DIR . "test_config.json"))
 		{
