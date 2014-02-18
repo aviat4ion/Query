@@ -149,6 +149,14 @@ function Query($params = '')
 	{
 		throw new BadDBDriverException('Database driver does not exist, or is not supported');
 	}
+	
+	// Set additional PDO options
+	$options = array();
+	
+	if (isset($params->options))
+	{
+		$options = (array)$params->options;
+	}
 
 	// --------------------------------------------------------------------------
 	// Attempt to connect
@@ -185,7 +193,7 @@ function Query($params = '')
 	{
 		// Create the database connection
 		$db = ( ! empty($params->user))
-			? new $dbtype($dsn, $params->user, $params->pass)
+			? new $dbtype($dsn, $params->user, $params->pass, $options)
 			: new $dbtype($dsn);
 	}
 	catch(Exception $e)
