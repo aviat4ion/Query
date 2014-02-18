@@ -58,10 +58,18 @@ class Firebird extends DB_PDO {
 	 * @param string $dbpath
 	 * @param string $user
 	 * @param string $pass
+	 * @param array $options
 	 */
-	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey')
+	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', $options = array())
 	{
-		$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8', 0);
+		if (isset($options[PDO::ATTR_PERSISTENT]) && $options[PDO::ATTR_PERSISTENT] == TRUE)
+		{
+			$this->conn = fbird_pconnect($dbpath, $user, $pass, 'utf-8', 0);
+		}
+		else 
+		{
+			$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8', 0);	
+		}
 
 		// Throw an exception to make this match other pdo classes
 		if ( ! is_resource($this->conn)) throw new PDOException(fbird_errmsg());

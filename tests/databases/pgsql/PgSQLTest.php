@@ -26,7 +26,7 @@ class PgTest extends DBTest {
 		// If the database isn't installed, skip the tests
 		if ( ! class_exists("PgSQL"))
 		{
-			$this->markTestSkipped();
+			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
 
 		// Attempt to connect, if there is a test config file

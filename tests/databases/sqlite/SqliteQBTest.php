@@ -27,6 +27,8 @@
 		$params->file = $path;
 		$params->host = 'localhost';
 		$params->prefix = 'create_';
+		$params->options = array();
+		$params->options[PDO::ATTR_PERSISTENT] = TRUE;
 		$this->db = Query($params);
 
 		// echo '<hr /> SQLite Queries <hr />';

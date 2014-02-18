@@ -26,7 +26,9 @@ class MySQLQBTest extends QBTest {
 			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
 			$params = $params->mysql;
 			$params->type = "MySQL";
-			$params->prefix = "create_";;
+			$params->prefix = "create_";
+			$params->options = array();
+			$params->options[PDO::ATTR_PERSISTENT]  = TRUE;
 		}
 		elseif (($var = getenv('CI'))) // Travis CI Connection Info
 		{
@@ -43,11 +45,6 @@ class MySQLQBTest extends QBTest {
 
 		$this->db = Query($params);
  	}
- 	
- 	public function testWhereSetUpdate() {}
- 	public function testDelete() {}
- 	public function testSetArrayUpdate() {}
- 	public function testUpdate() {}
 
 	// --------------------------------------------------------------------------
 

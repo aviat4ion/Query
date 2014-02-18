@@ -607,9 +607,9 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testUpdate()
 	{
-		$query = $this->db->where('id', 4)
+		$query = $this->db->where('id', 7)
 			->update('create_test', array(
-				'id' => 4,
+				'id' => 7,
 				'key' => 'gogle',
 				'val' => 'non-word'
 			));
@@ -622,13 +622,13 @@ abstract class QBTest extends Query_TestCase {
 	public function testSetArrayUpdate()
 	{
 		$array = array(
-			'id' => 4,
+			'id' => 22,
 			'key' => 'gogle',
 			'val' => 'non-word'
 		);
 
 		$query = $this->db->set($array)
-			->where('id', 4)
+			->where('id', 22)
 			->update('create_test');
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -638,8 +638,8 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testWhereSetUpdate()
 	{
-		$query = $this->db->where('id', 4)
-			->set('id', 4)
+		$query = $this->db->where('id', 36)
+			->set('id', 36)
 			->set('key', 'gogle')
 			->set('val', 'non-word')
 			->update('test');
@@ -651,7 +651,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testDelete()
 	{
-		$query = $this->db->delete('create_test', array('id' => 4));
+		$query = $this->db->delete('create_test', array('id' => 5));
 
 		$this->assertIsA($query, 'PDOStatement');
 	}

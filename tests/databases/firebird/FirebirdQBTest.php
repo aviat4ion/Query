@@ -22,6 +22,11 @@ class FirebirdQBTest extends QBTest {
 	public function setUp()
 	{	
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
+		
+		if ( ! function_exists('fbird_connect'))
+		{
+			$this->markTestSkipped('Firebird extension does not exist');
+		}
 
 		// test the query builder
 		$params = new Stdclass();
@@ -32,6 +37,8 @@ class FirebirdQBTest extends QBTest {
 		$params->user = 'sysdba';
 		$params->pass = 'masterkey';
 		$params->prefix = 'create_';
+		$params->options = array();
+		$params->options[PDO::ATTR_PERSISTENT] = TRUE;
 		$this->db = Query($params);
 	}
 	
@@ -63,7 +70,7 @@ class FirebirdQBTest extends QBTest {
 		$params->host = 'localhost';
 		$params->user = 'sysdba';
 		$params->pass = 'masterkey';
-		$params->prefix = 'create_';
+		$params->prefix = '';
 		$f_conn = Query($params);
 	
 		$this->assertReference($f_conn, Query('fire'));
@@ -142,5 +149,4 @@ class FirebirdQBTest extends QBTest {
 		// Queries are equal because explain is not a keyword in Firebird
 		$this->assertEqual($res, $res2);
 	}
-
 }

@@ -194,7 +194,7 @@ function Query($params = '')
 		// Create the database connection
 		$db = ( ! empty($params->user))
 			? new $dbtype($dsn, $params->user, $params->pass, $options)
-			: new $dbtype($dsn);
+			: new $dbtype($dsn, '', '', $options);
 	}
 	catch(Exception $e)
 	{
