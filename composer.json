@@ -19,11 +19,8 @@
 		"homepage": "https://timshomepage.net",
 		"role": "Developer"
 	}],
-	"require-dev": {
-		"phpunit/php-code-coverage": ">=1.2.10,<1.3.0"
-	},
 	"require": {
-		"php": ">=5.2.0"
+		"php": ">=5.3"
 	},
 	"autoload": {
 		"files": ["autoload.php"]
