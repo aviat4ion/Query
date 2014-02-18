@@ -144,7 +144,6 @@ class FirebirdTest extends DBtest {
 	
 	public function testTruncate()
 	{
-$this->markTestSkipped();
 		$this->db->truncate('create_test');
 		
 		$this->assertTrue($this->db->affected_rows() > 0);

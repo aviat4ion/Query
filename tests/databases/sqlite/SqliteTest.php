@@ -219,9 +219,7 @@ SQL;
 	// --------------------------------------------------------------------------
 
 	public function testRollbackTransaction()
-	{
-		$this->markTestSkipped();
-		
+	{	
 		$res = $this->db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
@@ -267,8 +265,6 @@ SQL;
 		$this->assertEqual(NULL, $sql);
 	}
 	
-	public function testGetTypes()
-	{
-$this->markTestIncomplete();
-	}
+	// @TODO Fix this 
+	public function testGetTypes() {}
 }

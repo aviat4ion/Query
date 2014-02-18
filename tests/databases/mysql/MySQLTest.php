@@ -29,7 +29,9 @@ class MySQLTest extends DBTest {
 			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
 			$params = $params->mysql;
 
-			$this->db = new MySQL("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass);
+			$this->db = new MySQL("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
+				PDO::ATTR_PERSISTENT => TRUE
+			));
 		}
 		elseif (($var = getenv('CI')))
 		{
@@ -93,12 +95,8 @@ class MySQLTest extends DBTest {
 	
 	public function testTruncate()
 	{
-//$this->markTestSkipped();
 		$this->db->truncate('create_test');
 		$this->db->truncate('create_join');
-		
-		//$ct_query = $this->db->query('SELECT * FROM create_test');
-		//$cj_query = $this->db->query('SELECT * FROM create_join');
 	}
 	
 	// --------------------------------------------------------------------------

@@ -125,6 +125,16 @@ class Query_Builder implements iQuery_Builder {
 		$this->sql = $this->db->sql;
 		$this->util = $this->db->util;
 	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Destructor
+	 */
+	public function __destruct()
+	{
+		$this->db = NULL;
+	}
 
 	// --------------------------------------------------------------------------
 	// ! Select Queries

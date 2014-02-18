@@ -607,7 +607,6 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testUpdate()
 	{
-$this->markTestSkipped();
 		$query = $this->db->where('id', 4)
 			->update('create_test', array(
 				'id' => 4,
@@ -622,7 +621,6 @@ $this->markTestSkipped();
 
 	public function testSetArrayUpdate()
 	{
-$this->markTestSkipped();
 		$array = array(
 			'id' => 4,
 			'key' => 'gogle',
@@ -640,12 +638,11 @@ $this->markTestSkipped();
 
 	public function testWhereSetUpdate()
 	{
-$this->markTestSkipped();
 		$query = $this->db->where('id', 4)
 			->set('id', 4)
 			->set('key', 'gogle')
 			->set('val', 'non-word')
-			->get_compiled_update('test');;
+			->update('test');
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -654,7 +651,6 @@ $this->markTestSkipped();
 
 	public function testDelete()
 	{
-$this->markTestSkipped();
 		$query = $this->db->delete('create_test', array('id' => 4));
 
 		$this->assertIsA($query, 'PDOStatement');

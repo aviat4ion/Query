@@ -43,6 +43,11 @@ class MySQLQBTest extends QBTest {
 
 		$this->db = Query($params);
  	}
+ 	
+ 	public function testWhereSetUpdate() {}
+ 	public function testDelete() {}
+ 	public function testSetArrayUpdate() {}
+ 	public function testUpdate() {}
 
 	// --------------------------------------------------------------------------
 
