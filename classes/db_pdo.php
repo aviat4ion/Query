@@ -447,7 +447,7 @@ abstract class DB_PDO extends PDO {
 
 		if (preg_match($regex, $this->last_query, $output) > 0)
 		{
-			$stmt = $this->query("SELECT COUNT(*) FROM {$output[1]}", PDO::FETCH_NUM);
+			$stmt = $this->query("SELECT COUNT(*) FROM {$output[1]}");
 			return $stmt->fetchColumn();
 		}
 
