@@ -6,7 +6,7 @@ A query builder/database abstraction layer, using prepared queries for security.
 
 ## Requirements
 * Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
-* PHP 5.2+
+* PHP 5.3+
 
 ## Databases Supported
 	
@@ -14,7 +14,6 @@ A query builder/database abstraction layer, using prepared queries for security.
 * MySQL
 * PostgreSQL
 * SQLite
-* Others, via ODBC
 
 ## Including Query in your application
 
