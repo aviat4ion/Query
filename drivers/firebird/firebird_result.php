@@ -77,7 +77,7 @@ class Firebird_Result extends PDOStatement {
 	 * Invalidate method for data consistency
 	 *
 	 * @param mixed $column
-	 * @param mixed &$param
+	 * @param mixed $param
 	 * @param int $type
 	 * @param mixed $maxlen
 	 * @param array $driverdata
@@ -94,7 +94,7 @@ class Firebird_Result extends PDOStatement {
 	 * Invalidate method for data consistency
 	 *
 	 * @param mixed $parameter
-	 * @param mixed &$variable
+	 * @param mixed $variable
 	 * @param int $data_type
 	 * @param mixed $maxlen
 	 * @param array $driverdata
@@ -111,7 +111,7 @@ class Firebird_Result extends PDOStatement {
 	 * Invalidate method for data consistency
 	 *
 	 * @param mixed $parameter
-	 * @param mixed &$variable
+	 * @param mixed $variable
 	 * @param int $data_type
 	 * @return NULL
 	 */
@@ -147,8 +147,8 @@ class Firebird_Result extends PDOStatement {
 	 * Emulate PDO fetch public function
 	 *
 	 * @param int $fetch_style
-	 * @param mixed $statement
-	 * @param mixed $offset
+	 * @param mixed $cursor_orientation
+	 * @param mixed $cursor_offset
 	 * @return mixed
 	 */
 	public function fetch($fetch_style=PDO::FETCH_ASSOC, $cursor_orientation = PDO::FETCH_ORI_NEXT, $cursor_offset=NULL)

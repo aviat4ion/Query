@@ -47,7 +47,7 @@ class Query_Parser {
 	/**
 	 * Constructor/entry point into parser
 	 *
-	 * @param string
+	 * @param string $sql
 	 */
 	public function __construct($sql = '')
 	{
@@ -69,7 +69,7 @@ class Query_Parser {
 	/**
 	 * Public parser method for seting the parse string
 	 *
-	 * @param string
+	 * @param string $sql
 	 */
 	public function parse_join($sql)
 	{
@@ -82,7 +82,7 @@ class Query_Parser {
 	/**
 	 * Returns a more useful match array
 	 *
-	 * @param array
+	 * @param array $array
 	 * @return array
 	 */
 	private function filter_array($array)

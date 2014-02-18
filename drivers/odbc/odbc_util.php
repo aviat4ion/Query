@@ -24,7 +24,7 @@ class ODBC_Util extends DB_Util {
 	/**
 	 * Save a reference to the current connection object
 	 *
-	 * @param object &$conn
+	 * @param object $conn
 	 * @return void
 	 */
 	public function __construct(&$conn)

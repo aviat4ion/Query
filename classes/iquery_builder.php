@@ -190,7 +190,7 @@ interface iQuery_Builder {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 @ @param bool $escape
+	 * @param bool $escape
 	 * @return $this
 	 */
 	public function where($key, $val=array(), $escape = NULL);

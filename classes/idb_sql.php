@@ -115,7 +115,7 @@ interface iDB_SQL {
 	 * Get information about the columns in the 
 	 * specified table
 	 *
-	 * @param string
+	 * @param string $table
 	 * @return string
 	 */
 	public function column_list($table);

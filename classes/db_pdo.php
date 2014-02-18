@@ -134,16 +134,10 @@ abstract class DB_PDO extends PDO {
 	/**
 	 * Returns number of rows affected by an INSERT, UPDATE, DELETE type query
 	 *
-	 * @param PDOStatement $statement
 	 * @return int
 	 */
-	public function affected_rows($statement='')
+	public function affected_rows()
 	{
-		if ( ! empty($statement))
-		{
-			$this->statement = $statement;
-		}
-
 		// Return number of rows affected
 		return $this->statement->rowCount();
 	}
