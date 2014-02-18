@@ -49,15 +49,21 @@
                         </div></noscript>
 <div class="row">
 <div class="span4">
-<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<div class="btn-toolbar">
+<div class="btn-group visibility" data-toggle="buttons-checkbox">
+<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
+</div>
+<div class="btn-group view pull-right" data-toggle="buttons-radio">
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
 </div>
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
-<i class="icon-custom icon-method"></i> Methods
+<i title="Methods" class="icon-custom icon-method"></i> Methods
                     <ul>
 <li class="method public "><a href="#method___call" title="__call() :: Calls a function further down the inheritence chain"><span class="description">Calls a function further down the inheritence chain</span><pre>__call()</pre></a></li>
 <li class="method public "><a href="#method___construct" title="__construct() :: Constructor"><span class="description">Constructor</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method___destruct" title="__destruct() :: Destructor"><span class="description">Destructor</span><pre>__destruct()</pre></a></li>
 <li class="method public "><a href="#method_count_all" title="count_all() :: Retreive the number of rows in the selected table"><span class="description">Retreive the number of rows in the selected table</span><pre>count_all()</pre></a></li>
 <li class="method public "><a href="#method_count_all_results" title="count_all_results() :: Retrieve the number of results for the generated query - used
 in place of the get() method"><span class="description">Retrieve the number of results for the generated query - used
@@ -128,7 +134,7 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
-<i class="icon-custom icon-property"></i> Properties
+<i title="Properties" class="icon-custom icon-property"></i> Properties
                     <ul>
 <li class="property public "><a href="#property_conn_name" title="$conn_name() :: "><span class="description"></span><pre>$conn_name</pre></a></li>
 <li class="property public "><a href="#property_queries" title="$queries() :: "><span class="description"></span><pre>$queries</pre></a></li>
@@ -159,7 +165,7 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 <div class="span8">
 <a id="\Query_Builder"></a><ul class="breadcrumb">
 <li>
-<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
 <li class="active">
 <span class="divider">\</span><a href="../classes/Query_Builder.html">Query_Builder</a>
@@ -181,8 +187,8 @@ instantiates the specific db driver</p>
 </tr>
 </table>
 <h3>
-<i class="icon-custom icon-method"></i> Methods</h3>
-<a id="method___call"></a><div class="element clickable method public method___call" data-toggle="collapse" data-target=".method___call .collapse">
+<i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___call"></a><div class="element clickable method public method___call" data-toggle="collapse" data-target=".method___call .collapse" title="public">
 <h2>Calls a function further down the inheritence chain</h2>
 <pre>__call(string $name, array $params) : mixed</pre>
 <div class="labels"></div>
@@ -197,11 +203,16 @@ instantiates the specific db driver</p>
 <h4>$params</h4>
 <code>array</code>
 </div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="BadMethodCallException.html">\BadMethodCallException</a></code></th>
+<td></td>
+</tr></table>
 <h3>Returns</h3>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse" title="public">
 <h2>Constructor</h2>
 <pre>__construct(\DB_PDO $db, object $params) </pre>
 <div class="labels"></div>
@@ -216,11 +227,16 @@ instantiates the specific db driver</p>
 <h4>$params</h4>
 <code>object</code><ul>
 <li>the connection parameters</li>
-</ul>
-</div>
+</ul></div>
 </div></div>
 </div>
-<a id="method_count_all"></a><div class="element clickable method public method_count_all" data-toggle="collapse" data-target=".method_count_all .collapse">
+<a id="method___destruct"></a><div class="element clickable method public method___destruct" data-toggle="collapse" data-target=".method___destruct .collapse" title="public">
+<h2>Destructor</h2>
+<pre>__destruct() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_count_all"></a><div class="element clickable method public method_count_all" data-toggle="collapse" data-target=".method_count_all .collapse" title="public">
 <h2>Retreive the number of rows in the selected table</h2>
 <pre>count_all(string $table) : int</pre>
 <div class="labels"></div>
@@ -235,10 +251,10 @@ instantiates the specific db driver</p>
 <div class="subelement response"><code>int</code></div>
 </div></div>
 </div>
-<a id="method_count_all_results"></a><div class="element clickable method public method_count_all_results" data-toggle="collapse" data-target=".method_count_all_results .collapse">
+<a id="method_count_all_results"></a><div class="element clickable method public method_count_all_results" data-toggle="collapse" data-target=".method_count_all_results .collapse" title="public">
 <h2>Retrieve the number of results for the generated query - used
 in place of the get() method</h2>
-<pre>count_all_results(string $table) : int</pre>
+<pre>count_all_results(string $table<code> = ''</code>) : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -251,9 +267,9 @@ in place of the get() method</h2>
 <div class="subelement response"><code>int</code></div>
 </div></div>
 </div>
-<a id="method_delete"></a><div class="element clickable method public method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
+<a id="method_delete"></a><div class="element clickable method public method_delete" data-toggle="collapse" data-target=".method_delete .collapse" title="public">
 <h2>Deletes data from a table</h2>
-<pre>delete(string $table, mixed $where) : mixed</pre>
+<pre>delete(string $table, mixed $where<code> = ''</code>) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -270,7 +286,7 @@ in place of the get() method</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a id="method_distinct"></a><div class="element clickable method public method_distinct" data-toggle="collapse" data-target=".method_distinct .collapse">
+<a id="method_distinct"></a><div class="element clickable method public method_distinct" data-toggle="collapse" data-target=".method_distinct .collapse" title="public">
 <h2>Adds the 'distinct' keyword to a query</h2>
 <pre>distinct() : \Query_Builder</pre>
 <div class="labels"></div>
@@ -284,7 +300,7 @@ in place of the get() method</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_explain"></a><div class="element clickable method public method_explain" data-toggle="collapse" data-target=".method_explain .collapse">
+<a id="method_explain"></a><div class="element clickable method public method_explain" data-toggle="collapse" data-target=".method_explain .collapse" title="public">
 <h2>Tell the database to give you the query plan instead of result set</h2>
 <pre>explain() : \Query_Builder</pre>
 <div class="labels"></div>
@@ -298,7 +314,7 @@ in place of the get() method</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_from"></a><div class="element clickable method public method_from" data-toggle="collapse" data-target=".method_from .collapse">
+<a id="method_from"></a><div class="element clickable method public method_from" data-toggle="collapse" data-target=".method_from .collapse" title="public">
 <h2>Specify the database table to select from</h2>
 <pre>from(string $tblname) : \Query_Builder</pre>
 <div class="labels"></div>
@@ -317,10 +333,10 @@ in place of the get() method</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_get"></a><div class="element clickable method public method_get" data-toggle="collapse" data-target=".method_get .collapse">
+<a id="method_get"></a><div class="element clickable method public method_get" data-toggle="collapse" data-target=".method_get .collapse" title="public">
 <h2>Select and retrieve all records from the current table, and/or
 execute current compiled query</h2>
-<pre>get(mixed $table, int $limit, int $offset) : object</pre>
+<pre>get(mixed $table<code> = ''</code>, int $limit<code> = FALSE</code>, int $offset<code> = FALSE</code>) : object</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -338,9 +354,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>object</code></div>
 </div></div>
 </div>
-<a id="method_get_compiled_delete"></a><div class="element clickable method public method_get_compiled_delete" data-toggle="collapse" data-target=".method_get_compiled_delete .collapse">
+<a id="method_get_compiled_delete"></a><div class="element clickable method public method_get_compiled_delete" data-toggle="collapse" data-target=".method_get_compiled_delete .collapse" title="public">
 <h2>Returns the generated 'delete' sql query</h2>
-<pre>get_compiled_delete(string $table, bool $reset) : string</pre>
+<pre>get_compiled_delete(string $table<code> = ""</code>, bool $reset<code> = TRUE</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -357,9 +373,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_get_compiled_insert"></a><div class="element clickable method public method_get_compiled_insert" data-toggle="collapse" data-target=".method_get_compiled_insert .collapse">
+<a id="method_get_compiled_insert"></a><div class="element clickable method public method_get_compiled_insert" data-toggle="collapse" data-target=".method_get_compiled_insert .collapse" title="public">
 <h2>Returns the generated 'insert' sql query</h2>
-<pre>get_compiled_insert(string $table, bool $reset) : string</pre>
+<pre>get_compiled_insert(string $table, bool $reset<code> = TRUE</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -376,9 +392,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_get_compiled_select"></a><div class="element clickable method public method_get_compiled_select" data-toggle="collapse" data-target=".method_get_compiled_select .collapse">
+<a id="method_get_compiled_select"></a><div class="element clickable method public method_get_compiled_select" data-toggle="collapse" data-target=".method_get_compiled_select .collapse" title="public">
 <h2>Returns the generated 'select' sql query</h2>
-<pre>get_compiled_select(string $table, bool $reset) : string</pre>
+<pre>get_compiled_select(string $table<code> = ''</code>, bool $reset<code> = TRUE</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -395,9 +411,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_get_compiled_update"></a><div class="element clickable method public method_get_compiled_update" data-toggle="collapse" data-target=".method_get_compiled_update .collapse">
+<a id="method_get_compiled_update"></a><div class="element clickable method public method_get_compiled_update" data-toggle="collapse" data-target=".method_get_compiled_update .collapse" title="public">
 <h2>Returns the generated 'update' sql query</h2>
-<pre>get_compiled_update(string $table, bool $reset) : string</pre>
+<pre>get_compiled_update(string $table<code> = ''</code>, bool $reset<code> = TRUE</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -414,9 +430,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_get_where"></a><div class="element clickable method public method_get_where" data-toggle="collapse" data-target=".method_get_where .collapse">
+<a id="method_get_where"></a><div class="element clickable method public method_get_where" data-toggle="collapse" data-target=".method_get_where .collapse" title="public">
 <h2>Convience method for get() with a where clause</h2>
-<pre>get_where(string $table, array $where, int $limit, int $offset) : object</pre>
+<pre>get_where(string $table, array $where<code> = array()</code>, int $limit<code> = FALSE</code>, int $offset<code> = FALSE</code>) : object</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -441,7 +457,7 @@ execute current compiled query</h2>
 <div class="subelement response"><code>object</code></div>
 </div></div>
 </div>
-<a id="method_group_by"></a><div class="element clickable method public method_group_by" data-toggle="collapse" data-target=".method_group_by .collapse">
+<a id="method_group_by"></a><div class="element clickable method public method_group_by" data-toggle="collapse" data-target=".method_group_by .collapse" title="public">
 <h2>Group the results by the selected field(s)</h2>
 <pre>group_by(mixed $field) : \Query_Builder</pre>
 <div class="labels"></div>
@@ -460,7 +476,7 @@ execute current compiled query</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_group_end"></a><div class="element clickable method public method_group_end" data-toggle="collapse" data-target=".method_group_end .collapse">
+<a id="method_group_end"></a><div class="element clickable method public method_group_end" data-toggle="collapse" data-target=".method_group_end .collapse" title="public">
 <h2>Ends a query group</h2>
 <pre>group_end() : \Query_Builder</pre>
 <div class="labels"></div>
@@ -474,7 +490,7 @@ execute current compiled query</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_group_start"></a><div class="element clickable method public method_group_start" data-toggle="collapse" data-target=".method_group_start .collapse">
+<a id="method_group_start"></a><div class="element clickable method public method_group_start" data-toggle="collapse" data-target=".method_group_start .collapse" title="public">
 <h2>Adds a paren to the current query for query grouping</h2>
 <pre>group_start() : \Query_Builder</pre>
 <div class="labels"></div>
@@ -488,9 +504,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_having"></a><div class="element clickable method public method_having" data-toggle="collapse" data-target=".method_having .collapse">
+<a id="method_having"></a><div class="element clickable method public method_having" data-toggle="collapse" data-target=".method_having .collapse" title="public">
 <h2>Generates a 'Having' clause</h2>
-<pre>having(mixed $key, mixed $val) : \Query_Builder</pre>
+<pre>having(mixed $key, mixed $val<code> = array()</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -511,9 +527,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_insert"></a><div class="element clickable method public method_insert" data-toggle="collapse" data-target=".method_insert .collapse">
+<a id="method_insert"></a><div class="element clickable method public method_insert" data-toggle="collapse" data-target=".method_insert .collapse" title="public">
 <h2>Creates an insert clause, and executes it</h2>
-<pre>insert(string $table, mixed $data) : mixed</pre>
+<pre>insert(string $table, mixed $data<code> = array()</code>) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -530,9 +546,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a id="method_insert_batch"></a><div class="element clickable method public method_insert_batch" data-toggle="collapse" data-target=".method_insert_batch .collapse">
+<a id="method_insert_batch"></a><div class="element clickable method public method_insert_batch" data-toggle="collapse" data-target=".method_insert_batch .collapse" title="public">
 <h2>Create sql for batch insert</h2>
-<pre>insert_batch(string $table, array $data) : string</pre>
+<pre>insert_batch(string $table, array $data<code> = array()</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -549,9 +565,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_join"></a><div class="element clickable method public method_join" data-toggle="collapse" data-target=".method_join .collapse">
+<a id="method_join"></a><div class="element clickable method public method_join" data-toggle="collapse" data-target=".method_join .collapse" title="public">
 <h2>Creates a join phrase in a compiled query</h2>
-<pre>join(string $table, string $condition, string $type) : \Query_Builder</pre>
+<pre>join(string $table, string $condition, string $type<code> = ''</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -576,9 +592,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_like"></a><div class="element clickable method public method_like" data-toggle="collapse" data-target=".method_like .collapse">
+<a id="method_like"></a><div class="element clickable method public method_like" data-toggle="collapse" data-target=".method_like .collapse" title="public">
 <h2>Creates a Like clause in the sql statement</h2>
-<pre>like(string $field, mixed $val, string $pos) : \Query_Builder</pre>
+<pre>like(string $field, mixed $val, string $pos<code> = 'both'</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -603,9 +619,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_limit"></a><div class="element clickable method public method_limit" data-toggle="collapse" data-target=".method_limit .collapse">
+<a id="method_limit"></a><div class="element clickable method public method_limit" data-toggle="collapse" data-target=".method_limit .collapse" title="public">
 <h2>Set a limit on the current sql statement</h2>
-<pre>limit(int $limit, int $offset) : string</pre>
+<pre>limit(int $limit, int $offset<code> = FALSE</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -622,9 +638,9 @@ execute current compiled query</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_not_like"></a><div class="element clickable method public method_not_like" data-toggle="collapse" data-target=".method_not_like .collapse">
+<a id="method_not_like"></a><div class="element clickable method public method_not_like" data-toggle="collapse" data-target=".method_not_like .collapse" title="public">
 <h2>Generates a NOT LIKE clause</h2>
-<pre>not_like(string $field, mixed $val, string $pos) : \Query_Builder</pre>
+<pre>not_like(string $field, mixed $val, string $pos<code> = 'both'</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -649,7 +665,7 @@ execute current compiled query</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_or_group_start"></a><div class="element clickable method public method_or_group_start" data-toggle="collapse" data-target=".method_or_group_start .collapse">
+<a id="method_or_group_start"></a><div class="element clickable method public method_or_group_start" data-toggle="collapse" data-target=".method_or_group_start .collapse" title="public">
 <h2>Adds a paren to the current query for query grouping,
 prefixed with 'OR'</h2>
 <pre>or_group_start() : \Query_Builder</pre>
@@ -664,9 +680,9 @@ prefixed with 'OR'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_or_having"></a><div class="element clickable method public method_or_having" data-toggle="collapse" data-target=".method_or_having .collapse">
+<a id="method_or_having"></a><div class="element clickable method public method_or_having" data-toggle="collapse" data-target=".method_or_having .collapse" title="public">
 <h2>Generates a 'Having' clause prefixed with 'OR'</h2>
-<pre>or_having(mixed $key, mixed $val) : \Query_Builder</pre>
+<pre>or_having(mixed $key, mixed $val<code> = array()</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -687,9 +703,9 @@ prefixed with 'OR'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_or_like"></a><div class="element clickable method public method_or_like" data-toggle="collapse" data-target=".method_or_like .collapse">
+<a id="method_or_like"></a><div class="element clickable method public method_or_like" data-toggle="collapse" data-target=".method_or_like .collapse" title="public">
 <h2>Generates an OR Like clause</h2>
-<pre>or_like(string $field, mixed $val, string $pos) : \Query_Builder</pre>
+<pre>or_like(string $field, mixed $val, string $pos<code> = 'both'</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -714,7 +730,7 @@ prefixed with 'OR'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_or_not_group_start"></a><div class="element clickable method public method_or_not_group_start" data-toggle="collapse" data-target=".method_or_not_group_start .collapse">
+<a id="method_or_not_group_start"></a><div class="element clickable method public method_or_not_group_start" data-toggle="collapse" data-target=".method_or_not_group_start .collapse" title="public">
 <h2>Adds a paren to the current query for query grouping,
 prefixed with 'OR NOT'</h2>
 <pre>or_not_group_start() : \Query_Builder</pre>
@@ -729,9 +745,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_or_not_like"></a><div class="element clickable method public method_or_not_like" data-toggle="collapse" data-target=".method_or_not_like .collapse">
+<a id="method_or_not_like"></a><div class="element clickable method public method_or_not_like" data-toggle="collapse" data-target=".method_or_not_like .collapse" title="public">
 <h2>Generates a OR NOT LIKE clause</h2>
-<pre>or_not_like(string $field, mixed $val, string $pos) : \Query_Builder</pre>
+<pre>or_not_like(string $field, mixed $val, string $pos<code> = 'both'</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -756,9 +772,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_or_where"></a><div class="element clickable method public method_or_where" data-toggle="collapse" data-target=".method_or_where .collapse">
+<a id="method_or_where"></a><div class="element clickable method public method_or_where" data-toggle="collapse" data-target=".method_or_where .collapse" title="public">
 <h2>Where clause prefixed with "OR"</h2>
-<pre>or_where(string $key, mixed $val) : \Query_Builder</pre>
+<pre>or_where(string $key, mixed $val<code> = array()</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -779,9 +795,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_or_where_in"></a><div class="element clickable method public method_or_where_in" data-toggle="collapse" data-target=".method_or_where_in .collapse">
+<a id="method_or_where_in"></a><div class="element clickable method public method_or_where_in" data-toggle="collapse" data-target=".method_or_where_in .collapse" title="public">
 <h2>Where in statement prefixed with "or"</h2>
-<pre>or_where_in(string $field, mixed $val) : \Query_Builder</pre>
+<pre>or_where_in(string $field, mixed $val<code> = array()</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -802,9 +818,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_or_where_not_in"></a><div class="element clickable method public method_or_where_not_in" data-toggle="collapse" data-target=".method_or_where_not_in .collapse">
+<a id="method_or_where_not_in"></a><div class="element clickable method public method_or_where_not_in" data-toggle="collapse" data-target=".method_or_where_not_in .collapse" title="public">
 <h2>OR WHERE NOT IN (FOO) clause</h2>
-<pre>or_where_not_in(string $field, mixed $val) : \Query_Builder</pre>
+<pre>or_where_not_in(string $field, mixed $val<code> = array()</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -825,9 +841,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_order_by"></a><div class="element clickable method public method_order_by" data-toggle="collapse" data-target=".method_order_by .collapse">
+<a id="method_order_by"></a><div class="element clickable method public method_order_by" data-toggle="collapse" data-target=".method_order_by .collapse" title="public">
 <h2>Order the results by the selected field(s)</h2>
-<pre>order_by(string $field, string $type) : \Query_Builder</pre>
+<pre>order_by(string $field, string $type<code> = ""</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -848,13 +864,13 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_reset_query"></a><div class="element clickable method public method_reset_query" data-toggle="collapse" data-target=".method_reset_query .collapse">
+<a id="method_reset_query"></a><div class="element clickable method public method_reset_query" data-toggle="collapse" data-target=".method_reset_query .collapse" title="public">
 <h2>Clear out the class variables, so the next query can be run</h2>
 <pre>reset_query() : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="method_select"></a><div class="element clickable method public method_select" data-toggle="collapse" data-target=".method_select .collapse">
+<a id="method_select"></a><div class="element clickable method public method_select" data-toggle="collapse" data-target=".method_select .collapse" title="public">
 <h2>Specifies rows to select in a query</h2>
 <pre>select(string $fields) : \Query_Builder</pre>
 <div class="labels"></div>
@@ -873,9 +889,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_select_avg"></a><div class="element clickable method public method_select_avg" data-toggle="collapse" data-target=".method_select_avg .collapse">
+<a id="method_select_avg"></a><div class="element clickable method public method_select_avg" data-toggle="collapse" data-target=".method_select_avg .collapse" title="public">
 <h2>Selects the average value of a field from a query</h2>
-<pre>select_avg(string $field, string $as) : \Query_Builder</pre>
+<pre>select_avg(string $field, string $as<code> = FALSE</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -896,9 +912,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_select_max"></a><div class="element clickable method public method_select_max" data-toggle="collapse" data-target=".method_select_max .collapse">
+<a id="method_select_max"></a><div class="element clickable method public method_select_max" data-toggle="collapse" data-target=".method_select_max .collapse" title="public">
 <h2>Selects the maximum value of a field from a query</h2>
-<pre>select_max(string $field, string $as) : \Query_Builder</pre>
+<pre>select_max(string $field, string $as<code> = FALSE</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -919,9 +935,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_select_min"></a><div class="element clickable method public method_select_min" data-toggle="collapse" data-target=".method_select_min .collapse">
+<a id="method_select_min"></a><div class="element clickable method public method_select_min" data-toggle="collapse" data-target=".method_select_min .collapse" title="public">
 <h2>Selects the minimum value of a field from a query</h2>
-<pre>select_min(string $field, string $as) : \Query_Builder</pre>
+<pre>select_min(string $field, string $as<code> = FALSE</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -942,9 +958,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_select_sum"></a><div class="element clickable method public method_select_sum" data-toggle="collapse" data-target=".method_select_sum .collapse">
+<a id="method_select_sum"></a><div class="element clickable method public method_select_sum" data-toggle="collapse" data-target=".method_select_sum .collapse" title="public">
 <h2>Selects the sum of a field from a query</h2>
-<pre>select_sum(string $field, string $as) : \Query_Builder</pre>
+<pre>select_sum(string $field, string $as<code> = FALSE</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -965,9 +981,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_set"></a><div class="element clickable method public method_set" data-toggle="collapse" data-target=".method_set .collapse">
+<a id="method_set"></a><div class="element clickable method public method_set" data-toggle="collapse" data-target=".method_set .collapse" title="public">
 <h2>Sets values for inserts / updates / deletes</h2>
-<pre>set(mixed $key, mixed $val) : \Query_Builder</pre>
+<pre>set(mixed $key, mixed $val<code> = NULL</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -988,9 +1004,9 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_update"></a><div class="element clickable method public method_update" data-toggle="collapse" data-target=".method_update .collapse">
+<a id="method_update"></a><div class="element clickable method public method_update" data-toggle="collapse" data-target=".method_update .collapse" title="public">
 <h2>Creates an update clause, and executes it</h2>
-<pre>update(string $table, mixed $data) : mixed</pre>
+<pre>update(string $table, mixed $data<code> = array()</code>) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1007,11 +1023,11 @@ prefixed with 'OR NOT'</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a id="method_where"></a><div class="element clickable method public method_where" data-toggle="collapse" data-target=".method_where .collapse">
+<a id="method_where"></a><div class="element clickable method public method_where" data-toggle="collapse" data-target=".method_where .collapse" title="public">
 <h2>Specify condition(s) in the where clause of a query
 Note: this function works with key / value, or a
 passed array with key / value pairs</h2>
-<pre>where(mixed $key, mixed $val, mixed $escape) : \Query_Builder</pre>
+<pre>where(mixed $key, mixed $val<code> = array()</code>, mixed $escape<code> = NULL</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1036,9 +1052,9 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_where_in"></a><div class="element clickable method public method_where_in" data-toggle="collapse" data-target=".method_where_in .collapse">
+<a id="method_where_in"></a><div class="element clickable method public method_where_in" data-toggle="collapse" data-target=".method_where_in .collapse" title="public">
 <h2>Where clause with 'IN' statement</h2>
-<pre>where_in(mixed $field, mixed $val) : \Query_Builder</pre>
+<pre>where_in(mixed $field, mixed $val<code> = array()</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1059,9 +1075,9 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method_where_not_in"></a><div class="element clickable method public method_where_not_in" data-toggle="collapse" data-target=".method_where_not_in .collapse">
+<a id="method_where_not_in"></a><div class="element clickable method public method_where_not_in" data-toggle="collapse" data-target=".method_where_not_in .collapse" title="public">
 <h2>WHERE NOT IN (FOO) clause</h2>
-<pre>where_not_in(string $field, mixed $val) : \Query_Builder</pre>
+<pre>where_not_in(string $field, mixed $val<code> = array()</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1082,9 +1098,9 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method__compile"></a><div class="element clickable method protected method__compile" data-toggle="collapse" data-target=".method__compile .collapse">
+<a id="method__compile"></a><div class="element clickable method protected method__compile" data-toggle="collapse" data-target=".method__compile .collapse" title="protected">
 <h2>String together the sql statements for sending to the db</h2>
-<pre>_compile(string $type, string $table) : <a href="%24string.html">\$string</a></pre>
+<pre>_compile(string $type<code> = ''</code>, string $table<code> = ''</code>) : <a href="%24string.html">\$string</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1101,7 +1117,7 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code><a href="%24string.html">\$string</a></code></div>
 </div></div>
 </div>
-<a id="method__get_compile"></a><div class="element clickable method protected method__get_compile" data-toggle="collapse" data-target=".method__get_compile .collapse">
+<a id="method__get_compile"></a><div class="element clickable method protected method__get_compile" data-toggle="collapse" data-target=".method__get_compile .collapse" title="protected">
 <h2>Helper function for returning sql strings</h2>
 <pre>_get_compile(string $type, string $table, bool $reset) </pre>
 <div class="labels"></div>
@@ -1126,9 +1142,9 @@ passed array with key / value pairs</h2>
 </div>
 </div></div>
 </div>
-<a id="method__having"></a><div class="element clickable method protected method__having" data-toggle="collapse" data-target=".method__having .collapse">
+<a id="method__having"></a><div class="element clickable method protected method__having" data-toggle="collapse" data-target=".method__having .collapse" title="protected">
 <h2>Simplify building having clauses</h2>
-<pre>_having(mixed $key, mixed $val, string $conj) : \Query_Builder</pre>
+<pre>_having(mixed $key, mixed $val<code> = array()</code>, string $conj<code> = 'AND'</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1153,9 +1169,9 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method__like"></a><div class="element clickable method protected method__like" data-toggle="collapse" data-target=".method__like .collapse">
+<a id="method__like"></a><div class="element clickable method protected method__like" data-toggle="collapse" data-target=".method__like .collapse" title="protected">
 <h2>Simplify 'like' methods</h2>
-<pre>_like(string $field, mixed $val, string $pos, string $like, string $conj) : \Query_Builder</pre>
+<pre>_like(string $field, mixed $val, string $pos, string $like<code> = 'LIKE'</code>, string $conj<code> = 'AND'</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1188,9 +1204,9 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method__run"></a><div class="element clickable method protected method__run" data-toggle="collapse" data-target=".method__run .collapse">
+<a id="method__run"></a><div class="element clickable method protected method__run" data-toggle="collapse" data-target=".method__run .collapse" title="protected">
 <h2>Executes the compiled query</h2>
-<pre>_run(string $type, string $table, bool $simple, string $sql, mixed $vals) : mixed</pre>
+<pre>_run(string $type, string $table, bool $simple<code> = FALSE</code>, string $sql<code> = NULL</code>, mixed $vals<code> = NULL</code>) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1219,9 +1235,9 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a id="method__select"></a><div class="element clickable method protected method__select" data-toggle="collapse" data-target=".method__select .collapse">
+<a id="method__select"></a><div class="element clickable method protected method__select" data-toggle="collapse" data-target=".method__select .collapse" title="protected">
 <h2>Method to simplify select_ methods</h2>
-<pre>_select(string $field, string $as) : string</pre>
+<pre>_select(string $field, string $as<code> = FALSE</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1238,9 +1254,9 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method__where"></a><div class="element clickable method protected method__where" data-toggle="collapse" data-target=".method__where .collapse">
+<a id="method__where"></a><div class="element clickable method protected method__where" data-toggle="collapse" data-target=".method__where .collapse" title="protected">
 <h2>Do all the repeditive stuff for where/having type methods</h2>
-<pre>_where(mixed $key, mixed $val) : array</pre>
+<pre>_where(mixed $key, mixed $val<code> = array()</code>) : array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1257,9 +1273,9 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a id="method__where_in"></a><div class="element clickable method protected method__where_in" data-toggle="collapse" data-target=".method__where_in .collapse">
+<a id="method__where_in"></a><div class="element clickable method protected method__where_in" data-toggle="collapse" data-target=".method__where_in .collapse" title="protected">
 <h2>Simplify where_in methods</h2>
-<pre>_where_in(mixed $key, mixed $val, string $in, string $conj) : \Query_Builder</pre>
+<pre>_where_in(mixed $key, mixed $val<code> = array()</code>, string $in<code> = 'IN'</code>, string $conj<code> = 'AND'</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1280,21 +1296,19 @@ passed array with key / value pairs</h2>
 <h4>$in</h4>
 <code>string</code><ul>
 <li>The (not) in fragment</li>
-</ul>
-</div>
+</ul></div>
 <div class="subelement argument">
 <h4>$conj</h4>
 <code>string</code><ul>
 <li>The where in conjunction</li>
-</ul>
-</div>
+</ul></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>\Query_Builder</code></div>
 </div></div>
 </div>
-<a id="method__where_string"></a><div class="element clickable method protected method__where_string" data-toggle="collapse" data-target=".method__where_string .collapse">
+<a id="method__where_string"></a><div class="element clickable method protected method__where_string" data-toggle="collapse" data-target=".method__where_string .collapse" title="protected">
 <h2>Simplify generating where string</h2>
-<pre>_where_string(mixed $key, mixed $val, string $conj) : \Query_Builder</pre>
+<pre>_where_string(mixed $key, mixed $val<code> = array()</code>, string $conj<code> = 'AND'</code>) : \Query_Builder</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1320,112 +1334,184 @@ passed array with key / value pairs</h2>
 </div></div>
 </div>
 <h3>
-<i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_conn_name"> </a><div class="element clickable property public property_conn_name" data-toggle="collapse" data-target=".property_conn_name .collapse">
+<i title="Properties" class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_conn_name"> </a><div class="element clickable property public property_conn_name" data-toggle="collapse" data-target=".property_conn_name .collapse" title="public">
 <h2>$conn_name</h2>
 <pre>$conn_name </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>""</code></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_queries"> </a><div class="element clickable property public property_queries" data-toggle="collapse" data-target=".property_queries .collapse">
+<a id="property_queries"> </a><div class="element clickable property public property_queries" data-toggle="collapse" data-target=".property_queries .collapse" title="public">
 <h2>$queries</h2>
 <pre>$queries </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_sql"> </a><div class="element clickable property public property_sql" data-toggle="collapse" data-target=".property_sql .collapse">
+<a id="property_sql"> </a><div class="element clickable property public property_sql" data-toggle="collapse" data-target=".property_sql .collapse" title="public">
 <h2>$sql</h2>
 <pre>$sql </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_explain"> </a><div class="element clickable property protected property_explain" data-toggle="collapse" data-target=".property_explain .collapse">
+<a id="property_explain"> </a><div class="element clickable property protected property_explain" data-toggle="collapse" data-target=".property_explain .collapse" title="protected">
 <h2>$explain</h2>
 <pre>$explain </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>FALSE</code></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_from_string"> </a><div class="element clickable property protected property_from_string" data-toggle="collapse" data-target=".property_from_string .collapse">
+<a id="property_from_string"> </a><div class="element clickable property protected property_from_string" data-toggle="collapse" data-target=".property_from_string .collapse" title="protected">
 <h2>$from_string</h2>
 <pre>$from_string </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_group_array"> </a><div class="element clickable property protected property_group_array" data-toggle="collapse" data-target=".property_group_array .collapse">
+<a id="property_group_array"> </a><div class="element clickable property protected property_group_array" data-toggle="collapse" data-target=".property_group_array .collapse" title="protected">
 <h2>$group_array</h2>
 <pre>$group_array </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_group_string"> </a><div class="element clickable property protected property_group_string" data-toggle="collapse" data-target=".property_group_string .collapse">
+<a id="property_group_string"> </a><div class="element clickable property protected property_group_string" data-toggle="collapse" data-target=".property_group_string .collapse" title="protected">
 <h2>$group_string</h2>
 <pre>$group_string </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_having_map"> </a><div class="element clickable property protected property_having_map" data-toggle="collapse" data-target=".property_having_map .collapse">
+<a id="property_having_map"> </a><div class="element clickable property protected property_having_map" data-toggle="collapse" data-target=".property_having_map .collapse" title="protected">
 <h2>$having_map</h2>
 <pre>$having_map </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_limit"> </a><div class="element clickable property protected property_limit" data-toggle="collapse" data-target=".property_limit .collapse">
+<a id="property_limit"> </a><div class="element clickable property protected property_limit" data-toggle="collapse" data-target=".property_limit .collapse" title="protected">
 <h2>$limit</h2>
 <pre>$limit </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_offset"> </a><div class="element clickable property protected property_offset" data-toggle="collapse" data-target=".property_offset .collapse">
+<a id="property_offset"> </a><div class="element clickable property protected property_offset" data-toggle="collapse" data-target=".property_offset .collapse" title="protected">
 <h2>$offset</h2>
 <pre>$offset </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_order_array"> </a><div class="element clickable property protected property_order_array" data-toggle="collapse" data-target=".property_order_array .collapse">
+<a id="property_order_array"> </a><div class="element clickable property protected property_order_array" data-toggle="collapse" data-target=".property_order_array .collapse" title="protected">
 <h2>$order_array</h2>
 <pre>$order_array </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_order_string"> </a><div class="element clickable property protected property_order_string" data-toggle="collapse" data-target=".property_order_string .collapse">
+<a id="property_order_string"> </a><div class="element clickable property protected property_order_string" data-toggle="collapse" data-target=".property_order_string .collapse" title="protected">
 <h2>$order_string</h2>
 <pre>$order_string </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_query_map"> </a><div class="element clickable property protected property_query_map" data-toggle="collapse" data-target=".property_query_map .collapse">
+<a id="property_query_map"> </a><div class="element clickable property protected property_query_map" data-toggle="collapse" data-target=".property_query_map .collapse" title="protected">
 <h2>$query_map</h2>
 <pre>$query_map </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>array()</code></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_select_string"> </a><div class="element clickable property protected property_select_string" data-toggle="collapse" data-target=".property_select_string .collapse">
+<a id="property_select_string"> </a><div class="element clickable property protected property_select_string" data-toggle="collapse" data-target=".property_select_string .collapse" title="protected">
 <h2>$select_string</h2>
 <pre>$select_string </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_set_array_keys"> </a><div class="element clickable property protected property_set_array_keys" data-toggle="collapse" data-target=".property_set_array_keys .collapse">
+<a id="property_set_array_keys"> </a><div class="element clickable property protected property_set_array_keys" data-toggle="collapse" data-target=".property_set_array_keys .collapse" title="protected">
 <h2>$set_array_keys</h2>
 <pre>$set_array_keys </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_set_string"> </a><div class="element clickable property protected property_set_string" data-toggle="collapse" data-target=".property_set_string .collapse">
+<a id="property_set_string"> </a><div class="element clickable property protected property_set_string" data-toggle="collapse" data-target=".property_set_string .collapse" title="protected">
 <h2>$set_string</h2>
 <pre>$set_string </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_values"> </a><div class="element clickable property protected property_values" data-toggle="collapse" data-target=".property_values .collapse">
+<a id="property_values"> </a><div class="element clickable property protected property_values" data-toggle="collapse" data-target=".property_values .collapse" title="protected">
 <h2>$values</h2>
 <pre>$values </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>array()</code></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property_where_values"> </a><div class="element clickable property protected property_where_values" data-toggle="collapse" data-target=".property_where_values .collapse">
+<a id="property_where_values"> </a><div class="element clickable property protected property_where_values" data-toggle="collapse" data-target=".property_where_values .collapse" title="protected">
 <h2>$where_values</h2>
 <pre>$where_values </pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>array()</code></div>
+</div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
@@ -1435,9 +1521,9 @@ passed array with key / value pairs</h2>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.1.0
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-02-12T19:09:30-05:00.<br></footer></div>
+            generated on 2014-02-18T15:15:22-05:00.<br></footer></div>
 </div>
 </body>
 </html>
