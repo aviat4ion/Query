@@ -30,9 +30,9 @@ class PgTest extends DBTest {
 		}
 
 		// Attempt to connect, if there is a test config file
-		if (is_file(QBASE_DIR . "test_config.json"))
+		if (is_file(QTEST_DIR . "/settings.json"))
 		{
-			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
+			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->pgsql;
 
 			$this->db = new PgSQL("pgsql:host={$params->host};dbname={$params->database}", $params->user, $params->pass);
@@ -136,6 +136,25 @@ SQL;
 
 		$statement->execute();
 
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function testBadPreparedStatement()
+	{
+		$sql = <<<SQL
+			INSERT INTO "create_test" ("id", "key", "val")
+			VALUES (?,?,?)
+SQL;
+		try 
+		{
+			$statement = $this->db->prepare_query($sql, 'foo');
+		}
+		catch(InvalidArgumentException $e)
+		{
+			$this->assertTrue(TRUE);
+		}
+		
 	}
 	
 	// --------------------------------------------------------------------------

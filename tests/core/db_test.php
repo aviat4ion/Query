@@ -63,7 +63,7 @@ abstract class DBTest extends Query_TestCase {
 	
 	public function testGetColumns()
 	{
-		$cols = $this->db->get_columns('create_test');
+		$cols = $this->db->get_columns('test');
 		$this->assertTrue(is_array($cols));
 	}
 	

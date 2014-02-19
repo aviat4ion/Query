@@ -22,17 +22,27 @@
  	public function setUp()
  	{
  		$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
-		$params = new Stdclass();
-		$params->type = 'sqlite';
-		$params->file = $path;
-		$params->host = 'localhost';
-		$params->prefix = 'create_';
-		$params->options = array();
-		$params->options[PDO::ATTR_PERSISTENT] = TRUE;
+		$params = (object) array(
+			'type' => 'sqlite',
+			'file' => $path,
+			'host' => 'localhost',
+			'prefix' => 'create_',
+			'options' => array(
+				PDO::ATTR_PERSISTENT => TRUE
+			)
+		);
 		$this->db = Query($params);
 
 		// echo '<hr /> SQLite Queries <hr />';
  	}
+ 	
+ 	public function testInsert() { $this->markTestSkipped();}
+ 	public function testInsertArray() { $this->markTestSkipped();}
+ 	public function testUpdate() { $this->markTestSkipped();}
+ 	public function testSetArrayUpdate() { $this->markTestSkipped();}
+ 	public function testWhereSetUpdate() { $this->markTestSkipped();}
+ 	public function testDelete() { $this->markTestSkipped();}
+ 	public function testBadNumRows() { $this->markTestSkipped();}
  	
  	// --------------------------------------------------------------------------
  	

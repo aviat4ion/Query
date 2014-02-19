@@ -30,7 +30,7 @@
         </testsuite>
         <testsuite name="SQLiteTests">
             <file>databases/sqlite/SqliteTest.php</file>
-        	<file>databases/mysql/SqliteQBTest.php</file>
+        	<file>databases/sqlite/SqliteQBTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>

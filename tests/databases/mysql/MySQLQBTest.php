@@ -21,12 +21,12 @@ class MySQLQBTest extends QBTest {
 	public function setUp()
  	{
  		// Attempt to connect, if there is a test config file
-		if (is_file(QBASE_DIR . "test_config.json"))
+		if (is_file(QTEST_DIR . "/settings.json"))
 		{
-			$params = json_decode(file_get_contents(QBASE_DIR . "test_config.json"));
+			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->mysql;
 			$params->type = "MySQL";
-			$params->prefix = "create_";
+			//$params->prefix = "create_";
 			$params->options = array();
 			$params->options[PDO::ATTR_PERSISTENT]  = TRUE;
 		}
@@ -61,7 +61,7 @@ class MySQLQBTest extends QBTest {
 			->explain()
 			->where('id >', 1)
 			->where('id <', 900)
-			->get('create_test', 2, 1);
+			->get('test', 2, 1);
 			
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
 		
@@ -69,7 +69,7 @@ class MySQLQBTest extends QBTest {
 		  array (
 		    'id' => '1',
 		    'select_type' => 'SIMPLE',
-		    'table' => 'create_test',
+		    'table' => 'test',
 		    'type' => 'range',
 		    'possible_keys' => 'PRIMARY',
 		    'key' => 'PRIMARY',
