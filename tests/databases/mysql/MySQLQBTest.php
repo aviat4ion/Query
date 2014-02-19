@@ -26,7 +26,6 @@ class MySQLQBTest extends QBTest {
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->mysql;
 			$params->type = "MySQL";
-			//$params->prefix = "create_";
 			$params->options = array();
 			$params->options[PDO::ATTR_PERSISTENT]  = TRUE;
 		}
@@ -38,8 +37,7 @@ class MySQLQBTest extends QBTest {
 				'database' => 'test',
 				'user' => 'root',
 				'pass' => NULL,
-				'type' => 'mysql',
-				'prefix' => 'create_'
+				'type' => 'mysql'
 			);
 		}
 
