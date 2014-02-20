@@ -111,6 +111,15 @@
 			),
 		);
 		
+		$expected_possibilities[] = array (
+			array (
+				'selectid' => '0',
+				'order' => '0',
+				'from' => '0',
+				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~62500 rows)',
+			),
+		);
+		
 		$passed = FALSE;
 		
 		// Check for a matching possibility
