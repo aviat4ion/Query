@@ -62,6 +62,29 @@ class FirebirdTest extends DBtest {
 	
 	// --------------------------------------------------------------------------
 	
+	public function testResultErrors()
+	{
+		$obj = $this->db->query('SELECT "id" FROM "create_test"');
+
+		// Test row count		
+		$this->assertEqual(0, $obj->rowCount());
+
+		// Test error code
+		$this->assertFalse($obj->errorCode());
+		
+		// Test error info
+		$error = $obj->errorInfo();
+		$expected = array (
+		  0 => 0,
+		  1 => false,
+		  2 => false,
+		);
+		
+		$this->assertEqual($expected, $error);
+	}
+	
+	// --------------------------------------------------------------------------
+	
 	public function testExists()
 	{
 		$this->assertTrue(function_exists('ibase_connect'));
@@ -255,5 +278,36 @@ SQL;
 	public function testGetTriggers()
 	{
 		$this->assertTrue(is_array($this->db->get_triggers()));
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function testErrorInfo()
+	{
+		$result = $this->db->errorInfo();
+		
+		$expected = array (
+		  0 => 0,
+		  1 => false,
+		  2 => false,
+		);
+		
+		$this->assertEqual($expected, $result);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function testErrorCode() 
+	{
+		$result = $this->db->errorCode();
+		$this->assertFalse($result);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	public function testDBList() 
+	{
+		$res = $this->db->sql->db_list();
+		$this->assertNULL($res);
 	}
 }
