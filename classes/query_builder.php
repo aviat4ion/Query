@@ -92,7 +92,7 @@ class Query_Builder implements iQuery_Builder {
 
 	// List of sql queries executed
 	public $queries;
-	
+
 	// Whether to do only an explain on the query
 	protected $explain = FALSE;
 
@@ -125,9 +125,9 @@ class Query_Builder implements iQuery_Builder {
 		$this->sql = $this->db->sql;
 		$this->util = $this->db->util;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Destructor
 	 */
@@ -281,9 +281,9 @@ class Query_Builder implements iQuery_Builder {
 		$this->select_string = ' DISTINCT '.$this->select_string;
 		return $this;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Tell the database to give you the query plan instead of result set
 	 *
@@ -550,10 +550,10 @@ class Query_Builder implements iQuery_Builder {
 
 			// Simple key value, or an operator
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
-			
+
 			// Get the type of the first item in the query map
 			$first_item = end($this->query_map);
-			
+
 			// Determine the correct conjunction
 			if (empty($this->query_map))
 			{
@@ -563,7 +563,7 @@ class Query_Builder implements iQuery_Builder {
 			{
 				$conj = '';
 			}
-			else 
+			else
 			{
 				$conj = " {$conj} ";
 			}
@@ -1062,10 +1062,10 @@ class Query_Builder implements iQuery_Builder {
 
 		return $this->_run("insert", $table);
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
-	/** 
+
+	/**
 	 * Create sql for batch insert
 	 *
 	 * @param string $table
@@ -1076,12 +1076,12 @@ class Query_Builder implements iQuery_Builder {
 	{
 		// Get the generated values and sql string
 		list($sql, $data) = $this->db->insert_batch($table, $data);
-		
+
 		if ( ! is_null($sql))
 		{
 			return $this->_run('', $table, FALSE, $sql, $data);
 		}
-		
+
 		return NULL;
 	}
 
@@ -1261,16 +1261,16 @@ class Query_Builder implements iQuery_Builder {
 		{
 			$sql = $this->_compile($type, $table);
 		}
-	
+
 		if (is_null($vals))
 		{
 			$vals = array_merge($this->values, (array) $this->where_values);
 		}
-		
+
 		$evals = (is_array($vals)) ? $vals : array();
 
 		$start_time = microtime(TRUE);
-		
+
 		if ($simple)
 		{
 			$res = $this->db->query($sql);
@@ -1287,12 +1287,12 @@ class Query_Builder implements iQuery_Builder {
 		// Add the interpreted query to the list of executed queries
 		foreach($evals as $k => &$v)
 		{
-			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_HTML401 | ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
+			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
 		}
 		$esql = str_replace('?', "%s", $sql);
 		array_unshift($vals, $esql);
 		array_unshift($evals, $esql);
-		
+
 
 		$this->queries[] = array(
 			'time' => $total_time,
@@ -1412,7 +1412,7 @@ class Query_Builder implements iQuery_Builder {
 		{
 			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
 		}
-		
+
 		// See what needs to happen to only return the query plan
 		if (isset($this->explain) && $this->explain === TRUE)
 		{
