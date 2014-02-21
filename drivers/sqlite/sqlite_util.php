@@ -119,7 +119,7 @@ class SQLite_Util extends DB_Util {
 
 		if( ! empty($excluded))
 		{
-			$sql .= ' WHERE NOT IN("'.implode('","', $excluded).'")';
+			$sql .= " WHERE \"name\" NOT IN('".implode("','", $excluded)."')";
 		}
 
 		$res = $this->query($sql);

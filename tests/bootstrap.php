@@ -17,10 +17,10 @@
  * Base class for TestCases
  */
 class Query_TestCase extends PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Wrapper for Simpletest's assertEqual
-	 * 
+	 *
 	 * @param mixed $expected
 	 * @param mixed $actual
 	 * @param string $message
@@ -29,7 +29,7 @@ class Query_TestCase extends PHPUnit_Framework_TestCase {
 	{
 		$this->assertEquals($expected, $actual, $message);
 	}
-	
+
 	/**
 	 * Wrapper for SimpleTest's assertIsA
 	 *
@@ -41,17 +41,17 @@ class Query_TestCase extends PHPUnit_Framework_TestCase {
 	{
 		$this->assertTrue(is_a($object, $type), $message);
 	}
-	
+
 	/**
 	 * Implementation of SimpleTest's assertReference
-	 * 
+	 *
 	 * @param mixed $first
 	 * @param mixed $second
 	 * @param string $message
 	 */
 	public function assertReference($first, $second, $message='')
 	{
-		if (is_object($first)) 
+		if (is_object($first))
 		{
             $res = ($first === $second);
         }
@@ -61,7 +61,7 @@ class Query_TestCase extends PHPUnit_Framework_TestCase {
 	        $first = uniqid("test");
 	        $is_ref = ($first === $second);
 	        $first = $temp;
-	        $res = $is_ref;	
+	        $res = $is_ref;
         }
         $this->assertTrue($res, $message);
 	}
@@ -84,6 +84,24 @@ require_once(QTEST_DIR . '/core/core.php');
 require_once(QTEST_DIR . '/core/db_test.php');
 require_once(QTEST_DIR . '/core/db_qp_test.php');
 require_once(QTEST_DIR . '/core/db_qb_test.php');
+
+// Preset SQLite connection, so there aren't locking issues
+if (extension_loaded('pdo_sqlite'))
+{
+	$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
+	$params = (object) array(
+		'type' => 'sqlite',
+		'file' => $path,
+		'host' => 'localhost',
+		'prefix' => 'create_',
+		'alias' => 'test_sqlite',
+		'options' => array(
+			PDO::ATTR_PERSISTENT => TRUE
+		)
+	);
+
+	Query($params);
+}
 
 // If Firebird (interbase) extension does not exist,
 // create a fake class to suppress errors from skipped tests

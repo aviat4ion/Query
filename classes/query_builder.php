@@ -1266,6 +1266,8 @@ class Query_Builder implements iQuery_Builder {
 		{
 			$vals = array_merge($this->values, (array) $this->where_values);
 		}
+		
+		$evals = (is_array($vals)) ? $vals : array();
 
 		$start_time = microtime(TRUE);
 		
@@ -1283,12 +1285,18 @@ class Query_Builder implements iQuery_Builder {
 		$total_time = number_format($end_time - $start_time, 5);
 
 		// Add the interpreted query to the list of executed queries
+		foreach($evals as $k => &$v)
+		{
+			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_HTML401 | ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
+		}
 		$esql = str_replace('?', "%s", $sql);
 		array_unshift($vals, $esql);
+		array_unshift($evals, $esql);
+		
 
 		$this->queries[] = array(
 			'time' => $total_time,
-			'sql' => call_user_func_array('sprintf', $vals),
+			'sql' => call_user_func_array('sprintf', $evals),
 		);
 		$this->queries['total_time'] += $total_time;
 
@@ -1357,11 +1365,11 @@ class Query_Builder implements iQuery_Builder {
 				$params = array_fill(0, $param_count, '?');
 				$sql = "INSERT INTO {$table} ("
 					. implode(',', $this->set_array_keys) .
-					') VALUES ('.implode(',', $params).')';
+					")\nVALUES (".implode(',', $params).')';
 			break;
 
 			case "update":
-				$sql = "UPDATE {$table} SET {$this->set_string}";
+				$sql = "UPDATE {$table}\nSET {$this->set_string}";
 			break;
 
 			case "delete":
