@@ -8,11 +8,18 @@ php:
   - hhvm
 
 before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --no-interaction
   - sh -c "psql -c 'DROP DATABASE IF EXISTS test;' -U postgres"
   - sh -c "psql -c 'create database test;' -U postgres"
   - sh -c "mysql -e 'create database IF NOT EXISTS test;'"
 
-script: cd tests && phpunit --coverage-text
+script:
+  - mkdir -p build/logs
+  - cd tests && phpunit phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls
 
 matrix:
   allow_failures:
