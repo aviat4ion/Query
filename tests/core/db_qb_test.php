@@ -29,10 +29,10 @@ abstract class QBTest extends Query_TestCase {
 	// --------------------------------------------------------------------------
 	// ! Get tests
 	// --------------------------------------------------------------------------
-	
+
 	public function testInvalidConnectionName()
 	{
-		try 
+		try
 		{
 			$db = Query('foo');
 		}
@@ -41,7 +41,7 @@ abstract class QBTest extends Query_TestCase {
 			$this->assertIsA($e, 'InvalidArgumentException');
 		}
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testQueryFunctionAlias()
@@ -79,6 +79,7 @@ abstract class QBTest extends Query_TestCase {
 		$query = $this->db->from('test')->get();
 
 		$this->assertIsA($query, 'PDOStatement');
+		$this->assertTrue($this->db->num_rows() > 0);
 	}
 
 	// --------------------------------------------------------------------------
@@ -166,8 +167,8 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
-	
+
+
 
 	// --------------------------------------------------------------------------
 
@@ -210,11 +211,11 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! Grouping tests
 	// --------------------------------------------------------------------------
-	
+
 	public function testGroup()
 	{
 		$query = $this->db->select('id, key as k, val')
@@ -228,7 +229,7 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	public function testOrGroup()
 	{
 		$query = $this->db->select('id, key as k, val')
@@ -245,7 +246,7 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	public function testOrNotGroup()
 	{
 		$query = $this->db->select('id, key as k, val')
@@ -275,7 +276,7 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testOrWhereIn()
@@ -287,9 +288,9 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testWhereNotIn()
 	{
 		$query = $this->db->from('test')
@@ -299,9 +300,9 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testOrWhereNotIn()
 	{
 		$query = $this->db->from('test')
@@ -430,9 +431,9 @@ abstract class QBTest extends Query_TestCase {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	//public function testOr
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testOrWhere()
@@ -457,9 +458,9 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testOrLike()
 	{
 		$query = $this->db->from('test')
@@ -469,9 +470,9 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testOrNotLike()
 	{
 		$query = $this->db->from('test')
@@ -481,9 +482,9 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testNotLike()
 	{
 		$query = $this->db->from('test')
@@ -493,9 +494,9 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testLikeBefore()
 	{
 		$query = $this->db->from('test')
@@ -504,9 +505,9 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testLikeAfter()
 	{
 		$query = $this->db->from('test')
@@ -562,9 +563,9 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testInsertArray()
 	{
 		$query = $this->db->insert('test', array(
@@ -575,7 +576,7 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testInsertBatch()
@@ -698,20 +699,20 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertTrue(is_numeric($this->db->num_rows()));
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! Compiled Query tests
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetCompiledSelect()
 	{
 		$sql = $this->db->get_compiled_select('test');
 		$qb_res = $this->db->get('test');
 		$sql_res = $this->db->query($sql);
-		
+
 		$this->assertEquals($qb_res, $sql_res);
 	}
-	
+
 	public function testGetCompiledUpdate()
 	{
 		$sql = $this->db->set(array(
@@ -719,10 +720,10 @@ abstract class QBTest extends Query_TestCase {
 			'key' => 'foo',
 			'val' => 'baz'
 		))->get_compiled_update('test');
-		
+
 		$this->assertTrue(is_string($sql));
 	}
-	
+
 	public function testGetCompiledInsert()
 	{
 		$sql = $this->db->set(array(
@@ -730,15 +731,15 @@ abstract class QBTest extends Query_TestCase {
 			'key' => 'foo',
 			'val' => 'baz'
 		))->get_compiled_insert('test');
-		
+
 		$this->assertTrue(is_string($sql));
 	}
-	
+
 	public function testGetCompiledDelete()
 	{
 		$sql = $this->db->where('id', 4)
 			->get_compiled_delete('test');
-			
+
 		$this->assertTrue(is_string($sql));
 	}
 
@@ -759,8 +760,8 @@ abstract class QBTest extends Query_TestCase {
 			'pass' => NULL,
 			'type' => 'QGYFHGEG'
 		);
-		
-		try 
+
+		try
 		{
 			$this->db = Query($params);
 		}
@@ -783,8 +784,8 @@ abstract class QBTest extends Query_TestCase {
 			'type' => 'mysql',
 			'name' => 'foobar'
 		);
-		
-		try 
+
+		try
 		{
 			$this->db = @Query($params);
 		}
@@ -793,23 +794,23 @@ abstract class QBTest extends Query_TestCase {
 			$this->assertInstanceOf('BadConnectionException', $e);
 		}
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testBadMethod()
 	{
 		try
 		{
-			$res = $this->db->foo();	
+			$res = $this->db->foo();
 		}
 		catch(BadMethodCallException $e)
 		{
 			$this->assertInstanceOf('BadMethodCallException', $e);
 		}
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testBadNumRows()
 	{
 		$this->db->set(array(
@@ -817,7 +818,7 @@ abstract class QBTest extends Query_TestCase {
 			'key' => 'ring',
 			'val' => 'sale'
 		))->insert('test');
-		
+
 		$res = $this->db->num_rows();
 		$this->assertEqual(NULL, $res);
 	}

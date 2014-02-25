@@ -19,14 +19,14 @@
 abstract class DBTest extends Query_TestCase {
 
 	abstract public function testConnection();
-	
+
 	// --------------------------------------------------------------------------
 
 	public function tearDown()
 	{
 		$this->db = NULL;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testGetTables()
@@ -34,7 +34,7 @@ abstract class DBTest extends Query_TestCase {
 		$tables = $this->db->get_tables();
 		$this->assertTrue(is_array($tables));
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testGetSystemTables()
@@ -43,7 +43,7 @@ abstract class DBTest extends Query_TestCase {
 
 		$this->assertTrue(is_array($tables));
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testCreateTransaction()
@@ -51,29 +51,29 @@ abstract class DBTest extends Query_TestCase {
 		$res = $this->db->beginTransaction();
 		$this->assertTrue($res);
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testBackupData()
 	{
 		$this->assertTrue(is_string($this->db->util->backup_data(array('create_delete'))));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetColumns()
 	{
 		$cols = $this->db->get_columns('test');
 		$this->assertTrue(is_array($cols));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetTypes()
 	{
 		$types = $this->db->get_types();
 		$this->assertTrue(is_array($types));
 	}
-	
+
 }
 // End of db_test.php

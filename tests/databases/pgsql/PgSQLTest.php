@@ -21,8 +21,8 @@
 class PgTest extends DBTest {
 
 	public function setUp()
-	{	
-		
+	{
+
 		// If the database isn't installed, skip the tests
 		if ( ! class_exists("PgSQL"))
 		{
@@ -42,14 +42,14 @@ class PgTest extends DBTest {
 			$this->db = new PgSQL('host=127.0.0.1;port=5432;dbname=test', 'postgres');
 		}
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testExists()
 	{
 		$this->assertTrue(in_array('pgsql', PDO::getAvailableDrivers()));
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testConnection()
@@ -58,7 +58,7 @@ class PgTest extends DBTest {
 
 		$this->assertIsA($this->db, 'PgSQL');
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testCreateTable()
@@ -110,20 +110,20 @@ class PgTest extends DBTest {
 		$this->assertTrue(in_array('create_test', $dbs));
 
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testTruncate()
 	{
 		$this->db->truncate('create_test');
 		$this->db->truncate('create_join');
-		
+
 		$ct_query = $this->db->query('SELECT * FROM create_test');
 		$cj_query = $this->db->query('SELECT * FROM create_join');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testPreparedStatements()
 	{
 		if (empty($this->db))  return;
@@ -137,16 +137,16 @@ SQL;
 		$statement->execute();
 
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testBadPreparedStatement()
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		try 
+		try
 		{
 			$statement = $this->db->prepare_query($sql, 'foo');
 		}
@@ -154,9 +154,9 @@ SQL;
 		{
 			$this->assertTrue(TRUE);
 		}
-		
+
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testPrepareExecute()
@@ -172,7 +172,7 @@ SQL;
 		));
 
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testCommitTransaction()
@@ -187,7 +187,7 @@ SQL;
 		$res = $this->db->commit();
 		$this->assertTrue($res);
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testRollbackTransaction()
@@ -202,32 +202,46 @@ SQL;
 		$res = $this->db->rollback();
 		$this->assertTrue($res);
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetSchemas()
 	{
 		$this->assertTrue(is_array($this->db->get_schemas()));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetSequences()
 	{
 		$this->assertTrue(is_array($this->db->get_sequences()));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetsProcedures()
 	{
 		$this->assertTrue(is_array($this->db->get_procedures()));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetTriggers()
 	{
 		$this->assertTrue(is_array($this->db->get_triggers()));
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetDBs()
+	{
+		$this->assertTrue(is_array($this->db->get_dbs()));
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetFunctions()
+	{
+		$this->assertNull($this->db->get_functions());
 	}
 }

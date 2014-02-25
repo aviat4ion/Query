@@ -28,14 +28,14 @@ class Firebird_Result extends PDOStatement {
 	 * @var resource
 	 */
 	private $statement;
-	
+
 	/**
 	 * Current row in result array
 	 *
 	 * @var int
 	 */
 	private $row;
-	
+
 	/**
 	 * Data pulled from query
 	 *
@@ -55,7 +55,7 @@ class Firebird_Result extends PDOStatement {
 		$this->setFetchMode(PDO::FETCH_ASSOC);
 		$this->row = -1;
 		$this->result = array();
-		
+
 		// Create the result array, so that we can get row counts
 		// Check the resource type, because prepared statements are "interbase query"
 		// but we only want "interbase result" types when attempting to fetch data
@@ -65,14 +65,14 @@ class Firebird_Result extends PDOStatement {
 			{
 				$this->result[] = $row;
 			}
-			
+
 			// Free the result resource
 			fbird_free_result($link);
 		}
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Invalidate method for data consistency
 	 *
@@ -87,9 +87,9 @@ class Firebird_Result extends PDOStatement {
 	{
 		return NULL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Invalidate method for data consistency
 	 *
@@ -104,9 +104,9 @@ class Firebird_Result extends PDOStatement {
 	{
 		return NULL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Invalidate method for data consistency
 	 *
@@ -119,7 +119,7 @@ class Firebird_Result extends PDOStatement {
 	{
 		return NULL;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -152,22 +152,22 @@ class Firebird_Result extends PDOStatement {
 	 * @return mixed
 	 */
 	public function fetch($fetch_style=PDO::FETCH_ASSOC, $cursor_orientation = PDO::FETCH_ORI_NEXT, $cursor_offset=NULL)
-	{	
+	{
 		// If there is no result, continue
 		if (empty($this->result))
 		{
 			return NULL;
 		}
-		
+
 		// Keep track of the current row being fetched
 		++$this->row;
-		
+
 		// return NULL if the next row doesn't exist
 		if ( ! isset($this->result[$this->row]))
 		{
 			return NULL;
 		}
-		
+
 		switch($fetch_style)
 		{
 			case PDO::FETCH_OBJ:
@@ -182,7 +182,7 @@ class Firebird_Result extends PDOStatement {
 				$row = $this->result[$this->row];
 			break;
 		}
-		
+
 		return $row;
 	}
 
@@ -209,29 +209,29 @@ class Firebird_Result extends PDOStatement {
 
 		return $all;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Emulate PDOStatement::fetchColumn
-	 * 
+	 *
 	 * @param int $column_num
-	 * @return mixed 
+	 * @return mixed
 	 */
 	public function fetchColumn($column_num=0)
 	{
 		$row = $this->fetch(PDO::FETCH_NUM);
 		return $row[$column_num];
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Emulate PDOStatement::fetchObject, but only for the default use
-	 * 
+	 *
 	 * @param string $class_name
 	 * @param array $ctor_args
-	 * @return stdClass 
+	 * @return stdClass
 	 */
 	public function fetchObject($class_name='stdClass', $ctor_args=array())
 	{
@@ -248,18 +248,18 @@ class Firebird_Result extends PDOStatement {
 	public function rowCount()
 	{
 		$rows = fbird_affected_rows();
-		
+
 		// Get the number of rows for the select query if you can
-		if ($rows === FALSE && is_resource($this->statement) && get_resource_type($this->statement) === "interbase result")
+		if ($rows === 0 && is_resource($this->statement) && get_resource_type($this->statement) === "interbase result")
 		{
 			$rows = count($this->result);
 		}
-		
+
 		return $rows;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Method to emulate PDOStatement->errorCode
 	 *

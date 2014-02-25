@@ -18,11 +18,11 @@
  * @requires extension interbase
  */
 class FirebirdQBTest extends QBTest {
-	
+
 	public function setUp()
-	{	
+	{
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
-		
+
 		if ( ! function_exists('fbird_connect'))
 		{
 			$this->markTestSkipped('Firebird extension does not exist');
@@ -41,12 +41,12 @@ class FirebirdQBTest extends QBTest {
 		$params->options[PDO::ATTR_PERSISTENT] = TRUE;
 		$this->db = Query($params);
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetNamedConnectionException()
 	{
-		try 
+		try
 		{
 			$db = Query('fire');
 		}
@@ -55,9 +55,9 @@ class FirebirdQBTest extends QBTest {
 			$this->assertIsA($e, 'InvalidArgumentException');
 		}
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetNamedConnection()
 	{
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
@@ -72,18 +72,18 @@ class FirebirdQBTest extends QBTest {
 		$params->pass = 'masterkey';
 		$params->prefix = '';
 		$f_conn = Query($params);
-	
+
 		$this->assertReference($f_conn, Query('fire'));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testGetCompiledSelect()
 	{
 		$sql = $this->db->get_compiled_select('create_test');
 		$qb_res = $this->db->get('create_test');
 		$sql_res = $this->db->query($sql);
-		
+
 		$this->assertIsA($qb_res, 'Firebird_Result');
 		$this->assertIsA($sql_res, 'Firebird_Result');
 	}
@@ -91,7 +91,7 @@ class FirebirdQBTest extends QBTest {
 	public function testInsertBatch()
 	{
 		if (empty($this->db))  return;
-		
+
 		$insert_array = array(
 			array(
 				'id' => 6,
@@ -114,7 +114,7 @@ class FirebirdQBTest extends QBTest {
 
 		$this->assertNull($query);
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testTypeList()
@@ -128,9 +128,9 @@ class FirebirdQBTest extends QBTest {
 
 		$this->assertTrue(is_array($res));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testQueryExplain()
 	{
 		$res = $this->db->select('id, key as k, val')
@@ -139,14 +139,37 @@ class FirebirdQBTest extends QBTest {
 			->where('id <', 900)
 			->limit(2, 1)
 			->get_compiled_select();
-			
+
 		$res2 = $this->db->select('id, key as k, val')
 			->where('id >', 1)
 			->where('id <', 900)
 			->limit(2, 1)
 			->get_compiled_select();
-		
+
 		// Queries are equal because explain is not a keyword in Firebird
 		$this->assertEqual($res, $res2);
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testResultErrors()
+	{
+		$obj = $this->db->query('SELECT * FROM "create_test"');
+
+		// Test row count
+		$this->assertEqual(0, $obj->rowCount());
+
+		// Test error code
+		$this->assertFalse($obj->errorCode());
+
+		// Test error info
+		$error = $obj->errorInfo();
+		$expected = array (
+		  0 => 0,
+		  1 => false,
+		  2 => false,
+		);
+
+		$this->assertEqual($expected, $error);
 	}
 }

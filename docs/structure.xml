@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="Query" version="2.2.0&#10;">
   <partials/>
-  <file path="classes/db_pdo.php" generated-path="classes.db_pdo.html" hash="7c8a088ccc0ae9823b3273260e250bba" package="Query">
+  <file path="classes/db_pdo.php" generated-path="classes.db_pdo.html" hash="faabbcc7984e1b1f5e4d1ef418f37714" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -383,19 +383,19 @@ the connection/database</description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="413" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="416" package="Query\Query">
         <name>driver_query</name>
         <full_name>\DB_PDO::driver_query()</full_name>
-        <docblock line="413">
+        <docblock line="416">
           <description>Method to simplify retreiving db results for meta-data queries</description>
           <long-description></long-description>
-          <tag name="param" line="413" description="" type="string" variable="$sql">
+          <tag name="param" line="416" description="" type="string" variable="$sql">
             <type>string</type>
           </tag>
-          <tag name="param" line="413" description="" type="bool" variable="$filtered_index">
+          <tag name="param" line="416" description="" type="bool" variable="$filtered_index">
             <type>bool</type>
           </tag>
-          <tag name="return" line="413" description="" type="mixed">
+          <tag name="return" line="416" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -410,28 +410,28 @@ the connection/database</description>
           <type>bool</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="437" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="440" package="Query\Query">
         <name>num_rows</name>
         <full_name>\DB_PDO::num_rows()</full_name>
-        <docblock line="437">
+        <docblock line="440">
           <description>Return the number of rows returned for a SELECT query</description>
           <long-description></long-description>
-          <tag name="see" line="437" description="" link="\http://us3.php.net/manual/en/pdostatement.rowcount.php#87110"/>
-          <tag name="return" line="437" description="" type="int">
+          <tag name="see" line="440" description="" link="\http://us3.php.net/manual/en/pdostatement.rowcount.php#87110"/>
+          <tag name="return" line="440" description="" type="int">
             <type>int</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="true" static="false" visibility="public" namespace="" line="461" package="Query\Query">
+      <method final="false" abstract="true" static="false" visibility="public" namespace="" line="464" package="Query\Query">
         <name>truncate</name>
         <full_name>\DB_PDO::truncate()</full_name>
-        <docblock line="461">
+        <docblock line="464">
           <description>Empty the passed table</description>
           <long-description></long-description>
-          <tag name="param" line="461" description="" type="string" variable="$table">
+          <tag name="param" line="464" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="return" line="461" description="" type="void">
+          <tag name="return" line="464" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -441,19 +441,19 @@ the connection/database</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="472" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="475" package="Query\Query">
         <name>insert_batch</name>
         <full_name>\DB_PDO::insert_batch()</full_name>
-        <docblock line="472">
+        <docblock line="475">
           <description>Create sql for batch insert</description>
           <long-description></long-description>
-          <tag name="param" line="472" description="" type="string" variable="$table">
+          <tag name="param" line="475" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="472" description="" type="array" variable="$data">
+          <tag name="param" line="475" description="" type="array" variable="$data">
             <type>array</type>
           </tag>
-          <tag name="return" line="472" description="" type="string">
+          <tag name="return" line="475" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -469,9 +469,9 @@ the connection/database</description>
         </argument>
       </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
-  <file path="drivers/firebird/firebird_result.php" generated-path="drivers.firebird.firebird_result.html" hash="7cfd2d28a541bb6be8f327a1d0b8858d" package="Query">
+  <file path="drivers/firebird/firebird_result.php" generated-path="drivers.firebird.firebird_result.html" hash="b982a41323135631817b1aaebea26e4d" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -848,7 +848,7 @@ the query</description>
         </docblock>
       </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="drivers/firebird/firebird_util.php" generated-path="drivers.firebird.firebird_util.html" hash="a4399d9239d3e68c29ab6f1f66c8f9cc" package="Query">
     <docblock line="0">
@@ -4840,7 +4840,7 @@ in place of the get() method</description>
     </class>
     <source>eJzVWG1T4zYQ/mz/im3mZhyYEN/d3KceTJuA6dEJhEvSXvulHsVWbA227JNkuAylv70rWc4bvZIwHLR8Qaz32dU++yKJwx/KtHT9/X0X9uFjRcUcF3p9KiitBdCvWBZTAT6cEEWmRFLoTaUSJFKs4DAgcyos6kdSqbQQ4DgTlhcqncPPXfhEhKDcfI6Kci5YkirnuFlBO9qDt6/fvIUD/eud0csYv0IjqVKl/N73E6bSatqNitwn14yod+jXb3artSPKcVdGH9XLlGVSVSKhBUdQt7ryoyKmfjwl8YFVRqDvur4PB0/24zY8XhZSJYKOPw5AljRiswhw3VBUkuiKJBSW+5fVtBGeCHZNhTS7izIiJVwmiA21LZaXGc0pVxLYSd+Ibl3X0U4dNDNgOVOAoAqjQ4ERojdBcsBsMZ7AK/k5WxUzruBVpnH3pMVsJqkVC4pkcmtEi3zXKaspMgmzitdVYKy0tYOONdlpjByd9gbjYM91bl3H0RrQPYIWDM7OzyZwWyvftd5jKA6btZkMeZVTwaK2xe8h1GBXwMPT03Gg0bWKhjvOnTZhN6tVUXbnOsjQk2bZWVL+E1WgUgqfTZ+UGeEww+rXIr1TI34wFduwS7+gccYNv5ZIC2sFv10OemcX8Gsw6g/HAVKCOoYPTccTF/gi8hHhcZFDIXAw6HCu6PwG/1gGu01Uwhhprwfkwah3cTI8b+953zoG41CaVKkCK1gqwJmFky62c07uFk88DbWRjYAODw9192P5joNBcDyBFprnJKctOB0Nz6FVJmHjsKXVPn0IRsGK1sVwApjgtqcoTgCi6Guvs1i/8XR3OMPRSTCC/u8rsN742EXHL0AixpLtyp3BbEdfrWqC1OKaRMax83KibYUySmlOWt1aU66SWmPVvESCjsDr97BjJr3+IPC0EhZeo2JtWPL1R6ftYaYizFRWJF4HvPsuvb33L0S5nEusiEcxX0PD/2oC/gfkXzN6syPpGvKvZMOCba26MS6Mw1VWawZWx8XWpC1oX/r57i/w/kCktz5ZlgovOFrwzpjoC9Juw6VGbVXd+w+VtN3BWlFb+48cGs/G5RqVDTv3ubz4ZTD4CpPN4p+o1LDnD0OqQtAYSlFENK7ErtNvgdtu9ImiUoxvN/ys7nqjmvcAix5dKoshiRM0rGIV2pbFWWqr0Hu+MbieCIr3XR7tfPxY2Hb8R5pXmm3Qr3nTj6WWVlhh22pfMR6b02a8MdEaS8860NZIi4qsynHGFbP61VCXB9azOQS/9nZYfNyO4tpJTXCNfYBmvMkzTrKwLCTTFjqmPq0ZzVgt0LdWc5SvfY/pjFSZqmXmNZdl2qdVSon+xwEOy5x8YXmVhxnliUrrr/blF5YCeZDoeZHj+83Qtdwt8728l+hk39ah3q3nfDO0ZbN8y4eifqtjymVa3Nh3xgwwzRnmGenb9TTTrb/dRW1ebtwc7HjBvsA/zC1s9Rhr1JsLwJ+htzpwFre26UYfNcAFl3eu7wc81mGWCdY7Jpuzslum5d+97/A0</source>
   </file>
-  <file path="drivers/mysql/mysql_sql.php" generated-path="drivers.mysql.mysql_sql.html" hash="9434b96944ed5da5e75959ad78f6c6df" package="Query">
+  <file path="drivers/mysql/mysql_sql.php" generated-path="drivers.mysql.mysql_sql.html" hash="858c825aff246cb97b143e0aa5d9792f" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -4956,93 +4956,93 @@ in place of the get() method</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="103" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="101" package="Query\Drivers">
         <name>system_table_list</name>
         <full_name>\MySQL_SQL::system_table_list()</full_name>
-        <docblock line="103">
+        <docblock line="101">
           <description>Overridden in MySQL class</description>
           <long-description></long-description>
-          <tag name="return" line="103" description="" type="string">
+          <tag name="return" line="101" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="116" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="114" package="Query\Drivers">
         <name>view_list</name>
         <full_name>\MySQL_SQL::view_list()</full_name>
-        <docblock line="116">
+        <docblock line="114">
           <description>Returns sql to list views</description>
           <long-description></long-description>
-          <tag name="return" line="116" description="" type="string">
+          <tag name="return" line="114" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="128" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="126" package="Query\Drivers">
         <name>trigger_list</name>
         <full_name>\MySQL_SQL::trigger_list()</full_name>
-        <docblock line="128">
+        <docblock line="126">
           <description>Returns sql to list triggers</description>
           <long-description></long-description>
-          <tag name="return" line="128" description="" type="string">
+          <tag name="return" line="126" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="140" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="138" package="Query\Drivers">
         <name>function_list</name>
         <full_name>\MySQL_SQL::function_list()</full_name>
-        <docblock line="140">
+        <docblock line="138">
           <description>Return sql to list functions</description>
           <long-description></long-description>
-          <tag name="return" line="140" description="" type="string">
+          <tag name="return" line="138" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="152" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="150" package="Query\Drivers">
         <name>procedure_list</name>
         <full_name>\MySQL_SQL::procedure_list()</full_name>
-        <docblock line="152">
+        <docblock line="150">
           <description>Return sql to list stored procedures</description>
           <long-description></long-description>
-          <tag name="return" line="152" description="" type="string">
+          <tag name="return" line="150" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="164" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="162" package="Query\Drivers">
         <name>sequence_list</name>
         <full_name>\MySQL_SQL::sequence_list()</full_name>
-        <docblock line="164">
+        <docblock line="162">
           <description>Return sql to list sequences</description>
           <long-description></long-description>
-          <tag name="return" line="164" description="" type="NULL">
+          <tag name="return" line="162" description="" type="NULL">
             <type>NULL</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="176" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="174" package="Query\Drivers">
         <name>type_list</name>
         <full_name>\MySQL_SQL::type_list()</full_name>
-        <docblock line="176">
+        <docblock line="174">
           <description>SQL to show list of field types</description>
           <long-description></long-description>
-          <tag name="return" line="176" description="" type="string">
+          <tag name="return" line="174" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="189" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="187" package="Query\Drivers">
         <name>column_list</name>
         <full_name>\MySQL_SQL::column_list()</full_name>
-        <docblock line="189">
+        <docblock line="187">
           <description>SQL to show infromation about columns in a table</description>
           <long-description></long-description>
-          <tag name="param" line="189" description="" type="string" variable="$table">
+          <tag name="param" line="187" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="return" line="189" description="" type="string">
+          <tag name="return" line="187" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -5053,7 +5053,7 @@ in place of the get() method</description>
         </argument>
       </method>
     </class>
-    <source>eJzFV21v2kgQ/mz/imlUCRIl+Fr1U++iKwGTcDKQYqP0pEp4sRdYxW/dXSdnIf57Z+0lkARyQQpKvmQZz8zO8+z4mfVff2fzzLROTkw4ge855QUu1LrDKa0McJGzKKQcLGgTSSZEUGhOhOQkkCxNwCEF5TrqW0aCWzKjhrHKBd9ILucpNwyPxamcF/BPA24I5zQpnwZpVnA2m0ujtVpBPTiGz398+gxn6t+X0i9iyS0YxlzKTHy1rBmT83zSCNLYIneMyC9YibXeM2IBTQSt/NE9m7NIyJzPaJpgUCO/tYI0pFY4IeGZdsZAyzQtC87e7M9cMdsr3O8OiIwGbBoArp/wBevSRT5ZGduc3VEuysKCiAhR5RmrXCzOIhrTRApg7YvStDBNQ+1nYBqHxUwCBuUIDA2lEXfjJAY8OpbM4KP4FW2aWSLhY6TinlnT6VRQbeYUeUx0EmWyTCPLJ0giTPOkaokyS11tcKpTnq6SnHeajmsfm8bCNAw2hTp8ACbGSR5TzoK69jpGh9LD0NupXI0jcLq9rgeLKufy6E/0WCLqHV5VruXpo4ClaSBNb3rKxpr3SypBzin8Kt+cLCIJTFNemrC2yvy/5/Eaiul/mJwlJcmaTR12ZP+4dprdPtg/PLvfttsIH500+LfGvoY+JEmYxpBy1AqF55YW9/hjjfY1sHiZpP4YUQ2GzX67flw7NIJyO1GelEyxi4UElCyUvlALn9gPTTgZqyRP4By5V4MbaDe95kXTtV24ubKHNvgrcfXhw3mNJdg2MVFZxiKY05jUDn5+W9BjRdEm6McNu2Ll9YSU+SpOHqLPa7XHckDjTBbr58+0oOIP2XOQvM5w0AN/8eC99LUqrLtnw/3QHTRAveYsDGmCwqlVv1Tu/fpGFELSeLzB1pMXwrUdu+WBX6Ia95s929dMPG8cv1G5uT4oEnW3VZFu68ruNf3zn1sa7mftPd63O0bv92RLhbzIUsVjQmL6Ikvl1v57gEZ0s5ma9Hvh1lHboZc9P+xeXtrDg3f9UBe7gWhV5J6QVovdmDqjfsvrDvrgek1v9B7QhEw5DSHjaUDDnO87Ex7idmO8Hg5adnuEr+n7gaR4VUmCLeD6I8fZJVs6aBsyFXbw25eSW0Qg5um9nt5TmDIahSCLbN+DUiHbx3clK+2u63X7Sl/UKB97/16/LMKtgTPq9V3/8JfQTRqwFJ5WpQCZpDl+FKRRHqMA4YAi1UDeNd8fHr6OsCqxnu5l7LZ7TwcbATQXFV2LyllfUJf4CWYnoTq6uMCWHKs7PX6k/ga0b+CC</source>
+    <source>eJzFV21v2kgQ/mz/imlUCYgSfK36qXfR1QEn4WQgxUbpSZXwYi94Fb91d52chfjvnbUNgRRyQSpKvmQZz8zO8+zsM/Zff2dhphunpzqcwtec8gIXan3FKa0McJmzKKAcDOgSSaZEUDCnQnLiS5YmYJOC8jrqS0b8ezKnmrbKBV9ILsOUa5rL4lSGBfzThjvCOU3Kp36aFZzNQ6l1Vito+i34+MeHj3Cu/n0q/SKW3IOmhVJm4rNhzJkM82nbT2ODPDAiP2ElxtOeEfNpImjlj+5ZyCIhcz6naYJB7fze8NOAGsGUBOe1MwYaum4YcP7b/vQVs/3C+WqDyKjPZj7g+hlf8FS6yKcrY5ezB8pFWZgfESGqPBOVi8VZRGOaSAGse1maFrquqf00TGOzmEnAoByBoaE04m6cxIBHx5I5vBc/ok0zSyS8j1TcL9Z0NhO0NnOKPCZ1EmUydC3Lp0gizPKkaokyS1NtcFanPFslubgybcdq6dpC1zQ2gya8AyYmSR5Tzvxm7dVCh9JDq7dTudonYPf6PRcWVc7lyZ/osUTUe7yqXMuzrQDl/5sPec36NZUgQwo/ynuTRSSBWcpLE1ZWmf/3NF5DMP0Pk7OkpLjmsg47sb7d2mZvANY31xp0rS6CR6ejQx+RJEhjSDkqhcJzT4tH/PGE9jWweJmkuY2oASNz0G22GsdGUG4nypOSKfawkICChcIX1LInDkMTTCcqyTM4J87N8A66pmtemo7lwN2NNbLAW0mrB+8uGizBtomJyjIRfkhj0jj6+e1AjxVFm6C3G3bFyusJKfNVnKyjLxqNbTGgcSaLp+etFmwRh7TZyNrVaNgHb7F2W3pI0EbPbPgeu2+GqNGcBQFNUCxrpS/V+rBuEYWQNJ5scPTsGjiWbXVc8EpUk4HZt7yahl/bxWtXbo6nNLRusSrQ6dxYfdO7+L6jy7433uKSPTD6eCBZKuRFkioaExLTF0kqt/beAjSim8/VcD8Idx21G3rZ8qPe9bU1OnrTj+piNxCtijwQ0mqxH9PVeNBxe8MBOK7pjt8CmpAppwFkPPVpkPNDB8E6bj/G29GwY3XHeE3fDiTF95PE3wFuMLbtfapVB+1CpsKODENpLdYvwvSxHtgzmDEaBSCL7NBjUiG7J3YlKt2e4/YGSl3U9J64/96+rMCdoT3uDxzv2KN7kwQshKdVIUCmaY7fAGmUxyg+OJtINYH3DfT1w9fRVSWux3kZu+tF5wqbAGomKrIWlXP9RrrELy4rCdTBxQW240S9wuM36U/hTd8B</source>
   </file>
   <file path="drivers/firebird/firebird_sql.php" generated-path="drivers.firebird.firebird_sql.html" hash="617ad88d71fd0da1a0f593d3a9b9d6d2" package="Query">
     <docblock line="0">
@@ -5690,7 +5690,7 @@ in place of the get() method</description>
     </class>
     <source>eJy1VF1v2jAUfXZ+xR1iClSFbFWfKGylELZujH7A1JdJkXFMYjXYqe10Q1X/+66TUNqq3VOHImH7nvt1zrX7n/M094K9PQ/24KLgeoMLt55ozqsDOClEFnMNAYyppUtqOAyXxmrKrFASpnTDde11nFN2TRNOyDYWHNPCpkoTshBrZdMNfOvCFdWay9LKVL7RIkktGW1X0GJtOPjw8QA67u+wxGVCXgMhqbW56QVBImxaLLtMrQN6K6g9xEqCXc5MMC4Nr/AIz1ORGVvohCuJTt3iOmAq5kG8pHGnBqNj4HlBAJ03+3lbZs+VsYnm84spmJwzsWLAMmrMM9pg14EpltvDsRa3XJuyvtILzhMXif+xXMYGxifR+fgM7jyPuHQE3UdKSs4sWAXUJa9zx7V+DlPiMLGma0AxhUygGRv50nFhuJZ0zV+y5VjPb6XjxzZUl24Amip3A2KcKfBIXiyRaVgVspqbKGJotLpgtuUy7+8SDWSRZfu74Nt9HXBQJmi12x658wgRK2hhnFyZOo6fJ+Ym89swGAxgMpzOw3bZGwxqU8/vuv0ROuOHRXNpe71/FPSoll0ZbfS/d6S/7cg8iBiuc7tB/VCz7FXJHowvMIytSEYtb1Womq4mEuCYWFz+nI2GixAaPnTrQLjwG77jpWlTYTqfbtxAtpzL/+72C7fYayaMBbUCw1K+pgZWSoNNObDCvRgWWDXY2N2OEM3xZstq6l5hIuE2qkO2ntLQ7/fxZuCezMNpOFrA+HS+OJ3holE5OPkbMLk8+wGNPIlKmkzDOVx9DS/Dp7DZ2QKmp99DN2e/ove+gw1n46egd0i+kNjZmrri6sJ8D+s4QkJI3U+tQFze/ui5EPf4UoUydlyVIx1VuC4+538B/m+mmw==</source>
   </file>
-  <file path="common.php" generated-path="common.html" hash="2a50e3ac37bf90ebd1c25a77283e4d1a" package="Query">
+  <file path="common.php" generated-path="common.html" hash="38a41849820505ed131ed016953ff267" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -5816,9 +5816,9 @@ with array_map and glob</description>
         <tag name="subpackage" line="36" description="Query"/>
       </docblock>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
-  <file path="autoload.php" generated-path="autoload.html" hash="5c2b8270c88016a93fbb0e7fcbd55ed2" package="Query">
+  <file path="autoload.php" generated-path="autoload.html" hash="72a0a29e05a426b210ad71cbd6bc387f" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -5862,7 +5862,7 @@ with array_map and glob</description>
         <type>string</type>
       </argument>
     </function>
-    <source>eJytU11P2zAUfXZ+xRVCJKmg3hBPbGiUtWhMSONL26PlJjeJRRIH22GrUP/77Dhuw8ue1pdavfd8+Pj085eu6iI6m0Uwg/se1cYe3PlaIfof4KoXdY4KKCy54WuuERZrbRTPjJAt3PINqhF12fHsmZdISOCCS96bSipCnkQjTbWB73P4xZXCdphmstsoUVaGfA0nSLIUTj98PIUT93U27NWifQZCKmM6fU5pKUzVr+eZbCh/FdycWSd0r1mLDFuNft+ud5WotelVibK1oHn/TDOZI83XPD8Zly2QRhGlcPLfPlFIdtEbWUvuUiykAncUbQn8lYuar2uEPCSb1Vxr1KMZj37AAm1eGYKRoKQ00HFTDSs5FqLFJL6/Wjyu2N3i6Vt8DLlQLW8wYez65nbFWDqPaZx+2vHdWbSjypV4tY6mkju+5cPNz9VDYNzTz2OP0iMjte5eeqEQtGysfdk0thNF3w7l0JHy02TK4JfmtnlTV7c2FHgZGrd3NJZK8QZs41xmh8NwMBtUPIrxMeTEr6TRW0T8ES4c2k1/owpjq0ys/UH22lpcC5WDRidmsN5ERBSQBAmGf4Q2OokLt8Yy2baYmTiFoyMIGhcXEBcjUZxGxMoTW3S+YQ3vkjiXTLRZ3edoAy1ruU6mIdsnClg689FYh4QotLVt7Wkbhdsw9/r2SvtIYQ4HY2b0zS9tHceBu+Ohf7AdaiLqcGF/2HVXFpoVosZkIpaOtxkfk0nbxXfzwR/BWuPIYCuYTIUDwzBu2RDLyHAMd8sf5+clmkX4Oyx9xZLUwQbcv4O0l5hobX2ABz7ArbO2HZr6iAb6Dvjuzxjprt7Vhiks7RvbgsTv+xSKvmpzkMUO7jT+AiMOmyw=</source>
+    <source>eJytU01vnDAQPcOvGEVRgFWybqOc0kbNprtRU0VqvtQeLS8MYAUwsU3aVbT/vWMMu+TSU7kwYubNe35+fP7Slm3IZrMQZnDfod5Q4eprjeg/wFUnqww1MFgKK9bCICzWxmqRWqkauBUb1APqshXpsygwCMZdcCk6WyodBE+yVrbcwPc5/BJaY9N3U9VutCxKG3wdK4jTBE4/fDyFE/c66+cq2TxDEJTWtuacsULaslvPU1Uz8SqFPSMlbM9ZyRQbg36exttSVsZ2ukDVEGjePbNUZciytchOhmECsjBkDE7+2xOOzi46qyolnIu50uBK2RQgXoWsxLpCyEZn00oYg2YQ49EPmCP5lSJYBVopC62wZT+SYS4bjKP7q8Xjit8tnr5Fx5BJ3YgaY86vb25XnCfziEXJp92+O0K7VZmWr6RoSrnbt3y4+bl6GDfu188jjzLDRkbqXjqpEYyqSb6qa8pE3jV9OEyofTeebvBDc0reVNUtmQIvfeL2ioZQaVEDJc55dtg3e7Eji0dxMZgc+5EkfAsDX8KFQ7vub9Rjm5gDkt/TXpPEtdQZGHRkFqtNGMgc4pGC4x9prImj3I3xVDUNpjZK4OgIRo6LC4jyYVGUhAHRBxR0seG1aOMoU1w2adVlSIYWlVrHU5PpikYsm3lrSGEQaKTYNlRtw/E03N0+HWlvKczhYPCMvfmhrdtx4M546C9sh5qQOtw438+6I0vDc1lhPCFLEhjukSuK4bsWScPK4ICk6MVTwmTwoW83vLdjgB/D3fLH+XmBdjH+BksfrThxsB73bwNJ/IRr64078MZtnWXbPqGPaKFrQex+wtC01S4uXGNBd0vBiN7naAz4qslA5Tu44/gL3myaEg==</source>
   </file>
   <file path="classes/query_parser.php" generated-path="classes.query_parser.html" hash="f048c6bc67b8a96880d904b8a697994e" package="Query">
     <docblock line="0">

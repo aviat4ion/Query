@@ -38,9 +38,9 @@ class MySQL_SQL implements iDB_SQL {
 
 		return $sql." LIMIT {$offset}, {$limit}";
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Get the query plan for the sql query
 	 *
@@ -86,10 +86,8 @@ class MySQL_SQL implements iDB_SQL {
 	 */
 	public function table_list($database='')
 	{
-		if ( ! empty($database))
-		{
-			return "SHOW TABLES FROM `{$database}`";
-		}
+		if ( ! empty($database)) return "SHOW TABLES FROM `{$database}`";
+
 		return 'SHOW TABLES';
 	}
 
@@ -102,7 +100,7 @@ class MySQL_SQL implements iDB_SQL {
 	 */
 	public function system_table_list()
 	{
-		return 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES` 
+		return 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
 			WHERE `TABLE_SCHEMA`=\'information_schema\'';
 	}
 
@@ -165,9 +163,9 @@ class MySQL_SQL implements iDB_SQL {
 	{
 		return NULL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * SQL to show list of field types
 	 *
@@ -177,9 +175,9 @@ class MySQL_SQL implements iDB_SQL {
 	{
 		return "SELECT DISTINCT `DATA_TYPE` FROM `information_schema`.`COLUMNS`";
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * SQL to show infromation about columns in a table
 	 *
