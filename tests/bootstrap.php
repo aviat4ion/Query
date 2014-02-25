@@ -89,7 +89,7 @@ require_once(QTEST_DIR . '/core/db_qb_test.php');
 if (extension_loaded('pdo_sqlite'))
 {
 	$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
-	$params = (object) array(
+	$params = array(
 		'type' => 'sqlite',
 		'file' => $path,
 		'host' => 'localhost',
