@@ -4,6 +4,10 @@ A query builder/database abstraction layer, using prepared queries for security.
 
 [![Build Status](https://secure.travis-ci.org/timw4mail/Query.png)](http://travis-ci.org/timw4mail/Query)
 [![Coverage Status](https://coveralls.io/repos/timw4mail/Query/badge.png?branch=master)](https://coveralls.io/r/timw4mail/Query?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/aviat4ion/query/v/stable.png)](https://packagist.org/packages/aviat4ion/query)
+[![Total Downloads](https://poser.pugx.org/aviat4ion/query/downloads.png)](https://packagist.org/packages/aviat4ion/query)
+[![Latest Unstable Version](https://poser.pugx.org/aviat4ion/query/v/unstable.png)](https://packagist.org/packages/aviat4ion/query)
+[![License](https://poser.pugx.org/aviat4ion/query/license.png)](https://packagist.org/packages/aviat4ion/query)
 
 ## Requirements
 * Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
