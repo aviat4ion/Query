@@ -207,7 +207,7 @@ abstract class DB_PDO extends PDO {
 	 * @return string
 	 */
 	public function quote_ident($ident)
-	{   
+	{
 		if (is_array($ident))
 		{
 			return array_map(array($this, __METHOD__), $ident);
@@ -217,7 +217,7 @@ abstract class DB_PDO extends PDO {
 		if (strpos($ident, ',') !== FALSE)
 		{
 			$parts = explode(',', $ident);
-			$parts = array_map('mb_trim', $parts); 
+			$parts = array_map('mb_trim', $parts);
 			$parts = array_map(array($this, __METHOD__), $parts);
 			$ident = implode(',', $parts);
 		}
@@ -256,7 +256,7 @@ abstract class DB_PDO extends PDO {
 	public function _quote($str)
 	{
 		// Don't add additional quotes, or quote numbers
-		if (strpos($str, $this->escape_char) === 0 || 
+		if (strpos($str, $this->escape_char) === 0 ||
 			strrpos($str, $this->escape_char) === 0 ||
 			( ! is_string($str) && is_numeric($str))
 		)
@@ -412,6 +412,12 @@ abstract class DB_PDO extends PDO {
 	 */
 	public function driver_query($sql, $filtered_index=TRUE)
 	{
+		// Return if the values are returned instead of a query
+		if (is_array($sql))
+		{
+			return $sql;
+		}
+
 		// Return if the query doesn't apply to the driver
 		if ($sql === NULL)
 		{
@@ -442,7 +448,7 @@ abstract class DB_PDO extends PDO {
 		if (preg_match($regex, $this->last_query, $output) > 0)
 		{
 			$stmt = $this->query("SELECT COUNT(*) FROM {$output[1]}");
-			return $stmt->fetchColumn();
+			return (int) $stmt->fetchColumn();
 		}
 
 		return NULL;
@@ -459,10 +465,10 @@ abstract class DB_PDO extends PDO {
 	 * @return void
 	 */
 	abstract public function truncate($table);
-	
+
 	// --------------------------------------------------------------------------
-	
-	/** 
+
+	/**
 	 * Create sql for batch insert
 	 *
 	 * @param string $table
@@ -472,30 +478,30 @@ abstract class DB_PDO extends PDO {
 	public function insert_batch($table, $data=array())
 	{
 		if ( ! is_array($data[0])) return NULL;
-	
+
 		$table = $this->quote_table($table);
 		$fields = array_keys($data[0]);
 		$vals = array();
-	
+
 		$sql = "INSERT INTO {$table} (";
 		$sql .= implode(',', $this->quote_ident($fields));
 		$sql .= ") VALUES ";
-		
+
 		$params = array_fill(0, count($fields), '?');
 		$param_string = implode(',', $params);
-		
+
 		// Remove the first array after use, as it is a special case
 		$sql .= "({$param_string})";
 		$vals = array_values($data[0]);
 		array_shift($data);
-		
-		// Add another grouping for each 
+
+		// Add another grouping for each
 		foreach($data as $group)
 		{
 			$sql .= ",({$param_string})";
 			$vals = array_merge($vals, array_values($group));
 		}
-		
+
 		return array($sql, $vals);
 	}
 }

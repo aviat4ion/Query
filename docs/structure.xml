@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="Query" version="2.2.0&#10;">
   <partials/>
-  <file path="classes/db_pdo.php" generated-path="classes.db_pdo.html" hash="faabbcc7984e1b1f5e4d1ef418f37714" package="Query">
+  <file path="classes/db_pdo.php" generated-path="classes.db_pdo.html" hash="6b33790fec23f409a72cfd99aab8050f" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -383,19 +383,19 @@ the connection/database</description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="416" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="413" package="Query\Query">
         <name>driver_query</name>
         <full_name>\DB_PDO::driver_query()</full_name>
-        <docblock line="416">
+        <docblock line="413">
           <description>Method to simplify retreiving db results for meta-data queries</description>
           <long-description></long-description>
-          <tag name="param" line="416" description="" type="string" variable="$sql">
+          <tag name="param" line="413" description="" type="string" variable="$sql">
             <type>string</type>
           </tag>
-          <tag name="param" line="416" description="" type="bool" variable="$filtered_index">
+          <tag name="param" line="413" description="" type="bool" variable="$filtered_index">
             <type>bool</type>
           </tag>
-          <tag name="return" line="416" description="" type="mixed">
+          <tag name="return" line="413" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -410,28 +410,28 @@ the connection/database</description>
           <type>bool</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="440" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="443" package="Query\Query">
         <name>num_rows</name>
         <full_name>\DB_PDO::num_rows()</full_name>
-        <docblock line="440">
+        <docblock line="443">
           <description>Return the number of rows returned for a SELECT query</description>
           <long-description></long-description>
-          <tag name="see" line="440" description="" link="\http://us3.php.net/manual/en/pdostatement.rowcount.php#87110"/>
-          <tag name="return" line="440" description="" type="int">
+          <tag name="see" line="443" description="" link="\http://us3.php.net/manual/en/pdostatement.rowcount.php#87110"/>
+          <tag name="return" line="443" description="" type="int">
             <type>int</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="true" static="false" visibility="public" namespace="" line="464" package="Query\Query">
+      <method final="false" abstract="true" static="false" visibility="public" namespace="" line="467" package="Query\Query">
         <name>truncate</name>
         <full_name>\DB_PDO::truncate()</full_name>
-        <docblock line="464">
+        <docblock line="467">
           <description>Empty the passed table</description>
           <long-description></long-description>
-          <tag name="param" line="464" description="" type="string" variable="$table">
+          <tag name="param" line="467" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="return" line="464" description="" type="void">
+          <tag name="return" line="467" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -441,19 +441,19 @@ the connection/database</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="475" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="478" package="Query\Query">
         <name>insert_batch</name>
         <full_name>\DB_PDO::insert_batch()</full_name>
-        <docblock line="475">
+        <docblock line="478">
           <description>Create sql for batch insert</description>
           <long-description></long-description>
-          <tag name="param" line="475" description="" type="string" variable="$table">
+          <tag name="param" line="478" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="475" description="" type="array" variable="$data">
+          <tag name="param" line="478" description="" type="array" variable="$data">
             <type>array</type>
           </tag>
-          <tag name="return" line="475" description="" type="string">
+          <tag name="return" line="478" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -469,7 +469,7 @@ the connection/database</description>
         </argument>
       </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="drivers/firebird/firebird_result.php" generated-path="drivers.firebird.firebird_result.html" hash="b982a41323135631817b1aaebea26e4d" package="Query">
     <docblock line="0">

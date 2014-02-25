@@ -50,10 +50,7 @@ function query_autoload($class)
 
 	$driver_path = QDRIVER_PATH . "{$class}";
 
-	if (is_file($class_path))
-	{
-		require_once($class_path);
-	}
+	if (is_file($class_path)) require_once($class_path);
 	elseif (is_dir($driver_path))
 	{
 		if (in_array($class, PDO::getAvailableDrivers()))

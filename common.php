@@ -103,7 +103,7 @@ function db_filter($array, $index)
 function Query($params = '')
 {
 	static $connections;
-	
+
 	// If you are getting a previously created connection
 	if (is_scalar($params))
 	{
@@ -116,7 +116,7 @@ function Query($params = '')
 		{
 			return end($connections);
 		}
-		
+
 		throw new InvalidArgumentException("The specified connection does not exist");
 	}
 
@@ -149,10 +149,10 @@ function Query($params = '')
 	{
 		throw new BadDBDriverException('Database driver does not exist, or is not supported');
 	}
-	
+
 	// Set additional PDO options
 	$options = array();
-	
+
 	if (isset($params->options))
 	{
 		$options = (array)$params->options;
@@ -163,30 +163,24 @@ function Query($params = '')
 	// --------------------------------------------------------------------------
 
 	// Create the dsn for the database to connect to
-	switch($dbtype)
+	if ($dbtype === 'firebird') $dsn = "{$params->host}:{$params->file}";
+	elseif ($dbtype === 'sqlite') $dsn = $params->file;
+	else
 	{
-		default:
+		if ( ! empty($params->conn_db))
+		{
 			$dsn .= "dbname={$params->conn_db}";
+		}
 
-			if ( ! empty($params->host))
-			{
-				$dsn .= ";host={$params->host}";
-			}
+		if ( ! empty($params->host))
+		{
+			$dsn .= ";host={$params->host}";
+		}
 
-			if ( ! empty($params->port))
-			{
-				$dsn .= ";port={$params->port}";
-			}
-
-		break;
-
-		case "sqlite":
-			$dsn .= $params->file;
-		break;
-
-		case "firebird":
-			$dsn = "{$params->host}:{$params->file}";
-		break;
+		if ( ! empty($params->port))
+		{
+			$dsn .= ";port={$params->port}";
+		}
 	}
 
 	try
