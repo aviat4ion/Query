@@ -3,13 +3,14 @@
 A query builder/database abstraction layer, using prepared queries for security.
 
 [![Build Status](https://secure.travis-ci.org/timw4mail/Query.png)](http://travis-ci.org/timw4mail/Query)
+[![Coverage Status](https://coveralls.io/repos/timw4mail/Query/badge.png?branch=master)](https://coveralls.io/r/timw4mail/Query?branch=master)
 
 ## Requirements
 * Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
 * PHP 5.3+
 
 ## Databases Supported
-	
+
 * Firebird (via interbase extension)
 * MySQL
 * PostgreSQL
@@ -19,13 +20,13 @@ A query builder/database abstraction layer, using prepared queries for security.
 
 To include Query in your PHP project, just include the `autoload.php` file. This will automatically load the classes that are supported by the current PHP installation.
 
-	
+
 ## Connecting
 
 Create a connection array or object similar to this:
 
 	<?php
-	
+
 	$params = array(
 		'type' => 'mysql',
 		'host' => 'localhost',
@@ -33,45 +34,45 @@ Create a connection array or object similar to this:
 		'pass' => '',
 		'port' => '3306',
 		'database' => 'test_db',
-		
+
 		// Only required
 		// SQLite or Firebird
 		'file' => '/path/to/db/file',
-		
+
 		// Optional paramaters
 		'prefix' => 'tbl_', 	// Database table prefix
 		'alias' => 'old' 		// Connection name for the Query function
 	);
-	
+
 	$db = Query($params);
 
-The parameters required depend on the database. 
-	
-### Query function	
+The parameters required depend on the database.
+
+### Query function
 
 You can use the `Query()` function as a reference to the last connected database. E.g.
 
 	Query()->get('table_name');
-	
+
 or
- 
+
 	$result = Query()->query($sql);
-	
+
 If the `alias` key is set in the parameters, you can refer to a specific database connection
 
 	// Set the alias in the connection parameters
 	$params['alias'] = 'old';
 
 	// Connect to the legacy database
-	Query('old')->query($sql); 
+	Query('old')->query($sql);
 
 ### Running Queries
 Query uses the same interface as CodeIgniter's [Active Record class](http://codeigniter.com/user_guide/database/active_record.html). However, it does not implement the `update_batch` or caching methods.
 
-####You can also run queries manually. 
+####You can also run queries manually.
 
 To run a prepared statement, call
-`$db->prepare_execute($sql, $params)`. 
+`$db->prepare_execute($sql, $params)`.
 
 To run a plain query, `$db->query($sql)`
 
@@ -86,7 +87,7 @@ An example of a moderately complex query:
 		->order_by('val', 'DESC')
 		->limit(3, 1)
 		->get();
-		
+
 This will generate a query similar to (with this being the output for a Postgres database):
 
 	SELECT "id", "key" AS "k", "val"
@@ -100,10 +101,10 @@ This will generate a query similar to (with this being the output for a Postgres
 To retreive the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
 
 	$query = $db->get('table_name');
-	
+
 	$results = $query->fetchAll(PDO::FETCH_ASSOC);
-	
-	
+
+
 ### Inserting / Updating
 
 An example of an insert query:
@@ -112,13 +113,13 @@ An example of an insert query:
 		->set('foobar', 'baz')
 		->where('foo !=', 'bar')
 		->insert('table');
-		
+
 An example of an update query:
 
 	$query = $db->set('foo', 'bar')
 		->set('foobar', 'baz')
 		->where('foo !=', 'bar')
 		->update('table');
-		
+
 The `set` method can also take an array as a paramater, instead of setting individual values.
 
