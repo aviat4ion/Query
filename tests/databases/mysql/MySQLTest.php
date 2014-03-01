@@ -23,6 +23,12 @@ class MySQLTest extends DBTest {
 
 	public function setUp()
 	{
+		// If the database isn't installed, skip the tests
+		if ( ! class_exists("MySQL"))
+		{
+			$this->markTestSkipped("MySQL extension for PDO not loaded");
+		}
+		
 		// Attempt to connect, if there is a test config file
 		if (is_file(QTEST_DIR . "/settings.json"))
 		{

@@ -773,7 +773,7 @@ abstract class QBTest extends Query_TestCase {
 
 	// --------------------------------------------------------------------------
 
-	public function testBadConnection()
+	/*public function testBadConnection()
 	{
 		$params = array(
 			'host' => '127.0.0.1',
@@ -781,19 +781,19 @@ abstract class QBTest extends Query_TestCase {
 			'database' => 'test',
 			'user' => NULL,
 			'pass' => NULL,
-			'type' => 'mysql',
+			'type' => 'sqlite',
 			'name' => 'foobar'
 		);
 
 		try
 		{
-			$this->db = @Query($params);
+			$this->db = Query($params);
 		}
 		catch(BadConnectionException $e)
 		{
 			$this->assertInstanceOf('BadConnectionException', $e);
 		}
-	}
+	}*/
 
 	// --------------------------------------------------------------------------
 

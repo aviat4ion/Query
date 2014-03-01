@@ -163,7 +163,7 @@ function Query($params = '')
 	// --------------------------------------------------------------------------
 
 	// Create the dsn for the database to connect to
-	if ($dbtype === 'firebird') $dsn = "{$params->host}:{$params->file}";
+	if ($dbtype === 'firebird' || $dbtype == 'pdo_firebird') $dsn = "{$params->host}:{$params->file}";
 	elseif ($dbtype === 'sqlite') $dsn = $params->file;
 	else
 	{
