@@ -108,7 +108,7 @@ class Firebird extends DB_PDO {
 	 * Wrapper public function to better match PDO
 	 *
 	 * @param string $sql
-	 * @return $this
+	 * @return Firebird_Result
 	 * @throws PDOException
 	 */
 	public function query($sql)
@@ -135,7 +135,7 @@ class Firebird extends DB_PDO {
 	 *
 	 * @param string $query
 	 * @param array $options
-	 * @return $this
+	 * @return Firebird_Result
 	 * @throws PDOException
 	 */
 	public function prepare($query, $options=NULL)
@@ -155,7 +155,7 @@ class Firebird extends DB_PDO {
 	/**
 	 * Start a database transaction
 	 *
-	 * @return bool
+	 * @return boolean|null
 	 */
 	public function beginTransaction()
 	{
@@ -193,7 +193,7 @@ class Firebird extends DB_PDO {
 	 *
 	 * @param string $sql
 	 * @param array $args
-	 * @return resource
+	 * @return Firebird_Result
 	 */
 	public function prepare_execute($sql, $args)
 	{

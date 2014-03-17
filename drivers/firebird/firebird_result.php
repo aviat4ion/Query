@@ -126,7 +126,7 @@ class Firebird_Result extends PDOStatement {
 	 * Run a prepared statement query
 	 *
 	 * @param  array $args
-	 * @return bool
+	 * @return Firebird_Result
 	 */
 	public function execute($args = NULL)
 	{
