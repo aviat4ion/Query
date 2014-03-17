@@ -172,7 +172,7 @@ SQL;
 	/**
 	 * SQL to show list of field types
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	public function type_list()
 	{

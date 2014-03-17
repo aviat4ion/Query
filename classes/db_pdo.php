@@ -82,7 +82,7 @@ abstract class DB_PDO extends PDO {
 	 *
 	 * @param string $sql
 	 * @param array $data
-	 * @return mixed PDOStatement / FALSE
+	 * @return PDOStatement PDOStatement / FALSE
 	 * @throws InvalidArgumentException
 	 */
 	public function prepare_query($sql, $data)

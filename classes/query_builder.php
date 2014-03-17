@@ -856,7 +856,7 @@ class Query_Builder implements iQuery_Builder {
 	 *
 	 * @param int $limit
 	 * @param int $offset
-	 * @return string
+	 * @return Query_Builder
 	 */
 	public function limit($limit, $offset=FALSE)
 	{

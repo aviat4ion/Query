@@ -80,7 +80,7 @@ class SQLite extends DB_PDO {
 	/**
 	 * List system tables for the current database
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	public function get_system_tables()
 	{
