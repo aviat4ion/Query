@@ -18,6 +18,12 @@
  *
  * @package Query
  * @subpackage Drivers
+ * @method array get_dbs()
+ * @method mixed driver_query(string $sql)
+ * @method array get_system_tables()
+ * @method array get_tables()
+ * @method mixed query(string $sql)
+ * @method string quote(string $str)
  */
 class MySQL_Util extends DB_Util {
 

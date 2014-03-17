@@ -95,6 +95,11 @@ class Query_Builder implements iQuery_Builder {
 
 	// Whether to do only an explain on the query
 	protected $explain = FALSE;
+	
+	// Subclass instances
+	public $db;
+	protected $parser;
+	public $util;
 
 	// --------------------------------------------------------------------------
 	// ! Methods
@@ -1342,8 +1347,6 @@ class Query_Builder implements iQuery_Builder {
 	 */
 	protected function _compile($type='', $table='')
 	{
-		$sql = '';
-
 		$table = $this->db->quote_table($table);
 
 		switch($type)

@@ -28,7 +28,7 @@ class Firebird extends DB_PDO {
 	 *
 	 * @var object
 	 */
-	protected $statement;
+	protected $statement = NULL;
 	
 	/**
 	 * Reference to the resource returned by
@@ -50,7 +50,7 @@ class Firebird extends DB_PDO {
 	 *
 	 * @var resource
 	 */
-	protected $conn;
+	protected $conn = NULL;
 
 	/**
 	 * Open the link to the database
@@ -72,7 +72,7 @@ class Firebird extends DB_PDO {
 		}
 
 		// Throw an exception to make this match other pdo classes
-		if ( ! is_resource($this->conn)) throw new PDOException(fbird_errmsg());
+		if ( ! is_resource($this->conn)) throw new PDOException(fbird_errmsg(), fbird_errcode());
 		
 		// Load these classes here because this
 		// driver does not call the constructor
@@ -121,7 +121,7 @@ class Firebird extends DB_PDO {
 
 		// Throw the error as a exception
 		$err_string = fbird_errmsg() . "Last query:" . $this->last_query;
-		if ($this->statement_link === FALSE) throw new PDOException($err_string);
+		if ($this->statement_link === FALSE) throw new PDOException($err_string, fbird_errcode());
 		
 		$this->statement = new FireBird_Result($this->statement_link);
 
@@ -143,7 +143,7 @@ class Firebird extends DB_PDO {
 		$this->statement_link = fbird_prepare($this->conn, $query);
 
 		// Throw the error as an exception
-		if ($this->statement_link === FALSE) throw new PDOException(fbird_errmsg());
+		if ($this->statement_link === FALSE) throw new PDOException(fbird_errmsg(), fbird_errcode());
 
 		$this->statement = new FireBird_Result($this->statement_link);
 

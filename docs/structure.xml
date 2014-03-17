@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="Query" version="2.2.0&#10;">
   <partials/>
-  <file path="classes/db_pdo.php" generated-path="classes.db_pdo.html" hash="6b33790fec23f409a72cfd99aab8050f" package="Query">
+  <file path="classes/db_pdo.php" generated-path="classes.db_pdo.html" hash="c38ac57c5755203cbcd92bebd4939d2b" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -469,7 +469,7 @@ the connection/database</description>
         </argument>
       </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="drivers/firebird/firebird_result.php" generated-path="drivers.firebird.firebird_result.html" hash="b982a41323135631817b1aaebea26e4d" package="Query">
     <docblock line="0">
@@ -850,7 +850,7 @@ the query</description>
     </class>
     <source>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</source>
   </file>
-  <file path="drivers/firebird/firebird_util.php" generated-path="drivers.firebird.firebird_util.html" hash="a4399d9239d3e68c29ab6f1f66c8f9cc" package="Query">
+  <file path="drivers/firebird/firebird_util.php" generated-path="drivers.firebird.firebird_util.html" hash="4676d786f607a0e85054da9e8ab9309d" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -860,26 +860,26 @@ the query</description>
       <tag name="link" line="0" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag name="license" line="0" description="http://philsturgeon.co.uk/code/dbad-license" link="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
-    <class final="false" abstract="false" namespace="" line="22" package="Query\Drivers">
+    <class final="false" abstract="false" namespace="" line="25" package="Query\Drivers">
       <extends>\DB_Util</extends>
       <name>Firebird_Util</name>
       <full_name>\Firebird_Util</full_name>
-      <docblock line="22">
+      <docblock line="25">
         <description>Firebird-specific backup, import and creation methods</description>
         <long-description></long-description>
-        <tag name="package" line="22" description="Query"/>
-        <tag name="subpackage" line="22" description="Drivers"/>
+        <tag name="package" line="25" description="Query"/>
+        <tag name="subpackage" line="25" description="Drivers"/>
       </docblock>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="30" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="33" package="Query\Drivers">
         <name>__construct</name>
         <full_name>\Firebird_Util::__construct()</full_name>
-        <docblock line="30">
+        <docblock line="33">
           <description>Save a reference to the current connection object</description>
           <long-description></long-description>
-          <tag name="param" line="30" description="" type="object" variable="$conn">
+          <tag name="param" line="33" description="" type="object" variable="$conn">
             <type>object</type>
           </tag>
-          <tag name="return" line="30" description="" type="void">
+          <tag name="return" line="33" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -889,25 +889,25 @@ the query</description>
           <type>object</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="47" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="50" package="Query\Drivers">
         <name>create_table</name>
         <full_name>\Firebird_Util::create_table()</full_name>
-        <docblock line="47">
+        <docblock line="50">
           <description>Convienience public function to generate sql for creating a db table</description>
           <long-description></long-description>
-          <tag name="param" line="47" description="" type="string" variable="$name">
+          <tag name="param" line="50" description="" type="string" variable="$name">
             <type>string</type>
           </tag>
-          <tag name="param" line="47" description="" type="array" variable="$fields">
+          <tag name="param" line="50" description="" type="array" variable="$fields">
             <type>array</type>
           </tag>
-          <tag name="param" line="47" description="" type="array" variable="$constraints">
+          <tag name="param" line="50" description="" type="array" variable="$constraints">
             <type>array</type>
           </tag>
-          <tag name="param" line="47" description="" type="array" variable="$indexes">
+          <tag name="param" line="50" description="" type="array" variable="$indexes">
             <type>array</type>
           </tag>
-          <tag name="return" line="47" description="" type="string">
+          <tag name="return" line="50" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -932,16 +932,16 @@ the query</description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="103" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="106" package="Query\Drivers">
         <name>delete_table</name>
         <full_name>\Firebird_Util::delete_table()</full_name>
-        <docblock line="103">
+        <docblock line="106">
           <description>Drop the selected table</description>
           <long-description></long-description>
-          <tag name="param" line="103" description="" type="string" variable="$name">
+          <tag name="param" line="106" description="" type="string" variable="$name">
             <type>string</type>
           </tag>
-          <tag name="return" line="103" description="" type="string">
+          <tag name="return" line="106" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -951,30 +951,30 @@ the query</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="115" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="118" package="Query\Drivers">
         <name>backup_structure</name>
         <full_name>\Firebird_Util::backup_structure()</full_name>
-        <docblock line="115">
+        <docblock line="118">
           <description>Create an SQL backup file for the current database's structure</description>
           <long-description></long-description>
-          <tag name="return" line="115" description="" type="string">
+          <tag name="return" line="118" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="130" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="133" package="Query\Drivers">
         <name>backup_data</name>
         <full_name>\Firebird_Util::backup_data()</full_name>
-        <docblock line="130">
+        <docblock line="133">
           <description>Create an SQL backup file for the current database's data</description>
           <long-description></long-description>
-          <tag name="param" line="130" description="" type="array" variable="$exclude">
+          <tag name="param" line="133" description="" type="array" variable="$exclude">
             <type>array</type>
           </tag>
-          <tag name="param" line="130" description="" type="bool" variable="$system_tables">
+          <tag name="param" line="133" description="" type="bool" variable="$system_tables">
             <type>bool</type>
           </tag>
-          <tag name="return" line="130" description="" type="string">
+          <tag name="return" line="133" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -989,13 +989,72 @@ the query</description>
           <type>bool</type>
         </argument>
       </method>
+      <method final="false" static="false" visibility="public" line="25">
+        <name>get_system_tables</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="25"/>
+          <tag name="return" line="25" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="25" description="" method_name="get_system_tables"/>
+        </docblock>
+      </method>
+      <method final="false" static="false" visibility="public" line="25">
+        <name>get_tables</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="25"/>
+          <tag name="return" line="25" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="25" description="" method_name="get_tables"/>
+        </docblock>
+      </method>
+      <method final="false" static="false" visibility="public" line="25">
+        <name>query</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="25"/>
+          <tag name="return" line="25" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="25" description="" method_name="query"/>
+        </docblock>
+      </method>
     </class>
     <markers>
-      <todo line="117">Implement Backup structure function</todo>
+      <todo line="120">Implement Backup structure function</todo>
     </markers>
-    <source>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</source>
+    <source>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</source>
   </file>
-  <file path="classes/query_builder.php" generated-path="classes.query_builder.html" hash="d260750eb35816b4db7b7b62070b2bd9" package="Query">
+  <file path="drivers/pdo_firebird/pdo_firebird_util.php" generated-path="drivers.pdo_firebird.pdo_firebird_util.html" hash="4299b7a8ac82b03573d5b1c922e8559b" package="Query">
+    <docblock line="0">
+      <description>Query</description>
+      <long-description>Free Query Builder / Database Abstraction Layer</long-description>
+      <tag name="package" line="0" description="Query"/>
+      <tag name="author" line="0" description="Timothy J. Warren"/>
+      <tag name="copyright" line="0" description="Copyright (c) 2012 - 2014"/>
+      <tag name="link" line="0" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
+      <tag name="license" line="0" description="http://philsturgeon.co.uk/code/dbad-license" link="http://philsturgeon.co.uk/code/dbad-license"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="" line="24" package="Query\Drivers">
+      <extends>\Firebird_Util</extends>
+      <name>PDO_Firebird_Util</name>
+      <full_name>\PDO_Firebird_Util</full_name>
+      <docblock line="24">
+        <description>Firebird-specific backup, import and creation methods</description>
+        <long-description></long-description>
+        <tag name="package" line="24" description="Query"/>
+        <tag name="subpackage" line="24" description="Drivers"/>
+      </docblock>
+    </class>
+    <source>eJytUctOwzAQPCdfsbc+RGOoOAESBUIlEBIPgThajr1NrCaxWdsVEeLfcR+hAq744tHurGc9c3ZuK5uy8TiFMTwGpC6CNZ4T4rYAl0HXCgkY5MKLQjiEi8J5EtJr08Kd6JB2UzMr5FKUmCT9WzATwVeGkuRZN8ZXHdxm8CqIsN10pbEd6bLyyVWPYChHMD08msJkfR1veLVul5AklffWnTBWal+FIpOmYWKlhT+Om7C9Zq0ltg63/Ei3la6dD1SiaeNQFpZMGoVMFUJNduQ4yNKUMZj820lTwregCblpJQKhqK3w1ZDz/OaJc8hgwLKMLSKj0KS+AQ9e11lMZjA6Tft05rvmxFmUeqElFNHsYA9AN9aQB9EqkFFjk0qD0XXlfuUCe4tcKPpiTnqF5DYGyFo4Bw/5Pe/1+EtcBvDdY6sc/Kx+fK4Nu47CZgFWGf7nB18wJron</source>
+  </file>
+  <file path="classes/query_builder.php" generated-path="classes.query_builder.html" hash="ac5b71acda7f9f52ef9ec3d6ac415375" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -1161,16 +1220,40 @@ instantiates the specific db driver</description>
           <long-description></long-description>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="109" package="Query\Query">
+      <property static="false" visibility="public" line="100" namespace="" package="Query\Query">
+        <name>$db</name>
+        <default></default>
+        <docblock line="100">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" line="101" namespace="" package="Query\Query">
+        <name>$parser</name>
+        <default></default>
+        <docblock line="101">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </property>
+      <property static="false" visibility="public" line="102" namespace="" package="Query\Query">
+        <name>$util</name>
+        <default></default>
+        <docblock line="102">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="114" package="Query\Query">
         <name>__construct</name>
         <full_name>\Query_Builder::__construct()</full_name>
-        <docblock line="109">
+        <docblock line="114">
           <description>Constructor</description>
           <long-description></long-description>
-          <tag name="param" line="109" description="" type="\DB_PDO" variable="$db">
+          <tag name="param" line="114" description="" type="\DB_PDO" variable="$db">
             <type link="DB_PDO.html">\DB_PDO</type>
           </tag>
-          <tag name="param" line="109" description="&lt;ul&gt;&#10;&lt;li&gt;the connection parameters&lt;/li&gt;&#10;&lt;/ul&gt;" type="object" variable="$params">
+          <tag name="param" line="114" description="&lt;ul&gt;&#10;&lt;li&gt;the connection parameters&lt;/li&gt;&#10;&lt;/ul&gt;" type="object" variable="$params">
             <type>object</type>
           </tag>
         </docblock>
@@ -1185,24 +1268,24 @@ instantiates the specific db driver</description>
           <type>object</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="134" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="139" package="Query\Query">
         <name>__destruct</name>
         <full_name>\Query_Builder::__destruct()</full_name>
-        <docblock line="134">
+        <docblock line="139">
           <description>Destructor</description>
           <long-description></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="149" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="154" package="Query\Query">
         <name>select</name>
         <full_name>\Query_Builder::select()</full_name>
-        <docblock line="149">
+        <docblock line="154">
           <description>Specifies rows to select in a query</description>
           <long-description></long-description>
-          <tag name="param" line="149" description="" type="string" variable="$fields">
+          <tag name="param" line="154" description="" type="string" variable="$fields">
             <type>string</type>
           </tag>
-          <tag name="return" line="149" description="" type="\Query_Builder">
+          <tag name="return" line="154" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1213,19 +1296,19 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="195" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="200" package="Query\Query">
         <name>_select</name>
         <full_name>\Query_Builder::_select()</full_name>
-        <docblock line="195">
+        <docblock line="200">
           <description>Method to simplify select_ methods</description>
           <long-description></long-description>
-          <tag name="param" line="195" description="" type="string" variable="$field">
+          <tag name="param" line="200" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="195" description="" type="string" variable="$as">
+          <tag name="param" line="200" description="" type="string" variable="$as">
             <type>string</type>
           </tag>
-          <tag name="return" line="195" description="" type="string">
+          <tag name="return" line="200" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -1240,19 +1323,19 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="216" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="221" package="Query\Query">
         <name>select_max</name>
         <full_name>\Query_Builder::select_max()</full_name>
-        <docblock line="216">
+        <docblock line="221">
           <description>Selects the maximum value of a field from a query</description>
           <long-description></long-description>
-          <tag name="param" line="216" description="" type="string" variable="$field">
+          <tag name="param" line="221" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="216" description="" type="string" variable="$as">
+          <tag name="param" line="221" description="" type="string" variable="$as">
             <type>string</type>
           </tag>
-          <tag name="return" line="216" description="" type="\Query_Builder">
+          <tag name="return" line="221" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1268,19 +1351,19 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="232" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="237" package="Query\Query">
         <name>select_min</name>
         <full_name>\Query_Builder::select_min()</full_name>
-        <docblock line="232">
+        <docblock line="237">
           <description>Selects the minimum value of a field from a query</description>
           <long-description></long-description>
-          <tag name="param" line="232" description="" type="string" variable="$field">
+          <tag name="param" line="237" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="232" description="" type="string" variable="$as">
+          <tag name="param" line="237" description="" type="string" variable="$as">
             <type>string</type>
           </tag>
-          <tag name="return" line="232" description="" type="\Query_Builder">
+          <tag name="return" line="237" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1296,19 +1379,19 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="248" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="253" package="Query\Query">
         <name>select_avg</name>
         <full_name>\Query_Builder::select_avg()</full_name>
-        <docblock line="248">
+        <docblock line="253">
           <description>Selects the average value of a field from a query</description>
           <long-description></long-description>
-          <tag name="param" line="248" description="" type="string" variable="$field">
+          <tag name="param" line="253" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="248" description="" type="string" variable="$as">
+          <tag name="param" line="253" description="" type="string" variable="$as">
             <type>string</type>
           </tag>
-          <tag name="return" line="248" description="" type="\Query_Builder">
+          <tag name="return" line="253" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1324,19 +1407,19 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="264" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="269" package="Query\Query">
         <name>select_sum</name>
         <full_name>\Query_Builder::select_sum()</full_name>
-        <docblock line="264">
+        <docblock line="269">
           <description>Selects the sum of a field from a query</description>
           <long-description></long-description>
-          <tag name="param" line="264" description="" type="string" variable="$field">
+          <tag name="param" line="269" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="264" description="" type="string" variable="$as">
+          <tag name="param" line="269" description="" type="string" variable="$as">
             <type>string</type>
           </tag>
-          <tag name="return" line="264" description="" type="\Query_Builder">
+          <tag name="return" line="269" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1352,40 +1435,40 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="278" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="283" package="Query\Query">
         <name>distinct</name>
         <full_name>\Query_Builder::distinct()</full_name>
-        <docblock line="278">
+        <docblock line="283">
           <description>Adds the 'distinct' keyword to a query</description>
           <long-description></long-description>
-          <tag name="return" line="278" description="" type="\Query_Builder">
+          <tag name="return" line="283" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="292" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="297" package="Query\Query">
         <name>explain</name>
         <full_name>\Query_Builder::explain()</full_name>
-        <docblock line="292">
+        <docblock line="297">
           <description>Tell the database to give you the query plan instead of result set</description>
           <long-description></long-description>
-          <tag name="return" line="292" description="" type="\Query_Builder">
+          <tag name="return" line="297" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="306" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="311" package="Query\Query">
         <name>from</name>
         <full_name>\Query_Builder::from()</full_name>
-        <docblock line="306">
+        <docblock line="311">
           <description>Specify the database table to select from</description>
           <long-description></long-description>
-          <tag name="param" line="306" description="" type="string" variable="$tblname">
+          <tag name="param" line="311" description="" type="string" variable="$tblname">
             <type>string</type>
           </tag>
-          <tag name="return" line="306" description="" type="\Query_Builder">
+          <tag name="return" line="311" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1396,28 +1479,28 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="336" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="341" package="Query\Query">
         <name>_like</name>
         <full_name>\Query_Builder::_like()</full_name>
-        <docblock line="336">
+        <docblock line="341">
           <description>Simplify 'like' methods</description>
           <long-description></long-description>
-          <tag name="param" line="336" description="" type="string" variable="$field">
+          <tag name="param" line="341" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="336" description="" type="mixed" variable="$val">
+          <tag name="param" line="341" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="336" description="" type="string" variable="$pos">
+          <tag name="param" line="341" description="" type="string" variable="$pos">
             <type>string</type>
           </tag>
-          <tag name="param" line="336" description="" type="string" variable="$like">
+          <tag name="param" line="341" description="" type="string" variable="$like">
             <type>string</type>
           </tag>
-          <tag name="param" line="336" description="" type="string" variable="$conj">
+          <tag name="param" line="341" description="" type="string" variable="$conj">
             <type>string</type>
           </tag>
-          <tag name="return" line="336" description="" type="\Query_Builder">
+          <tag name="return" line="341" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1448,22 +1531,22 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="378" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="383" package="Query\Query">
         <name>like</name>
         <full_name>\Query_Builder::like()</full_name>
-        <docblock line="378">
+        <docblock line="383">
           <description>Creates a Like clause in the sql statement</description>
           <long-description></long-description>
-          <tag name="param" line="378" description="" type="string" variable="$field">
+          <tag name="param" line="383" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="378" description="" type="mixed" variable="$val">
+          <tag name="param" line="383" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="378" description="" type="string" variable="$pos">
+          <tag name="param" line="383" description="" type="string" variable="$pos">
             <type>string</type>
           </tag>
-          <tag name="return" line="378" description="" type="\Query_Builder">
+          <tag name="return" line="383" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1484,22 +1567,22 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="393" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="398" package="Query\Query">
         <name>or_like</name>
         <full_name>\Query_Builder::or_like()</full_name>
-        <docblock line="393">
+        <docblock line="398">
           <description>Generates an OR Like clause</description>
           <long-description></long-description>
-          <tag name="param" line="393" description="" type="string" variable="$field">
+          <tag name="param" line="398" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="393" description="" type="mixed" variable="$val">
+          <tag name="param" line="398" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="393" description="" type="string" variable="$pos">
+          <tag name="param" line="398" description="" type="string" variable="$pos">
             <type>string</type>
           </tag>
-          <tag name="return" line="393" description="" type="\Query_Builder">
+          <tag name="return" line="398" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1520,22 +1603,22 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="408" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="413" package="Query\Query">
         <name>not_like</name>
         <full_name>\Query_Builder::not_like()</full_name>
-        <docblock line="408">
+        <docblock line="413">
           <description>Generates a NOT LIKE clause</description>
           <long-description></long-description>
-          <tag name="param" line="408" description="" type="string" variable="$field">
+          <tag name="param" line="413" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="408" description="" type="mixed" variable="$val">
+          <tag name="param" line="413" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="408" description="" type="string" variable="$pos">
+          <tag name="param" line="413" description="" type="string" variable="$pos">
             <type>string</type>
           </tag>
-          <tag name="return" line="408" description="" type="\Query_Builder">
+          <tag name="return" line="413" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1556,22 +1639,22 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="423" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="428" package="Query\Query">
         <name>or_not_like</name>
         <full_name>\Query_Builder::or_not_like()</full_name>
-        <docblock line="423">
+        <docblock line="428">
           <description>Generates a OR NOT LIKE clause</description>
           <long-description></long-description>
-          <tag name="param" line="423" description="" type="string" variable="$field">
+          <tag name="param" line="428" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="423" description="" type="mixed" variable="$val">
+          <tag name="param" line="428" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="423" description="" type="string" variable="$pos">
+          <tag name="param" line="428" description="" type="string" variable="$pos">
             <type>string</type>
           </tag>
-          <tag name="return" line="423" description="" type="\Query_Builder">
+          <tag name="return" line="428" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1592,22 +1675,22 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="440" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="445" package="Query\Query">
         <name>_having</name>
         <full_name>\Query_Builder::_having()</full_name>
-        <docblock line="440">
+        <docblock line="445">
           <description>Simplify building having clauses</description>
           <long-description></long-description>
-          <tag name="param" line="440" description="" type="mixed" variable="$key">
+          <tag name="param" line="445" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="440" description="" type="mixed" variable="$val">
+          <tag name="param" line="445" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="440" description="" type="string" variable="$conj">
+          <tag name="param" line="445" description="" type="string" variable="$conj">
             <type>string</type>
           </tag>
-          <tag name="return" line="440" description="" type="\Query_Builder">
+          <tag name="return" line="445" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1628,19 +1711,19 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="475" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="480" package="Query\Query">
         <name>having</name>
         <full_name>\Query_Builder::having()</full_name>
-        <docblock line="475">
+        <docblock line="480">
           <description>Generates a 'Having' clause</description>
           <long-description></long-description>
-          <tag name="param" line="475" description="" type="mixed" variable="$key">
+          <tag name="param" line="480" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="475" description="" type="mixed" variable="$val">
+          <tag name="param" line="480" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="475" description="" type="\Query_Builder">
+          <tag name="return" line="480" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1656,19 +1739,19 @@ instantiates the specific db driver</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="489" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="494" package="Query\Query">
         <name>or_having</name>
         <full_name>\Query_Builder::or_having()</full_name>
-        <docblock line="489">
+        <docblock line="494">
           <description>Generates a 'Having' clause prefixed with 'OR'</description>
           <long-description></long-description>
-          <tag name="param" line="489" description="" type="mixed" variable="$key">
+          <tag name="param" line="494" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="489" description="" type="mixed" variable="$val">
+          <tag name="param" line="494" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="489" description="" type="\Query_Builder">
+          <tag name="return" line="494" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1684,19 +1767,19 @@ instantiates the specific db driver</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="505" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="510" package="Query\Query">
         <name>_where</name>
         <full_name>\Query_Builder::_where()</full_name>
-        <docblock line="505">
+        <docblock line="510">
           <description>Do all the repeditive stuff for where/having type methods</description>
           <long-description></long-description>
-          <tag name="param" line="505" description="" type="mixed" variable="$key">
+          <tag name="param" line="510" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="505" description="" type="mixed" variable="$val">
+          <tag name="param" line="510" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="505" description="" type="array">
+          <tag name="return" line="510" description="" type="array">
             <type>array</type>
           </tag>
         </docblock>
@@ -1711,22 +1794,22 @@ instantiates the specific db driver</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="538" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="543" package="Query\Query">
         <name>_where_string</name>
         <full_name>\Query_Builder::_where_string()</full_name>
-        <docblock line="538">
+        <docblock line="543">
           <description>Simplify generating where string</description>
           <long-description></long-description>
-          <tag name="param" line="538" description="" type="mixed" variable="$key">
+          <tag name="param" line="543" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="538" description="" type="mixed" variable="$val">
+          <tag name="param" line="543" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="538" description="" type="string" variable="$conj">
+          <tag name="param" line="543" description="" type="string" variable="$conj">
             <type>string</type>
           </tag>
-          <tag name="return" line="538" description="" type="\Query_Builder">
+          <tag name="return" line="543" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1747,25 +1830,25 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="593" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="598" package="Query\Query">
         <name>_where_in</name>
         <full_name>\Query_Builder::_where_in()</full_name>
-        <docblock line="593">
+        <docblock line="598">
           <description>Simplify where_in methods</description>
           <long-description></long-description>
-          <tag name="param" line="593" description="" type="mixed" variable="$key">
+          <tag name="param" line="598" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="593" description="" type="mixed" variable="$val">
+          <tag name="param" line="598" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="593" description="&lt;ul&gt;&#10;&lt;li&gt;The (not) in fragment&lt;/li&gt;&#10;&lt;/ul&gt;" type="string" variable="$in">
+          <tag name="param" line="598" description="&lt;ul&gt;&#10;&lt;li&gt;The (not) in fragment&lt;/li&gt;&#10;&lt;/ul&gt;" type="string" variable="$in">
             <type>string</type>
           </tag>
-          <tag name="param" line="593" description="&lt;ul&gt;&#10;&lt;li&gt;The where in conjunction&lt;/li&gt;&#10;&lt;/ul&gt;" type="string" variable="$conj">
+          <tag name="param" line="598" description="&lt;ul&gt;&#10;&lt;li&gt;The where in conjunction&lt;/li&gt;&#10;&lt;/ul&gt;" type="string" variable="$conj">
             <type>string</type>
           </tag>
-          <tag name="return" line="593" description="" type="\Query_Builder">
+          <tag name="return" line="598" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1791,24 +1874,24 @@ instantiates the specific db driver</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="626" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="631" package="Query\Query">
         <name>where</name>
         <full_name>\Query_Builder::where()</full_name>
-        <docblock line="626">
+        <docblock line="631">
           <description>Specify condition(s) in the where clause of a query
 Note: this function works with key / value, or a
 passed array with key / value pairs</description>
           <long-description></long-description>
-          <tag name="param" line="626" description="" type="mixed" variable="$key">
+          <tag name="param" line="631" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="626" description="" type="mixed" variable="$val">
+          <tag name="param" line="631" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="626" description="" type="mixed" variable="$escape">
+          <tag name="param" line="631" description="" type="mixed" variable="$escape">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="626" description="" type="\Query_Builder">
+          <tag name="return" line="631" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1829,19 +1912,19 @@ passed array with key / value pairs</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="640" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="645" package="Query\Query">
         <name>or_where</name>
         <full_name>\Query_Builder::or_where()</full_name>
-        <docblock line="640">
+        <docblock line="645">
           <description>Where clause prefixed with "OR"</description>
           <long-description></long-description>
-          <tag name="param" line="640" description="" type="string" variable="$key">
+          <tag name="param" line="645" description="" type="string" variable="$key">
             <type>string</type>
           </tag>
-          <tag name="param" line="640" description="" type="mixed" variable="$val">
+          <tag name="param" line="645" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="640" description="" type="\Query_Builder">
+          <tag name="return" line="645" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1857,19 +1940,19 @@ passed array with key / value pairs</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="654" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="659" package="Query\Query">
         <name>where_in</name>
         <full_name>\Query_Builder::where_in()</full_name>
-        <docblock line="654">
+        <docblock line="659">
           <description>Where clause with 'IN' statement</description>
           <long-description></long-description>
-          <tag name="param" line="654" description="" type="mixed" variable="$field">
+          <tag name="param" line="659" description="" type="mixed" variable="$field">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="654" description="" type="mixed" variable="$val">
+          <tag name="param" line="659" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="654" description="" type="\Query_Builder">
+          <tag name="return" line="659" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1885,19 +1968,19 @@ passed array with key / value pairs</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="668" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="673" package="Query\Query">
         <name>or_where_in</name>
         <full_name>\Query_Builder::or_where_in()</full_name>
-        <docblock line="668">
+        <docblock line="673">
           <description>Where in statement prefixed with "or"</description>
           <long-description></long-description>
-          <tag name="param" line="668" description="" type="string" variable="$field">
+          <tag name="param" line="673" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="668" description="" type="mixed" variable="$val">
+          <tag name="param" line="673" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="668" description="" type="\Query_Builder">
+          <tag name="return" line="673" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1913,19 +1996,19 @@ passed array with key / value pairs</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="682" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="687" package="Query\Query">
         <name>where_not_in</name>
         <full_name>\Query_Builder::where_not_in()</full_name>
-        <docblock line="682">
+        <docblock line="687">
           <description>WHERE NOT IN (FOO) clause</description>
           <long-description></long-description>
-          <tag name="param" line="682" description="" type="string" variable="$field">
+          <tag name="param" line="687" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="682" description="" type="mixed" variable="$val">
+          <tag name="param" line="687" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="682" description="" type="\Query_Builder">
+          <tag name="return" line="687" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1941,19 +2024,19 @@ passed array with key / value pairs</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="696" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="701" package="Query\Query">
         <name>or_where_not_in</name>
         <full_name>\Query_Builder::or_where_not_in()</full_name>
-        <docblock line="696">
+        <docblock line="701">
           <description>OR WHERE NOT IN (FOO) clause</description>
           <long-description></long-description>
-          <tag name="param" line="696" description="" type="string" variable="$field">
+          <tag name="param" line="701" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="696" description="" type="mixed" variable="$val">
+          <tag name="param" line="701" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="696" description="" type="\Query_Builder">
+          <tag name="return" line="701" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1969,19 +2052,19 @@ passed array with key / value pairs</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="712" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="717" package="Query\Query">
         <name>set</name>
         <full_name>\Query_Builder::set()</full_name>
-        <docblock line="712">
+        <docblock line="717">
           <description>Sets values for inserts / updates / deletes</description>
           <long-description></long-description>
-          <tag name="param" line="712" description="" type="mixed" variable="$key">
+          <tag name="param" line="717" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="712" description="" type="mixed" variable="$val">
+          <tag name="param" line="717" description="" type="mixed" variable="$val">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="712" description="" type="\Query_Builder">
+          <tag name="return" line="717" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1997,22 +2080,22 @@ passed array with key / value pairs</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="751" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="756" package="Query\Query">
         <name>join</name>
         <full_name>\Query_Builder::join()</full_name>
-        <docblock line="751">
+        <docblock line="756">
           <description>Creates a join phrase in a compiled query</description>
           <long-description></long-description>
-          <tag name="param" line="751" description="" type="string" variable="$table">
+          <tag name="param" line="756" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="751" description="" type="string" variable="$condition">
+          <tag name="param" line="756" description="" type="string" variable="$condition">
             <type>string</type>
           </tag>
-          <tag name="param" line="751" description="" type="string" variable="$type">
+          <tag name="param" line="756" description="" type="string" variable="$type">
             <type>string</type>
           </tag>
-          <tag name="return" line="751" description="" type="\Query_Builder">
+          <tag name="return" line="756" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -2033,16 +2116,16 @@ passed array with key / value pairs</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="793" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="798" package="Query\Query">
         <name>group_by</name>
         <full_name>\Query_Builder::group_by()</full_name>
-        <docblock line="793">
+        <docblock line="798">
           <description>Group the results by the selected field(s)</description>
           <long-description></long-description>
-          <tag name="param" line="793" description="" type="mixed" variable="$field">
+          <tag name="param" line="798" description="" type="mixed" variable="$field">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="793" description="" type="\Query_Builder">
+          <tag name="return" line="798" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -2053,19 +2136,19 @@ passed array with key / value pairs</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="819" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="824" package="Query\Query">
         <name>order_by</name>
         <full_name>\Query_Builder::order_by()</full_name>
-        <docblock line="819">
+        <docblock line="824">
           <description>Order the results by the selected field(s)</description>
           <long-description></long-description>
-          <tag name="param" line="819" description="" type="string" variable="$field">
+          <tag name="param" line="824" description="" type="string" variable="$field">
             <type>string</type>
           </tag>
-          <tag name="param" line="819" description="" type="string" variable="$type">
+          <tag name="param" line="824" description="" type="string" variable="$type">
             <type>string</type>
           </tag>
-          <tag name="return" line="819" description="" type="\Query_Builder">
+          <tag name="return" line="824" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -2081,19 +2164,19 @@ passed array with key / value pairs</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="856" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="861" package="Query\Query">
         <name>limit</name>
         <full_name>\Query_Builder::limit()</full_name>
-        <docblock line="856">
+        <docblock line="861">
           <description>Set a limit on the current sql statement</description>
           <long-description></long-description>
-          <tag name="param" line="856" description="" type="int" variable="$limit">
+          <tag name="param" line="861" description="" type="int" variable="$limit">
             <type>int</type>
           </tag>
-          <tag name="param" line="856" description="" type="int" variable="$offset">
+          <tag name="param" line="861" description="" type="int" variable="$offset">
             <type>int</type>
           </tag>
-          <tag name="return" line="856" description="" type="string">
+          <tag name="return" line="861" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -2108,71 +2191,71 @@ passed array with key / value pairs</description>
           <type>int</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="873" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="878" package="Query\Query">
         <name>group_start</name>
         <full_name>\Query_Builder::group_start()</full_name>
-        <docblock line="873">
+        <docblock line="878">
           <description>Adds a paren to the current query for query grouping</description>
           <long-description></long-description>
-          <tag name="return" line="873" description="" type="\Query_Builder">
+          <tag name="return" line="878" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="892" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="897" package="Query\Query">
         <name>or_group_start</name>
         <full_name>\Query_Builder::or_group_start()</full_name>
-        <docblock line="892">
+        <docblock line="897">
           <description>Adds a paren to the current query for query grouping,
 prefixed with 'OR'</description>
           <long-description></long-description>
-          <tag name="return" line="892" description="" type="\Query_Builder">
+          <tag name="return" line="897" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="911" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="916" package="Query\Query">
         <name>or_not_group_start</name>
         <full_name>\Query_Builder::or_not_group_start()</full_name>
-        <docblock line="911">
+        <docblock line="916">
           <description>Adds a paren to the current query for query grouping,
 prefixed with 'OR NOT'</description>
           <long-description></long-description>
-          <tag name="return" line="911" description="" type="\Query_Builder">
+          <tag name="return" line="916" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="929" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="934" package="Query\Query">
         <name>group_end</name>
         <full_name>\Query_Builder::group_end()</full_name>
-        <docblock line="929">
+        <docblock line="934">
           <description>Ends a query group</description>
           <long-description></long-description>
-          <tag name="return" line="929" description="" type="\Query_Builder">
+          <tag name="return" line="934" description="" type="\Query_Builder">
             <type>\Query_Builder</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="953" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="958" package="Query\Query">
         <name>get</name>
         <full_name>\Query_Builder::get()</full_name>
-        <docblock line="953">
+        <docblock line="958">
           <description>Select and retrieve all records from the current table, and/or
 execute current compiled query</description>
           <long-description></long-description>
-          <tag name="param" line="953" description="" type="" variable="$table"/>
-          <tag name="param" line="953" description="" type="int" variable="$limit">
+          <tag name="param" line="958" description="" type="" variable="$table"/>
+          <tag name="param" line="958" description="" type="int" variable="$limit">
             <type>int</type>
           </tag>
-          <tag name="param" line="953" description="" type="int" variable="$offset">
+          <tag name="param" line="958" description="" type="int" variable="$offset">
             <type>int</type>
           </tag>
-          <tag name="return" line="953" description="" type="object">
+          <tag name="return" line="958" description="" type="object">
             <type>object</type>
           </tag>
         </docblock>
@@ -2192,25 +2275,25 @@ execute current compiled query</description>
           <type>int</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="989" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="994" package="Query\Query">
         <name>get_where</name>
         <full_name>\Query_Builder::get_where()</full_name>
-        <docblock line="989">
+        <docblock line="994">
           <description>Convience method for get() with a where clause</description>
           <long-description></long-description>
-          <tag name="param" line="989" description="" type="string" variable="$table">
+          <tag name="param" line="994" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="989" description="" type="array" variable="$where">
+          <tag name="param" line="994" description="" type="array" variable="$where">
             <type>array</type>
           </tag>
-          <tag name="param" line="989" description="" type="int" variable="$limit">
+          <tag name="param" line="994" description="" type="int" variable="$limit">
             <type>int</type>
           </tag>
-          <tag name="param" line="989" description="" type="int" variable="$offset">
+          <tag name="param" line="994" description="" type="int" variable="$offset">
             <type>int</type>
           </tag>
-          <tag name="return" line="989" description="" type="object">
+          <tag name="return" line="994" description="" type="object">
             <type>object</type>
           </tag>
         </docblock>
@@ -2235,16 +2318,16 @@ execute current compiled query</description>
           <type>int</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1006" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1011" package="Query\Query">
         <name>count_all</name>
         <full_name>\Query_Builder::count_all()</full_name>
-        <docblock line="1006">
+        <docblock line="1011">
           <description>Retreive the number of rows in the selected table</description>
           <long-description></long-description>
-          <tag name="param" line="1006" description="" type="string" variable="$table">
+          <tag name="param" line="1011" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="return" line="1006" description="" type="int">
+          <tag name="return" line="1011" description="" type="int">
             <type>int</type>
           </tag>
         </docblock>
@@ -2254,17 +2337,17 @@ execute current compiled query</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1022" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1027" package="Query\Query">
         <name>count_all_results</name>
         <full_name>\Query_Builder::count_all_results()</full_name>
-        <docblock line="1022">
+        <docblock line="1027">
           <description>Retrieve the number of results for the generated query - used
 in place of the get() method</description>
           <long-description></long-description>
-          <tag name="param" line="1022" description="" type="string" variable="$table">
+          <tag name="param" line="1027" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="return" line="1022" description="" type="int">
+          <tag name="return" line="1027" description="" type="int">
             <type>int</type>
           </tag>
         </docblock>
@@ -2274,19 +2357,19 @@ in place of the get() method</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1055" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1060" package="Query\Query">
         <name>insert</name>
         <full_name>\Query_Builder::insert()</full_name>
-        <docblock line="1055">
+        <docblock line="1060">
           <description>Creates an insert clause, and executes it</description>
           <long-description></long-description>
-          <tag name="param" line="1055" description="" type="string" variable="$table">
+          <tag name="param" line="1060" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1055" description="" type="mixed" variable="$data">
+          <tag name="param" line="1060" description="" type="mixed" variable="$data">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="1055" description="" type="mixed">
+          <tag name="return" line="1060" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -2301,19 +2384,19 @@ in place of the get() method</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1075" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1080" package="Query\Query">
         <name>insert_batch</name>
         <full_name>\Query_Builder::insert_batch()</full_name>
-        <docblock line="1075">
+        <docblock line="1080">
           <description>Create sql for batch insert</description>
           <long-description></long-description>
-          <tag name="param" line="1075" description="" type="string" variable="$table">
+          <tag name="param" line="1080" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1075" description="" type="array" variable="$data">
+          <tag name="param" line="1080" description="" type="array" variable="$data">
             <type>array</type>
           </tag>
-          <tag name="return" line="1075" description="" type="string">
+          <tag name="return" line="1080" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -2328,19 +2411,19 @@ in place of the get() method</description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1097" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1102" package="Query\Query">
         <name>update</name>
         <full_name>\Query_Builder::update()</full_name>
-        <docblock line="1097">
+        <docblock line="1102">
           <description>Creates an update clause, and executes it</description>
           <long-description></long-description>
-          <tag name="param" line="1097" description="" type="string" variable="$table">
+          <tag name="param" line="1102" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1097" description="" type="mixed" variable="$data">
+          <tag name="param" line="1102" description="" type="mixed" variable="$data">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="1097" description="" type="mixed">
+          <tag name="return" line="1102" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -2355,19 +2438,19 @@ in place of the get() method</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1117" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1122" package="Query\Query">
         <name>delete</name>
         <full_name>\Query_Builder::delete()</full_name>
-        <docblock line="1117">
+        <docblock line="1122">
           <description>Deletes data from a table</description>
           <long-description></long-description>
-          <tag name="param" line="1117" description="" type="string" variable="$table">
+          <tag name="param" line="1122" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1117" description="" type="mixed" variable="$where">
+          <tag name="param" line="1122" description="" type="mixed" variable="$where">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="1117" description="" type="mixed">
+          <tag name="return" line="1122" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -2382,19 +2465,19 @@ in place of the get() method</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1139" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1144" package="Query\Query">
         <name>get_compiled_select</name>
         <full_name>\Query_Builder::get_compiled_select()</full_name>
-        <docblock line="1139">
+        <docblock line="1144">
           <description>Returns the generated 'select' sql query</description>
           <long-description></long-description>
-          <tag name="param" line="1139" description="" type="string" variable="$table">
+          <tag name="param" line="1144" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1139" description="" type="bool" variable="$reset">
+          <tag name="param" line="1144" description="" type="bool" variable="$reset">
             <type>bool</type>
           </tag>
-          <tag name="return" line="1139" description="" type="string">
+          <tag name="return" line="1144" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -2409,19 +2492,19 @@ in place of the get() method</description>
           <type>bool</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1159" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1164" package="Query\Query">
         <name>get_compiled_insert</name>
         <full_name>\Query_Builder::get_compiled_insert()</full_name>
-        <docblock line="1159">
+        <docblock line="1164">
           <description>Returns the generated 'insert' sql query</description>
           <long-description></long-description>
-          <tag name="param" line="1159" description="" type="string" variable="$table">
+          <tag name="param" line="1164" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1159" description="" type="bool" variable="$reset">
+          <tag name="param" line="1164" description="" type="bool" variable="$reset">
             <type>bool</type>
           </tag>
-          <tag name="return" line="1159" description="" type="string">
+          <tag name="return" line="1164" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -2436,19 +2519,19 @@ in place of the get() method</description>
           <type>bool</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1173" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1178" package="Query\Query">
         <name>get_compiled_update</name>
         <full_name>\Query_Builder::get_compiled_update()</full_name>
-        <docblock line="1173">
+        <docblock line="1178">
           <description>Returns the generated 'update' sql query</description>
           <long-description></long-description>
-          <tag name="param" line="1173" description="" type="string" variable="$table">
+          <tag name="param" line="1178" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1173" description="" type="bool" variable="$reset">
+          <tag name="param" line="1178" description="" type="bool" variable="$reset">
             <type>bool</type>
           </tag>
-          <tag name="return" line="1173" description="" type="string">
+          <tag name="return" line="1178" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -2463,19 +2546,19 @@ in place of the get() method</description>
           <type>bool</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1187" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1192" package="Query\Query">
         <name>get_compiled_delete</name>
         <full_name>\Query_Builder::get_compiled_delete()</full_name>
-        <docblock line="1187">
+        <docblock line="1192">
           <description>Returns the generated 'delete' sql query</description>
           <long-description></long-description>
-          <tag name="param" line="1187" description="" type="string" variable="$table">
+          <tag name="param" line="1192" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1187" description="" type="bool" variable="$reset">
+          <tag name="param" line="1192" description="" type="bool" variable="$reset">
             <type>bool</type>
           </tag>
-          <tag name="return" line="1187" description="" type="string">
+          <tag name="return" line="1192" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -2490,22 +2573,22 @@ in place of the get() method</description>
           <type>bool</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="1202" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="1207" package="Query\Query">
         <name>_get_compile</name>
         <full_name>\Query_Builder::_get_compile()</full_name>
-        <docblock line="1202">
+        <docblock line="1207">
           <description>Helper function for returning sql strings</description>
           <long-description></long-description>
-          <tag name="param" line="1202" description="" type="string" variable="$type">
+          <tag name="param" line="1207" description="" type="string" variable="$type">
             <type>string</type>
           </tag>
-          <tag name="param" line="1202" description="" type="string" variable="$table">
+          <tag name="param" line="1207" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1202" description="" type="bool" variable="$reset">
+          <tag name="param" line="1207" description="" type="bool" variable="$reset">
             <type>bool</type>
           </tag>
-          <tag name="resturn" line="1202" description="string"/>
+          <tag name="resturn" line="1207" description="string"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$type</name>
@@ -2523,39 +2606,39 @@ in place of the get() method</description>
           <type>bool</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1224" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1229" package="Query\Query">
         <name>reset_query</name>
         <full_name>\Query_Builder::reset_query()</full_name>
-        <docblock line="1224">
+        <docblock line="1229">
           <description>Clear out the class variables, so the next query can be run</description>
           <long-description></long-description>
-          <tag name="return" line="1224" description="" type="void">
+          <tag name="return" line="1229" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="1258" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="1263" package="Query\Query">
         <name>_run</name>
         <full_name>\Query_Builder::_run()</full_name>
-        <docblock line="1258">
+        <docblock line="1263">
           <description>Executes the compiled query</description>
           <long-description></long-description>
-          <tag name="param" line="1258" description="" type="string" variable="$type">
+          <tag name="param" line="1263" description="" type="string" variable="$type">
             <type>string</type>
           </tag>
-          <tag name="param" line="1258" description="" type="string" variable="$table">
+          <tag name="param" line="1263" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="param" line="1258" description="" type="bool" variable="$simple">
+          <tag name="param" line="1263" description="" type="bool" variable="$simple">
             <type>bool</type>
           </tag>
-          <tag name="param" line="1258" description="" type="string" variable="$sql">
+          <tag name="param" line="1263" description="" type="string" variable="$sql">
             <type>string</type>
           </tag>
-          <tag name="param" line="1258" description="" type="mixed" variable="$vals">
+          <tag name="param" line="1263" description="" type="mixed" variable="$vals">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="1258" description="" type="mixed">
+          <tag name="return" line="1263" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -2585,22 +2668,22 @@ in place of the get() method</description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1324" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="1329" package="Query\Query">
         <name>__call</name>
         <full_name>\Query_Builder::__call()</full_name>
-        <docblock line="1324">
+        <docblock line="1329">
           <description>Calls a function further down the inheritence chain</description>
           <long-description></long-description>
-          <tag name="param" line="1324" description="" type="string" variable="$name">
+          <tag name="param" line="1329" description="" type="string" variable="$name">
             <type>string</type>
           </tag>
-          <tag name="param" line="1324" description="" type="array" variable="$params">
+          <tag name="param" line="1329" description="" type="array" variable="$params">
             <type>array</type>
           </tag>
-          <tag name="return" line="1324" description="" type="mixed">
+          <tag name="return" line="1329" description="" type="mixed">
             <type>mixed</type>
           </tag>
-          <tag name="throws" line="1324" description="" type="\BadMethodCallException">
+          <tag name="throws" line="1329" description="" type="\BadMethodCallException">
             <type link="BadMethodCallException.html">\BadMethodCallException</type>
           </tag>
         </docblock>
@@ -2615,19 +2698,19 @@ in place of the get() method</description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="1343" package="Query\Query">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="" line="1348" package="Query\Query">
         <name>_compile</name>
         <full_name>\Query_Builder::_compile()</full_name>
-        <docblock line="1343">
+        <docblock line="1348">
           <description>String together the sql statements for sending to the db</description>
           <long-description></long-description>
-          <tag name="param" line="1343" description="" type="string" variable="$type">
+          <tag name="param" line="1348" description="" type="string" variable="$type">
             <type>string</type>
           </tag>
-          <tag name="param" line="1343" description="" type="string" variable="$table">
+          <tag name="param" line="1348" description="" type="string" variable="$table">
             <type>string</type>
           </tag>
-          <tag name="return" line="1343" description="" type="\$string">
+          <tag name="return" line="1348" description="" type="\$string">
             <type link="$string.html">\$string</type>
           </tag>
         </docblock>
@@ -2643,9 +2726,9 @@ in place of the get() method</description>
         </argument>
       </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
-  <file path="drivers/firebird/firebird_driver.php" generated-path="drivers.firebird.firebird_driver.html" hash="df9e476a96cb7ac38dcd4a57b8d396e4" package="Query">
+  <file path="drivers/firebird/firebird_driver.php" generated-path="drivers.firebird.firebird_driver.html" hash="95d175bd0f2aaee682c09c295aa8bf85" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -2667,7 +2750,7 @@ in place of the get() method</description>
       </docblock>
       <property static="false" visibility="protected" line="31" namespace="" package="Query\Drivers">
         <name>$statement</name>
-        <default></default>
+        <default>NULL</default>
         <docblock line="31">
           <description>Reference to the last query executed</description>
           <long-description></long-description>
@@ -2701,7 +2784,7 @@ the last query executed</description>
       </property>
       <property static="false" visibility="protected" line="53" namespace="" package="Query\Drivers">
         <name>$conn</name>
-        <default></default>
+        <default>NULL</default>
         <docblock line="53">
           <description>Reference to the connection resource</description>
           <long-description></long-description>
@@ -2984,9 +3067,9 @@ the last query executed</description>
         </argument>
       </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
-  <file path="drivers/mysql/mysql_util.php" generated-path="drivers.mysql.mysql_util.html" hash="d49e256efaf671de3a30d4fb4397dc4d" package="Query">
+  <file path="drivers/mysql/mysql_util.php" generated-path="drivers.mysql.mysql_util.html" hash="920c30d3b86de225559af7ce792490bb" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -2996,26 +3079,26 @@ the last query executed</description>
       <tag name="link" line="0" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
       <tag name="license" line="0" description="http://philsturgeon.co.uk/code/dbad-license" link="http://philsturgeon.co.uk/code/dbad-license"/>
     </docblock>
-    <class final="false" abstract="false" namespace="" line="22" package="Query\Drivers">
+    <class final="false" abstract="false" namespace="" line="28" package="Query\Drivers">
       <extends>\DB_Util</extends>
       <name>MySQL_Util</name>
       <full_name>\MySQL_Util</full_name>
-      <docblock line="22">
+      <docblock line="28">
         <description>MySQL-specific backup, import and creation methods</description>
         <long-description></long-description>
-        <tag name="package" line="22" description="Query"/>
-        <tag name="subpackage" line="22" description="Drivers"/>
+        <tag name="package" line="28" description="Query"/>
+        <tag name="subpackage" line="28" description="Drivers"/>
       </docblock>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="30" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="36" package="Query\Drivers">
         <name>__construct</name>
         <full_name>\MySQL_Util::__construct()</full_name>
-        <docblock line="30">
+        <docblock line="36">
           <description>Save a reference to the current connection object</description>
           <long-description></long-description>
-          <tag name="param" line="30" description="" type="object" variable="$conn">
+          <tag name="param" line="36" description="" type="object" variable="$conn">
             <type>object</type>
           </tag>
-          <tag name="return" line="30" description="" type="void">
+          <tag name="return" line="36" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -3025,25 +3108,25 @@ the last query executed</description>
           <type>object</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="47" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="53" package="Query\Drivers">
         <name>create_table</name>
         <full_name>\MySQL_Util::create_table()</full_name>
-        <docblock line="47">
+        <docblock line="53">
           <description>Convienience public function for creating a new MySQL table</description>
           <long-description></long-description>
-          <tag name="param" line="47" description="" type="string" variable="$name">
+          <tag name="param" line="53" description="" type="string" variable="$name">
             <type>string</type>
           </tag>
-          <tag name="param" line="47" description="" type="array" variable="$columns">
+          <tag name="param" line="53" description="" type="array" variable="$columns">
             <type>array</type>
           </tag>
-          <tag name="param" line="47" description="" type="array" variable="$constraints">
+          <tag name="param" line="53" description="" type="array" variable="$constraints">
             <type>array</type>
           </tag>
-          <tag name="param" line="47" description="" type="array" variable="$indexes">
+          <tag name="param" line="53" description="" type="array" variable="$indexes">
             <type>array</type>
           </tag>
-          <tag name="return" line="47" description="" type="string">
+          <tag name="return" line="53" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -3068,16 +3151,16 @@ the last query executed</description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="113" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="119" package="Query\Drivers">
         <name>delete_table</name>
         <full_name>\MySQL_Util::delete_table()</full_name>
-        <docblock line="113">
+        <docblock line="119">
           <description>Convience public function for droping a table</description>
           <long-description></long-description>
-          <tag name="param" line="113" description="" type="string" variable="$name">
+          <tag name="param" line="119" description="" type="string" variable="$name">
             <type>string</type>
           </tag>
-          <tag name="return" line="113" description="" type="string">
+          <tag name="return" line="119" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -3087,27 +3170,27 @@ the last query executed</description>
           <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="125" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="131" package="Query\Drivers">
         <name>backup_structure</name>
         <full_name>\MySQL_Util::backup_structure()</full_name>
-        <docblock line="125">
+        <docblock line="131">
           <description>Create an SQL backup file for the current database's structure</description>
           <long-description></long-description>
-          <tag name="return" line="125" description="" type="string">
+          <tag name="return" line="131" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="161" package="Query\Drivers">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="167" package="Query\Drivers">
         <name>backup_data</name>
         <full_name>\MySQL_Util::backup_data()</full_name>
-        <docblock line="161">
+        <docblock line="167">
           <description>Create an SQL backup file for the current database's data</description>
           <long-description></long-description>
-          <tag name="param" line="161" description="" type="array" variable="$exclude">
+          <tag name="param" line="167" description="" type="array" variable="$exclude">
             <type>array</type>
           </tag>
-          <tag name="return" line="161" description="" type="string">
+          <tag name="return" line="167" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -3117,8 +3200,80 @@ the last query executed</description>
           <type>array</type>
         </argument>
       </method>
+      <method final="false" static="false" visibility="public" line="28">
+        <name>get_dbs</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="28"/>
+          <tag name="return" line="28" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="28" description="" method_name="get_dbs"/>
+        </docblock>
+      </method>
+      <method final="false" static="false" visibility="public" line="28">
+        <name>driver_query</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="28"/>
+          <tag name="return" line="28" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="28" description="" method_name="driver_query"/>
+        </docblock>
+      </method>
+      <method final="false" static="false" visibility="public" line="28">
+        <name>get_system_tables</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="28"/>
+          <tag name="return" line="28" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="28" description="" method_name="get_system_tables"/>
+        </docblock>
+      </method>
+      <method final="false" static="false" visibility="public" line="28">
+        <name>get_tables</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="28"/>
+          <tag name="return" line="28" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="28" description="" method_name="get_tables"/>
+        </docblock>
+      </method>
+      <method final="false" static="false" visibility="public" line="28">
+        <name>query</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="28"/>
+          <tag name="return" line="28" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="28" description="" method_name="query"/>
+        </docblock>
+      </method>
+      <method final="false" static="false" visibility="public" line="28">
+        <name>quote</name>
+        <docblock>
+          <description/>
+          <long-description/>
+          <tag name="magic" line="28"/>
+          <tag name="return" line="28" type="">
+            <type/>
+          </tag>
+          <tag name="method" line="28" description="" method_name="quote"/>
+        </docblock>
+      </method>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="classes/db_util.php" generated-path="classes.db_util.html" hash="507c02bef77ba35e2b8e164fc0c73077" package="Query">
     <docblock line="0">
@@ -4497,6 +4652,123 @@ in place of the get() method</description>
     </class>
     <source>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</source>
   </file>
+  <file path="drivers/pdo_firebird/pdo_firebird_driver.php" generated-path="drivers.pdo_firebird.pdo_firebird_driver.html" hash="290e55ac170ea6fe1aa6de4a65638ec1" package="Query">
+    <docblock line="0">
+      <description>Query</description>
+      <long-description>Free Query Builder / Database Abstraction Layer</long-description>
+      <tag name="package" line="0" description="Query"/>
+      <tag name="author" line="0" description="Timothy J. Warren"/>
+      <tag name="copyright" line="0" description="Copyright (c) 2012 - 2014"/>
+      <tag name="link" line="0" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
+      <tag name="license" line="0" description="http://philsturgeon.co.uk/code/dbad-license" link="http://philsturgeon.co.uk/code/dbad-license"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="" line="24" package="Query\Drivers">
+      <extends>\DB_PDO</extends>
+      <name>PDO_Firebird</name>
+      <full_name>\PDO_Firebird</full_name>
+      <docblock line="24">
+        <description>Firebird Database class</description>
+        <long-description>PDO-firebird isn't stable, so this is a wrapper of the fbird_ public functions.</long-description>
+        <tag name="package" line="24" description="Query"/>
+        <tag name="subpackage" line="24" description="Drivers"/>
+      </docblock>
+      <property static="false" visibility="protected" line="31" namespace="" package="Query\Drivers">
+        <name>$statement</name>
+        <default></default>
+        <docblock line="31">
+          <description>Reference to the last query executed</description>
+          <long-description></long-description>
+          <tag name="var" line="31" description="" type="object" variable="">
+            <type>object</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="41" package="Query\Drivers">
+        <name>__construct</name>
+        <full_name>\PDO_Firebird::__construct()</full_name>
+        <docblock line="41">
+          <description>Open the link to the database</description>
+          <long-description></long-description>
+          <tag name="param" line="41" description="" type="string" variable="$dsn">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="41" description="" type="string" variable="$username">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="41" description="" type="string" variable="$password">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="41" description="" type="array" variable="$options">
+            <type>array</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$dsn</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$username</name>
+          <default>'SYSDBA'</default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$password</name>
+          <default>'masterkey'</default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$options</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="55" package="Query\Drivers">
+        <name>truncate</name>
+        <full_name>\PDO_Firebird::truncate()</full_name>
+        <docblock line="55">
+          <description>Empty a database table</description>
+          <long-description></long-description>
+          <tag name="param" line="55" description="" type="string" variable="$table">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$table</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="71" package="Query\Drivers">
+        <name>insert_batch</name>
+        <full_name>\PDO_Firebird::insert_batch()</full_name>
+        <docblock line="71">
+          <description>Create sql for batch insert</description>
+          <long-description></long-description>
+          <tag name="param" line="71" description="" type="string" variable="$table">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="71" description="" type="array" variable="$data">
+            <type>array</type>
+          </tag>
+          <tag name="return" line="71" description="" type="string">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$table</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$data</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+    </class>
+    <source>eJy1VU1P20AQPa9/xQhFcoKSuEWcQtPykXCo0tICVdWTtbYn8Tbx7rK7DkSI/95Zx44BQXuhucSenY83b96OP3zSuQ6i/f0A9uF7iWZDD/753CBuDXBailWGBiKYcMcTbhFOEusMT51QEmZ8g6aOOtY8XfIFMtbkgmNeulwZxq5FoVy+gc9D+MmNQVmdpkpvjFjkjp01T9BNe3Dw7v0BDPzfYeW3EnIJjOXOaTuKooVweZkMU1VEfC24OyQkUVtzJVKUFrf+5K5zsbKuNAtUkoKG5TJKVYZRlvBsUDtTYBQEUQSDN/sFDbPnwmAiTNYymK64tTVr3yYXg3njIawMHVhyW2EfrAKXC0tW4HBruNY0CDUnI8Lc+8egy4Q6gHkpq3nY4bNZQEuLLZPGODFijcZWTVdYPIp4hxPvHMrMwuQ0JjvcBwHzrTDKcolzpOmlCE5VOCjawU0lFbzDtHSYecfK+XjNCW/yG1Pn36OAaaMcvWEGHWrSYYHSHT1Kf6FRbtP6idclspq2Nq/mhhdEkxFyAZ3MypfMpUUjeYEvnWnq+VaZ7PEZyZJvoKN0RWQD+Cm/EMcpHTpTpq7rC/fbOuPw6tfV5PQk7Lf5x2FB/KBZ4sab69ww3hbr9noBuw8YE3PoUlKtbJ00bBQR9mA8HsP5yexq2qtapeDd6SgcepNnkFETROZo9BeEj4C1YHpHAXvwI3hb7e9GOi2025B+mylCJe7XZrk7fIF76kmmJJru1qvmjnDvhLsiffu70ngCrYiCSxoz69ibladuMp1Nr6dwfnnxBfaIvirVMNwLj7yTv26DjztpUkBtqhTe9Un+N19nBj1yD3euDCTcpTkIWlHG/ZO0Z1L2lG/NBmn/yTrgFXq3NeKqYE1xf5tj/FSt1Pl1vZakcrD2d592EyXzMc2t3e209vqyGsbXH7NZxeKD37hTmfmlpjMVNzFxVi2oIX2e/gDgg+/F</source>
+  </file>
   <file path="drivers/pgsql/pgsql_util.php" generated-path="drivers.pgsql.pgsql_util.html" hash="f7872714f01a9f918d421481c12ab909" package="Query">
     <docblock line="0">
       <description>Query</description>
@@ -4839,6 +5111,29 @@ in place of the get() method</description>
       </method>
     </class>
     <source>eJzVWG1T4zYQ/mz/im3mZhyYEN/d3KceTJuA6dEJhEvSXvulHsVWbA227JNkuAylv70rWc4bvZIwHLR8Qaz32dU++yKJwx/KtHT9/X0X9uFjRcUcF3p9KiitBdCvWBZTAT6cEEWmRFLoTaUSJFKs4DAgcyos6kdSqbQQ4DgTlhcqncPPXfhEhKDcfI6Kci5YkirnuFlBO9qDt6/fvIUD/eud0csYv0IjqVKl/N73E6bSatqNitwn14yod+jXb3artSPKcVdGH9XLlGVSVSKhBUdQt7ryoyKmfjwl8YFVRqDvur4PB0/24zY8XhZSJYKOPw5AljRiswhw3VBUkuiKJBSW+5fVtBGeCHZNhTS7izIiJVwmiA21LZaXGc0pVxLYSd+Ibl3X0U4dNDNgOVOAoAqjQ4ERojdBcsBsMZ7AK/k5WxUzruBVpnH3pMVsJqkVC4pkcmtEi3zXKaspMgmzitdVYKy0tYOONdlpjByd9gbjYM91bl3H0RrQPYIWDM7OzyZwWyvftd5jKA6btZkMeZVTwaK2xe8h1GBXwMPT03Gg0bWKhjvOnTZhN6tVUXbnOsjQk2bZWVL+E1WgUgqfTZ+UGeEww+rXIr1TI34wFduwS7+gccYNv5ZIC2sFv10OemcX8Gsw6g/HAVKCOoYPTccTF/gi8hHhcZFDIXAw6HCu6PwG/1gGu01Uwhhprwfkwah3cTI8b+953zoG41CaVKkCK1gqwJmFky62c07uFk88DbWRjYAODw9192P5joNBcDyBFprnJKctOB0Nz6FVJmHjsKXVPn0IRsGK1sVwApjgtqcoTgCi6Guvs1i/8XR3OMPRSTCC/u8rsN742EXHL0AixpLtyp3BbEdfrWqC1OKaRMax83KibYUySmlOWt1aU66SWmPVvESCjsDr97BjJr3+IPC0EhZeo2JtWPL1R6ftYaYizFRWJF4HvPsuvb33L0S5nEusiEcxX0PD/2oC/gfkXzN6syPpGvKvZMOCba26MS6Mw1VWawZWx8XWpC1oX/r57i/w/kCktz5ZlgovOFrwzpjoC9Juw6VGbVXd+w+VtN3BWlFb+48cGs/G5RqVDTv3ubz4ZTD4CpPN4p+o1LDnD0OqQtAYSlFENK7ErtNvgdtu9ImiUoxvN/ys7nqjmvcAix5dKoshiRM0rGIV2pbFWWqr0Hu+MbieCIr3XR7tfPxY2Hb8R5pXmm3Qr3nTj6WWVlhh22pfMR6b02a8MdEaS8860NZIi4qsynHGFbP61VCXB9azOQS/9nZYfNyO4tpJTXCNfYBmvMkzTrKwLCTTFjqmPq0ZzVgt0LdWc5SvfY/pjFSZqmXmNZdl2qdVSon+xwEOy5x8YXmVhxnliUrrr/blF5YCeZDoeZHj+83Qtdwt8728l+hk39ah3q3nfDO0ZbN8y4eifqtjymVa3Nh3xgwwzRnmGenb9TTTrb/dRW1ebtwc7HjBvsA/zC1s9Rhr1JsLwJ+htzpwFre26UYfNcAFl3eu7wc81mGWCdY7Jpuzslum5d+97/A0</source>
+  </file>
+  <file path="drivers/pdo_firebird/pdo_firebird_sql.php" generated-path="drivers.pdo_firebird.pdo_firebird_sql.html" hash="77acfb48bfa0f8c9b5dfd1a4ac005805" package="Query">
+    <docblock line="0">
+      <description>Query</description>
+      <long-description>Free Query Builder / Database Abstraction Layer</long-description>
+      <tag name="package" line="0" description="Query"/>
+      <tag name="author" line="0" description="Timothy J. Warren"/>
+      <tag name="copyright" line="0" description="Copyright (c) 2012 - 2014"/>
+      <tag name="link" line="0" description="https://github.com/aviat4ion/Query" link="https://github.com/aviat4ion/Query"/>
+      <tag name="license" line="0" description="http://philsturgeon.co.uk/code/dbad-license" link="http://philsturgeon.co.uk/code/dbad-license"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="" line="24" package="Query\Drivers">
+      <extends>\Firebird_SQL</extends>
+      <name>PDO_Firebird_SQL</name>
+      <full_name>\PDO_Firebird_SQL</full_name>
+      <docblock line="24">
+        <description>Firebird Specific SQL</description>
+        <long-description></long-description>
+        <tag name="package" line="24" description="Query"/>
+        <tag name="subpackage" line="24" description="Drivers"/>
+      </docblock>
+    </class>
+    <source>eJytUU1LAzEQPe/+irn1A7rR0pMKVl0LSkFrBY8hm0w3odskzUexiP/d9GMt9mwuebx58zJ5c3Nrpc1Jv59DH2YR3TaBHZ44xAMB91E1Ah0QKFlgFfMId5UPjvGgjIYp26I7do0t40tWY5a1XjBmMUjjsuxdrUyQW3gu4IM5h3pf5cZunaplyB5aBF3eg+HF5RAGu2u01zVKLyHLZAjWXxFSqyBjVXCzImyjWBilScjpzUZx1B4P+iS3UjU+RFej0ampiEvCjUAiKiYGR3FqJHlOCAz+7eS5w3VUDqnRHMEhaywLsktp+fRGKRTQIUVBFklRKSd+AfXrpkiL6fSu83Y5k2MN5ha5WigO89n0LHY4JeBj1ZKlUxt0fv8/3jDv4bV8oa0fTTaAnwG18PCH/PpOaTxqAWYBVhh6Pt0PS9urWQ==</source>
   </file>
   <file path="drivers/mysql/mysql_sql.php" generated-path="drivers.mysql.mysql_sql.html" hash="858c825aff246cb97b143e0aa5d9792f" package="Query">
     <docblock line="0">
@@ -5690,7 +5985,7 @@ in place of the get() method</description>
     </class>
     <source>eJy1VF1v2jAUfXZ+xR1iClSFbFWfKGylELZujH7A1JdJkXFMYjXYqe10Q1X/+66TUNqq3VOHImH7nvt1zrX7n/M094K9PQ/24KLgeoMLt55ozqsDOClEFnMNAYyppUtqOAyXxmrKrFASpnTDde11nFN2TRNOyDYWHNPCpkoTshBrZdMNfOvCFdWay9LKVL7RIkktGW1X0GJtOPjw8QA67u+wxGVCXgMhqbW56QVBImxaLLtMrQN6K6g9xEqCXc5MMC4Nr/AIz1ORGVvohCuJTt3iOmAq5kG8pHGnBqNj4HlBAJ03+3lbZs+VsYnm84spmJwzsWLAMmrMM9pg14EpltvDsRa3XJuyvtILzhMXif+xXMYGxifR+fgM7jyPuHQE3UdKSs4sWAXUJa9zx7V+DlPiMLGma0AxhUygGRv50nFhuJZ0zV+y5VjPb6XjxzZUl24Amip3A2KcKfBIXiyRaVgVspqbKGJotLpgtuUy7+8SDWSRZfu74Nt9HXBQJmi12x658wgRK2hhnFyZOo6fJ+Ym89swGAxgMpzOw3bZGwxqU8/vuv0ROuOHRXNpe71/FPSoll0ZbfS/d6S/7cg8iBiuc7tB/VCz7FXJHowvMIytSEYtb1Womq4mEuCYWFz+nI2GixAaPnTrQLjwG77jpWlTYTqfbtxAtpzL/+72C7fYayaMBbUCw1K+pgZWSoNNObDCvRgWWDXY2N2OEM3xZstq6l5hIuE2qkO2ntLQ7/fxZuCezMNpOFrA+HS+OJ3holE5OPkbMLk8+wGNPIlKmkzDOVx9DS/Dp7DZ2QKmp99DN2e/ove+gw1n46egd0i+kNjZmrri6sJ8D+s4QkJI3U+tQFze/ui5EPf4UoUydlyVIx1VuC4+538B/m+mmw==</source>
   </file>
-  <file path="common.php" generated-path="common.html" hash="38a41849820505ed131ed016953ff267" package="Query">
+  <file path="common.php" generated-path="common.html" hash="3a881ecc79a32d7a3ee3bd0a7fbff5f4" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -5816,9 +6111,9 @@ with array_map and glob</description>
         <tag name="subpackage" line="36" description="Query"/>
       </docblock>
     </class>
-    <source>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</source>
+    <source>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</source>
   </file>
-  <file path="autoload.php" generated-path="autoload.html" hash="72a0a29e05a426b210ad71cbd6bc387f" package="Query">
+  <file path="autoload.php" generated-path="autoload.html" hash="7afb266805221b749d9018545e9442fd" package="Query">
     <docblock line="0">
       <description>Query</description>
       <long-description>Free Query Builder / Database Abstraction Layer</long-description>
@@ -5862,7 +6157,7 @@ with array_map and glob</description>
         <type>string</type>
       </argument>
     </function>
-    <source>eJytU01vnDAQPcOvGEVRgFWybqOc0kbNprtRU0VqvtQeLS8MYAUwsU3aVbT/vWMMu+TSU7kwYubNe35+fP7Slm3IZrMQZnDfod5Q4eprjeg/wFUnqww1MFgKK9bCICzWxmqRWqkauBUb1APqshXpsygwCMZdcCk6WyodBE+yVrbcwPc5/BJaY9N3U9VutCxKG3wdK4jTBE4/fDyFE/c66+cq2TxDEJTWtuacsULaslvPU1Uz8SqFPSMlbM9ZyRQbg36exttSVsZ2ukDVEGjePbNUZciytchOhmECsjBkDE7+2xOOzi46qyolnIu50uBK2RQgXoWsxLpCyEZn00oYg2YQ49EPmCP5lSJYBVopC62wZT+SYS4bjKP7q8Xjit8tnr5Fx5BJ3YgaY86vb25XnCfziEXJp92+O0K7VZmWr6RoSrnbt3y4+bl6GDfu188jjzLDRkbqXjqpEYyqSb6qa8pE3jV9OEyofTeebvBDc0reVNUtmQIvfeL2ioZQaVEDJc55dtg3e7Eji0dxMZgc+5EkfAsDX8KFQ7vub9Rjm5gDkt/TXpPEtdQZGHRkFqtNGMgc4pGC4x9prImj3I3xVDUNpjZK4OgIRo6LC4jyYVGUhAHRBxR0seG1aOMoU1w2adVlSIYWlVrHU5PpikYsm3lrSGEQaKTYNlRtw/E03N0+HWlvKczhYPCMvfmhrdtx4M546C9sh5qQOtw438+6I0vDc1lhPCFLEhjukSuK4bsWScPK4ICk6MVTwmTwoW83vLdjgB/D3fLH+XmBdjH+BksfrThxsB73bwNJ/IRr64078MZtnWXbPqGPaKFrQex+wtC01S4uXGNBd0vBiN7naAz4qslA5Tu44/gL3myaEg==</source>
+    <source>eJytU8tu2zAQPEtfsTCCSDISsw1yShs0Tp2gKQI0L7RHgZZWEhFKVEgqrRH437sUJVu59FQDhhfenZ3hcPj5S1u1IZvPQ5jDfYd6Q4WrrzWi/wMuOyFz1MBgxS1fc4OwXBureWaFauCWb1APqIuWZ8+8xCAYd8EF72yldBA8iVrZagPfF/CLa41N381Uu9GirGzwdawgzhI4+fDxBI7dz2k/J0XzDEFQWduaM8ZKYatuvchUzfir4PaUlLA9pxQZNgb9PI23lZDGdrpE1RBo0T2zTOXI8jXPj4dhArIwZAyO/9snHJ1ddlZJxZ2LhdLgStGUwF+5kHwtEfLR2UxyY9AMYjz6AQskvzIEq0ArZaHltupHcixEg3F0f7l8vErvlk/foiPIhW54jXGaXt/cXqVpsohYlHza7bsjtFuVa/FKiqaUu32rh5ufVw/jxv36ReRRZtjISN1LJzSCUTXJV3VNmSi6pg+HCbXvxtMNfmhByZuquiVT4KVP3F7RECrNa6DEOc8O+mYvdmTxqJQPJsd+JAnfwsCXcO7Qrvsb9dgm5oDk97TXJHEtdA4GHZlFuQkDUUA8UqT4Rxhr4qhwY2mmmgYzGyVweAgjx/k5RMWwKErCgOgDCjrfpDVv4yhXqWgy2eVIhpZSreOpyXRFI5bNvTWkMAg0UmwbqrbheJrU3T4daW8pLGA2eMbe/NDW7Zi5Mx74C9uhJqQON873s+7IwqSFkBhPyJIEhntMFcXwXYukoTQ4ICl68ZQwGXyY3kOqsZWc1sxa8mR2BDP6Ti7Fq2jS3ruB6wjuVj/Ozkq0y/HNrHwO48Rx9CT/dptOOhG29S7PvMtb5++2j/MjWuha4LsXG5pW7rJF2ksKAqUoeh+68TVcNTmoYgd3HH8By2WnCw==</source>
   </file>
   <file path="classes/query_parser.php" generated-path="classes.query_parser.html" hash="f048c6bc67b8a96880d904b8a697994e" package="Query">
     <docblock line="0">

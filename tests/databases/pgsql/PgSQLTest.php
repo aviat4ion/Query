@@ -126,8 +126,6 @@ class PgTest extends DBTest {
 
 	public function testPreparedStatements()
 	{
-		if (empty($this->db))  return;
-
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)

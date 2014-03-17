@@ -53,6 +53,8 @@ function query_autoload($class)
 	if (is_file($class_path)) require_once($class_path);
 	elseif (is_dir($driver_path))
 	{
+		$class = str_replace("pdo_", "", $class);
+
 		if (in_array($class, PDO::getAvailableDrivers()))
 		{
 			array_map('do_include', glob("{$driver_path}/*.php"));

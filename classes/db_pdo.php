@@ -106,7 +106,7 @@ abstract class DB_PDO extends PDO {
 				$k++;
 			}
 
-			$res = $query->bindValue($k, $value);
+			$query->bindValue($k, $value);
 		}
 
 		return $query;

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Query » \DB_Util</title>
+<title>Query » \PDO_Firebird</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -61,163 +61,107 @@
 <li class="nav-header">
 <i title="Methods" class="icon-custom icon-method"></i> Methods
                     <ul>
-<li class="method public "><a href="#method___call" title="__call() :: Enable calling driver methods"><span class="description">Enable calling driver methods</span><pre>__call()</pre></a></li>
-<li class="method public "><a href="#method___construct" title="__construct() :: Save a reference to the connection object for later use"><span class="description">Save a reference to the connection object for later use</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_backup_data" title="backup_data() :: Return an SQL file with the database data as insert statements"><span class="description">Return an SQL file with the database data as insert statements</span><pre>backup_data()</pre></a></li>
-<li class="method public "><a href="#method_backup_structure" title="backup_structure() :: Return an SQL file with the database table structure"><span class="description">Return an SQL file with the database table structure</span><pre>backup_structure()</pre></a></li>
-<li class="method public "><a href="#method_create_table" title="create_table() :: Get database-specific sql to create a new table"><span class="description">Get database-specific sql to create a new table</span><pre>create_table()</pre></a></li>
-<li class="method public "><a href="#method_delete_table" title="delete_table() :: Get database-specific sql to drop a table"><span class="description">Get database-specific sql to drop a table</span><pre>delete_table()</pre></a></li>
+<li class="method public "><a href="#method___construct" title="__construct() :: Open the link to the database"><span class="description">Open the link to the database</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_insert_batch" title="insert_batch() :: Create sql for batch insert"><span class="description">Create sql for batch insert</span><pre>insert_batch()</pre></a></li>
+<li class="method public "><a href="#method_truncate" title="truncate() :: Empty a database table"><span class="description">Empty a database table</span><pre>truncate()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
 <i title="Properties" class="icon-custom icon-property"></i> Properties
                     <ul></ul>
 </li>
-<li class="nav-header private">» Private
-                    <ul><li class="property private "><a href="#property_conn" title="$conn() :: Reference to the current connection object"><span class="description"></span><pre>$conn</pre></a></li></ul>
+<li class="nav-header protected">» Protected
+                    <ul><li class="property protected "><a href="#property_statement" title="$statement() :: Reference to the last query executed"><span class="description"></span><pre>$statement</pre></a></li></ul>
 </li>
 </ul>
 </div>
 <div class="span8">
-<a id="\DB_Util"></a><ul class="breadcrumb">
+<a id="\PDO_Firebird"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/DB_Util.html">DB_Util</a>
+<span class="divider">\</span><a href="../classes/PDO_Firebird.html">PDO_Firebird</a>
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">Abstract class defining database / table creation methods</p>
+<p class="short_description">Firebird Database class</p>
 <div class="details">
-<div class="long_description"></div>
+<div class="long_description">PDO-firebird isn't stable, so this is a wrapper of the fbird_ public functions.</div>
 <table class="table table-bordered">
 <tr>
 <th>package</th>
-<td><a href="../packages/Query.Query.html">Query</a></td>
+<td><a href="../packages/Query.Drivers.html">Query</a></td>
 </tr>
 <tr>
 <th>subpackage</th>
-<td>Query</td>
+<td>Drivers</td>
 </tr>
 </table>
 <h3>
 <i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
-<a id="method___call"></a><div class="element clickable method public method___call" data-toggle="collapse" data-target=".method___call .collapse" title="public">
-<h2>Enable calling driver methods</h2>
-<pre>__call(string $method, array $args) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$method</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$args</h4>
-<code>array</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse" title="public">
-<h2>Save a reference to the connection object for later use</h2>
-<pre>__construct(object $conn) </pre>
+<h2>Open the link to the database</h2>
+<pre>__construct(string $dsn, string $username<code> = 'SYSDBA'</code>, string $password<code> = 'masterkey'</code>, array $options<code> = array()</code>) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$conn</h4>
-<code>object</code>
-</div>
-</div></div>
-</div>
-<a id="method_backup_data"></a><div class="element clickable method public method_backup_data" data-toggle="collapse" data-target=".method_backup_data .collapse" title="public">
-<h2>Return an SQL file with the database data as insert statements</h2>
-<pre>backup_data() : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>abstract</th>
-<td></td>
-</tr></table>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_backup_structure"></a><div class="element clickable method public method_backup_structure" data-toggle="collapse" data-target=".method_backup_structure .collapse" title="public">
-<h2>Return an SQL file with the database table structure</h2>
-<pre>backup_structure() : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>abstract</th>
-<td></td>
-</tr></table>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_create_table"></a><div class="element clickable method public method_create_table" data-toggle="collapse" data-target=".method_create_table .collapse" title="public">
-<h2>Get database-specific sql to create a new table</h2>
-<pre>create_table(string $name, array $columns, array $constraints<code> = array()</code>, array $indexes<code> = array()</code>) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>abstract</th>
-<td></td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$name</h4>
+<h4>$dsn</h4>
 <code>string</code>
 </div>
 <div class="subelement argument">
-<h4>$columns</h4>
-<code>array</code>
+<h4>$username</h4>
+<code>string</code>
 </div>
 <div class="subelement argument">
-<h4>$constraints</h4>
-<code>array</code>
+<h4>$password</h4>
+<code>string</code>
 </div>
 <div class="subelement argument">
-<h4>$indexes</h4>
+<h4>$options</h4>
+<code>array</code>
+</div>
+</div></div>
+</div>
+<a id="method_insert_batch"></a><div class="element clickable method public method_insert_batch" data-toggle="collapse" data-target=".method_insert_batch .collapse" title="public">
+<h2>Create sql for batch insert</h2>
+<pre>insert_batch(string $table, array $data<code> = array()</code>) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$data</h4>
 <code>array</code>
 </div>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_delete_table"></a><div class="element clickable method public method_delete_table" data-toggle="collapse" data-target=".method_delete_table .collapse" title="public">
-<h2>Get database-specific sql to drop a table</h2>
-<pre>delete_table(string $name) : string</pre>
+<a id="method_truncate"></a><div class="element clickable method public method_truncate" data-toggle="collapse" data-target=".method_truncate .collapse" title="public">
+<h2>Empty a database table</h2>
+<pre>truncate(string $table) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>abstract</th>
-<td></td>
-</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$name</h4>
+<h4>$table</h4>
 <code>string</code>
 </div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <h3>
 <i title="Properties" class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_conn"> </a><div class="element clickable property private property_conn" data-toggle="collapse" data-target=".property_conn .collapse" title="private">
-<h2>Reference to the current connection object</h2>
-<pre>$conn </pre>
+<a id="property_statement"> </a><div class="element clickable property protected property_statement" data-toggle="collapse" data-target=".property_statement .collapse" title="protected">
+<h2>Reference to the last query executed</h2>
+<pre>$statement : object</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>

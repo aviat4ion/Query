@@ -104,14 +104,6 @@ class FirebirdTest extends DBtest {
 	}
 
 	// --------------------------------------------------------------------------
-
-	public function testCreateTransaction()
-	{
-		$res = $this->db->beginTransaction();
-		$this->assertTrue($res);
-	}
-
-	// --------------------------------------------------------------------------
 	// ! Create / Delete Tables
 	// --------------------------------------------------------------------------
 

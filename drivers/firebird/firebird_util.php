@@ -18,6 +18,9 @@
  *
  * @package Query
  * @subpackage Drivers
+ * @method array get_system_tables()
+ * @method array get_tables()
+ * @method object query(string $sql)
  */
 class Firebird_Util extends DB_Util {
 
@@ -77,16 +80,16 @@ class Firebird_Util extends DB_Util {
 		$columns = array();
 		foreach($column_array as $n => $props)
 		{
-			$str = '"'.$n.'" ';
-			$str .= (isset($props['type'])) ? "{$props['type']} " : "";
-			$str .= (isset($props['constraint'])) ? "{$props['constraint']} " : "";
+			$str = '"'.$n.'"';
+			$str .= (isset($props['type'])) ? " {$props['type']}" : "";
+			$str .= (isset($props['constraint'])) ? " {$props['constraint']}" : "";
 
 			$columns[] = $str;
 		}
 
 		// Generate the sql for the creation of the table
 		$sql = 'CREATE TABLE "'.$name.'" (';
-		$sql .= implode(',', $columns);
+		$sql .= implode(', ', $columns);
 		$sql .= ')';
 
 		return $sql;
@@ -156,8 +159,6 @@ class Firebird_Util extends DB_Util {
 			
 			// Don't add to the file if the table is empty
 			if (count($obj_res) < 1) continue;
-			
-			$res = NULL;
 
 			// Nab the column names by getting the keys of the first row
 			$columns = @array_keys($obj_res[0]);
@@ -182,8 +183,6 @@ class Firebird_Util extends DB_Util {
 
 				$insert_rows[] = $row_string;
 			}
-
-			$obj_res = NULL;
 
 			$output_sql .= "\n\nSET TRANSACTION;\n".implode("\n", $insert_rows)."\nCOMMIT;";
 		}
