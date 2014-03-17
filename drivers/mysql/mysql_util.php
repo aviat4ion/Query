@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  * @method array get_dbs()
- * @method mixed driver_query(string $sql, bool $filtered_index)
+ * @method mixed driver_query(string $sql, bool $filtered_index=TRUE)
  * @method array get_system_tables()
  * @method array get_tables()
  * @method mixed query(string $sql)

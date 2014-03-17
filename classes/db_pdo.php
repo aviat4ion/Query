@@ -166,11 +166,8 @@ abstract class DB_PDO extends PDO {
 		$idents = (array) explode('.', $table);
 		$segments = count($idents);
 
-		// Reference the last item in the split string
-		$last =& $idents[$segments - 1];
-
 	    // Quote the last item
-	    $last = $this->_prefix($last);
+	    $idents[$segments - 1] = $this->_prefix(end($idents));
 
 	    // Rejoin
 	    $table = implode('.', $idents);
@@ -481,7 +478,6 @@ abstract class DB_PDO extends PDO {
 
 		$table = $this->quote_table($table);
 		$fields = array_keys($data[0]);
-		$vals = array();
 
 		$sql = "INSERT INTO {$table} (";
 		$sql .= implode(',', $this->quote_ident($fields));
