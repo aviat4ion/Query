@@ -68,7 +68,6 @@ class SQLite extends DB_PDO {
 	 */
 	public function get_tables()
 	{
-		$tables = array();
 		$sql = $this->sql->table_list();
 
 		$res = $this->query($sql);
