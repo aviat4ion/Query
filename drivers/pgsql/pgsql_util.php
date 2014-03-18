@@ -18,6 +18,8 @@
  *
  * @package Query
  * @subpackage Drivers
+ * @method mixed query(string $sql)
+ * @method array get_tables()
  */
 class PgSQL_Util extends DB_Util {
 

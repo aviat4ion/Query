@@ -18,6 +18,8 @@
  *
  * @package Query
  * @subpackage Drivers
+ * @method mixed query(string $sql)
+ * @method string quote(string $str)
  */
 class SQLite_Util extends DB_Util {
 
