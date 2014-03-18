@@ -144,7 +144,7 @@ class MySQL_Util extends DB_Util {
 			}
 		
 			// Get the list of tables
-			$tables = $this->driver_query("SHOW TABLES FROM `{$d}`");
+			$tables = $this->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
 			
 			foreach($tables as &$table)
 			{
@@ -183,8 +183,6 @@ class MySQL_Util extends DB_Util {
 			$res = $this->query($sql);
 			$rows = $res->fetchAll(PDO::FETCH_ASSOC);
 			
-			$res = NULL;
-			
 			// Skip empty tables
 			if (count($rows) < 1) continue;
 			
@@ -211,8 +209,6 @@ class MySQL_Util extends DB_Util {
 
 				$insert_rows[] = $row_string;
 			}
-			
-			$obj_res = NULL;
 
 			$output_sql .= "\n\n".implode("\n", $insert_rows)."\n";
 		}

@@ -113,7 +113,7 @@ class Firebird extends DB_PDO {
 	 */
 	public function query($sql)
 	{
-		if (empty($sql)) throw new PDOException("Query method requires an sql query!");
+		if (empty($sql)) throw new PDOException("Query method requires an sql query!", 0, NULL);
 		
 		$this->statement_link = (isset($this->trans))
 			? fbird_query($this->trans, $sql)
