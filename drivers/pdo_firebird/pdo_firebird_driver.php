@@ -34,14 +34,14 @@ class PDO_Firebird extends DB_PDO {
 	 * Open the link to the database
 	 *
 	 * @param string $dsn
-	 * @param string $user
-	 * @param string $pass
+	 * @param string $username
+	 * @param string $password
 	 * @param array $options
 	 */
-	public function __construct($dsn, $user='SYSDBA', $pass='masterkey', $options = array())
+	public function __construct($dsn, $username='SYSDBA', $password='masterkey', $options = array())
 	{
 		if (strpos($dsn, 'firebird') === FALSE) $dsn = 'firebird:'.$dsn;
-		
+
 		parent::__construct($dsn, $username, $password, $options);
 	}
 
@@ -62,22 +62,6 @@ class PDO_Firebird extends DB_PDO {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Bind a prepared query with arguments for executing
-	 *
-	 * @param string $sql
-	 * @param array $params
-	 * @return NULL
-	 */
-	public function prepare_query($sql, $params)
-	{
-		// You can't bind query statements before execution with
-		// the firebird database
-		return NULL;
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/** 
 	 * Create sql for batch insert
 	 *
 	 * @param string $table
@@ -90,4 +74,4 @@ class PDO_Firebird extends DB_PDO {
 		return NULL;
 	}
 }
-// End of firebird_driver.php
+// End of pdo_firebird_driver.php
