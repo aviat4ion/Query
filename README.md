@@ -3,10 +3,12 @@
 A query builder/database abstraction layer, using prepared queries for security.
 
 [![Build Status](https://secure.travis-ci.org/timw4mail/Query.png)](http://travis-ci.org/timw4mail/Query)
+[![Code Coverage](https://scrutinizer-ci.com/g/timw4mail/Query/badges/coverage.png?s=a96df5417089f90250aeb59013a3964b1ff9b588)](https://scrutinizer-ci.com/g/timw4mail/Query/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/timw4mail/Query/badges/quality-score.png?s=ce0f185067d7049cfe3f0aba2ca30ed56fb97b20)](https://scrutinizer-ci.com/g/timw4mail/Query/)
 [![Latest Stable Version](https://poser.pugx.org/aviat4ion/query/v/stable.png)](https://packagist.org/packages/aviat4ion/query)
 [![Total Downloads](https://poser.pugx.org/aviat4ion/query/downloads.png)](https://packagist.org/packages/aviat4ion/query)
 [![Latest Unstable Version](https://poser.pugx.org/aviat4ion/query/v/unstable.png)](https://packagist.org/packages/aviat4ion/query)
-[![License](https://poser.pugx.org/aviat4ion/query/license.png)](https://packagist.org/packages/aviat4ion/query)
+[![License](https://poser.pugx.org/aviat4ion/query/license.png)](http://www.dbad-license.org/)
 
 ## Requirements
 * Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
