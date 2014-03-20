@@ -95,7 +95,7 @@ class Query_Builder implements iQuery_Builder {
 
 	// Whether to do only an explain on the query
 	protected $explain = FALSE;
-	
+
 	// Subclass instances
 	public $db;
 	protected $parser;
@@ -1339,13 +1339,13 @@ class Query_Builder implements iQuery_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * String together the sql statements for sending to the db
+	 * Sub-method for generating sql strings
 	 *
 	 * @param string $type
 	 * @param string $table
 	 * @return $string
 	 */
-	protected function _compile($type='', $table='')
+	protected function _compile_type($type='', $table='')
 	{
 		$table = $this->db->quote_table($table);
 
@@ -1379,6 +1379,23 @@ class Query_Builder implements iQuery_Builder {
 				$sql = "DELETE FROM {$table}";
 			break;
 		}
+
+		return $sql;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * String together the sql statements for sending to the db
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @return $string
+	 */
+	protected function _compile($type='', $table='')
+	{
+		// Get the base clause for the query
+		$sql = $this->_compile_type($type, $table);
 
 		// Set the where clause
 		if ( ! empty($this->query_map))
