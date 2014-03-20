@@ -24,17 +24,6 @@
 class PgSQL_Util extends DB_Util {
 
 	/**
-	 * Save a reference to the current connection object
-	 *
-	 * @param object $conn
-	 * @return void
-	 */
-	public function __construct(&$conn)
-	{
-		parent::__construct($conn);
-	}
-	
-	/**
 	 * Database-specific method to create a new table
 	 *
 	 * @param string $name
@@ -128,7 +117,7 @@ class PgSQL_Util extends DB_Util {
 	public function backup_data($exclude=array())
 	{
 		$tables = $this->get_tables();
-	
+
 		// Filter out the tables you don't want
 		if( ! empty($exclude))
 		{
@@ -143,10 +132,10 @@ class PgSQL_Util extends DB_Util {
 			$sql = 'SELECT * FROM "'.trim($t).'"';
 			$res = $this->query($sql);
 			$obj_res = $res->fetchAll(PDO::FETCH_ASSOC);
-			
+
 			// Don't add to the file if the table is empty
 			if (count($obj_res) < 1) continue;
-			
+
 			$res = NULL;
 
 			// Nab the column names by getting the keys of the first row

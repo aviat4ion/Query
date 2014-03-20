@@ -24,19 +24,6 @@
 class SQLite_Util extends DB_Util {
 
 	/**
-	 * Save a reference to the current connection object
-	 *
-	 * @param object $conn
-	 * @return void
-	 */
-	public function __construct(&$conn)
-	{
-		parent::__construct($conn);
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
 	 * Convenience public function to create a new table
 	 *
 	 * @param string $name //Name of the table
@@ -105,7 +92,7 @@ class SQLite_Util extends DB_Util {
 	{
 		return 'DROP TABLE IF EXISTS "'.$name.'"';
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -139,7 +126,7 @@ class SQLite_Util extends DB_Util {
 			$obj_res = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			unset($res);
-			
+
 			// If the row is empty, continue;
 			if (empty($obj_res)) continue;
 

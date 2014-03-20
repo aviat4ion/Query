@@ -28,19 +28,6 @@
 class MySQL_Util extends DB_Util {
 
 	/**
-	 * Save a reference to the current connection object
-	 *
-	 * @param object $conn
-	 * @return void
-	 */
-	public function __construct(&$conn)
-	{
-		parent::__construct($conn);
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
  	 * Convienience public function for creating a new MySQL table
  	 *
  	 * @param string $name
@@ -120,7 +107,7 @@ class MySQL_Util extends DB_Util {
 	{
 		return "DROP TABLE `{$name}`";
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -131,10 +118,10 @@ class MySQL_Util extends DB_Util {
 	public function backup_structure()
 	{
 		$string = array();
-	
+
 		// Get databases
 		$dbs = $this->get_dbs();
-		
+
 		foreach($dbs as &$d)
 		{
 			// Skip built-in dbs
@@ -142,17 +129,17 @@ class MySQL_Util extends DB_Util {
 			{
 				continue;
 			}
-		
+
 			// Get the list of tables
 			$tables = $this->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
-			
+
 			foreach($tables as &$table)
 			{
 				$array = $this->driver_query("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
 				$string[] = $array[0]['Create Table'];
 			}
 		}
-	
+
 		return implode("\n\n", $string);
 	}
 
@@ -167,35 +154,35 @@ class MySQL_Util extends DB_Util {
 	public function backup_data($exclude=array())
 	{
 		$tables = $this->get_tables();
-		
+
 		// Filter out the tables you don't want
 		if( ! empty($exclude))
 		{
 			$tables = array_diff($tables, $exclude);
 		}
-		
+
 		$output_sql = '';
-		
+
 		// Select the rows from each Table
 		foreach($tables as $t)
 		{
 			$sql = "SELECT * FROM `{$t}`";
 			$res = $this->query($sql);
 			$rows = $res->fetchAll(PDO::FETCH_ASSOC);
-			
+
 			// Skip empty tables
 			if (count($rows) < 1) continue;
-			
+
 			// Nab the column names by getting the keys of the first row
 			$columns = @array_keys($rows[0]);
 
 			$insert_rows = array();
-			
+
 			// Create the insert statements
 			foreach($rows as $row)
 			{
 				$row = array_values($row);
-				
+
 				// Workaround for Quercus
 				foreach($row as &$r)
 				{
@@ -212,7 +199,7 @@ class MySQL_Util extends DB_Util {
 
 			$output_sql .= "\n\n".implode("\n", $insert_rows)."\n";
 		}
-	
+
 		return $output_sql;
 	}
 }

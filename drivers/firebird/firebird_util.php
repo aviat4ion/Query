@@ -25,19 +25,6 @@
 class Firebird_Util extends DB_Util {
 
 	/**
-	 * Save a reference to the current connection object
-	 *
-	 * @param object $conn
-	 * @return void
-	 */
-	public function __construct(&$conn)
-	{
-		parent::__construct($conn);
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
 	 * Convienience public function to generate sql for creating a db table
 	 *
 	 * @param string $name
@@ -107,7 +94,7 @@ class Firebird_Util extends DB_Util {
 	{
 		return 'DROP TABLE "'.$name.'"';
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -156,7 +143,7 @@ class Firebird_Util extends DB_Util {
 			$sql = 'SELECT * FROM "'.trim($t).'"';
 			$res = $this->query($sql);
 			$obj_res = $res->fetchAll(PDO::FETCH_ASSOC);
-			
+
 			// Don't add to the file if the table is empty
 			if (count($obj_res) < 1) continue;
 
