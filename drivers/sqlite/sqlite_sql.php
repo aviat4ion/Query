@@ -31,12 +31,14 @@ class SQLite_SQL implements iDB_SQL {
 	 */
 	public function limit($sql, $limit, $offset=FALSE)
 	{
-		if ( ! is_numeric($offset))
+		$sql .= "\nLIMIT {$limit}";
+
+		if (is_numeric($offset))
 		{
-			return $sql."\nLIMIT {$limit}";
+			$sql .= " OFFSET {$offset}";
 		}
 
-		return $sql."\nLIMIT {$limit} OFFSET {$offset}";
+		return $sql;
 	}
 
 	// --------------------------------------------------------------------------
