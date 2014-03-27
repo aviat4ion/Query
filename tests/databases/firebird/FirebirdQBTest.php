@@ -33,12 +33,10 @@ class FirebirdQBTest extends QBTest {
 		$params->alias = 'fire';
 		$params->type = 'firebird';
 		$params->file = $dbpath;
-		$params->host = 'localhost';
-		$params->user = 'sysdba';
+		$params->host = '127.0.0.1';
+		$params->user = 'SYSDBA';
 		$params->pass = 'masterkey';
 		$params->prefix = 'create_';
-		$params->options = array();
-		$params->options[PDO::ATTR_PERSISTENT] = TRUE;
 		$this->db = Query($params);
 	}
 

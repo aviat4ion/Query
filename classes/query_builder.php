@@ -27,7 +27,7 @@ class Query_Builder implements iQuery_Builder {
 	// --------------------------------------------------------------------------
 
 	// Compiled 'select' clause
-	protected $select_string;
+	protected $select_string = '';
 
 	// Compiled 'from' clause
 	protected $from_string;
@@ -46,13 +46,13 @@ class Query_Builder implements iQuery_Builder {
 	// --------------------------------------------------------------------------
 
 	// Keys for insert/update statement
-	protected $set_array_keys;
+	protected $set_array_keys = array();
 
 	// Key/val pairs for order by clause
-	protected $order_array;
+	protected $order_array = array();
 
 	// Key/val pairs for group by clause
-	protected $group_array;
+	protected $group_array = array();
 
 	// --------------------------------------------------------------------------
 	// ! Other Class vars
@@ -94,7 +94,7 @@ class Query_Builder implements iQuery_Builder {
 	public $queries;
 
 	// Whether to do only an explain on the query
-	protected $explain = FALSE;
+	protected $explain;
 
 	// Subclass instances
 	public $db;
@@ -969,15 +969,7 @@ class Query_Builder implements iQuery_Builder {
 			$this->limit($limit, $offset);
 		}
 
-		// Do prepared statements for anything involving a "where" clause
-		if ( ! empty($this->query_map) || ! empty($this->having_map))
-		{
-			return $this->_run("get", $table);
-		}
-		else
-		{
-			return $this->_run("get", $table, TRUE);
-		}
+		return $this->_run("get", $table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1032,16 +1024,8 @@ class Query_Builder implements iQuery_Builder {
 			$this->from($table);
 		}
 
-		// Do prepared statements for anything involving a "where" clause
-		if ( ! empty($this->query_map))
-		{
-			$result = $this->_run('get', $table);
-		}
-		else
-		{
-			// Otherwise, a simple query will do.
-			$result =  $this->_run('get', $table, TRUE);
-		}
+		$result = $this->_run('get', $table);
+
 
 		$rows = $result->fetchAll();
 
@@ -1084,7 +1068,7 @@ class Query_Builder implements iQuery_Builder {
 
 		if ( ! is_null($sql))
 		{
-			return $this->_run('', $table, FALSE, $sql, $data);
+			return $this->_run('', $table, $sql, $data);
 		}
 
 		return NULL;
@@ -1228,23 +1212,37 @@ class Query_Builder implements iQuery_Builder {
 	 */
 	public function reset_query()
 	{
-		foreach($this as $name => $var)
+		$null_properties = array(
+			'select_string',
+			'from_string',
+			'set_string',
+			'order_string',
+			'group_string',
+			'limit',
+			'offset',
+			'explain'
+		);
+
+		$array_properties = array(
+			'set_array_keys',
+			'order_array',
+			'group_array',
+			'values',
+			'where_values',
+			'query_map',
+			'having_map'
+		);
+
+		// Reset strings and booleans
+		foreach($null_properties as $var)
 		{
-			$skip = array('db','sql','queries','table_prefix','parser','conn_name');
+			$this->$var = NULL;
+		}
 
-			// Skip properties that are needed for every query
-			if (in_array($name, $skip)) continue;
-
-			// Nothing query-generation related is safe!
-			$this->$name = NULL;
-
-			// Set empty arrays
-			$this->values = array();
-			$this->query_map = array();
-
-			// Set select string as an empty string, for proper handling
-			// of the 'distinct' keyword
-			$this->select_string = '';
+		// Reset arrays
+		foreach($array_properties as $var)
+		{
+			$this->$var = array();
 		}
 	}
 
@@ -1255,12 +1253,11 @@ class Query_Builder implements iQuery_Builder {
 	 *
 	 * @param string $type
 	 * @param string $table
-	 * @param bool $simple
 	 * @param string $sql
 	 * @param mixed $vals
 	 * @return mixed
 	 */
-	protected function _run($type, $table, $simple=FALSE, $sql=NULL, $vals=NULL)
+	protected function _run($type, $table, $sql=NULL, $vals=NULL)
 	{
 		if (is_null($sql))
 		{
@@ -1276,7 +1273,7 @@ class Query_Builder implements iQuery_Builder {
 
 		$start_time = microtime(TRUE);
 
-		if ($simple)
+		if (empty($vals))
 		{
 			$res = $this->db->query($sql);
 		}
@@ -1347,37 +1344,32 @@ class Query_Builder implements iQuery_Builder {
 	 */
 	protected function _compile_type($type='', $table='')
 	{
-		$table = $this->db->quote_table($table);
-
-		switch($type)
+		if ($type === 'insert')
 		{
-			default:
-			case "get":
-				$sql = "SELECT * \nFROM {$this->from_string}";
+			$param_count = count($this->set_array_keys);
+			$params = array_fill(0, $param_count, '?');
+			$sql = "INSERT INTO {$table} ("
+				. implode(',', $this->set_array_keys)
+				. ")\nVALUES (".implode(',', $params).')';
+		}
+		elseif ($type === 'update')
+		{
+			$sql = "UPDATE {$table}\nSET {$this->set_string}";
+		}
+		elseif ($type === 'delete')
+		{
+			$sql = "DELETE FROM {$table}";
+		}
+		else // GET queries
+		{
+			$sql = "SELECT * \nFROM {$this->from_string}";
 
-				// Set the select string
-				if ( ! empty($this->select_string))
-				{
-					// Replace the star with the selected fields
-					$sql = str_replace('*', $this->select_string, $sql);
-				}
-			break;
-
-			case "insert":
-				$param_count = count($this->set_array_keys);
-				$params = array_fill(0, $param_count, '?');
-				$sql = "INSERT INTO {$table} ("
-					. implode(',', $this->set_array_keys) .
-					")\nVALUES (".implode(',', $params).')';
-			break;
-
-			case "update":
-				$sql = "UPDATE {$table}\nSET {$this->set_string}";
-			break;
-
-			case "delete":
-				$sql = "DELETE FROM {$table}";
-			break;
+			// Set the select string
+			if ( ! empty($this->select_string))
+			{
+				// Replace the star with the selected fields
+				$sql = str_replace('*', $this->select_string, $sql);
+			}
 		}
 
 		return $sql;
@@ -1395,7 +1387,7 @@ class Query_Builder implements iQuery_Builder {
 	protected function _compile($type='', $table='')
 	{
 		// Get the base clause for the query
-		$sql = $this->_compile_type($type, $table);
+		$sql = $this->_compile_type($type, $this->db->quote_table($table));
 
 		// Set the where clause
 		if ( ! empty($this->query_map))

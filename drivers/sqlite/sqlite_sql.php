@@ -33,14 +33,14 @@ class SQLite_SQL implements iDB_SQL {
 	{
 		if ( ! is_numeric($offset))
 		{
-			return $sql." LIMIT {$limit}";
+			return $sql."\nLIMIT {$limit}";
 		}
 
-		return $sql." LIMIT {$offset}, {$limit}";
+		return $sql."\nLIMIT {$limit} OFFSET {$offset}";
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Get the query plan for the sql query
 	 *
@@ -63,7 +63,7 @@ class SQLite_SQL implements iDB_SQL {
 	{
 		return ' RANDOM()';
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -166,9 +166,9 @@ SQL;
 	{
 		return NULL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * SQL to show list of field types
 	 *
@@ -178,9 +178,9 @@ SQL;
 	{
 		return array('INTEGER', 'REAL', 'TEXT', 'BLOB');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * SQL to show infromation about columns in a table
 	 *

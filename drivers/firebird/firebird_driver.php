@@ -21,7 +21,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class Firebird extends DB_PDO {
+class Firebird extends Abstract_Driver {
 
 	/**
 	 * Reference to the last query executed
@@ -29,22 +29,22 @@ class Firebird extends DB_PDO {
 	 * @var object
 	 */
 	protected $statement = NULL;
-	
+
 	/**
 	 * Reference to the resource returned by
 	 * the last query executed
 	 *
 	 * @var resource
 	 */
-	protected $statement_link;
-	
+	protected $statement_link = NULL;
+
 	/**
 	 * Reference to the current transaction
 	 *
 	 * @var resource
 	 */
-	protected $trans; 
-	
+	protected $trans = NULL;
+
 	/**
 	 * Reference to the connection resource
 	 *
@@ -60,29 +60,29 @@ class Firebird extends DB_PDO {
 	 * @param string $pass
 	 * @param array $options
 	 */
-	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', $options = array())
+	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = array())
 	{
 		if (isset($options[PDO::ATTR_PERSISTENT]) && $options[PDO::ATTR_PERSISTENT] == TRUE)
 		{
 			$this->conn = fbird_pconnect($dbpath, $user, $pass, 'utf-8', 0);
 		}
-		else 
+		else
 		{
-			$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8', 0);	
+			$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8', 0);
 		}
 
 		// Throw an exception to make this match other pdo classes
 		if ( ! is_resource($this->conn)) throw new PDOException(fbird_errmsg(), fbird_errcode(), NULL);
-		
+
 		// Load these classes here because this
 		// driver does not call the constructor
-		// of DB_PDO, which defines these two 
+		// of DB_PDO, which defines these two
 		// class variables for the other drivers
-		
+
 		// Load the sql class
 		$class = __CLASS__."_sql";
 		$this->sql = new $class();
-		
+
 		// Load the util class
 		$class = __CLASS__."_util";
 		$this->util = new $class($this);
@@ -105,16 +105,74 @@ class Firebird extends DB_PDO {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Execute an sql statement and return number of affected rows
+	 *
+	 * @param string $sql
+	 * @return int
+	 */
+	public function exec($sql)
+	{
+		if (empty($sql)) throw new PDOException("Exec method requires an sql query!", 0, NULL);
+
+		$query = (isset($this->trans))
+			? fbird_query($this->trans, $sql)
+			: fbird_query($this->conn, $sql);
+
+		return fbird_affected_rows($query);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Implement for compatibility with PDO
+	 *
+	 * @param int $attribute
+	 * @return mixed
+	 */
+	public function getAttribute($attribute)
+	{
+		return NULL;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Return whether the current statement is in a transaction
+	 *
+	 * @return bool
+	 */
+	public function inTransaction()
+	{
+		return ! is_null($this->trans);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Returns the last value of the specified generator
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	public function lastInsertId($name = NULL)
+	{
+		return fbird_gen_id($name, 0, $this->conn);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Wrapper public function to better match PDO
 	 *
 	 * @param string $sql
 	 * @return Firebird_Result
 	 * @throws PDOException
 	 */
-	public function query($sql)
+	public function query($sql = '')
 	{
+
 		if (empty($sql)) throw new PDOException("Query method requires an sql query!", 0, NULL);
-		
+
 		$this->statement_link = (isset($this->trans))
 			? fbird_query($this->trans, $sql)
 			: fbird_query($this->conn, $sql);
@@ -122,7 +180,7 @@ class Firebird extends DB_PDO {
 		// Throw the error as a exception
 		$err_string = fbird_errmsg() . "Last query:" . $this->last_query;
 		if ($this->statement_link === FALSE) throw new PDOException($err_string, fbird_errcode(), NULL);
-		
+
 		$this->statement = new FireBird_Result($this->statement_link);
 
 		return $this->statement;
@@ -138,7 +196,7 @@ class Firebird extends DB_PDO {
 	 * @return Firebird_Result
 	 * @throws PDOException
 	 */
-	public function prepare($query, $options=NULL)
+	public function prepare($query, $options=array())
 	{
 		$this->statement_link = fbird_prepare($this->conn, $query);
 
@@ -171,7 +229,9 @@ class Firebird extends DB_PDO {
 	 */
 	public function commit()
 	{
-		return fbird_commit($this->trans);
+		$res = fbird_commit($this->trans);
+		$this->trans = NULL;
+		return $res;
 	}
 
 	// --------------------------------------------------------------------------
@@ -183,7 +243,22 @@ class Firebird extends DB_PDO {
 	 */
 	public function rollBack()
 	{
-		return fbird_rollback($this->trans);
+		$res = fbird_rollback($this->trans);
+		$this->trans = NULL;
+		return $res;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Set a connection attribute
+	 * @param int $attribute
+	 * @param mixed $value
+	 * @return bool
+	 */
+	public function setAttribute($attribute, $value)
+	{
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------------
@@ -200,7 +275,7 @@ class Firebird extends DB_PDO {
 		$query = $this->prepare($sql);
 
 		// Set the statement in the class variable for easy later access
-		$this->statement_link =& $query; 
+		$this->statement_link =& $query;
 
 		return $query->execute($args);
 	}
@@ -214,7 +289,7 @@ class Firebird extends DB_PDO {
 	 * @param int $param_type
 	 * @return string
 	 */
-	public function quote($str, $param_type = NULL)
+	public function quote($str, $param_type = PDO::PARAM_STR)
 	{
 		if(is_numeric($str))
 		{
@@ -238,11 +313,11 @@ class Firebird extends DB_PDO {
 
 		return array(0, $code, $msg);
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
-	 * Method to emulate PDO->errorCode	 
+	 * Method to emulate PDO->errorCode
 	 *
 	 * @return array
 	 */
@@ -266,10 +341,10 @@ class Firebird extends DB_PDO {
 		// the firebird database
 		return NULL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
-	/** 
+
+	/**
 	 * Create sql for batch insert
 	 *
 	 * @param string $table

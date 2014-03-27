@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class SQLite extends DB_PDO {
+class SQLite extends Abstract_Driver {
 
 	/**
 	 * Reference to the last executed sql query
@@ -34,9 +34,10 @@ class SQLite extends DB_PDO {
 	 * @param string $dsn
 	 * @param string $user
 	 * @param string $pass
+	 * @param array $driver_options
 	 */
-	public function __construct($dsn, $user=NULL, $pass=NULL)
-	{	
+	public function __construct($dsn, $user=NULL, $pass=NULL, array $driver_options=array())
+	{
 		// DSN is simply `sqlite:/path/to/db`
 		parent::__construct("sqlite:{$dsn}", $user, $pass);
 	}
@@ -87,10 +88,10 @@ class SQLite extends DB_PDO {
 		// that is of any importance.
 		return array('sqlite_master');
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
-	/** 
+
+	/**
 	 * Create sql for batch insert
 	 *
 	 * @param string $table

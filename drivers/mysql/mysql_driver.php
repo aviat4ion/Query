@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class MySQL extends DB_PDO {
+class MySQL extends Abstract_Driver {
 
 	/**
 	 * Set the backtick as the MySQL escape character
@@ -36,7 +36,7 @@ class MySQL extends DB_PDO {
 	 * @param string $password
 	 * @param array $options
 	 */
-	public function __construct($dsn, $username=null, $password=null, $options=array())
+	public function __construct($dsn, $username=null, $password=null, array $options=array())
 	{
 		// Set the charset to UTF-8
 		if (defined('PDO::MYSQL_ATTR_INIT_COMMAND'))
@@ -45,9 +45,9 @@ class MySQL extends DB_PDO {
 				PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF-8 COLLATE 'UTF-8'",
 			));
 		}
-		
+
 		if (strpos($dsn, 'mysql') === FALSE) $dsn = 'mysql:'.$dsn;
-		
+
 		parent::__construct($dsn, $username, $password, $options);
 	}
 

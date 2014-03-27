@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class PgSQL extends DB_PDO {
+class PgSQL extends Abstract_Driver {
 
 	/**
 	 * Connect to a PosgreSQL database
@@ -29,10 +29,10 @@ class PgSQL extends DB_PDO {
 	 * @param string $password
 	 * @param array  $options
 	 */
-	public function __construct($dsn, $username=null, $password=null, $options=array())
+	public function __construct($dsn, $username=null, $password=null, array $options=array())
 	{
 		if (strpos($dsn, 'pgsql') === FALSE) $dsn = 'pgsql:'.$dsn;
-		
+
 		parent::__construct($dsn, $username, $password, $options);
 	}
 

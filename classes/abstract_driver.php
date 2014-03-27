@@ -21,7 +21,7 @@
  * @package Query
  * @subpackage Query
  */
-abstract class DB_PDO extends PDO {
+abstract class Abstract_Driver extends PDO implements idriver {
 
 	// Reference to the last executed query
 	protected $statement;
@@ -49,7 +49,7 @@ abstract class DB_PDO extends PDO {
 	 * @param string $password
 	 * @param array $driver_options
 	 */
-	public function __construct($dsn, $username=NULL, $password=NULL, $driver_options=array())
+	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options=array())
 	{
 		// Set PDO to display errors as exceptions
 		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
