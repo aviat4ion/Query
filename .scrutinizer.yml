@@ -5,14 +5,14 @@ tools:
     external_code_coverage:
         timeout: 1000
     # PHP
-    
+
     # Don't like PSR standards, not going to get messages for them!
     php_code_sniffer: false
-    
+
     php_sim: true
     # Can't be used with similarity analyzer
-    php_cpd: false  
-   
+    php_cpd: false
+
     php_mess_detector: true
     php_pdepend: true
     php_loc: true
@@ -22,3 +22,4 @@ tools:
                 enabled: true
             doc_comment_fixes:
                 enabled: true
+    php_hhvm: true

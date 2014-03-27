@@ -74,46 +74,6 @@ interface idriver {
 	public function getAttribute($attribute);
 
 	/**
-	 * Check if currently in a transaction
-	 *
-	 * @return bool
-	 */
-	public function inTransaction();
-
-	/**
-	 * Returns the id of the last row inserted into the database
-	 *
-	 * @return string
-	 */
-	public function lastInsertId();
-
-	/**
-	 * Prepare a statement for execution
-	 *
-	 * @param string $statement
-	 * @param [array] $driver_options
-	 * @return PDOStatement
-	 */
-	public function prepare($statement, $driver_options = array());
-
-	/**
-	 * Executes an sql statement
-	 *
-	 * @param string $statement
-	 * @return PDOStatement
-	 */
-	public function query();
-
-	/**
-	 * Quotes a string for use in a query
-	 *
-	 * @param string $string
-	 * @param [int] $parameter_type
-	 * #return string
-	 */
-	public function quote($string, $parameter_type = PDO::PARAM_STRING);
-
-	/**
 	 * Rollback a transaction
 	 *
 	 * @return bool
