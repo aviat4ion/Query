@@ -18,8 +18,7 @@ tools:
     php_loc: true
     php_analyzer:
         config:
+            metrics_lack_of_cohesion_methods:
+                enabled: true
             doc_comment_fixes:
                 enabled: true
-	
-    #HHVM static analysis
-    php_hhvm: true
