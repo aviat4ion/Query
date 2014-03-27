@@ -66,13 +66,18 @@
 <li class="method public "><a href="#method_commit" title="commit() :: Commit a database transaction"><span class="description">Commit a database transaction</span><pre>commit()</pre></a></li>
 <li class="method public "><a href="#method_errorCode" title="errorCode() :: Method to emulate PDO-&gt;errorCode"><span class="description">Method to emulate PDO-&gt;errorCode</span><pre>errorCode()</pre></a></li>
 <li class="method public "><a href="#method_errorInfo" title="errorInfo() :: Method to emulate PDO-&gt;errorInfo / PDOStatement-&gt;errorInfo"><span class="description">Method to emulate PDO-&gt;errorInfo / PDOStatement-&gt;errorInfo</span><pre>errorInfo()</pre></a></li>
+<li class="method public "><a href="#method_exec" title="exec() :: Execute an sql statement and return number of affected rows"><span class="description">Execute an sql statement and return number of affected rows</span><pre>exec()</pre></a></li>
+<li class="method public "><a href="#method_getAttribute" title="getAttribute() :: Implement for compatibility with PDO"><span class="description">Implement for compatibility with PDO</span><pre>getAttribute()</pre></a></li>
+<li class="method public "><a href="#method_inTransaction" title="inTransaction() :: Return whether the current statement is in a transaction"><span class="description">Return whether the current statement is in a transaction</span><pre>inTransaction()</pre></a></li>
 <li class="method public "><a href="#method_insert_batch" title="insert_batch() :: Create sql for batch insert"><span class="description">Create sql for batch insert</span><pre>insert_batch()</pre></a></li>
+<li class="method public "><a href="#method_lastInsertId" title="lastInsertId() :: Returns the last value of the specified generator"><span class="description">Returns the last value of the specified generator</span><pre>lastInsertId()</pre></a></li>
 <li class="method public "><a href="#method_prepare" title="prepare() :: Emulate PDO prepare"><span class="description">Emulate PDO prepare</span><pre>prepare()</pre></a></li>
 <li class="method public "><a href="#method_prepare_execute" title="prepare_execute() :: Prepare and execute a query"><span class="description">Prepare and execute a query</span><pre>prepare_execute()</pre></a></li>
 <li class="method public "><a href="#method_prepare_query" title="prepare_query() :: Bind a prepared query with arguments for executing"><span class="description">Bind a prepared query with arguments for executing</span><pre>prepare_query()</pre></a></li>
 <li class="method public "><a href="#method_query" title="query() :: Wrapper public function to better match PDO"><span class="description">Wrapper public function to better match PDO</span><pre>query()</pre></a></li>
 <li class="method public "><a href="#method_quote" title="quote() :: Method to emulate PDO-&gt;quote"><span class="description">Method to emulate PDO-&gt;quote</span><pre>quote()</pre></a></li>
 <li class="method public "><a href="#method_rollBack" title="rollBack() :: Rollback a transaction"><span class="description">Rollback a transaction</span><pre>rollBack()</pre></a></li>
+<li class="method public "><a href="#method_setAttribute" title="setAttribute() :: Set a connection attribute"><span class="description">Set a connection attribute</span><pre>setAttribute()</pre></a></li>
 <li class="method public "><a href="#method_truncate" title="truncate() :: Empty a database table"><span class="description">Empty a database table</span><pre>truncate()</pre></a></li>
 </ul>
 </li>
@@ -143,12 +148,14 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 </div>
 <a id="method_beginTransaction"></a><div class="element clickable method public method_beginTransaction" data-toggle="collapse" data-target=".method_beginTransaction .collapse" title="public">
 <h2>Start a database transaction</h2>
-<pre>beginTransaction() : bool</pre>
+<pre>beginTransaction() : boolean | null</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Returns</h3>
-<div class="subelement response"><code>bool</code></div>
+<div class="subelement response">
+<code>boolean</code><code>null</code>
+</div>
 </div></div>
 </div>
 <a id="method_commit"></a><div class="element clickable method public method_commit" data-toggle="collapse" data-target=".method_commit .collapse" title="public">
@@ -181,6 +188,46 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
+<a id="method_exec"></a><div class="element clickable method public method_exec" data-toggle="collapse" data-target=".method_exec .collapse" title="public">
+<h2>Execute an sql statement and return number of affected rows</h2>
+<pre>exec(string $sql) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$sql</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>int</code></div>
+</div></div>
+</div>
+<a id="method_getAttribute"></a><div class="element clickable method public method_getAttribute" data-toggle="collapse" data-target=".method_getAttribute .collapse" title="public">
+<h2>Implement for compatibility with PDO</h2>
+<pre>getAttribute(int $attribute) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$attribute</h4>
+<code>int</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a id="method_inTransaction"></a><div class="element clickable method public method_inTransaction" data-toggle="collapse" data-target=".method_inTransaction .collapse" title="public">
+<h2>Return whether the current statement is in a transaction</h2>
+<pre>inTransaction() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
 <a id="method_insert_batch"></a><div class="element clickable method public method_insert_batch" data-toggle="collapse" data-target=".method_insert_batch .collapse" title="public">
 <h2>Create sql for batch insert</h2>
 <pre>insert_batch(string $table, array $data<code> = array()</code>) : string</pre>
@@ -200,16 +247,27 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_prepare"></a><div class="element clickable method public method_prepare" data-toggle="collapse" data-target=".method_prepare .collapse" title="public">
-<h2>Emulate PDO prepare</h2>
-<pre>prepare(string $query, array $options<code> = NULL</code>) : \Firebird</pre>
+<a id="method_lastInsertId"></a><div class="element clickable method public method_lastInsertId" data-toggle="collapse" data-target=".method_lastInsertId .collapse" title="public">
+<h2>Returns the last value of the specified generator</h2>
+<pre>lastInsertId(string $name<code> = NULL</code>) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>fluent</th>
-<td>This method is part of a fluent interface and will return the same instance</td>
-</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a id="method_prepare"></a><div class="element clickable method public method_prepare" data-toggle="collapse" data-target=".method_prepare .collapse" title="public">
+<h2>Emulate PDO prepare</h2>
+<pre>prepare(string $query, array $options<code> = array()</code>) : <a href="../classes/Firebird_Result.html">\Firebird_Result</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$query</h4>
@@ -225,12 +283,12 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 <td></td>
 </tr></table>
 <h3>Returns</h3>
-<div class="subelement response"><code>\Firebird</code></div>
+<div class="subelement response"><code><a href="../classes/Firebird_Result.html">\Firebird_Result</a></code></div>
 </div></div>
 </div>
 <a id="method_prepare_execute"></a><div class="element clickable method public method_prepare_execute" data-toggle="collapse" data-target=".method_prepare_execute .collapse" title="public">
 <h2>Prepare and execute a query</h2>
-<pre>prepare_execute(string $sql, array $args) : resource</pre>
+<pre>prepare_execute(string $sql, array $args) : <a href="../classes/Firebird_Result.html">\Firebird_Result</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -244,7 +302,7 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 <code>array</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code>resource</code></div>
+<div class="subelement response"><code><a href="../classes/Firebird_Result.html">\Firebird_Result</a></code></div>
 </div></div>
 </div>
 <a id="method_prepare_query"></a><div class="element clickable method public method_prepare_query" data-toggle="collapse" data-target=".method_prepare_query .collapse" title="public">
@@ -268,14 +326,10 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 </div>
 <a id="method_query"></a><div class="element clickable method public method_query" data-toggle="collapse" data-target=".method_query .collapse" title="public">
 <h2>Wrapper public function to better match PDO</h2>
-<pre>query(string $sql) : \Firebird</pre>
+<pre>query(string $sql<code> = ''</code>) : <a href="../classes/Firebird_Result.html">\Firebird_Result</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>fluent</th>
-<td>This method is part of a fluent interface and will return the same instance</td>
-</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$sql</h4>
@@ -287,12 +341,12 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 <td></td>
 </tr></table>
 <h3>Returns</h3>
-<div class="subelement response"><code>\Firebird</code></div>
+<div class="subelement response"><code><a href="../classes/Firebird_Result.html">\Firebird_Result</a></code></div>
 </div></div>
 </div>
 <a id="method_quote"></a><div class="element clickable method public method_quote" data-toggle="collapse" data-target=".method_quote .collapse" title="public">
 <h2>Method to emulate PDO-&gt;quote</h2>
-<pre>quote(string $str, int $param_type<code> = NULL</code>) : string</pre>
+<pre>quote(string $str, int $param_type<code> = \PDO::PARAM_STR</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -315,6 +369,25 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a id="method_setAttribute"></a><div class="element clickable method public method_setAttribute" data-toggle="collapse" data-target=".method_setAttribute .collapse" title="public">
+<h2>Set a connection attribute</h2>
+<pre>setAttribute(int $attribute, mixed $value) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$attribute</h4>
+<code>int</code>
+</div>
+<div class="subelement argument">
+<h4>$value</h4>
+<code>mixed</code>
+</div>
 <h3>Returns</h3>
 <div class="subelement response"><code>bool</code></div>
 </div></div>
@@ -360,7 +433,7 @@ the last query executed</h2>
 <pre>$statement_link : resource</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
-<div class="subelement argument"></div>
+<div class="subelement argument"><code>NULL</code></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -370,7 +443,7 @@ the last query executed</h2>
 <pre>$trans : resource</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
-<div class="subelement argument"></div>
+<div class="subelement argument"><code>NULL</code></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -383,7 +456,7 @@ the last query executed</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-17T19:32:00-04:00.<br></footer></div>
+            generated on 2014-03-26T20:50:45-04:00.<br></footer></div>
 </div>
 </body>
 </html>

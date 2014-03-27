@@ -60,17 +60,17 @@
 </li>
 <li class="nav-header">
 <i title="Interfaces" class="icon-custom icon-interface"></i> Interfaces</li>
-<li><a href="#iQuery_Builder" title="Interface defining the Query Builder class">iQuery_Builder</a></li>
 <li><a href="#iDB_SQL" title="parent for database manipulation subclasses">iDB_SQL</a></li>
+<li><a href="#iQuery_Builder" title="Interface defining the Query Builder class">iQuery_Builder</a></li>
 <li class="nav-header">
 <i title="Classes" class="icon-custom icon-class"></i> Classes</li>
-<li><a href="#DB_PDO" title="Base Database class">DB_PDO</a></li>
+<li><a href="#DB_Util" title="Abstract class defining database / table creation methods">DB_Util</a></li>
+<li><a href="#Query_Parser" title="Utility Class to parse sql clauses for properly escaping identifiers">Query_Parser</a></li>
+<li><a href="#Abstract_Driver" title="Base Database class">Abstract_Driver</a></li>
 <li><a href="#Query_Builder" title="Convienience class for creating sql queries - also the class that
 instantiates the specific db driver">Query_Builder</a></li>
-<li><a href="#DB_Util" title="Abstract class defining database / table creation methods">DB_Util</a></li>
 <li><a href="#BadDBDriverException" title="Generic exception for bad drivers">BadDBDriverException</a></li>
 <li><a href="#BadConnectionException" title="Generic exception for bad connection strings">BadConnectionException</a></li>
-<li><a href="#Query_Parser" title="Utility Class to parse sql clauses for properly escaping identifiers">Query_Parser</a></li>
 </ul>
 </div>
 <div class="span8 package-contents">
@@ -97,6 +97,13 @@ instantiates the specific db driver">Query_Builder</a></li>
 <div class="details collapse"></div>
 <a href="../classes/iQuery_Builder.html" class="more">« More »</a>
 </div>
+<div id="Abstract_Driver" class="element ajax clickable class">
+<h1>Abstract_Driver<a href="../classes/Abstract_Driver.html">¶</a>
+</h1>
+<p class="short_description">Base Database class</p>
+<div class="details collapse"></div>
+<a href="../classes/Abstract_Driver.html" class="more">« More »</a>
+</div>
 <div id="BadConnectionException" class="element ajax clickable class">
 <h1>BadConnectionException<a href="../classes/BadConnectionException.html">¶</a>
 </h1>
@@ -110,13 +117,6 @@ instantiates the specific db driver">Query_Builder</a></li>
 <p class="short_description">Generic exception for bad drivers</p>
 <div class="details collapse"></div>
 <a href="../classes/BadDBDriverException.html" class="more">« More »</a>
-</div>
-<div id="DB_PDO" class="element ajax clickable class">
-<h1>DB_PDO<a href="../classes/DB_PDO.html">¶</a>
-</h1>
-<p class="short_description">Base Database class</p>
-<div class="details collapse"></div>
-<a href="../classes/DB_PDO.html" class="more">« More »</a>
 </div>
 <div id="DB_Util" class="element ajax clickable class">
 <h1>DB_Util<a href="../classes/DB_Util.html">¶</a>
@@ -147,7 +147,7 @@ instantiates the specific db driver</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-17T19:32:00-04:00.<br></footer></div>
+            generated on 2014-03-26T20:50:45-04:00.<br></footer></div>
 </div>
 </body>
 </html>

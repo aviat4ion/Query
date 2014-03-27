@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Query » \DB_PDO</title>
+<title>Query » \Abstract_Driver</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -108,12 +108,12 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 </ul>
 </div>
 <div class="span8">
-<a id="\DB_PDO"></a><ul class="breadcrumb">
+<a id="\Abstract_Driver"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/DB_PDO.html">DB_PDO</a>
+<span class="divider">\</span><a href="../classes/Abstract_Driver.html">Abstract_Driver</a>
 </li>
 </ul>
 <div class="element class">
@@ -371,7 +371,7 @@ the connection/database</h2>
 </div>
 <a id="method_prepare_query"></a><div class="element clickable method public method_prepare_query" data-toggle="collapse" data-target=".method_prepare_query .collapse" title="public">
 <h2>Simplifies prepared statements for database queries</h2>
-<pre>prepare_query(string $sql, array $data) : mixed</pre>
+<pre>prepare_query(string $sql, array $data) : <a href="PDOStatement.html">\PDOStatement</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -391,7 +391,7 @@ the connection/database</h2>
 </tr></table>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>mixed</code>PDOStatement / FALSE</div>
+<code><a href="PDOStatement.html">\PDOStatement</a></code>PDOStatement / FALSE</div>
 </div></div>
 </div>
 <a id="method_quote_ident"></a><div class="element clickable method public method_quote_ident" data-toggle="collapse" data-target=".method_quote_ident .collapse" title="public">
@@ -522,7 +522,7 @@ the connection/database</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-17T19:32:00-04:00.<br></footer></div>
+            generated on 2014-03-26T20:50:45-04:00.<br></footer></div>
 </div>
 </body>
 </html>

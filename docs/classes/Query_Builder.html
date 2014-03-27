@@ -123,6 +123,7 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 <li class="nav-header protected">» Protected
                     <ul>
 <li class="method protected "><a href="#method__compile" title="_compile() :: String together the sql statements for sending to the db"><span class="description">String together the sql statements for sending to the db</span><pre>_compile()</pre></a></li>
+<li class="method protected "><a href="#method__compile_type" title="_compile_type() :: Sub-method for generating sql strings"><span class="description">Sub-method for generating sql strings</span><pre>_compile_type()</pre></a></li>
 <li class="method protected "><a href="#method__get_compile" title="_get_compile() :: Helper function for returning sql strings"><span class="description">Helper function for returning sql strings</span><pre>_get_compile()</pre></a></li>
 <li class="method protected "><a href="#method__having" title="_having() :: Simplify building having clauses"><span class="description">Simplify building having clauses</span><pre>_having()</pre></a></li>
 <li class="method protected "><a href="#method__like" title="_like() :: Simplify 'like' methods"><span class="description">Simplify 'like' methods</span><pre>_like()</pre></a></li>
@@ -224,7 +225,7 @@ instantiates the specific db driver</p>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$db</h4>
-<code><a href="../classes/DB_PDO.html">\DB_PDO</a></code>
+<code><a href="DB_PDO.html">\DB_PDO</a></code>
 </div>
 <div class="subelement argument">
 <h4>$params</h4>
@@ -624,7 +625,7 @@ execute current compiled query</h2>
 </div>
 <a id="method_limit"></a><div class="element clickable method public method_limit" data-toggle="collapse" data-target=".method_limit .collapse" title="public">
 <h2>Set a limit on the current sql statement</h2>
-<pre>limit(int $limit, int $offset<code> = FALSE</code>) : string</pre>
+<pre>limit(int $limit, int $offset<code> = FALSE</code>) : <a href="../classes/Query_Builder.html">\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -638,7 +639,7 @@ execute current compiled query</h2>
 <code>int</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
+<div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
 <a id="method_not_like"></a><div class="element clickable method public method_not_like" data-toggle="collapse" data-target=".method_not_like .collapse" title="public">
@@ -1120,6 +1121,25 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code><a href="%24string.html">\$string</a></code></div>
 </div></div>
 </div>
+<a id="method__compile_type"></a><div class="element clickable method protected method__compile_type" data-toggle="collapse" data-target=".method__compile_type .collapse" title="protected">
+<h2>Sub-method for generating sql strings</h2>
+<pre>_compile_type(string $type<code> = ''</code>, string $table<code> = ''</code>) : <a href="%24string.html">\$string</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="%24string.html">\$string</a></code></div>
+</div></div>
+</div>
 <a id="method__get_compile"></a><div class="element clickable method protected method__get_compile" data-toggle="collapse" data-target=".method__get_compile .collapse" title="protected">
 <h2>Helper function for returning sql strings</h2>
 <pre>_get_compile(string $type, string $table, bool $reset) </pre>
@@ -1209,7 +1229,7 @@ passed array with key / value pairs</h2>
 </div>
 <a id="method__run"></a><div class="element clickable method protected method__run" data-toggle="collapse" data-target=".method__run .collapse" title="protected">
 <h2>Executes the compiled query</h2>
-<pre>_run(string $type, string $table, bool $simple<code> = FALSE</code>, string $sql<code> = NULL</code>, mixed $vals<code> = NULL</code>) : mixed</pre>
+<pre>_run(string $type, string $table, string $sql<code> = NULL</code>, mixed $vals<code> = NULL</code>) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1221,10 +1241,6 @@ passed array with key / value pairs</h2>
 <div class="subelement argument">
 <h4>$table</h4>
 <code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$simple</h4>
-<code>bool</code>
 </div>
 <div class="subelement argument">
 <h4>$sql</h4>
@@ -1393,7 +1409,7 @@ passed array with key / value pairs</h2>
 <pre>$explain </pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
-<div class="subelement argument"><code>FALSE</code></div>
+<div class="subelement argument"></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -1413,7 +1429,7 @@ passed array with key / value pairs</h2>
 <pre>$group_array </pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
-<div class="subelement argument"></div>
+<div class="subelement argument"><code>array()</code></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -1463,7 +1479,7 @@ passed array with key / value pairs</h2>
 <pre>$order_array </pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
-<div class="subelement argument"></div>
+<div class="subelement argument"><code>array()</code></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -1503,7 +1519,7 @@ passed array with key / value pairs</h2>
 <pre>$select_string </pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
-<div class="subelement argument"></div>
+<div class="subelement argument"><code>''</code></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -1513,7 +1529,7 @@ passed array with key / value pairs</h2>
 <pre>$set_array_keys </pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
-<div class="subelement argument"></div>
+<div class="subelement argument"><code>array()</code></div>
 </div></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -1556,7 +1572,7 @@ passed array with key / value pairs</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-17T19:32:00-04:00.<br></footer></div>
+            generated on 2014-03-26T20:50:45-04:00.<br></footer></div>
 </div>
 </body>
 </html>

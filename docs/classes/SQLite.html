@@ -104,7 +104,7 @@
 <i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse" title="public">
 <h2>Open SQLite Database</h2>
-<pre>__construct(string $dsn, string $user<code> = NULL</code>, string $pass<code> = NULL</code>) </pre>
+<pre>__construct(string $dsn, string $user<code> = NULL</code>, string $pass<code> = NULL</code>, array $driver_options<code> = array()</code>) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -121,16 +121,20 @@
 <h4>$pass</h4>
 <code>string</code>
 </div>
+<div class="subelement argument">
+<h4>$driver_options</h4>
+<code>array</code>
+</div>
 </div></div>
 </div>
 <a id="method_get_system_tables"></a><div class="element clickable method public method_get_system_tables" data-toggle="collapse" data-target=".method_get_system_tables .collapse" title="public">
 <h2>List system tables for the current database</h2>
-<pre>get_system_tables() : array</pre>
+<pre>get_system_tables() : string[]</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Returns</h3>
-<div class="subelement response"><code>array</code></div>
+<div class="subelement response"><code>string[]</code></div>
 </div></div>
 </div>
 <a id="method_get_tables"></a><div class="element clickable method public method_get_tables" data-toggle="collapse" data-target=".method_get_tables .collapse" title="public">
@@ -195,7 +199,7 @@
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-17T19:32:00-04:00.<br></footer></div>
+            generated on 2014-03-26T20:50:45-04:00.<br></footer></div>
 </div>
 </body>
 </html>
