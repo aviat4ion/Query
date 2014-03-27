@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class Firebird_SQL implements iDB_SQL {
+class Firebird_SQL extends Abstract_SQL {
 
 	/**
 	 * Limit clause
@@ -45,9 +45,9 @@ class Firebird_SQL implements iDB_SQL {
 
 		return $sql;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Get the query plan for the sql query
 	 *
@@ -71,9 +71,9 @@ class Firebird_SQL implements iDB_SQL {
 		return NULL;
 	}
 
-		
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Returns sql to list other databases
 	 *
@@ -83,9 +83,9 @@ class Firebird_SQL implements iDB_SQL {
 	{
 		return NULL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Returns sql to list tables
 	 *
@@ -100,9 +100,9 @@ class Firebird_SQL implements iDB_SQL {
 			ORDER BY "RDB\$RELATION_NAME" ASC
 SQL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Returns sql to list system tables
 	 *
@@ -117,9 +117,9 @@ SQL;
 			ORDER BY "RDB\$RELATION_NAME" ASC
 SQL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Returns sql to list views
 	 *
@@ -132,9 +132,9 @@ SQL;
 			FROM "RDB\$VIEW_RELATIONS"
 SQL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Returns sql to list triggers
 	 *
@@ -147,9 +147,9 @@ SQL;
 			WHERE "RDB\$SYSTEM_FLAG" = 0
 SQL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Return sql to list functions
 	 *
@@ -159,9 +159,9 @@ SQL;
 	{
 		return 'SELECT * FROM "RDB$FUNCTIONS"';
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Return sql to list stored procedures
 	 *
@@ -187,9 +187,9 @@ SQL;
 SQL;
 
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Return sql to list sequences
 	 *
@@ -203,14 +203,14 @@ SQL;
 			WHERE "RDB\$SYSTEM_FLAG" = 0
 SQL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Return sql to list columns of the specified table
-	 * 
+	 *
 	 * @param string $table
-	 * @return string 
+	 * @return string
 	 */
 	public function column_list($table)
 	{
@@ -250,9 +250,9 @@ SQL;
 			ORDER BY r.RDB\$FIELD_POSITION
 SQL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * SQL to show list of field types
 	 *

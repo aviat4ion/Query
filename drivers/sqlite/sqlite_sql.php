@@ -19,29 +19,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class SQLite_SQL implements iDB_SQL {
-
-	/**
-	 * Limit clause
-	 *
-	 * @param string $sql
-	 * @param int $limit
-	 * @param int $offset
-	 * @return string
-	 */
-	public function limit($sql, $limit, $offset=FALSE)
-	{
-		$sql .= "\nLIMIT {$limit}";
-
-		if (is_numeric($offset))
-		{
-			$sql .= " OFFSET {$offset}";
-		}
-
-		return $sql;
-	}
-
-	// --------------------------------------------------------------------------
+class SQLite_SQL extends Abstract_SQL {
 
 	/**
 	 * Get the query plan for the sql query

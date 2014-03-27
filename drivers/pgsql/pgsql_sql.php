@@ -18,30 +18,8 @@
  * @package Query
  * @subpackage Drivers
  */
-class PgSQL_SQL implements iDB_SQL {
+class PgSQL_SQL extends Abstract_SQL {
 
-	/**
-	 * Limit clause
-	 *
-	 * @param string $sql
-	 * @param int $limit
-	 * @param int $offset
-	 * @return string
-	 */
-	public function limit($sql, $limit, $offset=FALSE)
-	{
-		$sql .= " LIMIT {$limit}";
-
-		if(is_numeric($offset))
-		{
-			$sql .= " OFFSET {$offset}";
-		}
-
-		return $sql;
-	}
-	
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Get the query plan for the sql query
 	 *
@@ -222,9 +200,9 @@ SQL;
 			ORDER BY ordinal_position;
 SQL;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * SQL to show list of field types
 	 *

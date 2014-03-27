@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Query
  */
-interface iDB_SQL {
+interface iSQL {
 
 	/**
 	 * Get database specific sql for limit clause
@@ -31,7 +31,7 @@ interface iDB_SQL {
 	 * @return string
 	 */
 	public function limit($sql, $limit, $offset=FALSE);
-	
+
 	/**
 	 * Modify the query to get the query plan
 	 *
@@ -47,7 +47,7 @@ interface iDB_SQL {
 	 * @return string
 	 */
 	public function random();
-	
+
 	/**
 	 * Returns sql to list other databases
 	 *
@@ -103,16 +103,16 @@ interface iDB_SQL {
 	 * @return string
 	 */
 	public function sequence_list();
-	
+
 	/**
 	 * Return sql to list database field types
 	 *
 	 * @return mixed
 	 */
 	public function type_list();
-	
+
 	/**
-	 * Get information about the columns in the 
+	 * Get information about the columns in the
 	 * specified table
 	 *
 	 * @param string $table
@@ -121,4 +121,4 @@ interface iDB_SQL {
 	public function column_list($table);
 
 }
-// End of db_sql.php
+// End of isql.php
