@@ -83,10 +83,9 @@ interface idriver {
 	/**
 	 * Returns the id of the last row inserted into the database
 	 *
-	 * @param [string] $name
 	 * @return string
 	 */
-	public function lastInsertId($name = NULL);
+	public function lastInsertId();
 
 	/**
 	 * Prepare a statement for execution
