@@ -1057,7 +1057,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return string
+	 * @return PDOStatement
 	 */
 	public function insert_batch($table, $data=array())
 	{

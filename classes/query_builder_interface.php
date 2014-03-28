@@ -358,7 +358,7 @@ interface Query_Builder_Interface {
 	 * @param $table
 	 * @param int $limit
 	 * @param int $offset
-	 * @return object
+	 * @return PDOStatement
 	 */
 	public function get($table='', $limit=FALSE, $offset=FALSE);
 
@@ -371,7 +371,7 @@ interface Query_Builder_Interface {
 	 * @param array $where
 	 * @param int $limit
 	 * @param int $offset
-	 * @return object
+	 * @return PDOStatement
 	 */
 	public function get_where($table, $where=array(), $limit=FALSE, $offset=FALSE);
 
@@ -403,7 +403,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return mixed
+	 * @return PDOStatement
 	 */
 	public function insert($table, $data=array());
 
@@ -414,7 +414,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return string
+	 * @return PDOStatement
 	 */
 	public function insert_batch($table, $data=array());
 
@@ -425,7 +425,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return mixed
+	 * @return PDOStatement
 	 */
 	public function update($table, $data=array());
 
@@ -436,7 +436,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $where
-	 * @return mixed
+	 * @return PDOStatement
 	 */
 	public function delete($table, $where='');
 
