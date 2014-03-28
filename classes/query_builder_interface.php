@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Query
  */
-interface iQuery_Builder {
+interface Query_Builder_Interface {
 
 	// --------------------------------------------------------------------------
 	// ! Select Queries
@@ -85,9 +85,9 @@ interface iQuery_Builder {
 	 * @return $this
 	 */
 	public function distinct();
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Shows the query plan for the query
 	 *
@@ -487,4 +487,4 @@ interface iQuery_Builder {
 	public function reset_query();
 }
 
-// End of iquery_builder.php
+// End of query_builder_interface.php

@@ -21,7 +21,7 @@
  * @package Query
  * @subpackage Query
  */
-abstract class Abstract_Driver extends PDO implements idriver {
+abstract class Abstract_Driver extends PDO implements Driver_Interface {
 
 	// Reference to the last executed query
 	protected $statement;

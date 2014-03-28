@@ -20,7 +20,7 @@
  * @package Query
  * @subpackage Query
  */
-class Query_Builder extends Abstract_Query_Builder {
+class Query_Builder implements Query_Builder_Interface {
 
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Strings
@@ -70,9 +70,6 @@ class Query_Builder extends Abstract_Query_Builder {
 	// Value for offset in limit string
 	protected $offset;
 
-	// Alias to $this->db->sql
-	public $sql;
-
 	// Query component order mapping
 	// for complex select queries
 	//
@@ -99,7 +96,10 @@ class Query_Builder extends Abstract_Query_Builder {
 	// Subclass instances
 	public $db;
 	protected $parser;
+
+	// Aliases to driver subclasses
 	public $util;
+	public $sql;
 
 	// --------------------------------------------------------------------------
 	// ! Methods
@@ -108,10 +108,10 @@ class Query_Builder extends Abstract_Query_Builder {
 	/**
 	 * Constructor
 	 *
-	 * @param DB_PDO $db
+	 * @param Abstract_driver $db
 	 * @param object $params - the connection parameters
 	 */
-	public function __construct($db, $params)
+	public function __construct(Abstract_Driver $db, $params)
 	{
 		$this->db = $db;
 
@@ -146,10 +146,29 @@ class Query_Builder extends Abstract_Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Method to simplify select_ methods
+	 *
+	 * @param string $field
+	 * @param string $as
+	 * @return string
+	 */
+	protected function _select($field, $as = FALSE)
+	{
+		// Escape the identifiers
+		$field = $this->db->quote_ident($field);
+
+		$as = ($as !== FALSE)
+			? $this->db->quote_ident($as)
+			: $field;
+
+		return "({$field}) AS {$as} ";
+	}
+
+	/**
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select($fields)
 	{
@@ -195,7 +214,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $field
 	 * @param string $as
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select_max($field, $as=FALSE)
 	{
@@ -211,7 +230,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $field
 	 * @param string $as
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select_min($field, $as=FALSE)
 	{
@@ -227,7 +246,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $field
 	 * @param string $as
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select_avg($field, $as=FALSE)
 	{
@@ -243,7 +262,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $field
 	 * @param string $as
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select_sum($field, $as=FALSE)
 	{
@@ -257,7 +276,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function distinct()
 	{
@@ -271,7 +290,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	/**
 	 * Tell the database to give you the query plan instead of result set
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function explain()
 	{
@@ -285,7 +304,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * Specify the database table to select from
 	 *
 	 * @param string $tblname
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function from($tblname)
 	{
@@ -308,12 +327,56 @@ class Query_Builder extends Abstract_Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Simplify 'like' methods
+	 *
+	 * @param string $field
+	 * @param mixed $val
+	 * @param string $pos
+	 * @param string $like
+	 * @param string $conj
+	 * @return $this
+	 */
+	protected function _like($field, $val, $pos, $like='LIKE', $conj='AND')
+	{
+		$field = $this->db->quote_ident($field);
+
+		// Add the like string into the order map
+		$l = $field. " {$like} ?";
+
+		if ($pos == 'before')
+		{
+			$val = "%{$val}";
+		}
+		elseif ($pos == 'after')
+		{
+			$val = "{$val}%";
+		}
+		else
+		{
+			$val = "%{$val}%";
+		}
+
+		$this->query_map[] = array(
+			'type' => 'like',
+			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : " {$conj} ",
+			'string' => $l
+		);
+
+		// Add to the values array
+		$this->where_values[] = $val;
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Creates a Like clause in the sql statement
 	 *
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function like($field, $val, $pos='both')
 	{
@@ -328,7 +391,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_like($field, $val, $pos='both')
 	{
@@ -343,7 +406,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function not_like($field, $val, $pos='both')
 	{
@@ -358,7 +421,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_not_like($field, $val, $pos='both')
 	{
@@ -370,11 +433,47 @@ class Query_Builder extends Abstract_Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Simplify building having clauses
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param string $conj
+	 * @return $this
+	 */
+	protected function _having($key, $val=array(), $conj='AND')
+	{
+		$where = $this->_where($key, $val);
+
+		// Create key/value placeholders
+		foreach($where as $f => $val)
+		{
+			// Split each key by spaces, in case there
+			// is an operator such as >, <, !=, etc.
+			$f_array = explode(' ', trim($f));
+
+			$item = $this->db->quote_ident($f_array[0]);
+
+			// Simple key value, or an operator
+			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
+
+			// Put in the query map for select statements
+			$this->having_map[] = array(
+				'conjunction' => ( ! empty($this->having_map)) ? " {$conj} " : ' HAVING ',
+				'string' => $item
+			);
+		}
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Generates a 'Having' clause
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function having($key, $val=array())
 	{
@@ -388,7 +487,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_having($key, $val=array())
 	{
@@ -400,6 +499,124 @@ class Query_Builder extends Abstract_Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Do all the repeditive stuff for where/having type methods
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @return array
+	 */
+	protected function _where($key, $val=array())
+	{
+		$where = array();
+
+		// Key and value passed? Add them to the where array
+		if (is_scalar($key) && is_scalar($val))
+		{
+			$where[$key] = $val;
+			$this->where_values[] = $val;
+		}
+		// Array or object, loop through and add to the where array
+		elseif ( ! is_scalar($key))
+		{
+			foreach($key as $k => $v)
+			{
+				$where[$k] = $v;
+				$this->where_values[] = $v;
+			}
+		}
+
+		return $where;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Simplify generating where string
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param string $conj
+	 * @return $this
+	 */
+	protected function _where_string($key, $val=array(), $conj='AND')
+	{
+		$where = $this->_where($key, $val);
+
+		// Create key/value placeholders
+		foreach($where as $f => $val)
+		{
+			// Split each key by spaces, in case there
+			// is an operator such as >, <, !=, etc.
+			$f_array = explode(' ', trim($f));
+
+			$item = $this->db->quote_ident($f_array[0]);
+
+			// Simple key value, or an operator
+			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
+
+			// Get the type of the first item in the query map
+			$first_item = end($this->query_map);
+
+			// Determine the correct conjunction
+			if (empty($this->query_map))
+			{
+				$conj = "\nWHERE ";
+			}
+			elseif ($first_item['type'] === 'group_start')
+			{
+				$conj = '';
+			}
+			else
+			{
+				$conj = " {$conj} ";
+			}
+
+			// Put in the query map for select statements
+			$this->query_map[] = array(
+				'type' => 'where',
+				'conjunction' => $conj,
+				'string' => $item
+			);
+		}
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Simplify where_in methods
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param string $in - The (not) in fragment
+	 * @param string $conj - The where in conjunction
+	 * @return $this
+	 */
+	protected function _where_in($key, $val=array(), $in='IN', $conj='AND')
+	{
+		$key = $this->db->quote_ident($key);
+		$params = array_fill(0, count($val), '?');
+
+		foreach($val as $v)
+		{
+			$this->where_values[] = $v;
+		}
+
+		$string = $key . " {$in} (".implode(',', $params).') ';
+
+		$this->query_map[] = array(
+			'type' => 'where_in',
+			'conjunction' => ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ',
+			'string' => $string
+		);
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Specify condition(s) in the where clause of a query
 	 * Note: this function works with key / value, or a
 	 * passed array with key / value pairs
@@ -407,7 +624,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param mixed $escape
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function where($key, $val=array(), $escape=NULL)
 	{
@@ -421,7 +638,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $key
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_where($key, $val=array())
 	{
@@ -435,7 +652,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param mixed $field
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function where_in($field, $val=array())
 	{
@@ -449,7 +666,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_where_in($field, $val=array())
 	{
@@ -463,7 +680,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function where_not_in($field, $val=array())
 	{
@@ -477,7 +694,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_where_not_in($field, $val=array())
 	{
@@ -493,7 +710,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function set($key, $val = NULL)
 	{
@@ -532,7 +749,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function join($table, $condition, $type='')
 	{
@@ -574,7 +791,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function group_by($field)
 	{
@@ -600,7 +817,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function order_by($field, $type="")
 	{
@@ -654,7 +871,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function group_start()
 	{
@@ -673,7 +890,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_group_start()
 	{
@@ -692,7 +909,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_not_group_start()
 	{
@@ -710,7 +927,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	/**
 	 * Ends a query group
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function group_end()
 	{
@@ -734,7 +951,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * @param $table
 	 * @param int $limit
 	 * @param int $offset
-	 * @return object
+	 * @return PDOStatement
 	 */
 	public function get($table='', $limit=FALSE, $offset=FALSE)
 	{
@@ -762,7 +979,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * @param array $where
 	 * @param int $limit
 	 * @param int $offset
-	 * @return object
+	 * @return PDOStatement
 	 */
 	public function get_where($table, $where=array(), $limit=FALSE, $offset=FALSE)
 	{
@@ -900,6 +1117,29 @@ class Query_Builder extends Abstract_Query_Builder {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Helper function for returning sql strings
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @param bool $reset
+	 * @resturn string
+	 */
+	protected function _get_compile($type, $table, $reset)
+	{
+		$sql = $this->_compile($type, $table);
+
+		// Reset the query builder for the next query
+		if ($reset)
+		{
+			$this->reset_query();
+		}
+
+		return $sql;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Returns the generated 'select' sql query
 	 *
 	 * @param string $table
@@ -1003,6 +1243,194 @@ class Query_Builder extends Abstract_Query_Builder {
 		{
 			$this->$var = array();
 		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Executes the compiled query
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @param string $sql
+	 * @param mixed $vals
+	 * @return PDOStatement
+	 */
+	protected function _run($type, $table, $sql=NULL, $vals=NULL)
+	{
+		if (is_null($sql))
+		{
+			$sql = $this->_compile($type, $table);
+		}
+
+		if (is_null($vals))
+		{
+			$vals = array_merge($this->values, (array) $this->where_values);
+		}
+
+		$evals = (is_array($vals)) ? $vals : array();
+
+		$start_time = microtime(TRUE);
+
+		if (empty($vals))
+		{
+			$res = $this->db->query($sql);
+		}
+		else
+		{
+			$res = $this->db->prepare_execute($sql, $vals);
+		}
+
+		$end_time = microtime(TRUE);
+
+		$total_time = number_format($end_time - $start_time, 5);
+
+		// Add the interpreted query to the list of executed queries
+		foreach($evals as &$v)
+		{
+			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
+		}
+		$esql = str_replace('?', "%s", $sql);
+		array_unshift($vals, $esql);
+		array_unshift($evals, $esql);
+
+
+		$this->queries[] = array(
+			'time' => $total_time,
+			'sql' => call_user_func_array('sprintf', $evals),
+		);
+		$this->queries['total_time'] += $total_time;
+
+		array_shift($vals);
+
+		// Set the last query to get rowcounts properly
+		$this->db->last_query = $sql;
+
+		// Reset class state for next query
+		$this->reset_query();
+
+		return $res;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Calls a function further down the inheritence chain
+	 *
+	 * @param string $name
+	 * @param array $params
+	 * @return mixed
+	 * @throws BadMethodCallException
+	 */
+	public function __call($name, $params)
+	{
+		if (method_exists($this->db, $name))
+		{
+			return call_user_func_array(array($this->db, $name), $params);
+		}
+
+		throw new BadMethodCallException("Method does not exist");
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Sub-method for generating sql strings
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @return $string
+	 */
+	protected function _compile_type($type='', $table='')
+	{
+		if ($type === 'insert')
+		{
+			$param_count = count($this->set_array_keys);
+			$params = array_fill(0, $param_count, '?');
+			$sql = "INSERT INTO {$table} ("
+				. implode(',', $this->set_array_keys)
+				. ")\nVALUES (".implode(',', $params).')';
+		}
+		elseif ($type === 'update')
+		{
+			$sql = "UPDATE {$table}\nSET {$this->set_string}";
+		}
+		elseif ($type === 'delete')
+		{
+			$sql = "DELETE FROM {$table}";
+		}
+		else // GET queries
+		{
+			$sql = "SELECT * \nFROM {$this->from_string}";
+
+			// Set the select string
+			if ( ! empty($this->select_string))
+			{
+				// Replace the star with the selected fields
+				$sql = str_replace('*', $this->select_string, $sql);
+			}
+		}
+
+		return $sql;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * String together the sql statements for sending to the db
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @return $string
+	 */
+	protected function _compile($type='', $table='')
+	{
+		// Get the base clause for the query
+		$sql = $this->_compile_type($type, $this->db->quote_table($table));
+
+		// Set the where clause
+		if ( ! empty($this->query_map))
+		{
+			foreach($this->query_map as $q)
+			{
+				$sql .= $q['conjunction'] . $q['string'];
+			}
+		}
+
+		// Set the group_by clause
+		if ( ! empty($this->group_string))
+		{
+			$sql .= $this->group_string;
+		}
+
+		// Set the order_by clause
+		if ( ! empty($this->order_string))
+		{
+			$sql .= $this->order_string;
+		}
+
+		// Set the having clause
+		if ( ! empty($this->having_map))
+		{
+			foreach($this->having_map as $h)
+			{
+				$sql .= $h['conjunction'] . $h['string'];
+			}
+		}
+
+		// Set the limit via the class variables
+		if (is_numeric($this->limit))
+		{
+			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
+		}
+
+		// See what needs to happen to only return the query plan
+		if ($this->explain === TRUE)
+		{
+			$sql = $this->sql->explain($sql);
+		}
+
+		return $sql;
 	}
 }
 // End of query_builder.php

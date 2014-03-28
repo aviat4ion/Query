@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Query
  */
-abstract class Abstract_SQL implements iSQL {
+abstract class Abstract_SQL implements SQL_Interface {
 
 	/**
 	 * Limit clause

@@ -16,7 +16,7 @@
 /**
  * PDO Interface to implement for database drivers
  */
-interface idriver {
+interface Driver_Interface {
 
 	/**
 	 * Constructor/Connection method
@@ -88,4 +88,4 @@ interface idriver {
 	 */
 	public function setAttribute($attribute, $value);
 }
-// End of idriver.php
+// End of driver_interface.php

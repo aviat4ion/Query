@@ -19,7 +19,7 @@
  * @package Query
  * @subpackage Query
  */
-interface iSQL {
+interface SQL_Interface {
 
 	/**
 	 * Get database specific sql for limit clause
@@ -121,4 +121,4 @@ interface iSQL {
 	public function column_list($table);
 
 }
-// End of isql.php
+// End of sql_interface.php
