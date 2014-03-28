@@ -410,6 +410,17 @@ interface Query_Builder_Interface {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Creates and executes a batch insertion query
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return string
+	 */
+	public function insert_batch($table, $data=array());
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Creates an update clause, and executes it
 	 *
 	 * @param string $table

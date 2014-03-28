@@ -1037,7 +1037,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return mixed
+	 * @return PDOStatement
 	 */
 	public function insert($table, $data=array())
 	{
@@ -1079,7 +1079,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return mixed
+	 * @return PDOStatement
 	 */
 	public function update($table, $data=array())
 	{
@@ -1099,7 +1099,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $where
-	 * @return mixed
+	 * @return PDOStatement
 	 */
 	public function delete($table, $where='')
 	{
@@ -1253,7 +1253,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param string $type
 	 * @param string $table
 	 * @param string $sql
-	 * @param mixed $vals
+	 * @param array|null $vals
 	 * @return PDOStatement
 	 */
 	protected function _run($type, $table, $sql=NULL, $vals=NULL)
@@ -1388,33 +1388,27 @@ class Query_Builder implements Query_Builder_Interface {
 		// Get the base clause for the query
 		$sql = $this->_compile_type($type, $this->db->quote_table($table));
 
-		// Set the where clause
-		if ( ! empty($this->query_map))
+		$clauses = array(
+			'query_map',
+			'group_string',
+			'order_string',
+			'having_map',
+		);
+
+		// Set each type of subclause
+		foreach($clauses as $clause)
 		{
-			foreach($this->query_map as $q)
+			$param = $this->$clause;
+			if (is_array($param))
 			{
-				$sql .= $q['conjunction'] . $q['string'];
+				foreach($param as $q)
+				{
+					$sql .= $q['conjunction'] . $q['string'];
+				}
 			}
-		}
-
-		// Set the group_by clause
-		if ( ! empty($this->group_string))
-		{
-			$sql .= $this->group_string;
-		}
-
-		// Set the order_by clause
-		if ( ! empty($this->order_string))
-		{
-			$sql .= $this->order_string;
-		}
-
-		// Set the having clause
-		if ( ! empty($this->having_map))
-		{
-			foreach($this->having_map as $h)
+			else
 			{
-				$sql .= $h['conjunction'] . $h['string'];
+				$sql .= $param;
 			}
 		}
 

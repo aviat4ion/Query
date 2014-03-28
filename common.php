@@ -155,7 +155,7 @@ function Query($params = '')
 
 	if (isset($params->options))
 	{
-		$options = (array)$params->options;
+		$options = (array) $params->options;
 	}
 
 	// --------------------------------------------------------------------------
@@ -165,19 +165,6 @@ function Query($params = '')
 	// Create the dsn for the database to connect to
 	if ($dbtype === 'firebird') $dsn = "{$params->host}:{$params->file}";
 	elseif ($dbtype === 'sqlite') $dsn = $params->file;
-	elseif ($dbtype === 'pdo_firebird')
-	{
-		$dbtype = 'firebird';
-
-		if ( ! empty($params->port))
-		{
-			$dsn = "{$dbtype}:dbname={$params->host}/{$params->port}:{$params->file}";
-		}
-		else
-		{
-			$dsn = "{$dbtype}:dbname={$params->host}:{$params->file}";
-		}
-	}
 	else
 	{
 		if ( ! empty($params->conn_db))
