@@ -61,7 +61,7 @@ class Firebird_Result extends PDOStatement {
 		// but we only want "interbase result" types when attempting to fetch data
 		if (is_resource($link) && get_resource_type($link) === "interbase result")
 		{
-			while($row = ibase_fetch_assoc($link, IBASE_FETCH_BLOBS))
+			while($row = fbird_fetch_assoc($link, IBASE_FETCH_BLOBS))
 			{
 				$this->result[] = $row;
 			}

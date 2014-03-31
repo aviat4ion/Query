@@ -88,9 +88,12 @@ function Query($params = '')
 	{
 		return $cmanager->get_connection($params);
 	}
+	elseif ( ! is_scalar($params))
+	{
+		// Otherwise, return a new connection
+		return $cmanager->connect($params);
+	}
 
-	// Otherwise, return a new connection
-	return $cmanager->connect($params);
 }
 
 // End of common.php

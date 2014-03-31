@@ -25,66 +25,6 @@
 class Firebird_Util extends DB_Util {
 
 	/**
-	 * Convienience public function to generate sql for creating a db table
-	 *
-	 * @param string $name
-	 * @param array $fields
-	 * @param array $constraints
-	 * @param array $indexes
-	 *
-	 * @return string
-	 */
-	public function create_table($name, $fields, array $constraints=array(), array $indexes=array())
-	{
-		$column_array = array();
-
-		// Reorganize into an array indexed with column information
-		// Eg $column_array[$colname] = array(
-		// 		'type' => ...,
-		// 		'constraint' => ...,
-		// 		'index' => ...,
-		// )
-		foreach($fields as $colname => $type)
-		{
-			if(is_numeric($colname))
-			{
-				$colname = $type;
-			}
-
-			$column_array[$colname] = array();
-			$column_array[$colname]['type'] = ($type !== $colname) ? $type : '';
-		}
-
-		if( ! empty($constraints))
-		{
-			foreach($constraints as $col => $const)
-			{
-				$column_array[$col]['constraint'] = $const;
-			}
-		}
-
-		// Join column definitons together
-		$columns = array();
-		foreach($column_array as $n => $props)
-		{
-			$str = '"'.$n.'"';
-			$str .= (isset($props['type'])) ? " {$props['type']}" : "";
-			$str .= (isset($props['constraint'])) ? " {$props['constraint']}" : "";
-
-			$columns[] = $str;
-		}
-
-		// Generate the sql for the creation of the table
-		$sql = 'CREATE TABLE "'.$name.'" (';
-		$sql .= implode(', ', $columns);
-		$sql .= ')';
-
-		return $sql;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Drop the selected table
 	 *
 	 * @param string $name

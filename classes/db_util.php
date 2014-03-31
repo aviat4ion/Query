@@ -25,7 +25,7 @@ abstract class DB_Util {
 	 * Reference to the current connection object
 	 */
 	private $conn;
-	
+
 	/**
 	 * Save a reference to the connection object for later use
 	 *
@@ -33,11 +33,11 @@ abstract class DB_Util {
 	 */
 	public function __construct($conn)
 	{
-		$this->conn = $conn; 
+		$this->conn = $conn;
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Enable calling driver methods
 	 *
@@ -49,22 +49,68 @@ abstract class DB_Util {
 	{
 		return call_user_func_array(array($this->conn, $method), $args);
 	}
-	
+
 	// --------------------------------------------------------------------------
 	// ! Abstract Methods
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Get database-specific sql to create a new table
+	 * Convienience public function to generate sql for creating a db table
 	 *
-	 * @abstract
 	 * @param string $name
-	 * @param array $columns
+	 * @param array $fields
 	 * @param array $constraints
 	 * @param array $indexes
+	 *
 	 * @return string
 	 */
-	abstract public function create_table($name, $columns, array $constraints=array(), array $indexes=array());
+	public function create_table($name, $fields, array $constraints=array(), array $indexes=array())
+	{
+		$column_array = array();
+
+		// Reorganize into an array indexed with column information
+		// Eg $column_array[$colname] = array(
+		// 		'type' => ...,
+		// 		'constraint' => ...,
+		// 		'index' => ...,
+		// )
+		foreach($fields as $colname => $type)
+		{
+			if(is_numeric($colname))
+			{
+				$colname = $type;
+			}
+
+			$column_array[$colname] = array();
+			$column_array[$colname]['type'] = ($type !== $colname) ? $type : '';
+		}
+
+		if( ! empty($constraints))
+		{
+			foreach($constraints as $col => $const)
+			{
+				$column_array[$col]['constraint'] = $const;
+			}
+		}
+
+		// Join column definitons together
+		$columns = array();
+		foreach($column_array as $n => $props)
+		{
+			$str = '"'.$n.'"';
+			$str .= (isset($props['type'])) ? " {$props['type']}" : "";
+			$str .= (isset($props['constraint'])) ? " {$props['constraint']}" : "";
+
+			$columns[] = $str;
+		}
+
+		// Generate the sql for the creation of the table
+		$sql = 'CREATE TABLE "'.$name.'" (';
+		$sql .= implode(', ', $columns);
+		$sql .= ')';
+
+		return $sql;
+	}
 
 	/**
 	 * Get database-specific sql to drop a table
@@ -74,7 +120,7 @@ abstract class DB_Util {
 	 * @return string
 	 */
 	abstract public function delete_table($name);
-	
+
 	/**
 	 * Return an SQL file with the database table structure
 	 *
