@@ -35,7 +35,7 @@ class PgTest extends DBTest {
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->pgsql;
 
-			$this->db = new PgSQL("pgsql:host={$params->host};dbname={$params->database}", $params->user, $params->pass);
+			$this->db = new PgSQL("pgsql:dbname={$params->database}", $params->user, $params->pass);
 		}
 		elseif (($var = getenv('CI')))
 		{
