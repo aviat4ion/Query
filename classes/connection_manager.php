@@ -64,7 +64,7 @@ final class Connection_Manager {
 	 * Make sure serialize/deseriaze doesn't work
 	 * @throws DomainException
 	 */
-	private function __wakup()
+	private function __wakeup()
 	{
 		throw new DomainException("Can't unserialize singleton");
 	}

@@ -1408,7 +1408,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $type
 	 * @param string $table
-	 * @return $string
+	 * @return string
 	 */
 	protected function _compile_type($type='', $table='')
 	{
