@@ -65,7 +65,7 @@
 <li class="method public "><a href="#method___construct" title="__construct() :: Save a reference to the connection object for later use"><span class="description">Save a reference to the connection object for later use</span><pre>__construct()</pre></a></li>
 <li class="method public "><a href="#method_backup_data" title="backup_data() :: Return an SQL file with the database data as insert statements"><span class="description">Return an SQL file with the database data as insert statements</span><pre>backup_data()</pre></a></li>
 <li class="method public "><a href="#method_backup_structure" title="backup_structure() :: Return an SQL file with the database table structure"><span class="description">Return an SQL file with the database table structure</span><pre>backup_structure()</pre></a></li>
-<li class="method public "><a href="#method_create_table" title="create_table() :: Get database-specific sql to create a new table"><span class="description">Get database-specific sql to create a new table</span><pre>create_table()</pre></a></li>
+<li class="method public "><a href="#method_create_table" title="create_table() :: Convienience public function to generate sql for creating a db table"><span class="description">Convienience public function to generate sql for creating a db table</span><pre>create_table()</pre></a></li>
 <li class="method public "><a href="#method_delete_table" title="delete_table() :: Get database-specific sql to drop a table"><span class="description">Get database-specific sql to drop a table</span><pre>delete_table()</pre></a></li>
 </ul>
 </li>
@@ -164,22 +164,18 @@
 </div></div>
 </div>
 <a id="method_create_table"></a><div class="element clickable method public method_create_table" data-toggle="collapse" data-target=".method_create_table .collapse" title="public">
-<h2>Get database-specific sql to create a new table</h2>
-<pre>create_table(string $name, array $columns, array $constraints<code> = array()</code>, array $indexes<code> = array()</code>) : string</pre>
+<h2>Convienience public function to generate sql for creating a db table</h2>
+<pre>create_table(string $name, array $fields, array $constraints<code> = array()</code>, array $indexes<code> = array()</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>abstract</th>
-<td></td>
-</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$name</h4>
 <code>string</code>
 </div>
 <div class="subelement argument">
-<h4>$columns</h4>
+<h4>$fields</h4>
 <code>array</code>
 </div>
 <div class="subelement argument">
@@ -233,7 +229,7 @@
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-26T20:50:45-04:00.<br></footer></div>
+            generated on 2014-03-31T13:31:59-04:00.<br></footer></div>
 </div>
 </body>
 </html>
