@@ -112,13 +112,7 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function exec($sql)
 	{
-		if (empty($sql)) throw new PDOException("Exec method requires an sql query!", 0, NULL);
-
-		$query = (isset($this->trans))
-			? fbird_query($this->trans, $sql)
-			: fbird_query($this->conn, $sql);
-
-		return fbird_affected_rows($query);
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------

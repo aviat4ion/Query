@@ -17,7 +17,7 @@
  * Generic exception for bad drivers
  *
  * @package Query
- * @subpackage Query
+ * @subpackage Core
  */
 class BadDBDriverException extends InvalidArgumentException {}
 
@@ -28,7 +28,7 @@ class BadDBDriverException extends InvalidArgumentException {}
  * Query method
  *
  * @package Query
- * @subpackage Query
+ * @subpackage Core
  */
 final class Connection_Manager {
 
@@ -44,11 +44,21 @@ final class Connection_Manager {
 	 */
 	private static $instance = null;
 
+	// --------------------------------------------------------------------------
+
 	/**
-	 * Private methods for singleton
+	 * Private constructor to prevent multiple instances
 	 */
 	private function __construct() {}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Private clone method to prevent cloning
+	 */
 	private function __clone() {}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Make sure serialize/deseriaze doesn't work

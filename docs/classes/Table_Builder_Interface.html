@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Query » \SQLite</title>
+<title>Query » \Table_Builder_Interface</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -57,139 +57,56 @@
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
 </div>
 </div>
-<ul class="side-nav nav nav-list">
-<li class="nav-header">
+<ul class="side-nav nav nav-list"><li class="nav-header">
 <i title="Methods" class="icon-custom icon-method"></i> Methods
-                    <ul>
-<li class="method public "><a href="#method___construct" title="__construct() :: Open SQLite Database"><span class="description">Open SQLite Database</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_get_system_tables" title="get_system_tables() :: List system tables for the current database"><span class="description">List system tables for the current database</span><pre>get_system_tables()</pre></a></li>
-<li class="method public "><a href="#method_get_tables" title="get_tables() :: List tables for the current database"><span class="description">List tables for the current database</span><pre>get_tables()</pre></a></li>
-<li class="method public "><a href="#method_insert_batch" title="insert_batch() :: Create sql for batch insert"><span class="description">Create sql for batch insert</span><pre>insert_batch()</pre></a></li>
-<li class="method public "><a href="#method_truncate" title="truncate() :: Empty a table"><span class="description">Empty a table</span><pre>truncate()</pre></a></li>
-</ul>
-</li>
-<li class="nav-header">
-<i title="Properties" class="icon-custom icon-property"></i> Properties
-                    <ul></ul>
-</li>
-<li class="nav-header protected">» Protected
-                    <ul><li class="property protected "><a href="#property_statement" title="$statement() :: Reference to the last executed sql query"><span class="description"></span><pre>$statement</pre></a></li></ul>
-</li>
-</ul>
+                    <ul><li class="method public "><a href="#method___construct" title="__construct() :: Constructor"><span class="description">Constructor</span><pre>__construct()</pre></a></li></ul>
+</li></ul>
 </div>
 <div class="span8">
-<a id="\SQLite"></a><ul class="breadcrumb">
+<a id="\Table_Builder_Interface"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/SQLite.html">SQLite</a>
+<span class="divider">\</span><a href="../classes/Table_Builder_Interface.html">Table_Builder_Interface</a>
 </li>
 </ul>
-<div class="element class">
-<p class="short_description">SQLite specific class</p>
+<div class="element interface">
+<p class="short_description">Abstract class defining database / table creation methods</p>
 <div class="details">
-<div class="long_description">Extends PDO to simplify cross-database issues</div>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>package</th>
-<td><a href="../packages/Query.Drivers.html">Query</a></td>
+<td><a href="../packages/Query.Table_Builder.html">Query</a></td>
 </tr>
 <tr>
 <th>subpackage</th>
-<td>Drivers</td>
+<td>Table_Builder</td>
 </tr>
 </table>
 <h3>
 <i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse" title="public">
-<h2>Open SQLite Database</h2>
-<pre>__construct(string $dsn, string $user<code> = NULL</code>, string $pass<code> = NULL</code>, array $driver_options<code> = array()</code>) </pre>
+<h2>Constructor</h2>
+<pre>__construct(string $name, array $options<code> = array()</code>, \Abstract_Driver $driver<code> = null</code>) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$dsn</h4>
+<h4>$name</h4>
 <code>string</code>
 </div>
 <div class="subelement argument">
-<h4>$user</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$pass</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$driver_options</h4>
+<h4>$options</h4>
 <code>array</code>
 </div>
-</div></div>
-</div>
-<a id="method_get_system_tables"></a><div class="element clickable method public method_get_system_tables" data-toggle="collapse" data-target=".method_get_system_tables .collapse" title="public">
-<h2>List system tables for the current database</h2>
-<pre>get_system_tables() : string[]</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string[]</code></div>
-</div></div>
-</div>
-<a id="method_get_tables"></a><div class="element clickable method public method_get_tables" data-toggle="collapse" data-target=".method_get_tables .collapse" title="public">
-<h2>List tables for the current database</h2>
-<pre>get_tables() : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
-<a id="method_insert_batch"></a><div class="element clickable method public method_insert_batch" data-toggle="collapse" data-target=".method_insert_batch .collapse" title="public">
-<h2>Create sql for batch insert</h2>
-<pre>insert_batch(string $table, array $data<code> = array()</code>) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$data</h4>
-<code>array</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_truncate"></a><div class="element clickable method public method_truncate" data-toggle="collapse" data-target=".method_truncate .collapse" title="public">
-<h2>Empty a table</h2>
-<pre>truncate(string $table) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
+<h4>$driver</h4>
+<code><a href="../classes/Abstract_Driver.html">\Abstract_Driver</a></code>
 </div>
 </div></div>
-</div>
-<h3>
-<i title="Properties" class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_statement"> </a><div class="element clickable property protected property_statement" data-toggle="collapse" data-target=".property_statement .collapse" title="protected">
-<h2>Reference to the last executed sql query</h2>
-<pre>$statement : <a href="PDOStatement.html">\PDOStatement</a></pre>
-<div class="row collapse"><div class="detail-description">
-<h3>Default</h3>
-<div class="subelement argument"></div>
-</div></div>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 </div>
 </div>

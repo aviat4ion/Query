@@ -17,7 +17,7 @@
  * Utility Class to parse sql clauses for properly escaping identifiers
  *
  * @package Query
- * @subpackage Query
+ * @subpackage Query_Builder
  */
 class Query_Parser {
 

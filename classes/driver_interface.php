@@ -15,6 +15,9 @@
 
 /**
  * PDO Interface to implement for database drivers
+ *
+ * @package Query
+ * @subpackage Drivers
  */
 interface Driver_Interface {
 

@@ -15,15 +15,19 @@
 
 /**
  * Autoloader for loading available database classes
+ *
+ * @package Query
  */
 
 /**
  * Reference to root path
+ * @subpackage Core
  */
 define('QBASE_PATH', dirname(__FILE__).'/');
 
 /**
  * Path to driver classes
+ * @subpackage Core
  */
 define('QDRIVER_PATH', QBASE_PATH.'drivers/');
 
@@ -33,6 +37,7 @@ require(QBASE_PATH.'common.php');
 /**
  * Load query classes
  *
+ * @subpackage Core
  * @param string $class
  */
 function query_autoload($class)

@@ -15,6 +15,8 @@
 
 /**
  * Global functions that don't really fit anywhere else
+ *
+ * @package Query
  */
 
 // --------------------------------------------------------------------------
@@ -25,6 +27,7 @@ if ( ! function_exists('do_include'))
 	 * Bulk directory loading workaround for use
 	 * with array_map and glob
 	 *
+	 * @subpackage Core
 	 * @param string $path
 	 * @return void
 	 */
@@ -41,6 +44,7 @@ if ( ! function_exists('mb_trim'))
 	/**
 	 * Multibyte-safe trim function
 	 *
+	 * @subpackage Core
 	 * @param string $string
 	 * @return string
 	 */
@@ -55,6 +59,7 @@ if ( ! function_exists('mb_trim'))
 /**
  * Filter out db rows into one array
  *
+ * @subpackage Core
  * @param array $array
  * @param mixed $index
  * @return array
@@ -76,6 +81,7 @@ function db_filter($array, $index)
 /**
  * Connection function
  *
+ * @subpackage Core
  * @param mixed $params
  * @return Query_Builder
  */

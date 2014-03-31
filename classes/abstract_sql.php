@@ -17,7 +17,7 @@
  * parent for database manipulation subclasses
  *
  * @package Query
- * @subpackage Query
+ * @subpackage Drivers
  */
 abstract class Abstract_SQL implements SQL_Interface {
 

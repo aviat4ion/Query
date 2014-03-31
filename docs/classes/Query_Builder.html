@@ -85,7 +85,7 @@ execute current compiled query</span><pre>get()</pre></a></li>
 <li class="method public "><a href="#method_group_start" title="group_start() :: Adds a paren to the current query for query grouping"><span class="description">Adds a paren to the current query for query grouping</span><pre>group_start()</pre></a></li>
 <li class="method public "><a href="#method_having" title="having() :: Generates a 'Having' clause"><span class="description">Generates a 'Having' clause</span><pre>having()</pre></a></li>
 <li class="method public "><a href="#method_insert" title="insert() :: Creates an insert clause, and executes it"><span class="description">Creates an insert clause, and executes it</span><pre>insert()</pre></a></li>
-<li class="method public "><a href="#method_insert_batch" title="insert_batch() :: Create sql for batch insert"><span class="description">Create sql for batch insert</span><pre>insert_batch()</pre></a></li>
+<li class="method public "><a href="#method_insert_batch" title="insert_batch() :: Creates and executes a batch insertion query"><span class="description">Creates and executes a batch insertion query</span><pre>insert_batch()</pre></a></li>
 <li class="method public "><a href="#method_join" title="join() :: Creates a join phrase in a compiled query"><span class="description">Creates a join phrase in a compiled query</span><pre>join()</pre></a></li>
 <li class="method public "><a href="#method_like" title="like() :: Creates a Like clause in the sql statement"><span class="description">Creates a Like clause in the sql statement</span><pre>like()</pre></a></li>
 <li class="method public "><a href="#method_limit" title="limit() :: Set a limit on the current sql statement"><span class="description">Set a limit on the current sql statement</span><pre>limit()</pre></a></li>
@@ -137,31 +137,32 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 <li class="nav-header">
 <i title="Properties" class="icon-custom icon-property"></i> Properties
                     <ul>
-<li class="property public "><a href="#property_conn_name" title="$conn_name() :: "><span class="description"></span><pre>$conn_name</pre></a></li>
-<li class="property public "><a href="#property_db" title="$db() :: "><span class="description"></span><pre>$db</pre></a></li>
-<li class="property public "><a href="#property_queries" title="$queries() :: "><span class="description"></span><pre>$queries</pre></a></li>
-<li class="property public "><a href="#property_sql" title="$sql() :: "><span class="description"></span><pre>$sql</pre></a></li>
-<li class="property public "><a href="#property_util" title="$util() :: "><span class="description"></span><pre>$util</pre></a></li>
+<li class="property public "><a href="#property_conn_name" title="$conn_name() :: Convenience property for connection management"><span class="description"></span><pre>$conn_name</pre></a></li>
+<li class="property public "><a href="#property_db" title="$db() :: The current database driver"><span class="description"></span><pre>$db</pre></a></li>
+<li class="property public "><a href="#property_queries" title="$queries() :: List of queries executed"><span class="description"></span><pre>$queries</pre></a></li>
+<li class="property public "><a href="#property_sql" title="$sql() :: Alias to $this-&gt;db-&gt;sql"><span class="description"></span><pre>$sql</pre></a></li>
+<li class="property public "><a href="#property_util" title="$util() :: Alias to $this-&gt;db-&gt;util"><span class="description"></span><pre>$util</pre></a></li>
 </ul>
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
-<li class="property protected "><a href="#property_explain" title="$explain() :: "><span class="description"></span><pre>$explain</pre></a></li>
-<li class="property protected "><a href="#property_from_string" title="$from_string() :: "><span class="description"></span><pre>$from_string</pre></a></li>
-<li class="property protected "><a href="#property_group_array" title="$group_array() :: "><span class="description"></span><pre>$group_array</pre></a></li>
-<li class="property protected "><a href="#property_group_string" title="$group_string() :: "><span class="description"></span><pre>$group_string</pre></a></li>
-<li class="property protected "><a href="#property_having_map" title="$having_map() :: "><span class="description"></span><pre>$having_map</pre></a></li>
-<li class="property protected "><a href="#property_limit" title="$limit() :: "><span class="description"></span><pre>$limit</pre></a></li>
-<li class="property protected "><a href="#property_offset" title="$offset() :: "><span class="description"></span><pre>$offset</pre></a></li>
-<li class="property protected "><a href="#property_order_array" title="$order_array() :: "><span class="description"></span><pre>$order_array</pre></a></li>
-<li class="property protected "><a href="#property_order_string" title="$order_string() :: "><span class="description"></span><pre>$order_string</pre></a></li>
-<li class="property protected "><a href="#property_parser" title="$parser() :: "><span class="description"></span><pre>$parser</pre></a></li>
-<li class="property protected "><a href="#property_query_map" title="$query_map() :: "><span class="description"></span><pre>$query_map</pre></a></li>
-<li class="property protected "><a href="#property_select_string" title="$select_string() :: "><span class="description"></span><pre>$select_string</pre></a></li>
-<li class="property protected "><a href="#property_set_array_keys" title="$set_array_keys() :: "><span class="description"></span><pre>$set_array_keys</pre></a></li>
-<li class="property protected "><a href="#property_set_string" title="$set_string() :: "><span class="description"></span><pre>$set_string</pre></a></li>
-<li class="property protected "><a href="#property_values" title="$values() :: "><span class="description"></span><pre>$values</pre></a></li>
-<li class="property protected "><a href="#property_where_values" title="$where_values() :: "><span class="description"></span><pre>$where_values</pre></a></li>
+<li class="property protected "><a href="#property_explain" title="$explain() :: Whether to do only an explain on the query"><span class="description"></span><pre>$explain</pre></a></li>
+<li class="property protected "><a href="#property_from_string" title="$from_string() :: Compiled 'from' clause"><span class="description"></span><pre>$from_string</pre></a></li>
+<li class="property protected "><a href="#property_group_array" title="$group_array() :: Key/val pairs for group by clause"><span class="description"></span><pre>$group_array</pre></a></li>
+<li class="property protected "><a href="#property_group_string" title="$group_string() :: Group by clause"><span class="description"></span><pre>$group_string</pre></a></li>
+<li class="property protected "><a href="#property_having_map" title="$having_map() :: Map for having clause"><span class="description"></span><pre>$having_map</pre></a></li>
+<li class="property protected "><a href="#property_limit" title="$limit() :: Value for limit string"><span class="description"></span><pre>$limit</pre></a></li>
+<li class="property protected "><a href="#property_offset" title="$offset() :: Value for offset in limit string"><span class="description"></span><pre>$offset</pre></a></li>
+<li class="property protected "><a href="#property_order_array" title="$order_array() :: Key/val pairs for order by clause"><span class="description"></span><pre>$order_array</pre></a></li>
+<li class="property protected "><a href="#property_order_string" title="$order_string() :: Order by clause"><span class="description"></span><pre>$order_string</pre></a></li>
+<li class="property protected "><a href="#property_parser" title="$parser() :: Query parser class instance"><span class="description"></span><pre>$parser</pre></a></li>
+<li class="property protected "><a href="#property_query_map" title="$query_map() :: Query component order mapping
+for complex select queries"><span class="description"></span><pre>$query_map</pre></a></li>
+<li class="property protected "><a href="#property_select_string" title="$select_string() :: Compiled 'select' clause"><span class="description"></span><pre>$select_string</pre></a></li>
+<li class="property protected "><a href="#property_set_array_keys" title="$set_array_keys() :: Keys for insert/update statement"><span class="description"></span><pre>$set_array_keys</pre></a></li>
+<li class="property protected "><a href="#property_set_string" title="$set_string() :: Compiled arguments for insert / update"><span class="description"></span><pre>$set_string</pre></a></li>
+<li class="property protected "><a href="#property_values" title="$values() :: Values to apply to prepared statements"><span class="description"></span><pre>$values</pre></a></li>
+<li class="property protected "><a href="#property_where_values" title="$where_values() :: Values to apply to where clauses in prepared statements"><span class="description"></span><pre>$where_values</pre></a></li>
 </ul>
 </li>
 </ul>
@@ -183,11 +184,11 @@ instantiates the specific db driver</p>
 <table class="table table-bordered">
 <tr>
 <th>package</th>
-<td><a href="../packages/Query.Query.html">Query</a></td>
+<td><a href="../packages/Query.Query_Builder.html">Query</a></td>
 </tr>
 <tr>
 <th>subpackage</th>
-<td>Query</td>
+<td>Query_Builder</td>
 </tr>
 </table>
 <h3>
@@ -523,7 +524,7 @@ execute current compiled query</h2>
 </div></div>
 </div>
 <a id="method_insert_batch"></a><div class="element clickable method public method_insert_batch" data-toggle="collapse" data-target=".method_insert_batch .collapse" title="public">
-<h2>Create sql for batch insert</h2>
+<h2>Creates and executes a batch insertion query</h2>
 <pre>insert_batch(string $table, array $data<code> = array()</code>) : <a href="PDOStatement.html">\PDOStatement</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -1055,14 +1056,10 @@ passed array with key / value pairs</h2>
 </div>
 <a id="method__having"></a><div class="element clickable method protected method__having" data-toggle="collapse" data-target=".method__having .collapse" title="protected">
 <h2>Simplify building having clauses</h2>
-<pre>_having(mixed $key, mixed $val<code> = array()</code>, string $conj<code> = 'AND'</code>) : \Query_Builder</pre>
+<pre>_having(mixed $key, mixed $val<code> = array()</code>, string $conj<code> = 'AND'</code>) : <a href="../classes/Query_Builder.html">\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>fluent</th>
-<td>This method is part of a fluent interface and will return the same instance</td>
-</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$key</h4>
@@ -1077,19 +1074,15 @@ passed array with key / value pairs</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code>\Query_Builder</code></div>
+<div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
 <a id="method__like"></a><div class="element clickable method protected method__like" data-toggle="collapse" data-target=".method__like .collapse" title="protected">
 <h2>Simplify 'like' methods</h2>
-<pre>_like(string $field, mixed $val, string $pos, string $like<code> = 'LIKE'</code>, string $conj<code> = 'AND'</code>) : \Query_Builder</pre>
+<pre>_like(string $field, mixed $val, string $pos, string $like<code> = 'LIKE'</code>, string $conj<code> = 'AND'</code>) : <a href="../classes/Query_Builder.html">\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>fluent</th>
-<td>This method is part of a fluent interface and will return the same instance</td>
-</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$field</h4>
@@ -1112,7 +1105,7 @@ passed array with key / value pairs</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code>\Query_Builder</code></div>
+<div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
 <a id="method__run"></a><div class="element clickable method protected method__run" data-toggle="collapse" data-target=".method__run .collapse" title="protected">
@@ -1182,14 +1175,10 @@ passed array with key / value pairs</h2>
 </div>
 <a id="method__where_in"></a><div class="element clickable method protected method__where_in" data-toggle="collapse" data-target=".method__where_in .collapse" title="protected">
 <h2>Simplify where_in methods</h2>
-<pre>_where_in(mixed $key, mixed $val<code> = array()</code>, string $in<code> = 'IN'</code>, string $conj<code> = 'AND'</code>) : \Query_Builder</pre>
+<pre>_where_in(mixed $key, mixed $val<code> = array()</code>, string $in<code> = 'IN'</code>, string $conj<code> = 'AND'</code>) : <a href="../classes/Query_Builder.html">\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>fluent</th>
-<td>This method is part of a fluent interface and will return the same instance</td>
-</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$key</h4>
@@ -1210,19 +1199,15 @@ passed array with key / value pairs</h2>
 <li>The where in conjunction</li>
 </ul></div>
 <h3>Returns</h3>
-<div class="subelement response"><code>\Query_Builder</code></div>
+<div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
 <a id="method__where_string"></a><div class="element clickable method protected method__where_string" data-toggle="collapse" data-target=".method__where_string .collapse" title="protected">
 <h2>Simplify generating where string</h2>
-<pre>_where_string(mixed $key, mixed $val<code> = array()</code>, string $conj<code> = 'AND'</code>) : \Query_Builder</pre>
+<pre>_where_string(mixed $key, mixed $val<code> = array()</code>, string $conj<code> = 'AND'</code>) : <a href="../classes/Query_Builder.html">\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>fluent</th>
-<td>This method is part of a fluent interface and will return the same instance</td>
-</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$key</h4>
@@ -1237,14 +1222,14 @@ passed array with key / value pairs</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code>\Query_Builder</code></div>
+<div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
 <h3>
 <i title="Properties" class="icon-custom icon-property"></i> Properties</h3>
 <a id="property_conn_name"> </a><div class="element clickable property public property_conn_name" data-toggle="collapse" data-target=".property_conn_name .collapse" title="public">
-<h2>$conn_name</h2>
-<pre>$conn_name </pre>
+<h2>Convenience property for connection management</h2>
+<pre>$conn_name : string</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>""</code></div>
@@ -1253,8 +1238,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_db"> </a><div class="element clickable property public property_db" data-toggle="collapse" data-target=".property_db .collapse" title="public">
-<h2>$db</h2>
-<pre>$db </pre>
+<h2>The current database driver</h2>
+<pre>$db : <a href="../classes/Driver_Interface.html">\Driver_Interface</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1263,8 +1248,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_queries"> </a><div class="element clickable property public property_queries" data-toggle="collapse" data-target=".property_queries .collapse" title="public">
-<h2>$queries</h2>
-<pre>$queries </pre>
+<h2>List of queries executed</h2>
+<pre>$queries : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1273,8 +1258,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_sql"> </a><div class="element clickable property public property_sql" data-toggle="collapse" data-target=".property_sql .collapse" title="public">
-<h2>$sql</h2>
-<pre>$sql </pre>
+<h2>Alias to $this-&gt;db-&gt;sql</h2>
+<pre>$sql : <a href="../classes/SQL_Interface.html">\SQL_Interface</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1283,8 +1268,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_util"> </a><div class="element clickable property public property_util" data-toggle="collapse" data-target=".property_util .collapse" title="public">
-<h2>$util</h2>
-<pre>$util </pre>
+<h2>Alias to $this-&gt;db-&gt;util</h2>
+<pre>$util : <a href="../classes/DB_Util.html">\DB_Util</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1293,8 +1278,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_explain"> </a><div class="element clickable property protected property_explain" data-toggle="collapse" data-target=".property_explain .collapse" title="protected">
-<h2>$explain</h2>
-<pre>$explain </pre>
+<h2>Whether to do only an explain on the query</h2>
+<pre>$explain : bool</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1303,8 +1288,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_from_string"> </a><div class="element clickable property protected property_from_string" data-toggle="collapse" data-target=".property_from_string .collapse" title="protected">
-<h2>$from_string</h2>
-<pre>$from_string </pre>
+<h2>Compiled 'from' clause</h2>
+<pre>$from_string : <a href="type.html">\type</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1313,8 +1298,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_group_array"> </a><div class="element clickable property protected property_group_array" data-toggle="collapse" data-target=".property_group_array .collapse" title="protected">
-<h2>$group_array</h2>
-<pre>$group_array </pre>
+<h2>Key/val pairs for group by clause</h2>
+<pre>$group_array : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>array()</code></div>
@@ -1323,8 +1308,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_group_string"> </a><div class="element clickable property protected property_group_string" data-toggle="collapse" data-target=".property_group_string .collapse" title="protected">
-<h2>$group_string</h2>
-<pre>$group_string </pre>
+<h2>Group by clause</h2>
+<pre>$group_string : string</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1333,8 +1318,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_having_map"> </a><div class="element clickable property protected property_having_map" data-toggle="collapse" data-target=".property_having_map .collapse" title="protected">
-<h2>$having_map</h2>
-<pre>$having_map </pre>
+<h2>Map for having clause</h2>
+<pre>$having_map : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1343,8 +1328,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_limit"> </a><div class="element clickable property protected property_limit" data-toggle="collapse" data-target=".property_limit .collapse" title="protected">
-<h2>$limit</h2>
-<pre>$limit </pre>
+<h2>Value for limit string</h2>
+<pre>$limit : <a href="type.html">\type</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1353,8 +1338,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_offset"> </a><div class="element clickable property protected property_offset" data-toggle="collapse" data-target=".property_offset .collapse" title="protected">
-<h2>$offset</h2>
-<pre>$offset </pre>
+<h2>Value for offset in limit string</h2>
+<pre>$offset : int</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1363,8 +1348,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_order_array"> </a><div class="element clickable property protected property_order_array" data-toggle="collapse" data-target=".property_order_array .collapse" title="protected">
-<h2>$order_array</h2>
-<pre>$order_array </pre>
+<h2>Key/val pairs for order by clause</h2>
+<pre>$order_array : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>array()</code></div>
@@ -1373,8 +1358,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_order_string"> </a><div class="element clickable property protected property_order_string" data-toggle="collapse" data-target=".property_order_string .collapse" title="protected">
-<h2>$order_string</h2>
-<pre>$order_string </pre>
+<h2>Order by clause</h2>
+<pre>$order_string : string</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1383,8 +1368,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_parser"> </a><div class="element clickable property protected property_parser" data-toggle="collapse" data-target=".property_parser .collapse" title="protected">
-<h2>$parser</h2>
-<pre>$parser </pre>
+<h2>Query parser class instance</h2>
+<pre>$parser : <a href="../classes/Query_Parser.html">\Query_Parser</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1393,18 +1378,24 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_query_map"> </a><div class="element clickable property protected property_query_map" data-toggle="collapse" data-target=".property_query_map .collapse" title="protected">
-<h2>$query_map</h2>
-<pre>$query_map </pre>
+<h2>Query component order mapping
+for complex select queries</h2>
+<pre>$query_map : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>array()</code></div>
 </div></div>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description">Format:
+array(
+	'type' => 'where',
+	'conjunction' => ' AND ',
+	'string' => 'k=?'
+)</div></div></div>
 </div>
 <a id="property_select_string"> </a><div class="element clickable property protected property_select_string" data-toggle="collapse" data-target=".property_select_string .collapse" title="protected">
-<h2>$select_string</h2>
-<pre>$select_string </pre>
+<h2>Compiled 'select' clause</h2>
+<pre>$select_string : <a href="type.html">\type</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>''</code></div>
@@ -1413,8 +1404,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_set_array_keys"> </a><div class="element clickable property protected property_set_array_keys" data-toggle="collapse" data-target=".property_set_array_keys .collapse" title="protected">
-<h2>$set_array_keys</h2>
-<pre>$set_array_keys </pre>
+<h2>Keys for insert/update statement</h2>
+<pre>$set_array_keys : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>array()</code></div>
@@ -1423,8 +1414,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_set_string"> </a><div class="element clickable property protected property_set_string" data-toggle="collapse" data-target=".property_set_string .collapse" title="protected">
-<h2>$set_string</h2>
-<pre>$set_string </pre>
+<h2>Compiled arguments for insert / update</h2>
+<pre>$set_string : string</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -1433,8 +1424,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_values"> </a><div class="element clickable property protected property_values" data-toggle="collapse" data-target=".property_values .collapse" title="protected">
-<h2>$values</h2>
-<pre>$values </pre>
+<h2>Values to apply to prepared statements</h2>
+<pre>$values : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>array()</code></div>
@@ -1443,8 +1434,8 @@ passed array with key / value pairs</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_where_values"> </a><div class="element clickable property protected property_where_values" data-toggle="collapse" data-target=".property_where_values .collapse" title="protected">
-<h2>$where_values</h2>
-<pre>$where_values </pre>
+<h2>Values to apply to where clauses in prepared statements</h2>
+<pre>$where_values : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>array()</code></div>
@@ -1460,7 +1451,7 @@ passed array with key / value pairs</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-31T13:31:59-04:00.<br></footer></div>
+            generated on 2014-03-31T15:56:17-04:00.<br></footer></div>
 </div>
 </body>
 </html>

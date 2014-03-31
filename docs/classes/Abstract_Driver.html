@@ -93,16 +93,16 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <li class="nav-header">
 <i title="Properties" class="icon-custom icon-property"></i> Properties
                     <ul>
-<li class="property public "><a href="#property_last_query" title="$last_query() :: "><span class="description"></span><pre>$last_query</pre></a></li>
-<li class="property public "><a href="#property_sql" title="$sql() :: "><span class="description"></span><pre>$sql</pre></a></li>
-<li class="property public "><a href="#property_table_prefix" title="$table_prefix() :: "><span class="description"></span><pre>$table_prefix</pre></a></li>
-<li class="property public "><a href="#property_util" title="$util() :: "><span class="description"></span><pre>$util</pre></a></li>
+<li class="property public "><a href="#property_last_query" title="$last_query() :: Last query executed"><span class="description"></span><pre>$last_query</pre></a></li>
+<li class="property public "><a href="#property_sql" title="$sql() :: Reference to sql class"><span class="description"></span><pre>$sql</pre></a></li>
+<li class="property public "><a href="#property_table_prefix" title="$table_prefix() :: Prefix to apply to table names"><span class="description"></span><pre>$table_prefix</pre></a></li>
+<li class="property public "><a href="#property_util" title="$util() :: Reference to util class"><span class="description"></span><pre>$util</pre></a></li>
 </ul>
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
-<li class="property protected "><a href="#property_escape_char" title="$escape_char() :: "><span class="description"></span><pre>$escape_char</pre></a></li>
-<li class="property protected "><a href="#property_statement" title="$statement() :: "><span class="description"></span><pre>$statement</pre></a></li>
+<li class="property protected "><a href="#property_escape_char" title="$escape_char() :: Character to escape indentifiers"><span class="description"></span><pre>$escape_char</pre></a></li>
+<li class="property protected "><a href="#property_statement" title="$statement() :: Reference to the last executed query"><span class="description"></span><pre>$statement</pre></a></li>
 </ul>
 </li>
 </ul>
@@ -123,11 +123,11 @@ the connection/database</span><pre>get_system_tables()</pre></a></li>
 <table class="table table-bordered">
 <tr>
 <th>package</th>
-<td><a href="../packages/Query.Query.html">Query</a></td>
+<td><a href="../packages/Query.Drivers.html">Query</a></td>
 </tr>
 <tr>
 <th>subpackage</th>
-<td>Query</td>
+<td>Drivers</td>
 </tr>
 </table>
 <h3>
@@ -455,8 +455,8 @@ the connection/database</h2>
 <h3>
 <i title="Properties" class="icon-custom icon-property"></i> Properties</h3>
 <a id="property_last_query"> </a><div class="element clickable property public property_last_query" data-toggle="collapse" data-target=".property_last_query .collapse" title="public">
-<h2>$last_query</h2>
-<pre>$last_query </pre>
+<h2>Last query executed</h2>
+<pre>$last_query : string</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -465,8 +465,8 @@ the connection/database</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_sql"> </a><div class="element clickable property public property_sql" data-toggle="collapse" data-target=".property_sql .collapse" title="public">
-<h2>$sql</h2>
-<pre>$sql </pre>
+<h2>Reference to sql class</h2>
+<pre>$sql : <a href="../classes/SQL_Interface.html">\SQL_Interface</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -475,8 +475,8 @@ the connection/database</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_table_prefix"> </a><div class="element clickable property public property_table_prefix" data-toggle="collapse" data-target=".property_table_prefix .collapse" title="public">
-<h2>$table_prefix</h2>
-<pre>$table_prefix </pre>
+<h2>Prefix to apply to table names</h2>
+<pre>$table_prefix : string</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>''</code></div>
@@ -485,8 +485,8 @@ the connection/database</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_util"> </a><div class="element clickable property public property_util" data-toggle="collapse" data-target=".property_util .collapse" title="public">
-<h2>$util</h2>
-<pre>$util </pre>
+<h2>Reference to util class</h2>
+<pre>$util : <a href="../classes/DB_Util.html">\DB_Util</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -495,8 +495,8 @@ the connection/database</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_escape_char"> </a><div class="element clickable property protected property_escape_char" data-toggle="collapse" data-target=".property_escape_char .collapse" title="protected">
-<h2>$escape_char</h2>
-<pre>$escape_char </pre>
+<h2>Character to escape indentifiers</h2>
+<pre>$escape_char : string</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>'"'</code></div>
@@ -505,8 +505,8 @@ the connection/database</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property_statement"> </a><div class="element clickable property protected property_statement" data-toggle="collapse" data-target=".property_statement .collapse" title="protected">
-<h2>$statement</h2>
-<pre>$statement </pre>
+<h2>Reference to the last executed query</h2>
+<pre>$statement : <a href="PDOStatement.html">\PDOStatement</a></pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -522,7 +522,7 @@ the connection/database</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-31T13:31:59-04:00.<br></footer></div>
+            generated on 2014-03-31T15:56:17-04:00.<br></footer></div>
 </div>
 </body>
 </html>

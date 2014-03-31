@@ -17,7 +17,7 @@
  * Interface defining the Query Builder class
  *
  * @package Query
- * @subpackage Query
+ * @subpackage Query_Builder
  */
 interface Query_Builder_Interface {
 
@@ -29,7 +29,7 @@ interface Query_Builder_Interface {
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select($fields);
 
@@ -40,7 +40,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $field
 	 * @param string $as
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select_max($field, $as=FALSE);
 
@@ -51,7 +51,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $field
 	 * @param string $as
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select_min($field, $as=FALSE);
 
@@ -62,7 +62,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $field
 	 * @param string $as
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select_avg($field, $as=FALSE);
 
@@ -73,7 +73,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $field
 	 * @param string $as
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function select_sum($field, $as=FALSE);
 
@@ -82,7 +82,7 @@ interface Query_Builder_Interface {
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function distinct();
 
@@ -91,7 +91,7 @@ interface Query_Builder_Interface {
 	/**
 	 * Shows the query plan for the query
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function explain();
 
@@ -101,7 +101,7 @@ interface Query_Builder_Interface {
 	 * Specify the database table to select from
 	 *
 	 * @param string $tblname
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function from($tblname);
 
@@ -115,7 +115,7 @@ interface Query_Builder_Interface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function like($field, $val, $pos='both');
 
@@ -127,7 +127,7 @@ interface Query_Builder_Interface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_like($field, $val, $pos='both');
 
@@ -139,7 +139,7 @@ interface Query_Builder_Interface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function not_like($field, $val, $pos='both');
 
@@ -151,7 +151,7 @@ interface Query_Builder_Interface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_not_like($field, $val, $pos='both');
 
@@ -164,7 +164,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function having($key, $val=array());
 
@@ -175,7 +175,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_having($key, $val=array());
 
@@ -191,7 +191,7 @@ interface Query_Builder_Interface {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param bool $escape
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function where($key, $val=array(), $escape = NULL);
 
@@ -202,7 +202,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $key
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_where($key, $val=array());
 
@@ -213,7 +213,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param mixed $field
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function where_in($field, $val=array());
 
@@ -224,7 +224,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_where_in($field, $val=array());
 
@@ -235,7 +235,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function where_not_in($field, $val=array());
 
@@ -246,7 +246,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_where_not_in($field, $val=array());
 
@@ -259,7 +259,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function set($key, $val = NULL);
 
@@ -271,7 +271,7 @@ interface Query_Builder_Interface {
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function join($table, $condition, $type='');
 
@@ -281,7 +281,7 @@ interface Query_Builder_Interface {
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function group_by($field);
 
@@ -292,7 +292,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function order_by($field, $type="");
 
@@ -314,7 +314,7 @@ interface Query_Builder_Interface {
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function group_start();
 
@@ -324,7 +324,7 @@ interface Query_Builder_Interface {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_group_start();
 
@@ -334,7 +334,7 @@ interface Query_Builder_Interface {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function or_not_group_start();
 
@@ -343,7 +343,7 @@ interface Query_Builder_Interface {
 	/**
 	 * Ends a query group
 	 *
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	public function group_end();
 

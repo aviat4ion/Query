@@ -56,36 +56,33 @@
 <li class="nav-header">
 <i class="icon-map-marker"></i> Packages</li>
 <li>
-<a href="../packages/Query.html" title="Query"><i class="icon-folder-open"></i>Query</a><ul class="nav nav-list nav-packages">
+<span class="empty-package"><i class="icon-folder-close"></i>Query</span><ul class="nav nav-list nav-packages">
+<li>
+<a href="../packages/Query.Core.html" title="Core"><i class="icon-folder-open"></i>Core</a><ul class="nav nav-list nav-packages"></ul>
+</li>
 <li>
 <a href="../packages/Query.Drivers.html" title="Drivers"><i class="icon-folder-open"></i>Drivers</a><ul class="nav nav-list nav-packages"></ul>
 </li>
 <li>
-<a href="../packages/Query.Query.html" title="Query"><i class="icon-folder-open"></i>Query</a><ul class="nav nav-list nav-packages"></ul>
+<a href="../packages/Query.Query_Builder.html" title="Query_Builder"><i class="icon-folder-open"></i>Query_Builder</a><ul class="nav nav-list nav-packages"></ul>
+</li>
+<li>
+<a href="../packages/Query.Table_Builder.html" title="Table_Builder"><i class="icon-folder-open"></i>Table_Builder</a><ul class="nav nav-list nav-packages"></ul>
 </li>
 </ul>
 </li>
-<li class="nav-header">
-<i title="Functions" class="icon-custom icon-function"></i> Functions</li>
-<li class="function  "><a href="#function_Query" title="Query() :: Connection function"><span class="description">Connection function</span><pre>Query</pre></a></li>
-<li class="function  "><a href="#function_db_filter" title="db_filter() :: Filter out db rows into one array"><span class="description">Filter out db rows into one array</span><pre>db_filter</pre></a></li>
-<li class="function  "><a href="#function_do_include" title="do_include() :: Bulk directory loading workaround for use
-with array_map and glob"><span class="description">Bulk directory loading workaround for use
-with array_map and glob</span><pre>do_include</pre></a></li>
-<li class="function  "><a href="#function_mb_trim" title="mb_trim() :: Multibyte-safe trim function"><span class="description">Multibyte-safe trim function</span><pre>mb_trim</pre></a></li>
-<li class="function  "><a href="#function_query_autoload" title="query_autoload() :: Load query classes"><span class="description">Load query classes</span><pre>query_autoload</pre></a></li>
-<li class="nav-header">
-<i title="Interfaces" class="icon-custom icon-interface"></i> Interfaces</li>
-<li><a href="#Driver_Interface" title="PDO Interface to implement for database drivers">Driver_Interface</a></li>
-<li class="nav-header">
-<i title="Constants" class="icon-custom icon-constant"></i> Constants</li>
-<li class="constant  "><a href="#constant_QBASE_PATH" title="QBASE_PATH() :: Reference to root path"><span class="description">Reference to root path</span><pre>QBASE_PATH</pre></a></li>
-<li class="constant  "><a href="#constant_QDRIVER_PATH" title="QDRIVER_PATH() :: Path to driver classes"><span class="description">Path to driver classes</span><pre>QDRIVER_PATH</pre></a></li>
 </ul>
 </div>
 <div class="span8 package-contents">
 <ul class="breadcrumb"><li>
 <a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li class="active"><a href="../packages/Query.html">Query</a></li>
+</li></ul>
+<div class="package-indent">
+<ul class="breadcrumb"><li>
+<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li><a href="../packages/Query.html">Query</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../packages/Query.Core.html">Core</a>
+</li>
 </li></ul>
 <div class="package-indent">
 <h3>
@@ -96,6 +93,10 @@ with array_map and glob</span><pre>do_include</pre></a></li>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$params</h4>
@@ -111,6 +112,10 @@ with array_map and glob</span><pre>do_include</pre></a></li>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$array</h4>
@@ -131,6 +136,10 @@ with array_map and glob</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$path</h4>
@@ -144,6 +153,10 @@ with array_map and glob</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$string</h4>
@@ -159,6 +172,10 @@ with array_map and glob</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$class</h4>
@@ -168,12 +185,20 @@ with array_map and glob</h2>
 </div>
 <h3>
 <i title="Classes" class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Driver_Interface" class="element ajax clickable interface">
-<h1>Driver_Interface<a href="../classes/Driver_Interface.html">¶</a>
+<div id="BadDBDriverException" class="element ajax clickable class">
+<h1>BadDBDriverException<a href="../classes/BadDBDriverException.html">¶</a>
 </h1>
-<p class="short_description">PDO Interface to implement for database drivers</p>
+<p class="short_description">Generic exception for bad drivers</p>
 <div class="details collapse"></div>
-<a href="../classes/Driver_Interface.html" class="more">« More »</a>
+<a href="../classes/BadDBDriverException.html" class="more">« More »</a>
+</div>
+<div id="Connection_Manager" class="element ajax clickable class">
+<h1>Connection_Manager<a href="../classes/Connection_Manager.html">¶</a>
+</h1>
+<p class="short_description">Connection manager class to manage connections for the
+Query method</p>
+<div class="details collapse"></div>
+<a href="../classes/Connection_Manager.html" class="more">« More »</a>
 </div>
 <h3>
 <i title="Constants" class="icon-custom icon-constant"></i> Constants</h3>
@@ -181,13 +206,26 @@ with array_map and glob</h2>
 <h2>Reference to root path</h2>
 <pre>QBASE_PATH = dirname(__FILE__) . '/' </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+</div></div>
 </div>
 <a id="constant_QDRIVER_PATH"> </a><div class="element clickable constant  constant_QDRIVER_PATH" data-toggle="collapse" data-target=".constant_QDRIVER_PATH .collapse" title="">
 <h2>Path to driver classes</h2>
 <pre>QDRIVER_PATH = QBASE_PATH . 'drivers/' </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+</div></div>
+</div>
 </div>
 <ul class="breadcrumb"><li>
 <a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li><a href="../packages/Query.html">Query</a></li>
@@ -198,6 +236,41 @@ with array_map and glob</h2>
 <div class="package-indent">
 <h3>
 <i title="Classes" class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<div id="Driver_Interface" class="element ajax clickable interface">
+<h1>Driver_Interface<a href="../classes/Driver_Interface.html">¶</a>
+</h1>
+<p class="short_description">PDO Interface to implement for database drivers</p>
+<div class="details collapse"></div>
+<a href="../classes/Driver_Interface.html" class="more">« More »</a>
+</div>
+<div id="SQL_Interface" class="element ajax clickable interface">
+<h1>SQL_Interface<a href="../classes/SQL_Interface.html">¶</a>
+</h1>
+<p class="short_description">parent for database manipulation subclasses</p>
+<div class="details collapse"></div>
+<a href="../classes/SQL_Interface.html" class="more">« More »</a>
+</div>
+<div id="Abstract_Driver" class="element ajax clickable class">
+<h1>Abstract_Driver<a href="../classes/Abstract_Driver.html">¶</a>
+</h1>
+<p class="short_description">Base Database class</p>
+<div class="details collapse"></div>
+<a href="../classes/Abstract_Driver.html" class="more">« More »</a>
+</div>
+<div id="Abstract_SQL" class="element ajax clickable class">
+<h1>Abstract_SQL<a href="../classes/Abstract_SQL.html">¶</a>
+</h1>
+<p class="short_description">parent for database manipulation subclasses</p>
+<div class="details collapse"></div>
+<a href="../classes/Abstract_SQL.html" class="more">« More »</a>
+</div>
+<div id="DB_Util" class="element ajax clickable class">
+<h1>DB_Util<a href="../classes/DB_Util.html">¶</a>
+</h1>
+<p class="short_description">Abstract class defining database / table creation methods</p>
+<div class="details collapse"></div>
+<a href="../classes/DB_Util.html" class="more">« More »</a>
+</div>
 <div id="Firebird" class="element ajax clickable class">
 <h1>Firebird<a href="../classes/Firebird.html">¶</a>
 </h1>
@@ -294,7 +367,7 @@ data-fetching methods</p>
 <ul class="breadcrumb"><li>
 <a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li><a href="../packages/Query.html">Query</a></li>
 <li class="active">
-<span class="divider">\</span><a href="../packages/Query.Query.html">Query</a>
+<span class="divider">\</span><a href="../packages/Query.Query_Builder.html">Query_Builder</a>
 </li>
 </li></ul>
 <div class="package-indent">
@@ -306,49 +379,6 @@ data-fetching methods</p>
 <p class="short_description">Interface defining the Query Builder class</p>
 <div class="details collapse"></div>
 <a href="../classes/Query_Builder_Interface.html" class="more">« More »</a>
-</div>
-<div id="SQL_Interface" class="element ajax clickable interface">
-<h1>SQL_Interface<a href="../classes/SQL_Interface.html">¶</a>
-</h1>
-<p class="short_description">parent for database manipulation subclasses</p>
-<div class="details collapse"></div>
-<a href="../classes/SQL_Interface.html" class="more">« More »</a>
-</div>
-<div id="Abstract_Driver" class="element ajax clickable class">
-<h1>Abstract_Driver<a href="../classes/Abstract_Driver.html">¶</a>
-</h1>
-<p class="short_description">Base Database class</p>
-<div class="details collapse"></div>
-<a href="../classes/Abstract_Driver.html" class="more">« More »</a>
-</div>
-<div id="Abstract_SQL" class="element ajax clickable class">
-<h1>Abstract_SQL<a href="../classes/Abstract_SQL.html">¶</a>
-</h1>
-<p class="short_description">parent for database manipulation subclasses</p>
-<div class="details collapse"></div>
-<a href="../classes/Abstract_SQL.html" class="more">« More »</a>
-</div>
-<div id="BadDBDriverException" class="element ajax clickable class">
-<h1>BadDBDriverException<a href="../classes/BadDBDriverException.html">¶</a>
-</h1>
-<p class="short_description">Generic exception for bad drivers</p>
-<div class="details collapse"></div>
-<a href="../classes/BadDBDriverException.html" class="more">« More »</a>
-</div>
-<div id="Connection_Manager" class="element ajax clickable class">
-<h1>Connection_Manager<a href="../classes/Connection_Manager.html">¶</a>
-</h1>
-<p class="short_description">Connection manager class to manage connections for the
-Query method</p>
-<div class="details collapse"></div>
-<a href="../classes/Connection_Manager.html" class="more">« More »</a>
-</div>
-<div id="DB_Util" class="element ajax clickable class">
-<h1>DB_Util<a href="../classes/DB_Util.html">¶</a>
-</h1>
-<p class="short_description">Abstract class defining database / table creation methods</p>
-<div class="details collapse"></div>
-<a href="../classes/DB_Util.html" class="more">« More »</a>
 </div>
 <div id="Query_Builder" class="element ajax clickable class">
 <h1>Query_Builder<a href="../classes/Query_Builder.html">¶</a>
@@ -366,6 +396,23 @@ instantiates the specific db driver</p>
 <a href="../classes/Query_Parser.html" class="more">« More »</a>
 </div>
 </div>
+<ul class="breadcrumb"><li>
+<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li><a href="../packages/Query.html">Query</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../packages/Query.Table_Builder.html">Table_Builder</a>
+</li>
+</li></ul>
+<div class="package-indent">
+<h3>
+<i title="Classes" class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<div id="Table_Builder_Interface" class="element ajax clickable interface">
+<h1>Table_Builder_Interface<a href="../classes/Table_Builder_Interface.html">¶</a>
+</h1>
+<p class="short_description">Abstract class defining database / table creation methods</p>
+<div class="details collapse"></div>
+<a href="../classes/Table_Builder_Interface.html" class="more">« More »</a>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -373,7 +420,7 @@ instantiates the specific db driver</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-31T13:31:59-04:00.<br></footer></div>
+            generated on 2014-03-31T15:56:17-04:00.<br></footer></div>
 </div>
 </body>
 </html>

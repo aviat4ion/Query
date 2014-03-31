@@ -281,4 +281,37 @@ SQL;
 		$res = $this->db->sql->db_list();
 		$this->assertNULL($res);
 	}
+
+	// --------------------------------------------------------------------------
+
+	public function testExec()
+	{
+		$res = $this->db->exec('SELECT * FROM "create_test"');
+		$this->assertEquals(NULL, $res);
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testInTransaction()
+	{
+		$this->db->beginTransaction();
+		$this->assertTrue($this->db->inTransaction());
+		$this->db->rollBack();
+		$this->assertFalse($this->db->inTransaction());
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetAttribute()
+	{
+		$res = $this->db->getAttribute("foo");
+		$this->assertEquals(NULL, $res);
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testSetAttribute()
+	{
+		$this->assertFalse($this->db->setAttribute(47, 'foo'));
+	}
 }

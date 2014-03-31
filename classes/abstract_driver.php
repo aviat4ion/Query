@@ -19,26 +19,44 @@
  * Extends PDO to simplify cross-database issues
  *
  * @package Query
- * @subpackage Query
+ * @subpackage Drivers
  */
 abstract class Abstract_Driver extends PDO implements Driver_Interface {
 
-	// Reference to the last executed query
+	/**
+	 * Reference to the last executed query
+	 * @var PDOStatement
+	 */
 	protected $statement;
 
-	// Character to escape identifiers
+	/**
+	 * Character to escape indentifiers
+	 * @var string
+	 */
 	protected $escape_char = '"';
 
-	// Reference to sql sub class
+	/**
+	 * Reference to sql class
+	 * @var SQL_Interface
+	 */
 	public $sql;
 
-	// Reference to util sub class
+	/**
+	 * Reference to util class
+	 * @var DB_Util
+	 */
 	public $util;
 
-	// Last query executed
+	/**
+	 * Last query executed
+	 * @var string
+	 */
 	public $last_query;
 
-	// Prefix to apply to table namesa
+	/**
+	 * Prefix to apply to table names
+	 * @var string
+	 */
 	public $table_prefix = '';
 
 	/**

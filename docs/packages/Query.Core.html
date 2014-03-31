@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Query » global</title>
+<title>Query » Query\Core</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -54,9 +54,9 @@
 </div>
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
-<i class="icon-map-marker"></i> Namespaces</li>
+<i class="icon-map-marker"></i> Packages</li>
 <li>
-<span class="empty-namespace"><i class="icon-stop"></i>global</span><ul class="nav nav-list nav-namespaces"></ul>
+<a href="../packages/Query.Core.html" title="Core"><i class="icon-folder-open"></i>Core</a><ul class="nav nav-list nav-packages"></ul>
 </li>
 <li class="nav-header">
 <i title="Functions" class="icon-custom icon-function"></i> Functions</li>
@@ -68,43 +68,167 @@ with array_map and glob</span><pre>do_include</pre></a></li>
 <li class="function  "><a href="#function_mb_trim" title="mb_trim() :: Multibyte-safe trim function"><span class="description">Multibyte-safe trim function</span><pre>mb_trim</pre></a></li>
 <li class="function  "><a href="#function_query_autoload" title="query_autoload() :: Load query classes"><span class="description">Load query classes</span><pre>query_autoload</pre></a></li>
 <li class="nav-header">
-<i title="Interfaces" class="icon-custom icon-interface"></i> Interfaces</li>
-<li><a href="#SQL_Interface" title="parent for database manipulation subclasses">SQL_Interface</a></li>
-<li><a href="#Query_Builder_Interface" title="Interface defining the Query Builder class">Query_Builder_Interface</a></li>
-<li><a href="#Driver_Interface" title="PDO Interface to implement for database drivers">Driver_Interface</a></li>
-<li><a href="#Table_Builder_Interface" title="Abstract class defining database / table creation methods">Table_Builder_Interface</a></li>
-<li class="nav-header">
 <i title="Classes" class="icon-custom icon-class"></i> Classes</li>
-<li><a href="#Firebird_Result" title="Firebird result class to emulate PDOStatement Class - only implements
-data-fetching methods">Firebird_Result</a></li>
-<li><a href="#Firebird_Util" title="Firebird-specific backup, import and creation methods">Firebird_Util</a></li>
-<li><a href="#Query_Builder" title="Convienience class for creating sql queries - also the class that
-instantiates the specific db driver">Query_Builder</a></li>
-<li><a href="#Firebird" title="Firebird Database class">Firebird</a></li>
-<li><a href="#MySQL_Util" title="MySQL-specific backup, import and creation methods">MySQL_Util</a></li>
-<li><a href="#Abstract_Driver" title="Base Database class">Abstract_Driver</a></li>
 <li><a href="#BadDBDriverException" title="Generic exception for bad drivers">BadDBDriverException</a></li>
 <li><a href="#Connection_Manager" title="Connection manager class to manage connections for the
 Query method">Connection_Manager</a></li>
-<li><a href="#DB_Util" title="Abstract class defining database / table creation methods">DB_Util</a></li>
-<li><a href="#SQLite_Util" title="SQLite-specific backup, import and creation methods">SQLite_Util</a></li>
-<li><a href="#PgSQL_Util" title="Posgres-specific backup, import and creation methods">PgSQL_Util</a></li>
-<li><a href="#PgSQL_SQL" title="PostgreSQL specifc SQL">PgSQL_SQL</a></li>
-<li><a href="#MySQL_SQL" title="MySQL specifc SQL">MySQL_SQL</a></li>
-<li><a href="#Firebird_SQL" title="Firebird Specific SQL">Firebird_SQL</a></li>
-<li><a href="#SQLite" title="SQLite specific class">SQLite</a></li>
-<li><a href="#SQLite_SQL" title="SQLite Specific SQL">SQLite_SQL</a></li>
-<li><a href="#Abstract_SQL" title="parent for database manipulation subclasses">Abstract_SQL</a></li>
-<li><a href="#PgSQL" title="PostgreSQL specifc class">PgSQL</a></li>
-<li><a href="#Query_Parser" title="Utility Class to parse sql clauses for properly escaping identifiers">Query_Parser</a></li>
-<li><a href="#MySQL" title="MySQL specific class">MySQL</a></li>
 <li class="nav-header">
 <i title="Constants" class="icon-custom icon-constant"></i> Constants</li>
 <li class="constant  "><a href="#constant_QBASE_PATH" title="QBASE_PATH() :: Reference to root path"><span class="description">Reference to root path</span><pre>QBASE_PATH</pre></a></li>
 <li class="constant  "><a href="#constant_QDRIVER_PATH" title="QDRIVER_PATH() :: Path to driver classes"><span class="description">Path to driver classes</span><pre>QDRIVER_PATH</pre></a></li>
 </ul>
 </div>
-<div class="span8 namespace-contents"></div>
+<div class="span8 package-contents">
+<ul class="breadcrumb"><li>
+<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li><a href="../packages/Query.html">Query</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../packages/Query.Core.html">Core</a>
+</li>
+</li></ul>
+<div class="package-indent">
+<h3>
+<i title="Functions" class="icon-custom icon-function"></i> Functions</h3>
+<a id="function_Query"></a><div class="element clickable function  function_Query" data-toggle="collapse" data-target=".function_Query .collapse" title="">
+<h2>Connection function</h2>
+<pre>Query(mixed $params<code> = ''</code>) : <a href="../classes/Query_Builder.html">\Query_Builder</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$params</h4>
+<code>mixed</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
+</div></div>
+</div>
+<a id="function_db_filter"></a><div class="element clickable function  function_db_filter" data-toggle="collapse" data-target=".function_db_filter .collapse" title="">
+<h2>Filter out db rows into one array</h2>
+<pre>db_filter(array $array, mixed $index) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$array</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$index</h4>
+<code>mixed</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="function_do_include"></a><div class="element clickable function  function_do_include" data-toggle="collapse" data-target=".function_do_include .collapse" title="">
+<h2>Bulk directory loading workaround for use
+with array_map and glob</h2>
+<pre>do_include(string $path) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a id="function_mb_trim"></a><div class="element clickable function  function_mb_trim" data-toggle="collapse" data-target=".function_mb_trim .collapse" title="">
+<h2>Multibyte-safe trim function</h2>
+<pre>mb_trim(string $string) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$string</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="function_query_autoload"></a><div class="element clickable function  function_query_autoload" data-toggle="collapse" data-target=".function_query_autoload .collapse" title="">
+<h2>Load query classes</h2>
+<pre>query_autoload(string $class) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$class</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<h3>
+<i title="Classes" class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<div id="BadDBDriverException" class="element ajax clickable class">
+<h1>BadDBDriverException<a href="../classes/BadDBDriverException.html">¶</a>
+</h1>
+<p class="short_description">Generic exception for bad drivers</p>
+<div class="details collapse"></div>
+<a href="../classes/BadDBDriverException.html" class="more">« More »</a>
+</div>
+<div id="Connection_Manager" class="element ajax clickable class">
+<h1>Connection_Manager<a href="../classes/Connection_Manager.html">¶</a>
+</h1>
+<p class="short_description">Connection manager class to manage connections for the
+Query method</p>
+<div class="details collapse"></div>
+<a href="../classes/Connection_Manager.html" class="more">« More »</a>
+</div>
+<h3>
+<i title="Constants" class="icon-custom icon-constant"></i> Constants</h3>
+<a id="constant_QBASE_PATH"> </a><div class="element clickable constant  constant_QBASE_PATH" data-toggle="collapse" data-target=".constant_QBASE_PATH .collapse" title="">
+<h2>Reference to root path</h2>
+<pre>QBASE_PATH = dirname(__FILE__) . '/' </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+</div></div>
+</div>
+<a id="constant_QDRIVER_PATH"> </a><div class="element clickable constant  constant_QDRIVER_PATH" data-toggle="collapse" data-target=".constant_QDRIVER_PATH .collapse" title="">
+<h2>Path to driver classes</h2>
+<pre>QDRIVER_PATH = QBASE_PATH . 'drivers/' </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>subpackage</th>
+<td>Core</td>
+</tr></table>
+</div></div>
+</div>
+</div>
+</div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>

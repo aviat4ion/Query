@@ -5,6 +5,7 @@
 	"keywords":[
 		"database",
 		"query builder",
+		"codeigniter",
 		"mysql",
 		"firebird",
 		"sqlite",
@@ -21,9 +22,6 @@
 	}],
 	"require": {
 		"php": ">=5.3"
-	},
-	"require-dev": {
-		"satooshi/php-coveralls": "dev-master"
 	},
 	"autoload": {
 		"files": ["autoload.php"]

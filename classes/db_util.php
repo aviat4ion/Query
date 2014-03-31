@@ -17,7 +17,7 @@
  * Abstract class defining database / table creation methods
  *
  * @package Query
- * @subpackage Query
+ * @subpackage Drivers
  */
 abstract class DB_Util {
 
@@ -76,11 +76,6 @@ abstract class DB_Util {
 		// )
 		foreach($fields as $colname => $type)
 		{
-			if(is_numeric($colname))
-			{
-				$colname = $type;
-			}
-
 			$column_array[$colname] = array();
 			$column_array[$colname]['type'] = ($type !== $colname) ? $type : '';
 		}

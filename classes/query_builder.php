@@ -18,7 +18,7 @@
  * instantiates the specific db driver
  *
  * @package Query
- * @subpackage Query
+ * @subpackage Query_Builder
  */
 class Query_Builder implements Query_Builder_Interface {
 
@@ -26,79 +26,148 @@ class Query_Builder implements Query_Builder_Interface {
 	// ! SQL Clause Strings
 	// --------------------------------------------------------------------------
 
-	// Compiled 'select' clause
+	/**
+	 * Compiled 'select' clause
+	 * @var type string
+	 */
 	protected $select_string = '';
 
-	// Compiled 'from' clause
+	/**
+	 * Compiled 'from' clause
+	 * @var type string
+	 */
 	protected $from_string;
 
-	// Compiled arguments for insert / update
+	/**
+	 * Compiled arguments for insert / update
+	 * @var string
+	 */
 	protected $set_string;
 
-	// Order by clause
+	/**
+	 * Order by clause
+	 * @var string
+	 */
 	protected $order_string;
 
-	// Group by clause
+	/**
+	 * Group by clause
+	 * @var string
+	 */
 	protected $group_string;
 
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Arrays
 	// --------------------------------------------------------------------------
 
-	// Keys for insert/update statement
+	/**
+	 * Keys for insert/update statement
+	 * @var array
+	 */
 	protected $set_array_keys = array();
 
-	// Key/val pairs for order by clause
+	/**
+	 * Key/val pairs for order by clause
+	 * @var array
+	 */
 	protected $order_array = array();
 
-	// Key/val pairs for group by clause
+	/**
+	 * Key/val pairs for group by clause
+	 * @var array
+	 */
 	protected $group_array = array();
 
 	// --------------------------------------------------------------------------
 	// ! Other Class vars
 	// --------------------------------------------------------------------------
 
-	// Values to apply to prepared statements
+	/**
+	 * Values to apply to prepared statements
+	 * @var array
+	 */
 	protected $values = array();
 
-	// Values to apply to where clauses in prepared statements
+	/**
+	 * Values to apply to where clauses in prepared statements
+	 * @var array
+	 */
 	protected $where_values = array();
 
-	// Value for limit string
+	/**
+	 * Value for limit string
+	 * @var type string
+	 */
 	protected $limit;
 
-	// Value for offset in limit string
+	/**
+	 * Value for offset in limit string
+	 * @var int
+	 */
 	protected $offset;
 
-	// Query component order mapping
-	// for complex select queries
-	//
-	// Format:
-	// array(
-	// 		'type' => 'where',
-	//		'conjunction' => ' AND ',
-	// 		'string' => 'k=?'
-	// )
+	/**
+	 * Query component order mapping
+	 * for complex select queries
+	 *
+	 * Format:
+	 * array(
+	 *		'type' => 'where',
+	 *		'conjunction' => ' AND ',
+	 *		'string' => 'k=?'
+	 * )
+	 *
+	 * @var array
+	 */
 	protected $query_map = array();
 
 	// Map for having clause
+	/**
+	 * Map for having clause
+	 * @var array
+	 */
 	protected $having_map;
 
-	// Convenience property for connection management
+	/**
+	 * Convenience property for connection management
+	 * @var string
+	 */
 	public $conn_name = "";
 
-	// List of sql queries executed
+	/**
+	 * List of queries executed
+	 * @var array
+	 */
 	public $queries;
 
-	// Whether to do only an explain on the query
+	/**
+	 * Whether to do only an explain on the query
+	 * @var bool
+	 */
 	protected $explain;
 
-	// Subclass instances
+	/**
+	 * The current database driver
+	 * @var Driver_Interface
+	 */
 	public $db;
+
+	/**
+	 * Query parser class instance
+	 * @var Query_Parser
+	 */
 	protected $parser;
 
-	// Aliases to driver subclasses
+	/**
+	 * Alias to $this->db->util
+	 * @var DB_Util
+	 */
 	public $util;
+
+	/**
+	 * Alias to $this->db->sql
+	 * @var SQL_Interface
+	 */
 	public $sql;
 
 	// --------------------------------------------------------------------------
@@ -111,7 +180,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param Abstract_driver $db
 	 * @param object $params - the connection parameters
 	 */
-	public function __construct(Abstract_Driver $db, $params)
+	public function __construct(Driver_Interface $db, $params)
 	{
 		$this->db = $db;
 
@@ -334,7 +403,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param string $pos
 	 * @param string $like
 	 * @param string $conj
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	protected function _like($field, $val, $pos, $like='LIKE', $conj='AND')
 	{
@@ -438,7 +507,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param string $conj
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	protected function _having($key, $val=array(), $conj='AND')
 	{
@@ -536,7 +605,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param string $conj
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	protected function _where_string($key, $val=array(), $conj='AND')
 	{
@@ -591,7 +660,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param mixed $val
 	 * @param string $in - The (not) in fragment
 	 * @param string $conj - The where in conjunction
-	 * @return $this
+	 * @return Query_Builder
 	 */
 	protected function _where_in($key, $val=array(), $in='IN', $conj='AND')
 	{
@@ -1053,7 +1122,7 @@ class Query_Builder implements Query_Builder_Interface {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Create sql for batch insert
+	 * Creates and executes a batch insertion query
 	 *
 	 * @param string $table
 	 * @param array $data
