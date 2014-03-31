@@ -108,13 +108,15 @@ abstract class DB_Util {
 	}
 
 	/**
-	 * Get database-specific sql to drop a table
+	 * Drop the selected table
 	 *
-	 * @abstract
 	 * @param string $name
 	 * @return string
 	 */
-	abstract public function delete_table($name);
+	public function delete_table($name)
+	{
+		return 'DROP TABLE "'.$name.'"';
+	}
 
 	/**
 	 * Return an SQL file with the database table structure

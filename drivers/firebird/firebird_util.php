@@ -25,19 +25,6 @@
 class Firebird_Util extends DB_Util {
 
 	/**
-	 * Drop the selected table
-	 *
-	 * @param string $name
-	 * @return string
-	 */
-	public function delete_table($name)
-	{
-		return 'DROP TABLE "'.$name.'"';
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Create an SQL backup file for the current database's structure
 	 *
 	 * @return string
