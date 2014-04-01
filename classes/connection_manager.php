@@ -48,6 +48,7 @@ final class Connection_Manager {
 
 	/**
 	 * Private constructor to prevent multiple instances
+	 * @codeCoverageIgnore
 	 */
 	private function __construct() {}
 
@@ -55,6 +56,7 @@ final class Connection_Manager {
 
 	/**
 	 * Private clone method to prevent cloning
+	 * @codeCoverageIgnore
 	 */
 	private function __clone() {}
 
@@ -62,6 +64,7 @@ final class Connection_Manager {
 
 	/**
 	 * Make sure serialize/deseriaze doesn't work
+	 * @codeCoverageIgnore
 	 * @throws DomainException
 	 */
 	private function __wakeup()
@@ -80,10 +83,12 @@ final class Connection_Manager {
 	public static function get_instance()
 	{
 
+		// @codeCoverageIgnoreStart
 		if (self::$instance === null)
 		{
 			self::$instance = new self();
 		}
+		// @codeCoverageIgnoreEnd
 
 		return self::$instance;
 	}
@@ -212,12 +217,15 @@ final class Connection_Manager {
 	 */
 	private function create_dsn($dbtype, $params)
 	{
+		// Add the driver type to the dsn
+		$dsn = ($dbtype !== 'firebird' && $dbtype !== 'sqlite')
+			? strtolower($dbtype).':'
+			: '';
+
 		if ($dbtype === 'firebird') $dsn = "{$params->host}:{$params->file}";
 		elseif ($dbtype === 'sqlite') $dsn = $params->file;
 		else
 		{
-			$dsn = strtolower($dbtype) . ':';
-			
 			if ( ! empty($params->database))
 			{
 				$dsn .= "dbname={$params->database}";
