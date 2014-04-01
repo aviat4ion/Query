@@ -121,7 +121,6 @@ class Query_Builder implements Query_Builder_Interface {
 	 */
 	protected $query_map = array();
 
-	// Map for having clause
 	/**
 	 * Map for having clause
 	 * @var array
@@ -425,11 +424,8 @@ class Query_Builder implements Query_Builder_Interface {
 			$val = "%{$val}%";
 		}
 
-		$this->query_map[] = array(
-			'type' => 'like',
-			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : " {$conj} ",
-			'string' => $l
-		);
+		$conj = (empty($this->query_map)) ? ' WHERE ' : " {$conj} ";
+		$this->_append_map($conj, $l, 'like');
 
 		// Add to the values array
 		$this->where_values[] = $val;
@@ -525,7 +521,7 @@ class Query_Builder implements Query_Builder_Interface {
 			// Simple key value, or an operator
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
 
-			// Put in the query map for select statements
+			// Put in the having map
 			$this->having_map[] = array(
 				'conjunction' => ( ! empty($this->having_map)) ? " {$conj} " : ' HAVING ',
 				'string' => $item
@@ -640,12 +636,7 @@ class Query_Builder implements Query_Builder_Interface {
 				$conj = " {$conj} ";
 			}
 
-			// Put in the query map for select statements
-			$this->query_map[] = array(
-				'type' => 'where',
-				'conjunction' => $conj,
-				'string' => $item
-			);
+			$this->_append_map($conj, $item, 'where');
 		}
 
 		return $this;
@@ -672,13 +663,10 @@ class Query_Builder implements Query_Builder_Interface {
 			$this->where_values[] = $v;
 		}
 
-		$string = $key . " {$in} (".implode(',', $params).') ';
+		$conjunction = ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ';
+		$str = $key . " {$in} (".implode(',', $params).') ';
 
-		$this->query_map[] = array(
-			'type' => 'where_in',
-			'conjunction' => ( ! empty($this->query_map)) ? " {$conj} " : ' WHERE ',
-			'string' => $string
-		);
+		$this->_append_map($conjunction, $str, 'where_in');
 
 		return $this;
 	}
@@ -842,14 +830,9 @@ class Query_Builder implements Query_Builder_Interface {
 		}
 
 		$parsed_condition = implode('', $parts['combined']);
-
 		$condition = $table . ' ON ' . $parsed_condition;
 
-		$this->query_map[] = array(
-			'type' => 'join',
-			'conjunction' => "\n" . strtoupper($type) . ' JOIN ',
-			'string' => $condition,
-		);
+		$this->_append_map("\n" . strtoupper($type) . ' JOIN ', $condition, 'join');
 
 		return $this;
 	}
@@ -944,11 +927,9 @@ class Query_Builder implements Query_Builder_Interface {
 	 */
 	public function group_start()
 	{
-		$this->query_map[] = array(
-			'type' => 'group_start',
-			'conjunction' => (empty($this->query_map)) ? ' WHERE ' : ' ',
-			'string' => '('
-		);
+		$conj = (empty($this->query_map)) ? ' WHERE ' : ' ';
+
+		$this->_append_map($conj, '(', 'group_start');
 
 		return $this;
 	}
@@ -963,11 +944,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 */
 	public function or_group_start()
 	{
-		$this->query_map[] = array(
-			'type' => 'group_start',
-			'conjunction' => '',
-			'string' => ' OR ('
-		);
+		$this->_append_map('', ' OR (', 'group_start');
 
 		return $this;
 	}
@@ -982,11 +959,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 */
 	public function or_not_group_start()
 	{
-		$this->query_map[] = array(
-			'type' => 'group_start',
-			'conjunction' => '',
-			'string' => ' OR NOT ('
-		);
+		$this->_append_map('', ' OR NOT (', 'group_start');
 
 		return $this;
 	}
@@ -1000,11 +973,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 */
 	public function group_end()
 	{
-		$this->query_map[] = array(
-			'type' => 'group_end',
-			'conjunction' => '',
-			'string' => ')'
-		);
+		$this->_append_map('', ')', 'group_end');
 
 		return $this;
 	}
@@ -1404,6 +1373,25 @@ class Query_Builder implements Query_Builder_Interface {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Add an additional set of mapping pairs to a internal map
+	 *
+	 * @param string $conjunction
+	 * @param string $string
+	 * @param string $type
+	 * @return void
+	 */
+	protected function _append_map($conjunction = '', $string = '', $type = '')
+	{
+		array_push($this->query_map, array(
+			'type' => $type,
+			'conjunction' => $conjunction,
+			'string' => $string
+		));
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Sub-method for generating sql strings
 	 *
 	 * @param string $type
@@ -1487,7 +1475,8 @@ class Query_Builder implements Query_Builder_Interface {
 			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
 		}
 
-		// See what needs to happen to only return the query plan
+		// See if the query plan, rather than the
+		// query data should be returned
 		if ($this->explain === TRUE)
 		{
 			$sql = $this->sql->explain($sql);
