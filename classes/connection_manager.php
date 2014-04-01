@@ -217,15 +217,12 @@ final class Connection_Manager {
 	 */
 	private function create_dsn($dbtype, $params)
 	{
-		// Add the driver type to the dsn
-		$dsn = ($dbtype !== 'firebird' && $dbtype !== 'sqlite')
-			? strtolower($dbtype).':'
-			: '';
-
 		if ($dbtype === 'firebird') $dsn = "{$params->host}:{$params->file}";
 		elseif ($dbtype === 'sqlite') $dsn = $params->file;
 		else
 		{
+			$dsn = strtolower($dbtype) . ':';
+
 			if ( ! empty($params->database))
 			{
 				$dsn .= "dbname={$params->database}";

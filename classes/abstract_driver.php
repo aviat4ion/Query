@@ -69,25 +69,15 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 	 */
 	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options=array())
 	{
-		// Set PDO to display errors as exceptions
+		// Set PDO to display errors as exceptions, and apply driver options
 		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 		parent::__construct($dsn, $username, $password, $driver_options);
 
-		// Load the sql class for the driver
-		$class = get_class($this)."_sql";
-		$this->sql = new $class();
-
-		// Load the util class for the driver
-		$class = get_class($this)."_util";
-		$this->util = new $class($this);
-
-		// Set additional driver options, if they exist
-		if ( ! empty($driver_options) && is_array($driver_options))
+		// Load the sql and util class for the driver
+		foreach(array('sql', 'util') as $sub)
 		{
-			foreach($driver_options as $key => $val)
-			{
-				$this->setAttribute($key, $val);
-			}
+			$class = get_class($this) . "_{$sub}";
+			$this->$sub = new $class($this);
 		}
 	}
 
@@ -105,11 +95,8 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 	 */
 	public function prepare_query($sql, $data)
 	{
-		// Prepare the sql
-		$query = $this->prepare($sql);
-
-		// Set the statement in the class variable for easy later access
-		$this->statement = $query;
+		// Prepare the sql, save the statement for easy access later
+		$this->statement = $this->prepare($sql);
 
 		if( ! (is_array($data) || is_object($data)))
 		{
@@ -119,15 +106,13 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 		// Bind the parameters
 		foreach($data as $k => $value)
 		{
-			if(is_numeric($k))
-			{
-				$k++;
-			}
-
-			$query->bindValue($k, $value);
+			// Parameters are 1-based, the data is 0-based
+			// So, if the key is numeric, add 1
+			if(is_numeric($k)) $k++;
+			$this->statement->bindValue($k, $value);
 		}
 
-		return $query;
+		return $this->statement;
 	}
 
 	// -------------------------------------------------------------------------
@@ -170,25 +155,24 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 	 */
 	public function quote_table($table)
 	{
-		// If there isn't a prefix set, just quote the table name
-		if (empty($this->table_prefix))
+		// Add the prefix to the table name
+		// before quoting it
+		if ( ! empty($this->table_prefix))
 		{
-			return $this->quote_ident($table);
+			// Split indentifier by period, will split into:
+			// database.schema.table OR
+			// schema.table OR
+			// database.table OR
+			// table
+			$idents = explode('.', $table);
+			$segments = count($idents);
+
+			// Quote the last item, and add the database prefix
+			$idents[$segments - 1] = $this->_prefix(end($idents));
+
+			// Rejoin
+			$table = implode('.', $idents);
 		}
-
-		// Split indentifier by period, will split into:
-		// database.schema.table OR
-		// schema.table OR
-		// database.table OR
-		// table
-		$idents = (array) explode('.', $table);
-		$segments = count($idents);
-
-	    // Quote the last item
-	    $idents[$segments - 1] = $this->_prefix(end($idents));
-
-	    // Rejoin
-	    $table = implode('.', $idents);
 
 		// Finally, quote the table
 		return $this->quote_ident($table);
@@ -270,16 +254,18 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 	 */
 	public function _quote($str)
 	{
-		// Don't add additional quotes, or quote numbers
-		if (strpos($str, $this->escape_char) === 0 ||
-			strrpos($str, $this->escape_char) === 0 ||
-			( ! is_string($str) && is_numeric($str))
+		// Check that the current value is a string,
+		// and is not already quoted before quoting
+		// that value, otherwise, return the original value
+		return (
+			strpos($str, $this->escape_char) !== 0
+			&& strrpos($str, $this->escape_char) !== 0
+			&& is_string($str)
+			&& ! is_numeric($str)
 		)
-		{
-			return $str;
-		}
+			? "{$this->escape_char}{$str}{$this->escape_char}"
+			: $str;
 
-		return "{$this->escape_char}{$str}{$this->escape_char}";
 	}
 
 	// -------------------------------------------------------------------------
@@ -423,20 +409,15 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 	 *
 	 * @param string $sql
 	 * @param bool $filtered_index
-	 * @return mixed
+	 * @return array
 	 */
 	public function driver_query($sql, $filtered_index=TRUE)
 	{
-		// Return if the values are returned instead of a query
-		if (is_array($sql))
+		// Return if the values are returned instead of a query,
+		// or if the query doesn't apply to the driver
+		if (is_array($sql) || is_null($sql))
 		{
 			return $sql;
-		}
-
-		// Return if the query doesn't apply to the driver
-		if ($sql === NULL)
-		{
-			return NULL;
 		}
 
 		$res = $this->query($sql);
@@ -492,29 +473,29 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 	 */
 	public function insert_batch($table, $data=array())
 	{
-		if ( ! is_array($data[0])) return NULL;
+		if ( ! is_array(current($data))) return NULL;
 
+		$vals = array(); // Values for insertion
 		$table = $this->quote_table($table);
-		$fields = array_keys($data[0]);
+		$fields = array_keys(current($data));
 
-		$sql = "INSERT INTO {$table} (";
-		$sql .= implode(',', $this->quote_ident($fields));
-		$sql .= ") VALUES ";
+		$sql = "INSERT INTO {$table} ("
+			. implode(',', $this->quote_ident($fields))
+			. ") VALUES ";
 
+		// Create the placholder groups
 		$params = array_fill(0, count($fields), '?');
-		$param_string = implode(',', $params);
-
-		// Remove the first array after use, as it is a special case
-		$sql .= "({$param_string})";
-		$vals = array_values($data[0]);
-		array_shift($data);
+		$param_string = "(" . implode(',', $params) . ")";
+		$param_list = array_fill(0, count($data), $param_string);
 
 		// Add another grouping for each
 		foreach($data as $group)
 		{
-			$sql .= ",({$param_string})";
 			$vals = array_merge($vals, array_values($group));
 		}
+
+		// Add the param groups
+		$sql .= implode(',', $param_list);
 
 		return array($sql, $vals);
 	}
