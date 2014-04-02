@@ -107,7 +107,7 @@ interface SQL_Interface {
 	/**
 	 * Return sql to list database field types
 	 *
-	 * @return mixed
+	 * @return string|array
 	 */
 	public function type_list();
 

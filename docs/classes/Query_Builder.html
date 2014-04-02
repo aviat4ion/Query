@@ -122,6 +122,8 @@ passed array with key / value pairs</span><pre>where()</pre></a></li>
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
+<li class="method protected "><a href="#method__append_map" title="_append_map() :: Add an additional set of mapping pairs to a internal map"><span class="description">Add an additional set of mapping pairs to a internal map</span><pre>_append_map()</pre></a></li>
+<li class="method protected "><a href="#method__append_query" title="_append_query() :: Convert the prepared statement into readable sql"><span class="description">Convert the prepared statement into readable sql</span><pre>_append_query()</pre></a></li>
 <li class="method protected "><a href="#method__compile" title="_compile() :: String together the sql statements for sending to the db"><span class="description">String together the sql statements for sending to the db</span><pre>_compile()</pre></a></li>
 <li class="method protected "><a href="#method__compile_type" title="_compile_type() :: Sub-method for generating sql strings"><span class="description">Sub-method for generating sql strings</span><pre>_compile_type()</pre></a></li>
 <li class="method protected "><a href="#method__get_compile" title="_get_compile() :: Helper function for returning sql strings"><span class="description">Helper function for returning sql strings</span><pre>_get_compile()</pre></a></li>
@@ -219,7 +221,7 @@ instantiates the specific db driver</p>
 </div>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse" title="public">
 <h2>Constructor</h2>
-<pre>__construct(\Abstract_driver $db, object $params) </pre>
+<pre>__construct(\Abstract_driver $db, \ArrayObject $params) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -230,7 +232,7 @@ instantiates the specific db driver</p>
 </div>
 <div class="subelement argument">
 <h4>$params</h4>
-<code>object</code><ul>
+<code><a href="ArrayObject.html">\ArrayObject</a></code><ul>
 <li>the connection parameters</li>
 </ul></div>
 </div></div>
@@ -991,6 +993,48 @@ passed array with key / value pairs</h2>
 <div class="subelement response"><code><a href="../classes/Query_Builder.html">\Query_Builder</a></code></div>
 </div></div>
 </div>
+<a id="method__append_map"></a><div class="element clickable method protected method__append_map" data-toggle="collapse" data-target=".method__append_map .collapse" title="protected">
+<h2>Add an additional set of mapping pairs to a internal map</h2>
+<pre>_append_map(string $conjunction<code> = ''</code>, string $string<code> = ''</code>, string $type<code> = ''</code>) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$conjunction</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$string</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a id="method__append_query"></a><div class="element clickable method protected method__append_query" data-toggle="collapse" data-target=".method__append_query .collapse" title="protected">
+<h2>Convert the prepared statement into readable sql</h2>
+<pre>_append_query(array $vals, string $sql, string $total_time) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$vals</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$sql</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$total_time</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
 <a id="method__compile"></a><div class="element clickable method protected method__compile" data-toggle="collapse" data-target=".method__compile .collapse" title="protected">
 <h2>String together the sql statements for sending to the db</h2>
 <pre>_compile(string $type<code> = ''</code>, string $table<code> = ''</code>) : <a href="%24string.html">\$string</a></pre>
@@ -1012,7 +1056,7 @@ passed array with key / value pairs</h2>
 </div>
 <a id="method__compile_type"></a><div class="element clickable method protected method__compile_type" data-toggle="collapse" data-target=".method__compile_type .collapse" title="protected">
 <h2>Sub-method for generating sql strings</h2>
-<pre>_compile_type(string $type<code> = ''</code>, string $table<code> = ''</code>) : <a href="%24string.html">\$string</a></pre>
+<pre>_compile_type(string $type<code> = ''</code>, string $table<code> = ''</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -1026,7 +1070,7 @@ passed array with key / value pairs</h2>
 <code>string</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="%24string.html">\$string</a></code></div>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method__get_compile"></a><div class="element clickable method protected method__get_compile" data-toggle="collapse" data-target=".method__get_compile .collapse" title="protected">
@@ -1451,7 +1495,7 @@ array(
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-03-31T15:56:17-04:00.<br></footer></div>
+            generated on 2014-04-02T11:00:35-04:00.<br></footer></div>
 </div>
 </body>
 </html>

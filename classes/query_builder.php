@@ -177,17 +177,11 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Constructor
 	 *
 	 * @param Abstract_driver $db
-	 * @param object $params - the connection parameters
+	 * @param ArrayObject $params - the connection parameters
 	 */
-	public function __construct(Driver_Interface $db, $params)
+	public function __construct(Driver_Interface $db, ArrayObject $params)
 	{
 		$this->db = $db;
-
-		// Set the connection name property, if applicable
-		if (isset($params->name))
-		{
-			$this->conn_name = $params->name;
-		}
 
 		// Instantiate the Query Parser
 		$this->parser = new Query_Parser();
