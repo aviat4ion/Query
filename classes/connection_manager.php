@@ -148,7 +148,7 @@ final class Connection_Manager {
 		}
 
 		// Create the Query Builder object
-		$conn = new Query_Builder($db, $params);
+		$conn = new Query_Builder($db);
 
 		// Save it for later
 		if (isset($params->alias))

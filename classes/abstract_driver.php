@@ -407,7 +407,7 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 	/**
 	 * Method to simplify retreiving db results for meta-data queries
 	 *
-	 * @param string $sql
+	 * @param string|array|null $sql
 	 * @param bool $filtered_index
 	 * @return array
 	 */

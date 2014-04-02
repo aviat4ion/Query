@@ -177,9 +177,8 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Constructor
 	 *
 	 * @param Abstract_driver $db
-	 * @param ArrayObject $params - the connection parameters
 	 */
-	public function __construct(Driver_Interface $db, ArrayObject $params)
+	public function __construct(Driver_Interface $db)
 	{
 		$this->db = $db;
 
