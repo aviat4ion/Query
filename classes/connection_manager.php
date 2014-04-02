@@ -102,7 +102,7 @@ final class Connection_Manager {
 	/**
 	 * Returns the connection specified by the name given
 	 *
-	 * @param mixed $name
+	 * @param string|array|object $name
 	 * @return Query_Builder
 	 * @throws InvalidArgumentException
 	 */
@@ -128,11 +128,11 @@ final class Connection_Manager {
 	/**
 	 * Parse the passed parameters and return a connection
 	 *
-	 * @param array|object $params
+	 * @param \ArrayObject $params
 	 * @return Query_Builder
 	 * @throws BadConnectionException
 	 */
-	public function connect($params)
+	public function connect(\ArrayObject $params)
 	{
 		list($dsn, $dbtype, $params, $options) = $this->parse_params($params);
 
@@ -142,10 +142,6 @@ final class Connection_Manager {
 		$db = ( ! empty($params->user))
 			? new $driver($dsn, $params->user, $params->pass, $options)
 			: new $driver($dsn, '', '', $options);
-
-		// --------------------------------------------------------------------------
-		// Save connection
-		// --------------------------------------------------------------------------
 
 		// Set the table prefix, if it exists
 		if (isset($params->prefix))
@@ -174,17 +170,11 @@ final class Connection_Manager {
 	/**
 	 * Parses params into a dsn and option array
 	 *
-	 * @param ArrayObject $params
+	 * @param \ArrayObject $params
 	 * @throws BadDBDriverException
 	 */
-	private function parse_params($params)
-	{
-		// --------------------------------------------------------------------------
-		// Parse argument array / object
-		// --------------------------------------------------------------------------
-
-		// Convert array to object
-		$params = new \ArrayObject($params, \ArrayObject::STD_PROP_LIST | \ArrayObject::ARRAY_AS_PROPS);
+	private function parse_params(\ArrayObject $params)
+	{	
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 
@@ -214,10 +204,10 @@ final class Connection_Manager {
 	 * Create the dsn from the db type and params
 	 *
 	 * @param string $dbtype
-	 * @param array|object $params
+	 * @param \ArrayObject $params
 	 * @return string
 	 */
-	private function create_dsn($dbtype, $params)
+	private function create_dsn($dbtype, \ArrayObject $params)
 	{
 		if ($dbtype === 'firebird') $dsn = "{$params->host}:{$params->file}";
 		elseif ($dbtype === 'sqlite') $dsn = $params->file;

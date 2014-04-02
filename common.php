@@ -91,6 +91,8 @@ function Query($params = '')
 	}
 	elseif ( ! is_scalar($params))
 	{
+		$params = new ArrayObject($params, ArrayObject::STD_PROP_LIST | ArrayObject::ARRAY_AS_PROPS);
+		
 		// Otherwise, return a new connection
 		return $cmanager->connect($params);
 	}

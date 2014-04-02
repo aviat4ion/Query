@@ -56,27 +56,11 @@ class Query_Parser {
 	/**
 	 * Constructor/entry point into parser
 	 *
-	 * @param string $sql
+	 * @param \Query\Query_Builder $db
 	 */
-	public function __construct($sql = '')
+	public function __construct(\Query\Query_Builder $db)
 	{
-		if (is_object($sql))
-		{
-			$this->db = $sql;
-			$sql = '';
-		}
-
-		// Get sql clause components
-		preg_match_all('`'.$this->match_patterns['function'].'`', $sql, $this->matches['functions'], PREG_SET_ORDER);
-		preg_match_all('`'.$this->match_patterns['identifier'].'`', $sql, $this->matches['identifiers'], PREG_SET_ORDER);
-		preg_match_all('`'.$this->match_patterns['operator'].'`', $sql, $this->matches['operators'], PREG_SET_ORDER);
-
-		// Get everything at once for ordering
-		$full_pattern = '`'.$this->match_patterns['function'].'+|'.$this->match_patterns['identifier'].'|('.$this->match_patterns['operator'].')+`i';
-		preg_match_all($full_pattern, $sql, $this->matches['combined'], PREG_SET_ORDER);
-
-		// Go through the matches, and get the most relevant matches
-		$this->matches = array_map(array($this, 'filter_array'), $this->matches);
+		$this->db = $db;
 	}
 
 	// --------------------------------------------------------------------------
@@ -88,7 +72,18 @@ class Query_Parser {
 	 */
 	protected function parse_join($sql)
 	{
-		$this->__construct($sql);
+		// Get sql clause components
+		preg_match_all('`'.$this->match_patterns['function'].'`', $sql, $this->matches['functions'], PREG_SET_ORDER);
+		preg_match_all('`'.$this->match_patterns['identifier'].'`', $sql, $this->matches['identifiers'], PREG_SET_ORDER);
+		preg_match_all('`'.$this->match_patterns['operator'].'`', $sql, $this->matches['operators'], PREG_SET_ORDER);
+
+		// Get everything at once for ordering
+		$full_pattern = '`'.$this->match_patterns['function'].'+|'.$this->match_patterns['identifier'].'|('.$this->match_patterns['operator'].')+`i';
+		preg_match_all($full_pattern, $sql, $this->matches['combined'], PREG_SET_ORDER);
+
+		// Go through the matches, and get the most relevant matches
+		$this->matches = array_map(array($this, 'filter_array'), $this->matches);
+		
 		return $this->matches;
 	}
 
