@@ -40,8 +40,6 @@ class FirebirdQBTest extends QBTest {
 		$this->db = Query($params);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetNamedConnectionException()
 	{
 		try
@@ -53,8 +51,6 @@ class FirebirdQBTest extends QBTest {
 			$this->assertIsA($e, 'InvalidArgumentException');
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetNamedConnection()
 	{
@@ -73,8 +69,6 @@ class FirebirdQBTest extends QBTest {
 
 		$this->assertReference($f_conn, Query('fire'));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetCompiledSelect()
 	{
@@ -169,5 +163,10 @@ class FirebirdQBTest extends QBTest {
 		);
 
 		$this->assertEqual($expected, $error);
+	}
+
+	public function testBackupStructure()
+	{
+		$this->assertEquals('', $this->db->util->backup_structure());
 	}
 }

@@ -26,6 +26,7 @@ class SQLite_Util extends DB_Util {
 	/**
 	 * Convenience public function to create a new table
 	 *
+	 * @codeCoverageIgnore
 	 * @param string $name //Name of the table
 	 * @param array $columns //columns as straight array and/or column => type pairs
 	 * @param array $constraints // column => constraint pairs
@@ -98,6 +99,7 @@ class SQLite_Util extends DB_Util {
 	/**
 	 * Create an SQL backup file for the current database's data
 	 *
+	 * @codeCoverageIgnore
 	 * @param array $excluded
 	 * @return string
 	 */

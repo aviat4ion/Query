@@ -26,7 +26,7 @@ class Firebird_Util extends DB_Util {
 
 	/**
 	 * Create an SQL backup file for the current database's structure
-	 *
+	 * @codeCoverageIgnore
 	 * @return string
 	 */
 	public function backup_structure()
@@ -40,6 +40,7 @@ class Firebird_Util extends DB_Util {
 	/**
 	 * Create an SQL backup file for the current database's data
 	 *
+	 * @codeCoverageIgnore
 	 * @param array $exclude
 	 * @param bool $system_tables
 	 * @return string

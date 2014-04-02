@@ -1306,8 +1306,6 @@ class Query_Builder implements Query_Builder_Interface {
 			$vals = array_merge($this->values, (array) $this->where_values);
 		}
 
-		$evals = (is_array($vals)) ? $vals : array();
-
 		$start_time = microtime(TRUE);
 
 		if (empty($vals))
@@ -1320,29 +1318,10 @@ class Query_Builder implements Query_Builder_Interface {
 		}
 
 		$end_time = microtime(TRUE);
-
 		$total_time = number_format($end_time - $start_time, 5);
 
-		// Add the interpreted query to the list of executed queries
-		foreach($evals as &$v)
-		{
-			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
-		}
-		$esql = str_replace('?', "%s", $sql);
-		array_unshift($vals, $esql);
-		array_unshift($evals, $esql);
 
-
-		$this->queries[] = array(
-			'time' => $total_time,
-			'sql' => call_user_func_array('sprintf', $evals),
-		);
-		$this->queries['total_time'] += $total_time;
-
-		array_shift($vals);
-
-		// Set the last query to get rowcounts properly
-		$this->db->last_query = $sql;
+		$this->_append_query($vals, $sql, $total_time);
 
 		// Reset class state for next query
 		$this->reset_query();
@@ -1368,6 +1347,41 @@ class Query_Builder implements Query_Builder_Interface {
 		}
 
 		throw new BadMethodCallException("Method does not exist");
+	}
+
+	/**
+	 * Convert the prepared statement into readable sql
+	 *
+	 * @param array $vals
+	 * @param string $sql
+	 * @param string $total_time
+	 * @return void
+	 */
+	protected function _append_query($vals, $sql, $total_time)
+	{
+		$evals = (is_array($vals)) ? $vals : array();
+
+		// Quote string values
+		foreach($evals as &$v)
+		{
+			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
+		}
+		$esql = str_replace('?', "%s", $sql);
+
+		// Add the query onto the array of values to pass
+		// as arguments to sprintf
+		array_unshift($evals, $esql);
+
+		// Add the interpreted query to the list of executed queries
+		$this->queries[] = array(
+			'time' => $total_time,
+			'sql' => call_user_func_array('sprintf', $evals),
+		);
+
+		$this->queries['total_time'] += $total_time;
+
+		// Set the last query to get rowcounts properly
+		$this->db->last_query = $sql;
 	}
 
 	// --------------------------------------------------------------------------

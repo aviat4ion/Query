@@ -62,14 +62,12 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = array())
 	{
-		if (isset($options[PDO::ATTR_PERSISTENT]) && $options[PDO::ATTR_PERSISTENT] == TRUE)
-		{
-			$this->conn = fbird_pconnect($dbpath, $user, $pass, 'utf-8', 0);
-		}
-		else
-		{
-			$this->conn = fbird_connect($dbpath, $user, $pass, 'utf-8', 0);
-		}
+
+		$connect_function = (isset($options[PDO::ATTR_PERSISTENT]) && $options[PDO::ATTR_PERSISTENT] == TRUE)
+			? 'fbird_pconnect'
+			: 'fbird_connect';
+
+		$this->conn = $connect_function($dbpath, $user, $pass, 'utf-8', 0);
 
 		// Throw an exception to make this match other pdo classes
 		if ( ! is_resource($this->conn)) throw new PDOException(fbird_errmsg(), fbird_errcode(), NULL);
@@ -79,13 +77,11 @@ class Firebird extends Abstract_Driver {
 		// of DB_PDO, which defines these two
 		// class variables for the other drivers
 
-		// Load the sql class
-		$class = __CLASS__."_sql";
-		$this->sql = new $class();
-
-		// Load the util class
-		$class = __CLASS__."_util";
-		$this->util = new $class($this);
+		foreach(array('sql', 'util') as $sub)
+		{
+			$class = __CLASS__ . "_{$sub}";
+			$this->$sub = new $class($this);
+		}
 	}
 
 	// --------------------------------------------------------------------------

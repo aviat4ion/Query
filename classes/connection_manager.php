@@ -178,11 +178,7 @@ final class Connection_Manager {
 		// --------------------------------------------------------------------------
 
 		// Convert array to object
-		if (is_array($params))
-		{
-			$params = new ArrayObject($params, ArrayObject::STD_PROP_LIST | ArrayObject::ARRAY_AS_PROPS);
-		}
-
+		$params = new ArrayObject($params, ArrayObject::STD_PROP_LIST | ArrayObject::ARRAY_AS_PROPS);
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 

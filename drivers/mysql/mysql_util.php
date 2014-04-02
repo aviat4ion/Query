@@ -30,11 +30,11 @@ class MySQL_Util extends DB_Util {
 	/**
  	 * Convienience public function for creating a new MySQL table
  	 *
+	 * @codeCoverageIgnore
  	 * @param string $name
  	 * @param array $columns
  	 * @param array $constraints
  	 * @param array $indexes
- 	 *
  	 * @return string
  	 */
 	public function create_table($name, $columns, array $constraints=array(), array $indexes=array())
@@ -125,10 +125,7 @@ class MySQL_Util extends DB_Util {
 		foreach($dbs as &$d)
 		{
 			// Skip built-in dbs
-			if ($d == 'mysql')
-			{
-				continue;
-			}
+			if ($d == 'mysql') continue;
 
 			// Get the list of tables
 			$tables = $this->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
