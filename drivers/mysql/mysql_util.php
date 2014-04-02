@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query\Driver;
+
 /**
  * MySQL-specific backup, import and creation methods
  *
@@ -165,7 +167,7 @@ class MySQL_Util extends DB_Util {
 		{
 			$sql = "SELECT * FROM `{$t}`";
 			$res = $this->query($sql);
-			$rows = $res->fetchAll(PDO::FETCH_ASSOC);
+			$rows = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			// Skip empty tables
 			if (count($rows) < 1) continue;

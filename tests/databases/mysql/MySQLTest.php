@@ -24,24 +24,24 @@ class MySQLTest extends DBTest {
 	public function setUp()
 	{
 		// If the database isn't installed, skip the tests
-		if ( ! class_exists("MySQL"))
+		if ( ! class_exists("\\Query\\Driver\\MySQL"))
 		{
 			$this->markTestSkipped("MySQL extension for PDO not loaded");
 		}
-		
+
 		// Attempt to connect, if there is a test config file
 		if (is_file(QTEST_DIR . "/settings.json"))
 		{
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->mysql;
 
-			$this->db = new MySQL("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
+			$this->db = new \Query\Driver\MySQL("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
 				PDO::ATTR_PERSISTENT => TRUE
 			));
 		}
 		elseif (($var = getenv('CI')))
 		{
-			$this->db = new MySQL('host=127.0.0.1;port=3306;dbname=test', 'root');
+			$this->db = new \Query\Driver\MySQL('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
 	}
 
@@ -56,7 +56,7 @@ class MySQLTest extends DBTest {
 
 	public function testConnection()
 	{
-		$this->assertIsA($this->db, 'MySQL');
+		$this->assertIsA($this->db, '\\Query\\Driver\\MySQL');
 	}
 
 	// --------------------------------------------------------------------------

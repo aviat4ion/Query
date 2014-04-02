@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query;
+
 /**
  * Utility Class to parse sql clauses for properly escaping identifiers
  *
@@ -20,6 +22,13 @@
  * @subpackage Query_Builder
  */
 class Query_Parser {
+
+	/**
+	 * DB Driver
+	 *
+	 * @var \Query\Driver\Driver_Interface
+	 */
+	private $db;
 
 	/**
 	 * Regex patterns for various syntax components
@@ -51,6 +60,12 @@ class Query_Parser {
 	 */
 	public function __construct($sql = '')
 	{
+		if (is_object($sql))
+		{
+			$this->db = $sql;
+			$sql = '';
+		}
+
 		// Get sql clause components
 		preg_match_all('`'.$this->match_patterns['function'].'`', $sql, $this->matches['functions'], PREG_SET_ORDER);
 		preg_match_all('`'.$this->match_patterns['identifier'].'`', $sql, $this->matches['identifiers'], PREG_SET_ORDER);
@@ -71,7 +86,7 @@ class Query_Parser {
 	 *
 	 * @param string $sql
 	 */
-	public function parse_join($sql)
+	protected function parse_join($sql)
 	{
 		$this->__construct($sql);
 		return $this->matches;
@@ -80,12 +95,35 @@ class Query_Parser {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Compiles a join condition after parsing
+	 *
+	 * @param string $condition
+	 * @return string
+	 */
+	public function compile_join($condition)
+	{
+		$parts = $this->parse_join($condition);
+		$count = count($parts['identifiers']);
+
+		// Go through and quote the identifiers
+		for($i=0; $i <= $count; $i++)
+		{
+			if (in_array($parts['combined'][$i], $parts['identifiers']) && ! is_numeric($parts['combined'][$i]))
+			{
+				$parts['combined'][$i] = $this->db->quote_ident($parts['combined'][$i]);
+			}
+		}
+
+		return implode('', $parts['combined']);
+	}
+
+	/**
 	 * Returns a more useful match array
 	 *
 	 * @param array $array
 	 * @return array
 	 */
-	private function filter_array($array)
+	protected function filter_array($array)
 	{
 		$new_array = array();
 

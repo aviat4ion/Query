@@ -134,10 +134,10 @@ SQL;
 
 	public function testConnection()
 	{
-		$db = new SQLite(QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db');
+		$db = new \Query\Driver\SQLite(QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db');
 
-		$this->assertIsA($db, 'SQLite');
-		$this->assertIsA($this->db->db, 'SQLite');
+		$this->assertIsA($db, '\\Query\\Driver\\SQLite');
+		$this->assertIsA($this->db->db, '\\Query\\Driver\\SQLite');
 
 		unset($db);
 	}

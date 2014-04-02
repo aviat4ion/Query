@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query\Driver;
+
 /**
  * Firebird Database class
  *
@@ -63,14 +65,14 @@ class Firebird extends Abstract_Driver {
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = array())
 	{
 
-		$connect_function = (isset($options[PDO::ATTR_PERSISTENT]) && $options[PDO::ATTR_PERSISTENT] == TRUE)
-			? 'fbird_pconnect'
-			: 'fbird_connect';
+		$connect_function = (isset($options[\PDO::ATTR_PERSISTENT]) && $options[\PDO::ATTR_PERSISTENT] == TRUE)
+			? '\\fbird_pconnect'
+			: '\\fbird_connect';
 
 		$this->conn = $connect_function($dbpath, $user, $pass, 'utf-8', 0);
 
 		// Throw an exception to make this match other pdo classes
-		if ( ! is_resource($this->conn)) throw new PDOException(fbird_errmsg(), fbird_errcode(), NULL);
+		if ( ! \is_resource($this->conn)) throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
 
 		// Load these classes here because this
 		// driver does not call the constructor
@@ -148,7 +150,7 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function lastInsertId($name = NULL)
 	{
-		return fbird_gen_id($name, 0, $this->conn);
+		return \fbird_gen_id($name, 0, $this->conn);
 	}
 
 	// --------------------------------------------------------------------------
@@ -163,15 +165,15 @@ class Firebird extends Abstract_Driver {
 	public function query($sql = '')
 	{
 
-		if (empty($sql)) throw new PDOException("Query method requires an sql query!", 0, NULL);
+		if (empty($sql)) throw new \PDOException("Query method requires an sql query!", 0, NULL);
 
 		$this->statement_link = (isset($this->trans))
-			? fbird_query($this->trans, $sql)
-			: fbird_query($this->conn, $sql);
+			? \fbird_query($this->trans, $sql)
+			: \fbird_query($this->conn, $sql);
 
 		// Throw the error as a exception
-		$err_string = fbird_errmsg() . "Last query:" . $this->last_query;
-		if ($this->statement_link === FALSE) throw new PDOException($err_string, fbird_errcode(), NULL);
+		$err_string = \fbird_errmsg() . "Last query:" . $this->last_query;
+		if ($this->statement_link === FALSE) throw new \PDOException($err_string, \fbird_errcode(), NULL);
 
 		$this->statement = new FireBird_Result($this->statement_link);
 
@@ -190,10 +192,10 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function prepare($query, $options=array())
 	{
-		$this->statement_link = fbird_prepare($this->conn, $query);
+		$this->statement_link = \fbird_prepare($this->conn, $query);
 
 		// Throw the error as an exception
-		if ($this->statement_link === FALSE) throw new PDOException(fbird_errmsg(), fbird_errcode(), NULL);
+		if ($this->statement_link === FALSE) throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
 
 		$this->statement = new FireBird_Result($this->statement_link);
 
@@ -209,7 +211,7 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function beginTransaction()
 	{
-		return (($this->trans = fbird_trans($this->conn)) !== NULL) ? TRUE : NULL;
+		return (($this->trans = \fbird_trans($this->conn)) !== NULL) ? TRUE : NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -221,7 +223,7 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function commit()
 	{
-		$res = fbird_commit($this->trans);
+		$res = \fbird_commit($this->trans);
 		$this->trans = NULL;
 		return $res;
 	}
@@ -235,7 +237,7 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function rollBack()
 	{
-		$res = fbird_rollback($this->trans);
+		$res = \fbird_rollback($this->trans);
 		$this->trans = NULL;
 		return $res;
 	}
@@ -281,7 +283,7 @@ class Firebird extends Abstract_Driver {
 	 * @param int $param_type
 	 * @return string
 	 */
-	public function quote($str, $param_type = PDO::PARAM_STR)
+	public function quote($str, $param_type = \PDO::PARAM_STR)
 	{
 		if(is_numeric($str))
 		{
@@ -300,8 +302,8 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function errorInfo()
 	{
-		$code = fbird_errcode();
-		$msg = fbird_errmsg();
+		$code = \fbird_errcode();
+		$msg = \fbird_errmsg();
 
 		return array(0, $code, $msg);
 	}

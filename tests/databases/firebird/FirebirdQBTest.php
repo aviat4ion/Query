@@ -23,7 +23,7 @@ class FirebirdQBTest extends QBTest {
 	{
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
-		if ( ! function_exists('fbird_connect'))
+		if ( ! function_exists('\\fbird_connect'))
 		{
 			$this->markTestSkipped('Firebird extension does not exist');
 		}
@@ -76,8 +76,8 @@ class FirebirdQBTest extends QBTest {
 		$qb_res = $this->db->get('create_test');
 		$sql_res = $this->db->query($sql);
 
-		$this->assertIsA($qb_res, 'Firebird_Result');
-		$this->assertIsA($sql_res, 'Firebird_Result');
+		$this->assertIsA($qb_res, '\\Query\\Driver\\Firebird_Result');
+		$this->assertIsA($sql_res, '\\Query\\Driver\\Firebird_Result');
 	}
 
 	public function testInsertBatch()

@@ -20,7 +20,7 @@ class PgSQLQBTest extends QBTest {
 	public function setUp()
  	{
  		// If the database isn't installed, skip the tests
-		if ( ! class_exists("PgSQL"))
+		if ( ! class_exists("\\Query\\Driver\\PgSQL"))
 		{
 			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
@@ -33,7 +33,7 @@ class PgSQLQBTest extends QBTest {
 			$params->type = "pgsql";
 			$params->prefix = 'create_';
 			$params->options = array();
-			$params->options[PDO::ATTR_PERSISTENT] = TRUE;
+			$params->options[\PDO::ATTR_PERSISTENT] = TRUE;
 		}
 		elseif (($var = getenv('CI'))) // Travis CI Connection Info
 		{

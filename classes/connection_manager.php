@@ -13,13 +13,17 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query;
+
+use \Query\Driver;
+
 /**
  * Generic exception for bad drivers
  *
  * @package Query
  * @subpackage Core
  */
-class BadDBDriverException extends InvalidArgumentException {}
+class BadDBDriverException extends \InvalidArgumentException {}
 
 // --------------------------------------------------------------------------
 
@@ -69,7 +73,7 @@ final class Connection_Manager {
 	 */
 	private function __wakeup()
 	{
-		throw new DomainException("Can't unserialize singleton");
+		throw new \DomainException("Can't unserialize singleton");
 	}
 
 	// --------------------------------------------------------------------------
@@ -115,7 +119,7 @@ final class Connection_Manager {
 		}
 		else
 		{
-			throw new InvalidArgumentException("The specified connection does not exist");
+			throw new \InvalidArgumentException("The specified connection does not exist");
 		}
 	}
 
@@ -132,10 +136,12 @@ final class Connection_Manager {
 	{
 		list($dsn, $dbtype, $params, $options) = $this->parse_params($params);
 
+		$driver = "\\Query\\Driver\\{$dbtype}";
+
 		// Create the database connection
 		$db = ( ! empty($params->user))
-			? new $dbtype($dsn, $params->user, $params->pass, $options)
-			: new $dbtype($dsn, '', '', $options);
+			? new $driver($dsn, $params->user, $params->pass, $options)
+			: new $driver($dsn, '', '', $options);
 
 		// --------------------------------------------------------------------------
 		// Save connection
@@ -178,12 +184,12 @@ final class Connection_Manager {
 		// --------------------------------------------------------------------------
 
 		// Convert array to object
-		$params = new ArrayObject($params, ArrayObject::STD_PROP_LIST | ArrayObject::ARRAY_AS_PROPS);
+		$params = new \ArrayObject($params, \ArrayObject::STD_PROP_LIST | \ArrayObject::ARRAY_AS_PROPS);
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 
 		// Make sure the class exists
-		if ( ! class_exists($dbtype))
+		if ( ! class_exists("Query\\Driver\\$dbtype"))
 		{
 			throw new BadDBDriverException('Database driver does not exist, or is not supported');
 		}

@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query\Driver;
+
 /**
  * Firebird result class to emulate PDOStatement Class - only implements
  * data-fetching methods
@@ -20,7 +22,7 @@
  * @package Query
  * @subpackage Drivers
  */
-class Firebird_Result extends PDOStatement {
+class Firebird_Result extends \PDOStatement {
 
 	/**
 	 * Reference to fbird resource
@@ -52,22 +54,22 @@ class Firebird_Result extends PDOStatement {
 	public function __construct($link)
 	{
 		$this->statement = $link;
-		$this->setFetchMode(PDO::FETCH_ASSOC);
+		$this->setFetchMode(\PDO::FETCH_ASSOC);
 		$this->row = -1;
 		$this->result = array();
 
 		// Create the result array, so that we can get row counts
 		// Check the resource type, because prepared statements are "interbase query"
 		// but we only want "interbase result" types when attempting to fetch data
-		if (is_resource($link) && get_resource_type($link) === "interbase result")
+		if (\is_resource($link) && \get_resource_type($link) === "interbase result")
 		{
-			while($row = fbird_fetch_assoc($link, IBASE_FETCH_BLOBS))
+			while($row = \fbird_fetch_assoc($link, \IBASE_FETCH_BLOBS))
 			{
 				$this->result[] = $row;
 			}
 
 			// Free the result resource
-			fbird_free_result($link);
+			\fbird_free_result($link);
 		}
 	}
 
@@ -131,12 +133,12 @@ class Firebird_Result extends PDOStatement {
 	public function execute($args = NULL)
 	{
 		//Add the prepared statement as the first parameter
-		array_unshift($args, $this->statement);
+		\array_unshift($args, $this->statement);
 
 		// Let php do all the hard stuff in converting
 		// the array of arguments into a list of arguments
 		// Then pass the resource to the constructor
-		$this->__construct(call_user_func_array('fbird_execute', $args));
+		$this->__construct(\call_user_func_array('fbird_execute', $args));
 
 		return $this;
 	}
@@ -151,7 +153,7 @@ class Firebird_Result extends PDOStatement {
 	 * @param mixed $cursor_offset
 	 * @return mixed
 	 */
-	public function fetch($fetch_style=PDO::FETCH_ASSOC, $cursor_orientation = PDO::FETCH_ORI_NEXT, $cursor_offset=NULL)
+	public function fetch($fetch_style=\PDO::FETCH_ASSOC, $cursor_orientation = \PDO::FETCH_ORI_NEXT, $cursor_offset=NULL)
 	{
 		// If there is no result, continue
 		if (empty($this->result))
@@ -170,12 +172,12 @@ class Firebird_Result extends PDOStatement {
 
 		switch($fetch_style)
 		{
-			case PDO::FETCH_OBJ:
+			case \PDO::FETCH_OBJ:
 				$row = (object) $this->result[$this->row];
 			break;
 
-			case PDO::FETCH_NUM:
-				$row = array_values($this->result[$this->row]);
+			case \PDO::FETCH_NUM:
+				$row = \array_values($this->result[$this->row]);
 			break;
 
 			default:
@@ -196,7 +198,7 @@ class Firebird_Result extends PDOStatement {
 	 * @param mixed $ctor_args
 	 * @return mixed
 	 */
-	public function fetchAll($fetch_style=PDO::FETCH_ASSOC, $statement=NULL, $ctor_args=NULL)
+	public function fetchAll($fetch_style=\PDO::FETCH_ASSOC, $statement=NULL, $ctor_args=NULL)
 	{
 		$all = array();
 
@@ -220,7 +222,7 @@ class Firebird_Result extends PDOStatement {
 	 */
 	public function fetchColumn($column_num=0)
 	{
-		$row = $this->fetch(PDO::FETCH_NUM);
+		$row = $this->fetch(\PDO::FETCH_NUM);
 		return $row[$column_num];
 	}
 
@@ -235,7 +237,7 @@ class Firebird_Result extends PDOStatement {
 	 */
 	public function fetchObject($class_name='stdClass', $ctor_args=array())
 	{
-		return $this->fetch(PDO::FETCH_OBJ);
+		return $this->fetch(\PDO::FETCH_OBJ);
 	}
 
 	// --------------------------------------------------------------------------
@@ -247,12 +249,12 @@ class Firebird_Result extends PDOStatement {
 	 */
 	public function rowCount()
 	{
-		$rows = fbird_affected_rows();
+		$rows = \fbird_affected_rows();
 
 		// Get the number of rows for the select query if you can
-		if ($rows === 0 && is_resource($this->statement) && get_resource_type($this->statement) === "interbase result")
+		if ($rows === 0 && \is_resource($this->statement) && \get_resource_type($this->statement) === "interbase result")
 		{
-			$rows = count($this->result);
+			$rows = \count($this->result);
 		}
 
 		return $rows;
@@ -267,7 +269,7 @@ class Firebird_Result extends PDOStatement {
 	 */
 	public function errorCode()
 	{
-		return fbird_errcode();
+		return \fbird_errcode();
 	}
 
 	// --------------------------------------------------------------------------
@@ -279,8 +281,8 @@ class Firebird_Result extends PDOStatement {
 	 */
 	public function errorInfo()
 	{
-		$code = fbird_errcode();
-		$msg = fbird_errmsg();
+		$code = \fbird_errcode();
+		$msg = \fbird_errmsg();
 
 		return array(0, $code, $msg);
 	}

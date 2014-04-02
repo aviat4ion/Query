@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query\Driver;
+
 /**
  * Base Database class
  *
@@ -21,7 +23,7 @@
  * @package Query
  * @subpackage Drivers
  */
-abstract class Abstract_Driver extends PDO implements Driver_Interface {
+abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	/**
 	 * Reference to the last executed query
@@ -70,7 +72,7 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options=array())
 	{
 		// Set PDO to display errors as exceptions, and apply driver options
-		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+		$driver_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
 		parent::__construct($dsn, $username, $password, $driver_options);
 
 		// Load the sql and util class for the driver
@@ -100,7 +102,7 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 
 		if( ! (is_array($data) || is_object($data)))
 		{
-			throw new InvalidArgumentException("Invalid data argument");
+			throw new \InvalidArgumentException("Invalid data argument");
 		}
 
 		// Bind the parameters
@@ -422,10 +424,10 @@ abstract class Abstract_Driver extends PDO implements Driver_Interface {
 
 		$res = $this->query($sql);
 
-		$flag = ($filtered_index) ? PDO::FETCH_NUM : PDO::FETCH_ASSOC;
+		$flag = ($filtered_index) ? \PDO::FETCH_NUM : \PDO::FETCH_ASSOC;
 		$all = $res->fetchAll($flag);
 
-		return ($filtered_index) ? db_filter($all, 0) : $all;
+		return ($filtered_index) ? \db_filter($all, 0) : $all;
 	}
 
 	// --------------------------------------------------------------------------

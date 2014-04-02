@@ -42,7 +42,8 @@ require(QBASE_PATH.'common.php');
  */
 function query_autoload($class)
 {
-	$class = strtolower($class);
+	$class_segments = explode('\\', $class);
+	$class = strtolower(array_pop($class_segments));
 
 	// Load Firebird separately
 	if (function_exists('fbird_connect') && $class === 'firebird')

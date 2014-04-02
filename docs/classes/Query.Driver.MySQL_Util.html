@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Query » \Query\Driver\MySQL_Util</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Query</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/Query.html"><i class="icon-th"></i> Query</a></li>
+<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
+<li><a>Packages</a></li>
+<li><a href="../packages/Query.html"><i class="icon-folder-open"></i> Query</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<div class="btn-toolbar">
+<div class="btn-group visibility" data-toggle="buttons-checkbox">
+<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
+</div>
+<div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+</div>
+<ul class="side-nav nav nav-list"><li class="nav-header">
+<i title="Methods" class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_backup_data" title="backup_data() :: Create an SQL backup file for the current database's data"><span class="description">Create an SQL backup file for the current database's data</span><pre>backup_data()</pre></a></li>
+<li class="method public "><a href="#method_backup_structure" title="backup_structure() :: Create an SQL backup file for the current database's structure"><span class="description">Create an SQL backup file for the current database's structure</span><pre>backup_structure()</pre></a></li>
+<li class="method public "><a href="#method_create_table" title="create_table() :: Convienience public function for creating a new MySQL table"><span class="description">Convienience public function for creating a new MySQL table</span><pre>create_table()</pre></a></li>
+<li class="method public "><a href="#method_delete_table" title="delete_table() :: Convience public function for droping a table"><span class="description">Convience public function for droping a table</span><pre>delete_table()</pre></a></li>
+<li class="method public "><a href="#method_driver_query" title="driver_query() :: "><span class="description">driver_query()
+        </span><pre>driver_query()</pre></a></li>
+<li class="method public "><a href="#method_get_dbs" title="get_dbs() :: "><span class="description">get_dbs()
+        </span><pre>get_dbs()</pre></a></li>
+<li class="method public "><a href="#method_get_system_tables" title="get_system_tables() :: "><span class="description">get_system_tables()
+        </span><pre>get_system_tables()</pre></a></li>
+<li class="method public "><a href="#method_get_tables" title="get_tables() :: "><span class="description">get_tables()
+        </span><pre>get_tables()</pre></a></li>
+<li class="method public "><a href="#method_query" title="query() :: "><span class="description">query()
+        </span><pre>query()</pre></a></li>
+<li class="method public "><a href="#method_quote" title="quote() :: "><span class="description">quote()
+        </span><pre>quote()</pre></a></li>
+</ul>
+</li></ul>
+</div>
+<div class="span8">
+<a id="\Query\Driver\MySQL_Util"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/Query.html">Query</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Query.Driver.html">Driver</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Query.Driver.MySQL_Util.html">MySQL_Util</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">MySQL-specific backup, import and creation methods</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/Query.Drivers.html">Query</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Drivers</td>
+</tr>
+</table>
+<h3>
+<i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_backup_data"></a><div class="element clickable method public method_backup_data" data-toggle="collapse" data-target=".method_backup_data .collapse" title="public">
+<h2>Create an SQL backup file for the current database's data</h2>
+<pre>backup_data(array $exclude<code> = array()</code>) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$exclude</h4>
+<code>array</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_backup_structure"></a><div class="element clickable method public method_backup_structure" data-toggle="collapse" data-target=".method_backup_structure .collapse" title="public">
+<h2>Create an SQL backup file for the current database's structure</h2>
+<pre>backup_structure() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_create_table"></a><div class="element clickable method public method_create_table" data-toggle="collapse" data-target=".method_create_table .collapse" title="public">
+<h2>Convienience public function for creating a new MySQL table</h2>
+<pre>create_table(string $name, array $columns, array $constraints<code> = array()</code>, array $indexes<code> = array()</code>) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>codeCoverageIgnore</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$columns</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$constraints</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$indexes</h4>
+<code>array</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_delete_table"></a><div class="element clickable method public method_delete_table" data-toggle="collapse" data-target=".method_delete_table .collapse" title="public">
+<h2>Convience public function for droping a table</h2>
+<pre>delete_table(string $name) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_driver_query"></a><div class="element clickable method public method_driver_query" data-toggle="collapse" data-target=".method_driver_query .collapse" title="public">
+<h2>driver_query()
+        </h2>
+<pre>driver_query() : </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>magic</th>
+<td></td>
+</tr>
+<tr>
+<th>method</th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code></code></div>
+</div></div>
+</div>
+<a id="method_get_dbs"></a><div class="element clickable method public method_get_dbs" data-toggle="collapse" data-target=".method_get_dbs .collapse" title="public">
+<h2>get_dbs()
+        </h2>
+<pre>get_dbs() : </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>magic</th>
+<td></td>
+</tr>
+<tr>
+<th>method</th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code></code></div>
+</div></div>
+</div>
+<a id="method_get_system_tables"></a><div class="element clickable method public method_get_system_tables" data-toggle="collapse" data-target=".method_get_system_tables .collapse" title="public">
+<h2>get_system_tables()
+        </h2>
+<pre>get_system_tables() : </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>magic</th>
+<td></td>
+</tr>
+<tr>
+<th>method</th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code></code></div>
+</div></div>
+</div>
+<a id="method_get_tables"></a><div class="element clickable method public method_get_tables" data-toggle="collapse" data-target=".method_get_tables .collapse" title="public">
+<h2>get_tables()
+        </h2>
+<pre>get_tables() : </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>magic</th>
+<td></td>
+</tr>
+<tr>
+<th>method</th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code></code></div>
+</div></div>
+</div>
+<a id="method_query"></a><div class="element clickable method public method_query" data-toggle="collapse" data-target=".method_query .collapse" title="public">
+<h2>query()
+        </h2>
+<pre>query() : </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>magic</th>
+<td></td>
+</tr>
+<tr>
+<th>method</th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code></code></div>
+</div></div>
+</div>
+<a id="method_quote"></a><div class="element clickable method public method_quote" data-toggle="collapse" data-target=".method_quote .collapse" title="public">
+<h2>quote()
+        </h2>
+<pre>quote() : </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>magic</th>
+<td></td>
+</tr>
+<tr>
+<th>method</th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code></code></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
+</a> and<br>
+            generated on 2014-04-02T17:05:04-04:00.<br></footer></div>
+</div>
+</body>
+</html>

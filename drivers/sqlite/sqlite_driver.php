@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query\Driver;
+
 /**
  * SQLite specific class
  *
@@ -72,7 +74,7 @@ class SQLite extends Abstract_Driver {
 		$sql = $this->sql->table_list();
 
 		$res = $this->query($sql);
-		return db_filter($res->fetchAll(PDO::FETCH_ASSOC), 'name');
+		return db_filter($res->fetchAll(\PDO::FETCH_ASSOC), 'name');
 	}
 
 	// --------------------------------------------------------------------------

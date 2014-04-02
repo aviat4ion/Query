@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query;
+
 /**
  * Convienience class for creating sql queries - also the class that
  * instantiates the specific db driver
@@ -176,14 +178,14 @@ class Query_Builder implements Query_Builder_Interface {
 	/**
 	 * Constructor
 	 *
-	 * @param Abstract_driver $db
+	 * @param \Query\Driver\Driver_Interface $db
 	 */
-	public function __construct(Driver_Interface $db)
+	public function __construct(\Query\Driver\Driver_Interface $db)
 	{
 		$this->db = $db;
 
 		// Instantiate the Query Parser
-		$this->parser = new Query_Parser();
+		$this->parser = new Query_Parser($this);
 
 		$this->queries['total_time'] = 0;
 
@@ -810,19 +812,7 @@ class Query_Builder implements Query_Builder_Interface {
 		$table = implode(' ', $table);
 
 		// Parse out the join condition
-		$parts = $this->parser->parse_join($condition);
-		$count = count($parts['identifiers']);
-
-		// Go through and quote the identifiers
-		for($i=0; $i <= $count; $i++)
-		{
-			if (in_array($parts['combined'][$i], $parts['identifiers']) && ! is_numeric($parts['combined'][$i]))
-			{
-				$parts['combined'][$i] = $this->db->quote_ident($parts['combined'][$i]);
-			}
-		}
-
-		$parsed_condition = implode('', $parts['combined']);
+		$parsed_condition = $this->parser->compile_join($condition);
 		$condition = $table . ' ON ' . $parsed_condition;
 
 		$this->_append_map("\n" . strtoupper($type) . ' JOIN ', $condition, 'join');
@@ -1251,7 +1241,7 @@ class Query_Builder implements Query_Builder_Interface {
 			'group_string',
 			'limit',
 			'offset',
-			'explain'
+			'explain',
 		) as $var)
 		{
 			$this->$var = NULL;
@@ -1297,19 +1287,14 @@ class Query_Builder implements Query_Builder_Interface {
 
 		$start_time = microtime(TRUE);
 
-		if (empty($vals))
-		{
-			$res = $this->db->query($sql);
-		}
-		else
-		{
-			$res = $this->db->prepare_execute($sql, $vals);
-		}
+		$res = (empty($vals))
+			? $this->db->query($sql)
+			: $this->db->prepare_execute($sql, $vals);
 
 		$end_time = microtime(TRUE);
 		$total_time = number_format($end_time - $start_time, 5);
 
-
+		// Add this query to the list of executed queries
 		$this->_append_query($vals, $sql, $total_time);
 
 		// Reset class state for next query
@@ -1335,7 +1320,7 @@ class Query_Builder implements Query_Builder_Interface {
 			return call_user_func_array(array($this->db, $name), $params);
 		}
 
-		throw new BadMethodCallException("Method does not exist");
+		throw new \BadMethodCallException("Method does not exist");
 	}
 
 	/**
@@ -1349,13 +1334,13 @@ class Query_Builder implements Query_Builder_Interface {
 	protected function _append_query($vals, $sql, $total_time)
 	{
 		$evals = (is_array($vals)) ? $vals : array();
+		$esql = str_replace('?', "%s", $sql);
 
 		// Quote string values
 		foreach($evals as &$v)
 		{
 			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
 		}
-		$esql = str_replace('?', "%s", $sql);
 
 		// Add the query onto the array of values to pass
 		// as arguments to sprintf

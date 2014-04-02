@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query\Driver;
+
 /**
  * SQLite-specific backup, import and creation methods
  *
@@ -114,7 +116,7 @@ class SQLite_Util extends DB_Util {
 		}
 
 		$res = $this->query($sql);
-		$result = $res->fetchAll(PDO::FETCH_ASSOC);
+		$result = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 		unset($res);
 
@@ -125,7 +127,7 @@ class SQLite_Util extends DB_Util {
 		{
 			$sql = 'SELECT * FROM "'.$r['name'].'"';
 			$res = $this->query($sql);
-			$obj_res = $res->fetchAll(PDO::FETCH_ASSOC);
+			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			unset($res);
 
@@ -175,7 +177,7 @@ class SQLite_Util extends DB_Util {
 		// Fairly easy for SQLite...just query the master table
 		$sql = 'SELECT "sql" FROM "sqlite_master"';
 		$res = $this->query($sql);
-		$result = $res->fetchAll(PDO::FETCH_ASSOC);
+		$result = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 		$sql_array = array();
 

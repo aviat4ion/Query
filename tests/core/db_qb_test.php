@@ -765,9 +765,9 @@ abstract class QBTest extends Query_TestCase {
 		{
 			$this->db = Query($params);
 		}
-		catch(BadDBDriverException $e)
+		catch(\Query\BadDBDriverException $e)
 		{
-			$this->assertInstanceOf('BadDBDriverException', $e);
+			$this->assertInstanceOf('\\Query\\BadDBDriverException', $e);
 		}
 	}
 

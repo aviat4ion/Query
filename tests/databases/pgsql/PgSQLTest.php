@@ -22,9 +22,10 @@ class PgTest extends DBTest {
 
 	public function setUp()
 	{
+		$class = "\\Query\\Driver\\PgSQL";
 
 		// If the database isn't installed, skip the tests
-		if ( ! class_exists("PgSQL"))
+		if ( ! class_exists($class))
 		{
 			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
@@ -35,11 +36,11 @@ class PgTest extends DBTest {
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->pgsql;
 
-			$this->db = new PgSQL("pgsql:dbname={$params->database}", $params->user, $params->pass);
+			$this->db = new $class("pgsql:dbname={$params->database}", $params->user, $params->pass);
 		}
 		elseif (($var = getenv('CI')))
 		{
-			$this->db = new PgSQL('host=127.0.0.1;port=5432;dbname=test', 'postgres');
+			$this->db = new $class('host=127.0.0.1;port=5432;dbname=test', 'postgres');
 		}
 	}
 
@@ -56,7 +57,7 @@ class PgTest extends DBTest {
 	{
 		if (empty($this->db))  return;
 
-		$this->assertIsA($this->db, 'PgSQL');
+		$this->assertIsA($this->db, '\\Query\\Driver\\PgSQL');
 	}
 
 	// --------------------------------------------------------------------------

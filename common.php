@@ -82,7 +82,7 @@ function db_filter($array, $index)
  */
 function Query($params = '')
 {
-	$cmanager = Connection_Manager::get_instance();
+	$cmanager = \Query\Connection_Manager::get_instance();
 
 	// If you are getting a previously created connection
 	if (is_scalar($params))

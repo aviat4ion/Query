@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query\Driver;
+
 /**
  * Posgres-specific backup, import and creation methods
  *
@@ -59,7 +61,7 @@ class PgSQL_Util extends DB_Util {
 		{
 			$sql = 'SELECT * FROM "'.trim($t).'"';
 			$res = $this->query($sql);
-			$obj_res = $res->fetchAll(PDO::FETCH_ASSOC);
+			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			// Don't add to the file if the table is empty
 			if (count($obj_res) < 1) continue;

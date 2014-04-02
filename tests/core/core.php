@@ -11,6 +11,7 @@
  */
 
 // --------------------------------------------------------------------------
+
 /**
  * CoreTest class - Compatibility and core functionality tests
  *

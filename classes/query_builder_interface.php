@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query;
+
 /**
  * Interface defining the Query Builder class
  *

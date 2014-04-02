@@ -13,6 +13,10 @@
 
 // --------------------------------------------------------------------------
 
+namespace Query\Driver;
+
+use \Query;
+
 /**
  * Abstract class defining database / table creation methods
  *

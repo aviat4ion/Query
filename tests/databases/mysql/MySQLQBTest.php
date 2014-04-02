@@ -21,11 +21,11 @@ class MySQLQBTest extends QBTest {
 	public function setUp()
  	{
 		// If the database isn't installed, skip the tests
-		if ( ! class_exists("MySQL"))
+		if ( ! class_exists("\\Query\\Driver\\MySQL"))
 		{
 			$this->markTestSkipped("MySQL extension for PDO not loaded");
 		}
-		
+
  		// Attempt to connect, if there is a test config file
 		if (is_file(QTEST_DIR . "/settings.json"))
 		{
@@ -56,9 +56,9 @@ class MySQLQBTest extends QBTest {
 	{
 		$this->assertTrue(in_array('mysql', PDO::getAvailableDrivers()));
 	}
-	
+
 	// --------------------------------------------------------------------------
-	
+
 	public function testQueryExplain()
 	{
 		$query = $this->db->select('id, key as k, val')
@@ -66,9 +66,9 @@ class MySQLQBTest extends QBTest {
 			->where('id >', 1)
 			->where('id <', 900)
 			->get('test', 2, 1);
-			
+
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$expected = array (
 		  array (
 		    'id' => '1',
@@ -84,7 +84,7 @@ class MySQLQBTest extends QBTest {
 		    'Extra' => 'Using where',
 		  )
 		);
-		
+
 		$this->assertEqual($expected, $res);
 	}
 }
