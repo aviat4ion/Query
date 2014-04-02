@@ -1242,7 +1242,8 @@ class Query_Builder implements Query_Builder_Interface {
 	 */
 	public function reset_query()
 	{
-		$null_properties = array(
+		// Reset strings and booleans
+		foreach(array(
 			'select_string',
 			'from_string',
 			'set_string',
@@ -1251,9 +1252,13 @@ class Query_Builder implements Query_Builder_Interface {
 			'limit',
 			'offset',
 			'explain'
-		);
+		) as $var)
+		{
+			$this->$var = NULL;
+		}
 
-		$array_properties = array(
+		// Reset arrays
+		foreach(array(
 			'set_array_keys',
 			'order_array',
 			'group_array',
@@ -1261,16 +1266,7 @@ class Query_Builder implements Query_Builder_Interface {
 			'where_values',
 			'query_map',
 			'having_map'
-		);
-
-		// Reset strings and booleans
-		foreach($null_properties as $var)
-		{
-			$this->$var = NULL;
-		}
-
-		// Reset arrays
-		foreach($array_properties as $var)
+		) as $var)
 		{
 			$this->$var = array();
 		}

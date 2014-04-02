@@ -77,11 +77,13 @@ class Firebird extends Abstract_Driver {
 		// of DB_PDO, which defines these two
 		// class variables for the other drivers
 
-		foreach(array('sql', 'util') as $sub)
-		{
-			$class = __CLASS__ . "_{$sub}";
-			$this->$sub = new $class($this);
-		}
+		// Load the sql class
+		$class = __CLASS__."_sql";
+		$this->sql = new $class();
+
+		// Load the util class
+		$class = __CLASS__."_util";
+		$this->util = new $class($this);
 	}
 
 	// --------------------------------------------------------------------------
