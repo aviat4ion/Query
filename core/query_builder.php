@@ -198,6 +198,7 @@ class Query_Builder implements Query_Builder_Interface {
 
 	/**
 	 * Destructor
+	 * @codeCoverageIgnore
 	 */
 	public function __destruct()
 	{
@@ -1085,12 +1086,9 @@ class Query_Builder implements Query_Builder_Interface {
 		// Get the generated values and sql string
 		list($sql, $data) = $this->db->insert_batch($table, $data);
 
-		if ( ! is_null($sql))
-		{
-			return $this->_run('', $table, $sql, $data);
-		}
-
-		return NULL;
+		return ( ! is_null($sql))
+			? $this->_run('', $table, $sql, $data)
+			: NULL;
 	}
 
 	// --------------------------------------------------------------------------

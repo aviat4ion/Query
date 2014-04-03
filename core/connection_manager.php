@@ -15,8 +15,6 @@
 
 namespace Query;
 
-use \Query\Driver;
-
 /**
  * Generic exception for bad drivers
  *
@@ -174,7 +172,7 @@ final class Connection_Manager {
 	 * @throws BadDBDriverException
 	 */
 	private function parse_params(\ArrayObject $params)
-	{	
+	{
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 

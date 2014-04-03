@@ -291,7 +291,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_tables()
 	{
-		return $this->driver_query($this->sql->table_list());
+		return $this->driver_query('table_list');
 	}
 
 	// -------------------------------------------------------------------------
@@ -303,7 +303,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_dbs()
 	{
-		return $this->driver_query($this->sql->db_list());
+		return $this->driver_query('db_list');
 	}
 
 	// -------------------------------------------------------------------------
@@ -315,7 +315,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_views()
 	{
-		return $this->driver_query($this->sql->view_list());
+		return $this->driver_query('view_list');
 	}
 
 	// -------------------------------------------------------------------------
@@ -327,7 +327,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_sequences()
 	{
-		return $this->driver_query($this->sql->sequence_list());
+		return $this->driver_query('sequence_list');
 	}
 
 	// -------------------------------------------------------------------------
@@ -339,7 +339,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_functions()
 	{
-		return $this->driver_query($this->sql->function_list(), FALSE);
+		return $this->driver_query('function_list', FALSE);
 	}
 
 	// -------------------------------------------------------------------------
@@ -351,7 +351,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_procedures()
 	{
-		return $this->driver_query($this->sql->procedure_list(), FALSE);
+		return $this->driver_query('procedure_list', FALSE);
 	}
 
 	// -------------------------------------------------------------------------
@@ -363,7 +363,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_triggers()
 	{
-		return $this->driver_query($this->sql->trigger_list(), FALSE);
+		return $this->driver_query('trigger_list', FALSE);
 	}
 
 	// -------------------------------------------------------------------------
@@ -376,7 +376,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_system_tables()
 	{
-		return $this->driver_query($this->sql->system_table_list());
+		return $this->driver_query('system_table_list');
 	}
 
 	// --------------------------------------------------------------------------
@@ -401,7 +401,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_types()
 	{
-		return $this->driver_query($this->sql->type_list(), FALSE);
+		return $this->driver_query('type_list', FALSE);
 	}
 
 	// -------------------------------------------------------------------------
@@ -409,20 +409,24 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	/**
 	 * Method to simplify retreiving db results for meta-data queries
 	 *
-	 * @param string|array|null $sql
+	 * @param string|array|null $query
 	 * @param bool $filtered_index
 	 * @return array
 	 */
-	public function driver_query($sql, $filtered_index=TRUE)
+	public function driver_query($query, $filtered_index=TRUE)
 	{
-		// Return if the values are returned instead of a query,
-		// or if the query doesn't apply to the driver
-		if (is_array($sql) || is_null($sql))
+		// Call the appropriate method, if it exists
+		if (method_exists($this->sql, $query))
 		{
-			return $sql;
+			$query = $this->sql->$query();
 		}
 
-		$res = $this->query($sql);
+		// Return if the values are returned instead of a query,
+		// or if the query doesn't apply to the driver
+		if ( ! is_string($query)) return $query;
+
+		// Run the query!
+		$res = $this->query($query);
 
 		$flag = ($filtered_index) ? \PDO::FETCH_NUM : \PDO::FETCH_ASSOC;
 		$all = $res->fetchAll($flag);
@@ -471,7 +475,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return string
+	 * @return array
 	 */
 	public function insert_batch($table, $data=array())
 	{
@@ -485,12 +489,12 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 			. implode(',', $this->quote_ident($fields))
 			. ") VALUES ";
 
-		// Create the placholder groups
+		// Create the placeholder groups
 		$params = array_fill(0, count($fields), '?');
 		$param_string = "(" . implode(',', $params) . ")";
 		$param_list = array_fill(0, count($data), $param_string);
 
-		// Add another grouping for each
+		// For each grouping, add the values
 		foreach($data as $group)
 		{
 			$vals = array_merge($vals, array_values($group));

@@ -100,10 +100,10 @@ class SQLite extends Abstract_Driver {
 	 * @param array $data
 	 * @return string
 	 */
-	public function insert_batch($table, $data=array())
+	/*public function insert_batch($table, $data=array())
 	{
 		// This is not very applicable to the firebird database
 		return NULL;
-	}
+	}*/
 }
 //End of sqlite_driver.php

@@ -80,33 +80,6 @@ class FirebirdQBTest extends QBTest {
 		$this->assertIsA($sql_res, '\\Query\\Driver\\Firebird_Result');
 	}
 
-	public function testInsertBatch()
-	{
-		if (empty($this->db))  return;
-
-		$insert_array = array(
-			array(
-				'id' => 6,
-				'key' => 2,
-				'val' => 3
-			),
-			array(
-				'id' => 5,
-				'key' => 6,
-				'val' => 7
-			),
-			array(
-				'id' => 8,
-				'key' => 1,
-				'val' => 2
-			)
-		);
-
-		$query = $this->db->insert_batch('test', $insert_array);
-
-		$this->assertNull($query);
-	}
-
 	// --------------------------------------------------------------------------
 
 	public function testTypeList()
@@ -168,5 +141,32 @@ class FirebirdQBTest extends QBTest {
 	public function testBackupStructure()
 	{
 		$this->assertEquals('', $this->db->util->backup_structure());
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testInsertBatch()
+	{
+		$data = array(
+			array(
+				'id' => 544,
+				'key' => 3,
+				'val' => 7,
+			),
+			array(
+				'id' => 89,
+				'key' => 34,
+				'val' => 57,
+			),
+			array(
+				'id' => 48,
+				'key' => 403,
+				'val' => 97,
+			),
+		);
+
+		$query = $this->db->insert_batch('test', $data);
+
+		$this->assertIsA($query, 'PDOStatement');
 	}
 }

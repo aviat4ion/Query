@@ -343,12 +343,40 @@ class Firebird extends Abstract_Driver {
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return string
+	 * @return array
 	 */
 	public function insert_batch($table, $data=array())
 	{
-		// This is not very applicable to the firebird database
-		return NULL;
+		// Each member of the data array needs to be an array
+		if ( ! is_array(current($data))) return NULL;
+
+		// Start the block of sql statements
+		$sql = "EXECUTE BLOCK AS BEGIN\n";
+
+		$vals = array(); // Values for insertion
+		$table = $this->quote_table($table);
+		$fields = array_keys(current($data));
+
+		$insert_template = "INSERT INTO {$table} ("
+			. implode(',', $this->quote_ident($fields))
+			. ") VALUES (";
+
+		foreach($data as $item)
+		{
+			// Quote string values
+			$vals = array_map(array($this, 'quote'), $item);
+
+			// Add the values in the sql
+			$sql .= $insert_template . implode(', ', $vals) . ");\n";
+		}
+
+		// End the block of SQL statements
+		$sql .= "END";
+
+		// Ruturn a null array value so the query is run as it is,
+		// not as a prepared statement, because a prepared statement
+		// doesn't work for this type of query in Firebird.
+		return array($sql, NULL);
 	}
 }
 // End of firebird_driver.php

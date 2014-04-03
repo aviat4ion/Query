@@ -590,7 +590,7 @@ abstract class QBTest extends Query_TestCase {
 			array(
 				'id' => 89,
 				'key' => 34,
-				'val' => 57,
+				'val' => "10 o'clock",
 			),
 			array(
 				'id' => 48,
