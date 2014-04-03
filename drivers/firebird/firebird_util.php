@@ -27,6 +27,64 @@ namespace Query\Driver;
 class Firebird_Util extends Abstract_Util {
 
 	/**
+	 * Convienience public function to generate sql for creating a db table
+	 *
+	 * @deprecated
+	 * @param string $name
+	 * @param array $fields
+	 * @param array $constraints
+	 * @param array $indexes
+	 * @return string
+	 */
+	public function create_table($name, $fields, array $constraints=array(), array $indexes=array())
+	{
+		$column_array = array();
+
+		// Reorganize into an array indexed with column information
+		// Eg $column_array[$colname] = array(
+		// 		'type' => ...,
+		// 		'constraint' => ...,
+		// 		'index' => ...,
+		// )
+		foreach($fields as $colname => $type)
+		{
+			$column_array[$colname] = array();
+			$column_array[$colname]['type'] = ($type !== $colname) ? $type : '';
+		}
+
+		// Join column definitons together
+		$columns = array();
+		foreach($column_array as $n => $props)
+		{
+			$str = $this->quote_ident($n);
+			$str .= (isset($props['type'])) ? " {$props['type']}" : "";
+			$str .= (isset($props['constraint'])) ? " {$props['constraint']}" : "";
+
+			$columns[] = $str;
+		}
+
+		// Generate the sql for the creation of the table
+		$sql = 'CREATE TABLE '.$this->quote_table($name).' (';
+		$sql .= implode(', ', $columns);
+		$sql .= ')';
+
+		return $sql;
+	}
+
+	/**
+	 * Drop the selected table
+	 *
+	 * @param string $name
+	 * @return string
+	 */
+	public function delete_table($name)
+	{
+		return 'DROP TABLE '.$this->quote_table($name);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Create an SQL backup file for the current database's structure
 	 * @codeCoverageIgnore
 	 * @return string

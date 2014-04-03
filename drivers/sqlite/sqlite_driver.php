@@ -96,6 +96,7 @@ class SQLite extends Abstract_Driver {
 	/**
 	 * Create sql for batch insert
 	 *
+	 * @codeCoverageIgnore
 	 * @param string $table
 	 * @param array $data
 	 * @return string
@@ -129,9 +130,9 @@ class SQLite extends Abstract_Driver {
 		}
 		$sql .= "SELECT " . implode(', ', $cols) . "\n";
 
-		foreach($data as $item)
+		foreach($data as $union)
 		{
-			$vals = array_map(array($this, 'quote'), $item);
+			$vals = array_map(array($this, 'quote'), $union);
 			$sql .= "UNION SELECT " . implode(',', $vals) . "\n";
 		}
 

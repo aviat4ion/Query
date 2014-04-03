@@ -94,7 +94,7 @@ abstract class Abstract_Util {
 		$columns = array();
 		foreach($column_array as $n => $props)
 		{
-			$str = '"'.$n.'"';
+			$str = $this->quote_ident($n);
 			$str .= (isset($props['type'])) ? " {$props['type']}" : "";
 			$str .= (isset($props['constraint'])) ? " {$props['constraint']}" : "";
 
@@ -102,7 +102,7 @@ abstract class Abstract_Util {
 		}
 
 		// Generate the sql for the creation of the table
-		$sql = 'CREATE TABLE "'.$name.'" (';
+		$sql = 'CREATE TABLE IF NOT EXISTS '.$this->quote_table($name).' (';
 		$sql .= implode(', ', $columns);
 		$sql .= ')';
 
@@ -117,7 +117,7 @@ abstract class Abstract_Util {
 	 */
 	public function delete_table($name)
 	{
-		return 'DROP TABLE "'.$name.'"';
+		return 'DROP TABLE IF EXISTS '.$this->quote_table($name);
 	}
 
 	/**

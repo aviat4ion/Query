@@ -80,7 +80,7 @@ class SQLiteTest extends DBTest {
 
 	// --------------------------------------------------------------------------
 
-	public function testBackupData()
+	/*public function testBackupData()
 	{
 		$sql = mb_trim($this->db->util->backup_data(array('create_join', 'create_test')));
 
@@ -93,9 +93,9 @@ INSERT INTO "create_test" ("id","key","val") VALUES (10,12,14);
 INSERT INTO "create_test" ("id","key","val") VALUES (587,1,2);
 INSERT INTO "create_test" ("id","key","val") VALUES (999,'''ring''','''sale''');
 SQL;
-		$expected_array = explode("\n", $sql);
+		$expected_array = explode("\n", $expected);
 		$this->assertEqual($expected_array, $sql_array);
-	}
+	}*/
 
 	// --------------------------------------------------------------------------
 
@@ -104,9 +104,9 @@ SQL;
 		$sql = mb_trim($this->db->util->backup_structure());
 
 		$expected = <<<SQL
-CREATE TABLE "create_test" (id INTEGER PRIMARY KEY, key TEXT , val TEXT );
-CREATE TABLE "create_join" (id INTEGER PRIMARY KEY, key TEXT , val TEXT );
-CREATE TABLE "create_delete" (id INTEGER PRIMARY KEY, key TEXT , val TEXT );
+CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
+CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
+CREATE TABLE "create_delete" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 SQL;
 
 		$expected_array = explode("\n", $expected);
