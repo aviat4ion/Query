@@ -38,7 +38,7 @@
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">0</span></a></li>
+                <span class="label label-info">2</span></a></li>
 </ul>
 </li>
 </ul></div>
@@ -93,14 +93,14 @@ with array_map and glob</span><pre>do_include</pre></a></li>
 <i title="Functions" class="icon-custom icon-function"></i> Functions</h3>
 <a id="function_Query"></a><div class="element clickable function  function_Query" data-toggle="collapse" data-target=".function_Query .collapse" title="">
 <h2>Connection function</h2>
-<pre>Query(mixed $params<code> = ''</code>) : <a href="Query_Builder.html">\Query_Builder</a></pre>
+<pre>Query(string|object|array $params<code> = ''</code>) : <a href="Query_Builder.html">\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$params</h4>
-<code>mixed</code>
+<code>string</code><code>object</code><code>array</code>
 </div>
 <h3>Returns</h3>
 <div class="subelement response"><code><a href="Query_Builder.html">\Query_Builder</a></code></div>
@@ -169,10 +169,16 @@ with array_map and glob</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
+<table class="table table-bordered">
+<tr>
 <th>subpackage</th>
 <td>Core</td>
-</tr></table>
+</tr>
+<tr>
+<th>codeCoverageIgnore</th>
+<td></td>
+</tr>
+</table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$class</h4>
@@ -261,12 +267,12 @@ Query method</p>
 <div class="details collapse"></div>
 <a href="../classes/Query.Driver.Abstract_SQL.html" class="more">« More »</a>
 </div>
-<div id="DB_Util" class="element ajax clickable class">
-<h1>DB_Util<a href="../classes/Query.Driver.DB_Util.html">¶</a>
+<div id="Abstract_Util" class="element ajax clickable class">
+<h1>Abstract_Util<a href="../classes/Query.Driver.Abstract_Util.html">¶</a>
 </h1>
 <p class="short_description">Abstract class defining database / table creation methods</p>
 <div class="details collapse"></div>
-<a href="../classes/Query.Driver.DB_Util.html" class="more">« More »</a>
+<a href="../classes/Query.Driver.Abstract_Util.html" class="more">« More »</a>
 </div>
 <div id="Firebird" class="element ajax clickable class">
 <h1>Firebird<a href="../classes/Query.Driver.Firebird.html">¶</a>
@@ -424,7 +430,7 @@ instantiates the specific db driver</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-04-02T17:09:11-04:00.<br></footer></div>
+            generated on 2014-04-03T14:45:59-04:00.<br></footer></div>
 </div>
 </body>
 </html>

@@ -38,7 +38,7 @@
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">0</span></a></li>
+                <span class="label label-info">2</span></a></li>
 </ul>
 </li>
 </ul></div>
@@ -119,14 +119,14 @@ Query method</p>
 <i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
 <a id="method_connect"></a><div class="element clickable method public method_connect" data-toggle="collapse" data-target=".method_connect .collapse" title="public">
 <h2>Parse the passed parameters and return a connection</h2>
-<pre>connect(array|object $params) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
+<pre>connect(\ArrayObject $params) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$params</h4>
-<code>array</code><code>object</code>
+<code><a href="ArrayObject.html">\ArrayObject</a></code>
 </div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
@@ -139,14 +139,14 @@ Query method</p>
 </div>
 <a id="method_get_connection"></a><div class="element clickable method public method_get_connection" data-toggle="collapse" data-target=".method_get_connection .collapse" title="public">
 <h2>Returns the connection specified by the name given</h2>
-<pre>get_connection(mixed $name<code> = ''</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
+<pre>get_connection(string|array|object $name<code> = ''</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$name</h4>
-<code>mixed</code>
+<code>string</code><code>array</code><code>object</code>
 </div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
@@ -214,7 +214,7 @@ Query method</p>
 </div>
 <a id="method_create_dsn"></a><div class="element clickable method private method_create_dsn" data-toggle="collapse" data-target=".method_create_dsn .collapse" title="private">
 <h2>Create the dsn from the db type and params</h2>
-<pre>create_dsn(string $dbtype, array|object $params) : string</pre>
+<pre>create_dsn(string $dbtype, \ArrayObject $params) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -225,7 +225,7 @@ Query method</p>
 </div>
 <div class="subelement argument">
 <h4>$params</h4>
-<code>array</code><code>object</code>
+<code><a href="ArrayObject.html">\ArrayObject</a></code>
 </div>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
@@ -233,14 +233,14 @@ Query method</p>
 </div>
 <a id="method_parse_params"></a><div class="element clickable method private method_parse_params" data-toggle="collapse" data-target=".method_parse_params .collapse" title="private">
 <h2>Parses params into a dsn and option array</h2>
-<pre>parse_params(\Query\ArrayObject $params) </pre>
+<pre>parse_params(\ArrayObject $params) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$params</h4>
-<code><a href="ArrayObject.html">\Query\ArrayObject</a></code>
+<code><a href="ArrayObject.html">\ArrayObject</a></code>
 </div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
@@ -279,7 +279,7 @@ Query method</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-04-02T17:09:12-04:00.<br></footer></div>
+            generated on 2014-04-03T14:45:59-04:00.<br></footer></div>
 </div>
 </body>
 </html>
