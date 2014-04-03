@@ -23,7 +23,7 @@ namespace Query\Driver;
  * @method mixed query(string $sql)
  * @method array get_tables()
  */
-class PgSQL_Util extends DB_Util {
+class PgSQL_Util extends Abstract_Util {
 
 	/**
 	 * Create an SQL backup file for the current database's structure

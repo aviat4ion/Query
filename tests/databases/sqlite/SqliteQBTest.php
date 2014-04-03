@@ -24,8 +24,6 @@
 	 	// Set up in the bootstrap to mitigate
 		// connection locking issues
 		$this->db = Query('test_sqlite');
-
-		// echo '<hr /> SQLite Queries <hr />';
  	}
 
  	// --------------------------------------------------------------------------

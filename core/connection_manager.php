@@ -241,3 +241,4 @@ final class Connection_Manager {
 		return $dsn;
 	}
 }
+// End of connection_manager.php

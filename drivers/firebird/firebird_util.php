@@ -24,7 +24,7 @@ namespace Query\Driver;
  * @method array get_tables()
  * @method object query(string $sql)
  */
-class Firebird_Util extends DB_Util {
+class Firebird_Util extends Abstract_Util {
 
 	/**
 	 * Create an SQL backup file for the current database's structure

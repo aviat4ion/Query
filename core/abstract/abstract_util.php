@@ -15,15 +15,13 @@
 
 namespace Query\Driver;
 
-use \Query;
-
 /**
  * Abstract class defining database / table creation methods
  *
  * @package Query
  * @subpackage Drivers
  */
-abstract class DB_Util {
+abstract class Abstract_Util {
 
 	/**
 	 * Reference to the current connection object
@@ -139,4 +137,4 @@ abstract class DB_Util {
 	abstract public function backup_data();
 
 }
-// End of db_util.php
+// End of abstract_util.php

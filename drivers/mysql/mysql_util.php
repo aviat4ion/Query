@@ -27,12 +27,13 @@ namespace Query\Driver;
  * @method mixed query(string $sql)
  * @method string quote(string $str)
  */
-class MySQL_Util extends DB_Util {
+class MySQL_Util extends Abstract_Util {
 
 	/**
  	 * Convienience public function for creating a new MySQL table
  	 *
 	 * @codeCoverageIgnore
+	 * @deprecated
  	 * @param string $name
  	 * @param array $columns
  	 * @param array $constraints

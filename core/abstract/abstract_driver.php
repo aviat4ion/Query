@@ -416,7 +416,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	public function driver_query($query, $filtered_index=TRUE)
 	{
 		// Call the appropriate method, if it exists
-		if (method_exists($this->sql, $query))
+		if (is_string($query) && method_exists($this->sql, $query))
 		{
 			$query = $this->sql->$query();
 		}

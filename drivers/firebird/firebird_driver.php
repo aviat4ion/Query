@@ -353,9 +353,8 @@ class Firebird extends Abstract_Driver {
 		// Start the block of sql statements
 		$sql = "EXECUTE BLOCK AS BEGIN\n";
 
-		$vals = array(); // Values for insertion
 		$table = $this->quote_table($table);
-		$fields = array_keys(current($data));
+		$fields = \array_keys(\current($data));
 
 		$insert_template = "INSERT INTO {$table} ("
 			. implode(',', $this->quote_ident($fields))

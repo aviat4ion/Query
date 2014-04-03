@@ -100,10 +100,42 @@ class SQLite extends Abstract_Driver {
 	 * @param array $data
 	 * @return string
 	 */
-	/*public function insert_batch($table, $data=array())
+	public function insert_batch($table, $data=array())
 	{
-		// This is not very applicable to the firebird database
-		return NULL;
-	}*/
+		// If greater than version 3.7.11, supports the same syntax as
+		// MySQL and Postgres
+		if (version_compare($this->getAttribute(\PDO::ATTR_SERVER_VERSION), '3.7.11', '>='))
+		{
+			return parent::insert_batch($table, $data);
+		}
+
+		// --------------------------------------------------------------------------
+		// Otherwise, do a union query as an analogue to a 'proper' batch insert
+		// --------------------------------------------------------------------------
+
+		// Each member of the data array needs to be an array
+		if ( ! is_array(current($data))) return NULL;
+
+		// Start the block of sql statements
+		$table = $this->quote_table($table);
+		$sql = "INSERT INTO {$table} \n";
+
+		// Create a key-value mapping for each field
+		$first = array_shift($data);
+		$cols = array();
+		foreach($first as $colname => $datum)
+		{
+			$cols[] = $this->_quote($datum) . ' AS ' . $this->quote_ident($colname);
+		}
+		$sql .= "SELECT " . implode(', ', $cols) . "\n";
+
+		foreach($data as $item)
+		{
+			$vals = array_map(array($this, 'quote'), $item);
+			$sql .= "UNION SELECT " . implode(',', $vals) . "\n";
+		}
+
+		return array($sql, NULL);
+	}
 }
 //End of sqlite_driver.php
