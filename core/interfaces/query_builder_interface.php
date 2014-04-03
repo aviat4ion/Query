@@ -416,7 +416,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return PDOStatement
+	 * @return \PDOStatement|null
 	 */
 	public function insert_batch($table, $data=array());
 

@@ -78,7 +78,7 @@ function db_filter($array, $index)
  * Connection function
  *
  * @param string|object|array $params
- * @return Query_Builder
+ * @return Query\Query_Builder|null
  */
 function Query($params = '')
 {

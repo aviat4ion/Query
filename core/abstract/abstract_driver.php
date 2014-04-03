@@ -92,8 +92,8 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 *
 	 * @param string $sql
 	 * @param array $data
-	 * @return PDOStatement PDOStatement / FALSE
-	 * @throws InvalidArgumentException
+	 * @return \PDOStatement | FALSE
+	 * @throws \InvalidArgumentException
 	 */
 	public function prepare_query($sql, $data)
 	{
@@ -124,7 +124,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 *
 	 * @param string $sql
 	 * @param array $params
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function prepare_execute($sql, $params)
 	{
