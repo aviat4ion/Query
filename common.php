@@ -77,7 +77,7 @@ function db_filter($array, $index)
 /**
  * Connection function
  *
- * @param mixed $params
+ * @param string|object|array $params
  * @return Query_Builder
  */
 function Query($params = '')
@@ -89,7 +89,7 @@ function Query($params = '')
 	{
 		return $cmanager->get_connection($params);
 	}
-	elseif ( ! is_scalar($params))
+	elseif ( ! is_scalar($params) && ! is_null($params))
 	{
 		$params = new ArrayObject($params, ArrayObject::STD_PROP_LIST | ArrayObject::ARRAY_AS_PROPS);
 		

@@ -44,26 +44,42 @@ function query_autoload($class)
 {
 	$class_segments = explode('\\', $class);
 	$class = strtolower(array_pop($class_segments));
-
-	// Load Firebird separately
-	if (function_exists('fbird_connect') && $class === 'firebird')
+	
+	// Load DB Driver classes
+	if ($class_segments == array('Query', 'Driver'))
 	{
-		array_map('do_include', glob(QDRIVER_PATH.'/firebird/*.php'));
-		return;
-	}
-
-	$class_path = QBASE_PATH . "classes/{$class}.php";
-
-	$driver_path = QDRIVER_PATH . "{$class}";
-
-	if (is_file($class_path)) require_once($class_path);
-	elseif (is_dir($driver_path))
-	{
-		$class = str_replace("pdo_", "", $class);
-
-		if (in_array($class, PDO::getAvailableDrivers()))
+		$driver_path = QDRIVER_PATH . "{$class}";
+		// @codeCoverageIgnoreStart
+		if (is_dir($driver_path))
 		{
-			array_map('do_include', glob("{$driver_path}/*.php"));
+			// Firebird is a special case, since it's not a PDO driver
+			if (
+				in_array($class, PDO::getAvailableDrivers())
+				||  function_exists('fbird_connect') && $class === 'firebird'
+			)
+			{
+				
+				array_map('do_include', glob("{$driver_path}/*.php"));
+				return;
+			}
+			
+		}
+		// @codeCoverageIgnoreEnd
+	}
+	
+	// Load other classes
+	foreach(array(
+		QBASE_PATH . "classes/interfaces/{$class}.php",
+		QBASE_PATH . "classes/abstract/{$class}.php",
+		QBASE_PATH . "classes/{$class}.php" 
+	) as $path)
+	{
+		if (file_exists($path))
+		{
+			// @codeCoverageIgnoreStart
+			require_once($path);
+			return;
+			// @codeCoverageIgnoreEnd
 		}
 	}
 }
