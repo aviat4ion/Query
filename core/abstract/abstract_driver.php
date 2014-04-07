@@ -50,6 +50,12 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	public $util;
 
 	/**
+	 * Reference to table_builder class
+	 * @var \Query\Table\Table_Builder
+	 */
+	public $table;
+
+	/**
 	 * Last query executed
 	 * @var string
 	 */
@@ -81,6 +87,8 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 			$class = get_class($this) . "_{$sub}";
 			$this->$sub = new $class($this);
 		}
+
+		$this->table = new \Query\Table\Table_Builder('', array(), $this);
 	}
 
 	// --------------------------------------------------------------------------
@@ -390,6 +398,19 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	public function get_columns($table)
 	{
 		return $this->driver_query($this->sql->column_list($table), FALSE);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Retrieve foreign keys for the table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function get_fks($table)
+	{
+		return $this->driver_query($this->sql->fk_list($table), FALSE);
 	}
 
 	// --------------------------------------------------------------------------

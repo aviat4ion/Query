@@ -190,5 +190,24 @@ class MySQL_SQL extends Abstract_SQL {
 	{
 		return "SHOW FULL COLUMNS FROM {$table}";
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the list of foreign keys for the current
+	 * table
+	 *
+	 * @parma string $table
+	 * @return string
+	 */
+	public function fk_list($table)
+	{
+		return <<<SQL
+			SELECT `TABLE_NAME`,`COLUMN_NAME`,`CONSTRAINT_NAME`,
+			`REFERENCED_TABLE_NAME`,`REFERENCED_COLUMN_NAME`
+			FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE`
+			WHERE `REFERENCED_TABLE_NAME` = '{$table}';
+SQL;
+	}
 }
 //End of mysql_sql.php

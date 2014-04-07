@@ -261,7 +261,16 @@ SQL;
 
 		$sql = $this->db->sql->sequence_list();
 		$this->assertEqual(NULL, $sql);
+
+		$sql = $this->db->sql->fk_list('create_test');
+		$this->assertEqual(NULL, $sql);
 	}
 
+	// --------------------------------------------------------------------------
 
+	public function testGetFKs()
+	{
+		$keys = $this->db->get_fks('create_test');
+		$this->assertNull($keys);
+	}
 }

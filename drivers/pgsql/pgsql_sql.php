@@ -219,5 +219,46 @@ SQL;
 			ORDER BY "typname"
 SQL;
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the list of foreign keys for the current
+	 * table
+	 *
+	 * @parma string $table
+	 * @return string
+	 */
+	public function fk_list($table)
+	{
+		return <<<SQL
+		SELECT
+			"att2"."attname" AS "child_column",
+			"cl"."relname" AS "parent_table",
+			"att"."attname" AS "parent_column"
+		FROM
+			(SELECT
+				unnest(con1.conkey) AS "parent",
+				unnest(con1.confkey) AS "child",
+				"con1"."confrelid",
+				"con1"."conrelid"
+			FROM "pg_class" "cl"
+			JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid"
+			JOIN "pg_constraint" "con1" ON "con1"."conrelid" = "cl"."oid"
+			WHERE "cl"."relname" = 'child_table'
+				AND "ns"."nspname" = 'child_schema'
+				AND "con1"."contype" = 'f'
+			)
+			"con"
+			JOIN "pg_attribute" "att" ON
+				"att"."attrelid" = "con"."confrelid"
+					AND "att"."attnum" = "con"."child"
+			JOIN "pg_class" "cl" ON
+				"cl"."oid" = "con"."confrelid"
+			JOIN "pg_attribute" "att2" ON
+			   "att2"."attrelid" = "con"."conrelid"
+				   AND "att2"."attnum" = "con"."parent"
+SQL;
+	}
 }
-//End of pgsql_manip.php
+//End of pgsql_sql.php

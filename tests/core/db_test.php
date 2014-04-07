@@ -75,5 +75,13 @@ abstract class DBTest extends Query_TestCase {
 		$this->assertTrue(is_array($types));
 	}
 
+	// --------------------------------------------------------------------------
+
+	public function testGetFKs()
+	{
+		$keys = $this->db->get_fks('create_test');
+		$this->assertTrue(is_array($keys));
+	}
+
 }
 // End of db_test.php

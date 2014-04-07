@@ -122,5 +122,14 @@ interface SQL_Interface {
 	 */
 	public function column_list($table);
 
+	/**
+	 * Get the list of foreign keys for the current
+	 * table
+	 *
+	 * @parma string $table
+	 * @return string
+	 */
+	public function fk_list($table);
+
 }
 // End of sql_interface.php

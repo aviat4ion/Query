@@ -174,5 +174,19 @@ SQL;
 		return 'PRAGMA table_info("'.$table.'")';
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the list of foreign keys for the current
+	 * table
+	 *
+	 * @parma string $table
+	 * @return string
+	 */
+	public function fk_list($table)
+	{
+		return NULL;
+	}
+
 }
 //End of sqlite_sql.php
