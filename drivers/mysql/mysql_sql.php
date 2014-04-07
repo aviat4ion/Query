@@ -63,7 +63,7 @@ class MySQL_SQL extends Abstract_SQL {
 	 */
 	public function random()
 	{
-		return ' RAND()';
+		return ' RAND() DESC';
 	}
 
 	// --------------------------------------------------------------------------
