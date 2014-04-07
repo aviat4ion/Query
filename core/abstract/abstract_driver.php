@@ -15,6 +15,10 @@
 
 namespace Query\Driver;
 
+use Query\Table\Table_Builder;
+
+// --------------------------------------------------------------------------
+
 /**
  * Base Database class
  *
@@ -88,7 +92,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 			$this->$sub = new $class($this);
 		}
 
-		$this->table = new \Query\Table\Table_Builder('', array(), $this);
+		$this->table = new Table_Builder('', array(), $this);
 	}
 
 	// --------------------------------------------------------------------------

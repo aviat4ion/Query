@@ -15,6 +15,8 @@
 
 namespace Query;
 
+use \Query\Driver\Driver_Interface;
+
 /**
  * Convienience class for creating sql queries - also the class that
  * instantiates the specific db driver
@@ -180,7 +182,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param \Query\Driver\Driver_Interface $db
 	 */
-	public function __construct(\Query\Driver\Driver_Interface $db)
+	public function __construct(Driver_Interface $db)
 	{
 		$this->db = $db;
 
