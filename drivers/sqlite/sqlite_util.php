@@ -34,11 +34,13 @@ class SQLite_Util extends Abstract_Util {
 	public function backup_data($excluded=array())
 	{
 		// Get a list of all the objects
-		$sql = 'SELECT "name" FROM "sqlite_master"';
+		$sql = 'SELECT DISTINCT "name"
+				FROM "sqlite_master"
+				WHERE "type"=\'table\'';
 
 		if( ! empty($excluded))
 		{
-			$sql .= " WHERE \"name\" NOT IN('".implode("','", $excluded)."')";
+			$sql .= " AND \"name\" NOT IN('".implode("','", $excluded)."')";
 		}
 
 		$res = $this->query($sql);
