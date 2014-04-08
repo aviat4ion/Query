@@ -31,8 +31,15 @@ class SQLiteTest extends DBTest {
 	// ! Util Method tests
 	// --------------------------------------------------------------------------
 
+	public function DataCreate()
+	{
+		$this->db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
+	}
+
 	public function testCreateTable()
 	{
+		$this->DataCreate();
+
 		//Attempt to create the table
 		$sql = $this->db->util->create_table('create_test',
 			array(
@@ -106,6 +113,46 @@ SQL;
 		$expected = <<<SQL
 CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
+CREATE TABLE TEST1 (
+  TEST_NAME TEXT NOT NULL,
+  TEST_ID INTEGER DEFAULT '0' NOT NULL,
+  TEST_DATE TEXT NOT NULL,
+  CONSTRAINT PK_TEST PRIMARY KEY (TEST_ID)
+);
+CREATE TABLE TEST2 (
+  ID INTEGER NOT NULL,
+  FIELD1 INTEGER,
+  FIELD2 TEXT,
+  FIELD3 TEXT,
+  FIELD4 INTEGER,
+  FIELD5 INTEGER,
+  ID2 INTEGER NOT NULL,
+  CONSTRAINT PK_TEST2 PRIMARY KEY (ID2),
+  CONSTRAINT TEST2_FIELD1ID_IDX UNIQUE (ID, FIELD1),
+  CONSTRAINT TEST2_FIELD4_IDX UNIQUE (FIELD4)
+);
+;
+;
+CREATE INDEX TEST2_FIELD5_IDX ON TEST2 (FIELD5);
+CREATE TABLE NUMBERS (
+  NUMBER INTEGER DEFAULT 0 NOT NULL,
+  EN TEXT NOT NULL,
+  FR TEXT NOT NULL
+);
+CREATE TABLE NEWTABLE (
+  ID INTEGER DEFAULT 0 NOT NULL,
+  SOMENAME TEXT,
+  SOMEDATE TEXT NOT NULL,
+  CONSTRAINT PKINDEX_IDX PRIMARY KEY (ID)
+);
+CREATE VIEW "testview" AS
+SELECT *
+FROM TEST1
+WHERE TEST_NAME LIKE 't%';
+CREATE VIEW "numbersview" AS
+SELECT *
+FROM NUMBERS
+WHERE NUMBER > 100;
 CREATE TABLE "create_delete" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 SQL;
 
