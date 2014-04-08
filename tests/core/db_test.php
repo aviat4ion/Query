@@ -33,6 +33,7 @@ abstract class DBTest extends Query_TestCase {
 	{
 		$tables = $this->db->get_tables();
 		$this->assertTrue(is_array($tables));
+		$this->assertTrue( ! empty($tables));
 	}
 
 	// --------------------------------------------------------------------------
@@ -40,10 +41,10 @@ abstract class DBTest extends Query_TestCase {
 	public function testGetSystemTables()
 	{
 		$tables = $this->db->get_system_tables();
-
 		$this->assertTrue(is_array($tables));
+		$this->assertTrue( ! empty($tables));
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	public function testBackupData()
@@ -57,6 +58,7 @@ abstract class DBTest extends Query_TestCase {
 	{
 		$cols = $this->db->get_columns('test');
 		$this->assertTrue(is_array($cols));
+		$this->assertTrue( ! empty($cols));
 	}
 
 	// --------------------------------------------------------------------------
@@ -65,13 +67,14 @@ abstract class DBTest extends Query_TestCase {
 	{
 		$types = $this->db->get_types();
 		$this->assertTrue(is_array($types));
+		$this->assertTrue( ! empty($types));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetFKs()
 	{
-		$keys = $this->db->get_fks('create_test');
+		$keys = $this->db->get_fks('test');
 		$this->assertTrue(is_array($keys));
 	}
 

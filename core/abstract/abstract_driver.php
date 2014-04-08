@@ -162,12 +162,11 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Quote database table name, and set prefix
-	 *
+	 * Prefixes a table if it is not already prefixed
 	 * @param string $table
 	 * @return string
 	 */
-	public function quote_table($table)
+	public function prefix_table($table)
 	{
 		// Add the prefix to the table name
 		// before quoting it
@@ -187,6 +186,21 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 			// Rejoin
 			$table = implode('.', $idents);
 		}
+
+		return $table;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Quote database table name, and set prefix
+	 *
+	 * @param string $table
+	 * @return string
+	 */
+	public function quote_table($table)
+	{
+		$table = $this->prefix_table($table);
 
 		// Finally, quote the table
 		return $this->quote_ident($table);
@@ -401,7 +415,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_columns($table)
 	{
-		return $this->driver_query($this->sql->column_list($table), FALSE);
+		return $this->driver_query($this->sql->column_list($this->prefix_table($table)), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -414,7 +428,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_fks($table)
 	{
-		return $this->driver_query($this->sql->fk_list($table), FALSE);
+		return $this->driver_query($this->sql->fk_list($this->prefix_table($table)), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -427,7 +441,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_indexes($table)
 	{
-		return $this->driver_query($this->sql->index_list($table), FALSE);
+		return $this->driver_query($this->sql->index_list($this->prefix_table($table)), FALSE);
 	}
 
 	// --------------------------------------------------------------------------

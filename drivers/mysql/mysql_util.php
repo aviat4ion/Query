@@ -49,10 +49,15 @@ class MySQL_Util extends Abstract_Util {
 			// Get the list of tables
 			$tables = $this->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
 
-			foreach($tables as &$table)
+			foreach($tables as $table)
 			{
 				$array = $this->driver_query("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
-				$string[] = $array[0]['Create Table'];
+				$row = current($array);
+
+				if ( ! isset($row['Create Table'])) continue;
+
+
+				$string[] = $row['Create Table'];
 			}
 		}
 

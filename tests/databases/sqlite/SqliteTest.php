@@ -152,23 +152,6 @@ SQL;
 
 	// --------------------------------------------------------------------------
 
-	public function testGetTables()
-	{
-		$tables = $this->db->get_tables();
-		$this->assertTrue(is_array($tables));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testGetSystemTables()
-	{
-		$tables = $this->db->get_system_tables();
-
-		$this->assertTrue(is_array($tables));
-	}
-
-	// --------------------------------------------------------------------------
-
 	public function testTruncate()
 	{
 		$this->db->truncate('create_test');
@@ -240,13 +223,6 @@ SQL;
 	public function testGetSchemas()
 	{
 		$this->assertNull($this->db->get_schemas());
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testGetTypes()
-	{
-		$this->assertTrue(is_array($this->db->get_types()));
 	}
 
 	// --------------------------------------------------------------------------

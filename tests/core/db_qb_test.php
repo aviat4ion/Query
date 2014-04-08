@@ -27,6 +27,12 @@ abstract class QBTest extends Query_TestCase {
 	}
 
 	// --------------------------------------------------------------------------
+	// ! Driver-specific results
+	// --------------------------------------------------------------------------
+
+	abstract public function testQueryExplain();
+
+	// --------------------------------------------------------------------------
 	// ! Get tests
 	// --------------------------------------------------------------------------
 
@@ -230,6 +236,8 @@ abstract class QBTest extends Query_TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
+	// --------------------------------------------------------------------------
+
 	public function testOrGroup()
 	{
 		$query = $this->db->select('id, key as k, val')
@@ -246,6 +254,8 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+
+	// --------------------------------------------------------------------------
 
 	public function testOrNotGroup()
 	{
@@ -710,6 +720,8 @@ abstract class QBTest extends Query_TestCase {
 		$qb_res = $this->db->get('test');
 		$sql_res = $this->db->query($sql);
 
+		$this->assertIsA($qb_res,'PDOStatement');
+		$this->assertIsA($sql_res, 'PDOStatement');
 		$this->assertEquals($qb_res, $sql_res);
 	}
 
@@ -773,35 +785,11 @@ abstract class QBTest extends Query_TestCase {
 
 	// --------------------------------------------------------------------------
 
-	/*public function testBadConnection()
-	{
-		$params = array(
-			'host' => '127.0.0.1',
-			'port' => '987896',
-			'database' => 'test',
-			'user' => NULL,
-			'pass' => NULL,
-			'type' => 'sqlite',
-			'name' => 'foobar'
-		);
-
-		try
-		{
-			$this->db = Query($params);
-		}
-		catch(BadConnectionException $e)
-		{
-			$this->assertInstanceOf('BadConnectionException', $e);
-		}
-	}*/
-
-	// --------------------------------------------------------------------------
-
 	public function testBadMethod()
 	{
 		try
 		{
-			$res = $this->db->foo();
+			$this->db->foo();
 		}
 		catch(BadMethodCallException $e)
 		{

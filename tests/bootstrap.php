@@ -13,8 +13,6 @@
 
 // --------------------------------------------------------------------------
 
-use Query\Driver;
-
 /**
  * Base class for TestCases
  */
@@ -91,9 +89,10 @@ require_once(QTEST_DIR . '/core/db_qb_test.php');
 if (extension_loaded('pdo_sqlite'))
 {
 	$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
+	@unlink($path);
 	$params = array(
 		'type' => 'sqlite',
-		'file' => $path,
+		'file' => ':memory:',
 		'host' => 'localhost',
 		'prefix' => 'create_',
 		'alias' => 'test_sqlite',

@@ -75,7 +75,7 @@ class MySQL_SQL extends Abstract_SQL {
 	 */
 	public function db_list()
 	{
-		return "SHOW DATABASES WHERE `Database` !='information_schema'";
+		return "SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')";
 	}
 
 	// --------------------------------------------------------------------------

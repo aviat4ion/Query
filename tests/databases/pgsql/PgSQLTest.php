@@ -37,6 +37,7 @@ class PgTest extends DBTest {
 			$params = $params->pgsql;
 
 			$this->db = new $class("pgsql:dbname={$params->database}", $params->user, $params->pass);
+			$this->db->table_prefix = $params->prefix;
 		}
 		elseif (($var = getenv('CI')))
 		{

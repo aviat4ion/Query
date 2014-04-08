@@ -70,16 +70,6 @@ class FirebirdQBTest extends QBTest {
 		$this->assertReference($f_conn, Query('fire'));
 	}
 
-	public function testGetCompiledSelect()
-	{
-		$sql = $this->db->get_compiled_select('create_test');
-		$qb_res = $this->db->get('create_test');
-		$sql_res = $this->db->query($sql);
-
-		$this->assertIsA($qb_res, '\\Query\\Driver\\Firebird_Result');
-		$this->assertIsA($sql_res, '\\Query\\Driver\\Firebird_Result');
-	}
-
 	// --------------------------------------------------------------------------
 
 	public function testTypeList()
@@ -145,32 +135,5 @@ class FirebirdQBTest extends QBTest {
 		$backup = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_BKP.FDB';
 
 		$this->assertTrue($this->db->util->backup_structure($existing, $backup));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testInsertBatch()
-	{
-		$data = array(
-			array(
-				'id' => 544,
-				'key' => 3,
-				'val' => 7,
-			),
-			array(
-				'id' => 89,
-				'key' => 34,
-				'val' => 57,
-			),
-			array(
-				'id' => 48,
-				'key' => 403,
-				'val' => 97,
-			),
-		);
-
-		$query = $this->db->insert_batch('test', $data);
-
-		$this->assertIsA($query, 'PDOStatement');
 	}
 }

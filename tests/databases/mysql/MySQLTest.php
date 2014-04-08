@@ -63,6 +63,8 @@ class MySQLTest extends DBTest {
 
 	public function testCreateTable()
 	{
+		$this->db->exec(file_get_contents(QTEST_DIR.'/db_files/mysql.sql'));
+
 		//Attempt to create the table
 		$sql = $this->db->util->create_table('test',
 			array(

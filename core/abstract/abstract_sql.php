@@ -42,6 +42,5 @@ abstract class Abstract_SQL implements SQL_Interface {
 
 		return $sql;
 	}
-
 }
 // End of abstract_sql.php
