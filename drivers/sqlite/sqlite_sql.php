@@ -55,7 +55,7 @@ class SQLite_SQL extends Abstract_SQL {
 	 */
 	public function db_list()
 	{
-		return NULL;
+		return 'PRAGMA database_list';
 	}
 
 	// --------------------------------------------------------------------------
@@ -185,7 +185,20 @@ SQL;
 	 */
 	public function fk_list($table)
 	{
-		return NULL;
+		return 'PRAGMA foreign_key_list("' . $table . '")';
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the list of indexes for the current table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function index_list($table)
+	{
+		return 'PRAGMA index_list("' . $table . '")';
 	}
 
 }

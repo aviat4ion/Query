@@ -55,6 +55,13 @@ class Firebird extends Abstract_Driver {
 	protected $conn = NULL;
 
 	/**
+	 * Reference to the service resource
+	 *
+	 * @var resource
+	 */
+	protected $service = NULL;
+
+	/**
 	 * Open the link to the database
 	 *
 	 * @param string $dbpath
@@ -70,6 +77,7 @@ class Firebird extends Abstract_Driver {
 			: '\\fbird_connect';
 
 		$this->conn = $connect_function($dbpath, $user, $pass, 'utf-8', 0);
+		$this->service = fbird_service_attach('localhost', $user, $pass);
 
 		// Throw an exception to make this match other pdo classes
 		if ( ! \is_resource($this->conn)) throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
@@ -86,6 +94,30 @@ class Firebird extends Abstract_Driver {
 		// Load the util class
 		$class = __CLASS__."_util";
 		$this->util = new $class($this);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Cleanup some loose ends
+	 * @codeCoverageIgnore
+	 */
+	public function __destruct()
+	{
+		fbird_service_detach($this->service);
+		fbird_close($this->conn);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Return service handle
+	 *
+	 * @return resource
+	 */
+	public function get_service()
+	{
+		return $this->service;
 	}
 
 	// --------------------------------------------------------------------------

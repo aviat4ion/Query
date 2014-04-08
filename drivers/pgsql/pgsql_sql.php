@@ -232,32 +232,68 @@ SQL;
 	public function fk_list($table)
 	{
 		return <<<SQL
-		SELECT
-			"att2"."attname" AS "child_column",
-			"cl"."relname" AS "parent_table",
-			"att"."attname" AS "parent_column"
-		FROM
-			(SELECT
-				unnest(con1.conkey) AS "parent",
-				unnest(con1.confkey) AS "child",
-				"con1"."confrelid",
-				"con1"."conrelid"
-			FROM "pg_class" "cl"
-			JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid"
-			JOIN "pg_constraint" "con1" ON "con1"."conrelid" = "cl"."oid"
-			WHERE "cl"."relname" = 'child_table'
-				AND "ns"."nspname" = 'child_schema'
-				AND "con1"."contype" = 'f'
-			)
-			"con"
-			JOIN "pg_attribute" "att" ON
-				"att"."attrelid" = "con"."confrelid"
-					AND "att"."attnum" = "con"."child"
-			JOIN "pg_class" "cl" ON
-				"cl"."oid" = "con"."confrelid"
-			JOIN "pg_attribute" "att2" ON
-			   "att2"."attrelid" = "con"."conrelid"
-				   AND "att2"."attnum" = "con"."parent"
+			SELECT
+				"att2"."attname" AS "child_column",
+				"cl"."relname" AS "parent_table",
+				"att"."attname" AS "parent_column"
+			FROM
+				(SELECT
+					unnest(con1.conkey) AS "parent",
+					unnest(con1.confkey) AS "child",
+					"con1"."confrelid",
+					"con1"."conrelid"
+				FROM "pg_class" "cl"
+				JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid"
+				JOIN "pg_constraint" "con1" ON "con1"."conrelid" = "cl"."oid"
+				WHERE "cl"."relname" = 'child_table'
+					AND "ns"."nspname" = 'child_schema'
+					AND "con1"."contype" = 'f'
+				)
+				"con"
+				JOIN "pg_attribute" "att" ON
+					"att"."attrelid" = "con"."confrelid"
+						AND "att"."attnum" = "con"."child"
+				JOIN "pg_class" "cl" ON
+					"cl"."oid" = "con"."confrelid"
+				JOIN "pg_attribute" "att2" ON
+				   "att2"."attrelid" = "con"."conrelid"
+					   AND "att2"."attnum" = "con"."parent"
+SQL;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the list of indexes for the current table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function index_list($table)
+	{
+		return <<<SQL
+			SELECT
+				t.relname AS table_name,
+				i.relname AS index_name,
+				array_to_string(array_agg(a.attname), ', ') AS column_names
+			FROM
+				pg_class t,
+				pg_class i,
+				pg_index ix,
+				pg_attribute a
+			WHERE
+				t.oid = ix.indrelid
+				AND i.oid = ix.indexrelid
+				AND a.attrelid = t.oid
+				AND a.attnum = ANY(ix.indkey)
+				AND t.relkind = 'r'
+				AND t.relname = '{$table}'
+			GROUP BY
+				t.relname,
+				i.relname
+			ORDER BY
+				t.relname,
+				i.relname;
 SQL;
 	}
 }

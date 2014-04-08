@@ -87,12 +87,14 @@ class Firebird_Util extends Abstract_Util {
 	/**
 	 * Create an SQL backup file for the current database's structure
 	 * @codeCoverageIgnore
+	 * @param string $db_path
+	 * @param string $new_file
 	 * @return string
 	 */
 	public function backup_structure()
 	{
-		// TODO Implement Backup structure function
-		return '';
+		list($db_path, $new_file) = func_get_args();
+		return ibase_backup($this->get_service(), $db_path, $new_file, IBASE_BKP_METADATA_ONLY);
 	}
 
 	// --------------------------------------------------------------------------

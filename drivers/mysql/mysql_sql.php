@@ -209,5 +209,18 @@ class MySQL_SQL extends Abstract_SQL {
 			WHERE `REFERENCED_TABLE_NAME` = '{$table}';
 SQL;
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the list of indexes for the current table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function index_list($table)
+	{
+		return "SHOW INDEX IN {$table}";
+	}
 }
 //End of mysql_sql.php

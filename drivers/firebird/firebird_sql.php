@@ -299,5 +299,22 @@ SQL;
 			AND rc.RDB\$RELATION_NAME = '{$table}'  -- table name
 SQL;
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the list of indexes for the current table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function index_list($table)
+	{
+		return <<<SQL
+			SELECT "RDB\$INDEX_NAME", "RDB\$UNIQUE_FLAG", "RDB\$FOREIGN_KEY"
+			FROM "RDB\$INDICES"
+			WHERE "RDB\$RELATION_NAME"='{$table}'
+SQL;
+	}
 }
 //End of firebird_sql.php

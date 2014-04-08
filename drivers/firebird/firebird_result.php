@@ -254,8 +254,10 @@ class Firebird_Result extends \PDOStatement {
 		// Get the number of rows for the select query if you can
 		if ($rows === 0 && \is_resource($this->statement) && \get_resource_type($this->statement) === "interbase result")
 		{
+		// @codeCoverageIgnoreStart
 			$rows = \count($this->result);
 		}
+		// @codeCoverageIgnoreEnd
 
 		return $rows;
 	}
