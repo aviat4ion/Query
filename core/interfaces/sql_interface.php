@@ -127,9 +127,17 @@ interface SQL_Interface {
 	 * table
 	 *
 	 * @parma string $table
-	 * @return string
+	 * @return array
 	 */
 	public function fk_list($table);
+
+	/**
+	 * Get the list of indexes for the current table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function index_list($table);
 
 }
 // End of sql_interface.php

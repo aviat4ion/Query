@@ -224,7 +224,7 @@ SQL;
 
 	public function testGetDBs()
 	{
-		$this->assertNull($this->db->get_dbs());
+		$this->assertTrue(is_array($this->db->get_dbs()));
 	}
 
 	// --------------------------------------------------------------------------
@@ -261,16 +261,5 @@ SQL;
 
 		$sql = $this->db->sql->sequence_list();
 		$this->assertEqual(NULL, $sql);
-
-		$sql = $this->db->sql->fk_list('create_test');
-		$this->assertEqual(NULL, $sql);
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testGetFKs()
-	{
-		$keys = $this->db->get_fks('create_test');
-		$this->assertNull($keys);
 	}
 }

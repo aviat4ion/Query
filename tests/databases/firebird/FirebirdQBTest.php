@@ -140,7 +140,11 @@ class FirebirdQBTest extends QBTest {
 
 	public function testBackupStructure()
 	{
-		$this->assertEquals('', $this->db->util->backup_structure());
+
+		$existing = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
+		$backup = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_BKP.FDB';
+
+		$this->assertTrue($this->db->util->backup_structure($existing, $backup));
 	}
 
 	// --------------------------------------------------------------------------

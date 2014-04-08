@@ -420,6 +420,19 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Retrieve indexes for the table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function get_indexes($table)
+	{
+		return $this->driver_query($this->sql->index_list($table), FALSE);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Retrieve list of data types for the database
 	 *
 	 * @return array

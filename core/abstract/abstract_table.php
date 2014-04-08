@@ -47,7 +47,8 @@ abstract class Abstract_Table {
 	 */
 	public function set_options(Array $options)
 	{
-		$type = end(explode('_', get_class($this)));
+		$class_segments = explode('_', get_class($this));
+		$type = end($class_segments);
 
 		foreach($options as $option => $value)
 		{

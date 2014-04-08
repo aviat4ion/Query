@@ -43,15 +43,7 @@ abstract class DBTest extends Query_TestCase {
 
 		$this->assertTrue(is_array($tables));
 	}
-
-	// --------------------------------------------------------------------------
-
-	public function testCreateTransaction()
-	{
-		$res = $this->db->beginTransaction();
-		$this->assertTrue($res);
-	}
-
+	
 	// --------------------------------------------------------------------------
 
 	public function testBackupData()
@@ -80,6 +72,14 @@ abstract class DBTest extends Query_TestCase {
 	public function testGetFKs()
 	{
 		$keys = $this->db->get_fks('create_test');
+		$this->assertTrue(is_array($keys));
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetIndexes()
+	{
+		$keys = $this->db->get_indexes('test');
 		$this->assertTrue(is_array($keys));
 	}
 

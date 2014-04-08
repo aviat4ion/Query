@@ -62,9 +62,18 @@ class PgTest extends DBTest {
 
 	// --------------------------------------------------------------------------
 
+	public function DataCreate()
+	{
+		$this->db->exec(file_get_contents(QTEST_DIR.'/db_files/pgsql.sql'));
+	}
+
+	// --------------------------------------------------------------------------
+
 	public function testCreateTable()
 	{
 		if (empty($this->db))  return;
+
+		$this->DataCreate();
 
 		// Drop the table(s) if they exist
 		$sql = 'DROP TABLE IF EXISTS "create_test"';

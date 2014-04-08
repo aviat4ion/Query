@@ -109,6 +109,7 @@ class FirebirdTest extends DBtest {
 
 	public function testCreateTable()
 	{
+
 		//Attempt to create the table
 		$sql = $this->db->util->create_table('create_delete', array(
 			'id' => 'SMALLINT',
@@ -313,5 +314,10 @@ SQL;
 	public function testSetAttribute()
 	{
 		$this->assertFalse($this->db->setAttribute(47, 'foo'));
+	}
+
+	public function testLastInsertId()
+	{
+		$this->assertEqual(0, $this->db->lastInsertId('NEWTABLE_SEQ'));
 	}
 }
