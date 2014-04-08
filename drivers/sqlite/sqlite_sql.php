@@ -68,7 +68,7 @@ class SQLite_SQL extends Abstract_SQL {
 	public function table_list()
 	{
 		return <<<SQL
-			SELECT "name"
+			SELECT DISTINCT "name"
 			FROM "sqlite_master"
 			WHERE "type"='table'
 			ORDER BY "name" DESC

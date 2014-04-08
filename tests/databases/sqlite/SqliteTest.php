@@ -31,58 +31,20 @@ class SQLiteTest extends DBTest {
 	// ! Util Method tests
 	// --------------------------------------------------------------------------
 
-	public function DataCreate()
-	{
-		$this->db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
-	}
-
 	public function testCreateTable()
 	{
-		$this->DataCreate();
-
-		//Attempt to create the table
-		$sql = $this->db->util->create_table('create_test',
-			array(
-				'id' => 'INTEGER',
-				'key' => 'TEXT',
-				'val' => 'TEXT',
-			),
-			array(
-				'id' => 'PRIMARY KEY'
-			)
-		);
-		$this->db->query($sql);
-
-		//Attempt to create the table
-		$sql = $this->db->util->create_table('create_join',
-			array(
-				'id' => 'INTEGER',
-				'key' => 'TEXT',
-				'val' => 'TEXT',
-			),
-			array(
-				'id' => 'PRIMARY KEY'
-			)
-		);
-		$this->db->query($sql);
-
-		// A table to delete
-		$sql = $this->db->util->create_table('create_delete',
-			array(
-				'id' => 'INTEGER',
-				'key' => 'TEXT',
-				'val' => 'TEXT',
-			),
-			array(
-				'id' => 'PRIMARY KEY'
-			)
-		);
-		$this->db->query($sql);
+		$this->db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
 
 		//Check
 		$dbs = $this->db->get_tables();
 
+		$this->assertTrue(in_array('TEST1', $dbs));
+		$this->assertTrue(in_array('TEST2', $dbs));
+		$this->assertTrue(in_array('NUMBERS', $dbs));
+		$this->assertTrue(in_array('NEWTABLE', $dbs));
 		$this->assertTrue(in_array('create_test', $dbs));
+		$this->assertTrue(in_array('create_join', $dbs));
+		$this->assertTrue(in_array('create_delete', $dbs));
 	}
 
 	// --------------------------------------------------------------------------
@@ -109,10 +71,10 @@ SQL;
 	public function testBackupStructure()
 	{
 		$sql = mb_trim($this->db->util->backup_structure());
-
 		$expected = <<<SQL
 CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
+CREATE TABLE "create_delete" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE TEST1 (
   TEST_NAME TEXT NOT NULL,
   TEST_ID INTEGER DEFAULT '0' NOT NULL,
@@ -153,7 +115,6 @@ CREATE VIEW "numbersview" AS
 SELECT *
 FROM NUMBERS
 WHERE NUMBER > 100;
-CREATE TABLE "create_delete" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 SQL;
 
 		$expected_array = explode("\n", $expected);
