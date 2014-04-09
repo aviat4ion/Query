@@ -20,6 +20,8 @@ namespace Query\Driver;
  *
  * @package Query
  * @subpackage Drivers
+ * @method string quote_ident(string $sql)
+ * @method string quote_table(string $sql)
  */
 abstract class Abstract_Util {
 
@@ -62,11 +64,10 @@ abstract class Abstract_Util {
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints
-	 * @param array $indexes
 	 *
 	 * @return string
 	 */
-	public function create_table($name, $fields, array $constraints=array(), array $indexes=array())
+	public function create_table($name, $fields, array $constraints=array())
 	{
 		$column_array = array();
 

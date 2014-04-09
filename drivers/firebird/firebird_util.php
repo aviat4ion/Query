@@ -23,6 +23,7 @@ namespace Query\Driver;
  * @method array get_system_tables()
  * @method array get_tables()
  * @method object query(string $sql)
+ * @method resource get_service()
  */
 class Firebird_Util extends Abstract_Util {
 
@@ -94,7 +95,7 @@ class Firebird_Util extends Abstract_Util {
 	public function backup_structure()
 	{
 		list($db_path, $new_file) = func_get_args();
-		return ibase_backup($this->get_service(), $db_path, $new_file, IBASE_BKP_METADATA_ONLY);
+		return ibase_backup($this->get_service(), $db_path, $new_file, \IBASE_BKP_METADATA_ONLY);
 	}
 
 	// --------------------------------------------------------------------------
