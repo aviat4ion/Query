@@ -38,7 +38,7 @@
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">2</span></a></li>
+                <span class="label label-info">1</span></a></li>
 </ul>
 </li>
 </ul></div>
@@ -65,12 +65,14 @@
 <i title="Methods" class="icon-custom icon-method"></i> Methods
                     <ul>
 <li class="method public "><a href="#method___construct" title="__construct() :: Open the link to the database"><span class="description">Open the link to the database</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method___destruct" title="__destruct() :: Cleanup some loose ends"><span class="description">Cleanup some loose ends</span><pre>__destruct()</pre></a></li>
 <li class="method public "><a href="#method_beginTransaction" title="beginTransaction() :: Start a database transaction"><span class="description">Start a database transaction</span><pre>beginTransaction()</pre></a></li>
 <li class="method public "><a href="#method_commit" title="commit() :: Commit a database transaction"><span class="description">Commit a database transaction</span><pre>commit()</pre></a></li>
 <li class="method public "><a href="#method_errorCode" title="errorCode() :: Method to emulate PDO-&gt;errorCode"><span class="description">Method to emulate PDO-&gt;errorCode</span><pre>errorCode()</pre></a></li>
 <li class="method public "><a href="#method_errorInfo" title="errorInfo() :: Method to emulate PDO-&gt;errorInfo / PDOStatement-&gt;errorInfo"><span class="description">Method to emulate PDO-&gt;errorInfo / PDOStatement-&gt;errorInfo</span><pre>errorInfo()</pre></a></li>
 <li class="method public "><a href="#method_exec" title="exec() :: Execute an sql statement and return number of affected rows"><span class="description">Execute an sql statement and return number of affected rows</span><pre>exec()</pre></a></li>
 <li class="method public "><a href="#method_getAttribute" title="getAttribute() :: Implement for compatibility with PDO"><span class="description">Implement for compatibility with PDO</span><pre>getAttribute()</pre></a></li>
+<li class="method public "><a href="#method_get_service" title="get_service() :: Return service handle"><span class="description">Return service handle</span><pre>get_service()</pre></a></li>
 <li class="method public "><a href="#method_inTransaction" title="inTransaction() :: Return whether the current statement is in a transaction"><span class="description">Return whether the current statement is in a transaction</span><pre>inTransaction()</pre></a></li>
 <li class="method public "><a href="#method_insert_batch" title="insert_batch() :: Create sql for batch insert"><span class="description">Create sql for batch insert</span><pre>insert_batch()</pre></a></li>
 <li class="method public "><a href="#method_lastInsertId" title="lastInsertId() :: Returns the last value of the specified generator"><span class="description">Returns the last value of the specified generator</span><pre>lastInsertId()</pre></a></li>
@@ -91,6 +93,7 @@
 <li class="nav-header protected">» Protected
                     <ul>
 <li class="property protected "><a href="#property_conn" title="$conn() :: Reference to the connection resource"><span class="description"></span><pre>$conn</pre></a></li>
+<li class="property protected "><a href="#property_service" title="$service() :: Reference to the service resource"><span class="description"></span><pre>$service</pre></a></li>
 <li class="property protected "><a href="#property_statement" title="$statement() :: Reference to the last query executed"><span class="description"></span><pre>$statement</pre></a></li>
 <li class="property protected "><a href="#property_statement_link" title="$statement_link() :: Reference to the resource returned by
 the last query executed"><span class="description"></span><pre>$statement_link</pre></a></li>
@@ -151,6 +154,18 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 <h4>$options</h4>
 <code>array</code>
 </div>
+</div></div>
+</div>
+<a id="method___destruct"></a><div class="element clickable method public method___destruct" data-toggle="collapse" data-target=".method___destruct .collapse" title="public">
+<h2>Cleanup some loose ends</h2>
+<pre>__destruct() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>codeCoverageIgnore</th>
+<td></td>
+</tr></table>
 </div></div>
 </div>
 <a id="method_beginTransaction"></a><div class="element clickable method public method_beginTransaction" data-toggle="collapse" data-target=".method_beginTransaction .collapse" title="public">
@@ -223,6 +238,16 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 </div>
 <h3>Returns</h3>
 <div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a id="method_get_service"></a><div class="element clickable method public method_get_service" data-toggle="collapse" data-target=".method_get_service .collapse" title="public">
+<h2>Return service handle</h2>
+<pre>get_service() : resource</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>resource</code></div>
 </div></div>
 </div>
 <a id="method_inTransaction"></a><div class="element clickable method public method_inTransaction" data-toggle="collapse" data-target=".method_inTransaction .collapse" title="public">
@@ -424,6 +449,16 @@ the last query executed"><span class="description"></span><pre>$statement_link</
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
+<a id="property_service"> </a><div class="element clickable property protected property_service" data-toggle="collapse" data-target=".property_service .collapse" title="protected">
+<h2>Reference to the service resource</h2>
+<pre>$service : resource</pre>
+<div class="row collapse"><div class="detail-description">
+<h3>Default</h3>
+<div class="subelement argument"><code>NULL</code></div>
+</div></div>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="property_statement"> </a><div class="element clickable property protected property_statement" data-toggle="collapse" data-target=".property_statement .collapse" title="protected">
 <h2>Reference to the last query executed</h2>
 <pre>$statement : object</pre>
@@ -463,7 +498,7 @@ the last query executed</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-04-03T14:45:59-04:00.<br></footer></div>
+            generated on 2014-04-09T11:31:52-04:00.<br></footer></div>
 </div>
 </body>
 </html>

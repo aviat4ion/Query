@@ -38,7 +38,7 @@
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">2</span></a></li>
+                <span class="label label-info">1</span></a></li>
 </ul>
 </li>
 </ul></div>
@@ -66,7 +66,11 @@
 <li class="method public "><a href="#method_column_list" title="column_list() :: Return sql to list columns of the specified table"><span class="description">Return sql to list columns of the specified table</span><pre>column_list()</pre></a></li>
 <li class="method public "><a href="#method_db_list" title="db_list() :: Returns sql to list other databases"><span class="description">Returns sql to list other databases</span><pre>db_list()</pre></a></li>
 <li class="method public "><a href="#method_explain" title="explain() :: Get the query plan for the sql query"><span class="description">Get the query plan for the sql query</span><pre>explain()</pre></a></li>
+<li class="method public "><a href="#method_fk_list" title="fk_list() :: Get the list of foreign keys for the current
+table"><span class="description">Get the list of foreign keys for the current
+table</span><pre>fk_list()</pre></a></li>
 <li class="method public "><a href="#method_function_list" title="function_list() :: Return sql to list functions"><span class="description">Return sql to list functions</span><pre>function_list()</pre></a></li>
+<li class="method public "><a href="#method_index_list" title="index_list() :: Get the list of indexes for the current table"><span class="description">Get the list of indexes for the current table</span><pre>index_list()</pre></a></li>
 <li class="method public "><a href="#method_limit" title="limit() :: Limit clause"><span class="description">Limit clause</span><pre>limit()</pre></a></li>
 <li class="method public "><a href="#method_procedure_list" title="procedure_list() :: Return sql to list stored procedures"><span class="description">Return sql to list stored procedures</span><pre>procedure_list()</pre></a></li>
 <li class="method public "><a href="#method_random" title="random() :: Random ordering keyword"><span class="description">Random ordering keyword</span><pre>random()</pre></a></li>
@@ -148,6 +152,23 @@
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
+<a id="method_fk_list"></a><div class="element clickable method public method_fk_list" data-toggle="collapse" data-target=".method_fk_list .collapse" title="public">
+<h2>Get the list of foreign keys for the current
+table</h2>
+<pre>fk_list($table) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>parma</th>
+<td>string $table</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$table</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
 <a id="method_function_list"></a><div class="element clickable method public method_function_list" data-toggle="collapse" data-target=".method_function_list .collapse" title="public">
 <h2>Return sql to list functions</h2>
 <pre>function_list() : string</pre>
@@ -156,6 +177,21 @@
 <div class="long_description"></div>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_index_list"></a><div class="element clickable method public method_index_list" data-toggle="collapse" data-target=".method_index_list .collapse" title="public">
+<h2>Get the list of indexes for the current table</h2>
+<pre>index_list(string $table) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
 <a id="method_limit"></a><div class="element clickable method public method_limit" data-toggle="collapse" data-target=".method_limit .collapse" title="public">
@@ -269,7 +305,7 @@
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-04-03T14:45:59-04:00.<br></footer></div>
+            generated on 2014-04-09T11:31:52-04:00.<br></footer></div>
 </div>
 </body>
 </html>

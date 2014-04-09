@@ -38,7 +38,7 @@
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">2</span></a></li>
+                <span class="label label-info">1</span></a></li>
 </ul>
 </li>
 </ul></div>
@@ -70,6 +70,10 @@
 <li class="method public "><a href="#method_backup_structure" title="backup_structure() :: Return an SQL file with the database table structure"><span class="description">Return an SQL file with the database table structure</span><pre>backup_structure()</pre></a></li>
 <li class="method public "><a href="#method_create_table" title="create_table() :: Convienience public function to generate sql for creating a db table"><span class="description">Convienience public function to generate sql for creating a db table</span><pre>create_table()</pre></a></li>
 <li class="method public "><a href="#method_delete_table" title="delete_table() :: Drop the selected table"><span class="description">Drop the selected table</span><pre>delete_table()</pre></a></li>
+<li class="method public "><a href="#method_quote_ident" title="quote_ident() :: "><span class="description">quote_ident()
+        </span><pre>quote_ident()</pre></a></li>
+<li class="method public "><a href="#method_quote_table" title="quote_table() :: "><span class="description">quote_table()
+        </span><pre>quote_table()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -172,7 +176,7 @@
 </div>
 <a id="method_create_table"></a><div class="element clickable method public method_create_table" data-toggle="collapse" data-target=".method_create_table .collapse" title="public">
 <h2>Convienience public function to generate sql for creating a db table</h2>
-<pre>create_table(string $name, array $fields, array $constraints<code> = array()</code>, array $indexes<code> = array()</code>) : string</pre>
+<pre>create_table(string $name, array $fields, array $constraints<code> = array()</code>) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -187,10 +191,6 @@
 </div>
 <div class="subelement argument">
 <h4>$constraints</h4>
-<code>array</code>
-</div>
-<div class="subelement argument">
-<h4>$indexes</h4>
 <code>array</code>
 </div>
 <h3>Returns</h3>
@@ -210,6 +210,48 @@
 </div>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_quote_ident"></a><div class="element clickable method public method_quote_ident" data-toggle="collapse" data-target=".method_quote_ident .collapse" title="public">
+<h2>quote_ident()
+        </h2>
+<pre>quote_ident() : </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>magic</th>
+<td></td>
+</tr>
+<tr>
+<th>method</th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code></code></div>
+</div></div>
+</div>
+<a id="method_quote_table"></a><div class="element clickable method public method_quote_table" data-toggle="collapse" data-target=".method_quote_table .collapse" title="public">
+<h2>quote_table()
+        </h2>
+<pre>quote_table() : </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>magic</th>
+<td></td>
+</tr>
+<tr>
+<th>method</th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code></code></div>
 </div></div>
 </div>
 <h3>
@@ -232,7 +274,7 @@
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-04-03T14:45:59-04:00.<br></footer></div>
+            generated on 2014-04-09T11:31:52-04:00.<br></footer></div>
 </div>
 </body>
 </html>

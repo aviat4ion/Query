@@ -38,7 +38,7 @@
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">2</span></a></li>
+                <span class="label label-info">1</span></a></li>
 </ul>
 </li>
 </ul></div>
@@ -82,6 +82,12 @@
 with array_map and glob"><span class="description">Bulk directory loading workaround for use
 with array_map and glob</span><pre>do_include</pre></a></li>
 <li class="function  "><a href="#function_mb_trim" title="mb_trim() :: Multibyte-safe trim function"><span class="description">Multibyte-safe trim function</span><pre>mb_trim</pre></a></li>
+<li class="nav-header">
+<i title="Classes" class="icon-custom icon-class"></i> Classes</li>
+<li><a href="#Abstract_Table" title="Base class for table builder component classes`">Abstract_Table</a></li>
+<li><a href="#Table_Index" title="Class representing indicies when creating a table">Table_Index</a></li>
+<li><a href="#Table_Foreign_Key" title="Class representing a foreign key">Table_Foreign_Key</a></li>
+<li><a href="#Table_Column" title="Class representing a column when creating a table">Table_Column</a></li>
 </ul>
 </div>
 <div class="span8 package-contents">
@@ -93,7 +99,7 @@ with array_map and glob</span><pre>do_include</pre></a></li>
 <i title="Functions" class="icon-custom icon-function"></i> Functions</h3>
 <a id="function_Query"></a><div class="element clickable function  function_Query" data-toggle="collapse" data-target=".function_Query .collapse" title="">
 <h2>Connection function</h2>
-<pre>Query(string|object|array $params<code> = ''</code>) : <a href="Query_Builder.html">\Query_Builder</a></pre>
+<pre>Query(string|object|array $params<code> = ''</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a> | null</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -103,7 +109,9 @@ with array_map and glob</span><pre>do_include</pre></a></li>
 <code>string</code><code>object</code><code>array</code>
 </div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="Query_Builder.html">\Query_Builder</a></code></div>
+<div class="subelement response">
+<code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code><code>null</code>
+</div>
 </div></div>
 </div>
 <a id="function_db_filter"></a><div class="element clickable function  function_db_filter" data-toggle="collapse" data-target=".function_db_filter .collapse" title="">
@@ -153,6 +161,36 @@ with array_map and glob</h2>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
+</div>
+<h3>
+<i title="Classes" class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<div id="Abstract_Table" class="element ajax clickable class">
+<h1>Abstract_Table<a href="../classes/Query.Table.Abstract_Table.html">¶</a>
+</h1>
+<p class="short_description">Base class for table builder component classes`</p>
+<div class="details collapse"></div>
+<a href="../classes/Query.Table.Abstract_Table.html" class="more">« More »</a>
+</div>
+<div id="Table_Column" class="element ajax clickable class">
+<h1>Table_Column<a href="../classes/Query.Table.Table_Column.html">¶</a>
+</h1>
+<p class="short_description">Class representing a column when creating a table</p>
+<div class="details collapse"></div>
+<a href="../classes/Query.Table.Table_Column.html" class="more">« More »</a>
+</div>
+<div id="Table_Foreign_Key" class="element ajax clickable class">
+<h1>Table_Foreign_Key<a href="../classes/Query.Table.Table_Foreign_Key.html">¶</a>
+</h1>
+<p class="short_description">Class representing a foreign key</p>
+<div class="details collapse"></div>
+<a href="../classes/Query.Table.Table_Foreign_Key.html" class="more">« More »</a>
+</div>
+<div id="Table_Index" class="element ajax clickable class">
+<h1>Table_Index<a href="../classes/Query.Table.Table_Index.html">¶</a>
+</h1>
+<p class="short_description">Class representing indicies when creating a table</p>
+<div class="details collapse"></div>
+<a href="../classes/Query.Table.Table_Index.html" class="more">« More »</a>
 </div>
 <ul class="breadcrumb"><li>
 <a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span><li><a href="../packages/Query.html">Query</a></li>
@@ -408,19 +446,12 @@ instantiates the specific db driver</p>
 <div class="package-indent">
 <h3>
 <i title="Classes" class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Table_Builder_Interface" class="element ajax clickable interface">
-<h1>Table_Builder_Interface<a href="../classes/Query.Table_Builder_Interface.html">¶</a>
-</h1>
-<p class="short_description">Abstract class defining database / table creation methods</p>
-<div class="details collapse"></div>
-<a href="../classes/Query.Table_Builder_Interface.html" class="more">« More »</a>
-</div>
 <div id="Table_Builder" class="element ajax clickable class">
-<h1>Table_Builder<a href="../classes/Query.Table_Builder.html">¶</a>
+<h1>Table_Builder<a href="../classes/Query.Table.Table_Builder.html">¶</a>
 </h1>
 <p class="short_description">Abstract class defining database / table creation methods</p>
 <div class="details collapse"></div>
-<a href="../classes/Query.Table_Builder.html" class="more">« More »</a>
+<a href="../classes/Query.Table.Table_Builder.html" class="more">« More »</a>
 </div>
 </div>
 </div>
@@ -430,7 +461,7 @@ instantiates the specific db driver</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-04-03T14:45:59-04:00.<br></footer></div>
+            generated on 2014-04-09T11:31:52-04:00.<br></footer></div>
 </div>
 </body>
 </html>
