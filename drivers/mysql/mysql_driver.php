@@ -62,6 +62,7 @@ class MySQL extends Abstract_Driver {
 	 */
 	public function truncate($table)
 	{
+		$table = $this->prefix_table($table);
 		$this->query("TRUNCATE `{$table}`");
 	}
 }

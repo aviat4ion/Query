@@ -43,6 +43,8 @@ class MySQLTest extends DBTest {
 		{
 			$this->db = new \Query\Driver\MySQL('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
+
+		$this->db->table_prefix = 'create_';
 	}
 
 	// --------------------------------------------------------------------------
@@ -95,7 +97,7 @@ class MySQLTest extends DBTest {
 		//Check
 		$dbs = $this->db->get_tables();
 
-		$this->assertTrue(in_array('test', $dbs));
+		$this->assertTrue(in_array('create_test', $dbs));
 
 	}
 
@@ -112,7 +114,7 @@ class MySQLTest extends DBTest {
 	public function testPreparedStatements()
 	{
 		$sql = <<<SQL
-			INSERT INTO `test` (`id`, `key`, `val`)
+			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
 		$statement = $this->db->prepare_query($sql, array(1,"boogers", "Gross"));
@@ -128,7 +130,7 @@ SQL;
 	public function testBadPreparedStatement()
 	{
 		$sql = <<<SQL
-			INSERT INTO `test` (`id`, `key`, `val`)
+			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
 		try
@@ -147,7 +149,7 @@ SQL;
 	public function testPrepareExecute()
 	{
 		$sql = <<<SQL
-			INSERT INTO `test` (`id`, `key`, `val`)
+			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
 		$res = $this->db->prepare_execute($sql, array(
@@ -164,7 +166,7 @@ SQL;
 	{
 		$res = $this->db->beginTransaction();
 
-		$sql = 'INSERT INTO `test` (`id`, `key`, `val`) VALUES (10, 12, 14)';
+		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (10, 12, 14)';
 		$this->db->query($sql);
 
 		$res = $this->db->commit();
@@ -177,7 +179,7 @@ SQL;
 	{
 		$res = $this->db->beginTransaction();
 
-		$sql = 'INSERT INTO `test` (`id`, `key`, `val`) VALUES (182, 96, 43)';
+		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (182, 96, 43)';
 		$this->db->query($sql);
 
 		$res = $this->db->rollback();

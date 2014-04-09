@@ -41,6 +41,7 @@ class MySQLQBTest extends QBTest {
 				'host' => '127.0.0.1',
 				'port' => '3306',
 				'database' => 'test',
+				'prefix' => 'create_',
 				'user' => 'root',
 				'pass' => NULL,
 				'type' => 'mysql'
@@ -73,7 +74,7 @@ class MySQLQBTest extends QBTest {
 		  array (
 		    'id' => '1',
 		    'select_type' => 'SIMPLE',
-		    'table' => 'test',
+		    'table' => 'create_test',
 		    'type' => 'range',
 		    'possible_keys' => 'PRIMARY',
 		    'key' => 'PRIMARY',

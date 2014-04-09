@@ -25,6 +25,7 @@ class SQLiteTest extends DBTest {
 		// Set up in the bootstrap to mitigate
 		// connection locking issues
 		$this->db = Query('test_sqlite');
+		$this->db->table_prefix = 'create_';
 	}
 
 	// --------------------------------------------------------------------------
