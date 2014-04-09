@@ -46,13 +46,22 @@ class Firebird_Result extends \PDOStatement {
 	private $result = array();
 
 	/**
+	 * Reference to the db drive to de-duplicate error functions
+	 *
+	 * @var \Query\Driver\Firebird
+	 */
+	private $db;
+
+	/**
 	 * Create the object by passing the resource for
 	 * the query
 	 *
 	 * @param resource $link
+	 * @param [\Query\Driver\Firebird] $db
 	 */
-	public function __construct($link)
+	public function __construct($link, Driver_Interface $db = NULL)
 	{
+		if ( ! is_null($db)) $this->db = $db;
 		$this->statement = $link;
 		$this->setFetchMode(\PDO::FETCH_ASSOC);
 		$this->row = -1;
@@ -271,7 +280,7 @@ class Firebird_Result extends \PDOStatement {
 	 */
 	public function errorCode()
 	{
-		return \fbird_errcode();
+		return $this->db->errorCode();
 	}
 
 	// --------------------------------------------------------------------------
@@ -283,10 +292,7 @@ class Firebird_Result extends \PDOStatement {
 	 */
 	public function errorInfo()
 	{
-		$code = \fbird_errcode();
-		$msg = \fbird_errmsg();
-
-		return array(0, $code, $msg);
+		return $this->db->errorInfo();
 	}
 }
 // End of firebird_result.php

@@ -207,7 +207,7 @@ class Firebird extends Abstract_Driver {
 		$err_string = \fbird_errmsg() . "Last query:" . $this->last_query;
 		if ($this->statement_link === FALSE) throw new \PDOException($err_string, \fbird_errcode(), NULL);
 
-		$this->statement = new FireBird_Result($this->statement_link);
+		$this->statement = new FireBird_Result($this->statement_link, $this);
 
 		return $this->statement;
 	}
@@ -229,7 +229,7 @@ class Firebird extends Abstract_Driver {
 		// Throw the error as an exception
 		if ($this->statement_link === FALSE) throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
 
-		$this->statement = new FireBird_Result($this->statement_link);
+		$this->statement = new FireBird_Result($this->statement_link, $this);
 
 		return $this->statement;
 	}

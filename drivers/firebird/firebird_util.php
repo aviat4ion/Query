@@ -34,10 +34,9 @@ class Firebird_Util extends Abstract_Util {
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints
-	 * @param array $indexes
 	 * @return string
 	 */
-	public function create_table($name, $fields, array $constraints=array(), array $indexes=array())
+	public function create_table($name, $fields, array $constraints=array())
 	{
 		$column_array = array();
 
