@@ -38,7 +38,7 @@
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">1</span></a></li>
+                <span class="label label-info">2</span></a></li>
 </ul>
 </li>
 </ul></div>
@@ -128,12 +128,12 @@ table</span><pre>fk_list()</pre></a></li>
 </div>
 <a id="method_db_list"></a><div class="element clickable method public method_db_list" data-toggle="collapse" data-target=".method_db_list .collapse" title="public">
 <h2>Returns sql to list other databases</h2>
-<pre>db_list() : NULL</pre>
+<pre>db_list() : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Returns</h3>
-<div class="subelement response"><code>NULL</code></div>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method_explain"></a><div class="element clickable method public method_explain" data-toggle="collapse" data-target=".method_explain .collapse" title="public">
@@ -154,16 +154,15 @@ table</span><pre>fk_list()</pre></a></li>
 <a id="method_fk_list"></a><div class="element clickable method public method_fk_list" data-toggle="collapse" data-target=".method_fk_list .collapse" title="public">
 <h2>Get the list of foreign keys for the current
 table</h2>
-<pre>fk_list($table) : string</pre>
+<pre>fk_list(string $table) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>parma</th>
-<td>string $table</td>
-</tr></table>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$table</h4></div>
+<div class="subelement argument">
+<h4>$table</h4>
+<code>string</code>
+</div>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
 </div></div>
@@ -281,7 +280,7 @@ table</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-04-09T11:31:52-04:00.<br></footer></div>
+            generated on 2014-04-10T15:54:52-04:00.<br></footer></div>
 </div>
 </body>
 </html>

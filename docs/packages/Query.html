@@ -38,7 +38,7 @@
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">1</span></a></li>
+                <span class="label label-info">2</span></a></li>
 </ul>
 </li>
 </ul></div>
@@ -85,9 +85,9 @@ with array_map and glob</span><pre>do_include</pre></a></li>
 <li class="nav-header">
 <i title="Classes" class="icon-custom icon-class"></i> Classes</li>
 <li><a href="#Abstract_Table" title="Base class for table builder component classes`">Abstract_Table</a></li>
-<li><a href="#Table_Index" title="Class representing indicies when creating a table">Table_Index</a></li>
 <li><a href="#Table_Foreign_Key" title="Class representing a foreign key">Table_Foreign_Key</a></li>
 <li><a href="#Table_Column" title="Class representing a column when creating a table">Table_Column</a></li>
+<li><a href="#Table_Index" title="Class representing indicies when creating a table">Table_Index</a></li>
 </ul>
 </div>
 <div class="span8 package-contents">
@@ -102,7 +102,10 @@ with array_map and glob</span><pre>do_include</pre></a></li>
 <pre>Query(string|object|array $params<code> = ''</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a> | null</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
+<div class="long_description">Send an array or object as connection parameters to create a connection. If
+the array or object has an 'alias' parameter, passing that string to this
+function will return that connection. Passing no parameters returns the last
+connection created.</div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$params</h4>
@@ -461,7 +464,7 @@ instantiates the specific db driver</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
 </a> and<br>
-            generated on 2014-04-09T11:31:52-04:00.<br></footer></div>
+            generated on 2014-04-10T15:54:52-04:00.<br></footer></div>
 </div>
 </body>
 </html>
