@@ -77,6 +77,11 @@ function db_filter($array, $index)
 /**
  * Connection function
  *
+ * Send an array or object as connection parameters to create a connection. If
+ * the array or object has an 'alias' parameter, passing that string to this
+ * function will return that connection. Passing no parameters returns the last
+ * connection created.
+ *
  * @param string|object|array $params
  * @return Query\Query_Builder|null
  */

@@ -33,9 +33,9 @@ abstract class Abstract_Util {
 	/**
 	 * Save a reference to the connection object for later use
 	 *
-	 * @param object $conn
+	 * @param Driver_Interface $conn
 	 */
-	public function __construct($conn)
+	public function __construct(Driver_Interface $conn)
 	{
 		$this->conn = $conn;
 	}
@@ -61,10 +61,10 @@ abstract class Abstract_Util {
 	/**
 	 * Convienience public function to generate sql for creating a db table
 	 *
+	 * @deprecated Use the table builder class instead
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints
-	 *
 	 * @return string
 	 */
 	public function create_table($name, $fields, array $constraints=array())

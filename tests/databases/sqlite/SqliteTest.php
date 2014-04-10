@@ -232,12 +232,6 @@ SQL;
 
 	public function testNullMethods()
 	{
-		$sql = $this->db->sql->system_table_list();
-		$this->assertEqual(NULL, $sql);
-
-		$sql = $this->db->sql->trigger_list();
-		$this->assertEqual(NULL, $sql);
-
 		$sql = $this->db->sql->function_list();
 		$this->assertEqual(NULL, $sql);
 
@@ -246,5 +240,17 @@ SQL;
 
 		$sql = $this->db->sql->sequence_list();
 		$this->assertEqual(NULL, $sql);
+	}
+
+	public function testGetSystemTables()
+	{
+		$sql = $this->db->get_system_tables();
+		$this->assertTrue(is_array($sql));
+	}
+
+	public function testGetTriggers()
+	{
+		$sql = $this->db->get_triggers();
+		$this->assertTrue(is_array($sql));
 	}
 }

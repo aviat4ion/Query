@@ -14,6 +14,9 @@
 // --------------------------------------------------------------------------
 
 namespace Query\Table;
+use Query\Driver\Driver_Interface;
+
+// --------------------------------------------------------------------------
 
 /**
  * Abstract class defining database / table creation methods
@@ -64,23 +67,20 @@ class Table_Builder {
 	/**
 	 * Constructor
 	 *
-	 * @param string $name
-	 * @param array $options
-	 * @param Driver_Interface $driver
+	 * @param [string] $name
+	 * @param [array] $options
+	 * @param [Driver_Interface] $driver
 	 * @return Table_Builder
 	 */
-	public function __construct($name, $options = array(), \Query\Driver\Driver_Interface $driver = NULL)
+	public function __construct($name = '', $options = array(), Driver_Interface $driver = NULL)
 	{
-		$this->name = $name;
+		$this->table_options = array_merge($this->table_options, $options);
 
-		if ( ! empty($options))
-		{
-			$this->table_options = array_merge($this->table_options, $options);
-		}
+		$this->set_driver($driver);
 
-		if ( ! is_null($driver))
+		if ($name !== '')
 		{
-			$this->driver = $driver;
+			$this->name = (isset($this->driver)) ? $this->driver->prefix_table($name) : $name;
 		}
 
 		return $this;
@@ -91,13 +91,14 @@ class Table_Builder {
 	/**
 	 * Alias to constructor
 	 *
-	 * @param string $name
-	 * @param array $options
-	 * @param \Query\Driver_Interface $driver
+	 * @param [string] $name
+	 * @param [array] $options
+	 * @param [\Query\Driver\Driver_Interface] $driver
+	 * @return Table_Builder
 	 */
-	public function __invoke($name, $options = array(), \Query\Driver\Driver_Interface $driver = NULL)
+	public function __invoke($name = '', $options = array(), Driver_Interface $driver = NULL)
 	{
-		$this->__construct($name, $options, $driver);
+		return $this->__construct($name, $options, $driver);
 	}
 
 	// --------------------------------------------------------------------------
@@ -105,12 +106,15 @@ class Table_Builder {
 	/**
 	 * Set the reference to the current database driver
 	 *
-	 * @param \Query\Driver_Interface $driver
-	 * @return \Query\Table_Builder
+	 * @param \Query\Driver\Driver_Interface $driver
+	 * @return Table_Builder
 	 */
-	public function set_driver(\Query\Driver_Interface $driver)
+	public function set_driver(Driver_Interface $driver = NULL)
 	{
-		$this->driver = $driver;
+		if ( ! is_null($driver))
+		{
+			$this->driver = $driver;
+		}
 		return $this;
 	}
 
@@ -136,32 +140,35 @@ class Table_Builder {
 	 * @param string $column_name
 	 * @param string $type
 	 * @param array $options
+	 * @return Table_Builder
 	 */
 	public function add_column($column_name, $type = NULL, $options = array())
 	{
 		$col = new Table_Column($column_name, $type, $options);
 		$this->columns[] = $col;
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function remove_column($column_name)
 	{
-
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function rename_column($old_name, $new_name)
 	{
-
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function change_column($column_name, $new_column_type, $options = array())
 	{
-
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
@@ -177,21 +184,24 @@ class Table_Builder {
 
 	public function add_index($columns, $options = array())
 	{
+		$col = new Table_Index($columns, $options);
+		$this->indexes[] = $col;
 
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function remove_index($columns, $options = array())
 	{
-
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function remove_index_by_name($name)
 	{
-
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
@@ -207,7 +217,10 @@ class Table_Builder {
 
 	public function add_foreign_key($columns, $referenced_table, $referenced_columns = array('id'), $options = array())
 	{
+		$key = new Table_Foreign_Key($columns, $referenced_table, $referenced_columns, $options);
+		$this->foreign_keys[] = $key;
 
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
@@ -230,7 +243,8 @@ class Table_Builder {
 
 	public function exists()
 	{
-
+		$tables = $this->driver->get_tables();
+		return in_array($this->name, $tables);
 	}
 
 	// --------------------------------------------------------------------------
@@ -261,14 +275,14 @@ class Table_Builder {
 
 	public function create()
 	{
-
+		$this->reset();
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function update()
 	{
-
+		$this->reset();
 	}
 
 	// --------------------------------------------------------------------------
@@ -278,15 +292,23 @@ class Table_Builder {
 		($this->exists())
 			? $this->update()
 			: $this->create();
-
-		$this->reset();
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function reset()
 	{
+		$skip = array(
+			'driver' => 'driver'
+		);
 
+		foreach($this as $key => $val)
+		{
+			if ( ! isset($skip[$key]))
+			{
+				$this->$key = NULL;
+			}
+		}
 	}
 
 }

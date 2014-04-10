@@ -80,20 +80,6 @@ class SQLite extends Abstract_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * List system tables for the current database
-	 *
-	 * @return string[]
-	 */
-	public function get_system_tables()
-	{
-		//SQLite only has the sqlite_master table
-		// that is of any importance.
-		return array('sqlite_master');
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Create sql for batch insert
 	 *
 	 * @codeCoverageIgnore

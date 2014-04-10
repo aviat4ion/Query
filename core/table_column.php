@@ -59,7 +59,11 @@ class Table_Column extends Abstract_Table {
 	 */
 	public function __construct($name, $type = NULL, $options = array())
 	{
-
+		$this->name = $name;
+		$this->type = $type;
+		$this->options = ( ! empty($options))
+			? $this->validate_options($options)
+			: array();
 	}
 
 	// --------------------------------------------------------------------------
@@ -71,7 +75,7 @@ class Table_Column extends Abstract_Table {
 	 */
 	public function __toString()
 	{
-
+		$num_args = func_num_args();
 	}
 
 }

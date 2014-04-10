@@ -30,7 +30,7 @@ class Firebird_Util extends Abstract_Util {
 	/**
 	 * Convienience public function to generate sql for creating a db table
 	 *
-	 * @deprecated
+	 * @deprecated Use the table builder class instead
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints

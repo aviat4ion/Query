@@ -15,6 +15,10 @@
 
 namespace Query\Driver;
 
+use Query\Table\Table_Builder;
+
+// --------------------------------------------------------------------------
+
 /**
  * Firebird Database class
  *
@@ -77,14 +81,14 @@ class Firebird extends Abstract_Driver {
 			: '\\fbird_connect';
 
 		$this->conn = $connect_function($dbpath, $user, $pass, 'utf-8', 0);
-		$this->service = fbird_service_attach('localhost', $user, $pass);
+		$this->service = \fbird_service_attach('localhost', $user, $pass);
 
 		// Throw an exception to make this match other pdo classes
 		if ( ! \is_resource($this->conn)) throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
 
 		// Load these classes here because this
 		// driver does not call the constructor
-		// of DB_PDO, which defines these two
+		// of DB_PDO, which defines these
 		// class variables for the other drivers
 
 		// Load the sql class
@@ -94,6 +98,9 @@ class Firebird extends Abstract_Driver {
 		// Load the util class
 		$class = __CLASS__."_util";
 		$this->util = new $class($this);
+
+		// Load the table builder class
+		$this->table = new Table_Builder('', array(), $this);
 	}
 
 	// --------------------------------------------------------------------------
@@ -104,8 +111,7 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function __destruct()
 	{
-		fbird_service_detach($this->service);
-		fbird_close($this->conn);
+		\fbird_service_detach($this->service);
 	}
 
 	// --------------------------------------------------------------------------
@@ -130,7 +136,7 @@ class Firebird extends Abstract_Driver {
 	public function truncate($table)
 	{
 		// Firebird lacks a truncate command
-		$sql = 'DELETE FROM "'.$table.'"';
+		$sql = 'DELETE FROM '.$this->quote_table($table);
 		$this->statement = $this->query($sql);
 	}
 

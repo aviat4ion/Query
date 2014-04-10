@@ -96,6 +96,26 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	}
 
 	// --------------------------------------------------------------------------
+
+	/**
+	 * Allow invoke to work on table object
+	 *
+	 * @param string $name
+	 * @param array $args
+	 */
+	public function __call($name, $args = array())
+	{
+		if (
+			isset($this->$name)
+			&& is_object($this->$name)
+			&& method_exists($this->$name, '__invoke')
+		)
+		{
+			return call_user_func_array(array($this->$name, '__invoke'), $args);
+		}
+	}
+
+	// --------------------------------------------------------------------------
 	// ! Concrete functions that can be overridden in child classes
 	// --------------------------------------------------------------------------
 

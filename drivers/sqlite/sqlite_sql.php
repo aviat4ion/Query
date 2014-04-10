@@ -51,7 +51,7 @@ class SQLite_SQL extends Abstract_SQL {
 	/**
 	 * Returns sql to list other databases
 	 *
-	 * @return NULL
+	 * @return string
 	 */
 	public function db_list()
 	{
@@ -71,6 +71,7 @@ class SQLite_SQL extends Abstract_SQL {
 			SELECT DISTINCT "name"
 			FROM "sqlite_master"
 			WHERE "type"='table'
+			AND "name" NOT LIKE 'sqlite_%'
 			ORDER BY "name" DESC
 SQL;
 	}
@@ -84,7 +85,7 @@ SQL;
 	 */
 	public function system_table_list()
 	{
-		return NULL;
+		return array('sqlite_master', 'sqlite_temp_master', 'sqlite_sequence');
 	}
 
 	// --------------------------------------------------------------------------
@@ -110,7 +111,7 @@ SQL;
 	 */
 	public function trigger_list()
 	{
-		return NULL;
+		return 'SELECT "name" FROM "sqlite_master" WHERE "type"=\'trigger\'';
 	}
 
 	// --------------------------------------------------------------------------
@@ -180,7 +181,7 @@ SQL;
 	 * Get the list of foreign keys for the current
 	 * table
 	 *
-	 * @parma string $table
+	 * @param string $table
 	 * @return string
 	 */
 	public function fk_list($table)
