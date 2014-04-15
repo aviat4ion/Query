@@ -109,6 +109,8 @@ abstract class Abstract_Util {
 
 		return $sql;
 	}
+	
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Drop the selected table
@@ -120,6 +122,8 @@ abstract class Abstract_Util {
 	{
 		return 'DROP TABLE IF EXISTS '.$this->quote_table($name);
 	}
+	
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Return an SQL file with the database table structure
@@ -128,6 +132,8 @@ abstract class Abstract_Util {
 	 * @return string
 	 */
 	abstract public function backup_structure();
+	
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Return an SQL file with the database data as insert statements

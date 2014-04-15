@@ -67,9 +67,9 @@ class Table_Builder {
 	/**
 	 * Constructor
 	 *
-	 * @param [string] $name
-	 * @param [array] $options
-	 * @param [Driver_Interface] $driver
+	 * @param string $name
+	 * @param array $options
+	 * @param Driver_Interface $driver
 	 * @return Table_Builder
 	 */
 	public function __construct($name = '', $options = array(), Driver_Interface $driver = NULL)
@@ -91,9 +91,9 @@ class Table_Builder {
 	/**
 	 * Alias to constructor
 	 *
-	 * @param [string] $name
-	 * @param [array] $options
-	 * @param [\Query\Driver\Driver_Interface] $driver
+	 * @param string $name
+	 * @param array $options
+	 * @param Driver_Interface $driver
 	 * @return Table_Builder
 	 */
 	public function __invoke($name = '', $options = array(), Driver_Interface $driver = NULL)
@@ -106,7 +106,7 @@ class Table_Builder {
 	/**
 	 * Set the reference to the current database driver
 	 *
-	 * @param \Query\Driver\Driver_Interface $driver
+	 * @param Driver_Interface $driver
 	 * @return Table_Builder
 	 */
 	public function set_driver(Driver_Interface $driver = NULL)
@@ -123,7 +123,7 @@ class Table_Builder {
 	/**
 	 * Get the current DB Driver
 	 *
-	 * @return \Query\Driver_Interface
+	 * @return Driver_Interface
 	 */
 	public function get_driver()
 	{
@@ -152,6 +152,12 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Remove the specified column name from the current table
+	 *
+	 * @param string $column_name
+	 * @return \Query\Table\Table_Builder
+	 */
 	public function remove_column($column_name)
 	{
 		return $this;
@@ -159,6 +165,13 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Rename the specified column on the current table
+	 *
+	 * @param string $old_name
+	 * @param string $new_name
+	 * @return \Query\Table\Table_Builder
+	 */
 	public function rename_column($old_name, $new_name)
 	{
 		return $this;
@@ -166,6 +179,14 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Change the specified column on the current table
+	 *
+	 * @param string $column_name
+	 * @param string $new_column_type
+	 * @param array $options
+	 * @return \Query\Table\Table_Builder
+	 */
 	public function change_column($column_name, $new_column_type, $options = array())
 	{
 		return $this;
@@ -173,6 +194,13 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Determine whether the column currently exists on the current table
+	 *
+	 * @param string $column_name
+	 * @param array $options
+	 * @return bool
+	 */
 	public function has_column($column_name, $options = array())
 	{
 
@@ -182,6 +210,13 @@ class Table_Builder {
 	// ! Index Methods
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Add an index to the current table
+	 *
+	 * @param array $columns
+	 * @param array $options
+	 * @return \Query\Table\Table_Builder
+	 */
 	public function add_index($columns, $options = array())
 	{
 		$col = new Table_Index($columns, $options);
@@ -192,6 +227,12 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Remove an index from the current table
+	 * @param array $columns
+	 * @param array $options
+	 * @return \Query\Table\Table_Builder
+	 */
 	public function remove_index($columns, $options = array())
 	{
 		return $this;
@@ -199,6 +240,12 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Remove an index by its name from the current table
+	 *
+	 * @param string $name
+	 * @return \Query\Table\Table_Builder
+	 */
 	public function remove_index_by_name($name)
 	{
 		return $this;
@@ -206,6 +253,13 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Check if the current table has an index on the specified columns
+	 *
+	 * @param array $columns
+	 * @param array $options
+	 * @return bool
+	 */
 	public function has_index($columns, $options = array())
 	{
 
@@ -215,6 +269,15 @@ class Table_Builder {
 	// ! Foreign Key Methods
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Add a foreign key to the current table
+	 *
+	 * @param array $columns
+	 * @param string $referenced_table
+	 * @param array $referenced_columns
+	 * @param array $options
+	 * @return \Query\Table\Table_Builder
+	 */
 	public function add_foreign_key($columns, $referenced_table, $referenced_columns = array('id'), $options = array())
 	{
 		$key = new Table_Foreign_Key($columns, $referenced_table, $referenced_columns, $options);
@@ -225,13 +288,27 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Drop the foreign key from the current table
+	 *
+	 * @param array $columns
+	 * @param string $constraint
+	 * @return \Query\Table\Table_Builder
+	 */
 	public function drop_foreign_key($columns, $constraint = NULL)
 	{
-
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Determine whether the current table has the specified foreign key
+	 *
+	 * @param array $columns
+	 * @param string $constraint
+	 * @return bool
+	 */
 	public function has_foreign_key($columns, $constraint = NULL)
 	{
 
@@ -241,6 +318,11 @@ class Table_Builder {
 	// ! Table-wide methods
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Check whether the current table exists
+	 *
+	 * @return bool
+	 */
 	public function exists()
 	{
 		$tables = $this->driver->get_tables();
@@ -249,6 +331,11 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Drop the current table
+	 *
+	 * @return void
+	 */
 	public function drop()
 	{
 
@@ -256,6 +343,12 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Rename the current table
+	 *
+	 * @param string $new_table_name
+	 * @return void
+	 */
 	public function rename($new_table_name)
 	{
 
@@ -263,9 +356,14 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Get the list of columns for the current table
+	 *
+	 * @return array
+	 */
 	public function get_columns()
 	{
-
+		return $this->driver->get_columns($this->prefix_table($this->name));
 	}
 
 
@@ -273,6 +371,11 @@ class Table_Builder {
 	// ! Action methods
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Create the table from the previously set options
+	 *
+	 * @return void
+	 */
 	public function create()
 	{
 		$this->reset();
@@ -280,6 +383,11 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Update the current table with the changes made
+	 *
+	 * @return void
+	 */
 	public function update()
 	{
 		$this->reset();
@@ -287,6 +395,11 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Save the changes made to the table
+	 *
+	 * @return void
+	 */
 	public function save()
 	{
 		($this->exists())
@@ -296,6 +409,11 @@ class Table_Builder {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Reset the state of the table builder
+	 *
+	 * @return void
+	 */
 	public function reset()
 	{
 		$skip = array(

@@ -448,7 +448,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_fks($table)
 	{
-		return $this->driver_query($this->sql->fk_list($this->prefix_table($table)), FALSE);
+		return $this->driver_query($this->sql->fk_list($table), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
