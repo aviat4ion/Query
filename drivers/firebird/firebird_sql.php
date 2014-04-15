@@ -276,20 +276,16 @@ SQL;
 	 * Get the list of foreign keys for the current
 	 * table
 	 *
-	 * @parma string $table
+	 * @param string $table
 	 * @return string
 	 */
 	public function fk_list($table)
 	{
 		return <<<SQL
 		SELECT DISTINCT
-			rc.RDB\$CONSTRAINT_NAME AS "constraint_name",
-			rc.RDB\$RELATION_NAME AS "on table",
-			d1.RDB\$FIELD_NAME AS "on field",
-			d2.RDB\$DEPENDED_ON_NAME AS "references table",
-			d2.RDB\$FIELD_NAME AS "references field",
-			refc.RDB\$UPDATE_RULE AS "on update",
-			refc.RDB\$DELETE_RULE AS "on delete"
+			TRIM(d1.RDB\$FIELD_NAME) AS "child_column",
+			TRIM(d2.RDB\$DEPENDED_ON_NAME) AS "parent_table",
+			TRIM(d2.RDB\$FIELD_NAME) AS "parent_column"
 		FROM RDB\$RELATION_CONSTRAINTS AS rc
 		LEFT JOIN RDB\$REF_CONSTRAINTS refc ON rc.RDB\$CONSTRAINT_NAME = refc.RDB\$CONSTRAINT_NAME
 		LEFT JOIN RDB\$DEPENDENCIES d1 ON d1.RDB\$DEPENDED_ON_NAME = rc.RDB\$RELATION_NAME

@@ -92,3 +92,22 @@ BEGIN
 END ^
 
 SET TERM ; ^
+
+-- TABLEs for testing CONSTRAINTs
+CREATE TABLE "testconstraints" (
+  "someid" integer NOT NULL,
+  "somename" char(10) NOT NULL,
+  CONSTRAINT "testconstraints_id_pk" PRIMARY KEY ("someid")
+);
+CREATE TABLE "testconstraints2" (
+  "ext_id" integer NOT NULL,
+  "modified" date,
+  "uniquefield" char(10) NOT NULL,
+  "usraction" integer NOT NULL,
+  CONSTRAINT "testconstraints_id_fk" FOREIGN KEY ("ext_id")
+      REFERENCES "testconstraints" ("someid")
+      ON UPDATE CASCADE
+	  ON DELETE CASCADE,
+  CONSTRAINT "unique_2_fields_idx" UNIQUE ("modified", "usraction"),
+  CONSTRAINT "uniquefld_idx" UNIQUE ("uniquefield")
+);

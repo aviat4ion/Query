@@ -74,8 +74,14 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetFKs()
 	{
-		$keys = $this->db->get_fks('test');
-		$this->assertTrue(is_array($keys));
+		$expected = array(array(
+			'child_column' => 'ext_id',
+			'parent_table' => 'testconstraints',
+			'parent_column' => 'someid'
+		));
+
+		$keys = $this->db->get_fks('testconstraints2');
+		$this->assertEqual($expected, $keys);
 	}
 
 	// --------------------------------------------------------------------------

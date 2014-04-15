@@ -80,6 +80,31 @@ class SQLite extends Abstract_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Retrieve foreign keys for the table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function get_fks($table)
+	{
+		$return_rows = array();
+		$rows = parent::get_fks($table);
+
+		foreach($rows as $row)
+		{
+			$return_rows[] = array(
+				'child_column' => $row['from'],
+				'parent_table' => $row['table'],
+				'parent_column' => $row['to']
+			);
+		}
+
+		return $return_rows;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Create sql for batch insert
 	 *
 	 * @codeCoverageIgnore

@@ -226,7 +226,7 @@ SQL;
 	 * Get the list of foreign keys for the current
 	 * table
 	 *
-	 * @parma string $table
+	 * @param string $table
 	 * @return string
 	 */
 	public function fk_list($table)
@@ -245,8 +245,8 @@ SQL;
 				FROM "pg_class" "cl"
 				JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid"
 				JOIN "pg_constraint" "con1" ON "con1"."conrelid" = "cl"."oid"
-				WHERE "cl"."relname" = 'child_table'
-					AND "ns"."nspname" = 'child_schema'
+				WHERE "cl"."relname" = '{$table}'
+					AND "ns"."nspname" = 'public'
 					AND "con1"."contype" = 'f'
 				)
 				"con"

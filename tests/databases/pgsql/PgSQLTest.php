@@ -229,7 +229,7 @@ SQL;
 
 	// --------------------------------------------------------------------------
 
-	public function testGetsProcedures()
+	public function testGetProcedures()
 	{
 		$this->assertTrue(is_array($this->db->get_procedures()));
 	}

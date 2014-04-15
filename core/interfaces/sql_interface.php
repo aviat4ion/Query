@@ -126,7 +126,7 @@ interface SQL_Interface {
 	 * Get the list of foreign keys for the current
 	 * table
 	 *
-	 * @parma string $table
+	 * @param string $table
 	 * @return array
 	 */
 	public function fk_list($table);

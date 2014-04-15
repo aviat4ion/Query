@@ -27,7 +27,8 @@ ALTER TABLE TEST2 ADD CONSTRAINT TEST2_FIELD4_IDX UNIQUE (FIELD4);
 CREATE INDEX TEST2_FIELD5_IDX ON TEST2(FIELD5);
 
 -- TABLE NUMBERS
-CREATE TABLE IF NOT EXISTS NUMBERS (
+DROP TABLE IF EXISTS NUMBERS;
+CREATE TABLE NUMBERS (
   NUMBER INTEGER DEFAULT '0' NOT NULL,
   EN CHAR(100) NOT NULL,
   FR CHAR(100) NOT NULL
@@ -66,19 +67,22 @@ FROM NUMBERS
 WHERE NUMBER > 100;
 
 -- TABLEs for testing CONSTRAINTs
-CREATE TABLE IF NOT EXISTS testconstraints (
+DROP TABLE IF EXISTS testconstraints;
+CREATE TABLE testconstraints (
   someid integer NOT NULL,
   somename varchar(10) NOT NULL,
   CONSTRAINT testconstraints_id_pk PRIMARY KEY (someid)
 );
-CREATE TABLE IF NOT EXISTS testconstraints2 (
+DROP TABLE IF EXISTS testconstraints2;
+CREATE TABLE testconstraints2 (
   ext_id integer NOT NULL,
   modified date,
   uniquefield varchar(10) NOT NULL,
   usraction integer NOT NULL,
   CONSTRAINT testconstraints_id_fk FOREIGN KEY (ext_id)
-      REFERENCES testconstraints (someid) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE CASCADE,
+      REFERENCES testconstraints (someid)
+      ON UPDATE CASCADE
+	  ON DELETE CASCADE,
   CONSTRAINT unique_2_fields_idx UNIQUE (modified, usraction),
   CONSTRAINT uniquefld_idx UNIQUE (uniquefield)
 );
