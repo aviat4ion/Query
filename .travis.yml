@@ -8,11 +8,9 @@ php:
   - hhvm
 
 before_script:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev --no-interaction
-  - sh -c "psql -c 'DROP DATABASE IF EXISTS test;' -U postgres"
-  - sh -c "psql -c 'create database test;' -U postgres"
-  - sh -c "mysql -e 'create database IF NOT EXISTS test;'"
+  - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
+  - psql -c 'create database test;' -U postgres
+  - mysql -e 'create database IF NOT EXISTS test;'
 
 script:
   - mkdir -p build/logs
