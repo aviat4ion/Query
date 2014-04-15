@@ -1,912 +1,2279 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Query » \Query\Query_Builder_Interface</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Query</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Query</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Namespaces</a></li>
-<li><a href="../namespaces/Query.html"><i class="icon-th"></i> Query</a></li>
-<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
-<li><a>Packages</a></li>
-<li><a href="../packages/Query.html"><i class="icon-folder-open"></i> Query</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">0</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">2</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Query</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Query.html">\Query</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<div class="btn-toolbar">
-<div class="btn-group visibility" data-toggle="buttons-checkbox">
-<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
-</div>
-<div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-</div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
-<i title="Methods" class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1924430956"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1924430956" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1907695752"></a>
+                                <a href="../namespaces/Query.html" style="margin-left: 30px; padding-left: 0">Query</a>
+            </div>
+            <div id="namespace-1907695752" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1862427084"></a>
+                                <a href="../namespaces/Query.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
+            </div>
+            <div id="namespace-1862427084" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public "><a href="#method_count_all" title="count_all() :: Retreive the number of rows in the selected table"><span class="description">Retreive the number of rows in the selected table</span><pre>count_all()</pre></a></li>
-<li class="method public "><a href="#method_count_all_results" title="count_all_results() :: Retrieve the number of results for the generated query - used
-in place of the get() method"><span class="description">Retrieve the number of results for the generated query - used
-in place of the get() method</span><pre>count_all_results()</pre></a></li>
-<li class="method public "><a href="#method_delete" title="delete() :: Deletes data from a table"><span class="description">Deletes data from a table</span><pre>delete()</pre></a></li>
-<li class="method public "><a href="#method_distinct" title="distinct() :: Adds the 'distinct' keyword to a query"><span class="description">Adds the 'distinct' keyword to a query</span><pre>distinct()</pre></a></li>
-<li class="method public "><a href="#method_explain" title="explain() :: Shows the query plan for the query"><span class="description">Shows the query plan for the query</span><pre>explain()</pre></a></li>
-<li class="method public "><a href="#method_from" title="from() :: Specify the database table to select from"><span class="description">Specify the database table to select from</span><pre>from()</pre></a></li>
-<li class="method public "><a href="#method_get" title="get() :: Select and retrieve all records from the current table, and/or
-execute current compiled query"><span class="description">Select and retrieve all records from the current table, and/or
-execute current compiled query</span><pre>get()</pre></a></li>
-<li class="method public "><a href="#method_get_compiled_delete" title="get_compiled_delete() :: Returns the generated 'delete' sql query"><span class="description">Returns the generated 'delete' sql query</span><pre>get_compiled_delete()</pre></a></li>
-<li class="method public "><a href="#method_get_compiled_insert" title="get_compiled_insert() :: Returns the generated 'insert' sql query"><span class="description">Returns the generated 'insert' sql query</span><pre>get_compiled_insert()</pre></a></li>
-<li class="method public "><a href="#method_get_compiled_select" title="get_compiled_select() :: Returns the generated 'select' sql query"><span class="description">Returns the generated 'select' sql query</span><pre>get_compiled_select()</pre></a></li>
-<li class="method public "><a href="#method_get_compiled_update" title="get_compiled_update() :: Returns the generated 'update' sql query"><span class="description">Returns the generated 'update' sql query</span><pre>get_compiled_update()</pre></a></li>
-<li class="method public "><a href="#method_get_where" title="get_where() :: Convience method for get() with a where clause"><span class="description">Convience method for get() with a where clause</span><pre>get_where()</pre></a></li>
-<li class="method public "><a href="#method_group_by" title="group_by() :: Group the results by the selected field(s)"><span class="description">Group the results by the selected field(s)</span><pre>group_by()</pre></a></li>
-<li class="method public "><a href="#method_group_end" title="group_end() :: Ends a query group"><span class="description">Ends a query group</span><pre>group_end()</pre></a></li>
-<li class="method public "><a href="#method_group_start" title="group_start() :: Adds a paren to the current query for query grouping"><span class="description">Adds a paren to the current query for query grouping</span><pre>group_start()</pre></a></li>
-<li class="method public "><a href="#method_having" title="having() :: Generates a 'Having' clause"><span class="description">Generates a 'Having' clause</span><pre>having()</pre></a></li>
-<li class="method public "><a href="#method_insert" title="insert() :: Creates an insert clause, and executes it"><span class="description">Creates an insert clause, and executes it</span><pre>insert()</pre></a></li>
-<li class="method public "><a href="#method_insert_batch" title="insert_batch() :: Creates and executes a batch insertion query"><span class="description">Creates and executes a batch insertion query</span><pre>insert_batch()</pre></a></li>
-<li class="method public "><a href="#method_join" title="join() :: Creates a join phrase in a compiled query"><span class="description">Creates a join phrase in a compiled query</span><pre>join()</pre></a></li>
-<li class="method public "><a href="#method_like" title="like() :: Creates a Like clause in the sql statement"><span class="description">Creates a Like clause in the sql statement</span><pre>like()</pre></a></li>
-<li class="method public "><a href="#method_limit" title="limit() :: Set a limit on the current sql statement"><span class="description">Set a limit on the current sql statement</span><pre>limit()</pre></a></li>
-<li class="method public "><a href="#method_not_like" title="not_like() :: Generates a NOT LIKE clause"><span class="description">Generates a NOT LIKE clause</span><pre>not_like()</pre></a></li>
-<li class="method public "><a href="#method_or_group_start" title="or_group_start() :: Adds a paren to the current query for query grouping,
-prefixed with 'OR'"><span class="description">Adds a paren to the current query for query grouping,
-prefixed with 'OR'</span><pre>or_group_start()</pre></a></li>
-<li class="method public "><a href="#method_or_having" title="or_having() :: Generates a 'Having' clause prefixed with 'OR'"><span class="description">Generates a 'Having' clause prefixed with 'OR'</span><pre>or_having()</pre></a></li>
-<li class="method public "><a href="#method_or_like" title="or_like() :: Generates an OR Like clause"><span class="description">Generates an OR Like clause</span><pre>or_like()</pre></a></li>
-<li class="method public "><a href="#method_or_not_group_start" title="or_not_group_start() :: Adds a paren to the current query for query grouping,
-prefixed with 'OR NOT'"><span class="description">Adds a paren to the current query for query grouping,
-prefixed with 'OR NOT'</span><pre>or_not_group_start()</pre></a></li>
-<li class="method public "><a href="#method_or_not_like" title="or_not_like() :: Generates a OR NOT LIKE clause"><span class="description">Generates a OR NOT LIKE clause</span><pre>or_not_like()</pre></a></li>
-<li class="method public "><a href="#method_or_where" title='or_where() :: Where clause prefixed with "OR"'><span class="description">Where clause prefixed with "OR"</span><pre>or_where()</pre></a></li>
-<li class="method public "><a href="#method_or_where_in" title='or_where_in() :: Where in statement prefixed with "or"'><span class="description">Where in statement prefixed with "or"</span><pre>or_where_in()</pre></a></li>
-<li class="method public "><a href="#method_or_where_not_in" title="or_where_not_in() :: OR WHERE NOT IN (FOO) clause"><span class="description">OR WHERE NOT IN (FOO) clause</span><pre>or_where_not_in()</pre></a></li>
-<li class="method public "><a href="#method_order_by" title="order_by() :: Order the results by the selected field(s)"><span class="description">Order the results by the selected field(s)</span><pre>order_by()</pre></a></li>
-<li class="method public "><a href="#method_reset_query" title="reset_query() :: Clear out the class variables, so the next query can be run"><span class="description">Clear out the class variables, so the next query can be run</span><pre>reset_query()</pre></a></li>
-<li class="method public "><a href="#method_select" title="select() :: Specifies rows to select in a query"><span class="description">Specifies rows to select in a query</span><pre>select()</pre></a></li>
-<li class="method public "><a href="#method_select_avg" title="select_avg() :: Selects the average value of a field from a query"><span class="description">Selects the average value of a field from a query</span><pre>select_avg()</pre></a></li>
-<li class="method public "><a href="#method_select_max" title="select_max() :: Selects the maximum value of a field from a query"><span class="description">Selects the maximum value of a field from a query</span><pre>select_max()</pre></a></li>
-<li class="method public "><a href="#method_select_min" title="select_min() :: Selects the minimum value of a field from a query"><span class="description">Selects the minimum value of a field from a query</span><pre>select_min()</pre></a></li>
-<li class="method public "><a href="#method_select_sum" title="select_sum() :: Selects the sum of a field from a query"><span class="description">Selects the sum of a field from a query</span><pre>select_sum()</pre></a></li>
-<li class="method public "><a href="#method_set" title="set() :: Sets values for inserts / updates / deletes"><span class="description">Sets values for inserts / updates / deletes</span><pre>set()</pre></a></li>
-<li class="method public "><a href="#method_update" title="update() :: Creates an update clause, and executes it"><span class="description">Creates an update clause, and executes it</span><pre>update()</pre></a></li>
-<li class="method public "><a href="#method_where" title="where() :: Specify condition(s) in the where clause of a query
+                                                                                                    <li class="class"><a href="../classes/Query.Table.Abstract_Table.html">Abstract_Table</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Builder.html">Table_Builder</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Foreign_Key.html">Table_Foreign_Key</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Column.html">Table_Column</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Index.html">Table_Index</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-22768625"></a>
+                                <a href="../namespaces/Query.Driver.html" style="margin-left: 30px; padding-left: 0">Driver</a>
+            </div>
+            <div id="namespace-22768625" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Query.Driver.SQL_Interface.html">SQL_Interface</a></li>
+                                                    <li class="interface"><a href="../classes/Query.Driver.Driver_Interface.html">Driver_Interface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_SQL.html">Abstract_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_Result.html">Firebird_Result</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_Util.html">Firebird_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird.html">Firebird</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL_Util.html">MySQL_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_Util.html">Abstract_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_Driver.html">Abstract_Driver</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite_Util.html">SQLite_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL_Util.html">PgSQL_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL_SQL.html">PgSQL_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL_SQL.html">MySQL_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_SQL.html">Firebird_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite.html">SQLite</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite_SQL.html">SQLite_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL.html">PgSQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL.html">MySQL</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Query.Query_Builder_Interface.html">Query_Builder_Interface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Query.Query_Parser.html">Query_Parser</a></li>
+                                                    <li class="class"><a href="../classes/Query.Query_Builder.html">Query_Builder</a></li>
+                                                    <li class="class"><a href="../classes/Query.BadDBDriverException.html">BadDBDriverException</a></li>
+                                                    <li class="class"><a href="../classes/Query.Connection_Manager.html">Connection_Manager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Query.html">\Query</a>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Query</small>Query_Builder_Interface</h1>
+                    <p><em>Interface defining the Query Builder class</em></p>
+                    
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span6">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span6">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span6">
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_select">select()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_select_max">select_max()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_select_min">select_min()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_select_avg">select_avg()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_select_sum">select_sum()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_distinct">distinct()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_explain">explain()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_from">from()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_like">like()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_or_like">or_like()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_not_like">not_like()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_or_not_like">or_not_like()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_having">having()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_or_having">or_having()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_where">where()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_or_where">or_where()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_where_in">where_in()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_or_where_in">or_where_in()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_where_not_in">where_not_in()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_or_where_not_in">or_where_not_in()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_set">set()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_join">join()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_group_by">group_by()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_order_by">order_by()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_limit">limit()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_group_start">group_start()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_or_group_start">or_group_start()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_or_not_group_start">or_not_group_start()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_group_end">group_end()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_get">get()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_get_where">get_where()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_count_all">count_all()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_count_all_results">count_all_results()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_insert">insert()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_insert_batch">insert_batch()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_update">update()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_delete">delete()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_get_compiled_select">get_compiled_select()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_get_compiled_insert">get_compiled_insert()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_get_compiled_update">get_compiled_update()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_get_compiled_delete">get_compiled_delete()</a><br />
+                                                                    <a href="../classes/Query.Query_Builder_Interface.html#method_reset_query">reset_query()</a><br />
+                                                            </section>
+                            <section class="span6">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span6">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span6">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span6">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span6">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        <dl>
+                        <dt>File</dt>
+                            <dd>
+                                <a href="../files/core.interfaces.query_builder_interface.php.html"><div class="path-wrapper">core/interfaces/query_builder_interface.php</div></a>
+                            </dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Query\Query_Builder\Query_Builder</div></dd>
+                                                
+                                            </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>todo</th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+            
+                        <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Methods</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_select" name="method_select" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">select()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">select(string <span class="argument">$fields</span>) : \Query\Query_Builder</pre>
+                <p><em>Specifies rows to select in a query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fields</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_select_max" name="method_select_max" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">select_max()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">select_max(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : \Query\Query_Builder</pre>
+                <p><em>Selects the maximum value of a field from a query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$as</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_select_min" name="method_select_min" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">select_min()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">select_min(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : \Query\Query_Builder</pre>
+                <p><em>Selects the minimum value of a field from a query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$as</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_select_avg" name="method_select_avg" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">select_avg()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">select_avg(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : \Query\Query_Builder</pre>
+                <p><em>Selects the average value of a field from a query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$as</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_select_sum" name="method_select_sum" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">select_sum()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">select_sum(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : \Query\Query_Builder</pre>
+                <p><em>Selects the sum of a field from a query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$as</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_distinct" name="method_distinct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">distinct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">distinct() : \Query\Query_Builder</pre>
+                <p><em>Adds the &#039;distinct&#039; keyword to a query</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_explain" name="method_explain" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">explain()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">explain() : \Query\Query_Builder</pre>
+                <p><em>Shows the query plan for the query</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_from" name="method_from" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">from()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">from(string <span class="argument">$tblname</span>) : \Query\Query_Builder</pre>
+                <p><em>Specify the database table to select from</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tblname</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_like" name="method_like" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">like()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">like(string <span class="argument">$field</span>, mixed <span class="argument">$val</span>, string <span class="argument">$pos</span>) : \Query\Query_Builder</pre>
+                <p><em>Creates a Like clause in the sql statement</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pos</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_or_like" name="method_or_like" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">or_like()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">or_like(string <span class="argument">$field</span>, mixed <span class="argument">$val</span>, string <span class="argument">$pos</span>) : \Query\Query_Builder</pre>
+                <p><em>Generates an OR Like clause</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pos</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_not_like" name="method_not_like" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">not_like()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">not_like(string <span class="argument">$field</span>, mixed <span class="argument">$val</span>, string <span class="argument">$pos</span>) : \Query\Query_Builder</pre>
+                <p><em>Generates a NOT LIKE clause</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pos</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_or_not_like" name="method_or_not_like" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">or_not_like()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">or_not_like(string <span class="argument">$field</span>, mixed <span class="argument">$val</span>, string <span class="argument">$pos</span>) : \Query\Query_Builder</pre>
+                <p><em>Generates a OR NOT LIKE clause</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pos</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_having" name="method_having" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">having()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">having(mixed <span class="argument">$key</span>, mixed <span class="argument">$val</span>) : \Query\Query_Builder</pre>
+                <p><em>Generates a &#039;Having&#039; clause</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_or_having" name="method_or_having" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">or_having()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">or_having(mixed <span class="argument">$key</span>, mixed <span class="argument">$val</span>) : \Query\Query_Builder</pre>
+                <p><em>Generates a &#039;Having&#039; clause prefixed with &#039;OR&#039;</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_where" name="method_where" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">where()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">where(mixed <span class="argument">$key</span>, mixed <span class="argument">$val</span>, bool <span class="argument">$escape</span>) : \Query\Query_Builder</pre>
+                <p><em>Specify condition(s) in the where clause of a query
 Note: this function works with key / value, or a
-passed array with key / value pairs"><span class="description">Specify condition(s) in the where clause of a query
-Note: this function works with key / value, or a
-passed array with key / value pairs</span><pre>where()</pre></a></li>
-<li class="method public "><a href="#method_where_in" title="where_in() :: Where clause with 'IN' statement"><span class="description">Where clause with 'IN' statement</span><pre>where_in()</pre></a></li>
-<li class="method public "><a href="#method_where_not_in" title="where_not_in() :: WHERE NOT IN (FOO) clause"><span class="description">WHERE NOT IN (FOO) clause</span><pre>where_not_in()</pre></a></li>
-</ul>
-</li></ul>
-</div>
-<div class="span8">
-<a id="\Query\Query_Builder_Interface"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Query.html">Query</a></li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/Query.Query_Builder_Interface.html">Query_Builder_Interface</a>
-</li>
-</ul>
-<div class="element interface">
-<p class="short_description">Interface defining the Query Builder class</p>
-<div class="details">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>package</th>
-<td><a href="../packages/Query.Query_Builder.html">Query</a></td>
-</tr>
-<tr>
-<th>subpackage</th>
-<td>Query_Builder</td>
-</tr>
-</table>
-<h3>
-<i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
-<a id="method_count_all"></a><div class="element clickable method public method_count_all" data-toggle="collapse" data-target=".method_count_all .collapse" title="public">
-<h2>Retreive the number of rows in the selected table</h2>
-<pre>count_all(string $table) : int</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>int</code></div>
-</div></div>
-</div>
-<a id="method_count_all_results"></a><div class="element clickable method public method_count_all_results" data-toggle="collapse" data-target=".method_count_all_results .collapse" title="public">
-<h2>Retrieve the number of results for the generated query - used
-in place of the get() method</h2>
-<pre>count_all_results(string $table<code> = ''</code>) : int</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>int</code></div>
-</div></div>
-</div>
-<a id="method_delete"></a><div class="element clickable method public method_delete" data-toggle="collapse" data-target=".method_delete .collapse" title="public">
-<h2>Deletes data from a table</h2>
-<pre>delete(string $table, mixed $where<code> = ''</code>) : <a href="PDOStatement.html">\Query\PDOStatement</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$where</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="PDOStatement.html">\Query\PDOStatement</a></code></div>
-</div></div>
-</div>
-<a id="method_distinct"></a><div class="element clickable method public method_distinct" data-toggle="collapse" data-target=".method_distinct .collapse" title="public">
-<h2>Adds the 'distinct' keyword to a query</h2>
-<pre>distinct() : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_explain"></a><div class="element clickable method public method_explain" data-toggle="collapse" data-target=".method_explain .collapse" title="public">
-<h2>Shows the query plan for the query</h2>
-<pre>explain() : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_from"></a><div class="element clickable method public method_from" data-toggle="collapse" data-target=".method_from .collapse" title="public">
-<h2>Specify the database table to select from</h2>
-<pre>from(string $tblname) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$tblname</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_get"></a><div class="element clickable method public method_get" data-toggle="collapse" data-target=".method_get .collapse" title="public">
-<h2>Select and retrieve all records from the current table, and/or
-execute current compiled query</h2>
-<pre>get(mixed $table<code> = ''</code>, int $limit<code> = FALSE</code>, int $offset<code> = FALSE</code>) : <a href="PDOStatement.html">\Query\PDOStatement</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$table</h4></div>
-<div class="subelement argument">
-<h4>$limit</h4>
-<code>int</code>
-</div>
-<div class="subelement argument">
-<h4>$offset</h4>
-<code>int</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="PDOStatement.html">\Query\PDOStatement</a></code></div>
-</div></div>
-</div>
-<a id="method_get_compiled_delete"></a><div class="element clickable method public method_get_compiled_delete" data-toggle="collapse" data-target=".method_get_compiled_delete .collapse" title="public">
-<h2>Returns the generated 'delete' sql query</h2>
-<pre>get_compiled_delete(string $table<code> = ""</code>, bool $reset<code> = TRUE</code>) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$reset</h4>
-<code>bool</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_get_compiled_insert"></a><div class="element clickable method public method_get_compiled_insert" data-toggle="collapse" data-target=".method_get_compiled_insert .collapse" title="public">
-<h2>Returns the generated 'insert' sql query</h2>
-<pre>get_compiled_insert(string $table, bool $reset<code> = TRUE</code>) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$reset</h4>
-<code>bool</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_get_compiled_select"></a><div class="element clickable method public method_get_compiled_select" data-toggle="collapse" data-target=".method_get_compiled_select .collapse" title="public">
-<h2>Returns the generated 'select' sql query</h2>
-<pre>get_compiled_select(string $table<code> = ''</code>, bool $reset<code> = TRUE</code>) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$reset</h4>
-<code>bool</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_get_compiled_update"></a><div class="element clickable method public method_get_compiled_update" data-toggle="collapse" data-target=".method_get_compiled_update .collapse" title="public">
-<h2>Returns the generated 'update' sql query</h2>
-<pre>get_compiled_update(string $table<code> = ''</code>, bool $reset<code> = TRUE</code>) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$reset</h4>
-<code>bool</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_get_where"></a><div class="element clickable method public method_get_where" data-toggle="collapse" data-target=".method_get_where .collapse" title="public">
-<h2>Convience method for get() with a where clause</h2>
-<pre>get_where(string $table, array $where<code> = array()</code>, int $limit<code> = FALSE</code>, int $offset<code> = FALSE</code>) : <a href="PDOStatement.html">\Query\PDOStatement</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$where</h4>
-<code>array</code>
-</div>
-<div class="subelement argument">
-<h4>$limit</h4>
-<code>int</code>
-</div>
-<div class="subelement argument">
-<h4>$offset</h4>
-<code>int</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="PDOStatement.html">\Query\PDOStatement</a></code></div>
-</div></div>
-</div>
-<a id="method_group_by"></a><div class="element clickable method public method_group_by" data-toggle="collapse" data-target=".method_group_by .collapse" title="public">
-<h2>Group the results by the selected field(s)</h2>
-<pre>group_by(mixed $field) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_group_end"></a><div class="element clickable method public method_group_end" data-toggle="collapse" data-target=".method_group_end .collapse" title="public">
-<h2>Ends a query group</h2>
-<pre>group_end() : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_group_start"></a><div class="element clickable method public method_group_start" data-toggle="collapse" data-target=".method_group_start .collapse" title="public">
-<h2>Adds a paren to the current query for query grouping</h2>
-<pre>group_start() : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_having"></a><div class="element clickable method public method_having" data-toggle="collapse" data-target=".method_having .collapse" title="public">
-<h2>Generates a 'Having' clause</h2>
-<pre>having(mixed $key, mixed $val<code> = array()</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$key</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_insert"></a><div class="element clickable method public method_insert" data-toggle="collapse" data-target=".method_insert .collapse" title="public">
-<h2>Creates an insert clause, and executes it</h2>
-<pre>insert(string $table, mixed $data<code> = array()</code>) : <a href="PDOStatement.html">\Query\PDOStatement</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$data</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="PDOStatement.html">\Query\PDOStatement</a></code></div>
-</div></div>
-</div>
-<a id="method_insert_batch"></a><div class="element clickable method public method_insert_batch" data-toggle="collapse" data-target=".method_insert_batch .collapse" title="public">
-<h2>Creates and executes a batch insertion query</h2>
-<pre>insert_batch(string $table, array $data<code> = array()</code>) : <a href="PDOStatement.html">\PDOStatement</a> | null</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$data</h4>
-<code>array</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response">
-<code><a href="PDOStatement.html">\PDOStatement</a></code><code>null</code>
-</div>
-</div></div>
-</div>
-<a id="method_join"></a><div class="element clickable method public method_join" data-toggle="collapse" data-target=".method_join .collapse" title="public">
-<h2>Creates a join phrase in a compiled query</h2>
-<pre>join(string $table, string $condition, string $type<code> = ''</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$condition</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$type</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_like"></a><div class="element clickable method public method_like" data-toggle="collapse" data-target=".method_like .collapse" title="public">
-<h2>Creates a Like clause in the sql statement</h2>
-<pre>like(string $field, mixed $val, string $pos<code> = 'both'</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$pos</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_limit"></a><div class="element clickable method public method_limit" data-toggle="collapse" data-target=".method_limit .collapse" title="public">
-<h2>Set a limit on the current sql statement</h2>
-<pre>limit(int $limit, int $offset<code> = FALSE</code>) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$limit</h4>
-<code>int</code>
-</div>
-<div class="subelement argument">
-<h4>$offset</h4>
-<code>int</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_not_like"></a><div class="element clickable method public method_not_like" data-toggle="collapse" data-target=".method_not_like .collapse" title="public">
-<h2>Generates a NOT LIKE clause</h2>
-<pre>not_like(string $field, mixed $val, string $pos<code> = 'both'</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$pos</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_or_group_start"></a><div class="element clickable method public method_or_group_start" data-toggle="collapse" data-target=".method_or_group_start .collapse" title="public">
-<h2>Adds a paren to the current query for query grouping,
-prefixed with 'OR'</h2>
-<pre>or_group_start() : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_or_having"></a><div class="element clickable method public method_or_having" data-toggle="collapse" data-target=".method_or_having .collapse" title="public">
-<h2>Generates a 'Having' clause prefixed with 'OR'</h2>
-<pre>or_having(mixed $key, mixed $val<code> = array()</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$key</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_or_like"></a><div class="element clickable method public method_or_like" data-toggle="collapse" data-target=".method_or_like .collapse" title="public">
-<h2>Generates an OR Like clause</h2>
-<pre>or_like(string $field, mixed $val, string $pos<code> = 'both'</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$pos</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_or_not_group_start"></a><div class="element clickable method public method_or_not_group_start" data-toggle="collapse" data-target=".method_or_not_group_start .collapse" title="public">
-<h2>Adds a paren to the current query for query grouping,
-prefixed with 'OR NOT'</h2>
-<pre>or_not_group_start() : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_or_not_like"></a><div class="element clickable method public method_or_not_like" data-toggle="collapse" data-target=".method_or_not_like .collapse" title="public">
-<h2>Generates a OR NOT LIKE clause</h2>
-<pre>or_not_like(string $field, mixed $val, string $pos<code> = 'both'</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$pos</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_or_where"></a><div class="element clickable method public method_or_where" data-toggle="collapse" data-target=".method_or_where .collapse" title="public">
-<h2>Where clause prefixed with "OR"</h2>
-<pre>or_where(string $key, mixed $val<code> = array()</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$key</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_or_where_in"></a><div class="element clickable method public method_or_where_in" data-toggle="collapse" data-target=".method_or_where_in .collapse" title="public">
-<h2>Where in statement prefixed with "or"</h2>
-<pre>or_where_in(string $field, mixed $val<code> = array()</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_or_where_not_in"></a><div class="element clickable method public method_or_where_not_in" data-toggle="collapse" data-target=".method_or_where_not_in .collapse" title="public">
-<h2>OR WHERE NOT IN (FOO) clause</h2>
-<pre>or_where_not_in(string $field, mixed $val<code> = array()</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_order_by"></a><div class="element clickable method public method_order_by" data-toggle="collapse" data-target=".method_order_by .collapse" title="public">
-<h2>Order the results by the selected field(s)</h2>
-<pre>order_by(string $field, string $type<code> = ""</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$type</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_reset_query"></a><div class="element clickable method public method_reset_query" data-toggle="collapse" data-target=".method_reset_query .collapse" title="public">
-<h2>Clear out the class variables, so the next query can be run</h2>
-<pre>reset_query() : void</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_select"></a><div class="element clickable method public method_select" data-toggle="collapse" data-target=".method_select .collapse" title="public">
-<h2>Specifies rows to select in a query</h2>
-<pre>select(string $fields) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$fields</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_select_avg"></a><div class="element clickable method public method_select_avg" data-toggle="collapse" data-target=".method_select_avg .collapse" title="public">
-<h2>Selects the average value of a field from a query</h2>
-<pre>select_avg(string $field, string $as<code> = FALSE</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$as</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_select_max"></a><div class="element clickable method public method_select_max" data-toggle="collapse" data-target=".method_select_max .collapse" title="public">
-<h2>Selects the maximum value of a field from a query</h2>
-<pre>select_max(string $field, string $as<code> = FALSE</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$as</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_select_min"></a><div class="element clickable method public method_select_min" data-toggle="collapse" data-target=".method_select_min .collapse" title="public">
-<h2>Selects the minimum value of a field from a query</h2>
-<pre>select_min(string $field, string $as<code> = FALSE</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$as</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_select_sum"></a><div class="element clickable method public method_select_sum" data-toggle="collapse" data-target=".method_select_sum .collapse" title="public">
-<h2>Selects the sum of a field from a query</h2>
-<pre>select_sum(string $field, string $as<code> = FALSE</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$as</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_set"></a><div class="element clickable method public method_set" data-toggle="collapse" data-target=".method_set .collapse" title="public">
-<h2>Sets values for inserts / updates / deletes</h2>
-<pre>set(mixed $key, mixed $val<code> = NULL</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$key</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_update"></a><div class="element clickable method public method_update" data-toggle="collapse" data-target=".method_update .collapse" title="public">
-<h2>Creates an update clause, and executes it</h2>
-<pre>update(string $table, mixed $data<code> = array()</code>) : <a href="PDOStatement.html">\Query\PDOStatement</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$table</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$data</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="PDOStatement.html">\Query\PDOStatement</a></code></div>
-</div></div>
-</div>
-<a id="method_where"></a><div class="element clickable method public method_where" data-toggle="collapse" data-target=".method_where .collapse" title="public">
-<h2>Specify condition(s) in the where clause of a query
-Note: this function works with key / value, or a
-passed array with key / value pairs</h2>
-<pre>where(mixed $key, mixed $val<code> = array()</code>, bool $escape<code> = NULL</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$key</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$escape</h4>
-<code>bool</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_where_in"></a><div class="element clickable method public method_where_in" data-toggle="collapse" data-target=".method_where_in .collapse" title="public">
-<h2>Where clause with 'IN' statement</h2>
-<pre>where_in(mixed $field, mixed $val<code> = array()</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>mixed</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_where_not_in"></a><div class="element clickable method public method_where_not_in" data-toggle="collapse" data-target=".method_where_not_in .collapse" title="public">
-<h2>WHERE NOT IN (FOO) clause</h2>
-<pre>where_not_in(string $field, mixed $val<code> = array()</code>) : <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$field</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$val</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></code></div>
-</div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row"><footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
-</a> and<br>
-            generated on 2014-04-10T15:54:52-04:00.<br></footer></div>
-</div>
+passed array with key / value pairs</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$escape</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_or_where" name="method_or_where" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">or_where()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">or_where(string <span class="argument">$key</span>, mixed <span class="argument">$val</span>) : \Query\Query_Builder</pre>
+                <p><em>Where clause prefixed with &quot;OR&quot;</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_where_in" name="method_where_in" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">where_in()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">where_in(mixed <span class="argument">$field</span>, mixed <span class="argument">$val</span>) : \Query\Query_Builder</pre>
+                <p><em>Where clause with &#039;IN&#039; statement</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_or_where_in" name="method_or_where_in" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">or_where_in()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">or_where_in(string <span class="argument">$field</span>, mixed <span class="argument">$val</span>) : \Query\Query_Builder</pre>
+                <p><em>Where in statement prefixed with &quot;or&quot;</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_where_not_in" name="method_where_not_in" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">where_not_in()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">where_not_in(string <span class="argument">$field</span>, mixed <span class="argument">$val</span>) : \Query\Query_Builder</pre>
+                <p><em>WHERE NOT IN (FOO) clause</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_or_where_not_in" name="method_or_where_not_in" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">or_where_not_in()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">or_where_not_in(string <span class="argument">$field</span>, mixed <span class="argument">$val</span>) : \Query\Query_Builder</pre>
+                <p><em>OR WHERE NOT IN (FOO) clause</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set" name="method_set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set(mixed <span class="argument">$key</span>, mixed <span class="argument">$val</span>) : \Query\Query_Builder</pre>
+                <p><em>Sets values for inserts / updates / deletes</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$val</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_join" name="method_join" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">join()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">join(string <span class="argument">$table</span>, string <span class="argument">$condition</span>, string <span class="argument">$type</span>) : \Query\Query_Builder</pre>
+                <p><em>Creates a join phrase in a compiled query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$condition</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_group_by" name="method_group_by" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">group_by()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">group_by(mixed <span class="argument">$field</span>) : \Query\Query_Builder</pre>
+                <p><em>Group the results by the selected field(s)</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_order_by" name="method_order_by" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">order_by()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">order_by(string <span class="argument">$field</span>, string <span class="argument">$type</span>) : \Query\Query_Builder</pre>
+                <p><em>Order the results by the selected field(s)</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_limit" name="method_limit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">limit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">limit(int <span class="argument">$limit</span>, int <span class="argument">$offset</span>) : string</pre>
+                <p><em>Set a limit on the current sql statement</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$limit</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$offset</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_group_start" name="method_group_start" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">group_start()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">group_start() : \Query\Query_Builder</pre>
+                <p><em>Adds a paren to the current query for query grouping</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_or_group_start" name="method_or_group_start" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">or_group_start()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">or_group_start() : \Query\Query_Builder</pre>
+                <p><em>Adds a paren to the current query for query grouping,
+prefixed with &#039;OR&#039;</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_or_not_group_start" name="method_or_not_group_start" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">or_not_group_start()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">or_not_group_start() : \Query\Query_Builder</pre>
+                <p><em>Adds a paren to the current query for query grouping,
+prefixed with &#039;OR NOT&#039;</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_group_end" name="method_group_end" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">group_end()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">group_end() : \Query\Query_Builder</pre>
+                <p><em>Ends a query group</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get" name="method_get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get(mixed <span class="argument">$table</span>, int <span class="argument">$limit</span>, int <span class="argument">$offset</span>) : \Query\PDOStatement</pre>
+                <p><em>Select and retrieve all records from the current table, and/or
+execute current compiled query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$limit</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$offset</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Query\PDOStatement
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_where" name="method_get_where" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_where()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_where(string <span class="argument">$table</span>, array <span class="argument">$where</span>, int <span class="argument">$limit</span>, int <span class="argument">$offset</span>) : \Query\PDOStatement</pre>
+                <p><em>Convience method for get() with a where clause</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$where</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$limit</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$offset</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Query\PDOStatement
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_count_all" name="method_count_all" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">count_all()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">count_all(string <span class="argument">$table</span>) : int</pre>
+                <p><em>Retreive the number of rows in the selected table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_count_all_results" name="method_count_all_results" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">count_all_results()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">count_all_results(string <span class="argument">$table</span>) : int</pre>
+                <p><em>Retrieve the number of results for the generated query - used
+in place of the get() method</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_insert" name="method_insert" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">insert()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">insert(string <span class="argument">$table</span>, mixed <span class="argument">$data</span>) : \Query\PDOStatement</pre>
+                <p><em>Creates an insert clause, and executes it</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$data</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Query\PDOStatement
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_insert_batch" name="method_insert_batch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">insert_batch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">insert_batch(string <span class="argument">$table</span>, array <span class="argument">$data</span>) : \PDOStatement|null</pre>
+                <p><em>Creates and executes a batch insertion query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \PDOStatement|null
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_update" name="method_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">update(string <span class="argument">$table</span>, mixed <span class="argument">$data</span>) : \Query\PDOStatement</pre>
+                <p><em>Creates an update clause, and executes it</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$data</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Query\PDOStatement
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_delete" name="method_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">delete(string <span class="argument">$table</span>, mixed <span class="argument">$where</span>) : \Query\PDOStatement</pre>
+                <p><em>Deletes data from a table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$where</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Query\PDOStatement
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_compiled_select" name="method_get_compiled_select" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_compiled_select()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_compiled_select(string <span class="argument">$table</span>, bool <span class="argument">$reset</span>) : string</pre>
+                <p><em>Returns the generated &#039;select&#039; sql query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$reset</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_compiled_insert" name="method_get_compiled_insert" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_compiled_insert()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_compiled_insert(string <span class="argument">$table</span>, bool <span class="argument">$reset</span>) : string</pre>
+                <p><em>Returns the generated &#039;insert&#039; sql query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$reset</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_compiled_update" name="method_get_compiled_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_compiled_update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_compiled_update(string <span class="argument">$table</span>, bool <span class="argument">$reset</span>) : string</pre>
+                <p><em>Returns the generated &#039;update&#039; sql query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$reset</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_compiled_delete" name="method_get_compiled_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_compiled_delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_compiled_delete(string <span class="argument">$table</span>, bool <span class="argument">$reset</span>) : string</pre>
+                <p><em>Returns the generated &#039;delete&#039; sql query</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$reset</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_reset_query" name="method_reset_query" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">reset_query()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">reset_query() : void</pre>
+                <p><em>Clear out the class variables, so the next query can be run</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">query_builder_interface.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core/interfaces/query_builder_interface.php.txt" class="language-php"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Query.html">\Query</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on April 15th, 2014 at 16:12.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
 </body>
 </html>

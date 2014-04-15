@@ -1,244 +1,734 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Query » \Query\Driver\Driver_Interface</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Query</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Query</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Namespaces</a></li>
-<li><a href="../namespaces/Query.html"><i class="icon-th"></i> Query</a></li>
-<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
-<li><a>Packages</a></li>
-<li><a href="../packages/Query.html"><i class="icon-folder-open"></i> Query</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">0</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">2</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Query</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Query.html">\Query</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<div class="btn-toolbar">
-<div class="btn-group visibility" data-toggle="buttons-checkbox">
-<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
-</div>
-<div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-</div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
-<i title="Methods" class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-296873087"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-296873087" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-640081463"></a>
+                                <a href="../namespaces/Query.html" style="margin-left: 30px; padding-left: 0">Query</a>
+            </div>
+            <div id="namespace-640081463" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1261308552"></a>
+                                <a href="../namespaces/Query.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
+            </div>
+            <div id="namespace-1261308552" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct() :: Constructor/Connection method"><span class="description">Constructor/Connection method</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_beginTransaction" title="beginTransaction() :: Begin a transaction"><span class="description">Begin a transaction</span><pre>beginTransaction()</pre></a></li>
-<li class="method public "><a href="#method_commit" title="commit() :: Commit a transaction"><span class="description">Commit a transaction</span><pre>commit()</pre></a></li>
-<li class="method public "><a href="#method_errorCode" title="errorCode() :: Return the current error code"><span class="description">Return the current error code</span><pre>errorCode()</pre></a></li>
-<li class="method public "><a href="#method_errorInfo" title="errorInfo() :: Return information about the current error"><span class="description">Return information about the current error</span><pre>errorInfo()</pre></a></li>
-<li class="method public "><a href="#method_exec" title="exec() :: Execute an SQL statement and return the number of affected rows"><span class="description">Execute an SQL statement and return the number of affected rows</span><pre>exec()</pre></a></li>
-<li class="method public "><a href="#method_getAttribute" title="getAttribute() :: Get a connection attribute for the current db driver"><span class="description">Get a connection attribute for the current db driver</span><pre>getAttribute()</pre></a></li>
-<li class="method public "><a href="#method_rollback" title="rollback() :: Rollback a transaction"><span class="description">Rollback a transaction</span><pre>rollback()</pre></a></li>
-<li class="method public "><a href="#method_setAttribute" title="setAttribute() :: Set a connection attribute"><span class="description">Set a connection attribute</span><pre>setAttribute()</pre></a></li>
-</ul>
-</li></ul>
+                                                                                                    <li class="class"><a href="../classes/Query.Table.Abstract_Table.html">Abstract_Table</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Builder.html">Table_Builder</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Foreign_Key.html">Table_Foreign_Key</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Column.html">Table_Column</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Index.html">Table_Index</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1488734123"></a>
+                                <a href="../namespaces/Query.Driver.html" style="margin-left: 30px; padding-left: 0">Driver</a>
+            </div>
+            <div id="namespace-1488734123" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Query.Driver.SQL_Interface.html">SQL_Interface</a></li>
+                                                    <li class="interface"><a href="../classes/Query.Driver.Driver_Interface.html">Driver_Interface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_SQL.html">Abstract_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_Result.html">Firebird_Result</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_Util.html">Firebird_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird.html">Firebird</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL_Util.html">MySQL_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_Util.html">Abstract_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_Driver.html">Abstract_Driver</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite_Util.html">SQLite_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL_Util.html">PgSQL_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL_SQL.html">PgSQL_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL_SQL.html">MySQL_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_SQL.html">Firebird_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite.html">SQLite</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite_SQL.html">SQLite_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL.html">PgSQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL.html">MySQL</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Query.Query_Builder_Interface.html">Query_Builder_Interface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Query.Query_Parser.html">Query_Parser</a></li>
+                                                    <li class="class"><a href="../classes/Query.Query_Builder.html">Query_Builder</a></li>
+                                                    <li class="class"><a href="../classes/Query.BadDBDriverException.html">BadDBDriverException</a></li>
+                                                    <li class="class"><a href="../classes/Query.Connection_Manager.html">Connection_Manager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Query.Driver.html">\Query\Driver</a>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Query\Driver</small>Driver_Interface</h1>
+                    <p><em>PDO Interface to implement for database drivers</em></p>
+                    
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span6">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span6">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span6">
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method___construct">__construct()</a><br />
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method_beginTransaction">beginTransaction()</a><br />
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method_commit">commit()</a><br />
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method_errorCode">errorCode()</a><br />
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method_errorInfo">errorInfo()</a><br />
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method_exec">exec()</a><br />
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method_getAttribute">getAttribute()</a><br />
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method_rollback">rollback()</a><br />
+                                                                    <a href="../classes/Query.Driver.Driver_Interface.html#method_setAttribute">setAttribute()</a><br />
+                                                            </section>
+                            <section class="span6">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span6">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span6">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span6">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span6">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        <dl>
+                        <dt>File</dt>
+                            <dd>
+                                <a href="../files/core.interfaces.driver_interface.php.html"><div class="path-wrapper">core/interfaces/driver_interface.php</div></a>
+                            </dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Query\Drivers\Drivers</div></dd>
+                                                
+                                            </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>todo</th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+            
+                        <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Methods</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string <span class="argument">$dsn</span>, \Query\Driver\[string] <span class="argument">$username</span>, \Query\Driver\[string] <span class="argument">$password</span>, \Query\Driver\[array] <span class="argument">$driver_options</span>) : void</pre>
+                <p><em>Constructor/Connection method</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dsn</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Query\Driver\[string]</td>
+                                <td>$username</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Query\Driver\[string]</td>
+                                <td>$password</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Query\Driver\[array]</td>
+                                <td>$driver_options</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_beginTransaction" name="method_beginTransaction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">beginTransaction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">beginTransaction() : bool</pre>
+                <p><em>Begin a transaction</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_commit" name="method_commit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">commit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">commit() : bool</pre>
+                <p><em>Commit a transaction</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_errorCode" name="method_errorCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">errorCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">errorCode() : mixed</pre>
+                <p><em>Return the current error code</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_errorInfo" name="method_errorInfo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">errorInfo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">errorInfo() : array</pre>
+                <p><em>Return information about the current error</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exec" name="method_exec" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exec()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exec(string <span class="argument">$statement</span>) : int</pre>
+                <p><em>Execute an SQL statement and return the number of affected rows</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$statement</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAttribute" name="method_getAttribute" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAttribute()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAttribute(int <span class="argument">$attribute</span>)</pre>
+                <p><em>Get a connection attribute for the current db driver</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$attribute</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            returm
+                        </th>
+                        <td>
+                                                                                            <p>mixed</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rollback" name="method_rollback" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">rollback()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rollback() : bool</pre>
+                <p><em>Rollback a transaction</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAttribute" name="method_setAttribute" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAttribute()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAttribute(int <span class="argument">$attribute</span>, mixed <span class="argument">$value</span>) : bool</pre>
+                <p><em>Set a connection attribute</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$attribute</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">driver_interface.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core/interfaces/driver_interface.php.txt" class="language-php"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Query.html">\Query</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on April 15th, 2014 at 16:12.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
-<div class="span8">
-<a id="\Query\Driver\Driver_Interface"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Query.html">Query</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Query.Driver.html">Driver</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/Query.Driver.Driver_Interface.html">Driver_Interface</a>
-</li>
-</ul>
-<div class="element interface">
-<p class="short_description">PDO Interface to implement for database drivers</p>
-<div class="details">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>package</th>
-<td><a href="../packages/Query.Drivers.html">Query</a></td>
-</tr>
-<tr>
-<th>subpackage</th>
-<td>Drivers</td>
-</tr>
-</table>
-<h3>
-<i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
-<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse" title="public">
-<h2>Constructor/Connection method</h2>
-<pre>__construct(string $dsn, \Query\Driver\[string] $username<code> = NULL</code>, \Query\Driver\[string] $password<code> = NULL</code>, \Query\Driver\[array] $driver_options<code> = array()</code>) : void</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$dsn</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$username</h4>
-<code><a href="%5Bstring%5D.html">\Query\Driver\[string]</a></code>
-</div>
-<div class="subelement argument">
-<h4>$password</h4>
-<code><a href="%5Bstring%5D.html">\Query\Driver\[string]</a></code>
-</div>
-<div class="subelement argument">
-<h4>$driver_options</h4>
-<code><a href="%5Barray%5D.html">\Query\Driver\[array]</a></code>
-</div>
-</div></div>
-</div>
-<a id="method_beginTransaction"></a><div class="element clickable method public method_beginTransaction" data-toggle="collapse" data-target=".method_beginTransaction .collapse" title="public">
-<h2>Begin a transaction</h2>
-<pre>beginTransaction() : bool</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>bool</code></div>
-</div></div>
-</div>
-<a id="method_commit"></a><div class="element clickable method public method_commit" data-toggle="collapse" data-target=".method_commit .collapse" title="public">
-<h2>Commit a transaction</h2>
-<pre>commit() : bool</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>bool</code></div>
-</div></div>
-</div>
-<a id="method_errorCode"></a><div class="element clickable method public method_errorCode" data-toggle="collapse" data-target=".method_errorCode .collapse" title="public">
-<h2>Return the current error code</h2>
-<pre>errorCode() : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
-<a id="method_errorInfo"></a><div class="element clickable method public method_errorInfo" data-toggle="collapse" data-target=".method_errorInfo .collapse" title="public">
-<h2>Return information about the current error</h2>
-<pre>errorInfo() : array</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>array</code></div>
-</div></div>
-</div>
-<a id="method_exec"></a><div class="element clickable method public method_exec" data-toggle="collapse" data-target=".method_exec .collapse" title="public">
-<h2>Execute an SQL statement and return the number of affected rows</h2>
-<pre>exec(string $statement) : int</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$statement</h4>
-<code>string</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>int</code></div>
-</div></div>
-</div>
-<a id="method_getAttribute"></a><div class="element clickable method public method_getAttribute" data-toggle="collapse" data-target=".method_getAttribute .collapse" title="public">
-<h2>Get a connection attribute for the current db driver</h2>
-<pre>getAttribute(int $attribute) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>returm</th>
-<td>mixed</td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$attribute</h4>
-<code>int</code>
-</div>
-</div></div>
-</div>
-<a id="method_rollback"></a><div class="element clickable method public method_rollback" data-toggle="collapse" data-target=".method_rollback .collapse" title="public">
-<h2>Rollback a transaction</h2>
-<pre>rollback() : bool</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>bool</code></div>
-</div></div>
-</div>
-<a id="method_setAttribute"></a><div class="element clickable method public method_setAttribute" data-toggle="collapse" data-target=".method_setAttribute .collapse" title="public">
-<h2>Set a connection attribute</h2>
-<pre>setAttribute(int $attribute, mixed $value) : bool</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$attribute</h4>
-<code>int</code>
-</div>
-<div class="subelement argument">
-<h4>$value</h4>
-<code>mixed</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>bool</code></div>
-</div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row"><footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
-</a> and<br>
-            generated on 2014-04-10T15:54:52-04:00.<br></footer></div>
-</div>
+
 </body>
 </html>

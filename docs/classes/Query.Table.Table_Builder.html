@@ -1,519 +1,1608 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Query » \Query\Table\Table_Builder</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Query</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Query</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Namespaces</a></li>
-<li><a href="../namespaces/Query.html"><i class="icon-th"></i> Query</a></li>
-<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
-<li><a>Packages</a></li>
-<li><a href="../packages/Query.html"><i class="icon-folder-open"></i> Query</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">0</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">2</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Query</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Query.html">\Query</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<div class="btn-toolbar">
-<div class="btn-group visibility" data-toggle="buttons-checkbox">
-<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
-</div>
-<div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-</div>
-<ul class="side-nav nav nav-list">
-<li class="nav-header">
-<i title="Methods" class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1958887817"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1958887817" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1986692702"></a>
+                                <a href="../namespaces/Query.html" style="margin-left: 30px; padding-left: 0">Query</a>
+            </div>
+            <div id="namespace-1986692702" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1618644313"></a>
+                                <a href="../namespaces/Query.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
+            </div>
+            <div id="namespace-1618644313" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct() :: Constructor"><span class="description">Constructor</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method___invoke" title="__invoke() :: Alias to constructor"><span class="description">Alias to constructor</span><pre>__invoke()</pre></a></li>
-<li class="method public "><a href="#method_add_column" title="add_column() :: Add a column to the current table"><span class="description">Add a column to the current table</span><pre>add_column()</pre></a></li>
-<li class="method public "><a href="#method_add_foreign_key" title="add_foreign_key() :: "><span class="description">add_foreign_key()
-        </span><pre>add_foreign_key()</pre></a></li>
-<li class="method public "><a href="#method_add_index" title="add_index() :: "><span class="description">add_index()
-        </span><pre>add_index()</pre></a></li>
-<li class="method public "><a href="#method_change_column" title="change_column() :: "><span class="description">change_column()
-        </span><pre>change_column()</pre></a></li>
-<li class="method public "><a href="#method_create" title="create() :: "><span class="description">create()
-        </span><pre>create()</pre></a></li>
-<li class="method public "><a href="#method_drop" title="drop() :: "><span class="description">drop()
-        </span><pre>drop()</pre></a></li>
-<li class="method public "><a href="#method_drop_foreign_key" title="drop_foreign_key() :: "><span class="description">drop_foreign_key()
-        </span><pre>drop_foreign_key()</pre></a></li>
-<li class="method public "><a href="#method_exists" title="exists() :: "><span class="description">exists()
-        </span><pre>exists()</pre></a></li>
-<li class="method public "><a href="#method_get_columns" title="get_columns() :: "><span class="description">get_columns()
-        </span><pre>get_columns()</pre></a></li>
-<li class="method public "><a href="#method_get_driver" title="get_driver() :: Get the current DB Driver"><span class="description">Get the current DB Driver</span><pre>get_driver()</pre></a></li>
-<li class="method public "><a href="#method_has_column" title="has_column() :: "><span class="description">has_column()
-        </span><pre>has_column()</pre></a></li>
-<li class="method public "><a href="#method_has_foreign_key" title="has_foreign_key() :: "><span class="description">has_foreign_key()
-        </span><pre>has_foreign_key()</pre></a></li>
-<li class="method public "><a href="#method_has_index" title="has_index() :: "><span class="description">has_index()
-        </span><pre>has_index()</pre></a></li>
-<li class="method public "><a href="#method_remove_column" title="remove_column() :: "><span class="description">remove_column()
-        </span><pre>remove_column()</pre></a></li>
-<li class="method public "><a href="#method_remove_index" title="remove_index() :: "><span class="description">remove_index()
-        </span><pre>remove_index()</pre></a></li>
-<li class="method public "><a href="#method_remove_index_by_name" title="remove_index_by_name() :: "><span class="description">remove_index_by_name()
-        </span><pre>remove_index_by_name()</pre></a></li>
-<li class="method public "><a href="#method_rename" title="rename() :: "><span class="description">rename()
-        </span><pre>rename()</pre></a></li>
-<li class="method public "><a href="#method_rename_column" title="rename_column() :: "><span class="description">rename_column()
-        </span><pre>rename_column()</pre></a></li>
-<li class="method public "><a href="#method_reset" title="reset() :: "><span class="description">reset()
-        </span><pre>reset()</pre></a></li>
-<li class="method public "><a href="#method_save" title="save() :: "><span class="description">save()
-        </span><pre>save()</pre></a></li>
-<li class="method public "><a href="#method_set_driver" title="set_driver() :: Set the reference to the current database driver"><span class="description">Set the reference to the current database driver</span><pre>set_driver()</pre></a></li>
-<li class="method public "><a href="#method_update" title="update() :: "><span class="description">update()
-        </span><pre>update()</pre></a></li>
-</ul>
-</li>
-<li class="nav-header">
-<i title="Properties" class="icon-custom icon-property"></i> Properties
-                    <ul></ul>
-</li>
-<li class="nav-header protected">» Protected
-                    <ul><li class="property protected "><a href="#property_name" title="$name() :: The name of the current table"><span class="description"></span><pre>$name</pre></a></li></ul>
-</li>
-<li class="nav-header private">» Private
+                                                                                                    <li class="class"><a href="../classes/Query.Table.Abstract_Table.html">Abstract_Table</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Builder.html">Table_Builder</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Foreign_Key.html">Table_Foreign_Key</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Column.html">Table_Column</a></li>
+                                                    <li class="class"><a href="../classes/Query.Table.Table_Index.html">Table_Index</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-544175407"></a>
+                                <a href="../namespaces/Query.Driver.html" style="margin-left: 30px; padding-left: 0">Driver</a>
+            </div>
+            <div id="namespace-544175407" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="property private "><a href="#property_columns" title="$columns() :: Columns to be added/updated for the current table"><span class="description"></span><pre>$columns</pre></a></li>
-<li class="property private "><a href="#property_driver" title="$driver() :: Driver for the current db"><span class="description"></span><pre>$driver</pre></a></li>
-<li class="property private "><a href="#property_foreign_keys" title="$foreign_keys() :: Foreign keys to be added/updated for the current table"><span class="description"></span><pre>$foreign_keys</pre></a></li>
-<li class="property private "><a href="#property_indexes" title="$indexes() :: Indexes to be added/updated for the current table"><span class="description"></span><pre>$indexes</pre></a></li>
-<li class="property private "><a href="#property_table_options" title="$table_options() :: Options for the current table"><span class="description"></span><pre>$table_options</pre></a></li>
-</ul>
-</li>
-</ul>
+                                                    <li class="interface"><a href="../classes/Query.Driver.SQL_Interface.html">SQL_Interface</a></li>
+                                                    <li class="interface"><a href="../classes/Query.Driver.Driver_Interface.html">Driver_Interface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_SQL.html">Abstract_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_Result.html">Firebird_Result</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_Util.html">Firebird_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird.html">Firebird</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL_Util.html">MySQL_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_Util.html">Abstract_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Abstract_Driver.html">Abstract_Driver</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite_Util.html">SQLite_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL_Util.html">PgSQL_Util</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL_SQL.html">PgSQL_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL_SQL.html">MySQL_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.Firebird_SQL.html">Firebird_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite.html">SQLite</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.SQLite_SQL.html">SQLite_SQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.PgSQL.html">PgSQL</a></li>
+                                                    <li class="class"><a href="../classes/Query.Driver.MySQL.html">MySQL</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Query.Query_Builder_Interface.html">Query_Builder_Interface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Query.Query_Parser.html">Query_Parser</a></li>
+                                                    <li class="class"><a href="../classes/Query.Query_Builder.html">Query_Builder</a></li>
+                                                    <li class="class"><a href="../classes/Query.BadDBDriverException.html">BadDBDriverException</a></li>
+                                                    <li class="class"><a href="../classes/Query.Connection_Manager.html">Connection_Manager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Query.Table.html">\Query\Table</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Query\Table</small>Table_Builder</h1>
+                    <p><em>Abstract class defining database / table creation methods</em></p>
+                    
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method___invoke" class="">__invoke()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_set_driver" class="">set_driver()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_get_driver" class="">get_driver()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_add_column" class="">add_column()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_remove_column" class="">remove_column()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_rename_column" class="">rename_column()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_change_column" class="">change_column()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_has_column" class="">has_column()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_add_index" class="">add_index()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_remove_index" class="">remove_index()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_remove_index_by_name" class="">remove_index_by_name()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_has_index" class="">has_index()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_add_foreign_key" class="">add_foreign_key()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_drop_foreign_key" class="">drop_foreign_key()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_has_foreign_key" class="">has_foreign_key()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_exists" class="">exists()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_drop" class="">drop()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_rename" class="">rename()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_get_columns" class="">get_columns()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_create" class="">create()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_update" class="">update()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_save" class="">save()</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#method_reset" class="">reset()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#property_name" class="">$name</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#property_driver" class="">$driver</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#property_table_options" class="">$table_options</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#property_columns" class="">$columns</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#property_indexes" class="">$indexes</a><br />
+                                                                    <a href="../classes/Query.Table.Table_Builder.html#property_foreign_keys" class="">$foreign_keys</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/core.table_builder.php.html"><div class="path-wrapper">core/table_builder.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Query\Table_Builder\Table_Builder</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Query\Table\Table_Builder</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                todo
+                            </th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_name" name="property_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$name</h3>
+                <pre class="signature">$name : string</pre>
+                <p><em>The name of the current table</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_driver" name="property_driver" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$driver</h3>
+                <pre class="signature">$driver : \Query\Driver\Driver_Interface</pre>
+                <p><em>Driver for the current db</em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_table_options" name="property_table_options" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$table_options</h3>
+                <pre class="signature">$table_options : array</pre>
+                <p><em>Options for the current table</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_columns" name="property_columns" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$columns</h3>
+                <pre class="signature">$columns : array</pre>
+                <p><em>Columns to be added/updated for the current table</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_indexes" name="property_indexes" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$indexes</h3>
+                <pre class="signature">$indexes : array</pre>
+                <p><em>Indexes to be added/updated for the current table</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_foreign_keys" name="property_foreign_keys" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$foreign_keys</h3>
+                <pre class="signature">$foreign_keys : array</pre>
+                <p><em>Foreign keys to be added/updated for the current table</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string <span class="argument">$name</span>, array <span class="argument">$options</span>, \Query\Driver\Driver_Interface <span class="argument">$driver</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Constructor</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a></td>
+                                <td>$driver</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___invoke" name="method___invoke" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__invoke()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__invoke(string <span class="argument">$name</span>, array <span class="argument">$options</span>, \Query\Driver\Driver_Interface <span class="argument">$driver</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Alias to constructor</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a></td>
+                                <td>$driver</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_driver" name="method_set_driver" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_driver()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_driver(\Query\Driver\Driver_Interface <span class="argument">$driver</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Set the reference to the current database driver</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a></td>
+                                <td>$driver</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_driver" name="method_get_driver" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_driver()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_driver() : \Query\Driver\Driver_Interface</pre>
+                <p><em>Get the current DB Driver</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_column" name="method_add_column" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_column()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_column(string <span class="argument">$column_name</span>, string <span class="argument">$type</span>, array <span class="argument">$options</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Add a column to the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$column_name</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove_column" name="method_remove_column" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove_column()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove_column(string <span class="argument">$column_name</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Remove the specified column name from the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$column_name</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rename_column" name="method_rename_column" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">rename_column()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rename_column(string <span class="argument">$old_name</span>, string <span class="argument">$new_name</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Rename the specified column on the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$old_name</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$new_name</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_change_column" name="method_change_column" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">change_column()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">change_column(string <span class="argument">$column_name</span>, string <span class="argument">$new_column_type</span>, array <span class="argument">$options</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Change the specified column on the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$column_name</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$new_column_type</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_has_column" name="method_has_column" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">has_column()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">has_column(string <span class="argument">$column_name</span>, array <span class="argument">$options</span>) : bool</pre>
+                <p><em>Determine whether the column currently exists on the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$column_name</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_index" name="method_add_index" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_index()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_index(array <span class="argument">$columns</span>, array <span class="argument">$options</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Add an index to the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$columns</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove_index" name="method_remove_index" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove_index()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove_index(array <span class="argument">$columns</span>, array <span class="argument">$options</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Remove an index from the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$columns</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove_index_by_name" name="method_remove_index_by_name" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove_index_by_name()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove_index_by_name(string <span class="argument">$name</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Remove an index by its name from the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_has_index" name="method_has_index" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">has_index()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">has_index(array <span class="argument">$columns</span>, array <span class="argument">$options</span>) : bool</pre>
+                <p><em>Check if the current table has an index on the specified columns</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$columns</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_foreign_key" name="method_add_foreign_key" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_foreign_key()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_foreign_key(array <span class="argument">$columns</span>, string <span class="argument">$referenced_table</span>, array <span class="argument">$referenced_columns</span>, array <span class="argument">$options</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Add a foreign key to the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$columns</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$referenced_table</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$referenced_columns</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_drop_foreign_key" name="method_drop_foreign_key" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">drop_foreign_key()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">drop_foreign_key(array <span class="argument">$columns</span>, string <span class="argument">$constraint</span>) : \Query\Table\Table_Builder</pre>
+                <p><em>Drop the foreign key from the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$columns</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$constraint</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_has_foreign_key" name="method_has_foreign_key" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">has_foreign_key()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">has_foreign_key(array <span class="argument">$columns</span>, string <span class="argument">$constraint</span>) : bool</pre>
+                <p><em>Determine whether the current table has the specified foreign key</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$columns</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$constraint</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exists" name="method_exists" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exists()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exists() : bool</pre>
+                <p><em>Check whether the current table exists</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_drop" name="method_drop" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">drop()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">drop() : void</pre>
+                <p><em>Drop the current table</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rename" name="method_rename" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">rename()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rename(string <span class="argument">$new_table_name</span>) : void</pre>
+                <p><em>Rename the current table</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$new_table_name</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_columns" name="method_get_columns" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_columns()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_columns() : array</pre>
+                <p><em>Get the list of columns for the current table</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_create" name="method_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">create() : void</pre>
+                <p><em>Create the table from the previously set options</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_update" name="method_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">update() : void</pre>
+                <p><em>Update the current table with the changes made</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_save" name="method_save" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">save()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">save() : void</pre>
+                <p><em>Save the changes made to the table</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_reset" name="method_reset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">reset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">reset() : void</pre>
+                <p><em>Reset the state of the table builder</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">table_builder.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core/table_builder.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Query.html">\Query</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on April 15th, 2014 at 16:12.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
-<div class="span8">
-<a id="\Query\Table\Table_Builder"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Query.html">Query</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Query.Table.html">Table</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/Query.Table.Table_Builder.html">Table_Builder</a>
-</li>
-</ul>
-<div class="element class">
-<p class="short_description">Abstract class defining database / table creation methods</p>
-<div class="details">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>package</th>
-<td><a href="../packages/Query.Table_Builder.html">Query</a></td>
-</tr>
-<tr>
-<th>subpackage</th>
-<td>Table_Builder</td>
-</tr>
-</table>
-<h3>
-<i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
-<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse" title="public">
-<h2>Constructor</h2>
-<pre>__construct(\Query\Table\[string] $name<code> = ''</code>, \Query\Table\[array] $options<code> = array()</code>, \Query\Table\[Driver_Interface] $driver<code> = NULL</code>) : <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$name</h4>
-<code><a href="%5Bstring%5D.html">\Query\Table\[string]</a></code>
-</div>
-<div class="subelement argument">
-<h4>$options</h4>
-<code><a href="%5Barray%5D.html">\Query\Table\[array]</a></code>
-</div>
-<div class="subelement argument">
-<h4>$driver</h4>
-<code><a href="%5BDriver_Interface%5D.html">\Query\Table\[Driver_Interface]</a></code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method___invoke"></a><div class="element clickable method public method___invoke" data-toggle="collapse" data-target=".method___invoke .collapse" title="public">
-<h2>Alias to constructor</h2>
-<pre>__invoke(\Query\Table\[string] $name<code> = ''</code>, \Query\Table\[array] $options<code> = array()</code>, \Query\Table\[\Query\Driver\Driver_Interface] $driver<code> = NULL</code>) : <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$name</h4>
-<code><a href="%5Bstring%5D.html">\Query\Table\[string]</a></code>
-</div>
-<div class="subelement argument">
-<h4>$options</h4>
-<code><a href="%5Barray%5D.html">\Query\Table\[array]</a></code>
-</div>
-<div class="subelement argument">
-<h4>$driver</h4>
-<code><a href="Driver_Interface%5D.html">\Query\Table\[\Query\Driver\Driver_Interface]</a></code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_add_column"></a><div class="element clickable method public method_add_column" data-toggle="collapse" data-target=".method_add_column .collapse" title="public">
-<h2>Add a column to the current table</h2>
-<pre>add_column(string $column_name, string $type<code> = NULL</code>, array $options<code> = array()</code>) : <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$column_name</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$type</h4>
-<code>string</code>
-</div>
-<div class="subelement argument">
-<h4>$options</h4>
-<code>array</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_add_foreign_key"></a><div class="element clickable method public method_add_foreign_key" data-toggle="collapse" data-target=".method_add_foreign_key .collapse" title="public">
-<h2>add_foreign_key()
-        </h2>
-<pre>add_foreign_key($columns, $referenced_table, $referenced_columns<code> = array('id')</code>, $options<code> = array()</code>) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$columns</h4></div>
-<div class="subelement argument"><h4>$referenced_table</h4></div>
-<div class="subelement argument"><h4>$referenced_columns</h4></div>
-<div class="subelement argument"><h4>$options</h4></div>
-</div></div>
-</div>
-<a id="method_add_index"></a><div class="element clickable method public method_add_index" data-toggle="collapse" data-target=".method_add_index .collapse" title="public">
-<h2>add_index()
-        </h2>
-<pre>add_index($columns, $options<code> = array()</code>) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$columns</h4></div>
-<div class="subelement argument"><h4>$options</h4></div>
-</div></div>
-</div>
-<a id="method_change_column"></a><div class="element clickable method public method_change_column" data-toggle="collapse" data-target=".method_change_column .collapse" title="public">
-<h2>change_column()
-        </h2>
-<pre>change_column($column_name, $new_column_type, $options<code> = array()</code>) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$column_name</h4></div>
-<div class="subelement argument"><h4>$new_column_type</h4></div>
-<div class="subelement argument"><h4>$options</h4></div>
-</div></div>
-</div>
-<a id="method_create"></a><div class="element clickable method public method_create" data-toggle="collapse" data-target=".method_create .collapse" title="public">
-<h2>create()
-        </h2>
-<pre>create() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_drop"></a><div class="element clickable method public method_drop" data-toggle="collapse" data-target=".method_drop .collapse" title="public">
-<h2>drop()
-        </h2>
-<pre>drop() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_drop_foreign_key"></a><div class="element clickable method public method_drop_foreign_key" data-toggle="collapse" data-target=".method_drop_foreign_key .collapse" title="public">
-<h2>drop_foreign_key()
-        </h2>
-<pre>drop_foreign_key($columns, $constraint<code> = NULL</code>) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$columns</h4></div>
-<div class="subelement argument"><h4>$constraint</h4></div>
-</div></div>
-</div>
-<a id="method_exists"></a><div class="element clickable method public method_exists" data-toggle="collapse" data-target=".method_exists .collapse" title="public">
-<h2>exists()
-        </h2>
-<pre>exists() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_get_columns"></a><div class="element clickable method public method_get_columns" data-toggle="collapse" data-target=".method_get_columns .collapse" title="public">
-<h2>get_columns()
-        </h2>
-<pre>get_columns() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_get_driver"></a><div class="element clickable method public method_get_driver" data-toggle="collapse" data-target=".method_get_driver .collapse" title="public">
-<h2>Get the current DB Driver</h2>
-<pre>get_driver() : <a href="Driver_Interface.html">\Query\Driver_Interface</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="Driver_Interface.html">\Query\Driver_Interface</a></code></div>
-</div></div>
-</div>
-<a id="method_has_column"></a><div class="element clickable method public method_has_column" data-toggle="collapse" data-target=".method_has_column .collapse" title="public">
-<h2>has_column()
-        </h2>
-<pre>has_column($column_name, $options<code> = array()</code>) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$column_name</h4></div>
-<div class="subelement argument"><h4>$options</h4></div>
-</div></div>
-</div>
-<a id="method_has_foreign_key"></a><div class="element clickable method public method_has_foreign_key" data-toggle="collapse" data-target=".method_has_foreign_key .collapse" title="public">
-<h2>has_foreign_key()
-        </h2>
-<pre>has_foreign_key($columns, $constraint<code> = NULL</code>) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$columns</h4></div>
-<div class="subelement argument"><h4>$constraint</h4></div>
-</div></div>
-</div>
-<a id="method_has_index"></a><div class="element clickable method public method_has_index" data-toggle="collapse" data-target=".method_has_index .collapse" title="public">
-<h2>has_index()
-        </h2>
-<pre>has_index($columns, $options<code> = array()</code>) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$columns</h4></div>
-<div class="subelement argument"><h4>$options</h4></div>
-</div></div>
-</div>
-<a id="method_remove_column"></a><div class="element clickable method public method_remove_column" data-toggle="collapse" data-target=".method_remove_column .collapse" title="public">
-<h2>remove_column()
-        </h2>
-<pre>remove_column($column_name) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$column_name</h4></div>
-</div></div>
-</div>
-<a id="method_remove_index"></a><div class="element clickable method public method_remove_index" data-toggle="collapse" data-target=".method_remove_index .collapse" title="public">
-<h2>remove_index()
-        </h2>
-<pre>remove_index($columns, $options<code> = array()</code>) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$columns</h4></div>
-<div class="subelement argument"><h4>$options</h4></div>
-</div></div>
-</div>
-<a id="method_remove_index_by_name"></a><div class="element clickable method public method_remove_index_by_name" data-toggle="collapse" data-target=".method_remove_index_by_name .collapse" title="public">
-<h2>remove_index_by_name()
-        </h2>
-<pre>remove_index_by_name($name) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-</div></div>
-</div>
-<a id="method_rename"></a><div class="element clickable method public method_rename" data-toggle="collapse" data-target=".method_rename .collapse" title="public">
-<h2>rename()
-        </h2>
-<pre>rename($new_table_name) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$new_table_name</h4></div>
-</div></div>
-</div>
-<a id="method_rename_column"></a><div class="element clickable method public method_rename_column" data-toggle="collapse" data-target=".method_rename_column .collapse" title="public">
-<h2>rename_column()
-        </h2>
-<pre>rename_column($old_name, $new_name) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$old_name</h4></div>
-<div class="subelement argument"><h4>$new_name</h4></div>
-</div></div>
-</div>
-<a id="method_reset"></a><div class="element clickable method public method_reset" data-toggle="collapse" data-target=".method_reset .collapse" title="public">
-<h2>reset()
-        </h2>
-<pre>reset() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_save"></a><div class="element clickable method public method_save" data-toggle="collapse" data-target=".method_save .collapse" title="public">
-<h2>save()
-        </h2>
-<pre>save() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_set_driver"></a><div class="element clickable method public method_set_driver" data-toggle="collapse" data-target=".method_set_driver .collapse" title="public">
-<h2>Set the reference to the current database driver</h2>
-<pre>set_driver(\Query\Driver\Driver_Interface $driver<code> = NULL</code>) : <a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a></pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$driver</h4>
-<code><a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a></code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/Query.Table.Table_Builder.html">\Query\Table\Table_Builder</a></code></div>
-</div></div>
-</div>
-<a id="method_update"></a><div class="element clickable method public method_update" data-toggle="collapse" data-target=".method_update .collapse" title="public">
-<h2>update()
-        </h2>
-<pre>update() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<h3>
-<i title="Properties" class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_name"> </a><div class="element clickable property protected property_name" data-toggle="collapse" data-target=".property_name .collapse" title="protected">
-<h2>The name of the current table</h2>
-<pre>$name : string</pre>
-<div class="row collapse"><div class="detail-description">
-<h3>Default</h3>
-<div class="subelement argument"><code>''</code></div>
-</div></div>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="property_columns"> </a><div class="element clickable property private property_columns" data-toggle="collapse" data-target=".property_columns .collapse" title="private">
-<h2>Columns to be added/updated for the current table</h2>
-<pre>$columns : array</pre>
-<div class="row collapse"><div class="detail-description">
-<h3>Default</h3>
-<div class="subelement argument"><code>array()</code></div>
-</div></div>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="property_driver"> </a><div class="element clickable property private property_driver" data-toggle="collapse" data-target=".property_driver .collapse" title="private">
-<h2>Driver for the current db</h2>
-<pre>$driver : <a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a></pre>
-<div class="row collapse"><div class="detail-description">
-<h3>Default</h3>
-<div class="subelement argument"><code>NULL</code></div>
-</div></div>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="property_foreign_keys"> </a><div class="element clickable property private property_foreign_keys" data-toggle="collapse" data-target=".property_foreign_keys .collapse" title="private">
-<h2>Foreign keys to be added/updated for the current table</h2>
-<pre>$foreign_keys : array</pre>
-<div class="row collapse"><div class="detail-description">
-<h3>Default</h3>
-<div class="subelement argument"><code>array()</code></div>
-</div></div>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="property_indexes"> </a><div class="element clickable property private property_indexes" data-toggle="collapse" data-target=".property_indexes .collapse" title="private">
-<h2>Indexes to be added/updated for the current table</h2>
-<pre>$indexes : array</pre>
-<div class="row collapse"><div class="detail-description">
-<h3>Default</h3>
-<div class="subelement argument"><code>array()</code></div>
-</div></div>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="property_table_options"> </a><div class="element clickable property private property_table_options" data-toggle="collapse" data-target=".property_table_options .collapse" title="private">
-<h2>Options for the current table</h2>
-<pre>$table_options : array</pre>
-<div class="row collapse"><div class="detail-description">
-<h3>Default</h3>
-<div class="subelement argument"><code>array()</code></div>
-</div></div>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row"><footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.2.0
-</a> and<br>
-            generated on 2014-04-10T15:54:52-04:00.<br></footer></div>
-</div>
+
 </body>
 </html>
