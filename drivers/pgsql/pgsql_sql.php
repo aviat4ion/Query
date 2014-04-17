@@ -235,13 +235,17 @@ SQL;
 			SELECT
 				"att2"."attname" AS "child_column",
 				"cl"."relname" AS "parent_table",
-				"att"."attname" AS "parent_column"
+				"att"."attname" AS "parent_column",
+				"con"."update" AS "update",
+				"con"."update" AS "delete"
 			FROM
 				(SELECT
 					unnest(con1.conkey) AS "parent",
 					unnest(con1.confkey) AS "child",
 					"con1"."confrelid",
-					"con1"."conrelid"
+					"con1"."conrelid",
+					"con1"."confupdtype" as "update",
+					"con1"."confdeltype" as "delete"
 				FROM "pg_class" "cl"
 				JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid"
 				JOIN "pg_constraint" "con1" ON "con1"."conrelid" = "cl"."oid"
@@ -252,12 +256,12 @@ SQL;
 				"con"
 				JOIN "pg_attribute" "att" ON
 					"att"."attrelid" = "con"."confrelid"
-						AND "att"."attnum" = "con"."child"
+					AND "att"."attnum" = "con"."child"
 				JOIN "pg_class" "cl" ON
 					"cl"."oid" = "con"."confrelid"
 				JOIN "pg_attribute" "att2" ON
-				   "att2"."attrelid" = "con"."conrelid"
-					   AND "att2"."attnum" = "con"."parent"
+					"att2"."attrelid" = "con"."conrelid"
+					AND "att2"."attnum" = "con"."parent"
 SQL;
 	}
 

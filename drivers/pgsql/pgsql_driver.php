@@ -68,5 +68,35 @@ SQL;
 
 		return $this->driver_query($sql);
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Retrieve foreign keys for the table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function get_fks($table)
+	{
+		$value_map = array(
+			'c' => 'CASCADE',
+			'r' => 'RESTRICT',
+		);
+
+		$keys = parent::get_fks($table);
+
+		foreach($keys as &$key)
+		{
+			foreach(array('update', 'delete') AS $type)
+			{
+				if ( ! isset($value_map[$key[$type]])) continue;
+
+				$key[$type] = $value_map[$key[$type]];
+			}
+		}
+
+		return $keys;
+	}
 }
 //End of pgsql_driver.php
