@@ -65,9 +65,9 @@ final class Connection_Manager {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Make sure serialize/deseriaze doesn't work
+	 * Make sure serialize/deserialize doesn't work
 	 * @codeCoverageIgnore
-	 * @throws DomainException
+	 * @throws \DomainException
 	 */
 	private function __wakeup()
 	{
@@ -102,11 +102,11 @@ final class Connection_Manager {
 	 *
 	 * @param string|array|object $name
 	 * @return Query_Builder
-	 * @throws InvalidArgumentException
+	 * @throws \InvalidArgumentException
 	 */
 	public function get_connection($name = '')
 	{
-		// If the paramater is a string, use it as an array index
+		// If the parameter is a string, use it as an array index
 		if (is_scalar($name) && isset($this->connections[$name]))
 		{
 			return $this->connections[$name];
@@ -169,6 +169,7 @@ final class Connection_Manager {
 	 * Parses params into a dsn and option array
 	 *
 	 * @param \ArrayObject $params
+	 * @return array
 	 * @throws BadDBDriverException
 	 */
 	private function parse_params(\ArrayObject $params)
@@ -177,7 +178,7 @@ final class Connection_Manager {
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 
 		// Make sure the class exists
-		if ( ! class_exists("Query\\Driver\\$dbtype"))
+		if ( ! class_exists("Query\\Driver\\{$dbtype}"))
 		{
 			throw new BadDBDriverException('Database driver does not exist, or is not supported');
 		}

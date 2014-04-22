@@ -26,10 +26,9 @@ interface SQL_Interface {
 	/**
 	 * Get database specific sql for limit clause
 	 *
-	 * @abstract
 	 * @param string $sql
 	 * @param int $limit
-	 * @param int $offset
+	 * @param int|bool $offset
 	 * @return string
 	 */
 	public function limit($sql, $limit, $offset=FALSE);
@@ -45,7 +44,6 @@ interface SQL_Interface {
 	/**
 	 * Get the sql for random ordering
 	 *
-	 * @abstract
 	 * @return string
 	 */
 	public function random();

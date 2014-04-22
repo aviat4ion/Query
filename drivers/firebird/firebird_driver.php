@@ -72,6 +72,8 @@ class Firebird extends Abstract_Driver {
 	 * @param string $user
 	 * @param string $pass
 	 * @param array $options
+	 * @throws \PDOException
+	 * @return void
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = array())
 	{
@@ -226,7 +228,7 @@ class Firebird extends Abstract_Driver {
 	 * @param string $query
 	 * @param array $options
 	 * @return Firebird_Result
-	 * @throws PDOException
+	 * @throws \PDOException
 	 */
 	public function prepare($query, $options=array())
 	{
@@ -355,7 +357,7 @@ class Firebird extends Abstract_Driver {
 	 */
 	public function errorCode()
 	{
-		return fbird_errcode();
+		return \fbird_errcode();
 	}
 
 	// --------------------------------------------------------------------------

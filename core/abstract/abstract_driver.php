@@ -31,7 +31,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	/**
 	 * Reference to the last executed query
-	 * @var PDOStatement
+	 * @var \PDOStatement
 	 */
 	protected $statement;
 
@@ -49,7 +49,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	/**
 	 * Reference to util class
-	 * @var DB_Util
+	 * @var Abstract_Util
 	 */
 	public $util;
 
@@ -102,6 +102,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 *
 	 * @param string $name
 	 * @param array $args
+	 * @return mixed
 	 */
 	public function __call($name, $args = array())
 	{
@@ -415,7 +416,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Retreives an array of non-user-created tables for
+	 * Retrieves an array of non-user-created tables for
 	 * the connection/database
 	 *
 	 * @return array
@@ -479,7 +480,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Method to simplify retreiving db results for meta-data queries
+	 * Method to simplify retrieving db results for meta-data queries
 	 *
 	 * @param string|array|null $query
 	 * @param bool $filtered_index

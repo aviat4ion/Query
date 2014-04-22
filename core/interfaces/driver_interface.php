@@ -27,9 +27,9 @@ interface Driver_Interface {
 	 * Constructor/Connection method
 	 *
 	 * @param string $dsn
-	 * @param [string] $username
-	 * @param [string] $password
-	 * @param [array] $driver_options
+	 * @param string $username
+	 * @param string $password
+	 * @param array $driver_options
 	 * @return void
 	 */
 	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options = array());
@@ -74,7 +74,7 @@ interface Driver_Interface {
 	 *  Get a connection attribute for the current db driver
 	 *
 	 * @param int $attribute
-	 * @returm mixed
+	 * @return mixed
 	 */
 	public function getAttribute($attribute);
 
@@ -92,5 +92,53 @@ interface Driver_Interface {
 	 * @return bool
 	 */
 	public function setAttribute($attribute, $value);
+
+	/**
+	 * Retrieve column information for the current database table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function get_columns($table);
+
+	/**
+	 * Retrieve foreign keys for the table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function get_fks($table);
+
+	/**
+	 * Return list of tables for the current database
+	 *
+	 * @return array
+	 */
+	public function get_tables();
+
+	/**
+	 * Surrounds the string with the databases identifier escape characters
+	 *
+	 * @param mixed $ident
+	 * @return string
+	 */
+	public function quote_ident($ident);
+
+	/**
+	 * Quote database table name, and set prefix
+	 *
+	 * @param string $table
+	 * @return string
+	 */
+	public function quote_table($table);
+
+	/**
+	 * Create and execute a prepared statement with the provided parameters
+	 *
+	 * @param string $sql
+	 * @param array $params
+	 * @return \PDOStatement
+	 */
+	public function prepare_execute($sql, $params);
 }
 // End of driver_interface.php

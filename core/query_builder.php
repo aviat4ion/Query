@@ -18,7 +18,7 @@ namespace Query;
 use \Query\Driver\Driver_Interface;
 
 /**
- * Convienience class for creating sql queries - also the class that
+ * Convenience class for creating sql queries - also the class that
  * instantiates the specific db driver
  *
  * @package Query
@@ -32,13 +32,13 @@ class Query_Builder implements Query_Builder_Interface {
 
 	/**
 	 * Compiled 'select' clause
-	 * @var type string
+	 * @var string
 	 */
 	protected $select_string = '';
 
 	/**
 	 * Compiled 'from' clause
-	 * @var type string
+	 * @var string
 	 */
 	protected $from_string;
 
@@ -279,7 +279,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Selects the maximum value of a field from a query
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|FALSE $as
 	 * @return Query_Builder
 	 */
 	public function select_max($field, $as=FALSE)
@@ -562,7 +562,7 @@ class Query_Builder implements Query_Builder_Interface {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Do all the repeditive stuff for where/having type methods
+	 * Do all the repedative stuff for where/having type methods
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
@@ -891,7 +891,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Set a limit on the current sql statement
 	 *
 	 * @param int $limit
-	 * @param int $offset
+	 * @param int|bool $offset
 	 * @return Query_Builder
 	 */
 	public function limit($limit, $offset=FALSE)
@@ -973,8 +973,8 @@ class Query_Builder implements Query_Builder_Interface {
 	 * execute current compiled query
 	 *
 	 * @param $table
-	 * @param int $limit
-	 * @param int $offset
+	 * @param int|bool $limit
+	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
 	public function get($table='', $limit=FALSE, $offset=FALSE)
