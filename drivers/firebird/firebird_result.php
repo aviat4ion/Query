@@ -60,7 +60,7 @@ class Firebird_Result extends \PDOStatement {
 	 * @param \Query\Driver\Firebird|null $db
 	 * @return void
 	 */
-	public function __construct($link, Driver_Interface $db = NULL)
+	public function __construct($link, Firebird $db = NULL)
 	{
 		if ( ! is_null($db)) $this->db = $db;
 		$this->statement = $link;

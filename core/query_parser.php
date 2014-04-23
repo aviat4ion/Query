@@ -56,9 +56,9 @@ class Query_Parser {
 	/**
 	 * Constructor/entry point into parser
 	 *
-	 * @param Query_Builder $db
+	 * @param Driver\Driver_Interface $db
 	 */
-	public function __construct(\Query\Driver\Driver_Interface $db)
+	public function __construct(Driver\Driver_Interface $db)
 	{
 		$this->db = $db;
 	}

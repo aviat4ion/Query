@@ -87,7 +87,7 @@ abstract class Abstract_Table {
 	 * Setters
 	 * @param mixed $name
 	 * @param mixed $val
-	 * @return \Query\Table_Column
+	 * @return Abstract_Table
 	 */
 	public function __set($name, $val)
 	{
