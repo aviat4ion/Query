@@ -28,7 +28,7 @@ class Firebird_SQL extends Abstract_SQL {
 	 *
 	 * @param string $sql
 	 * @param int $limit
-	 * @param int $offset
+	 * @param int|bool $offset
 	 * @return string
 	 */
 	public function limit($sql, $limit, $offset=FALSE)

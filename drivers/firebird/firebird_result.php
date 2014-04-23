@@ -57,7 +57,8 @@ class Firebird_Result extends \PDOStatement {
 	 * the query
 	 *
 	 * @param resource $link
-	 * @param [\Query\Driver\Firebird] $db
+	 * @param \Query\Driver\Firebird|null $db
+	 * @return void
 	 */
 	public function __construct($link, Driver_Interface $db = NULL)
 	{

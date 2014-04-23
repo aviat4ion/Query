@@ -36,7 +36,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	protected $statement;
 
 	/**
-	 * Character to escape indentifiers
+	 * Character to escape identifiers
 	 * @var string
 	 */
 	protected $escape_char = '"';
@@ -100,6 +100,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	/**
 	 * Allow invoke to work on table object
 	 *
+	 * @codeCoverageIgnore
 	 * @param string $name
 	 * @param array $args
 	 * @return mixed
@@ -118,6 +119,30 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	// --------------------------------------------------------------------------
 	// ! Concrete functions that can be overridden in child classes
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the SQL class for the current driver
+	 *
+	 * @return SQL_Interface
+	 */
+	public function get_sql()
+	{
+		return $this->sql;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the Util class for the current driver
+	 *
+	 * @return Abstract_Util
+	 */
+	public function get_util()
+	{
+		return $this->util;
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -193,7 +218,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		// before quoting it
 		if ( ! empty($this->table_prefix))
 		{
-			// Split indentifier by period, will split into:
+			// Split identifier by period, will split into:
 			// database.schema.table OR
 			// schema.table OR
 			// database.table OR
@@ -436,7 +461,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_columns($table)
 	{
-		return $this->driver_query($this->sql->column_list($this->prefix_table($table)), FALSE);
+		return $this->driver_query($this->get_sql()->column_list($this->prefix_table($table)), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -449,7 +474,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_fks($table)
 	{
-		return $this->driver_query($this->sql->fk_list($table), FALSE);
+		return $this->driver_query($this->get_sql()->fk_list($table), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -462,7 +487,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_indexes($table)
 	{
-		return $this->driver_query($this->sql->index_list($this->prefix_table($table)), FALSE);
+		return $this->driver_query($this->get_sql()->index_list($this->prefix_table($table)), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -491,7 +516,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		// Call the appropriate method, if it exists
 		if (is_string($query) && method_exists($this->sql, $query))
 		{
-			$query = $this->sql->$query();
+			$query = $this->get_sql()->$query();
 		}
 
 		// Return if the values are returned instead of a query,

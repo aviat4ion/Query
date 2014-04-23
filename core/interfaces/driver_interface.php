@@ -30,7 +30,6 @@ interface Driver_Interface {
 	 * @param string $username
 	 * @param string $password
 	 * @param array $driver_options
-	 * @return void
 	 */
 	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options = array());
 
@@ -140,5 +139,19 @@ interface Driver_Interface {
 	 * @return \PDOStatement
 	 */
 	public function prepare_execute($sql, $params);
+
+	/**
+	 * Get the SQL class for the current driver
+	 *
+	 * @return SQL_Interface
+	 */
+	public function get_sql();
+
+	/**
+	 * Get the Util class for the current driver
+	 *
+	 * @return Abstract_Util
+	 */
+	public function get_util();
 }
 // End of driver_interface.php

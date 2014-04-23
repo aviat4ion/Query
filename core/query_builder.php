@@ -100,7 +100,7 @@ class Query_Builder implements Query_Builder_Interface {
 
 	/**
 	 * Value for limit string
-	 * @var type string
+	 * @var string
 	 */
 	protected $limit;
 
@@ -162,14 +162,14 @@ class Query_Builder implements Query_Builder_Interface {
 	protected $parser;
 
 	/**
-	 * Alias to $this->db->util
-	 * @var DB_Util
+	 * Alias to driver util class
+	 * @var \Query\Driver\Abstract_Util
 	 */
 	public $util;
 
 	/**
-	 * Alias to $this->db->sql
-	 * @var SQL_Interface
+	 * Alias to driver sql class
+	 * @var \Query\Driver\SQL_Interface
 	 */
 	public $sql;
 
@@ -181,19 +181,19 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Constructor
 	 *
 	 * @param \Query\Driver\Driver_Interface $db
+	 * @param Query_Parser $parser
 	 */
-	public function __construct(Driver_Interface $db)
+	public function __construct(Driver_Interface $db, Query_Parser $parser)
 	{
+		// Inject driver and parser
 		$this->db = $db;
-
-		// Instantiate the Query Parser
-		$this->parser = new Query_Parser($this);
+		$this->parser = $parser;
 
 		$this->queries['total_time'] = 0;
 
-		// Make things just slightly shorter
-		$this->sql = $this->db->sql;
-		$this->util = $this->db->util;
+		// Alias driver sql and util classes
+		$this->sql = $this->db->get_sql();
+		$this->util = $this->db->get_util();
 	}
 
 	// --------------------------------------------------------------------------
@@ -215,7 +215,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Method to simplify select_ methods
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|bool $as
 	 * @return string
 	 */
 	protected function _select($field, $as = FALSE)
@@ -295,7 +295,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Selects the minimum value of a field from a query
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|bool $as
 	 * @return Query_Builder
 	 */
 	public function select_min($field, $as=FALSE)
@@ -311,7 +311,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Selects the average value of a field from a query
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|bool $as
 	 * @return Query_Builder
 	 */
 	public function select_avg($field, $as=FALSE)
@@ -327,7 +327,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * Selects the sum of a field from a query
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|bool $as
 	 * @return Query_Builder
 	 */
 	public function select_sum($field, $as=FALSE)
@@ -975,7 +975,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param $table
 	 * @param int|bool $limit
 	 * @param int|bool $offset
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function get($table='', $limit=FALSE, $offset=FALSE)
 	{
@@ -986,7 +986,7 @@ class Query_Builder implements Query_Builder_Interface {
 		}
 
 		// Set the limit, if it exists
-		if ($limit !== FALSE)
+		if (is_int($limit))
 		{
 			$this->limit($limit, $offset);
 		}
@@ -997,13 +997,13 @@ class Query_Builder implements Query_Builder_Interface {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Convience method for get() with a where clause
+	 * Convenience method for get() with a where clause
 	 *
 	 * @param string $table
 	 * @param array $where
-	 * @param int $limit
-	 * @param int $offset
-	 * @return PDOStatement
+	 * @param int|bool $limit
+	 * @param int|bool $offset
+	 * @return \PDOStatement
 	 */
 	public function get_where($table, $where=array(), $limit=FALSE, $offset=FALSE)
 	{
@@ -1061,7 +1061,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function insert($table, $data=array())
 	{
@@ -1081,7 +1081,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function insert_batch($table, $data=array())
 	{
@@ -1100,7 +1100,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function update($table, $data=array())
 	{
@@ -1120,7 +1120,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $where
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function delete($table, $where='')
 	{
@@ -1143,7 +1143,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param string $type
 	 * @param string $table
 	 * @param bool $reset
-	 * @resturn string
+	 * @return string
 	 */
 	protected function _get_compile($type, $table, $reset)
 	{
@@ -1271,7 +1271,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param string $table
 	 * @param string $sql
 	 * @param array|null $vals
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	protected function _run($type, $table, $sql=NULL, $vals=NULL)
 	{
@@ -1311,7 +1311,7 @@ class Query_Builder implements Query_Builder_Interface {
 	 * @param string $name
 	 * @param array $params
 	 * @return mixed
-	 * @throws BadMethodCallException
+	 * @throws \BadMethodCallException
 	 */
 	public function __call($name, $params)
 	{

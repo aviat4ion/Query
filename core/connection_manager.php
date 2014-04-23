@@ -117,6 +117,7 @@ final class Connection_Manager {
 		}
 		else
 		{
+			// You should actually connect before trying to get a connection...
 			throw new \InvalidArgumentException("The specified connection does not exist");
 		}
 	}
@@ -128,7 +129,6 @@ final class Connection_Manager {
 	 *
 	 * @param \ArrayObject $params
 	 * @return Query_Builder
-	 * @throws BadConnectionException
 	 */
 	public function connect(\ArrayObject $params)
 	{
@@ -147,8 +147,9 @@ final class Connection_Manager {
 			$db->table_prefix = $params->prefix;
 		}
 
-		// Create the Query Builder object
-		$conn = new Query_Builder($db);
+		// Create Query Builder object
+		$conn = new Query_Builder($db, new Query_Parser($db));
+
 
 		// Save it for later
 		if (isset($params->alias))

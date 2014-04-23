@@ -28,7 +28,7 @@ namespace Query\Driver;
 class Firebird_Util extends Abstract_Util {
 
 	/**
-	 * Convienience public function to generate sql for creating a db table
+	 * Convenience public function to generate sql for creating a db table
 	 *
 	 * @deprecated Use the table builder class instead
 	 * @param string $name

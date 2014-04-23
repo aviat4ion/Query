@@ -94,5 +94,12 @@ abstract class DBTest extends Query_TestCase {
 		$this->assertTrue(is_array($keys));
 	}
 
+	// --------------------------------------------------------------------------
+
+	public function testGetViews()
+	{
+		$this->assertTrue(is_array($this->db->get_views()));
+	}
+
 }
 // End of db_test.php
