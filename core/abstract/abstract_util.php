@@ -65,11 +65,14 @@ abstract class Abstract_Util {
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints
+	 * @param bool $if_not_exists
 	 * @return string
 	 */
-	public function create_table($name, $fields, array $constraints=array())
+	public function create_table($name, $fields, array $constraints=array(), $if_not_exists=TRUE)
 	{
 		$column_array = array();
+
+		$exists_str = ($if_not_exists) ? ' IF NOT EXISTS ' : ' ';
 
 		// Reorganize into an array indexed with column information
 		// Eg $column_array[$colname] = array(
@@ -103,7 +106,7 @@ abstract class Abstract_Util {
 		}
 
 		// Generate the sql for the creation of the table
-		$sql = 'CREATE TABLE IF NOT EXISTS '.$this->quote_table($name).' (';
+		$sql = 'CREATE TABLE'.$exists_str.$this->quote_table($name).' (';
 		$sql .= implode(', ', $columns);
 		$sql .= ')';
 

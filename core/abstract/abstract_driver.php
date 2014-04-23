@@ -577,11 +577,17 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function insert_batch($table, $data=array())
 	{
-		if ( ! is_array(current($data))) return NULL;
+		$first_row = current($data);
+		if ( ! is_array($first_row)) return NULL;
 
-		$vals = array(); // Values for insertion
+		// Values for insertion
+		$vals = array();
+		foreach($data as $group)
+		{
+			$vals = array_merge($vals, array_values($group));
+		}
 		$table = $this->quote_table($table);
-		$fields = array_keys(current($data));
+		$fields = array_keys($first_row);
 
 		$sql = "INSERT INTO {$table} ("
 			. implode(',', $this->quote_ident($fields))
@@ -592,13 +598,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		$param_string = "(" . implode(',', $params) . ")";
 		$param_list = array_fill(0, count($data), $param_string);
 
-		// For each grouping, add the values
-		foreach($data as $group)
-		{
-			$vals = array_merge($vals, array_values($group));
-		}
-
-		// Add the param groups
+		// Append the placeholder groups to the query
 		$sql .= implode(',', $param_list);
 
 		return array($sql, $vals);
