@@ -15,10 +15,6 @@
 
 namespace Query\Driver;
 
-use Query\Table\Table_Builder;
-
-// --------------------------------------------------------------------------
-
 /**
  * Firebird Database class
  *
