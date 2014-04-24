@@ -13,7 +13,10 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Driver\Util;
+use Query\Driver\Driver_Interface;
+
+// --------------------------------------------------------------------------
 
 /**
  * Abstract class defining database / table creation methods

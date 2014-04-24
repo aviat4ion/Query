@@ -12,7 +12,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Driver\SQL;
 
 /**
  * PostgreSQL specifc SQL

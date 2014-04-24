@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Driver\Util;
 
 /**
  * SQLite-specific backup, import and creation methods
