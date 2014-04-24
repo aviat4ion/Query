@@ -41,7 +41,7 @@ interface Query_Builder_Interface {
 	 * Selects the maximum value of a field from a query
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|bool $as
 	 * @return Query_Builder
 	 */
 	public function select_max($field, $as=FALSE);
@@ -52,7 +52,7 @@ interface Query_Builder_Interface {
 	 * Selects the minimum value of a field from a query
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|bool $as
 	 * @return Query_Builder
 	 */
 	public function select_min($field, $as=FALSE);
@@ -63,7 +63,7 @@ interface Query_Builder_Interface {
 	 * Selects the average value of a field from a query
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|bool $as
 	 * @return Query_Builder
 	 */
 	public function select_avg($field, $as=FALSE);
@@ -74,7 +74,7 @@ interface Query_Builder_Interface {
 	 * Selects the sum of a field from a query
 	 *
 	 * @param string $field
-	 * @param string $as
+	 * @param string|bool $as
 	 * @return Query_Builder
 	 */
 	public function select_sum($field, $as=FALSE);
@@ -304,7 +304,7 @@ interface Query_Builder_Interface {
 	 * Set a limit on the current sql statement
 	 *
 	 * @param int $limit
-	 * @param int $offset
+	 * @param int|bool $offset
 	 * @return string
 	 */
 	public function limit($limit, $offset=FALSE);
@@ -358,9 +358,9 @@ interface Query_Builder_Interface {
 	 * execute current compiled query
 	 *
 	 * @param $table
-	 * @param int $limit
-	 * @param int $offset
-	 * @return PDOStatement
+	 * @param int|bool $limit
+	 * @param int|bool $offset
+	 * @return \PDOStatement
 	 */
 	public function get($table='', $limit=FALSE, $offset=FALSE);
 
@@ -371,16 +371,16 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param array $where
-	 * @param int $limit
-	 * @param int $offset
-	 * @return PDOStatement
+	 * @param int|bool $limit
+	 * @param int|bool $offset
+	 * @return \PDOStatement
 	 */
 	public function get_where($table, $where=array(), $limit=FALSE, $offset=FALSE);
 
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Retreive the number of rows in the selected table
+	 * Retrieve the number of rows in the selected table
 	 *
 	 * @param string $table
 	 * @return int
@@ -405,7 +405,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function insert($table, $data=array());
 
@@ -427,7 +427,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function update($table, $data=array());
 
@@ -438,7 +438,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param string $table
 	 * @param mixed $where
-	 * @return PDOStatement
+	 * @return \PDOStatement
 	 */
 	public function delete($table, $where='');
 

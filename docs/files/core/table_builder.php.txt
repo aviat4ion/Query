@@ -311,7 +311,15 @@ class Table_Builder {
 	 */
 	public function has_foreign_key($columns, $constraint = NULL)
 	{
+		$keys = $this->get_driver()->get_fks($this->name);
 
+
+		foreach($keys as $key)
+		{
+
+		}
+
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------------
@@ -363,7 +371,7 @@ class Table_Builder {
 	 */
 	public function get_columns()
 	{
-		return $this->driver->get_columns($this->prefix_table($this->name));
+		return $this->driver->get_columns($this->name);
 	}
 
 
@@ -430,5 +438,5 @@ class Table_Builder {
 	}
 
 }
-// End of table_bulider.php
+// End of table_builder.php
 

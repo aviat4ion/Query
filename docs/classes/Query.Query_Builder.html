@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2088170033"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1499135485"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2088170033" class="accordion-body collapse in">
+            <div id="namespace-1499135485" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1958307273"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1403032111"></a>
                                 <a href="../namespaces/Query.html" style="margin-left: 30px; padding-left: 0">Query</a>
             </div>
-            <div id="namespace-1958307273" class="accordion-body collapse ">
+            <div id="namespace-1403032111" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-690035220"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1519732407"></a>
                                 <a href="../namespaces/Query.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
             </div>
-            <div id="namespace-690035220" class="accordion-body collapse ">
+            <div id="namespace-1519732407" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -179,10 +179,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1229648768"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-200433827"></a>
                                 <a href="../namespaces/Query.Driver.html" style="margin-left: 30px; padding-left: 0">Driver</a>
             </div>
-            <div id="namespace-1229648768" class="accordion-body collapse ">
+            <div id="namespace-200433827" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -244,7 +244,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\Query</small>Query_Builder</h1>
-                    <p><em>Convienience class for creating sql queries - also the class that
+                    <p><em>Convenience class for creating sql queries - also the class that
 instantiates the specific db driver</em></p>
                     
 
@@ -505,12 +505,12 @@ instantiates the specific db driver</em></p>
             <a id="property_util" name="property_util" class="anchor"></a>
             <article class="property">
                 <h3 class="public ">$util</h3>
-                <pre class="signature">$util : \Query\DB_Util</pre>
-                <p><em>Alias to $this-&gt;db-&gt;util</em></p>
+                <pre class="signature">$util : \Query\Driver\Abstract_Util</pre>
+                <p><em>Alias to driver util class</em></p>
                 
 
                                 <h4>Type</h4>
-                \Query\DB_Util
+                <a href="../classes/Query.Driver.Abstract_Util.html">\Query\Driver\Abstract_Util</a>
                                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -535,12 +535,12 @@ instantiates the specific db driver</em></p>
             <a id="property_sql" name="property_sql" class="anchor"></a>
             <article class="property">
                 <h3 class="public ">$sql</h3>
-                <pre class="signature">$sql : \Query\SQL_Interface</pre>
-                <p><em>Alias to $this-&gt;db-&gt;sql</em></p>
+                <pre class="signature">$sql : \Query\Driver\SQL_Interface</pre>
+                <p><em>Alias to driver sql class</em></p>
                 
 
                                 <h4>Type</h4>
-                \Query\SQL_Interface
+                <a href="../classes/Query.Driver.SQL_Interface.html">\Query\Driver\SQL_Interface</a>
                                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -565,13 +565,13 @@ instantiates the specific db driver</em></p>
             <a id="property_select_string" name="property_select_string" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$select_string</h3>
-                <pre class="signature">$select_string : \Query\type</pre>
+                <pre class="signature">$select_string : string</pre>
                 <p><em>Compiled &#039;select&#039; clause</em></p>
                 
 
                                 <h4>Type</h4>
-                \Query\type
-                &mdash; string                            </article>
+                string
+                                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -595,13 +595,13 @@ instantiates the specific db driver</em></p>
             <a id="property_from_string" name="property_from_string" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$from_string</h3>
-                <pre class="signature">$from_string : \Query\type</pre>
+                <pre class="signature">$from_string : string</pre>
                 <p><em>Compiled &#039;from&#039; clause</em></p>
                 
 
                                 <h4>Type</h4>
-                \Query\type
-                &mdash; string                            </article>
+                string
+                                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -865,13 +865,13 @@ instantiates the specific db driver</em></p>
             <a id="property_limit" name="property_limit" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$limit</h3>
-                <pre class="signature">$limit : \Query\type</pre>
+                <pre class="signature">$limit : string</pre>
                 <p><em>Value for limit string</em></p>
                 
 
                                 <h4>Type</h4>
-                \Query\type
-                &mdash; string                            </article>
+                string
+                                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -1059,7 +1059,7 @@ array(</p>
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct(\Query\Driver\Driver_Interface <span class="argument">$db</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">__construct(\Query\Driver\Driver_Interface <span class="argument">$db</span>, \Query\Query_Parser <span class="argument">$parser</span>)</pre>
                 <p><em>Constructor</em></p>
                 
 
@@ -1068,6 +1068,11 @@ array(</p>
                                                     <tr>
                                 <td><a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a></td>
                                 <td>$db</td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Query.Query_Parser.html">\Query\Query_Parser</a></td>
+                                <td>$parser</td>
                                 <td></td>
                             </tr>
                                             </table>
@@ -1178,7 +1183,7 @@ array(</p>
             <article class="method">
                 <h3 class="public ">select_max()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">select_max(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : \Query\Query_Builder</pre>
+                <pre class="signature" style="margin-right: 54px;">select_max(string <span class="argument">$field</span>, string|FALSE <span class="argument">$as</span>) : \Query\Query_Builder</pre>
                 <p><em>Selects the maximum value of a field from a query</em></p>
                 
 
@@ -1190,7 +1195,7 @@ array(</p>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>string</td>
+                                <td>string|FALSE</td>
                                 <td>$as</td>
                                 <td></td>
                             </tr>
@@ -1224,7 +1229,7 @@ array(</p>
             <article class="method">
                 <h3 class="public ">select_min()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">select_min(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : \Query\Query_Builder</pre>
+                <pre class="signature" style="margin-right: 54px;">select_min(string <span class="argument">$field</span>, string|bool <span class="argument">$as</span>) : \Query\Query_Builder</pre>
                 <p><em>Selects the minimum value of a field from a query</em></p>
                 
 
@@ -1236,7 +1241,7 @@ array(</p>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>string</td>
+                                <td>string|bool</td>
                                 <td>$as</td>
                                 <td></td>
                             </tr>
@@ -1270,7 +1275,7 @@ array(</p>
             <article class="method">
                 <h3 class="public ">select_avg()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">select_avg(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : \Query\Query_Builder</pre>
+                <pre class="signature" style="margin-right: 54px;">select_avg(string <span class="argument">$field</span>, string|bool <span class="argument">$as</span>) : \Query\Query_Builder</pre>
                 <p><em>Selects the average value of a field from a query</em></p>
                 
 
@@ -1282,7 +1287,7 @@ array(</p>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>string</td>
+                                <td>string|bool</td>
                                 <td>$as</td>
                                 <td></td>
                             </tr>
@@ -1316,7 +1321,7 @@ array(</p>
             <article class="method">
                 <h3 class="public ">select_sum()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">select_sum(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : \Query\Query_Builder</pre>
+                <pre class="signature" style="margin-right: 54px;">select_sum(string <span class="argument">$field</span>, string|bool <span class="argument">$as</span>) : \Query\Query_Builder</pre>
                 <p><em>Selects the sum of a field from a query</em></p>
                 
 
@@ -1328,7 +1333,7 @@ array(</p>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>string</td>
+                                <td>string|bool</td>
                                 <td>$as</td>
                                 <td></td>
                             </tr>
@@ -2226,7 +2231,7 @@ passed array with key / value pairs</em></p>
             <article class="method">
                 <h3 class="public ">limit()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">limit(int <span class="argument">$limit</span>, int <span class="argument">$offset</span>) : \Query\Query_Builder</pre>
+                <pre class="signature" style="margin-right: 54px;">limit(int <span class="argument">$limit</span>, int|bool <span class="argument">$offset</span>) : \Query\Query_Builder</pre>
                 <p><em>Set a limit on the current sql statement</em></p>
                 
 
@@ -2238,7 +2243,7 @@ passed array with key / value pairs</em></p>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>int</td>
+                                <td>int|bool</td>
                                 <td>$offset</td>
                                 <td></td>
                             </tr>
@@ -2400,7 +2405,7 @@ prefixed with &#039;OR NOT&#039;</em></p>
             <article class="method">
                 <h3 class="public ">get()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">get(mixed <span class="argument">$table</span>, int <span class="argument">$limit</span>, int <span class="argument">$offset</span>) : \Query\PDOStatement</pre>
+                <pre class="signature" style="margin-right: 54px;">get(mixed <span class="argument">$table</span>, int|bool <span class="argument">$limit</span>, int|bool <span class="argument">$offset</span>) : \PDOStatement</pre>
                 <p><em>Select and retrieve all records from the current table, and/or
 execute current compiled query</em></p>
                 
@@ -2413,12 +2418,12 @@ execute current compiled query</em></p>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>int</td>
+                                <td>int|bool</td>
                                 <td>$limit</td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>int</td>
+                                <td>int|bool</td>
                                 <td>$offset</td>
                                 <td></td>
                             </tr>
@@ -2426,7 +2431,7 @@ execute current compiled query</em></p>
                 
                 
                                     <h4>Returns</h4>
-                    \Query\PDOStatement
+                    \PDOStatement
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2452,8 +2457,8 @@ execute current compiled query</em></p>
             <article class="method">
                 <h3 class="public ">get_where()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">get_where(string <span class="argument">$table</span>, array <span class="argument">$where</span>, int <span class="argument">$limit</span>, int <span class="argument">$offset</span>) : \Query\PDOStatement</pre>
-                <p><em>Convience method for get() with a where clause</em></p>
+                <pre class="signature" style="margin-right: 54px;">get_where(string <span class="argument">$table</span>, array <span class="argument">$where</span>, int|bool <span class="argument">$limit</span>, int|bool <span class="argument">$offset</span>) : \PDOStatement</pre>
+                <p><em>Convenience method for get() with a where clause</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -2469,12 +2474,12 @@ execute current compiled query</em></p>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>int</td>
+                                <td>int|bool</td>
                                 <td>$limit</td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>int</td>
+                                <td>int|bool</td>
                                 <td>$offset</td>
                                 <td></td>
                             </tr>
@@ -2482,7 +2487,7 @@ execute current compiled query</em></p>
                 
                 
                                     <h4>Returns</h4>
-                    \Query\PDOStatement
+                    \PDOStatement
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2591,7 +2596,7 @@ in place of the get() method</em></p>
             <article class="method">
                 <h3 class="public ">insert()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">insert(string <span class="argument">$table</span>, mixed <span class="argument">$data</span>) : \Query\PDOStatement</pre>
+                <pre class="signature" style="margin-right: 54px;">insert(string <span class="argument">$table</span>, mixed <span class="argument">$data</span>) : \PDOStatement</pre>
                 <p><em>Creates an insert clause, and executes it</em></p>
                 
 
@@ -2611,7 +2616,7 @@ in place of the get() method</em></p>
                 
                 
                                     <h4>Returns</h4>
-                    \Query\PDOStatement
+                    \PDOStatement
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2637,7 +2642,7 @@ in place of the get() method</em></p>
             <article class="method">
                 <h3 class="public ">insert_batch()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">insert_batch(string <span class="argument">$table</span>, array <span class="argument">$data</span>) : \Query\PDOStatement</pre>
+                <pre class="signature" style="margin-right: 54px;">insert_batch(string <span class="argument">$table</span>, array <span class="argument">$data</span>) : \PDOStatement</pre>
                 <p><em>Creates and executes a batch insertion query</em></p>
                 
 
@@ -2657,7 +2662,7 @@ in place of the get() method</em></p>
                 
                 
                                     <h4>Returns</h4>
-                    \Query\PDOStatement
+                    \PDOStatement
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2683,7 +2688,7 @@ in place of the get() method</em></p>
             <article class="method">
                 <h3 class="public ">update()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">update(string <span class="argument">$table</span>, mixed <span class="argument">$data</span>) : \Query\PDOStatement</pre>
+                <pre class="signature" style="margin-right: 54px;">update(string <span class="argument">$table</span>, mixed <span class="argument">$data</span>) : \PDOStatement</pre>
                 <p><em>Creates an update clause, and executes it</em></p>
                 
 
@@ -2703,7 +2708,7 @@ in place of the get() method</em></p>
                 
                 
                                     <h4>Returns</h4>
-                    \Query\PDOStatement
+                    \PDOStatement
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2729,7 +2734,7 @@ in place of the get() method</em></p>
             <article class="method">
                 <h3 class="public ">delete()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">delete(string <span class="argument">$table</span>, mixed <span class="argument">$where</span>) : \Query\PDOStatement</pre>
+                <pre class="signature" style="margin-right: 54px;">delete(string <span class="argument">$table</span>, mixed <span class="argument">$where</span>) : \PDOStatement</pre>
                 <p><em>Deletes data from a table</em></p>
                 
 
@@ -2749,7 +2754,7 @@ in place of the get() method</em></p>
                 
                 
                                     <h4>Returns</h4>
-                    \Query\PDOStatement
+                    \PDOStatement
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3010,7 +3015,7 @@ in place of the get() method</em></p>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                    <dt>\Query\BadMethodCallException</dt>
+                                                    <dt>\BadMethodCallException</dt>
                             <dd></dd>
                                                                     </dl>
                 
@@ -3041,7 +3046,7 @@ in place of the get() method</em></p>
             <article class="method">
                 <h3 class="protected ">_select()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_select(string <span class="argument">$field</span>, string <span class="argument">$as</span>) : string</pre>
+                <pre class="signature" style="margin-right: 54px;">_select(string <span class="argument">$field</span>, string|bool <span class="argument">$as</span>) : string</pre>
                 <p><em>Method to simplify select_ methods</em></p>
                 
 
@@ -3053,7 +3058,7 @@ in place of the get() method</em></p>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td>string</td>
+                                <td>string|bool</td>
                                 <td>$as</td>
                                 <td></td>
                             </tr>
@@ -3200,7 +3205,7 @@ in place of the get() method</em></p>
                 <h3 class="protected ">_where()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">_where(mixed <span class="argument">$key</span>, mixed <span class="argument">$val</span>) : array</pre>
-                <p><em>Do all the repeditive stuff for where/having type methods</em></p>
+                <p><em>Do all the repedative stuff for where/having type methods</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -3356,7 +3361,7 @@ in place of the get() method</em></p>
             <article class="method">
                 <h3 class="protected ">_get_compile()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_get_compile(string <span class="argument">$type</span>, string <span class="argument">$table</span>, bool <span class="argument">$reset</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">_get_compile(string <span class="argument">$type</span>, string <span class="argument">$table</span>, bool <span class="argument">$reset</span>) : string</pre>
                 <p><em>Helper function for returning sql strings</em></p>
                 
 
@@ -3380,7 +3385,9 @@ in place of the get() method</em></p>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3388,14 +3395,6 @@ in place of the get() method</em></p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            resturn
-                        </th>
-                        <td>
-                                                                                            <p>string</p>
-                                                    </td>
-                    </tr>
                                     <tr>
                         <th>
                             todo
@@ -3413,7 +3412,7 @@ in place of the get() method</em></p>
             <article class="method">
                 <h3 class="protected ">_run()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_run(string <span class="argument">$type</span>, string <span class="argument">$table</span>, string <span class="argument">$sql</span>, array|null <span class="argument">$vals</span>) : \Query\PDOStatement</pre>
+                <pre class="signature" style="margin-right: 54px;">_run(string <span class="argument">$type</span>, string <span class="argument">$table</span>, string <span class="argument">$sql</span>, array|null <span class="argument">$vals</span>) : \PDOStatement</pre>
                 <p><em>Executes the compiled query</em></p>
                 
 
@@ -3443,7 +3442,7 @@ in place of the get() method</em></p>
                 
                 
                                     <h4>Returns</h4>
-                    \Query\PDOStatement
+                    \PDOStatement
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3703,7 +3702,7 @@ in place of the get() method</em></p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 15th, 2014 at 16:12.
+                    on April 24th, 2014 at 11:24.
                 </section>
             </section>
         </section>

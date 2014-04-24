@@ -31,12 +31,12 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	/**
 	 * Reference to the last executed query
-	 * @var PDOStatement
+	 * @var \PDOStatement
 	 */
 	protected $statement;
 
 	/**
-	 * Character to escape indentifiers
+	 * Character to escape identifiers
 	 * @var string
 	 */
 	protected $escape_char = '"';
@@ -49,7 +49,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	/**
 	 * Reference to util class
-	 * @var DB_Util
+	 * @var Abstract_Util
 	 */
 	public $util;
 
@@ -100,8 +100,10 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	/**
 	 * Allow invoke to work on table object
 	 *
+	 * @codeCoverageIgnore
 	 * @param string $name
 	 * @param array $args
+	 * @return mixed
 	 */
 	public function __call($name, $args = array())
 	{
@@ -117,6 +119,30 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	// --------------------------------------------------------------------------
 	// ! Concrete functions that can be overridden in child classes
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the SQL class for the current driver
+	 *
+	 * @return SQL_Interface
+	 */
+	public function get_sql()
+	{
+		return $this->sql;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the Util class for the current driver
+	 *
+	 * @return Abstract_Util
+	 */
+	public function get_util()
+	{
+		return $this->util;
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -192,7 +218,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		// before quoting it
 		if ( ! empty($this->table_prefix))
 		{
-			// Split indentifier by period, will split into:
+			// Split identifier by period, will split into:
 			// database.schema.table OR
 			// schema.table OR
 			// database.table OR
@@ -415,7 +441,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Retreives an array of non-user-created tables for
+	 * Retrieves an array of non-user-created tables for
 	 * the connection/database
 	 *
 	 * @return array
@@ -435,7 +461,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_columns($table)
 	{
-		return $this->driver_query($this->sql->column_list($this->prefix_table($table)), FALSE);
+		return $this->driver_query($this->get_sql()->column_list($this->prefix_table($table)), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -448,7 +474,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_fks($table)
 	{
-		return $this->driver_query($this->sql->fk_list($table), FALSE);
+		return $this->driver_query($this->get_sql()->fk_list($table), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -461,7 +487,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_indexes($table)
 	{
-		return $this->driver_query($this->sql->index_list($this->prefix_table($table)), FALSE);
+		return $this->driver_query($this->get_sql()->index_list($this->prefix_table($table)), FALSE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -479,7 +505,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Method to simplify retreiving db results for meta-data queries
+	 * Method to simplify retrieving db results for meta-data queries
 	 *
 	 * @param string|array|null $query
 	 * @param bool $filtered_index
@@ -490,7 +516,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		// Call the appropriate method, if it exists
 		if (is_string($query) && method_exists($this->sql, $query))
 		{
-			$query = $this->sql->$query();
+			$query = $this->get_sql()->$query();
 		}
 
 		// Return if the values are returned instead of a query,
@@ -551,11 +577,17 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function insert_batch($table, $data=array())
 	{
-		if ( ! is_array(current($data))) return NULL;
+		$first_row = current($data);
+		if ( ! is_array($first_row)) return NULL;
 
-		$vals = array(); // Values for insertion
+		// Values for insertion
+		$vals = array();
+		foreach($data as $group)
+		{
+			$vals = array_merge($vals, array_values($group));
+		}
 		$table = $this->quote_table($table);
-		$fields = array_keys(current($data));
+		$fields = array_keys($first_row);
 
 		$sql = "INSERT INTO {$table} ("
 			. implode(',', $this->quote_ident($fields))
@@ -566,13 +598,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		$param_string = "(" . implode(',', $params) . ")";
 		$param_list = array_fill(0, count($data), $param_string);
 
-		// For each grouping, add the values
-		foreach($data as $group)
-		{
-			$vals = array_merge($vals, array_values($group));
-		}
-
-		// Add the param groups
+		// Append the placeholder groups to the query
 		$sql .= implode(',', $param_list);
 
 		return array($sql, $vals);

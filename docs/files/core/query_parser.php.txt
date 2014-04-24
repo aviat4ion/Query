@@ -56,9 +56,9 @@ class Query_Parser {
 	/**
 	 * Constructor/entry point into parser
 	 *
-	 * @param \Query\Query_Builder $db
+	 * @param Driver\Driver_Interface $db
 	 */
-	public function __construct(\Query\Query_Builder $db)
+	public function __construct(Driver\Driver_Interface $db)
 	{
 		$this->db = $db;
 	}
@@ -66,9 +66,10 @@ class Query_Parser {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Public parser method for seting the parse string
+	 * Public parser method for setting the parse string
 	 *
 	 * @param string $sql
+	 * @return array
 	 */
 	protected function parse_join($sql)
 	{
@@ -111,6 +112,8 @@ class Query_Parser {
 
 		return implode('', $parts['combined']);
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Returns a more useful match array

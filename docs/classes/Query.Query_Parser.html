@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-396425106"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-457984043"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-396425106" class="accordion-body collapse in">
+            <div id="namespace-457984043" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-304705146"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-94427895"></a>
                                 <a href="../namespaces/Query.html" style="margin-left: 30px; padding-left: 0">Query</a>
             </div>
-            <div id="namespace-304705146" class="accordion-body collapse ">
+            <div id="namespace-94427895" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1585329432"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-328696566"></a>
                                 <a href="../namespaces/Query.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
             </div>
-            <div id="namespace-1585329432" class="accordion-body collapse ">
+            <div id="namespace-328696566" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -179,10 +179,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-958474408"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-330458067"></a>
                                 <a href="../namespaces/Query.Driver.html" style="margin-left: 30px; padding-left: 0">Driver</a>
             </div>
-            <div id="namespace-958474408" class="accordion-body collapse ">
+            <div id="namespace-330458067" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -441,14 +441,14 @@
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct(\Query\Query_Builder <span class="argument">$db</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">__construct(\Query\Driver\Driver_Interface <span class="argument">$db</span>)</pre>
                 <p><em>Constructor/entry point into parser</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td><a href="../classes/Query.Query_Builder.html">\Query\Query_Builder</a></td>
+                                <td><a href="../classes/Query.Driver.Driver_Interface.html">\Query\Driver\Driver_Interface</a></td>
                                 <td>$db</td>
                                 <td></td>
                             </tr>
@@ -521,8 +521,8 @@
             <article class="method">
                 <h3 class="protected ">parse_join()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">parse_join(string <span class="argument">$sql</span>)</pre>
-                <p><em>Public parser method for seting the parse string</em></p>
+                <pre class="signature" style="margin-right: 54px;">parse_join(string <span class="argument">$sql</span>) : array</pre>
+                <p><em>Public parser method for setting the parse string</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -535,7 +535,9 @@
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -645,7 +647,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 15th, 2014 at 16:12.
+                    on April 24th, 2014 at 11:24.
                 </section>
             </section>
         </section>

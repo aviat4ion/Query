@@ -205,14 +205,16 @@ class MySQL_SQL extends Abstract_SQL {
 		return <<<SQL
 			SELECT DISTINCT `kcu`.`COLUMN_NAME` as `child_column`,
 					`kcu`.`REFERENCED_TABLE_NAME` as `parent_table`,
-					`kcu`.`REFERENCED_COLUMN_NAME` as `parent_column`
+					`kcu`.`REFERENCED_COLUMN_NAME` as `parent_column`,
+					`rc`.`UPDATE_RULE` AS `update`,
+					`rc`.`DELETE_RULE` AS `delete`
 			FROM `INFORMATION_SCHEMA`.`TABLE_CONSTRAINTS` `tc`
 			INNER JOIN `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
 				ON `kcu`.`CONSTRAINT_NAME`=`tc`.`CONSTRAINT_NAME`
+			INNER JOIN `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS` `rc`
+				ON `rc`.`CONSTRAINT_NAME`=`tc`.`CONSTRAINT_NAME`
 			WHERE `tc`.`CONSTRAINT_TYPE`='FOREIGN KEY'
 			AND `tc`.`TABLE_NAME`='{$table}'
-			-- AND `parent_table` IS NOT NULL
-			-- AND `parent_column` IS NOT NULL
 SQL;
 	}
 

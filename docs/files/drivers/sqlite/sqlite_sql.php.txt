@@ -79,9 +79,9 @@ SQL;
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Overridden in SQLite class
+	 * List the system tables
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function system_table_list()
 	{
@@ -195,7 +195,7 @@ SQL;
 	 * Get the list of indexes for the current table
 	 *
 	 * @param string $table
-	 * @return array
+	 * @return string
 	 */
 	public function index_list($table)
 	{

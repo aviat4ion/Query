@@ -28,7 +28,7 @@ abstract class Abstract_SQL implements SQL_Interface {
 	 *
 	 * @param string $sql
 	 * @param int $limit
-	 * @param int $offset
+	 * @param int|bool $offset
 	 * @return string
 	 */
 	public function limit($sql, $limit, $offset=FALSE)

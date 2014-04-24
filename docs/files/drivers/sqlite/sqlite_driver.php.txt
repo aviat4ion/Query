@@ -88,14 +88,15 @@ class SQLite extends Abstract_Driver {
 	public function get_fks($table)
 	{
 		$return_rows = array();
-		$rows = parent::get_fks($table);
 
-		foreach($rows as $row)
+		foreach(parent::get_fks($table) as $row)
 		{
 			$return_rows[] = array(
 				'child_column' => $row['from'],
 				'parent_table' => $row['table'],
-				'parent_column' => $row['to']
+				'parent_column' => $row['to'],
+				'update' => $row['on_update'],
+				'delete' => $row['on_delete']
 			);
 		}
 
