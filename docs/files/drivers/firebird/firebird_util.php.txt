@@ -20,10 +20,6 @@ namespace Query\Driver;
  *
  * @package Query
  * @subpackage Drivers
- * @method array get_system_tables()
- * @method array get_tables()
- * @method object query(string $sql)
- * @method resource get_service()
  */
 class Firebird_Util extends Abstract_Util {
 
@@ -50,7 +46,7 @@ class Firebird_Util extends Abstract_Util {
 	 */
 	public function delete_table($name)
 	{
-		return 'DROP TABLE '.$this->quote_table($name);
+		return 'DROP TABLE '.$this->get_driver()->quote_table($name);
 	}
 
 	// --------------------------------------------------------------------------
@@ -65,7 +61,7 @@ class Firebird_Util extends Abstract_Util {
 	public function backup_structure()
 	{
 		list($db_path, $new_file) = func_get_args();
-		return ibase_backup($this->get_service(), $db_path, $new_file, \IBASE_BKP_METADATA_ONLY);
+		return ibase_backup($this->get_driver()->get_service(), $db_path, $new_file, \IBASE_BKP_METADATA_ONLY);
 	}
 
 	// --------------------------------------------------------------------------
@@ -81,13 +77,10 @@ class Firebird_Util extends Abstract_Util {
 	public function backup_data($exclude=array(), $system_tables=FALSE)
 	{
 		// Determine which tables to use
+		$tables = $this->get_driver()->get_tables();
 		if($system_tables == TRUE)
 		{
-			$tables = array_merge($this->get_system_tables(), $this->get_tables());
-		}
-		else
-		{
-			$tables = $this->get_tables();
+			$tables = array_merge($tables, $this->get_driver()->get_system_tables());
 		}
 
 		// Filter out the tables you don't want
@@ -102,7 +95,7 @@ class Firebird_Util extends Abstract_Util {
 		foreach($tables as $t)
 		{
 			$sql = 'SELECT * FROM "'.trim($t).'"';
-			$res = $this->query($sql);
+			$res = $this->get_driver()->query($sql);
 			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			// Don't add to the file if the table is empty
@@ -121,7 +114,7 @@ class Firebird_Util extends Abstract_Util {
 				// Quote values as needed by type
 				if(stripos($t, 'RDB$') === FALSE)
 				{
-					$row = array_map(array(&$this, 'quote'), $row);
+					$row = array_map(array($this->get_driver(), 'quote'), $row);
 					$row = array_map('trim', $row);
 				}
 
