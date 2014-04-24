@@ -41,19 +41,6 @@ class PgSQL extends Abstract_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Empty a table
-	 *
-	 * @param string $table
-	 */
-	public function truncate($table)
-	{
-		$sql = 'TRUNCATE "' . $table . '"';
-		$this->query($sql);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Get a list of schemas for the current connection
 	 *
 	 * @return array

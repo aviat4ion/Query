@@ -31,6 +31,13 @@ class SQLite extends Abstract_Driver {
 	protected $statement;
 
 	/**
+	 * SQLite has a truncate optimization,
+	 * but no support for the actual keyword
+	 * @var bool
+	 */
+	protected $has_truncate = FALSE;
+
+	/**
 	 * Open SQLite Database
 	 *
 	 * @param string $dsn
@@ -44,23 +51,6 @@ class SQLite extends Abstract_Driver {
 		parent::__construct("sqlite:{$dsn}", $user, $pass);
 	}
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Empty a table
-	 *
-	 * @param string $table
-	 */
-	public function truncate($table)
-	{
-		// SQLite has a TRUNCATE optimization,
-		// but no support for the actual command.
-		$sql = 'DELETE FROM "'.$table.'"';
-
-		$this->statement = $this->query($sql);
-
-		return $this->statement;
-	}
 
 	// --------------------------------------------------------------------------
 
