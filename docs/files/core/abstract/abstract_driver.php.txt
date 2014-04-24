@@ -72,6 +72,12 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	public $table_prefix = '';
 
 	/**
+	 * Whether the driver supports 'TRUNCATE'
+	 * @var bool
+	 */
+	public $has_truncate = TRUE;
+
+	/**
 	 * PDO constructor wrapper
 	 *
 	 * @param string $dsn
@@ -608,16 +614,25 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	}
 
 	// -------------------------------------------------------------------------
-	// ! Abstract public functions to implement in child classes
-	// -------------------------------------------------------------------------
 
 	/**
 	 * Empty the passed table
 	 *
 	 * @param string $table
-	 * @return void
+	 * @return \PDOStatement
 	 */
-	abstract public function truncate($table);
+	public function truncate($table)
+	{
+
+		$sql = ($this->has_truncate)
+			? 'TRUNCATE '
+			: 'DELETE FROM ';
+
+		$sql .= $this->quote_table($table);
+
+		$this->statement = $this->query($sql);
+		return $this->statement;
+	}
 
 }
 // End of db_pdo.php

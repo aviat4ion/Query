@@ -52,18 +52,5 @@ class MySQL extends Abstract_Driver {
 
 		parent::__construct($dsn, $username, $password, $options);
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Empty a table
-	 *
-	 * @param string $table
-	 */
-	public function truncate($table)
-	{
-		$table = $this->prefix_table($table);
-		$this->query("TRUNCATE `{$table}`");
-	}
 }
 //End of mysql_driver.php

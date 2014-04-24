@@ -66,6 +66,13 @@ class Firebird extends Abstract_Driver {
 	protected $service = NULL;
 
 	/**
+	 * Firebird doesn't have the truncate keyword
+	 *
+	 * @var bool
+	 */
+	protected $has_truncate = FALSE;
+
+	/**
 	 * Open the link to the database
 	 *
 	 * @param string $dbpath
@@ -118,21 +125,6 @@ class Firebird extends Abstract_Driver {
 		return $this->service;
 	}
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Empty a database table
-	 *
-	 * @param string $table
-	 * @return \PDOStatement
-	 */
-	public function truncate($table)
-	{
-		// Firebird lacks a truncate command
-		$sql = 'DELETE FROM '.$this->quote_table($table);
-		$this->statement = $this->query($sql);
-		return $this->statement;
-	}
 
 	// --------------------------------------------------------------------------
 
