@@ -59,7 +59,7 @@ abstract class Abstract_Util {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Convienience public function to generate sql for creating a db table
+	 * Convenience public function to generate sql for creating a db table
 	 *
 	 * @deprecated Use the table builder class instead
 	 * @param string $name
@@ -94,7 +94,7 @@ abstract class Abstract_Util {
 			}
 		}
 
-		// Join column definitons together
+		// Join column definitions together
 		$columns = array();
 		foreach($column_array as $n => $props)
 		{

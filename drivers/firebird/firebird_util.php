@@ -34,9 +34,10 @@ class Firebird_Util extends Abstract_Util {
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints
+	 * @param bool $if_not_exists
 	 * @return string
 	 */
-	public function create_table($name, $fields, array $constraints=array())
+	public function create_table($name, $fields, array $constraints=array(), $if_not_exists=FALSE)
 	{
 		return parent::create_table($name, $fields, $constraints, FALSE);
 	}
