@@ -116,6 +116,13 @@ interface Driver_Interface {
 	public function get_tables();
 
 	/**
+	 * Return list of dbs for the current connection, if possible
+	 *
+	 * @return array
+	 */
+	public function get_dbs();
+
+	/**
 	 * Surrounds the string with the databases identifier escape characters
 	 *
 	 * @param mixed $ident
@@ -153,5 +160,14 @@ interface Driver_Interface {
 	 * @return Abstract_Util
 	 */
 	public function get_util();
+
+	/**
+	 * Method to simplify retrieving db results for meta-data queries
+	 *
+	 * @param string|array|null $query
+	 * @param bool $filtered_index
+	 * @return array
+	 */
+	public function driver_query($query, $filtered_index=TRUE);
 }
 // End of driver_interface.php

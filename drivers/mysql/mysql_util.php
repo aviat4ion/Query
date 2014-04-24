@@ -20,12 +20,6 @@ namespace Query\Driver;
  *
  * @package Query
  * @subpackage Drivers
- * @method array get_dbs()
- * @method mixed driver_query(string $sql, bool $filtered_index=TRUE)
- * @method array get_system_tables()
- * @method array get_tables()
- * @method mixed query(string $sql)
- * @method string quote(string $str)
  */
 class MySQL_Util extends Abstract_Util {
 
@@ -39,7 +33,7 @@ class MySQL_Util extends Abstract_Util {
 		$string = array();
 
 		// Get databases
-		$dbs = $this->get_dbs();
+		$dbs = $this->get_driver()->get_dbs();
 
 		foreach($dbs as &$d)
 		{
@@ -47,11 +41,11 @@ class MySQL_Util extends Abstract_Util {
 			if ($d == 'mysql') continue;
 
 			// Get the list of tables
-			$tables = $this->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
+			$tables = $this->get_driver()->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
 
 			foreach($tables as $table)
 			{
-				$array = $this->driver_query("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
+				$array = $this->get_driver()->driver_query("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
 				$row = current($array);
 
 				if ( ! isset($row['Create Table'])) continue;
@@ -74,7 +68,7 @@ class MySQL_Util extends Abstract_Util {
 	 */
 	public function backup_data($exclude=array())
 	{
-		$tables = $this->get_tables();
+		$tables = $this->get_driver()->get_tables();
 
 		// Filter out the tables you don't want
 		if( ! empty($exclude))
@@ -88,7 +82,7 @@ class MySQL_Util extends Abstract_Util {
 		foreach($tables as $t)
 		{
 			$sql = "SELECT * FROM `{$t}`";
-			$res = $this->query($sql);
+			$res = $this->get_driver()->query($sql);
 			$rows = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			// Skip empty tables
@@ -107,7 +101,7 @@ class MySQL_Util extends Abstract_Util {
 				// Workaround for Quercus
 				foreach($row as &$r)
 				{
-					$r = $this->quote($r);
+					$r = $this->get_driver()->quote($r);
 				}
 				$row = array_map('trim', $row);
 

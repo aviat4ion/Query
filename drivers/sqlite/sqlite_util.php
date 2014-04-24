@@ -43,7 +43,7 @@ class SQLite_Util extends Abstract_Util {
 			$sql .= " AND \"name\" NOT IN('".implode("','", $excluded)."')";
 		}
 
-		$res = $this->query($sql);
+		$res = $this->get_driver()->query($sql);
 		$result = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 		unset($res);
@@ -54,7 +54,7 @@ class SQLite_Util extends Abstract_Util {
 		foreach($result as $r)
 		{
 			$sql = 'SELECT * FROM "'.$r['name'].'"';
-			$res = $this->query($sql);
+			$res = $this->get_driver()->query($sql);
 			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			unset($res);
@@ -75,7 +75,7 @@ class SQLite_Util extends Abstract_Util {
 				// Quote values as needed by type
 				for($i=0, $icount=count($row); $i<$icount; $i++)
 				{
-					$row[$i] = (is_numeric($row[$i])) ? $row[$i] : $this->quote($row[$i]);
+					$row[$i] = (is_numeric($row[$i])) ? $row[$i] : $this->get_driver()->quote($row[$i]);
 				}
 
 				$row_string = 'INSERT INTO "'.$r['name'].'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
@@ -104,7 +104,7 @@ class SQLite_Util extends Abstract_Util {
 	{
 		// Fairly easy for SQLite...just query the master table
 		$sql = 'SELECT "sql" FROM "sqlite_master"';
-		$res = $this->query($sql);
+		$res = $this->get_driver()->query($sql);
 		$result = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 		$sql_array = array();

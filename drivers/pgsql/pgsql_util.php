@@ -20,8 +20,6 @@ namespace Query\Driver;
  *
  * @package Query
  * @subpackage Drivers
- * @method mixed query(string $sql)
- * @method array get_tables()
  */
 class PgSQL_Util extends Abstract_Util {
 
@@ -46,7 +44,7 @@ class PgSQL_Util extends Abstract_Util {
 	 */
 	public function backup_data($exclude=array())
 	{
-		$tables = $this->get_tables();
+		$tables = $this->get_driver()->get_tables();
 
 		// Filter out the tables you don't want
 		if( ! empty($exclude))
@@ -60,7 +58,7 @@ class PgSQL_Util extends Abstract_Util {
 		foreach($tables as $t)
 		{
 			$sql = 'SELECT * FROM "'.trim($t).'"';
-			$res = $this->query($sql);
+			$res = $this->get_driver()->query($sql);
 			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			// Don't add to the file if the table is empty
@@ -79,7 +77,7 @@ class PgSQL_Util extends Abstract_Util {
 				$row = array_values($row);
 
 				// Quote values as needed by type
-				$row = array_map(array(&$this, 'quote'), $row);
+				$row = array_map(array($this->get_driver(), 'quote'), $row);
 				$row = array_map('trim', $row);
 
 

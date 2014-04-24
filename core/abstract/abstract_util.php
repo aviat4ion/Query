@@ -43,19 +43,15 @@ abstract class Abstract_Util {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Enable calling driver methods
+	 * Get the driver object for the current connection
 	 *
-	 * @param string $method
-	 * @param array $args
-	 * @return mixed
+	 * @return Driver_Interface
 	 */
-	public function __call($method, $args)
+	public function get_driver()
 	{
-		return call_user_func_array(array($this->conn, $method), $args);
+		return $this->conn;
 	}
 
-	// --------------------------------------------------------------------------
-	// ! Abstract Methods
 	// --------------------------------------------------------------------------
 
 	/**
@@ -70,8 +66,6 @@ abstract class Abstract_Util {
 	 */
 	public function create_table($name, $fields, array $constraints=array(), $if_not_exists=TRUE)
 	{
-		$column_array = array();
-
 		$exists_str = ($if_not_exists) ? ' IF NOT EXISTS ' : ' ';
 
 		// Reorganize into an array indexed with column information
@@ -89,7 +83,7 @@ abstract class Abstract_Util {
 		$columns = array();
 		foreach($column_array as $n => $props)
 		{
-			$str = $this->quote_ident($n);
+			$str = $this->get_driver()->quote_ident($n);
 			$str .= (isset($props['type'])) ? " {$props['type']}" : "";
 			$str .= (isset($props['constraint'])) ? " {$props['constraint']}" : "";
 
@@ -97,7 +91,7 @@ abstract class Abstract_Util {
 		}
 
 		// Generate the sql for the creation of the table
-		$sql = 'CREATE TABLE'.$exists_str.$this->quote_table($name).' (';
+		$sql = 'CREATE TABLE'.$exists_str.$this->get_driver()->quote_table($name).' (';
 		$sql .= implode(', ', $columns);
 		$sql .= ')';
 
@@ -114,9 +108,12 @@ abstract class Abstract_Util {
 	 */
 	public function delete_table($name)
 	{
-		return 'DROP TABLE IF EXISTS '.$this->quote_table($name);
+		return 'DROP TABLE IF EXISTS '.$this->get_driver()->quote_table($name);
 	}
 	
+
+	// --------------------------------------------------------------------------
+	// ! Abstract Methods
 	// --------------------------------------------------------------------------
 
 	/**
