@@ -134,12 +134,14 @@ class Firebird extends Abstract_Driver {
 	 * Empty a database table
 	 *
 	 * @param string $table
+	 * @return \PDOStatement
 	 */
 	public function truncate($table)
 	{
 		// Firebird lacks a truncate command
 		$sql = 'DELETE FROM '.$this->quote_table($table);
 		$this->statement = $this->query($sql);
+		return $this->statement;
 	}
 
 	// --------------------------------------------------------------------------

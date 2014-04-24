@@ -1315,13 +1315,25 @@ class Query_Builder implements Query_Builder_Interface {
 	 */
 	public function __call($name, $params)
 	{
-		if (method_exists($this->db, $name))
+		// Allow camel-case method calls
+		$snake_name = \from_camel_case($name);
+
+		foreach(array($this, $this->db) as $object)
 		{
-			return call_user_func_array(array($this->db, $name), $params);
+			foreach(array($name, $snake_name) as $method_name)
+			{
+				if (method_exists($object, $method_name))
+				{
+					return call_user_func_array(array($object, $method_name), $params);
+				}
+			}
+
 		}
 
 		throw new \BadMethodCallException("Method does not exist");
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Convert the prepared statement into readable sql

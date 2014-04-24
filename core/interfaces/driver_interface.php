@@ -34,6 +34,16 @@ interface Driver_Interface {
 	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options = array());
 
 	/**
+	 * Simplifies prepared statements for database queries
+	 *
+	 * @param string $sql
+	 * @param array $data
+	 * @return \PDOStatement | FALSE
+	 * @throws \InvalidArgumentException
+	 */
+	public function prepare_query($sql, $data);
+
+	/**
 	 * Begin a transaction
 	 *
 	 * @return bool
@@ -101,6 +111,21 @@ interface Driver_Interface {
 	public function get_columns($table);
 
 	/**
+	 * Retrieve list of data types for the database
+	 *
+	 * @return array
+	 */
+	public function get_types();
+
+	/**
+	 * Retrieve indexes for the table
+	 *
+	 * @param string $table
+	 * @return array
+	 */
+	public function get_indexes($table);
+
+	/**
 	 * Retrieve foreign keys for the table
 	 *
 	 * @param string $table
@@ -116,11 +141,54 @@ interface Driver_Interface {
 	public function get_tables();
 
 	/**
+	 * Retrieves an array of non-user-created tables for
+	 * the connection/database
+	 *
+	 * @return array
+	 */
+	public function get_system_tables();
+
+	/**
 	 * Return list of dbs for the current connection, if possible
 	 *
 	 * @return array
 	 */
 	public function get_dbs();
+
+	/**
+	 * Return list of views for the current database
+	 *
+	 * @return array
+	 */
+	public function get_views();
+
+	/**
+	 * Return list of sequences for the current database, if they exist
+	 *
+	 * @return array
+	 */
+	public function get_sequences();
+
+	/**
+	 * Return list of functions for the current database
+	 *
+	 * @return array
+	 */
+	public function get_functions();
+
+	/**
+	 * Return list of stored procedures for the current database
+	 *
+	 * @return array
+	 */
+	public function get_procedures();
+
+	/**
+	 * Return list of triggers for the current database
+	 *
+	 * @return array
+	 */
+	public function get_triggers();
 
 	/**
 	 * Surrounds the string with the databases identifier escape characters
@@ -169,5 +237,37 @@ interface Driver_Interface {
 	 * @return array
 	 */
 	public function driver_query($query, $filtered_index=TRUE);
+
+	/**
+	 * Returns number of rows affected by an INSERT, UPDATE, DELETE type query
+	 *
+	 * @return int
+	 */
+	public function affected_rows();
+
+	/**
+	 * Return the number of rows returned for a SELECT query
+	 * @see http://us3.php.net/manual/en/pdostatement.rowcount.php#87110
+	 *
+	 * @return int
+	 */
+	public function num_rows();
+
+	/**
+	 * Prefixes a table if it is not already prefixed
+	 *
+	 * @param string $table
+	 * @return string
+	 */
+	public function prefix_table($table);
+
+	/**
+	 * Create sql for batch insert
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return array
+	 */
+	public function insert_batch($table, $data=array());
 }
 // End of driver_interface.php

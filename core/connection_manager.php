@@ -84,7 +84,6 @@ final class Connection_Manager {
 	 */
 	public static function get_instance()
 	{
-
 		// @codeCoverageIgnoreStart
 		if (self::$instance === null)
 		{
@@ -115,11 +114,9 @@ final class Connection_Manager {
 		{
 			return end($this->connections);
 		}
-		else
-		{
-			// You should actually connect before trying to get a connection...
-			throw new \InvalidArgumentException("The specified connection does not exist");
-		}
+
+		// You should actually connect before trying to get a connection...
+		throw new \InvalidArgumentException("The specified connection does not exist");
 	}
 
 	// --------------------------------------------------------------------------

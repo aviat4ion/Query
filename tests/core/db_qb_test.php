@@ -268,6 +268,25 @@ abstract class QBTest extends Query_TestCase {
 	}
 
 	// --------------------------------------------------------------------------
+
+	public function testGroupCamelCase()
+	{
+		$query = $this->db->select('id, key as k, val')
+			->from('test')
+			->groupStart()
+			->where('id >', 1)
+			->where('id <', 900)
+			->groupEnd()
+			->orNotGroupStart()
+			->where('id =', 0)
+			->groupEnd()
+			->limit(2, 1)
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
 	// ! Where In tests
 	// --------------------------------------------------------------------------
 

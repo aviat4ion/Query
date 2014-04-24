@@ -255,25 +255,6 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Sets the table prefix on the passed string
-	 *
-	 * @param string $str
-	 * @return string
-	 */
-	protected function _prefix($str)
-	{
-		// Don't prefix an already prefixed table
-		if (strpos($str, $this->table_prefix) !== FALSE)
-		{
-			return $str;
-		}
-
-		return $this->table_prefix.$str;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Surrounds the string with the databases identifier escape characters
 	 *
 	 * @param mixed $ident
@@ -315,30 +296,6 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		}
 
 		return $raw;
-
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Helper method for quote_ident
-	 *
-	 * @param mixed $str
-	 * @return mixed
-	 */
-	public function _quote($str)
-	{
-		// Check that the current value is a string,
-		// and is not already quoted before quoting
-		// that value, otherwise, return the original value
-		return (
-			strpos($str, $this->escape_char) !== 0
-			&& strrpos($str, $this->escape_char) !== 0
-			&& is_string($str)
-			&& ! is_numeric($str)
-		)
-			? "{$this->escape_char}{$str}{$this->escape_char}"
-			: $str;
 
 	}
 
@@ -405,7 +362,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Return list of function for the current database
+	 * Return list of functions for the current database
 	 *
 	 * @return array
 	 */
@@ -554,18 +511,6 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		return NULL;
 	}
 
-	// -------------------------------------------------------------------------
-	// ! Abstract public functions to implement in child classes
-	// -------------------------------------------------------------------------
-
-	/**
-	 * Empty the passed table
-	 *
-	 * @param string $table
-	 * @return void
-	 */
-	abstract public function truncate($table);
-
 	// --------------------------------------------------------------------------
 
 	/**
@@ -603,5 +548,61 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 		return array($sql, $vals);
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Helper method for quote_ident
+	 *
+	 * @param mixed $str
+	 * @return mixed
+	 */
+	public function _quote($str)
+	{
+		// Check that the current value is a string,
+		// and is not already quoted before quoting
+		// that value, otherwise, return the original value
+		return (
+			strpos($str, $this->escape_char) !== 0
+			&& strrpos($str, $this->escape_char) !== 0
+			&& is_string($str)
+			&& ! is_numeric($str)
+		)
+			? "{$this->escape_char}{$str}{$this->escape_char}"
+			: $str;
+
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Sets the table prefix on the passed string
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	protected function _prefix($str)
+	{
+		// Don't prefix an already prefixed table
+		if (strpos($str, $this->table_prefix) !== FALSE)
+		{
+			return $str;
+		}
+
+		return $this->table_prefix.$str;
+	}
+
+	// -------------------------------------------------------------------------
+	// ! Abstract public functions to implement in child classes
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Empty the passed table
+	 *
+	 * @param string $table
+	 * @return void
+	 */
+	abstract public function truncate($table);
+
 }
 // End of db_pdo.php
