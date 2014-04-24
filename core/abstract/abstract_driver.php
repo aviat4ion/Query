@@ -75,7 +75,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 * Whether the driver supports 'TRUNCATE'
 	 * @var bool
 	 */
-	public $has_truncate = TRUE;
+	protected $has_truncate = TRUE;
 
 	/**
 	 * PDO constructor wrapper
