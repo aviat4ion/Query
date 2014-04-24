@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Driver\Util;
 
 /**
  * Firebird-specific backup, import and creation methods

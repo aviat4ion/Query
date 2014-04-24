@@ -91,28 +91,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1512221552"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1699430698"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1512221552" class="accordion-body collapse in">
+            <div id="namespace-1699430698" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-77310425"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-186616775"></a>
                                 <a href="../namespaces/Query.html" style="margin-left: 30px; padding-left: 0">Query</a>
             </div>
-            <div id="namespace-77310425" class="accordion-body collapse ">
+            <div id="namespace-186616775" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-47775404"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2082064381"></a>
                                 <a href="../namespaces/Query.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
             </div>
-            <div id="namespace-47775404" class="accordion-body collapse ">
+            <div id="namespace-2082064381" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -131,19 +131,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1303776516"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-11918149"></a>
                                 <a href="../namespaces/Query.Driver.html" style="margin-left: 30px; padding-left: 0">Driver</a>
             </div>
-            <div id="namespace-1303776516" class="accordion-body collapse ">
+            <div id="namespace-11918149" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-121154047"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1480373186"></a>
                                 <a href="../namespaces/Query.Driver.SQL.html" style="margin-left: 30px; padding-left: 0">SQL</a>
             </div>
-            <div id="namespace-121154047" class="accordion-body collapse ">
+            <div id="namespace-1480373186" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -163,10 +163,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-66043149"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1787140025"></a>
                                 <a href="../namespaces/Query.Driver.Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
             </div>
-            <div id="namespace-66043149" class="accordion-body collapse ">
+            <div id="namespace-1787140025" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -225,48 +225,41 @@
             <div class="row-fluid">
                 <div class="span8 content namespace">
                     <nav>
-                                                <a href="../namespaces/default.html">\</a>
+                                                <a href="../namespaces/Query.Driver.html">\Query\Driver</a>
                                             </nav>
-                    <h1><small>\</small>Query</h1>
+                    <h1><small>\Query\Driver</small>SQL</h1>
 
-                                        <h2>Namespaces</h2>
-                    <table class="table table-hover">
-                                                    <tr>
-                                <td><a href="../namespaces/Query.Table.html">Table</a></td>
-                            </tr>
-                                                    <tr>
-                                <td><a href="../namespaces/Query.Driver.html">Driver</a></td>
-                            </tr>
-                                            </table>
                     
                     
                                         <h2>Interfaces</h2>
                     <table class="table table-hover">
                                                     <tr>
-                                <td><a href="../classes/Query.Query_Builder_Interface.html">Query_Builder_Interface</a></td>
-                                <td><em>Interface defining the Query Builder class</em></td>
+                                <td><a href="../classes/Query.Driver.SQL.SQL_Interface.html">SQL_Interface</a></td>
+                                <td><em>parent for database manipulation subclasses</em></td>
                             </tr>
                                             </table>
                     
                                         <h2>Classes</h2>
                     <table class="table table-hover">
                                             <tr>
-                            <td><a href="../classes/Query.Query_Parser.html">Query_Parser</a></td>
-                            <td><em>Utility Class to parse sql clauses for properly escaping identifiers</em></td>
+                            <td><a href="../classes/Query.Driver.SQL.Abstract_SQL.html">Abstract_SQL</a></td>
+                            <td><em>parent for database manipulation subclasses</em></td>
                         </tr>
                                             <tr>
-                            <td><a href="../classes/Query.Query_Builder.html">Query_Builder</a></td>
-                            <td><em>Convenience class for creating sql queries - also the class that
-instantiates the specific db driver</em></td>
+                            <td><a href="../classes/Query.Driver.SQL.PgSQL_SQL.html">PgSQL_SQL</a></td>
+                            <td><em>PostgreSQL specifc SQL</em></td>
                         </tr>
                                             <tr>
-                            <td><a href="../classes/Query.BadDBDriverException.html">BadDBDriverException</a></td>
-                            <td><em>Generic exception for bad drivers</em></td>
+                            <td><a href="../classes/Query.Driver.SQL.MySQL_SQL.html">MySQL_SQL</a></td>
+                            <td><em>MySQL specifc SQL</em></td>
                         </tr>
                                             <tr>
-                            <td><a href="../classes/Query.Connection_Manager.html">Connection_Manager</a></td>
-                            <td><em>Connection manager class to manage connections for the
-Query method</em></td>
+                            <td><a href="../classes/Query.Driver.SQL.Firebird_SQL.html">Firebird_SQL</a></td>
+                            <td><em>Firebird Specific SQL</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Query.Driver.SQL.SQLite_SQL.html">SQLite_SQL</a></td>
+                            <td><em>SQLite Specific SQL</em></td>
                         </tr>
                                         </table>
                                     </div>
@@ -275,9 +268,13 @@ Query method</em></td>
                     <dl>
                         <dt>Namespace hierarchy</dt>
                         <dd class="hierarchy">
-                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                                     <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
-                                                                                        <div class="namespace-wrapper">\Query</div>
+                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/Query.html">\Query</a></div>
+                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/Query.Driver.html">\Query\Driver</a></div>
+                                                                                        <div class="namespace-wrapper">\Query\Driver\SQL</div>
                         </dd>
                     </dl>
                 </aside>

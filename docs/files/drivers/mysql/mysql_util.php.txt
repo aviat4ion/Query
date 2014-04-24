@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Driver\Util;
 
 /**
  * MySQL-specific backup, import and creation methods

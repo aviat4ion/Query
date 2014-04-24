@@ -85,13 +85,28 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		$driver_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
 		parent::__construct($dsn, $username, $password, $driver_options);
 
-		// Load the sql and util class for the driver
-		foreach(array('sql', 'util') as $sub)
-		{
-			$class = get_class($this) . "_{$sub}";
-			$this->$sub = new $class($this);
-		}
+		$this->_load_sub_classes();
+	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Loads the subclasses for the driver
+	 *
+	 * @return void
+	 */
+	protected function _load_sub_classes()
+	{
+		// Load the sql and util class for the driver
+		$this_class = get_class($this);
+		$ns_array = explode("\\", $this_class);
+		$base_class = array_pop($ns_array);
+		$ns = implode('\\', $ns_array);
+		$sql_class = "{$ns}\\SQL\\{$base_class}_SQL";
+		$util_class = "{$ns}\\Util\\{$base_class}_Util";
+
+		$this->sql = new $sql_class();
+		$this->util = new $util_class($this);
 		$this->table = new Table_Builder('', array(), $this);
 	}
 

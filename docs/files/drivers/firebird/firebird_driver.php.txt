@@ -92,17 +92,7 @@ class Firebird extends Abstract_Driver {
 		// driver does not call the constructor
 		// of DB_PDO, which defines these
 		// class variables for the other drivers
-
-		// Load the sql class
-		$class = __CLASS__."_sql";
-		$this->sql = new $class();
-
-		// Load the util class
-		$class = __CLASS__."_util";
-		$this->util = new $class($this);
-
-		// Load the table builder class
-		$this->table = new Table_Builder('', array(), $this);
+		$this->_load_sub_classes();
 	}
 
 	// --------------------------------------------------------------------------
