@@ -80,19 +80,10 @@ abstract class Abstract_Util {
 		// 		'constraint' => ...,
 		// 		'index' => ...,
 		// )
-		foreach($fields as $colname => $type)
-		{
-			$column_array[$colname] = array();
-			$column_array[$colname]['type'] = ($type !== $colname) ? $type : '';
-		}
-
-		if( ! empty($constraints))
-		{
-			foreach($constraints as $col => $const)
-			{
-				$column_array[$col]['constraint'] = $const;
-			}
-		}
+		$column_array = \array_zipper(array(
+			'type' => $fields,
+			'constraint' => $constraints
+		));
 
 		// Join column definitions together
 		$columns = array();

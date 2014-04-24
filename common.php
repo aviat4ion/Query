@@ -75,6 +75,36 @@ function db_filter($array, $index)
 // --------------------------------------------------------------------------
 
 /**
+ * Zip a set of arrays together on common keys
+ *
+ * The $zipper_input array is an array of arrays indexed by their place in the output
+ * array.
+ *
+ * @param array $zipper_input
+ * @return array
+ */
+function array_zipper(Array $zipper_input)
+{
+	$output = array();
+
+	foreach($zipper_input as $append_key => $values)
+	{
+		foreach($values as $index => $value)
+		{
+			if ( ! isset($output[$index]))
+			{
+				$output[$index] = array();
+			}
+			$output[$index][$append_key] = $value;
+		}
+	}
+
+	return $output;
+}
+
+// --------------------------------------------------------------------------
+
+/**
  * Connection function
  *
  * Send an array or object as connection parameters to create a connection. If
