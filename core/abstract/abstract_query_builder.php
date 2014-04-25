@@ -28,9 +28,9 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 	// ! Constants
 	// --------------------------------------------------------------------------
 
-	const KEY = 0;
+	const KEY 	= 0;
 	const VALUE = 1;
-	const BOTH = 2;
+	const BOTH 	= 2;
 
 
 	// --------------------------------------------------------------------------
@@ -201,20 +201,15 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 
 		foreach($arg as $k => $v)
 		{
-			switch($val_type)
+			if (in_array($val_type, array(self::KEY, self::VALUE)))
 			{
-				case self::KEY:
-					$var[] = $k;
-				break;
-
-				case self::VALUE:
-					$var[] = $v;
-				break;
-
-				default:
-				case self::BOTH:
-					$var[$k] = $v;
-				// break;
+				$var[] = ($val_type === self::KEY)
+					? $k
+					: $v;
+			}
+			else
+			{
+				$var[$k] = $v;
 			}
 		}
 
@@ -257,10 +252,7 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 		$sql = $this->_compile($type, $table);
 
 		// Reset the query builder for the next query
-		if ($reset)
-		{
-			$this->reset_query();
-		}
+		if ($reset) $this->reset_query();
 
 		return $sql;
 	}

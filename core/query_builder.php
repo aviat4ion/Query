@@ -28,6 +28,41 @@ use \Query\Driver\Driver_Interface;
 class Query_Builder extends Abstract_Query_Builder {
 
 	/**
+	 * String class values to be reset
+	 *
+	 * @var array
+	 */
+	private $string_vars = array(
+		'select_string',
+		'from_string',
+		'set_string',
+		'order_string',
+		'group_string',
+		'limit',
+		'offset',
+		'explain',
+	);
+
+	/**
+	 * Array class variables to be reset
+	 *
+	 * @var array
+	 */
+	private $array_vars = array(
+		'set_array_keys',
+		'order_array',
+		'group_array',
+		'values',
+		'where_values',
+		'query_map',
+		'having_map'
+	);
+
+	// --------------------------------------------------------------------------
+	// ! Methods
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Constructor
 	 *
 	 * @param \Query\Driver\Driver_Interface $db
@@ -642,16 +677,10 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function get($table='', $limit=FALSE, $offset=FALSE)
 	{
 		// Set the table
-		if ( ! empty($table))
-		{
-			$this->from($table);
-		}
+		if ( ! empty($table)) $this->from($table);
 
 		// Set the limit, if it exists
-		if (is_int($limit))
-		{
-			$this->limit($limit, $offset);
-		}
+		if (is_int($limit)) $this->limit($limit, $offset);
 
 		return $this->_run("get", $table);
 	}
@@ -703,14 +732,9 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function count_all_results($table='')
 	{
 		// Set the table
-		if ( ! empty($table))
-		{
-			$this->from($table);
-		}
+		if ( ! empty($table)) $this->from($table);
 
 		$result = $this->_run('get', $table);
-
-
 		$rows = $result->fetchAll();
 
 		return (int) count($rows);
@@ -728,10 +752,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function insert($table, $data=array())
 	{
 		// No use duplicating logic!
-		if ( ! empty($data))
-		{
-			$this->set($data);
-		}
+		if ( ! empty($data)) $this->set($data);
 
 		return $this->_run("insert", $table);
 	}
@@ -767,10 +788,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function update($table, $data=array())
 	{
 		// No use duplicating logic!
-		if ( ! empty($data))
-		{
-			$this->set($data);
-		}
+		if ( ! empty($data)) $this->set($data);
 
 		return $this->_run("update", $table);
 	}
@@ -787,10 +805,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function delete($table, $where='')
 	{
 		// Set the where clause
-		if ( ! empty($where))
-		{
-			$this->where($where);
-		}
+		if ( ! empty($where)) $this->where($where);
 
 		return $this->_run("delete", $table);
 	}
@@ -811,10 +826,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function get_compiled_select($table='', $reset=TRUE)
 	{
 		// Set the table
-		if ( ! empty($table))
-		{
-			$this->from($table);
-		}
+		if ( ! empty($table)) $this->from($table);
 
 		return $this->_get_compile('select', $table, $reset);
 	}
@@ -874,30 +886,13 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function reset_query()
 	{
 		// Reset strings and booleans
-		foreach(array(
-			'select_string',
-			'from_string',
-			'set_string',
-			'order_string',
-			'group_string',
-			'limit',
-			'offset',
-			'explain',
-		) as $var)
+		foreach($this->string_vars as $var)
 		{
 			$this->$var = NULL;
 		}
 
 		// Reset arrays
-		foreach(array(
-			'set_array_keys',
-			'order_array',
-			'group_array',
-			'values',
-			'where_values',
-			'query_map',
-			'having_map'
-		) as $var)
+		foreach($this->array_vars as $var)
 		{
 			$this->$var = array();
 		}
