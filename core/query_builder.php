@@ -28,34 +28,6 @@ use \Query\Driver\Driver_Interface;
 class Query_Builder extends Abstract_Query_Builder {
 
 	/**
-	 * The current database driver
-	 * @var Driver_Interface
-	 */
-	public $db;
-
-	/**
-	 * Query parser class instance
-	 * @var Query_Parser
-	 */
-	protected $parser;
-
-	/**
-	 * Alias to driver util class
-	 * @var \Query\Driver\Abstract_Util
-	 */
-	public $util;
-
-	/**
-	 * Alias to driver sql class
-	 * @var \Query\Driver\SQL_Interface
-	 */
-	public $sql;
-
-	// --------------------------------------------------------------------------
-	// ! Methods
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Constructor
 	 *
 	 * @param \Query\Driver\Driver_Interface $db
@@ -83,6 +55,36 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function __destruct()
 	{
 		$this->db = NULL;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Calls a function further down the inheritence chain
+	 *
+	 * @param string $name
+	 * @param array $params
+	 * @return mixed
+	 * @throws \BadMethodCallException
+	 */
+	public function __call($name, $params)
+	{
+		// Allow camel-case method calls
+		$snake_name = \from_camel_case($name);
+
+		foreach(array($this, $this->db) as $object)
+		{
+			foreach(array($name, $snake_name) as $method_name)
+			{
+				if (method_exists($object, $method_name))
+				{
+					return call_user_func_array(array($object, $method_name), $params);
+				}
+			}
+
+		}
+
+		throw new \BadMethodCallException("Method does not exist");
 	}
 
 	// --------------------------------------------------------------------------
@@ -441,21 +443,8 @@ class Query_Builder extends Abstract_Query_Builder {
 	 */
 	public function set($key, $val = NULL)
 	{
-		// Plain key, value pair
-		if (is_scalar($key) && is_scalar($val))
-		{
-			$this->set_array_keys[] = $key;
-			$this->values[] = $val;
-		}
-		// Object or array
-		elseif (is_array($key) || is_object($key))
-		{
-			foreach($key as $k => $v)
-			{
-				$this->set_array_keys[] = $k;
-				$this->values[] = $v;
-			}
-		}
+		$this->set_array_keys = $this->_mixed_set($this->set_array_keys, $key, $val, self::KEY);
+		$this->values = $this->_mixed_set($this->values, $key, $val, self::VALUE);
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
@@ -531,7 +520,8 @@ class Query_Builder extends Abstract_Query_Builder {
 	 */
 	public function order_by($field, $type="")
 	{
-		// Random case
+		// When ordering by random, do an ascending order if the driver
+		// doesn't support random ordering
 		if (stripos($type, 'rand') !== FALSE)
 		{
 			$type = (($rand = $this->sql->random()) !== FALSE ) ? $rand : 'ASC';

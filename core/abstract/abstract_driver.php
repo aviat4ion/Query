@@ -291,8 +291,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		// Handle comma-separated identifiers
 		if (strpos($ident, ',') !== FALSE)
 		{
-			$parts = explode(',', $ident);
-			$parts = array_map('mb_trim', $parts);
+			$parts = array_map('mb_trim', explode(',', $ident));
 			$parts = array_map(array($this, __METHOD__), $parts);
 			$ident = implode(',', $parts);
 		}
@@ -623,7 +622,6 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function truncate($table)
 	{
-
 		$sql = ($this->has_truncate)
 			? 'TRUNCATE '
 			: 'DELETE FROM ';

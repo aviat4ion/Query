@@ -25,6 +25,15 @@ use \Query\Driver\Driver_Interface;
 abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 
 	// --------------------------------------------------------------------------
+	// ! Constants
+	// --------------------------------------------------------------------------
+
+	const KEY = 0;
+	const VALUE = 1;
+	const BOTH = 2;
+
+
+	// --------------------------------------------------------------------------
 	// ! SQL Clause Strings
 	// --------------------------------------------------------------------------
 
@@ -147,36 +156,69 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 	 */
 	protected $explain;
 
+	/**
+	 * The current database driver
+	 * @var Driver_Interface
+	 */
+	public $db;
+
+	/**
+	 * Query parser class instance
+	 * @var Query_Parser
+	 */
+	protected $parser;
+
+	/**
+	 * Alias to driver util class
+	 * @var \Query\Driver\Abstract_Util
+	 */
+	public $util;
+
+	/**
+	 * Alias to driver sql class
+	 * @var \Query\Driver\SQL_Interface
+	 */
+	public $sql;
+
 	// --------------------------------------------------------------------------
 	// Methods
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Calls a function further down the inheritence chain
+	 * Set values in the class, with either an array or key value pair
 	 *
-	 * @param string $name
-	 * @param array $params
-	 * @return mixed
-	 * @throws \BadMethodCallException
+	 * @param array $var
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param int $val_type
+	 * @return array
 	 */
-	public function __call($name, $params)
+	protected function _mixed_set(&$var, $key, $val=NULL, $val_type=self::BOTH)
 	{
-		// Allow camel-case method calls
-		$snake_name = \from_camel_case($name);
+		$arg = (is_scalar($key) && is_scalar($val))
+			? array($key => $val)
+			: $key;
 
-		foreach(array($this, $this->db) as $object)
+		foreach($arg as $k => $v)
 		{
-			foreach(array($name, $snake_name) as $method_name)
+			switch($val_type)
 			{
-				if (method_exists($object, $method_name))
-				{
-					return call_user_func_array(array($object, $method_name), $params);
-				}
-			}
+				case self::KEY:
+					$var[] = $k;
+				break;
 
+				case self::VALUE:
+					$var[] = $v;
+				break;
+
+				default:
+				case self::BOTH:
+					$var[$k] = $v;
+				// break;
+			}
 		}
 
-		throw new \BadMethodCallException("Method does not exist");
+		return $var;
 	}
 
 	// --------------------------------------------------------------------------
@@ -312,23 +354,8 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 	protected function _where($key, $val=array())
 	{
 		$where = array();
-
-		// Key and value passed? Add them to the where array
-		if (is_scalar($key) && is_scalar($val))
-		{
-			$where[$key] = $val;
-			$this->where_values[] = $val;
-		}
-		// Array or object, loop through and add to the where array
-		elseif ( ! is_scalar($key))
-		{
-			foreach($key as $k => $v)
-			{
-				$where[$k] = $v;
-				$this->where_values[] = $v;
-			}
-		}
-
+		$this->_mixed_set($where, $key, $val, self::BOTH);
+		$this->where_values = $this->_mixed_set($this->where_values, $key, $val, self::VALUE);
 		return $where;
 	}
 
@@ -344,10 +371,8 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 	 */
 	protected function _where_string($key, $val=array(), $conj='AND')
 	{
-		$where = $this->_where($key, $val);
-
 		// Create key/value placeholders
-		foreach($where as $f => $val)
+		foreach($this->_where($key, $val) as $f => $val)
 		{
 			// Split each key by spaces, in case there
 			// is an operator such as >, <, !=, etc.
