@@ -131,7 +131,7 @@ SQL;
 	public function view_list()
 	{
 		return <<<SQL
-			SELECT DISTINCT "RDB\$VIEW_NAME"
+			SELECT DISTINCT TRIM("RDB\$VIEW_NAME")
 			FROM "RDB\$VIEW_RELATIONS"
 SQL;
 	}
@@ -201,7 +201,7 @@ SQL;
 	public function sequence_list()
 	{
 		return <<<SQL
-			SELECT "RDB\$GENERATOR_NAME"
+			SELECT TRIM("RDB\$GENERATOR_NAME")
 			FROM "RDB\$GENERATORS"
 			WHERE "RDB\$SYSTEM_FLAG" = 0
 SQL;

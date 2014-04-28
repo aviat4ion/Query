@@ -347,7 +347,7 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 	{
 		$where = array();
 		$this->_mixed_set($where, $key, $val, self::BOTH);
-		$this->where_values = $this->_mixed_set($this->where_values, $key, $val, self::VALUE);
+		$this->_mixed_set($this->where_values, $key, $val, self::VALUE);
 		return $where;
 	}
 

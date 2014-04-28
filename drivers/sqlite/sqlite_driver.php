@@ -62,7 +62,6 @@ class SQLite extends Abstract_Driver {
 	public function get_tables()
 	{
 		$sql = $this->sql->table_list();
-
 		$res = $this->query($sql);
 		return db_filter($res->fetchAll(\PDO::FETCH_ASSOC), 'name');
 	}

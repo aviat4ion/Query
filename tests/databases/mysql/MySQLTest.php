@@ -195,27 +195,6 @@ SQL;
 
 	// --------------------------------------------------------------------------
 
-	public function testGetsProcedures()
-	{
-		$this->assertTrue(is_array($this->db->get_procedures()));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testGetFunctions()
-	{
-		$this->assertTrue(is_array($this->db->get_functions()));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testGetTriggers()
-	{
-		$this->assertTrue(is_array($this->db->get_triggers()));
-	}
-
-	// --------------------------------------------------------------------------
-
 	public function testGetSequences()
 	{
 		$this->assertNull($this->db->get_sequences());
@@ -227,4 +206,6 @@ SQL;
 	{
 		$this->assertTrue(is_string($this->db->util->backup_structure()));
 	}
+
+
 }

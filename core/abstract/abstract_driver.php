@@ -43,13 +43,13 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	/**
 	 * Reference to sql class
-	 * @var SQL_Interface
+	 * @var SQL\SQL_Interface
 	 */
 	public $sql;
 
 	/**
 	 * Reference to util class
-	 * @var Abstract_Util
+	 * @var Util\Abstract_Util
 	 */
 	public $util;
 
@@ -340,7 +340,9 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_tables()
 	{
-		return $this->driver_query('table_list');
+		$tables = $this->driver_query('table_list');
+		natsort($tables);
+		return $tables;
 	}
 
 	// -------------------------------------------------------------------------
@@ -364,7 +366,9 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 */
 	public function get_views()
 	{
-		return $this->driver_query('view_list');
+		$views = $this->driver_query('view_list');
+		sort($views);
+		return $views;
 	}
 
 	// -------------------------------------------------------------------------
@@ -583,10 +587,9 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		// and is not already quoted before quoting
 		// that value, otherwise, return the original value
 		return (
-			strpos($str, $this->escape_char) !== 0
+			is_string($str)
+			&& strpos($str, $this->escape_char) !== 0
 			&& strrpos($str, $this->escape_char) !== 0
-			&& is_string($str)
-			&& ! is_numeric($str)
 		)
 			? "{$this->escape_char}{$str}{$this->escape_char}"
 			: $str;

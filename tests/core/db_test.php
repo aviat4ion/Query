@@ -98,8 +98,51 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetViews()
 	{
-		$this->assertTrue(is_array($this->db->get_views()));
+		$views = $this->db->get_views();
+		$expected = array('numbersview', 'testview');
+		$this->assertEqual($expected, array_values($views));
+		$this->assertTrue(is_array($views));
 	}
 
+	// --------------------------------------------------------------------------
+
+	public function testGetTriggers()
+	{
+		// @TODO standardize trigger output for different databases
+
+		$triggers = $this->db->get_triggers();
+		$this->assertTrue(is_array($triggers));
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetSequences()
+	{
+		$seqs = $this->db->get_sequences();
+
+		// Normalize sequence names
+		$seqs = array_map('strtolower', $seqs);
+
+		$expected = array('newtable_seq');
+
+		$this->assertTrue(is_array($seqs));
+		$this->assertEqual($expected, $seqs);
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetProcedures()
+	{
+		$procedures = $this->db->get_procedures();
+		$this->assertTrue(is_array($procedures));
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetFunctions()
+	{
+		$funcs = $this->db->get_functions();
+		$this->assertTrue(is_array($funcs));
+	}
 }
 // End of db_test.php

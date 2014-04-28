@@ -261,15 +261,32 @@ SQL;
 		$this->assertEqual(NULL, $sql);
 	}
 
+	// --------------------------------------------------------------------------
+
 	public function testGetSystemTables()
 	{
 		$sql = $this->db->get_system_tables();
 		$this->assertTrue(is_array($sql));
 	}
 
-	public function testGetTriggers()
+	// --------------------------------------------------------------------------
+
+	public function testGetSequences()
 	{
-		$sql = $this->db->get_triggers();
-		$this->assertTrue(is_array($sql));
+		$this->assertNull($this->db->get_sequences());
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetFunctions()
+	{
+		$this->assertNull($this->db->get_functions());
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetProcedures()
+	{
+		$this->assertNull($this->db->get_procedures());
 	}
 }

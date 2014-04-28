@@ -219,34 +219,6 @@ SQL;
 
 	// --------------------------------------------------------------------------
 
-	public function testGetSequences()
-	{
-		$this->assertTrue(is_array($this->db->get_sequences()));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testGetProcedures()
-	{
-		$this->assertTrue(is_array($this->db->get_procedures()));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testGetFunctions()
-	{
-		$this->assertTrue(is_array($this->db->get_functions()));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testGetTriggers()
-	{
-		$this->assertTrue(is_array($this->db->get_triggers()));
-	}
-
-	// --------------------------------------------------------------------------
-
 	public function testErrorInfo()
 	{
 		$result = $this->db->errorInfo();

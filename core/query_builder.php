@@ -478,8 +478,8 @@ class Query_Builder extends Abstract_Query_Builder {
 	 */
 	public function set($key, $val = NULL)
 	{
-		$this->set_array_keys = $this->_mixed_set($this->set_array_keys, $key, $val, self::KEY);
-		$this->values = $this->_mixed_set($this->values, $key, $val, self::VALUE);
+		$this->_mixed_set($this->set_array_keys, $key, $val, self::KEY);
+		$this->_mixed_set($this->values, $key, $val, self::VALUE);
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
