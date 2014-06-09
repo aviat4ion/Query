@@ -20,7 +20,7 @@ class QPTest extends Query_TestCase {
 
 	public function setUp()
 	{
-		$this->parser = new Query_Parser();
+		$this->parser = new Query\Query_Parser();
 	}
 
 	public function TestGeneric()

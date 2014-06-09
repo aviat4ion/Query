@@ -35,7 +35,7 @@ class Table_Index extends Abstract_Table {
 	 */
 	public function __toString()
 	{
-
+		// @TODO: implement
 	}
 
 }

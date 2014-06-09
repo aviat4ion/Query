@@ -14,6 +14,23 @@
 // --------------------------------------------------------------------------
 
 /**
+ * Quercus detection for workarounds
+ */
+if ( ! defined('IS_QUERCUS'))
+{
+	if ( ! isset($_SERVER_SOFTWARE))
+	{
+		define('IS_QUERCUS', FALSE);
+	}
+	else
+	{
+		$test = strpos($_SERVER["SERVER_SOFTWARE"],'Quercus') !== FALSE;
+		define('IS_QUERCUS', $test);
+		unset($test);
+	}
+}
+
+/**
  * Base class for TestCases
  */
 class Query_TestCase extends PHPUnit_Framework_TestCase {

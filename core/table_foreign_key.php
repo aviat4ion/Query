@@ -35,7 +35,7 @@ class Table_Foreign_Key extends Abstract_Table {
 	 */
 	public function __toString()
 	{
-
+		// @TODO: implement
 	}
 }
 // End of table_foreign_key.php

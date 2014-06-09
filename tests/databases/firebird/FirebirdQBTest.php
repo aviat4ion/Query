@@ -66,8 +66,9 @@ class FirebirdQBTest extends QBTest {
 		$params->pass = 'masterkey';
 		$params->prefix = '';
 		$f_conn = Query($params);
+		$q_conn = Query('fire');
 
-		$this->assertReference($f_conn, Query('fire'));
+		$this->assertReference($f_conn, $q_conn);
 	}
 
 	// --------------------------------------------------------------------------

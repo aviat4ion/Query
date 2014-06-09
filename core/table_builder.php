@@ -203,7 +203,7 @@ class Table_Builder {
 	 */
 	public function has_column($column_name, $options = array())
 	{
-
+		// @TODO: implement
 	}
 
 	// --------------------------------------------------------------------------
@@ -235,6 +235,7 @@ class Table_Builder {
 	 */
 	public function remove_index($columns, $options = array())
 	{
+		// @TODO: implement
 		return $this;
 	}
 
@@ -248,6 +249,7 @@ class Table_Builder {
 	 */
 	public function remove_index_by_name($name)
 	{
+		// @TODO: implement
 		return $this;
 	}
 
@@ -262,7 +264,7 @@ class Table_Builder {
 	 */
 	public function has_index($columns, $options = array())
 	{
-
+		// @TODO: implement
 	}
 
 	// --------------------------------------------------------------------------
@@ -297,6 +299,7 @@ class Table_Builder {
 	 */
 	public function drop_foreign_key($columns, $constraint = NULL)
 	{
+		// @TODO: implement
 		return $this;
 	}
 
@@ -311,6 +314,7 @@ class Table_Builder {
 	 */
 	public function has_foreign_key($columns, $constraint = NULL)
 	{
+		// @TODO: implement
 		$keys = $this->get_driver()->get_fks($this->name);
 
 
@@ -346,7 +350,7 @@ class Table_Builder {
 	 */
 	public function drop()
 	{
-
+		// @TODO: implement
 	}
 
 	// --------------------------------------------------------------------------
@@ -359,7 +363,7 @@ class Table_Builder {
 	 */
 	public function rename($new_table_name)
 	{
-
+		// @TODO: implement
 	}
 
 	// --------------------------------------------------------------------------
@@ -386,6 +390,7 @@ class Table_Builder {
 	 */
 	public function create()
 	{
+		// @TODO: implement
 		$this->reset();
 	}
 
@@ -398,6 +403,7 @@ class Table_Builder {
 	 */
 	public function update()
 	{
+		// @TODO: implement
 		$this->reset();
 	}
 

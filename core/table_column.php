@@ -75,6 +75,7 @@ class Table_Column extends Abstract_Table {
 	 */
 	public function __toString()
 	{
+		// @TODO: implement
 		$num_args = func_num_args();
 	}
 

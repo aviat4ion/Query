@@ -20,7 +20,7 @@ class PgSQLQBTest extends QBTest {
 	public function setUp()
  	{
  		// If the database isn't installed, skip the tests
-		if ( ! class_exists("\\Query\\Driver\\PgSQL"))
+		if ( ! class_exists("Query\\Driver\\PgSQL") &&  ! IS_QUERCUS)
 		{
 			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
@@ -31,6 +31,7 @@ class PgSQLQBTest extends QBTest {
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->pgsql;
 			$params->type = "pgsql";
+			$params->port = 5432;
 			$params->prefix = 'create_';
 			$params->options = array();
 			$params->options[\PDO::ATTR_PERSISTENT] = TRUE;

@@ -32,9 +32,9 @@
         	<file>databases/pgsql/PgSQLQBTest.php</file>
         </testsuite>
         <testsuite name="SQLiteTests">
-            <file>databases/sqlite/SqliteTest.php</file>
-			<file>databases/sqlite/SqliteTableTest.php</file>
-        	<file>databases/sqlite/SqliteQBTest.php</file>
+            <file>databases/sqlite/SQLiteTest.php</file>
+			<!--<file>databases/sqlite/SQLiteTableTest.php</file>-->
+        	<file>databases/sqlite/SQLiteQBTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>

@@ -19,6 +19,8 @@
  * @package Query
  */
 
+namespace Query;
+
 /**
  * Reference to root path
  * @subpackage Core
@@ -34,14 +36,8 @@ define('QDRIVER_PATH', QBASE_PATH.'drivers/');
 // Require some common functions
 require(QBASE_PATH.'common.php');
 
-/**
- * Load query classes
- *
- * @subpackage Core
- * @codeCoverageIgnore
- * @param string $class
- */
-function query_autoload($class)
+// Load Query Classes
+spl_autoload_register(function ($class)
 {
 	$class_segments = explode('\\', $class);
 	$class = strtolower(array_pop($class_segments));
@@ -52,30 +48,31 @@ function query_autoload($class)
 	{
 
 		// Firebird is a special case, since it's not a PDO driver
+		// @codeCoverageIgnoreStart
 		if (
-			in_array($class, PDO::getAvailableDrivers())
-			||  function_exists('fbird_connect') && $class === 'firebird'
+			in_array($class, \PDO::getAvailableDrivers())
+			||  function_exists('\\fbird_connect') && $class === 'firebird'
 		)
 		{
-			array_map('do_include', glob("{$driver_path}/*.php"));
+			array_map('\\do_include', glob("{$driver_path}/*.php"));
 		}
+		// @codeCoverageIgnoreEnd
 	}
 
 	// Load other classes
 	foreach(array(
-		QBASE_PATH . "core/interfaces/{$class}.php",
-		QBASE_PATH . "core/abstract/{$class}.php",
-		QBASE_PATH . "core/{$class}.php"
-	) as $path)
+				QBASE_PATH . "core/interfaces/{$class}.php",
+				QBASE_PATH . "core/abstract/{$class}.php",
+				QBASE_PATH . "core/{$class}.php"
+			) as $path)
 	{
+		// @codeCoverageIgnoreStart
 		if (file_exists($path))
 		{
 			require_once($path);
 		}
+		// @codeCoverageIgnoreEnd
 	}
-}
-
-// Set up autoloader
-spl_autoload_register('query_autoload');
+});
 
 // End of autoload.php

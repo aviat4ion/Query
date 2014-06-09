@@ -14,7 +14,7 @@
 // --------------------------------------------------------------------------
 
 namespace Query;
-use \Query\Driver\Driver_Interface;
+use Query\Driver\Driver_Interface;
 
 // --------------------------------------------------------------------------
 
@@ -25,7 +25,154 @@ use \Query\Driver\Driver_Interface;
  * @package Query
  * @subpackage Query_Builder
  */
-class Query_Builder extends Abstract_Query_Builder {
+class Query_Builder extends Abstract_Query_Builder implements Query_Builder_Interface {
+
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Strings
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Compiled 'select' clause
+	 * @var string
+	 */
+	protected $select_string = '';
+
+	/**
+	 * Compiled 'from' clause
+	 * @var string
+	 */
+	protected $from_string;
+
+	/**
+	 * Compiled arguments for insert / update
+	 * @var string
+	 */
+	protected $set_string;
+
+	/**
+	 * Order by clause
+	 * @var string
+	 */
+	protected $order_string;
+
+	/**
+	 * Group by clause
+	 * @var string
+	 */
+	protected $group_string;
+
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Arrays
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Keys for insert/update statement
+	 * @var array
+	 */
+	protected $set_array_keys = array();
+
+	/**
+	 * Key/val pairs for order by clause
+	 * @var array
+	 */
+	protected $order_array = array();
+
+	/**
+	 * Key/val pairs for group by clause
+	 * @var array
+	 */
+	protected $group_array = array();
+
+	// --------------------------------------------------------------------------
+	// ! Other Class vars
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Values to apply to prepared statements
+	 * @var array
+	 */
+	protected $values = array();
+
+	/**
+	 * Values to apply to where clauses in prepared statements
+	 * @var array
+	 */
+	protected $where_values = array();
+
+	/**
+	 * Value for limit string
+	 * @var string
+	 */
+	protected $limit;
+
+	/**
+	 * Value for offset in limit string
+	 * @var int
+	 */
+	protected $offset;
+
+	/**
+	 * Query component order mapping
+	 * for complex select queries
+	 *
+	 * Format:
+	 * array(
+	 *		'type' => 'where',
+	 *		'conjunction' => ' AND ',
+	 *		'string' => 'k=?'
+	 * )
+	 *
+	 * @var array
+	 */
+	protected $query_map = array();
+
+	/**
+	 * Map for having clause
+	 * @var array
+	 */
+	protected $having_map;
+
+	/**
+	 * Convenience property for connection management
+	 * @var string
+	 */
+	public $conn_name = "";
+
+	/**
+	 * List of queries executed
+	 * @var array
+	 */
+	public $queries;
+
+	/**
+	 * Whether to do only an explain on the query
+	 * @var bool
+	 */
+	protected $explain;
+
+	/**
+	 * The current database driver
+	 * @var Driver_Interface
+	 */
+	public $db;
+
+	/**
+	 * Query parser class instance
+	 * @var Query_Parser
+	 */
+	protected $parser;
+
+	/**
+	 * Alias to driver util class
+	 * @var \Query\Driver\Abstract_Util
+	 */
+	public $util;
+
+	/**
+	 * Alias to driver sql class
+	 * @var \Query\Driver\SQL_Interface
+	 */
+	public $sql;
 
 	/**
 	 * String class values to be reset
@@ -271,8 +418,8 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function from($tblname)
 	{
 		// Split identifiers on spaces
-		$ident_array = explode(' ', mb_trim($tblname));
-		$ident_array = array_map('mb_trim', $ident_array);
+		$ident_array = explode(' ', \mb_trim($tblname));
+		$ident_array = array_map('\\mb_trim', $ident_array);
 
 		// Quote the identifiers
 		$ident_array[0] = $this->db->quote_table($ident_array[0]);
@@ -559,7 +706,8 @@ class Query_Builder extends Abstract_Query_Builder {
 		// doesn't support random ordering
 		if (stripos($type, 'rand') !== FALSE)
 		{
-			$type = (($rand = $this->sql->random()) !== FALSE ) ? $rand : 'ASC';
+			$rand = $this->sql->random();
+			$type = ($rand !== FALSE) ? $rand : 'ASC';
 		}
 
 		// Set fields for later manipulation
@@ -575,7 +723,7 @@ class Query_Builder extends Abstract_Query_Builder {
 		}
 
 		// Set the final string
-		$this->order_string = (empty($rand))
+		$this->order_string = ( ! isset($rand))
 			? "\nORDER BY ".implode(', ', $order_clauses)
 			: "\nORDER BY".$rand;
 

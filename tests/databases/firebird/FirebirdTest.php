@@ -102,7 +102,6 @@ class FirebirdTest extends DBtest {
 
 	public function testCreateTable()
 	{
-
 		//Attempt to create the table
 		$sql = $this->db->util->create_table('create_delete', array(
 			'id' => 'SMALLINT',

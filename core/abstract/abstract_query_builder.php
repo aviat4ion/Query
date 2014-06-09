@@ -22,7 +22,7 @@ use \Query\Driver\Driver_Interface;
  * Abstract Class for internal implementation methods of the Query Builder
  * @package Query
  */
-abstract class Abstract_Query_Builder implements Query_Builder_Interface {
+abstract class Abstract_Query_Builder {
 
 	// --------------------------------------------------------------------------
 	// ! Constants
@@ -505,7 +505,7 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 		// Quote string values
 		foreach($evals as &$v)
 		{
-			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
+			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8')  : $v;
 		}
 
 		// Add the query onto the array of values to pass
@@ -616,6 +616,8 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 		{
 			$sql = $this->sql->explain($sql);
 		}
+
+// $sql . "<br />";
 
 		return $sql;
 	}
