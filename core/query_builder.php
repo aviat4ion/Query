@@ -101,7 +101,7 @@ class Query_Builder extends Abstract_Query_Builder implements Query_Builder_Inte
 
 	/**
 	 * Value for limit string
-	 * @var string
+	 * @var int
 	 */
 	protected $limit;
 
@@ -741,7 +741,7 @@ class Query_Builder extends Abstract_Query_Builder implements Query_Builder_Inte
 	 */
 	public function limit($limit, $offset=FALSE)
 	{
-		$this->limit = $limit;
+		$this->limit = (int) $limit;
 		$this->offset = $offset;
 
 		return $this;
