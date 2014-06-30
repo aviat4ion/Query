@@ -376,14 +376,15 @@ abstract class Abstract_Query_Builder {
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
 
 			// Get the type of the first item in the query map
-			$first_item = end($this->query_map);
+			$first_item = current($this->query_map);
+			$last_item = end($this->query_map);
 
 			// Determine the correct conjunction
-			if (empty($this->query_map))
+			if (empty($this->query_map) || stripos($first_item['conjunction'], 'JOIN') !== FALSE)
 			{
 				$conj = "\nWHERE ";
 			}
-			elseif ($first_item['type'] === 'group_start')
+			elseif ($last_item['type'] === 'group_start')
 			{
 				$conj = '';
 			}
