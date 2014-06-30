@@ -107,7 +107,7 @@ class Query_Builder extends Abstract_Query_Builder implements Query_Builder_Inte
 
 	/**
 	 * Value for offset in limit string
-	 * @var int
+	 * @var bool|int
 	 */
 	protected $offset;
 
