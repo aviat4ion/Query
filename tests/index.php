@@ -32,12 +32,12 @@ if ( ! defined('IS_QUERCUS'))
 
 // Include simpletest
 // it has to be in the tests folder
-require_once('simpletest/autorun.php');
+require_once('/htdocs/__lib/simpletest/autorun.php');
 
 /**
  * Base class for TestCases
  */
-class Query_TestCase extends UnitTestCase {
+abstract class Query_TestCase extends UnitTestCase {
 
 	/**
 	 * Define assertInstanceOf for simpletest
@@ -110,12 +110,28 @@ require_once(QTEST_DIR . '/core/core.php');
 require_once(QTEST_DIR . '/core/db_test.php');
 require_once(QTEST_DIR . '/core/db_qb_test.php');
 
-require_once("{$test_path}sqlite/SQLiteTest.php");
-//require_once("{$test_path}mysql/MySQLTest.php");
-//require_once("{$test_path}mysql/MySQLQBTest.php");
-require_once("{$test_path}pgsql/PgSQLTest.php");
-require_once("{$test_path}pgsql/PgSQLQBTest.php");
-require_once("{$test_path}sqlite/SQLiteQBTest.php");
+$drivers = PDO::getAvailableDrivers();
 
+if (function_exists('fbird_connect'))
+{
+	$drivers[] = 'interbase';
+}
 
+$driver_test_map = array(
+	'Firebird' => in_array('interbase', $drivers),
+	'SQLite' => in_array('sqlite', $drivers),
+	'PgSQL' => in_array('pgsql', $drivers),
+);
+
+// Determine which testcases to load
+foreach($driver_test_map as $name => $do_load)
+{
+	$path = $test_path . strtolower($name) . '/';
+
+	if ($do_load && ($name != 'SQLite' && ! IS_QUERCUS))
+	{
+		require_once("{$path}{$name}Test.php");
+		require_once("{$path}{$name}QBTest.php");
+	}
+}
 // End of index.php

@@ -152,8 +152,6 @@ function Query($params = '')
 			$p->$k = $v;
 		}
 
-		//$params = new ArrayObject($params, ArrayObject::STD_PROP_LIST | ArrayObject::ARRAY_AS_PROPS);
-
 		// Otherwise, return a new connection
 		return $cmanager->connect($p);
 	}

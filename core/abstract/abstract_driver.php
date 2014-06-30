@@ -113,7 +113,6 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 		$this->sql = new $sql_class();
 		$this->util = new $util_class($this);
-		$this->table = new Table_Builder('', array(), $this);
 	}
 
 	// --------------------------------------------------------------------------

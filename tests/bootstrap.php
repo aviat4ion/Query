@@ -101,7 +101,6 @@ require_once(QTEST_DIR . '/core/core.php');
 require_once(QTEST_DIR . '/core/db_test.php');
 require_once(QTEST_DIR . '/core/db_qp_test.php');
 require_once(QTEST_DIR . '/core/db_qb_test.php');
-require_once(QTEST_DIR . '/core/table_builder.php');
 
 // Preset SQLite connection, so there aren't locking issues
 if (extension_loaded('pdo_sqlite'))
