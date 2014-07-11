@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
-    colors="true"
-    stopOnFailure="false"
-    bootstrap="bootstrap.php">
-    <filter>
-    	<blacklist>
-    		<directory suffix=".php">../coverage</directory>
+	colors="true"
+	stopOnFailure="false"
+	bootstrap="bootstrap.php">
+	<filter>
+		<blacklist>
+			<directory suffix=".php">../coverage</directory>
 			<directory suffix=".php">../docs</directory>
-    		<directory suffix=".php">.</directory>
-    	</blacklist>
-    </filter>
-    <testsuites>
-        <testsuite name="CoreTests">
-            <file>core/core.php</file>
-            <file>core/db_qp_test.php</file>
-        </testsuite>
-        <testsuite name="FirebirdTests">
-        	<file>databases/firebird/FirebirdTest.php</file>
-        	<file>databases/firebird/FirebirdQBTest.php</file>
-        </testsuite>
-        <testsuite name="MySQLTests">
-        	<file>databases/mysql/MySQLTest.php</file>
-        	<file>databases/mysql/MySQLQBTest.php</file>
-        </testsuite>
-        <testsuite name="PgSQLTests">
-            <file>databases/pgsql/PgSQLTest.php</file>
-        	<file>databases/pgsql/PgSQLQBTest.php</file>
-        </testsuite>
-        <testsuite name="SQLiteTests">
-            <file>databases/sqlite/SQLiteTest.php</file>
-        	<file>databases/sqlite/SQLiteQBTest.php</file>
-        </testsuite>
-    </testsuites>
+			<directory suffix=".php">.</directory>
+		</blacklist>
+	</filter>
+	<testsuites>
+		<testsuite name="CoreTests">
+			<file>core/core.php</file>
+			<file>core/db_qp_test.php</file>
+		</testsuite>
+		<testsuite name="FirebirdTests">
+			<file>databases/firebird/FirebirdTest.php</file>
+			<file>databases/firebird/FirebirdQBTest.php</file>
+		</testsuite>
+		<testsuite name="MySQLTests">
+			<file>databases/mysql/MySQLTest.php</file>
+			<file>databases/mysql/MySQLQBTest.php</file>
+		</testsuite>
+		<testsuite name="PgSQLTests">
+			<file>databases/pgsql/PgSQLTest.php</file>
+			<file>databases/pgsql/PgSQLQBTest.php</file>
+		</testsuite>
+		<testsuite name="SQLiteTests">
+			<file>databases/sqlite/SQLiteTest.php</file>
+			<file>databases/sqlite/SQLiteQBTest.php</file>
+		</testsuite>
+	</testsuites>
 </phpunit>

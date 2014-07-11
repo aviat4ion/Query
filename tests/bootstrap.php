@@ -121,14 +121,4 @@ if (extension_loaded('pdo_sqlite'))
 	Query($params);
 }
 
-// If Firebird (interbase) extension does not exist,
-// create a fake class to suppress errors from skipped tests
-if ( ! function_exists('fbird_connect'))
-{
-	class Firebird {
-		public $sql;
-		public $util;
-	}
-}
-
 // End of bootstrap.php

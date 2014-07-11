@@ -1,0 +1,19 @@
+build_settings:
+    verbose: true
+    ignore:
+      - "tests"
+
+setup:
+    env:
+        PHPCI: true
+
+test:
+    php_unit:
+        run_from: 'tests'
+        coverage: '../coverage/'
+    php_docblock_checker:
+        allowed_warnings: 0
+        skip_classes: true
+    php_loc:
+
+complete:
