@@ -13,6 +13,8 @@
 
 // --------------------------------------------------------------------------
 
+@chmod(QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB', 0777);
+
 /**
  * Firebirdtest class.
  *
