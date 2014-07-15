@@ -19,4 +19,7 @@ test:
     php_loc:
     php_mess_detector:
         allow_failures: true
+        rules:
+            - "unusedcode"
+            - "naming"
 complete:
