@@ -145,15 +145,15 @@ function Query($params = '')
 	}
 	elseif ( ! is_scalar($params) && ! is_null($params))
 	{
-		$p = new stdClass();
+		$params_object = new stdClass();
 
 		foreach($params as $k => $v)
 		{
-			$p->$k = $v;
+			$params_object->$k = $v;
 		}
 
 		// Otherwise, return a new connection
-		return $cmanager->connect($p);
+		return $cmanager->connect($params_object);
 	}
 // @codeCoverageIgnoreStart
 }

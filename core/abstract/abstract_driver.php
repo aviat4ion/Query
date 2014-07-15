@@ -107,9 +107,9 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		$this_class = get_class($this);
 		$ns_array = explode("\\", $this_class);
 		$base_class = array_pop($ns_array);
-		$ns = implode('\\', $ns_array);
-		$sql_class = "{$ns}\\SQL\\{$base_class}_SQL";
-		$util_class = "{$ns}\\Util\\{$base_class}_Util";
+		$namespace = implode('\\', $ns_array);
+		$sql_class = "{$namespace}\\SQL\\{$base_class}_SQL";
+		$util_class = "{$namespace}\\Util\\{$base_class}_Util";
 
 		$this->sql = new $sql_class();
 		$this->util = new $util_class($this);

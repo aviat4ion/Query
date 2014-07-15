@@ -274,7 +274,7 @@ abstract class Abstract_Query_Builder {
 		$field = $this->db->quote_ident($field);
 
 		// Add the like string into the order map
-		$l = $field. " {$like} ?";
+		$like = $field. " {$like} ?";
 
 		if ($pos == 'before')
 		{
@@ -290,7 +290,7 @@ abstract class Abstract_Query_Builder {
 		}
 
 		$conj = (empty($this->query_map)) ? ' WHERE ' : " {$conj} ";
-		$this->_append_map($conj, $l, 'like');
+		$this->_append_map($conj, $like, 'like');
 
 		// Add to the values array
 		$this->where_values[] = $val;

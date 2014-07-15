@@ -17,5 +17,6 @@ test:
         allowed_warnings: 0
         skip_classes: true
     php_loc:
-
+    php_mess_detector:
+        allow_failures: true
 complete:
