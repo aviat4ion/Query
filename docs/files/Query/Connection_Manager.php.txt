@@ -232,4 +232,3 @@ final class Connection_Manager {
 	}
 }
 // End of connection_manager.php
-
