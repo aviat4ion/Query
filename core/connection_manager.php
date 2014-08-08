@@ -16,16 +16,6 @@
 namespace Query;
 
 /**
- * Generic exception for bad drivers
- *
- * @package Query
- * @subpackage Core
- */
-class BadDBDriverException extends \InvalidArgumentException {}
-
-// --------------------------------------------------------------------------
-
-/**
  * Connection manager class to manage connections for the
  * Query method
  *

@@ -35,6 +35,7 @@ define('QDRIVER_PATH', QBASE_PATH.'drivers/');
 
 // Require some common functions
 require(QBASE_PATH.'common.php');
+require(QBASE_PATH.'core/BadDBDriverException.php');
 
 // Load Query Classes
 spl_autoload_register(function ($class)
