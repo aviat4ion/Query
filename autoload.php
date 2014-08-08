@@ -35,45 +35,40 @@ define('QDRIVER_PATH', QBASE_PATH.'drivers/');
 
 // Require some common functions
 require(QBASE_PATH.'common.php');
-require(QBASE_PATH.'core/BadDBDriverException.php');
 
 // Load Query Classes
 spl_autoload_register(function ($class)
 {
 	$class_segments = explode('\\', $class);
-	$class = strtolower(array_pop($class_segments));
+	$driver_class = strtolower(array_pop($class_segments));
 
 	// Load DB Driver classes
-	$driver_path = QDRIVER_PATH . "{$class}";
+	$driver_path = QDRIVER_PATH . "{$driver_class}";
 	if ($class_segments == array('Query', 'Driver') && is_dir($driver_path))
 	{
 
 		// Firebird is a special case, since it's not a PDO driver
 		// @codeCoverageIgnoreStart
 		if (
-			in_array($class, \PDO::getAvailableDrivers())
-			||  function_exists('\\fbird_connect') && $class === 'firebird'
+			in_array($driver_class, \PDO::getAvailableDrivers())
+			||  function_exists('\\fbird_connect') && $driver_class === 'firebird'
 		)
 		{
 			array_map('\\do_include', glob("{$driver_path}/*.php"));
 		}
 		// @codeCoverageIgnoreEnd
 	}
-
+	
 	// Load other classes
-	foreach(array(
-				QBASE_PATH . "core/interfaces/{$class}.php",
-				QBASE_PATH . "core/abstract/{$class}.php",
-				QBASE_PATH . "core/{$class}.php"
-			) as $path)
+	$path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+	$file = QBASE_PATH . "{$path}.php";
+	
+	// @codeCoverageIgnoreStart
+	if (file_exists($file))
 	{
-		// @codeCoverageIgnoreStart
-		if (file_exists($path))
-		{
-			require_once($path);
-		}
-		// @codeCoverageIgnoreEnd
+		require_once($file);
 	}
+	// @codeCoverageIgnoreEnd
 });
 
 // End of autoload.php

@@ -52,12 +52,6 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	public $util;
 
 	/**
-	 * Reference to table_builder class
-	 * @var \Query\Table\Table_Builder
-	 */
-	public $table;
-
-	/**
 	 * Last query executed
 	 * @var string
 	 */

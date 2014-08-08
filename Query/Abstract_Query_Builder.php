@@ -618,8 +618,6 @@ abstract class Abstract_Query_Builder {
 			$sql = $this->sql->explain($sql);
 		}
 
-// $sql . "<br />";
-
 		return $sql;
 	}
 }
