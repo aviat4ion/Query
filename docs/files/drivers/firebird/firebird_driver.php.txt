@@ -392,7 +392,7 @@ class Firebird extends Abstract_Driver {
 		// End the block of SQL statements
 		$sql .= "END";
 
-		// Ruturn a null array value so the query is run as it is,
+		// Return a null array value so the query is run as it is,
 		// not as a prepared statement, because a prepared statement
 		// doesn't work for this type of query in Firebird.
 		return array($sql, NULL);

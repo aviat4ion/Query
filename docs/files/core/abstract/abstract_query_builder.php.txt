@@ -22,7 +22,16 @@ use \Query\Driver\Driver_Interface;
  * Abstract Class for internal implementation methods of the Query Builder
  * @package Query
  */
-abstract class Abstract_Query_Builder implements Query_Builder_Interface {
+abstract class Abstract_Query_Builder {
+
+	// --------------------------------------------------------------------------
+	// ! Constants
+	// --------------------------------------------------------------------------
+
+	const KEY 	= 0;
+	const VALUE = 1;
+	const BOTH 	= 2;
+
 
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Strings
@@ -147,36 +156,64 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 	 */
 	protected $explain;
 
+	/**
+	 * The current database driver
+	 * @var Driver_Interface
+	 */
+	public $db;
+
+	/**
+	 * Query parser class instance
+	 * @var Query_Parser
+	 */
+	protected $parser;
+
+	/**
+	 * Alias to driver util class
+	 * @var \Query\Driver\Abstract_Util
+	 */
+	public $util;
+
+	/**
+	 * Alias to driver sql class
+	 * @var \Query\Driver\SQL_Interface
+	 */
+	public $sql;
+
 	// --------------------------------------------------------------------------
 	// Methods
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Calls a function further down the inheritence chain
+	 * Set values in the class, with either an array or key value pair
 	 *
-	 * @param string $name
-	 * @param array $params
-	 * @return mixed
-	 * @throws \BadMethodCallException
+	 * @param array $var
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param int $val_type
+	 * @return array
 	 */
-	public function __call($name, $params)
+	protected function _mixed_set(&$var, $key, $val=NULL, $val_type=self::BOTH)
 	{
-		// Allow camel-case method calls
-		$snake_name = \from_camel_case($name);
+		$arg = (is_scalar($key) && is_scalar($val))
+			? array($key => $val)
+			: $key;
 
-		foreach(array($this, $this->db) as $object)
+		foreach($arg as $k => $v)
 		{
-			foreach(array($name, $snake_name) as $method_name)
+			if (in_array($val_type, array(self::KEY, self::VALUE)))
 			{
-				if (method_exists($object, $method_name))
-				{
-					return call_user_func_array(array($object, $method_name), $params);
-				}
+				$var[] = ($val_type === self::KEY)
+					? $k
+					: $v;
 			}
-
+			else
+			{
+				$var[$k] = $v;
+			}
 		}
 
-		throw new \BadMethodCallException("Method does not exist");
+		return $var;
 	}
 
 	// --------------------------------------------------------------------------
@@ -215,10 +252,7 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 		$sql = $this->_compile($type, $table);
 
 		// Reset the query builder for the next query
-		if ($reset)
-		{
-			$this->reset_query();
-		}
+		if ($reset) $this->reset_query();
 
 		return $sql;
 	}
@@ -240,7 +274,7 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 		$field = $this->db->quote_ident($field);
 
 		// Add the like string into the order map
-		$l = $field. " {$like} ?";
+		$like = $field. " {$like} ?";
 
 		if ($pos == 'before')
 		{
@@ -256,7 +290,7 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 		}
 
 		$conj = (empty($this->query_map)) ? ' WHERE ' : " {$conj} ";
-		$this->_append_map($conj, $l, 'like');
+		$this->_append_map($conj, $like, 'like');
 
 		// Add to the values array
 		$this->where_values[] = $val;
@@ -312,23 +346,8 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 	protected function _where($key, $val=array())
 	{
 		$where = array();
-
-		// Key and value passed? Add them to the where array
-		if (is_scalar($key) && is_scalar($val))
-		{
-			$where[$key] = $val;
-			$this->where_values[] = $val;
-		}
-		// Array or object, loop through and add to the where array
-		elseif ( ! is_scalar($key))
-		{
-			foreach($key as $k => $v)
-			{
-				$where[$k] = $v;
-				$this->where_values[] = $v;
-			}
-		}
-
+		$this->_mixed_set($where, $key, $val, self::BOTH);
+		$this->_mixed_set($this->where_values, $key, $val, self::VALUE);
 		return $where;
 	}
 
@@ -344,10 +363,8 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 	 */
 	protected function _where_string($key, $val=array(), $conj='AND')
 	{
-		$where = $this->_where($key, $val);
-
 		// Create key/value placeholders
-		foreach($where as $f => $val)
+		foreach($this->_where($key, $val) as $f => $val)
 		{
 			// Split each key by spaces, in case there
 			// is an operator such as >, <, !=, etc.
@@ -359,14 +376,15 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
 
 			// Get the type of the first item in the query map
-			$first_item = end($this->query_map);
+			$first_item = current($this->query_map);
+			$last_item = end($this->query_map);
 
 			// Determine the correct conjunction
-			if (empty($this->query_map))
+			if (empty($this->query_map) || stripos($first_item['conjunction'], 'JOIN') !== FALSE)
 			{
 				$conj = "\nWHERE ";
 			}
-			elseif ($first_item['type'] === 'group_start')
+			elseif ($last_item['type'] === 'group_start')
 			{
 				$conj = '';
 			}
@@ -488,7 +506,7 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 		// Quote string values
 		foreach($evals as &$v)
 		{
-			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8', FALSE)  : $v;
+			$v = ( ! is_numeric($v)) ? htmlentities($this->db->quote($v), ENT_NOQUOTES, 'utf-8')  : $v;
 		}
 
 		// Add the query onto the array of values to pass
@@ -599,6 +617,8 @@ abstract class Abstract_Query_Builder implements Query_Builder_Interface {
 		{
 			$sql = $this->sql->explain($sql);
 		}
+
+// $sql . "<br />";
 
 		return $sql;
 	}

@@ -16,16 +16,6 @@
 namespace Query;
 
 /**
- * Generic exception for bad drivers
- *
- * @package Query
- * @subpackage Core
- */
-class BadDBDriverException extends \InvalidArgumentException {}
-
-// --------------------------------------------------------------------------
-
-/**
  * Connection manager class to manage connections for the
  * Query method
  *
@@ -124,10 +114,10 @@ final class Connection_Manager {
 	/**
 	 * Parse the passed parameters and return a connection
 	 *
-	 * @param \ArrayObject $params
+	 * @param \stdClass $params
 	 * @return Query_Builder
 	 */
-	public function connect(\ArrayObject $params)
+	public function connect(\stdClass $params)
 	{
 		list($dsn, $dbtype, $params, $options) = $this->parse_params($params);
 
@@ -166,11 +156,11 @@ final class Connection_Manager {
 	/**
 	 * Parses params into a dsn and option array
 	 *
-	 * @param \ArrayObject $params
+	 * @param \stdClass $params
 	 * @return array
 	 * @throws BadDBDriverException
 	 */
-	private function parse_params(\ArrayObject $params)
+	private function parse_params(\stdClass $params)
 	{
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
@@ -201,10 +191,10 @@ final class Connection_Manager {
 	 * Create the dsn from the db type and params
 	 *
 	 * @param string $dbtype
-	 * @param \ArrayObject $params
+	 * @param \stdClass $params
 	 * @return string
 	 */
-	private function create_dsn($dbtype, \ArrayObject $params)
+	private function create_dsn($dbtype, \stdClass $params)
 	{
 		if ($dbtype === 'firebird') $dsn = "{$params->host}:{$params->file}";
 		elseif ($dbtype === 'sqlite') $dsn = $params->file;
@@ -225,7 +215,8 @@ final class Connection_Manager {
 				'type' => 'type',
 				'prefix' => 'prefix',
 				'options' => 'options',
-				'database' => 'database'
+				'database' => 'database',
+				'alias' => 'alias'
 			);
 
 			foreach($params as $key => $val)

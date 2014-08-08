@@ -14,7 +14,7 @@
 // --------------------------------------------------------------------------
 
 namespace Query;
-use \Query\Driver\Driver_Interface;
+use Query\Driver\Driver_Interface;
 
 // --------------------------------------------------------------------------
 
@@ -25,7 +25,130 @@ use \Query\Driver\Driver_Interface;
  * @package Query
  * @subpackage Query_Builder
  */
-class Query_Builder extends Abstract_Query_Builder {
+class Query_Builder extends Abstract_Query_Builder implements Query_Builder_Interface {
+
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Strings
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Compiled 'select' clause
+	 * @var string
+	 */
+	protected $select_string = '';
+
+	/**
+	 * Compiled 'from' clause
+	 * @var string
+	 */
+	protected $from_string;
+
+	/**
+	 * Compiled arguments for insert / update
+	 * @var string
+	 */
+	protected $set_string;
+
+	/**
+	 * Order by clause
+	 * @var string
+	 */
+	protected $order_string;
+
+	/**
+	 * Group by clause
+	 * @var string
+	 */
+	protected $group_string;
+
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Arrays
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Keys for insert/update statement
+	 * @var array
+	 */
+	protected $set_array_keys = array();
+
+	/**
+	 * Key/val pairs for order by clause
+	 * @var array
+	 */
+	protected $order_array = array();
+
+	/**
+	 * Key/val pairs for group by clause
+	 * @var array
+	 */
+	protected $group_array = array();
+
+	// --------------------------------------------------------------------------
+	// ! Other Class vars
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Values to apply to prepared statements
+	 * @var array
+	 */
+	protected $values = array();
+
+	/**
+	 * Values to apply to where clauses in prepared statements
+	 * @var array
+	 */
+	protected $where_values = array();
+
+	/**
+	 * Value for limit string
+	 * @var int
+	 */
+	protected $limit;
+
+	/**
+	 * Value for offset in limit string
+	 * @var bool|int
+	 */
+	protected $offset;
+
+	/**
+	 * Query component order mapping
+	 * for complex select queries
+	 *
+	 * Format:
+	 * array(
+	 *		'type' => 'where',
+	 *		'conjunction' => ' AND ',
+	 *		'string' => 'k=?'
+	 * )
+	 *
+	 * @var array
+	 */
+	protected $query_map = array();
+
+	/**
+	 * Map for having clause
+	 * @var array
+	 */
+	protected $having_map;
+
+	/**
+	 * Convenience property for connection management
+	 * @var string
+	 */
+	public $conn_name = "";
+
+	/**
+	 * List of queries executed
+	 * @var array
+	 */
+	public $queries;
+
+	/**
+	 * Whether to do only an explain on the query
+	 * @var bool
+	 */
+	protected $explain;
 
 	/**
 	 * The current database driver
@@ -50,6 +173,37 @@ class Query_Builder extends Abstract_Query_Builder {
 	 * @var \Query\Driver\SQL_Interface
 	 */
 	public $sql;
+
+	/**
+	 * String class values to be reset
+	 *
+	 * @var array
+	 */
+	private $string_vars = array(
+		'select_string',
+		'from_string',
+		'set_string',
+		'order_string',
+		'group_string',
+		'limit',
+		'offset',
+		'explain',
+	);
+
+	/**
+	 * Array class variables to be reset
+	 *
+	 * @var array
+	 */
+	private $array_vars = array(
+		'set_array_keys',
+		'order_array',
+		'group_array',
+		'values',
+		'where_values',
+		'query_map',
+		'having_map'
+	);
 
 	// --------------------------------------------------------------------------
 	// ! Methods
@@ -83,6 +237,36 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function __destruct()
 	{
 		$this->db = NULL;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Calls a function further down the inheritence chain
+	 *
+	 * @param string $name
+	 * @param array $params
+	 * @return mixed
+	 * @throws \BadMethodCallException
+	 */
+	public function __call($name, $params)
+	{
+		// Allow camel-case method calls
+		$snake_name = \from_camel_case($name);
+
+		foreach(array($this, $this->db) as $object)
+		{
+			foreach(array($name, $snake_name) as $method_name)
+			{
+				if (method_exists($object, $method_name))
+				{
+					return call_user_func_array(array($object, $method_name), $params);
+				}
+			}
+
+		}
+
+		throw new \BadMethodCallException("Method does not exist");
 	}
 
 	// --------------------------------------------------------------------------
@@ -234,8 +418,8 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function from($tblname)
 	{
 		// Split identifiers on spaces
-		$ident_array = explode(' ', mb_trim($tblname));
-		$ident_array = array_map('mb_trim', $ident_array);
+		$ident_array = explode(' ', \mb_trim($tblname));
+		$ident_array = array_map('\\mb_trim', $ident_array);
 
 		// Quote the identifiers
 		$ident_array[0] = $this->db->quote_table($ident_array[0]);
@@ -441,21 +625,8 @@ class Query_Builder extends Abstract_Query_Builder {
 	 */
 	public function set($key, $val = NULL)
 	{
-		// Plain key, value pair
-		if (is_scalar($key) && is_scalar($val))
-		{
-			$this->set_array_keys[] = $key;
-			$this->values[] = $val;
-		}
-		// Object or array
-		elseif (is_array($key) || is_object($key))
-		{
-			foreach($key as $k => $v)
-			{
-				$this->set_array_keys[] = $k;
-				$this->values[] = $v;
-			}
-		}
+		$this->_mixed_set($this->set_array_keys, $key, $val, self::KEY);
+		$this->_mixed_set($this->values, $key, $val, self::VALUE);
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
@@ -531,10 +702,12 @@ class Query_Builder extends Abstract_Query_Builder {
 	 */
 	public function order_by($field, $type="")
 	{
-		// Random case
+		// When ordering by random, do an ascending order if the driver
+		// doesn't support random ordering
 		if (stripos($type, 'rand') !== FALSE)
 		{
-			$type = (($rand = $this->sql->random()) !== FALSE ) ? $rand : 'ASC';
+			$rand = $this->sql->random();
+			$type = ($rand !== FALSE) ? $rand : 'ASC';
 		}
 
 		// Set fields for later manipulation
@@ -550,7 +723,7 @@ class Query_Builder extends Abstract_Query_Builder {
 		}
 
 		// Set the final string
-		$this->order_string = (empty($rand))
+		$this->order_string = ( ! isset($rand))
 			? "\nORDER BY ".implode(', ', $order_clauses)
 			: "\nORDER BY".$rand;
 
@@ -568,7 +741,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	 */
 	public function limit($limit, $offset=FALSE)
 	{
-		$this->limit = $limit;
+		$this->limit = (int) $limit;
 		$this->offset = $offset;
 
 		return $this;
@@ -652,16 +825,10 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function get($table='', $limit=FALSE, $offset=FALSE)
 	{
 		// Set the table
-		if ( ! empty($table))
-		{
-			$this->from($table);
-		}
+		if ( ! empty($table)) $this->from($table);
 
 		// Set the limit, if it exists
-		if (is_int($limit))
-		{
-			$this->limit($limit, $offset);
-		}
+		if (is_int($limit)) $this->limit($limit, $offset);
 
 		return $this->_run("get", $table);
 	}
@@ -713,14 +880,9 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function count_all_results($table='')
 	{
 		// Set the table
-		if ( ! empty($table))
-		{
-			$this->from($table);
-		}
+		if ( ! empty($table)) $this->from($table);
 
 		$result = $this->_run('get', $table);
-
-
 		$rows = $result->fetchAll();
 
 		return (int) count($rows);
@@ -738,10 +900,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function insert($table, $data=array())
 	{
 		// No use duplicating logic!
-		if ( ! empty($data))
-		{
-			$this->set($data);
-		}
+		if ( ! empty($data)) $this->set($data);
 
 		return $this->_run("insert", $table);
 	}
@@ -777,10 +936,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function update($table, $data=array())
 	{
 		// No use duplicating logic!
-		if ( ! empty($data))
-		{
-			$this->set($data);
-		}
+		if ( ! empty($data)) $this->set($data);
 
 		return $this->_run("update", $table);
 	}
@@ -797,10 +953,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function delete($table, $where='')
 	{
 		// Set the where clause
-		if ( ! empty($where))
-		{
-			$this->where($where);
-		}
+		if ( ! empty($where)) $this->where($where);
 
 		return $this->_run("delete", $table);
 	}
@@ -821,10 +974,7 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function get_compiled_select($table='', $reset=TRUE)
 	{
 		// Set the table
-		if ( ! empty($table))
-		{
-			$this->from($table);
-		}
+		if ( ! empty($table)) $this->from($table);
 
 		return $this->_get_compile('select', $table, $reset);
 	}
@@ -884,30 +1034,13 @@ class Query_Builder extends Abstract_Query_Builder {
 	public function reset_query()
 	{
 		// Reset strings and booleans
-		foreach(array(
-			'select_string',
-			'from_string',
-			'set_string',
-			'order_string',
-			'group_string',
-			'limit',
-			'offset',
-			'explain',
-		) as $var)
+		foreach($this->string_vars as $var)
 		{
 			$this->$var = NULL;
 		}
 
 		// Reset arrays
-		foreach(array(
-			'set_array_keys',
-			'order_array',
-			'group_array',
-			'values',
-			'where_values',
-			'query_map',
-			'having_map'
-		) as $var)
+		foreach($this->array_vars as $var)
 		{
 			$this->$var = array();
 		}
