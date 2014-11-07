@@ -358,7 +358,7 @@ abstract class Abstract_Query_Builder {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @param string $conj
+	 * @param string $defaultConj
 	 * @return Query_Builder
 	 */
 	protected function _where_string($key, $val=array(), $defaultConj='AND')

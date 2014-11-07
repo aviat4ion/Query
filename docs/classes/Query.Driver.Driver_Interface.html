@@ -139,37 +139,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-546730270"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-929043749"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-546730270" class="accordion-body collapse in">
+            <div id="namespace-929043749" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1407334323"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1400302210"></a>
                                 <a href="../namespaces/Query.html" style="margin-left: 30px; padding-left: 0">Query</a>
             </div>
-            <div id="namespace-1407334323" class="accordion-body collapse ">
+            <div id="namespace-1400302210" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1457421310"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-607551154"></a>
                                 <a href="../namespaces/Query.Driver.html" style="margin-left: 30px; padding-left: 0">Driver</a>
             </div>
-            <div id="namespace-1457421310" class="accordion-body collapse ">
+            <div id="namespace-607551154" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1919199890"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-635163813"></a>
                                 <a href="../namespaces/Query.Driver.Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
             </div>
-            <div id="namespace-1919199890" class="accordion-body collapse ">
+            <div id="namespace-635163813" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -188,10 +188,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-453809712"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-721241800"></a>
                                 <a href="../namespaces/Query.Driver.SQL.html" style="margin-left: 30px; padding-left: 0">SQL</a>
             </div>
-            <div id="namespace-453809712" class="accordion-body collapse ">
+            <div id="namespace-721241800" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -362,7 +362,7 @@
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct(string <span class="argument">$dsn</span>, string <span class="argument">$username</span>, string <span class="argument">$password</span>, array <span class="argument">$driver_options</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">__construct(string <span class="argument">$dsn</span>, string <span class="argument">$username</span>, string <span class="argument">$password</span>, array <span class="argument">$driver_options</span>) : void</pre>
                 <p><em>Constructor/Connection method</em></p>
                 
 
@@ -1310,14 +1310,14 @@ the connection/database</em></p>
             <article class="method">
                 <h3 class="public ">get_sql()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">get_sql() : \Query\Driver\SQL_Interface</pre>
+                <pre class="signature" style="margin-right: 54px;">get_sql() : \Query\Driver\SQL\SQL_Interface</pre>
                 <p><em>Get the SQL class for the current driver</em></p>
                 
 
                 
                 
                                     <h4>Returns</h4>
-                    \Query\Driver\SQL_Interface
+                    <a href="../classes/Query.Driver.SQL.SQL_Interface.html">\Query\Driver\SQL\SQL_Interface</a>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1343,14 +1343,14 @@ the connection/database</em></p>
             <article class="method">
                 <h3 class="public ">get_util()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">get_util() : \Query\Driver\Abstract_Util</pre>
+                <pre class="signature" style="margin-right: 54px;">get_util() : \Query\Driver\Util\Abstract_Util</pre>
                 <p><em>Get the Util class for the current driver</em></p>
                 
 
                 
                 
                                     <h4>Returns</h4>
-                    \Query\Driver\Abstract_Util
+                    <a href="../classes/Query.Driver.Util.Abstract_Util.html">\Query\Driver\Util\Abstract_Util</a>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1621,7 +1621,7 @@ the connection/database</em></p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 8th, 2014 at 13:50.
+                    on November 7th, 2014 at 12:20.
                 </section>
             </section>
         </section>

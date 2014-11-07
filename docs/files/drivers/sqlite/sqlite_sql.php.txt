@@ -81,7 +81,7 @@ SQL;
 	/**
 	 * List the system tables
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	public function system_table_list()
 	{
@@ -107,7 +107,7 @@ SQL;
 	/**
 	 * Returns sql to list triggers
 	 *
-	 * @return NULL
+	 * @return string
 	 */
 	public function trigger_list()
 	{
