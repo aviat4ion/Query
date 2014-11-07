@@ -361,7 +361,7 @@ abstract class Abstract_Query_Builder {
 	 * @param string $conj
 	 * @return Query_Builder
 	 */
-	protected function _where_string($key, $val=array(), $conj='AND')
+	protected function _where_string($key, $val=array(), $defaultConj='AND')
 	{
 		// Create key/value placeholders
 		foreach($this->_where($key, $val) as $f => $val)
@@ -374,13 +374,11 @@ abstract class Abstract_Query_Builder {
 
 			// Simple key value, or an operator
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
-
-			// Get the type of the first item in the query map
-			$first_item = current($this->query_map);
 			$last_item = end($this->query_map);
 
 			// Determine the correct conjunction
-			if (empty($this->query_map) || stripos($first_item['conjunction'], 'JOIN') !== FALSE)
+			$conjunctionList = array_pluck($this->query_map, 'conjunction');
+			if (empty($this->query_map) || ( ! regex_in_array($conjunctionList, "/^ ?\n?WHERE/i")))
 			{
 				$conj = "\nWHERE ";
 			}
@@ -390,7 +388,7 @@ abstract class Abstract_Query_Builder {
 			}
 			else
 			{
-				$conj = " {$conj} ";
+				$conj = " {$defaultConj} ";
 			}
 
 			$this->_append_map($conj, $item, 'where');

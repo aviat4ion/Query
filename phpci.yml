@@ -11,8 +11,6 @@ test:
     php_unit:
         config: 'tests/phpunit.xml'
         run_from: 'tests'
-        #args: ' --debug '
-        coverage: '../coverage/'
     php_docblock_checker:
         allowed_warnings: 0
         skip_classes: true

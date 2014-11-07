@@ -124,6 +124,59 @@ function array_zipper(Array $zipper_input)
 // --------------------------------------------------------------------------
 
 /**
+ * Get an array out of an multi-dimensional array based on a common
+ * key
+ *
+ * @param array $array
+ * @param string $key
+ * @return array
+ */
+function array_pluck(Array $array, $key)
+{
+	$output = array();
+
+	// No point iterating over an empty array
+	if (empty($array)) return $array;
+
+	foreach($array as $inner_array)
+	{
+ 		if (array_key_exists($key, $inner_array))
+ 		{
+	 		$output[] = $inner_array[$key];
+ 		}
+	}
+
+	return $output;
+}
+
+// --------------------------------------------------------------------------
+
+/**
+ * Determine whether a value in the passed array matches the pattern
+ * passed
+ *
+ * @param array $array
+ * @param string $pattern
+ * @return bool
+ */
+function regex_in_array(Array $array, $pattern)
+{
+	if (empty($array)) return FALSE;
+
+	foreach($array as $item)
+	{
+		if (is_scalar($item))
+		{
+			if (preg_match($pattern, $item)) return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+// --------------------------------------------------------------------------
+
+/**
  * Connection function
  *
  * Send an array or object as connection parameters to create a connection. If

@@ -167,6 +167,71 @@ abstract class QBTest extends Query_TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
+	// --------------------------------------------------------------------------
+
+	public function testSelectAvg()
+	{
+		$query = $this->db->select_avg('id', 'di')
+			->get('test');
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testSelectSum()
+	{
+		$query = $this->db->select_sum('id', 'di')
+			->get('test');
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testSelectDistinct()
+	{
+		$query = $this->db->select_sum('id', 'di')
+			->distinct()
+			->get('test');
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testSelectGet()
+	{
+		$query = $this->db->select('id, key as k, val')
+			->get('test', 2, 1);
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testSelectFromGet()
+	{
+		$query = $this->db->select('id, key as k, val')
+			->from('test ct')
+			->where('id >', 1)
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testSelectFromLimitGet()
+	{
+		$query = $this->db->select('id, key as k, val')
+			->from('test ct')
+			->where('id >', 1)
+			->limit(3)
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
 
 
 	// --------------------------------------------------------------------------
@@ -330,72 +395,6 @@ abstract class QBTest extends Query_TestCase {
 		$query = $this->db->from('test')
 			->where('key', 'false')
 			->or_where_not_in('id', array(0, 6, 56, 563, 341))
-			->get();
-
-		$this->assertIsA($query, 'PDOStatement');
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testSelectAvg()
-	{
-		$query = $this->db->select_avg('id', 'di')
-			->get('test');
-
-		$this->assertIsA($query, 'PDOStatement');
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testSelectSum()
-	{
-		$query = $this->db->select_sum('id', 'di')
-			->get('test');
-
-		$this->assertIsA($query, 'PDOStatement');
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testSelectDistinct()
-	{
-		$query = $this->db->select_sum('id', 'di')
-			->distinct()
-			->get('test');
-
-		$this->assertIsA($query, 'PDOStatement');
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testSelectGet()
-	{
-		$query = $this->db->select('id, key as k, val')
-			->get('test', 2, 1);
-
-		$this->assertIsA($query, 'PDOStatement');
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testSelectFromGet()
-	{
-		$query = $this->db->select('id, key as k, val')
-			->from('test ct')
-			->where('id >', 1)
-			->get();
-
-		$this->assertIsA($query, 'PDOStatement');
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testSelectFromLimitGet()
-	{
-		$query = $this->db->select('id, key as k, val')
-			->from('test ct')
-			->where('id >', 1)
-			->limit(3)
 			->get();
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -573,6 +572,21 @@ abstract class QBTest extends Query_TestCase {
 	}
 
 	// --------------------------------------------------------------------------
+
+	public function testJoinWithMultipleWhereValues()
+	{
+		$query = $this->db->from('test ct')
+			->join('join cj', 'cj.id=ct.id', 'inner')
+			->where(array(
+				'ct.id < ' => 3,
+				'ct.key' => 'foo'
+			))
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
 	// ! DB update tests
 	// --------------------------------------------------------------------------
 
@@ -676,6 +690,18 @@ abstract class QBTest extends Query_TestCase {
 	{
 //$this->markTestSkipped();
 		$query = $this->db->delete('test', array('id' => 5));
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testDeleteWithMultipleWhereValues()
+	{
+		$query = $this->db->delete('test', array(
+			'id' => 5,
+			'key' => 'gogle'
+		));
 
 		$this->assertIsA($query, 'PDOStatement');
 	}

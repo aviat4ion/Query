@@ -8,3 +8,5 @@ coverage/*
 vendor/*
 composer.lock
 docs/phpdoc*
+.project
+all_tests
