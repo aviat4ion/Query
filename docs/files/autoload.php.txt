@@ -25,13 +25,13 @@ namespace Query;
  * Reference to root path
  * @subpackage Core
  */
-define('QBASE_PATH', dirname(__FILE__).'/');
+if ( ! defined('QBASE_PATH')) define('QBASE_PATH', dirname(__FILE__).'/');
 
 /**
  * Path to driver classes
  * @subpackage Core
  */
-define('QDRIVER_PATH', QBASE_PATH.'drivers/');
+if ( ! defined('QDRIVER_PATH')) define('QDRIVER_PATH', QBASE_PATH.'drivers/');
 
 // Require some common functions
 require(QBASE_PATH.'common.php');
@@ -58,11 +58,11 @@ spl_autoload_register(function ($class)
 		}
 		// @codeCoverageIgnoreEnd
 	}
-	
+
 	// Load other classes
 	$path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
 	$file = QBASE_PATH . "{$path}.php";
-	
+
 	// @codeCoverageIgnoreStart
 	if (file_exists($file))
 	{

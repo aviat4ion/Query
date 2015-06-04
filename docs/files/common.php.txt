@@ -53,162 +53,180 @@ if ( ! function_exists('mb_trim'))
 
 // --------------------------------------------------------------------------
 
-/**
- * Filter out db rows into one array
- *
- * @param array $array
- * @param mixed $index
- * @return array
- */
-function db_filter($array, $index)
+if ( ! function_exists('db_filter'))
 {
-	$new_array = array();
-
-	foreach($array as $a)
+	/**
+	 * Filter out db rows into one array
+	 *
+	 * @param array $array
+	 * @param mixed $index
+	 * @return array
+	 */
+	function db_filter($array, $index)
 	{
-		$new_array[] = $a[$index];
-	}
+		$new_array = array();
 
-	return $new_array;
-}
-
-// --------------------------------------------------------------------------
-
-/**
- * Create a snake_case string from camelCase
- *
- * @see http://stackoverflow.com/questions/1993721/how-to-convert-camelcase-to-camel-case
- *
- * @param string $input
- * @return string
- */
-function from_camel_case($input) {
-	preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
-	$ret = $matches[0];
-	foreach ($ret as &$match) {
-		$match = strtolower($match);// == strtoupper($match) ? strtolower($match) : lcfirst($match);
-	}
-	return implode('_', $ret);
-}
-
-// --------------------------------------------------------------------------
-
-/**
- * Zip a set of arrays together on common keys
- *
- * The $zipper_input array is an array of arrays indexed by their place in the output
- * array.
- *
- * @param array $zipper_input
- * @return array
- */
-function array_zipper(Array $zipper_input)
-{
-	$output = array();
-
-	foreach($zipper_input as $append_key => $values)
-	{
-		foreach($values as $index => $value)
+		foreach($array as $a)
 		{
-			if ( ! isset($output[$index]))
+			$new_array[] = $a[$index];
+		}
+
+		return $new_array;
+	}
+}
+
+// --------------------------------------------------------------------------
+
+if ( ! function_exists('from_camel_case'))
+{
+	/**
+	 * Create a snake_case string from camelCase
+	 *
+	 * @see http://stackoverflow.com/questions/1993721/how-to-convert-camelcase-to-camel-case
+	 *
+	 * @param string $input
+	 * @return string
+	 */
+	function from_camel_case($input) {
+		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+		$ret = $matches[0];
+		foreach ($ret as &$match) {
+			$match = strtolower($match);// == strtoupper($match) ? strtolower($match) : lcfirst($match);
+		}
+		return implode('_', $ret);
+	}
+}
+
+// --------------------------------------------------------------------------
+
+if ( ! function_exists('array_zipper'))
+{
+	/**
+	 * Zip a set of arrays together on common keys
+	 *
+	 * The $zipper_input array is an array of arrays indexed by their place in the output
+	 * array.
+	 *
+	 * @param array $zipper_input
+	 * @return array
+	 */
+	function array_zipper(Array $zipper_input)
+	{
+		$output = array();
+
+		foreach($zipper_input as $append_key => $values)
+		{
+			foreach($values as $index => $value)
 			{
-				$output[$index] = array();
+				if ( ! isset($output[$index]))
+				{
+					$output[$index] = array();
+				}
+				$output[$index][$append_key] = $value;
 			}
-			$output[$index][$append_key] = $value;
 		}
-	}
 
-	return $output;
+		return $output;
+	}
 }
 
 // --------------------------------------------------------------------------
 
-/**
- * Get an array out of an multi-dimensional array based on a common
- * key
- *
- * @param array $array
- * @param string $key
- * @return array
- */
-function array_pluck(Array $array, $key)
+if ( ! function_exists('array_pluck'))
 {
-	$output = array();
-
-	// No point iterating over an empty array
-	if (empty($array)) return $array;
-
-	foreach($array as $inner_array)
+	/**
+	 * Get an array out of an multi-dimensional array based on a common
+	 * key
+	 *
+	 * @param array $array
+	 * @param string $key
+	 * @return array
+	 */
+	function array_pluck(Array $array, $key)
 	{
- 		if (array_key_exists($key, $inner_array))
- 		{
-	 		$output[] = $inner_array[$key];
- 		}
-	}
+		$output = array();
 
-	return $output;
-}
+		// No point iterating over an empty array
+		if (empty($array)) return $array;
 
-// --------------------------------------------------------------------------
-
-/**
- * Determine whether a value in the passed array matches the pattern
- * passed
- *
- * @param array $array
- * @param string $pattern
- * @return bool
- */
-function regex_in_array(Array $array, $pattern)
-{
-	if (empty($array)) return FALSE;
-
-	foreach($array as $item)
-	{
-		if (is_scalar($item))
+		foreach($array as $inner_array)
 		{
-			if (preg_match($pattern, $item)) return TRUE;
+	 		if (array_key_exists($key, $inner_array))
+	 		{
+		 		$output[] = $inner_array[$key];
+	 		}
 		}
-	}
 
-	return FALSE;
+		return $output;
+	}
 }
 
 // --------------------------------------------------------------------------
 
-/**
- * Connection function
- *
- * Send an array or object as connection parameters to create a connection. If
- * the array or object has an 'alias' parameter, passing that string to this
- * function will return that connection. Passing no parameters returns the last
- * connection created.
- *
- * @param string|object|array $params
- * @return Query\Query_Builder|null
- */
-function Query($params = '')
+if ( ! function_exists('regex_in_array'))
 {
-	$cmanager = \Query\Connection_Manager::get_instance();
-
-	// If you are getting a previously created connection
-	if (is_scalar($params))
+	/**
+	 * Determine whether a value in the passed array matches the pattern
+	 * passed
+	 *
+	 * @param array $array
+	 * @param string $pattern
+	 * @return bool
+	 */
+	function regex_in_array(Array $array, $pattern)
 	{
-		return $cmanager->get_connection($params);
-	}
-	elseif ( ! is_scalar($params) && ! is_null($params))
-	{
-		$params_object = new stdClass();
+		if (empty($array)) return FALSE;
 
-		foreach($params as $k => $v)
+		foreach($array as $item)
 		{
-			$params_object->$k = $v;
+			if (is_scalar($item))
+			{
+				if (preg_match($pattern, $item)) return TRUE;
+			}
 		}
 
-		// Otherwise, return a new connection
-		return $cmanager->connect($params_object);
+		return FALSE;
 	}
-// @codeCoverageIgnoreStart
 }
-// @codeCoverageIgnoreEnd
+
+// --------------------------------------------------------------------------
+
+if ( ! function_exists('Query'))
+{
+	/**
+	 * Connection function
+	 *
+	 * Send an array or object as connection parameters to create a connection. If
+	 * the array or object has an 'alias' parameter, passing that string to this
+	 * function will return that connection. Passing no parameters returns the last
+	 * connection created.
+	 *
+	 * @param string|object|array $params
+	 * @return Query\Query_Builder|null
+	 */
+	function Query($params = '')
+	{
+		$cmanager = \Query\Connection_Manager::get_instance();
+
+		// If you are getting a previously created connection
+		if (is_scalar($params))
+		{
+			return $cmanager->get_connection($params);
+		}
+		elseif ( ! is_scalar($params) && ! is_null($params))
+		{
+			$params_object = new stdClass();
+
+			foreach($params as $k => $v)
+			{
+				$params_object->$k = $v;
+			}
+
+			// Otherwise, return a new connection
+			return $cmanager->connect($params_object);
+		}
+	// @codeCoverageIgnoreStart
+	}
+	// @codeCoverageIgnoreEnd
+}
 // End of common.php
