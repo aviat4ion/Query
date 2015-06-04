@@ -63,6 +63,9 @@ class PgSQLQBTest extends QBTest {
 
 	public function testQueryExplain()
 	{
+$this->markTestSkipped();
+return;
+
 		$query = $this->db->select('id, key as k, val')
 			->explain()
 			->where('id >', 1)
