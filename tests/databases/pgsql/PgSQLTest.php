@@ -22,10 +22,10 @@ class PgTest extends DBTest {
 
 	public function setUp()
 	{
-		$class = "Query\\Driver\\PgSQL";
+		$class = "Query\\Drivers\\Pgsql\\Driver";
 
 		// If the database isn't installed, skip the tests
-		if ( ! class_exists($class) && ! IS_QUERCUS)
+		if (( ! class_exists($class)) && ! IS_QUERCUS)
 		{
 			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
@@ -50,7 +50,9 @@ class PgTest extends DBTest {
 
 	public function testExists()
 	{
-		$this->assertTrue(in_array('pgsql', PDO::getAvailableDrivers()));
+		$drivers = \PDO::getAvailableDrivers();
+print_r($drivers);
+		$this->assertTrue(in_array('pgsql', $drivers));
 	}
 
 	// --------------------------------------------------------------------------
@@ -59,7 +61,7 @@ class PgTest extends DBTest {
 	{
 		if (empty($this->db))  return;
 
-		$this->assertIsA($this->db, '\\Query\\Driver\\PgSQL');
+		$this->assertIsA($this->db, '\\Query\\Drivers\\Pgsql\\Driver');
 	}
 
 	// --------------------------------------------------------------------------

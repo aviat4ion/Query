@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver\Util;
+namespace Query\Drivers\Util;
 
 /**
  * Firebird-specific backup, import and creation methods
@@ -21,7 +21,7 @@ namespace Query\Driver\Util;
  * @package Query
  * @subpackage Drivers
  */
-class Firebird_Util extends Abstract_Util {
+class Firebird extends \Query\Abstract_Util {
 
 	/**
 	 * Convenience public function to generate sql for creating a db table

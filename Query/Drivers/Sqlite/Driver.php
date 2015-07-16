@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Drivers\Sqlite;
 
 /**
  * SQLite specific class
@@ -21,7 +21,7 @@ namespace Query\Driver;
  * @package Query
  * @subpackage Drivers
  */
-class SQLite extends Abstract_Driver {
+class Driver extends \Query\Abstract_Driver {
 
 	/**
 	 * Reference to the last executed sql query

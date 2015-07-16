@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver\SQL;
+namespace Query\Drivers\Sqlite;
 
 /**
  * SQLite Specific SQL
@@ -21,7 +21,7 @@ namespace Query\Driver\SQL;
  * @package Query
  * @subpackage Drivers
  */
-class SQLite_SQL extends Abstract_SQL {
+class SQL extends \Query\Abstract_SQL {
 
 	/**
 	 * Get the query plan for the sql query

@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Drivers\Pgsql;
 
 /**
  * PostgreSQL specifc class
@@ -21,7 +21,7 @@ namespace Query\Driver;
  * @package Query
  * @subpackage Drivers
  */
-class PgSQL extends Abstract_Driver {
+class Driver extends \Query\Abstract_Driver {
 
 	/**
 	 * Connect to a PosgreSQL database

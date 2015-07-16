@@ -13,15 +13,15 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver\Util;
+namespace Query\Drivers\Pgsql;
 
 /**
- * MySQL-specific backup, import and creation methods
+ * Posgres-specific backup, import and creation methods
  *
  * @package Query
  * @subpackage Drivers
  */
-class MySQL_Util extends Abstract_Util {
+class Util extends \Query\Abstract_Util {
 
 	/**
 	 * Create an SQL backup file for the current database's structure
@@ -30,32 +30,8 @@ class MySQL_Util extends Abstract_Util {
 	 */
 	public function backup_structure()
 	{
-		$string = array();
-
-		// Get databases
-		$dbs = $this->get_driver()->get_dbs();
-
-		foreach($dbs as &$d)
-		{
-			// Skip built-in dbs
-			if ($d == 'mysql') continue;
-
-			// Get the list of tables
-			$tables = $this->get_driver()->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
-
-			foreach($tables as $table)
-			{
-				$array = $this->get_driver()->driver_query("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
-				$row = current($array);
-
-				if ( ! isset($row['Create Table'])) continue;
-
-
-				$string[] = $row['Create Table'];
-			}
-		}
-
-		return implode("\n\n", $string);
+		// TODO Implement Backup function
+		return '';
 	}
 
 	// --------------------------------------------------------------------------
@@ -78,39 +54,41 @@ class MySQL_Util extends Abstract_Util {
 
 		$output_sql = '';
 
-		// Select the rows from each Table
+		// Get the data for each object
 		foreach($tables as $t)
 		{
-			$sql = "SELECT * FROM `{$t}`";
+			$sql = 'SELECT * FROM "'.trim($t).'"';
 			$res = $this->get_driver()->query($sql);
-			$rows = $res->fetchAll(\PDO::FETCH_ASSOC);
+			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
 
-			// Skip empty tables
-			if (count($rows) < 1) continue;
+			// Don't add to the file if the table is empty
+			if (count($obj_res) < 1) continue;
+
+			$res = NULL;
 
 			// Nab the column names by getting the keys of the first row
-			$columns = @array_keys($rows[0]);
+			$columns = @array_keys($obj_res[0]);
 
 			$insert_rows = array();
 
 			// Create the insert statements
-			foreach($rows as $row)
+			foreach($obj_res as $row)
 			{
 				$row = array_values($row);
 
-				// Workaround for Quercus
-				foreach($row as &$r)
-				{
-					$r = $this->get_driver()->quote($r);
-				}
+				// Quote values as needed by type
+				$row = array_map(array($this->get_driver(), 'quote'), $row);
 				$row = array_map('trim', $row);
 
-				$row_string = 'INSERT INTO `'.trim($t).'` (`'.implode('`,`', $columns).'`) VALUES ('.implode(',', $row).');';
+
+				$row_string = 'INSERT INTO "'.trim($t).'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
 
 				$row = NULL;
 
 				$insert_rows[] = $row_string;
 			}
+
+			$obj_res = NULL;
 
 			$output_sql .= "\n\n".implode("\n", $insert_rows)."\n";
 		}
@@ -118,4 +96,4 @@ class MySQL_Util extends Abstract_Util {
 		return $output_sql;
 	}
 }
-// End of mysql_util.php
+// End of pgsql_util.php

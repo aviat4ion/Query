@@ -121,7 +121,9 @@ final class Connection_Manager {
 	{
 		list($dsn, $dbtype, $params, $options) = $this->parse_params($params);
 
-		$driver = "\\Query\\Driver\\{$dbtype}";
+		$dbtype = ucfirst($dbtype);
+		$driver = "\\Query\\Drivers\\{$dbtype}\\Driver";
+//echo $driver . "\n";
 
 		// Create the database connection
 		$db = ( ! empty($params->user))
@@ -164,9 +166,10 @@ final class Connection_Manager {
 	{
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
+		$dbtype = ucfirst($dbtype);
 
 		// Make sure the class exists
-		if ( ! class_exists("Query\\Driver\\{$dbtype}"))
+		if ( ! class_exists("\\Query\\Drivers\\{$dbtype}\\Driver"))
 		{
 			throw new BadDBDriverException('Database driver does not exist, or is not supported');
 		}

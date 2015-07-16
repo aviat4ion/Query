@@ -29,13 +29,13 @@ class MySQLTest extends DBTest {
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->mysql;
 
-			$this->db = new \Query\Driver\MySQL("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
+			$this->db = new \Query\Drivers\Mysql\Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
 				PDO::ATTR_PERSISTENT => TRUE
 			));
 		}
 		elseif (($var = getenv('CI')))
 		{
-			$this->db = new \Query\Driver\MySQL('host=127.0.0.1;port=3306;dbname=test', 'root');
+			$this->db = new \Query\Drivers\Mysql\Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
 
 		$this->db->table_prefix = 'create_';
@@ -52,7 +52,7 @@ class MySQLTest extends DBTest {
 
 	public function testConnection()
 	{
-		$this->assertIsA($this->db, '\\Query\\Driver\\MySQL');
+		$this->assertIsA($this->db, '\\Query\\Drivers\\Mysql\\Driver');
 	}
 
 	// --------------------------------------------------------------------------

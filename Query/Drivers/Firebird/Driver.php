@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Drivers\Firebird;
 
 /**
  * Firebird Database class
@@ -23,7 +23,7 @@ namespace Query\Driver;
  * @package Query
  * @subpackage Drivers
  */
-class Firebird extends Abstract_Driver {
+class Driver extends \Query\Abstract_Driver {
 
 	/**
 	 * Reference to the last query executed

@@ -13,8 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver\Util;
-use Query\Driver\Driver_Interface;
+namespace Query;
 
 // --------------------------------------------------------------------------
 
@@ -99,7 +98,7 @@ abstract class Abstract_Util {
 
 		return $sql;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -112,7 +111,7 @@ abstract class Abstract_Util {
 	{
 		return 'DROP TABLE IF EXISTS '.$this->get_driver()->quote_table($name);
 	}
-	
+
 
 	// --------------------------------------------------------------------------
 	// ! Abstract Methods
@@ -125,7 +124,7 @@ abstract class Abstract_Util {
 	 * @return string
 	 */
 	abstract public function backup_structure();
-	
+
 	// --------------------------------------------------------------------------
 
 	/**

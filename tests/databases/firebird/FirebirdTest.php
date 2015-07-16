@@ -33,7 +33,7 @@ class FirebirdTest extends DBtest {
 		}
 
 		// test the db driver directly
-		$this->db = new \Query\Driver\Firebird('localhost:'.$dbpath);
+		$this->db = new \Query\Drivers\Firebird\Driver('localhost:'.$dbpath);
 		$this->db->table_prefix = 'create_';
 		$this->tables = $this->db->get_tables();
 	}
@@ -75,7 +75,7 @@ class FirebirdTest extends DBtest {
 
 	public function testConnection()
 	{
-		$this->assertIsA($this->db, '\\Query\\Driver\\Firebird');
+		$this->assertIsA($this->db, '\\Query\\Drivers\\Firebird\\Driver');
 	}
 
 	// --------------------------------------------------------------------------

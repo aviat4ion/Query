@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver\SQL;
+namespace Query;
 
 /**
  * parent for database manipulation subclasses

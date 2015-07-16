@@ -12,7 +12,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver\SQL;
+namespace Query\Drivers\Pgsql;
 
 /**
  * PostgreSQL specifc SQL
@@ -20,7 +20,7 @@ namespace Query\Driver\SQL;
  * @package Query
  * @subpackage Drivers
  */
-class PgSQL_SQL extends Abstract_SQL {
+class SQL extends \Query\Abstract_SQL {
 
 	/**
 	 * Get the query plan for the sql query

@@ -59,6 +59,7 @@ class CoreTest extends Query_TestCase {
 
 		// Make sure at least one of the supported drivers is enabled
 		$supported = array(
+			'firebird',
 			'mysql',
 			'pgsql',
 			'odbc',

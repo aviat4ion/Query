@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query;
 
 // --------------------------------------------------------------------------
 
@@ -98,10 +98,10 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		// Load the sql and util class for the driver
 		$this_class = get_class($this);
 		$ns_array = explode("\\", $this_class);
-		$base_class = array_pop($ns_array);
-		$namespace = implode('\\', $ns_array);
-		$sql_class = "{$namespace}\\SQL\\{$base_class}_SQL";
-		$util_class = "{$namespace}\\Util\\{$base_class}_Util";
+		array_pop($ns_array);
+		$driver = array_pop($ns_array);
+		$sql_class = "\\Query\\Drivers\\{$driver}\\SQL";
+		$util_class = "\\Query\\Drivers\\{$driver}\\Util";
 
 		$this->sql = new $sql_class();
 		$this->util = new $util_class($this);

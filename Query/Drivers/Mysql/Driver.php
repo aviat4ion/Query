@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Drivers\Mysql;
 
 /**
  * MySQL specific class
@@ -21,7 +21,7 @@ namespace Query\Driver;
  * @package Query
  * @subpackage Drivers
  */
-class MySQL extends Abstract_Driver {
+class Driver extends \Query\Abstract_Driver {
 
 	/**
 	 * Set the backtick as the MySQL escape character

@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query;
 
 /**
  * PDO Interface to implement for database drivers

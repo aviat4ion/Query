@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver\SQL;
+namespace Query\Drivers\Mysql;
 
 /**
  * MySQL specifc SQL
@@ -21,7 +21,7 @@ namespace Query\Driver\SQL;
  * @package Query
  * @subpackage Drivers
  */
-class MySQL_SQL extends Abstract_SQL {
+class SQL extends \Query\Abstract_SQL {
 
 	/**
 	 * Limit clause

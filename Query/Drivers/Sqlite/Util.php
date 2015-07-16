@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver\Util;
+namespace Query\Drivers\Sqlite;
 
 /**
  * SQLite-specific backup, import and creation methods
@@ -23,7 +23,7 @@ namespace Query\Driver\Util;
  * @method mixed query(string $sql)
  * @method string quote(string $str)
  */
-class SQLite_Util extends Abstract_Util {
+class Util extends \Query\Abstract_Util {
 
 	/**
 	 * Create an SQL backup file for the current database's data

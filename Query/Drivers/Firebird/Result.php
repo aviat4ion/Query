@@ -13,7 +13,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query\Driver;
+namespace Query\Drivers\Firebird;
 
 /**
  * Firebird result class to emulate PDOStatement Class - only implements
@@ -22,7 +22,7 @@ namespace Query\Driver;
  * @package Query
  * @subpackage Drivers
  */
-class Firebird_Result extends \PDOStatement {
+class Result extends \PDOStatement {
 
 	/**
 	 * Reference to fbird resource
