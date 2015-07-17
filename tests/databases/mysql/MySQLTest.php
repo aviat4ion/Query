@@ -21,7 +21,7 @@
  */
 class MySQLTest extends DBTest {
 
-	public function setUp()
+	public static function setUpBeforeClass()
 	{
 		// Attempt to connect, if there is a test config file
 		if (is_file(QTEST_DIR . "/settings.json"))
@@ -29,16 +29,16 @@ class MySQLTest extends DBTest {
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->mysql;
 
-			$this->db = new \Query\Drivers\Mysql\Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
+			self::$db = new \Query\Drivers\Mysql\Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
 				PDO::ATTR_PERSISTENT => TRUE
 			));
 		}
 		elseif (($var = getenv('CI')))
 		{
-			$this->db = new \Query\Drivers\Mysql\Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
+			self::$db = new \Query\Drivers\Mysql\Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
 
-		$this->db->table_prefix = 'create_';
+		self::$db->table_prefix = 'create_';
 	}
 
 	// --------------------------------------------------------------------------
@@ -52,17 +52,17 @@ class MySQLTest extends DBTest {
 
 	public function testConnection()
 	{
-		$this->assertIsA($this->db, '\\Query\\Drivers\\Mysql\\Driver');
+		$this->assertIsA(self::$db, '\\Query\\Drivers\\Mysql\\Driver');
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testCreateTable()
 	{
-		$this->db->exec(file_get_contents(QTEST_DIR.'/db_files/mysql.sql'));
+		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/mysql.sql'));
 
 		//Attempt to create the table
-		$sql = $this->db->util->create_table('test',
+		$sql = self::$db->util->create_table('test',
 			array(
 				'id' => 'int(10)',
 				'key' => 'TEXT',
@@ -73,10 +73,10 @@ class MySQLTest extends DBTest {
 			)
 		);
 
-		$this->db->query($sql);
+		self::$db->query($sql);
 
 		//Attempt to create the table
-		$sql = $this->db->util->create_table('join',
+		$sql = self::$db->util->create_table('join',
 			array(
 				'id' => 'int(10)',
 				'key' => 'TEXT',
@@ -86,10 +86,10 @@ class MySQLTest extends DBTest {
 				'id' => 'PRIMARY KEY'
 			)
 		);
-		$this->db->query($sql);
+		self::$db->query($sql);
 
 		//Check
-		$dbs = $this->db->get_tables();
+		$dbs = self::$db->get_tables();
 
 		$this->assertTrue(in_array('create_test', $dbs));
 
@@ -99,8 +99,8 @@ class MySQLTest extends DBTest {
 
 	public function testTruncate()
 	{
-		$this->db->truncate('test');
-		$this->db->truncate('join');
+		self::$db->truncate('test');
+		self::$db->truncate('join');
 	}
 
 	// --------------------------------------------------------------------------
@@ -111,7 +111,7 @@ class MySQLTest extends DBTest {
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$statement = $this->db->prepare_query($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepare_query($sql, array(1,"boogers", "Gross"));
 
 		$res = $statement->execute();
 
@@ -129,7 +129,7 @@ SQL;
 SQL;
 		try
 		{
-			$statement = $this->db->prepare_query($sql, 'foo');
+			$statement = self::$db->prepare_query($sql, 'foo');
 		}
 		catch(InvalidArgumentException $e)
 		{
@@ -146,7 +146,7 @@ SQL;
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$res = $this->db->prepare_execute($sql, array(
+		$res = self::$db->prepare_execute($sql, array(
 			2, "works", 'also?'
 		));
 
@@ -158,12 +158,12 @@ SQL;
 
 	public function testCommitTransaction()
 	{
-		$res = $this->db->beginTransaction();
+		$res = self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (10, 12, 14)';
-		$this->db->query($sql);
+		self::$db->query($sql);
 
-		$res = $this->db->commit();
+		$res = self::$db->commit();
 		$this->assertTrue($res);
 	}
 
@@ -171,12 +171,12 @@ SQL;
 
 	public function testRollbackTransaction()
 	{
-		$res = $this->db->beginTransaction();
+		$res = self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (182, 96, 43)';
-		$this->db->query($sql);
+		self::$db->query($sql);
 
-		$res = $this->db->rollback();
+		$res = self::$db->rollback();
 		$this->assertTrue($res);
 	}
 
@@ -184,21 +184,21 @@ SQL;
 
 	public function testGetSchemas()
 	{
-		$this->assertNull($this->db->get_schemas());
+		$this->assertNull(self::$db->get_schemas());
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetSequences()
 	{
-		$this->assertNull($this->db->get_sequences());
+		$this->assertNull(self::$db->get_sequences());
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testBackup()
 	{
-		$this->assertTrue(is_string($this->db->util->backup_structure()));
+		$this->assertTrue(is_string(self::$db->util->backup_structure()));
 	}
 
 

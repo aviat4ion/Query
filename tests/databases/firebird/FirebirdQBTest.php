@@ -21,12 +21,12 @@ class FirebirdQBTest extends QBTest {
 
 	public function setUp()
 	{
-		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
-
 		if ( ! function_exists('\\fbird_connect'))
 		{
 			$this->markTestSkipped('Firebird extension does not exist');
 		}
+
+		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
 		// test the query builder
 		$params = new Stdclass();
@@ -44,12 +44,19 @@ class FirebirdQBTest extends QBTest {
 	{
 		try
 		{
-			$db = Query('fire');
+			$db = Query('water');
 		}
 		catch(InvalidArgumentException $e)
 		{
 			$this->assertIsA($e, 'InvalidArgumentException');
 		}
+	}
+
+	public function testQueryFunctionAlias()
+	{
+		$db = Query();
+
+		$this->assertTrue($this->db === $db);
 	}
 
 	public function testGetNamedConnection()
@@ -58,7 +65,7 @@ class FirebirdQBTest extends QBTest {
 
 		// test the query builder
 		$params = new Stdclass();
-		$params->alias = 'fire';
+		$params->alias = 'wood';
 		$params->type = 'firebird';
 		$params->file = $dbpath;
 		$params->host = 'localhost';
@@ -66,7 +73,7 @@ class FirebirdQBTest extends QBTest {
 		$params->pass = 'masterkey';
 		$params->prefix = '';
 		$f_conn = Query($params);
-		$q_conn = Query('fire');
+		$q_conn = Query('wood');
 
 		$this->assertReference($f_conn, $q_conn);
 	}
@@ -131,7 +138,6 @@ class FirebirdQBTest extends QBTest {
 
 	public function testBackupStructure()
 	{
-
 		$existing = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 		$backup = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_BKP.FDB';
 

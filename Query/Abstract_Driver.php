@@ -41,13 +41,13 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 
 	/**
 	 * Reference to sql class
-	 * @var SQL\SQL_Interface
+	 * @var SQL_Interface
 	 */
-	public $sql;
+	protected $sql;
 
 	/**
 	 * Reference to util class
-	 * @var Util\Abstract_Util
+	 * @var Abstract_Util
 	 */
 	public $util;
 

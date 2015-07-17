@@ -102,23 +102,4 @@ require_once(QTEST_DIR . '/core/db_test.php');
 require_once(QTEST_DIR . '/core/db_qp_test.php');
 require_once(QTEST_DIR . '/core/db_qb_test.php');
 
-// Preset SQLite connection, so there aren't locking issues
-if (extension_loaded('pdo_sqlite'))
-{
-	$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
-	@unlink($path);
-	$params = array(
-		'type' => 'sqlite',
-		'file' => ':memory:',
-		'host' => 'localhost',
-		'prefix' => 'create_',
-		'alias' => 'test_sqlite',
-		'options' => array(
-			PDO::ATTR_PERSISTENT => TRUE
-		)
-	);
-
-	Query($params);
-}
-
 // End of bootstrap.php

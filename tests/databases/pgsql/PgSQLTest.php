@@ -30,20 +30,26 @@ class PgTest extends DBTest {
 			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
 
+	}
+
+	public static function setUpBeforeClass()
+	{
+		$class = "Query\\Drivers\\Pgsql\\Driver";
+
 		// Attempt to connect, if there is a test config file
 		if (is_file(QTEST_DIR . "/settings.json"))
 		{
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
 			$params = $params->pgsql;
 
-			$this->db = new $class("pgsql:dbname={$params->database};port=5432", $params->user, $params->pass);
+			self::$db = new $class("pgsql:dbname={$params->database};port=5432", $params->user, $params->pass);
 		}
 		elseif (($var = getenv('CI')))
 		{
-			$this->db = new $class('host=127.0.0.1;port=5432;dbname=test', 'postgres');
+			self::$db = new $class('host=127.0.0.1;port=5432;dbname=test', 'postgres');
 		}
 
-		$this->db->table_prefix = 'create_';
+		self::$db->table_prefix = 'create_';
 	}
 
 	// --------------------------------------------------------------------------
@@ -51,7 +57,6 @@ class PgTest extends DBTest {
 	public function testExists()
 	{
 		$drivers = \PDO::getAvailableDrivers();
-print_r($drivers);
 		$this->assertTrue(in_array('pgsql', $drivers));
 	}
 
@@ -59,26 +64,26 @@ print_r($drivers);
 
 	public function testConnection()
 	{
-		if (empty($this->db))  return;
+		if (empty(self::$db))  return;
 
-		$this->assertIsA($this->db, '\\Query\\Drivers\\Pgsql\\Driver');
+		$this->assertIsA(self::$db, '\\Query\\Drivers\\Pgsql\\Driver');
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testCreateTable()
 	{
-		$this->db->exec(file_get_contents(QTEST_DIR.'/db_files/pgsql.sql'));
+		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/pgsql.sql'));
 
 		// Drop the table(s) if they exist
 		$sql = 'DROP TABLE IF EXISTS "create_test"';
-		$this->db->query($sql);
+		self::$db->query($sql);
 		$sql = 'DROP TABLE IF EXISTS "create_join"';
-		$this->db->query($sql);
+		self::$db->query($sql);
 
 
 		//Attempt to create the table
-		$sql = $this->db->util->create_table('create_test',
+		$sql = self::$db->util->create_table('create_test',
 			array(
 				'id' => 'integer',
 				'key' => 'TEXT',
@@ -89,10 +94,10 @@ print_r($drivers);
 			)
 		);
 
-		$this->db->query($sql);
+		self::$db->query($sql);
 
 		//Attempt to create the table
-		$sql = $this->db->util->create_table('create_join',
+		$sql = self::$db->util->create_table('create_join',
 			array(
 				'id' => 'integer',
 				'key' => 'TEXT',
@@ -102,16 +107,16 @@ print_r($drivers);
 				'id' => 'PRIMARY KEY'
 			)
 		);
-		$this->db->query($sql);
+		self::$db->query($sql);
 
 		//echo $sql.'<br />';
 
 		//Reset
-		unset($this->db);
-		$this->setUp();
+		//unset(self::$db);
+		//$this->setUp();
 
 		//Check
-		$dbs = $this->db->get_tables();
+		$dbs = self::$db->get_tables();
 		$this->assertTrue(in_array('create_test', $dbs));
 
 	}
@@ -120,11 +125,11 @@ print_r($drivers);
 
 	public function testTruncate()
 	{
-		$this->db->truncate('create_test');
-		$this->db->truncate('create_join');
+		self::$db->truncate('create_test');
+		self::$db->truncate('create_join');
 
-		$ct_query = $this->db->query('SELECT * FROM create_test');
-		$cj_query = $this->db->query('SELECT * FROM create_join');
+		$ct_query = self::$db->query('SELECT * FROM create_test');
+		$cj_query = self::$db->query('SELECT * FROM create_join');
 	}
 
 	// --------------------------------------------------------------------------
@@ -135,7 +140,7 @@ print_r($drivers);
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = $this->db->prepare_query($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepare_query($sql, array(1,"boogers", "Gross"));
 
 		$statement->execute();
 
@@ -151,7 +156,7 @@ SQL;
 SQL;
 		try
 		{
-			$statement = $this->db->prepare_query($sql, 'foo');
+			$statement = self::$db->prepare_query($sql, 'foo');
 		}
 		catch(InvalidArgumentException $e)
 		{
@@ -164,13 +169,13 @@ SQL;
 
 	public function testPrepareExecute()
 	{
-		if (empty($this->db))  return;
+		if (empty(self::$db))  return;
 
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$this->db->prepare_execute($sql, array(
+		self::$db->prepare_execute($sql, array(
 			2, "works", 'also?'
 		));
 
@@ -180,14 +185,14 @@ SQL;
 
 	public function testCommitTransaction()
 	{
-		if (empty($this->db))  return;
+		if (empty(self::$db))  return;
 
-		$res = $this->db->beginTransaction();
+		$res = self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
-		$this->db->query($sql);
+		self::$db->query($sql);
 
-		$res = $this->db->commit();
+		$res = self::$db->commit();
 		$this->assertTrue($res);
 	}
 
@@ -195,14 +200,14 @@ SQL;
 
 	public function testRollbackTransaction()
 	{
-		if (empty($this->db))  return;
+		if (empty(self::$db))  return;
 
-		$res = $this->db->beginTransaction();
+		$res = self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
-		$this->db->query($sql);
+		self::$db->query($sql);
 
-		$res = $this->db->rollback();
+		$res = self::$db->rollback();
 		$this->assertTrue($res);
 	}
 
@@ -210,20 +215,20 @@ SQL;
 
 	public function testGetSchemas()
 	{
-		$this->assertTrue(is_array($this->db->get_schemas()));
+		$this->assertTrue(is_array(self::$db->get_schemas()));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetDBs()
 	{
-		$this->assertTrue(is_array($this->db->get_dbs()));
+		$this->assertTrue(is_array(self::$db->get_dbs()));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetFunctions()
 	{
-		$this->assertNull($this->db->get_functions());
+		$this->assertNull(self::$db->get_functions());
 	}
 }

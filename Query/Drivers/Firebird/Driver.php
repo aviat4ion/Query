@@ -80,7 +80,6 @@ class Driver extends \Query\Abstract_Driver {
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = array())
 	{
-
 		$connect_function = (isset($options[\PDO::ATTR_PERSISTENT]) && $options[\PDO::ATTR_PERSISTENT] == TRUE)
 			? '\\fbird_pconnect'
 			: '\\fbird_connect';
@@ -195,7 +194,7 @@ class Driver extends \Query\Abstract_Driver {
 		$err_string = \fbird_errmsg() . "Last query:" . $this->last_query;
 		if ($this->statement_link === FALSE) throw new \PDOException($err_string, \fbird_errcode(), NULL);
 
-		$this->statement = new FireBird_Result($this->statement_link, $this);
+		$this->statement = new Result($this->statement_link, $this);
 
 		return $this->statement;
 	}
@@ -217,7 +216,7 @@ class Driver extends \Query\Abstract_Driver {
 		// Throw the error as an exception
 		if ($this->statement_link === FALSE) throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
 
-		$this->statement = new FireBird_Result($this->statement_link, $this);
+		$this->statement = new Result($this->statement_link, $this);
 
 		return $this->statement;
 	}

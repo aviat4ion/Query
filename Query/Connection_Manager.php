@@ -123,7 +123,6 @@ final class Connection_Manager {
 
 		$dbtype = ucfirst($dbtype);
 		$driver = "\\Query\\Drivers\\{$dbtype}\\Driver";
-//echo $driver . "\n";
 
 		// Create the database connection
 		$db = ( ! empty($params->user))
@@ -158,7 +157,7 @@ final class Connection_Manager {
 	/**
 	 * Parses params into a dsn and option array
 	 *
-	 * @param \stdClass $params
+	 * @param \stdClass $set_params
 	 * @return array
 	 * @throws BadDBDriverException
 	 */
@@ -183,7 +182,15 @@ final class Connection_Manager {
 		}
 
 		// Create the dsn for the database to connect to
-		$dsn = $this->create_dsn($dbtype, $params);
+		if (strtolower($dbtype) === 'firebird')
+		{
+			$dsn = "{$params->host}:{$params->file}";
+		}
+		else
+		{
+			$dsn = $this->create_dsn($dbtype, $params);
+		}
+
 
 		return array($dsn, $dbtype, $params, $options);
 	}
@@ -199,10 +206,14 @@ final class Connection_Manager {
 	 */
 	private function create_dsn($dbtype, \stdClass $params)
 	{
-		if ($dbtype === 'firebird') $dsn = "{$params->host}:{$params->file}";
-		elseif ($dbtype === 'sqlite') $dsn = $params->file;
+		if ($dbtype === 'sqlite')
+		{
+			 $dsn = $params->file;
+		}
 		else
 		{
+			if (strtolower($dbtype) === 'pdo_firebird') $dbtype = 'firebird';
+
 			$dsn = strtolower($dbtype) . ':';
 
 			if ( ! empty($params->database))
@@ -224,7 +235,7 @@ final class Connection_Manager {
 
 			foreach($params as $key => $val)
 			{
-				if ( ! isset($skip[$key]))
+				if (( ! array_key_exists($key, $skip)) && ! empty($val))
 				{
 					$dsn .= ";{$key}={$val}";
 				}

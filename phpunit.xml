@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+	colors="true"
+	stopOnFailure="false"
+	bootstrap="tests/bootstrap.php">
+	<filter>
+		<blacklist>
+			<directory suffix=".php">coverage</directory>
+			<directory suffix=".php">docs</directory>
+			<directory suffix=".php">tests</directory>
+		</blacklist>
+	</filter>
+	<testsuites>
+		<testsuite name="CoreTests">
+			<file>tests/core/core.php</file>
+			<file>tests/core/db_qp_test.php</file>
+		</testsuite>
+		<testsuite name="MySQLTests">
+			<file>tests/databases/mysql/MySQLTest.php</file>
+			<file>tests/databases/mysql/MySQLQBTest.php</file>
+		</testsuite>
+		<testsuite name="PgSQLTests">
+			<file>tests/databases/pgsql/PgSQLTest.php</file>
+			<file>tests/databases/pgsql/PgSQLQBTest.php</file>
+		</testsuite>
+		<testsuite name="SQLiteTests">
+			<file>tests/databases/sqlite/SQLiteTest.php</file>
+			<file>tests/databases/sqlite/SQLiteQBTest.php</file>
+		</testsuite>
+		<testsuite name="FirebirdTests">
+			<file>tests/databases/firebird/FirebirdTest.php</file>
+			<file>tests/databases/firebird/FirebirdQBTest.php</file>
+		</testsuite>
+		<!-- <testsuite name="PDOFirebirdTests">
+			<file>tests/databases/pdo_firebird/PDOFirebirdTest.php</file>
+			<file>tests/databases/pdo_firebird/PDOFirebirdQBTest.php</file>
+		</testsuite> -->
+	</testsuites>
+</phpunit>

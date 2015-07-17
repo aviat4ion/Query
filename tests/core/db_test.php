@@ -18,20 +18,22 @@
  */
 abstract class DBTest extends Query_TestCase {
 
+	protected static $db = NULL;
+
 	abstract public function testConnection();
 
 	// --------------------------------------------------------------------------
 
-	public function tearDown()
+	public static function tearDownAfterClass()
 	{
-		$this->db = NULL;
+		self::$db = NULL;
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetTables()
 	{
-		$tables = $this->db->get_tables();
+		$tables = self::$db->get_tables();
 		$this->assertTrue(is_array($tables));
 		$this->assertTrue( ! empty($tables));
 	}
@@ -40,7 +42,7 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetSystemTables()
 	{
-		$tables = $this->db->get_system_tables();
+		$tables = self::$db->get_system_tables();
 		$this->assertTrue(is_array($tables));
 		$this->assertTrue( ! empty($tables));
 	}
@@ -49,14 +51,14 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testBackupData()
 	{
-		$this->assertTrue(is_string($this->db->util->backup_data(array('create_delete', TRUE))));
+		$this->assertTrue(is_string(self::$db->util->backup_data(array('create_delete', TRUE))));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetColumns()
 	{
-		$cols = $this->db->get_columns('test');
+		$cols = self::$db->get_columns('test');
 		$this->assertTrue(is_array($cols));
 		$this->assertTrue( ! empty($cols));
 	}
@@ -65,7 +67,7 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetTypes()
 	{
-		$types = $this->db->get_types();
+		$types = self::$db->get_types();
 		$this->assertTrue(is_array($types));
 		$this->assertTrue( ! empty($types));
 	}
@@ -82,7 +84,7 @@ abstract class DBTest extends Query_TestCase {
 			'delete' => 'CASCADE'
 		));
 
-		$keys = $this->db->get_fks('testconstraints2');
+		$keys = self::$db->get_fks('testconstraints2');
 		$this->assertEqual($expected, $keys);
 	}
 
@@ -90,7 +92,7 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetIndexes()
 	{
-		$keys = $this->db->get_indexes('test');
+		$keys = self::$db->get_indexes('test');
 		$this->assertTrue(is_array($keys));
 	}
 
@@ -98,7 +100,7 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetViews()
 	{
-		$views = $this->db->get_views();
+		$views = self::$db->get_views();
 		$expected = array('numbersview', 'testview');
 		$this->assertEqual($expected, array_values($views));
 		$this->assertTrue(is_array($views));
@@ -110,7 +112,7 @@ abstract class DBTest extends Query_TestCase {
 	{
 		// @TODO standardize trigger output for different databases
 
-		$triggers = $this->db->get_triggers();
+		$triggers = self::$db->get_triggers();
 		$this->assertTrue(is_array($triggers));
 	}
 
@@ -118,7 +120,7 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetSequences()
 	{
-		$seqs = $this->db->get_sequences();
+		$seqs = self::$db->get_sequences();
 
 		// Normalize sequence names
 		$seqs = array_map('strtolower', $seqs);
@@ -133,7 +135,7 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetProcedures()
 	{
-		$procedures = $this->db->get_procedures();
+		$procedures = self::$db->get_procedures();
 		$this->assertTrue(is_array($procedures));
 	}
 
@@ -141,7 +143,7 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testGetFunctions()
 	{
-		$funcs = $this->db->get_functions();
+		$funcs = self::$db->get_functions();
 		$this->assertTrue(is_array($funcs));
 	}
 }

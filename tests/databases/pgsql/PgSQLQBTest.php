@@ -20,7 +20,7 @@ class PgSQLQBTest extends QBTest {
 	public function setUp()
  	{
  		// If the database isn't installed, skip the tests
-		if ( ! class_exists("Query\\Drivers\\Pgsql\\Driver") &&  ! IS_QUERCUS)
+		if ( ! in_array('pgsql', PDO::getAvailableDrivers()))
 		{
 			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
@@ -65,7 +65,6 @@ class PgSQLQBTest extends QBTest {
 	{
 $this->markTestSkipped();
 return;
-
 		$query = $this->db->select('id, key as k, val')
 			->explain()
 			->where('id >', 1)

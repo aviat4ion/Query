@@ -20,12 +20,23 @@
  */
 class SQLiteTest extends DBTest {
 
-	public function setUp()
+	public static function setupBeforeClass()
 	{
-		// Set up in the bootstrap to mitigate
-		// connection locking issues
-		$this->db = Query('test_sqlite');
-		$this->db->table_prefix = 'create_';
+		$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
+		$params = array(
+			'type' => 'sqlite',
+			'file' => ':memory:',
+			'prefix' => 'create_',
+			'alias' => 'test_sqlite',
+			'options' => array(
+				PDO::ATTR_PERSISTENT => TRUE
+			)
+		);
+
+		Query($params);
+
+		self::$db = Query('test_sqlite');
+		self::$db->table_prefix = 'create_';
 	}
 
 	// --------------------------------------------------------------------------
@@ -34,10 +45,10 @@ class SQLiteTest extends DBTest {
 
 	public function testCreateTable()
 	{
-		$this->db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
+		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
 
 		//Check
-		$dbs = $this->db->get_tables();
+		$dbs = self::$db->get_tables();
 
 		$this->assertTrue(in_array('TEST1', $dbs));
 		$this->assertTrue(in_array('TEST2', $dbs));
@@ -52,7 +63,7 @@ class SQLiteTest extends DBTest {
 
 	/*public function testBackupData()
 	{
-		$sql = mb_trim($this->db->util->backup_data(array('create_join', 'create_test')));
+		$sql = mb_trim(self::$db->util->backup_data(array('create_join', 'create_test')));
 
 		$sql_array = explode("\n", $sql);
 
@@ -71,7 +82,7 @@ SQL;
 
 	public function testBackupStructure()
 	{
-		$sql = mb_trim($this->db->util->backup_structure());
+		$sql = mb_trim(self::$db->util->backup_structure());
 		$expected = <<<SQL
 CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
@@ -147,12 +158,12 @@ SQL;
 
 	public function testDeleteTable()
 	{
-		$sql = $this->db->util->delete_table('create_delete');
+		$sql = self::$db->util->delete_table('create_delete');
 
-		$this->db->query($sql);
+		self::$db->query($sql);
 
 		//Check
-		$dbs = $this->db->get_tables();
+		$dbs = self::$db->get_tables();
 		$this->assertFalse(in_array('create_delete', $dbs));
 	}
 
@@ -167,7 +178,7 @@ SQL;
 		$db = new $class(QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db');
 
 		$this->assertIsA($db, $class);
-		$this->assertIsA($this->db->db, $class);
+		$this->assertIsA(self::$db->db, $class);
 
 		unset($db);
 	}
@@ -176,7 +187,7 @@ SQL;
 
 	public function testTruncate()
 	{
-		$this->db->truncate('create_test');
+		self::$db->truncate('create_test');
 	}
 
 	// --------------------------------------------------------------------------
@@ -187,7 +198,7 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = $this->db->prepare_query($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepare_query($sql, array(1,"boogers", "Gross"));
 
 		$statement->execute();
 
@@ -201,7 +212,7 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$this->db->prepare_execute($sql, array(
+		self::$db->prepare_execute($sql, array(
 			2, "works", 'also?'
 		));
 
@@ -216,12 +227,12 @@ SQL;
 			$this->markTestSkipped("JDBC Driver doesn't support transactions");
 		}
 
-		$res = $this->db->beginTransaction();
+		$res = self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
-		$this->db->query($sql);
+		self::$db->query($sql);
 
-		$res = $this->db->commit();
+		$res = self::$db->commit();
 		$this->assertTrue($res);
 	}
 
@@ -234,12 +245,12 @@ SQL;
 			$this->markTestSkipped("JDBC Driver doesn't support transactions");
 		}
 
-		$res = $this->db->beginTransaction();
+		$res = self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
-		$this->db->query($sql);
+		self::$db->query($sql);
 
-		$res = $this->db->rollback();
+		$res = self::$db->rollback();
 		$this->assertTrue($res);
 	}
 
@@ -247,14 +258,14 @@ SQL;
 
 	public function testGetDBs()
 	{
-		$this->assertTrue(is_array($this->db->get_dbs()));
+		$this->assertTrue(is_array(self::$db->get_dbs()));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetSchemas()
 	{
-		$this->assertNull($this->db->get_schemas());
+		$this->assertNull(self::$db->get_schemas());
 	}
 
 	// --------------------------------------------------------------------------
@@ -263,13 +274,13 @@ SQL;
 
 	public function testNullMethods()
 	{
-		$sql = $this->db->sql->function_list();
+		$sql = self::$db->sql->function_list();
 		$this->assertEqual(NULL, $sql);
 
-		$sql = $this->db->sql->procedure_list();
+		$sql = self::$db->sql->procedure_list();
 		$this->assertEqual(NULL, $sql);
 
-		$sql = $this->db->sql->sequence_list();
+		$sql = self::$db->sql->sequence_list();
 		$this->assertEqual(NULL, $sql);
 	}
 
@@ -277,7 +288,7 @@ SQL;
 
 	public function testGetSystemTables()
 	{
-		$sql = $this->db->get_system_tables();
+		$sql = self::$db->get_system_tables();
 		$this->assertTrue(is_array($sql));
 	}
 
@@ -285,20 +296,20 @@ SQL;
 
 	public function testGetSequences()
 	{
-		$this->assertNull($this->db->get_sequences());
+		$this->assertNull(self::$db->get_sequences());
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetFunctions()
 	{
-		$this->assertNull($this->db->get_functions());
+		$this->assertNull(self::$db->get_functions());
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetProcedures()
 	{
-		$this->assertNull($this->db->get_procedures());
+		$this->assertNull(self::$db->get_procedures());
 	}
 }
