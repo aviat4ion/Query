@@ -26,7 +26,7 @@ class Query_Parser {
 	/**
 	 * DB Driver
 	 *
-	 * @var \Query\Driver\Driver_Interface
+	 * @var Driver_Interface
 	 */
 	private $db;
 
@@ -58,7 +58,7 @@ class Query_Parser {
 	 *
 	 * @param Driver\Driver_Interface $db
 	 */
-	public function __construct(Driver\Driver_Interface $db)
+	public function __construct(Driver_Interface $db)
 	{
 		$this->db = $db;
 	}
@@ -84,7 +84,7 @@ class Query_Parser {
 
 		// Go through the matches, and get the most relevant matches
 		$this->matches = array_map(array($this, 'filter_array'), $this->matches);
-		
+
 		return $this->matches;
 	}
 

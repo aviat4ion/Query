@@ -163,13 +163,13 @@ class Query_Builder extends Abstract_Query_Builder implements Query_Builder_Inte
 
 	/**
 	 * Alias to driver util class
-	 * @var \Query\Driver\Util\Abstract_Util
+	 * @var Abstract_Util
 	 */
 	public $util;
 
 	/**
 	 * Alias to driver sql class
-	 * @var \Query\Driver\SQL\SQL_Interface
+	 * @var SQL_Interface
 	 */
 	public $sql;
 
@@ -211,7 +211,7 @@ class Query_Builder extends Abstract_Query_Builder implements Query_Builder_Inte
 	/**
 	 * Constructor
 	 *
-	 * @param \Query\Driver\Driver_Interface $db
+	 * @param Driver_Interface $db
 	 * @param Query_Parser $parser
 	 */
 	public function __construct(Driver_Interface $db, Query_Parser $parser)

@@ -157,7 +157,7 @@ final class Connection_Manager {
 	/**
 	 * Parses params into a dsn and option array
 	 *
-	 * @param \stdClass $set_params
+	 * @param \stdClass $params
 	 * @return array
 	 * @throws BadDBDriverException
 	 */
@@ -186,6 +186,10 @@ final class Connection_Manager {
 		{
 			$dsn = "{$params->host}:{$params->file}";
 		}
+		else if(strtolower($dbtype === 'sqlite'))
+		{
+			$dsn = $params->file;
+		}
 		else
 		{
 			$dsn = $this->create_dsn($dbtype, $params);
@@ -206,39 +210,32 @@ final class Connection_Manager {
 	 */
 	private function create_dsn($dbtype, \stdClass $params)
 	{
-		if ($dbtype === 'sqlite')
+		if (strtolower($dbtype) === 'pdo_firebird') $dbtype = 'firebird';
+
+		$dsn = strtolower($dbtype) . ':';
+
+		if ( ! empty($params->database))
 		{
-			 $dsn = $params->file;
+			$dsn .= "dbname={$params->database}";
 		}
-		else
+
+		$skip = array(
+			'name' => 'name',
+			'pass' => 'pass',
+			'user' => 'user',
+			'file' => 'file',
+			'type' => 'type',
+			'prefix' => 'prefix',
+			'options' => 'options',
+			'database' => 'database',
+			'alias' => 'alias'
+		);
+
+		foreach($params as $key => $val)
 		{
-			if (strtolower($dbtype) === 'pdo_firebird') $dbtype = 'firebird';
-
-			$dsn = strtolower($dbtype) . ':';
-
-			if ( ! empty($params->database))
+			if (( ! array_key_exists($key, $skip)) && ! empty($val))
 			{
-				$dsn .= "dbname={$params->database}";
-			}
-
-			$skip = array(
-				'name' => 'name',
-				'pass' => 'pass',
-				'user' => 'user',
-				'file' => 'file',
-				'type' => 'type',
-				'prefix' => 'prefix',
-				'options' => 'options',
-				'database' => 'database',
-				'alias' => 'alias'
-			);
-
-			foreach($params as $key => $val)
-			{
-				if (( ! array_key_exists($key, $skip)) && ! empty($val))
-				{
-					$dsn .= ";{$key}={$val}";
-				}
+				$dsn .= ";{$key}={$val}";
 			}
 		}
 

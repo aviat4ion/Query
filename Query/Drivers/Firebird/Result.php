@@ -57,7 +57,7 @@ class Result extends \PDOStatement {
 	 * the query
 	 *
 	 * @param resource $link
-	 * @param \Query\Driver\Firebird|null $db
+	 * @param Driver|null $db
 	 * @return void
 	 */
 	public function __construct($link, Driver $db = NULL)

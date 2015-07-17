@@ -26,7 +26,7 @@ class Query_Parser {
 	/**
 	 * DB Driver
 	 *
-	 * @var \Query\Driver\Driver_Interface
+	 * @var Driver_Interface
 	 */
 	private $db;
 

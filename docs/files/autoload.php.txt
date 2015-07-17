@@ -39,7 +39,7 @@ require(QBASE_PATH.'common.php');
 // Load Query Classes
 spl_autoload_register(function ($class)
 {
-	$class_segments = explode('\\', $class);
+	/*$class_segments = explode('\\', $class);
 	$driver_class = strtolower(array_pop($class_segments));
 
 	// Load DB Driver classes
@@ -49,15 +49,12 @@ spl_autoload_register(function ($class)
 
 		// Firebird is a special case, since it's not a PDO driver
 		// @codeCoverageIgnoreStart
-		if (
-			in_array($driver_class, \PDO::getAvailableDrivers())
-			||  function_exists('\\fbird_connect') && $driver_class === 'firebird'
-		)
+		if (function_exists('\\fbird_connect') && $driver_class === 'firebird')
 		{
 			array_map('\\do_include', glob("{$driver_path}/*.php"));
 		}
 		// @codeCoverageIgnoreEnd
-	}
+	}*/
 
 	// Load other classes
 	$path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
