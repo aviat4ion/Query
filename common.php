@@ -216,12 +216,7 @@ if ( ! function_exists('Query'))
 		}
 		elseif ( ! is_scalar($params) && ! is_null($params))
 		{
-			$params_object = new stdClass();
-
-			foreach($params as $k => $v)
-			{
-				$params_object->$k = $v;
-			}
+			$params_object = (object) $params;
 
 			// Otherwise, return a new connection
 			return $cmanager->connect($params_object);

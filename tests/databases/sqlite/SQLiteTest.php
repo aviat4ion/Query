@@ -33,9 +33,7 @@ class SQLiteTest extends DBTest {
 			)
 		);
 
-		Query($params);
-
-		self::$db = Query('test_sqlite');
+		self::$db = Query($params);
 		self::$db->table_prefix = 'create_';
 	}
 

@@ -186,7 +186,7 @@ final class Connection_Manager {
 		{
 			$dsn = "{$params->host}:{$params->file}";
 		}
-		else if(strtolower($dbtype === 'sqlite'))
+		else if(strtolower($dbtype) === 'sqlite')
 		{
 			$dsn = $params->file;
 		}
@@ -212,18 +212,17 @@ final class Connection_Manager {
 	{
 		if (strtolower($dbtype) === 'pdo_firebird') $dbtype = 'firebird';
 
-		$dsn = strtolower($dbtype) . ':';
+		$pairs = [];
 
 		if ( ! empty($params->database))
 		{
-			$dsn .= "dbname={$params->database}";
+			$pairs[] = implode('=', ['dbname', $params->database]);
 		}
 
 		$skip = array(
 			'name' => 'name',
 			'pass' => 'pass',
 			'user' => 'user',
-			'file' => 'file',
 			'type' => 'type',
 			'prefix' => 'prefix',
 			'options' => 'options',
@@ -233,13 +232,13 @@ final class Connection_Manager {
 
 		foreach($params as $key => $val)
 		{
-			if (( ! array_key_exists($key, $skip)) && ! empty($val))
+			if (( ! array_key_exists($key, $skip)) && ( ! empty($val)))
 			{
-				$dsn .= ";{$key}={$val}";
+				$pairs[] = implode('=', [$key, $val]);
 			}
 		}
 
-		return $dsn;
+		return strtolower($dbtype) . ':' . implode(';', $pairs);
 	}
 }
 // End of connection_manager.php

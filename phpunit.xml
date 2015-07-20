@@ -32,9 +32,9 @@
 			<file>tests/databases/firebird/FirebirdTest.php</file>
 			<file>tests/databases/firebird/FirebirdQBTest.php</file>
 		</testsuite>
-		<!-- <testsuite name="PDOFirebirdTests">
+		<testsuite name="PDOFirebirdTests">
 			<file>tests/databases/pdo_firebird/PDOFirebirdTest.php</file>
 			<file>tests/databases/pdo_firebird/PDOFirebirdQBTest.php</file>
-		</testsuite> -->
+		</testsuite>
 	</testsuites>
 </phpunit>
