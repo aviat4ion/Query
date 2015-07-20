@@ -212,11 +212,11 @@ final class Connection_Manager {
 	{
 		if (strtolower($dbtype) === 'pdo_firebird') $dbtype = 'firebird';
 
-		$pairs = [];
+		$pairs = array();
 
 		if ( ! empty($params->database))
 		{
-			$pairs[] = implode('=', ['dbname', $params->database]);
+			$pairs[] = implode('=', array('dbname', $params->database));
 		}
 
 		$skip = array(
@@ -234,7 +234,7 @@ final class Connection_Manager {
 		{
 			if (( ! array_key_exists($key, $skip)) && ( ! empty($val)))
 			{
-				$pairs[] = implode('=', [$key, $val]);
+				$pairs[] = implode('=', array($key, $val));
 			}
 		}
 
