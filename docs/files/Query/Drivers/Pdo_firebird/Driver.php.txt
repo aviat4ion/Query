@@ -40,8 +40,6 @@ class Driver extends \Query\Abstract_Driver {
 	 */
 	public function __construct($dsn, $username="SYSDBA", $password="masterkey", array $options=array())
 	{
-		if (strpos($dsn, 'firebird') === FALSE) $dsn = 'firebird:'.$dsn;
-
 		parent::__construct($dsn, $username, $password, $options);
 	}
 

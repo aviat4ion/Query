@@ -47,8 +47,9 @@ class Driver extends \Query\Abstract_Driver {
 	 */
 	public function __construct($dsn, $user=NULL, $pass=NULL, array $driver_options=array())
 	{
-		// DSN is simply `sqlite:/path/to/db`
-		parent::__construct("sqlite:{$dsn}", $user, $pass);
+		if (strpos($dsn, 'sqlite:') === FALSE) $dsn = "sqlite:{$dsn}";
+
+		parent::__construct($dsn, $user, $pass);
 	}
 
 
