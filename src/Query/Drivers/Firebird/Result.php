@@ -138,7 +138,7 @@ class Result extends \PDOStatement {
 	 * Run a prepared statement query
 	 *
 	 * @param  array $args
-	 * @return Firebird_Result
+	 * @return Result
 	 */
 	public function execute($args = NULL)
 	{

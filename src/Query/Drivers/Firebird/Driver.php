@@ -178,7 +178,7 @@ class Driver extends \Query\Abstract_Driver {
 	 * Wrapper public function to better match PDO
 	 *
 	 * @param string $sql
-	 * @return Firebird_Result
+	 * @return Result
 	 * @throws PDOException
 	 */
 	public function query($sql = '')
@@ -206,7 +206,7 @@ class Driver extends \Query\Abstract_Driver {
 	 *
 	 * @param string $query
 	 * @param array $options
-	 * @return Firebird_Result
+	 * @return Result
 	 * @throws \PDOException
 	 */
 	public function prepare($query, $options=array())
@@ -281,7 +281,7 @@ class Driver extends \Query\Abstract_Driver {
 	 *
 	 * @param string $sql
 	 * @param array $args
-	 * @return Firebird_Result
+	 * @return Result
 	 */
 	public function prepare_execute($sql, $args)
 	{

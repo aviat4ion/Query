@@ -219,14 +219,14 @@ interface Driver_Interface {
 	/**
 	 * Get the SQL class for the current driver
 	 *
-	 * @return SQL\SQL_Interface
+	 * @return SQL_Interface
 	 */
 	public function get_sql();
 
 	/**
 	 * Get the Util class for the current driver
 	 *
-	 * @return Util\Abstract_Util
+	 * @return Abstract_Util
 	 */
 	public function get_util();
 
