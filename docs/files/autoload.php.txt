@@ -25,7 +25,7 @@ namespace Query;
  * Reference to root path
  * @subpackage Core
  */
-if ( ! defined('QBASE_PATH')) define('QBASE_PATH', dirname(__FILE__).'/');
+if ( ! defined('QBASE_PATH')) define('QBASE_PATH', dirname(__FILE__).'/src/');
 
 /**
  * Path to driver classes
@@ -39,24 +39,7 @@ require(QBASE_PATH.'common.php');
 // Load Query Classes
 spl_autoload_register(function ($class)
 {
-	/*$class_segments = explode('\\', $class);
-	$driver_class = strtolower(array_pop($class_segments));
-
-	// Load DB Driver classes
-	$driver_path = QDRIVER_PATH . "{$driver_class}";
-	if ($class_segments == array('Query', 'Driver') && is_dir($driver_path))
-	{
-
-		// Firebird is a special case, since it's not a PDO driver
-		// @codeCoverageIgnoreStart
-		if (function_exists('\\fbird_connect') && $driver_class === 'firebird')
-		{
-			array_map('\\do_include', glob("{$driver_path}/*.php"));
-		}
-		// @codeCoverageIgnoreEnd
-	}*/
-
-	// Load other classes
+	// Load by namespace
 	$path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
 	$file = QBASE_PATH . "{$path}.php";
 
