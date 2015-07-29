@@ -11,10 +11,8 @@
         <template name="clean" />
     </transformations>
 	<files>
-		<directory>.</directory>
-		<directory>tests</directory>
-		<directory>coverage</directory>
-		<directory>vendor</directory>
+		<file>autoload.php</file>
+		<directory>src/*</directory>
 		<ignore>tests/*</ignore>
 		<ignore>coverage/*</ignore>
 		<ignore>vendor/*</ignore>

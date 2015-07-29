@@ -36,7 +36,7 @@ class PgSQLQBTest extends QBTest {
 			$params->options = array();
 			$params->options[\PDO::ATTR_PERSISTENT] = TRUE;
 		}
-		elseif (($var = getenv('CI'))) // Travis CI Connection Info
+		elseif (getenv('CI')) // Travis CI Connection Info
 		{
 			$params = array(
 				'host' => '127.0.0.1',
@@ -63,8 +63,11 @@ class PgSQLQBTest extends QBTest {
 
 	public function testQueryExplain()
 	{
-$this->markTestSkipped();
-return;
+		if (getenv('CI'))
+		{
+			$this->markTestSkipped("Skip this test on CI, because the check is Postgres version dependent");
+		}
+
 		$query = $this->db->select('id, key as k, val')
 			->explain()
 			->where('id >', 1)
@@ -75,13 +78,13 @@ return;
 
 		$expected = array (
 		  array (
-		    'QUERY PLAN' => 'Limit  (cost=6.41..10.64 rows=2 width=68)',
+		    'QUERY PLAN' => 'Limit  (cost=6.31..10.54 rows=2 width=68)',
 		  ),
 		  array (
 		    'QUERY PLAN' => '  Output: id, key, val',
 		  ),
 		  array (
-		    'QUERY PLAN' => '  ->  Bitmap Heap Scan on public.create_test  (cost=4.29..12.76 rows=4 width=68)',
+		    'QUERY PLAN' => '  ->  Bitmap Heap Scan on public.create_test  (cost=4.19..12.66 rows=4 width=68)',
 		  ),
 		  array (
 		    'QUERY PLAN' => '        Output: id, key, val',
@@ -90,7 +93,7 @@ return;
 		    'QUERY PLAN' => '        Recheck Cond: ((create_test.id > 1) AND (create_test.id < 900))',
 		  ),
 		  array (
-		    'QUERY PLAN' => '        ->  Bitmap Index Scan on create_test_pkey  (cost=0.00..4.29 rows=4 width=0)',
+		    'QUERY PLAN' => '        ->  Bitmap Index Scan on create_test_pkey  (cost=0.00..4.19 rows=4 width=0)',
 		  ),
 		  array (
 		    'QUERY PLAN' => '              Index Cond: ((create_test.id > 1) AND (create_test.id < 900))',

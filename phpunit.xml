@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <phpunit
 	colors="true"
 	stopOnFailure="false"
@@ -33,8 +32,8 @@
 			<file>tests/databases/firebird/FirebirdQBTest.php</file>
 		</testsuite>
 		<testsuite name="PDOFirebirdTests">
-			<file>tests/databases/pdo_firebird/PDOFirebirdTest.php</file>
-			<file>tests/databases/pdo_firebird/PDOFirebirdQBTest.php</file>
+			<file>tests/databases/pdofirebird/PDOFirebirdTest.php</file>
+			<file>tests/databases/pdofirebird/PDOFirebirdQBTest.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>

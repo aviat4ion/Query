@@ -8,8 +8,6 @@ setup:
         PHPCI: true
 
 test:
-    php_unit:
-        config: 'phpunit.xml'
     php_docblock_checker:
         allowed_warnings: 0
         skip_classes: true

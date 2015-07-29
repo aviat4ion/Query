@@ -39,6 +39,18 @@ require_once('/htdocs/__lib/simpletest/autorun.php');
  */
 abstract class Query_TestCase extends UnitTestCase {
 
+	public function __construct()
+	{
+		$class = get_class($this);
+
+		if (method_exists($class, 'setupBeforeClass'))
+		{
+			$class::setupBeforeClass();
+		}
+
+		parent::__construct();
+	}
+
 	/**
 	 * Define assertInstanceOf for simpletest
 	 *
@@ -86,21 +98,6 @@ define('QDS', DIRECTORY_SEPARATOR);
 // Include db classes
 require_once(QBASE_DIR . 'autoload.php');
 
-// Preset SQLite connection, so there aren't locking issues
-$params = array(
-	'type' => 'sqlite',
-	'file' => ':memory:',
-	'host' => 'localhost',
-	'prefix' => 'create_',
-	'alias' => 'test_sqlite',
-	'options' => array(
-		PDO::ATTR_PERSISTENT => TRUE
-	)
-);
-
-Query($params);
-unset($params);
-
 // Include db tests
 // Load db classes based on capability
 $test_path = QTEST_DIR.'/databases/';
@@ -118,9 +115,11 @@ if (function_exists('fbird_connect'))
 }
 
 $driver_test_map = array(
-	'Firebird' => in_array('interbase', $drivers),
+	//'Firebird' => in_array('interbase', $drivers),
+	'MySQL' => in_array('mysql', $drivers),
 	'SQLite' => in_array('sqlite', $drivers),
 	'PgSQL' => in_array('pgsql', $drivers),
+	//'PDOFirebird' => in_array('firebird', $drivers)
 );
 
 // Determine which testcases to load
@@ -128,7 +127,7 @@ foreach($driver_test_map as $name => $do_load)
 {
 	$path = $test_path . strtolower($name) . '/';
 
-	if ($do_load && ($name != 'SQLite' && ! IS_QUERCUS))
+	if ($do_load && (! IS_QUERCUS))
 	{
 		require_once("{$path}{$name}Test.php");
 		require_once("{$path}{$name}QBTest.php");
