@@ -571,7 +571,7 @@ abstract class Abstract_Query_Builder {
 	 *
 	 * @param string $type
 	 * @param string $table
-	 * @return $string
+	 * @return string
 	 */
 	protected function _compile($type='', $table='')
 	{

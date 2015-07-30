@@ -4,11 +4,10 @@
 	stopOnFailure="false"
 	bootstrap="tests/bootstrap.php">
 	<filter>
-		<blacklist>
-			<directory suffix=".php">coverage</directory>
-			<directory suffix=".php">docs</directory>
-			<directory suffix=".php">tests</directory>
-		</blacklist>
+		<whitelist>
+			<directory suffix=".php">src/*</directory>
+			<file>autoload.php</file>
+		</whitelist>
 	</filter>
 	<testsuites>
 		<testsuite name="CoreTests">

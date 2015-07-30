@@ -533,7 +533,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return array
+	 * @return null|array<string|array|null>
 	 */
 	public function insert_batch($table, $data=array())
 	{

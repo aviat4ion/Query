@@ -76,7 +76,6 @@ class Driver extends \Query\Abstract_Driver {
 	 * @param string $pass
 	 * @param array $options
 	 * @throws \PDOException
-	 * @return void
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = array())
 	{

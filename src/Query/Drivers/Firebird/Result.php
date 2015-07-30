@@ -48,7 +48,7 @@ class Result extends \PDOStatement {
 	/**
 	 * Reference to the db drive to de-duplicate error functions
 	 *
-	 * @var \Query\Driver\Firebird
+	 * @var \Query\Drivers\Firebird\Driver
 	 */
 	private $db;
 
@@ -58,7 +58,6 @@ class Result extends \PDOStatement {
 	 *
 	 * @param resource $link
 	 * @param Driver|null $db
-	 * @return void
 	 */
 	public function __construct($link, Driver $db = NULL)
 	{

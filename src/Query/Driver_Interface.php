@@ -194,16 +194,16 @@ interface Driver_Interface {
 	/**
 	 * Surrounds the string with the databases identifier escape characters
 	 *
-	 * @param mixed $ident
-	 * @return string
+	 * @param string|array $ident
+	 * @return string|array
 	 */
 	public function quote_ident($ident);
 
 	/**
 	 * Quote database table name, and set prefix
 	 *
-	 * @param string $table
-	 * @return string
+	 * @param string|array $table
+	 * @return string|array
 	 */
 	public function quote_table($table);
 

@@ -43,7 +43,7 @@ class Driver extends \Query\Abstract_Driver {
 		parent::__construct($dsn, $username, $password, $options);
 	}
 
-		// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Create sql for batch insert
