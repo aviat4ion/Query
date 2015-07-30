@@ -49,19 +49,19 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	 * Reference to util class
 	 * @var Abstract_Util
 	 */
-	public $util;
+	protected $util;
 
 	/**
 	 * Last query executed
 	 * @var string
 	 */
-	public $last_query;
+	protected $last_query;
 
 	/**
 	 * Prefix to apply to table names
 	 * @var string
 	 */
-	public $table_prefix = '';
+	protected $table_prefix = '';
 
 	/**
 	 * Whether the driver supports 'TRUNCATE'
@@ -130,7 +130,32 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	}
 
 	// --------------------------------------------------------------------------
-	// ! Concrete functions that can be overridden in child classes
+	// ! Accessors / Mutators
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get the last sql query exexcuted
+	 *
+	 * @return string
+	 */
+	public function get_last_query()
+	{
+		return $this->last_query;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Set the last query sql
+	 *
+	 * @param string $query_string
+	 * @return void
+	 */
+	public function set_last_query($query_string)
+	{
+		$this->last_query = $query_string;
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -155,6 +180,21 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 		return $this->util;
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Set the common table name prefix
+	 *
+	 * @param string
+	 * @return void
+	 */
+	public function set_table_prefix($prefix)
+	{
+		$this->table_prefix = $prefix;
+	}
+
+	// --------------------------------------------------------------------------
+	// ! Concrete functions that can be overridden in child classes
 	// --------------------------------------------------------------------------
 
 	/**

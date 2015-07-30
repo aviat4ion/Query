@@ -32,7 +32,7 @@ if ( ! defined('IS_QUERCUS'))
 
 // Include simpletest
 // it has to be in the tests folder
-require_once('/htdocs/__lib/simpletest/autorun.php');
+require_once('simpletest/autorun.php');
 
 /**
  * Base class for TestCases
@@ -49,6 +49,16 @@ abstract class Query_TestCase extends UnitTestCase {
 		}
 
 		parent::__construct();
+	}
+
+	public function __destruct()
+	{
+		$class = get_class($this);
+
+		if (method_exists($class, 'tearDownAfterClass'))
+		{
+			$class::tearDownAfterClass();
+		}
 	}
 
 	/**
@@ -84,6 +94,18 @@ abstract class Query_TestCase extends UnitTestCase {
 	{
 		$this->skipUnless(FALSE, $message);
 	}
+
+	/**
+	 * Alias for phpunit method
+	 *
+	 * @param string $name
+	 * @param string $message
+	 * @param int $code
+	 */
+	public function setExpectedException($name, $message='', $code=NULL)
+	{
+		$this->expectException($name);
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -104,8 +126,10 @@ $test_path = QTEST_DIR.'/databases/';
 
 // Require base testing classes
 require_once(QTEST_DIR . '/core/core.php');
+require_once(QTEST_DIR . '/core/connection_manager_test.php');
 require_once(QTEST_DIR . '/core/db_test.php');
-require_once(QTEST_DIR . '/core/db_qb_test.php');
+//require_once(QTEST_DIR . '/core/query_parser_test.php');
+require_once(QTEST_DIR . '/core/base_query_builder_test.php');
 
 $drivers = PDO::getAvailableDrivers();
 

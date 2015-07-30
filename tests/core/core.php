@@ -20,19 +20,6 @@
 class CoreTest extends Query_TestCase {
 
 	/**
-	 * __construct function.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * TestPHPVersion function.
 	 *
 	 * @access public

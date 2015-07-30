@@ -26,7 +26,6 @@ if ( ! function_exists('do_include'))
 	 * Bulk directory loading workaround for use
 	 * with array_map and glob
 	 *
-	 * @codeCoverageIgnore
 	 * @param string $path
 	 * @return void
 	 */
@@ -221,8 +220,6 @@ if ( ! function_exists('Query'))
 			// Otherwise, return a new connection
 			return $cmanager->connect($params_object);
 		}
-	// @codeCoverageIgnoreStart
 	}
-	// @codeCoverageIgnoreEnd
 }
 // End of common.php

@@ -229,10 +229,10 @@ abstract class Abstract_Query_Builder {
 		// Escape the identifiers
 		$field = $this->db->quote_ident($field);
 
-		$as = ($as !== FALSE)
-			? $this->db->quote_ident($as)
-			: $field;
+		if ( ! is_string($as)) return $field;
 
+
+		$as = $this->db->quote_ident($as);
 		return "({$field}) AS {$as} ";
 	}
 
@@ -519,7 +519,7 @@ abstract class Abstract_Query_Builder {
 		$this->queries['total_time'] += $total_time;
 
 		// Set the last query to get rowcounts properly
-		$this->db->last_query = $sql;
+		$this->db->set_last_query($sql);
 	}
 
 	// --------------------------------------------------------------------------

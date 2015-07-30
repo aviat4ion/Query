@@ -93,13 +93,16 @@ define('QTEST_DIR', realpath(dirname(__FILE__)));
 define('QBASE_DIR', realpath(QTEST_DIR.'/../') . '/');
 define('QDS', DIRECTORY_SEPARATOR);
 
+$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
+@unlink($path);
+
 // Include db classes
 require_once(QBASE_DIR . 'autoload.php');
 
 // Require base testing classes
 require_once(QTEST_DIR . '/core/core.php');
 require_once(QTEST_DIR . '/core/db_test.php');
-require_once(QTEST_DIR . '/core/db_qp_test.php');
-require_once(QTEST_DIR . '/core/db_qb_test.php');
+require_once(QTEST_DIR . '/core/query_parser_test.php');
+require_once(QTEST_DIR . '/core/base_query_builder_test.php');
 
 // End of bootstrap.php

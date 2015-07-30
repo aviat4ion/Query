@@ -13,6 +13,7 @@
 		<testsuite name="CoreTests">
 			<file>tests/core/core.php</file>
 			<file>tests/core/db_qp_test.php</file>
+			<file>tests/core/connection_manager_test.php</file>
 		</testsuite>
 		<testsuite name="MySQLTests">
 			<file>tests/databases/mysql/MySQLTest.php</file>

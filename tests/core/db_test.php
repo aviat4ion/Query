@@ -51,7 +51,8 @@ abstract class DBTest extends Query_TestCase {
 
 	public function testBackupData()
 	{
-		$this->assertTrue(is_string(self::$db->util->backup_data(array('create_delete', TRUE))));
+		$this->assertTrue(is_string(self::$db->get_util()->backup_data(array('create_delete', FALSE))));
+		$this->assertTrue(is_string(self::$db->get_util()->backup_data(array('create_delete', TRUE))));
 	}
 
 	// --------------------------------------------------------------------------

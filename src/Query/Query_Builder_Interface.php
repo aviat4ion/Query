@@ -305,7 +305,7 @@ interface Query_Builder_Interface {
 	 *
 	 * @param int $limit
 	 * @param int|bool $offset
-	 * @return string
+	 * @return Query_Builder
 	 */
 	public function limit($limit, $offset=FALSE);
 

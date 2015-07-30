@@ -48,18 +48,31 @@ final class Connection_Manager {
 
 	/**
 	 * Private clone method to prevent cloning
-	 * @codeCoverageIgnore
+	 * @throws \DomainException
 	 */
-	private function __clone() {}
+	public function __clone()
+	{
+		throw new \DomainException("Can't clone singleton");
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Prevent serialization of this object
+	 * @throws \DomainException
+	 */
+	public function __sleep()
+	{
+		throw new \DomainException("No serializing of singleton");
+	}
 
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Make sure serialize/deserialize doesn't work
-	 * @codeCoverageIgnore
 	 * @throws \DomainException
 	 */
-	private function __wakeup()
+	public function __wakeup()
 	{
 		throw new \DomainException("Can't unserialize singleton");
 	}
@@ -74,12 +87,7 @@ final class Connection_Manager {
 	 */
 	public static function get_instance()
 	{
-		// @codeCoverageIgnoreStart
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		// @codeCoverageIgnoreEnd
+		if (self::$instance === null) self::$instance = new self();
 
 		return self::$instance;
 	}
@@ -132,7 +140,7 @@ final class Connection_Manager {
 		// Set the table prefix, if it exists
 		if (isset($params->prefix))
 		{
-			$db->table_prefix = $params->prefix;
+			$db->set_table_prefix($params->prefix);
 		}
 
 		// Create Query Builder object
@@ -161,7 +169,7 @@ final class Connection_Manager {
 	 * @return array
 	 * @throws BadDBDriverException
 	 */
-	private function parse_params(\stdClass $params)
+	public function parse_params(\stdClass $params)
 	{
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';

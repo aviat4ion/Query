@@ -30,7 +30,6 @@ interface Driver_Interface {
 	 * @param string $username
 	 * @param string $password
 	 * @param array $driver_options
-	 * @return void
 	 */
 	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options = array());
 

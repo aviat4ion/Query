@@ -34,7 +34,7 @@ class SQLiteTest extends DBTest {
 		);
 
 		self::$db = Query($params);
-		self::$db->table_prefix = 'create_';
+		self::$db->set_table_prefix('create_');
 	}
 
 	// --------------------------------------------------------------------------
@@ -61,7 +61,7 @@ class SQLiteTest extends DBTest {
 
 	/*public function testBackupData()
 	{
-		$sql = mb_trim(self::$db->util->backup_data(array('create_join', 'create_test')));
+		$sql = mb_trim(self::$db->get_util()->backup_data(array('create_join', 'create_test')));
 
 		$sql_array = explode("\n", $sql);
 
@@ -80,7 +80,7 @@ SQL;
 
 	public function testBackupStructure()
 	{
-		$sql = mb_trim(self::$db->util->backup_structure());
+		$sql = mb_trim(self::$db->get_util()->backup_structure());
 		$expected = <<<SQL
 CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
@@ -156,7 +156,7 @@ SQL;
 
 	public function testDeleteTable()
 	{
-		$sql = self::$db->util->delete_table('create_delete');
+		$sql = self::$db->get_util()->delete_table('create_delete');
 
 		self::$db->query($sql);
 

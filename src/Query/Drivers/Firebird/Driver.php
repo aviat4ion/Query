@@ -190,7 +190,7 @@ class Driver extends \Query\Abstract_Driver {
 			: \fbird_query($this->conn, $sql);
 
 		// Throw the error as a exception
-		$err_string = \fbird_errmsg() . "Last query:" . $this->last_query;
+		$err_string = \fbird_errmsg() . "Last query:" . $this->get_last_query();
 		if ($this->statement_link === FALSE) throw new \PDOException($err_string, \fbird_errcode(), NULL);
 
 		$this->statement = new Result($this->statement_link, $this);

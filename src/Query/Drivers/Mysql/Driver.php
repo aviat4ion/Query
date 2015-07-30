@@ -33,6 +33,7 @@ class Driver extends \Query\Abstract_Driver {
 	/**
 	 * Connect to MySQL Database
 	 *
+	 * @codeCoverageIgnore
 	 * @param string $dsn
 	 * @param string $username
 	 * @param string $password

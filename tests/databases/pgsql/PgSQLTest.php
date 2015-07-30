@@ -49,7 +49,7 @@ class PgTest extends DBTest {
 			self::$db = new $class('host=127.0.0.1;port=5432;dbname=test', 'postgres');
 		}
 
-		self::$db->table_prefix = 'create_';
+		self::$db->set_table_prefix('create_');
 	}
 
 	// --------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class PgTest extends DBTest {
 
 
 		//Attempt to create the table
-		$sql = self::$db->util->create_table('create_test',
+		$sql = self::$db->get_util()->create_table('create_test',
 			array(
 				'id' => 'integer',
 				'key' => 'TEXT',
@@ -97,7 +97,7 @@ class PgTest extends DBTest {
 		self::$db->query($sql);
 
 		//Attempt to create the table
-		$sql = self::$db->util->create_table('create_join',
+		$sql = self::$db->get_util()->create_table('create_join',
 			array(
 				'id' => 'integer',
 				'key' => 'TEXT',

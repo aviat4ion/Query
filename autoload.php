@@ -43,12 +43,7 @@ spl_autoload_register(function ($class)
 	$path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
 	$file = QBASE_PATH . "{$path}.php";
 
-	// @codeCoverageIgnoreStart
-	if (file_exists($file))
-	{
-		require_once($file);
-	}
-	// @codeCoverageIgnoreEnd
+	if (file_exists($file)) require_once($file);
 });
 
 // End of autoload.php

@@ -17,15 +17,9 @@
  */
 class PgSQLQBTest extends QBTest {
 
-	public function setUp()
- 	{
- 		// If the database isn't installed, skip the tests
-		if ( ! in_array('pgsql', PDO::getAvailableDrivers()))
-		{
-			$this->markTestSkipped("Postgres extension for PDO not loaded");
-		}
-
- 		// Attempt to connect, if there is a test config file
+	public static function setUpBeforeClass()
+	{
+		// Attempt to connect, if there is a test config file
 		if (is_file(QTEST_DIR . "/settings.json"))
 		{
 			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
@@ -49,7 +43,16 @@ class PgSQLQBTest extends QBTest {
 			);
 		}
 
-		$this->db = Query($params);
+		self::$db = Query($params);
+	}
+
+	public function setUp()
+ 	{
+ 		// If the database isn't installed, skip the tests
+		if ( ! in_array('pgsql', PDO::getAvailableDrivers()))
+		{
+			$this->markTestSkipped("Postgres extension for PDO not loaded");
+		}
  	}
 
  	// --------------------------------------------------------------------------
@@ -68,7 +71,7 @@ class PgSQLQBTest extends QBTest {
 			$this->markTestSkipped("Skip this test on CI, because the check is Postgres version dependent");
 		}
 
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->explain()
 			->where('id >', 1)
 			->where('id <', 900)
@@ -105,6 +108,6 @@ class PgSQLQBTest extends QBTest {
 
 	public function testBackupStructure()
 	{
-		$this->assertEquals('', $this->db->util->backup_structure());
+		$this->assertEquals('', self::$db->util->backup_structure());
 	}
 }

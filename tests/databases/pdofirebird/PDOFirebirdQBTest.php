@@ -38,15 +38,15 @@ class PDOFirebirdQBTest extends QBTest {
 		$params->pass = 'masterkey';
 		$params->prefix = 'create_';
 
-		$this->db = Query($params);
+		self::$db = Query($params);
 	}
 
 	public function testQueryFunctionAlias()
 	{
-$this->markTestSkipped();
+$this->markTestSkipped("Segfault");
 		$db = Query();
 
-		$this->assertTrue($this->db === $db);
+		$this->assertTrue(self::$db === $db);
 	}
 
 	public function testGetNamedConnectionException()
@@ -84,10 +84,10 @@ $this->markTestSkipped();
 
 	public function testTypeList()
 	{
-$this->markTestSkipped();
+$this->markTestSkipped("Segfault");
 		$this->doSetUp();
-		$sql = $this->db->get_sql()->type_list();
-		$query = $this->db->query($sql);
+		$sql = self::$db->get_sql()->type_list();
+		$query = self::$db->query($sql);
 
 		$this->assertIsA('PDOStatement', $query);
 
@@ -100,14 +100,14 @@ $this->markTestSkipped();
 
 	public function testQueryExplain()
 	{
-		$res = $this->db->select('id, key as k, val')
+		$res = self::$db->select('id, key as k, val')
 			->explain()
 			->where('id >', 1)
 			->where('id <', 900)
 			->limit(2, 1)
 			->get_compiled_select();
 
-		$res2 = $this->db->select('id, key as k, val')
+		$res2 = self::$db->select('id, key as k, val')
 			->where('id >', 1)
 			->where('id <', 900)
 			->limit(2, 1)

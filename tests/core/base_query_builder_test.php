@@ -18,12 +18,21 @@
  */
 abstract class QBTest extends Query_TestCase {
 
+	protected static $db;
+
 	public function __destruct()
 	{
 		if (isset($_GET['show_queries']))
 		{
-			echo '<pre>' . print_r($this->db->queries, TRUE) . '</pre>';
+			echo '<pre>' . print_r(self::$db->queries, TRUE) . '</pre>';
 		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	public static function tearDownAfterClass()
+	{
+		self::$db = NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -50,18 +59,9 @@ abstract class QBTest extends Query_TestCase {
 
 	// --------------------------------------------------------------------------
 
-	public function testQueryFunctionAlias()
-	{
-		$db = Query();
-
-		$this->assertTrue($this->db === $db);
-	}
-
-	// --------------------------------------------------------------------------
-
 	public function testFunctionGet()
 	{
-		$query = $this->db->select('id, COUNT(id) as count')
+		$query = self::$db->select('id, COUNT(id) as count')
 			->from('test')
 			->group_by('id')
 			->get();
@@ -73,7 +73,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGet()
 	{
-		$query = $this->db->get('test');
+		$query = self::$db->get('test');
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -82,27 +82,27 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testPrefixGet()
 	{
-		$query = $this->db->from('test')->get();
+		$query = self::$db->from('test')->get();
 
 		$this->assertIsA($query, 'PDOStatement');
-		$this->assertTrue($this->db->num_rows() > 0);
+		$this->assertTrue(self::$db->num_rows() > 0);
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetWNumRows()
 	{
-		$query = $this->db->get('test');
+		$query = self::$db->get('test');
 		$numrows = count($query->fetchAll(PDO::FETCH_NUM));
 
-		$this->assertEqual($this->db->num_rows(), $numrows);
+		$this->assertEqual(self::$db->num_rows(), $numrows);
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetLimit()
 	{
-		$query = $this->db->get('test', 2);
+		$query = self::$db->get('test', 2);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -111,7 +111,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGetLimitSkip()
 	{
-		$query = $this->db->get('test', 2, 1);
+		$query = self::$db->get('test', 2, 1);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -120,7 +120,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGetWhere()
 	{
-		$query = $this->db->get_where('test', array('id !=' => 1), 2, 1);
+		$query = self::$db->get_where('test', array('id !=' => 1), 2, 1);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -129,7 +129,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testHaving()
 	{
-		$query = $this->db->select('id')
+		$query = self::$db->select('id')
 			->from('test')
 			->group_by('id')
 			->having(array('id >' => 1))
@@ -143,7 +143,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrHaving()
 	{
-		$query = $this->db->select('id')
+		$query = self::$db->select('id')
 			->from('test')
 			->group_by('id')
 			->having(array('id >' => 1))
@@ -159,7 +159,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectWhereGet()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->where('id >', 1)
 			->where('id <', 900)
 			->get('test', 2, 1);
@@ -171,7 +171,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectAvg()
 	{
-		$query = $this->db->select_avg('id', 'di')
+		$query = self::$db->select_avg('id', 'di')
 			->get('test');
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -181,7 +181,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectSum()
 	{
-		$query = $this->db->select_sum('id', 'di')
+		$query = self::$db->select_sum('id', 'di')
 			->get('test');
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -191,7 +191,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectDistinct()
 	{
-		$query = $this->db->select_sum('id', 'di')
+		$query = self::$db->select_sum('id', 'di')
 			->distinct()
 			->get('test');
 
@@ -202,7 +202,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectGet()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->get('test', 2, 1);
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -212,7 +212,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectFromGet()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test ct')
 			->where('id >', 1)
 			->get();
@@ -224,7 +224,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectFromLimitGet()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test ct')
 			->where('id >', 1)
 			->limit(3)
@@ -238,7 +238,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectWhereGet2()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->where('id !=', 1)
 			->get('test', 2, 1);
 
@@ -249,7 +249,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectMax()
 	{
-		$query = $this->db->select_max('id', 'di')
+		$query = self::$db->select_max('id', 'di')
 			->get('test');
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -259,7 +259,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testSelectMin()
 	{
-		$query = $this->db->select_min('id', 'di')
+		$query = self::$db->select_min('id', 'di')
 			->get('test');
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -269,7 +269,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testMultiOrderBy()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->order_by('id, key')
 			->get();
 
@@ -282,7 +282,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGroup()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->group_start()
 			->where('id >', 1)
@@ -298,7 +298,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrGroup()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->group_start()
 			->where('id >', 1)
@@ -317,7 +317,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrNotGroup()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->group_start()
 			->where('id >', 1)
@@ -336,7 +336,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGroupCamelCase()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->groupStart()
 			->where('id >', 1)
@@ -357,7 +357,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testWhereIn()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->where_in('id', array(0, 6, 56, 563, 341))
 			->get();
 
@@ -368,7 +368,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrWhereIn()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->where('key', 'false')
 			->or_where_in('id', array(0, 6, 56, 563, 341))
 			->get();
@@ -380,7 +380,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testWhereNotIn()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->where('key', 'false')
 			->where_not_in('id', array(0, 6, 56, 563, 341))
 			->get();
@@ -392,7 +392,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrWhereNotIn()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->where('key', 'false')
 			->or_where_not_in('id', array(0, 6, 56, 563, 341))
 			->get();
@@ -406,7 +406,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrderBy()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->where('id >', 0)
 			->where('id <', 9000)
@@ -422,7 +422,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrderByRandom()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->where('id >', 0)
 			->where('id <', 9000)
@@ -437,7 +437,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGroupBy()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->where('id >', 0)
 			->where('id <', 9000)
@@ -459,7 +459,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrWhere()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->where(' id ', 1)
 			->or_where('key >', 0)
@@ -473,7 +473,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testLike()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->like('key', 'og')
 			->get();
 
@@ -484,7 +484,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrLike()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->like('key', 'og')
 			->or_like('key', 'val')
 			->get();
@@ -496,7 +496,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testOrNotLike()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->like('key', 'og', 'before')
 			->or_not_like('key', 'val')
 			->get();
@@ -508,7 +508,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testNotLike()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->like('key', 'og', 'before')
 			->not_like('key', 'val')
 			->get();
@@ -520,7 +520,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testLikeBefore()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->like('key', 'og', 'before')
 			->get();
 
@@ -531,7 +531,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testLikeAfter()
 	{
-		$query = $this->db->from('test')
+		$query = self::$db->from('test')
 			->like('key', 'og', 'after')
 			->get();
 
@@ -542,7 +542,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testJoin()
 	{
-		$query = $this->db->from('test ct')
+		$query = self::$db->from('test ct')
 			->join('join cj', 'cj.id = ct.id')
 			->get();
 
@@ -553,7 +553,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testLeftJoin()
 	{
-		$query = $this->db->from('test ct')
+		$query = self::$db->from('test ct')
 			->join('join cj', 'cj.id = ct.id', 'left')
 			->get();
 
@@ -564,7 +564,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testInnerJoin()
 	{
-		$query = $this->db->from('test ct')
+		$query = self::$db->from('test ct')
 			->join('join cj', 'cj.id = ct.id', 'inner')
 			->get();
 
@@ -575,7 +575,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testJoinWithMultipleWhereValues()
 	{
-		$query = $this->db->from('test ct')
+		$query = self::$db->from('test ct')
 			->join('join cj', 'cj.id=ct.id', 'inner')
 			->where(array(
 				'ct.id < ' => 3,
@@ -592,7 +592,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testInsert()
 	{
-		$query = $this->db->set('id', 98)
+		$query = self::$db->set('id', 98)
 			->set('key', 84)
 			->set('val', 120)
 			->insert('test');
@@ -604,7 +604,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testInsertArray()
 	{
-		$query = $this->db->insert('test', array(
+		$query = self::$db->insert('test', array(
 				'id' => 587,
 				'key' => 1,
 				'val' => 2,
@@ -635,7 +635,7 @@ abstract class QBTest extends Query_TestCase {
 			),
 		);
 
-		$query = $this->db->insert_batch('test', $data);
+		$query = self::$db->insert_batch('test', $data);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -644,7 +644,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testUpdate()
 	{
-		$query = $this->db->where('id', 7)
+		$query = self::$db->where('id', 7)
 			->update('test', array(
 				'id' => 7,
 				'key' => 'gogle',
@@ -664,7 +664,7 @@ abstract class QBTest extends Query_TestCase {
 			'val' => 'non-word'
 		);
 
-		$query = $this->db->set($array)
+		$query = self::$db->set($array)
 			->where('id', 22)
 			->update('test');
 
@@ -675,7 +675,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testWhereSetUpdate()
 	{
-		$query = $this->db->where('id', 36)
+		$query = self::$db->where('id', 36)
 			->set('id', 36)
 			->set('key', 'gogle')
 			->set('val', 'non-word')
@@ -688,8 +688,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testDelete()
 	{
-//$this->markTestSkipped();
-		$query = $this->db->delete('test', array('id' => 5));
+		$query = self::$db->delete('test', array('id' => 5));
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -698,7 +697,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testDeleteWithMultipleWhereValues()
 	{
-		$query = $this->db->delete('test', array(
+		$query = self::$db->delete('test', array(
 			'id' => 5,
 			'key' => 'gogle'
 		));
@@ -712,7 +711,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testCountAll()
 	{
-		$query = $this->db->count_all('test');
+		$query = self::$db->count_all('test');
 
 		$this->assertTrue(is_numeric($query));
 	}
@@ -721,7 +720,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testCountAllResults()
 	{
-		$query = $this->db->count_all_results('test');
+		$query = self::$db->count_all_results('test');
 
 		$this->assertTrue(is_numeric($query));
 	}
@@ -730,7 +729,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testCountAllResults2()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->from('test')
 			->where(' id ', 1)
 			->or_where('key >', 0)
@@ -744,9 +743,9 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testNumRows()
 	{
-		$query = $this->db->get('test');
+		$query = self::$db->get('test');
 
-		$this->assertTrue(is_numeric($this->db->num_rows()));
+		$this->assertTrue(is_numeric(self::$db->num_rows()));
 	}
 
 	// --------------------------------------------------------------------------
@@ -755,9 +754,9 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGetCompiledSelect()
 	{
-		$sql = $this->db->get_compiled_select('test');
-		$qb_res = $this->db->get('test');
-		$sql_res = $this->db->query($sql);
+		$sql = self::$db->get_compiled_select('test');
+		$qb_res = self::$db->get('test');
+		$sql_res = self::$db->query($sql);
 
 		$this->assertIsA($qb_res,'PDOStatement', "Query Builder Result is a PDO Statement");
 		$this->assertIsA($sql_res, 'PDOStatement', "SQL Result is a PDO Statement");
@@ -766,7 +765,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGetCompiledUpdate()
 	{
-		$sql = $this->db->set(array(
+		$sql = self::$db->set(array(
 			'id' => 4,
 			'key' => 'foo',
 			'val' => 'baz'
@@ -777,7 +776,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGetCompiledInsert()
 	{
-		$sql = $this->db->set(array(
+		$sql = self::$db->set(array(
 			'id' => 4,
 			'key' => 'foo',
 			'val' => 'baz'
@@ -788,7 +787,7 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testGetCompiledDelete()
 	{
-		$sql = $this->db->where('id', 4)
+		$sql = self::$db->where('id', 4)
 			->get_compiled_delete('test');
 
 		$this->assertTrue(is_string($sql));
@@ -814,7 +813,7 @@ abstract class QBTest extends Query_TestCase {
 
 		try
 		{
-			$this->db = Query($params);
+			self::$db = Query($params);
 		}
 		catch(\Query\BadDBDriverException $e)
 		{
@@ -828,7 +827,7 @@ abstract class QBTest extends Query_TestCase {
 	{
 		try
 		{
-			$this->db->foo();
+			self::$db->foo();
 		}
 		catch(BadMethodCallException $e)
 		{
@@ -840,13 +839,13 @@ abstract class QBTest extends Query_TestCase {
 
 	public function testBadNumRows()
 	{
-		$this->db->set(array(
+		self::$db->set(array(
 			'id' => 999,
 			'key' => 'ring',
 			'val' => 'sale'
 		))->insert('test');
 
-		$res = $this->db->num_rows();
+		$res = self::$db->num_rows();
 		$this->assertEqual(NULL, $res);
 	}
 }

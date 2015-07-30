@@ -19,13 +19,8 @@
  */
 class FirebirdQBTest extends QBTest {
 
-	public function setUp()
+	public static function setUpBeforeClass()
 	{
-		if ( ! function_exists('\\fbird_connect'))
-		{
-			$this->markTestSkipped('Firebird extension does not exist');
-		}
-
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
 		// test the query builder
@@ -37,8 +32,18 @@ class FirebirdQBTest extends QBTest {
 		$params->user = 'SYSDBA';
 		$params->pass = 'masterkey';
 		$params->prefix = 'create_';
-		$this->db = Query($params);
+		self::$db = Query($params);
 	}
+
+	public function setUp()
+	{
+		if ( ! function_exists('\\fbird_connect'))
+		{
+			$this->markTestSkipped('Firebird extension does not exist');
+		}
+	}
+
+	// --------------------------------------------------------------------------
 
 	public function testGetNamedConnectionException()
 	{
@@ -52,12 +57,16 @@ class FirebirdQBTest extends QBTest {
 		}
 	}
 
+	// --------------------------------------------------------------------------
+
 	public function testQueryFunctionAlias()
 	{
 		$db = Query();
 
-		$this->assertTrue($this->db === $db);
+		$this->assertTrue(self::$db === $db);
 	}
+
+	// --------------------------------------------------------------------------
 
 	public function testGetNamedConnection()
 	{
@@ -82,8 +91,8 @@ class FirebirdQBTest extends QBTest {
 
 	public function testTypeList()
 	{
-		$sql = $this->db->sql->type_list();
-		$query = $this->db->query($sql);
+		$sql = self::$db->sql->type_list();
+		$query = self::$db->query($sql);
 
 		$this->assertIsA($query, 'PDOStatement');
 
@@ -96,14 +105,14 @@ class FirebirdQBTest extends QBTest {
 
 	public function testQueryExplain()
 	{
-		$res = $this->db->select('id, key as k, val')
+		$res = self::$db->select('id, key as k, val')
 			->explain()
 			->where('id >', 1)
 			->where('id <', 900)
 			->limit(2, 1)
 			->get_compiled_select();
 
-		$res2 = $this->db->select('id, key as k, val')
+		$res2 = self::$db->select('id, key as k, val')
 			->where('id >', 1)
 			->where('id <', 900)
 			->limit(2, 1)
@@ -117,7 +126,7 @@ class FirebirdQBTest extends QBTest {
 
 	public function testResultErrors()
 	{
-		$obj = $this->db->query('SELECT * FROM "create_test"');
+		$obj = self::$db->query('SELECT * FROM "create_test"');
 
 		// Test row count
 		$this->assertEqual(0, $obj->rowCount());
@@ -136,11 +145,13 @@ class FirebirdQBTest extends QBTest {
 		$this->assertEqual($expected, $error);
 	}
 
+	// --------------------------------------------------------------------------
+
 	public function testBackupStructure()
 	{
 		$existing = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 		$backup = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_BKP.FDB';
 
-		$this->assertTrue($this->db->util->backup_structure($existing, $backup));
+		$this->assertTrue(self::$db->get_util()->backup_structure($existing, $backup));
 	}
 }

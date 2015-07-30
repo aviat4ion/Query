@@ -25,7 +25,6 @@ class Util extends \Query\Drivers\Firebird\Util {
 
 	/**
 	 * Create an SQL backup file for the current database's structure
-	 * @codeCoverageIgnore
 	 * @param string $db_path
 	 * @param string $new_file
 	 * @return string

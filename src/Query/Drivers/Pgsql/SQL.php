@@ -25,7 +25,6 @@ class SQL extends \Query\Abstract_SQL {
 	/**
 	 * Get the query plan for the sql query
 	 *
-	 * @codeCoverageIgnore
 	 * @param string $sql
 	 * @return string
 	 */

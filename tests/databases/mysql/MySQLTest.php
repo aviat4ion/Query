@@ -38,7 +38,7 @@ class MySQLTest extends DBTest {
 			self::$db = new \Query\Drivers\Mysql\Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
 
-		self::$db->table_prefix = 'create_';
+		self::$db->set_table_prefix('create_');
 	}
 
 	// --------------------------------------------------------------------------
@@ -62,7 +62,7 @@ class MySQLTest extends DBTest {
 		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/mysql.sql'));
 
 		//Attempt to create the table
-		$sql = self::$db->util->create_table('test',
+		$sql = self::$db->get_util()->create_table('test',
 			array(
 				'id' => 'int(10)',
 				'key' => 'TEXT',
@@ -76,7 +76,7 @@ class MySQLTest extends DBTest {
 		self::$db->query($sql);
 
 		//Attempt to create the table
-		$sql = self::$db->util->create_table('join',
+		$sql = self::$db->get_util()->create_table('join',
 			array(
 				'id' => 'int(10)',
 				'key' => 'TEXT',
@@ -198,7 +198,7 @@ SQL;
 
 	public function testBackup()
 	{
-		$this->assertTrue(is_string(self::$db->util->backup_structure()));
+		$this->assertTrue(is_string(self::$db->get_util()->backup_structure()));
 	}
 
 

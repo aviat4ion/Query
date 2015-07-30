@@ -19,12 +19,11 @@
  */
  class SQLiteQBTest extends QBTest {
 
- 	public function setUp()
- 	{
-	 	// Set up in the bootstrap to mitigate
-		// connection locking issues
-		$this->db = Query('test_sqlite');
- 	}
+	public static function setUpBeforeClass()
+	{
+		// Defined in the SQLiteTest.php file
+		self::$db = Query('test_sqlite');
+	}
 
  	// --------------------------------------------------------------------------
 
@@ -32,14 +31,14 @@
 	{
 		$db = Query('test_sqlite');
 
-		$this->assertTrue($this->db === $db, "Alias passed into query function gives the original object back");
+		$this->assertTrue(self::$db === $db, "Alias passed into query function gives the original object back");
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testQueryExplain()
 	{
-		$query = $this->db->select('id, key as k, val')
+		$query = self::$db->select('id, key as k, val')
 			->explain()
 			->where('id >', 1)
 			->where('id <', 900)

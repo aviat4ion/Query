@@ -29,7 +29,7 @@ class FirebirdTest extends DBtest {
 
 		// test the db driver directly
 		self::$db = new \Query\Drivers\Firebird\Driver('localhost:'.$dbpath);
-		self::$db->table_prefix = 'create_';
+		self::$db->set_table_prefix('create_');
 	}
 
 	public function setUp()
@@ -108,7 +108,7 @@ class FirebirdTest extends DBtest {
 	public function testCreateTable()
 	{
 		//Attempt to create the table
-		$sql = self::$db->util->create_table('create_delete', array(
+		$sql = self::$db->get_util()->create_table('create_delete', array(
 			'id' => 'SMALLINT',
 			'key' => 'VARCHAR(64)',
 			'val' => 'BLOB SUB_TYPE TEXT'
@@ -124,7 +124,7 @@ class FirebirdTest extends DBtest {
 	public function testDeleteTable()
 	{
 		//Attempt to delete the table
-		$sql = self::$db->util->delete_table('create_delete');
+		$sql = self::$db->get_util()->delete_table('create_delete');
 		self::$db->query($sql);
 
 		//Check
