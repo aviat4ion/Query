@@ -65,6 +65,7 @@ class Connection_Manager_Test extends Query_TestCase {
 		$params = (object) array(
 			'type' => 'sqlite',
 			'file' => ':memory:',
+			'prefix' => 'create_',
 			'options' => array(
 				'foo' => 'bar'
 			)
@@ -76,6 +77,33 @@ class Connection_Manager_Test extends Query_TestCase {
 
 		// Check that the connection just made is returned from the get_connection method
 		$this->assertEqual($conn, self::$instance->get_connection());
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testGetConnection()
+	{
+		$params = (object) array(
+			'type' => 'sqlite',
+			'file' => ':memory:',
+			'prefix' => 'create_',
+			'alias' => 'conn_manager',
+			'options' => array(
+				'foo' => 'bar'
+			)
+		);
+
+		$conn = self::$instance->connect($params);
+		$this->assertInstanceOf('Query\\Query_Builder', $conn);
+
+		$this->assertEqual($conn, self::$instance->get_connection('conn_manager'));
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testCreateDsn()
+	{
+
 	}
 }
 // End of connection_manager_test.php

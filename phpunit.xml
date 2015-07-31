@@ -11,8 +11,8 @@
 	</filter>
 	<testsuites>
 		<testsuite name="CoreTests">
-			<file>tests/core/core.php</file>
-			<file>tests/core/db_qp_test.php</file>
+			<file>tests/core/core_test.php</file>
+			<file>tests/core/query_parser_test.php</file>
 			<file>tests/core/connection_manager_test.php</file>
 		</testsuite>
 		<testsuite name="MySQLTests">

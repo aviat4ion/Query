@@ -17,6 +17,7 @@ A query builder/database abstraction layer, using prepared queries for security.
 ## Databases Supported
 
 * Firebird (via interbase extension)
+* Firebird (via PDO) -- expirimental
 * MySQL
 * PostgreSQL
 * SQLite

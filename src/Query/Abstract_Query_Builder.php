@@ -171,13 +171,13 @@ abstract class Abstract_Query_Builder {
 	 * Alias to driver util class
 	 * @var \Query\Driver\Abstract_Util
 	 */
-	public $util;
+	protected $util;
 
 	/**
 	 * Alias to driver sql class
 	 * @var \Query\Driver\SQL_Interface
 	 */
-	public $sql;
+	protected $sql;
 
 	// --------------------------------------------------------------------------
 	// Methods

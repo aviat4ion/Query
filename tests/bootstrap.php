@@ -100,9 +100,9 @@ $path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
 require_once(QBASE_DIR . 'autoload.php');
 
 // Require base testing classes
-require_once(QTEST_DIR . '/core/core.php');
-require_once(QTEST_DIR . '/core/db_test.php');
-require_once(QTEST_DIR . '/core/query_parser_test.php');
+//require_once(QTEST_DIR . '/core/core_test.php');
+require_once(QTEST_DIR . '/core/base_db_test.php');
+//require_once(QTEST_DIR . '/core/query_parser_test.php');
 require_once(QTEST_DIR . '/core/base_query_builder_test.php');
 
 // End of bootstrap.php

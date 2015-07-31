@@ -95,6 +95,11 @@ class PDOFirebirdTest extends DBtest {
 	public function testCreateTable()
 	{
 $this->markTestSkipped();
+		if (version_compare(PHP_VERSION, '7.0.0', '<='))
+		{
+			$this->markTestSkipped("Segfaults on this version of PHP");
+		}
+
 		//Attempt to create the table
 		$sql = self::$db->get_util()->create_table('create_delete', array(
 			'id' => 'SMALLINT',
@@ -112,6 +117,11 @@ $this->markTestSkipped();
 	public function testDeleteTable()
 	{
 $this->markTestSkipped();
+		if (version_compare(PHP_VERSION, '7.0.0', '<='))
+		{
+			$this->markTestSkipped("Segfaults on this version of PHP");
+		}
+
 		//Attempt to delete the table
 		$sql = self::$db->get_util()->delete_table('create_delete');
 		self::$db->query($sql);
@@ -125,7 +135,11 @@ $this->markTestSkipped();
 
 	public function testTruncate()
 	{
-$this->markTestSkipped();
+		if (version_compare(PHP_VERSION, '7.0.0', '<='))
+		{
+			$this->markTestSkipped("Segfaults on this version of PHP");
+		}
+
 		self::$db->truncate('create_test');
 
 		$this->assertTrue(self::$db->affected_rows() > 0);
@@ -133,37 +147,14 @@ $this->markTestSkipped();
 
 	// --------------------------------------------------------------------------
 
-	public function testCommitTransaction()
-	{
-$this->markTestSkipped();
-		$res = self::$db->beginTransaction();
-
-		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
-		self::$db->query($sql);
-
-		$res = self::$db->commit();
-		$this->assertTrue($res);
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testRollbackTransaction()
-	{
-$this->markTestSkipped();
-		$res = self::$db->beginTransaction();
-
-		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
-		self::$db->query($sql);
-
-		$res = self::$db->rollback();
-		$this->assertTrue($res);
-	}
-
-	// --------------------------------------------------------------------------
-
 	public function testPreparedStatements()
 	{
 $this->markTestSkipped();
+		/*if (version_compare(PHP_VERSION, '7.0.0', '<='))
+		{
+			$this->markTestSkipped("Segfaults on this version of PHP");
+		}*/
+
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
@@ -177,6 +168,7 @@ SQL;
 
 	public function testPrepareExecute()
 	{
+$this->markTestSkipped();
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
@@ -186,34 +178,6 @@ SQL;
 		));
 
 	}
-
-	// --------------------------------------------------------------------------
-
-	/*public function testFetch()
-	{
-		$res = self::$db->query('SELECT "key","val" FROM "create_test"');
-
-		// Object
-		$fetchObj = $res->fetchObject();
-		$this->assertIsA($fetchObj, 'stdClass');
-
-		// Associative array
-		$fetchAssoc = $res->fetch(PDO::FETCH_ASSOC);
-		$this->assertTrue(is_array($fetchAssoc));
-		$this->assertTrue(array_key_exists('key', $fetchAssoc));
-
-		// Numeric array
-		$res2 = self::$db->query('SELECT "id","key","val" FROM "create_test"');
-		$fetch = $res2->fetch(PDO::FETCH_NUM);
-		$this->assertTrue(is_array($fetch));
-	}*/
-
-	// --------------------------------------------------------------------------
-
-	/*public function testPrepareQuery()
-	{
-		$this->assertNull(self::$db->prepare_query('', array()));
-	}*/
 
 	// --------------------------------------------------------------------------
 
@@ -244,45 +208,5 @@ SQL;
 	{
 		$res = self::$db->get_sql()->db_list();
 		$this->assertNULL($res);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/*public function testExec()
-	{
-		$res = self::$db->exec('SELECT * FROM "create_test"');
-		$this->assertEquals(NULL, $res);
-	}*/
-
-	// --------------------------------------------------------------------------
-
-	public function testInTransaction()
-	{
-$this->markTestSkipped();
-		self::$db->beginTransaction();
-		$this->assertTrue(self::$db->inTransaction());
-		self::$db->rollBack();
-		$this->assertFalse(self::$db->inTransaction());
-	}
-
-	// --------------------------------------------------------------------------
-
-	/*public function testGetAttribute()
-	{
-		$res = self::$db->getAttribute("foo");
-		$this->assertEquals(NULL, $res);
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testSetAttribute()
-	{
-		$this->assertFalse(self::$db->setAttribute(47, 'foo'));
-	}*/
-
-	public function testLastInsertId()
-	{
-$this->markTestSkipped();
-		$this->assertEqual(0, self::$db->lastInsertId('NEWTABLE_SEQ'));
 	}
 }

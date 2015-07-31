@@ -85,7 +85,6 @@ abstract class QBTest extends Query_TestCase {
 		$query = self::$db->from('test')->get();
 
 		$this->assertIsA($query, 'PDOStatement');
-		$this->assertTrue(self::$db->num_rows() > 0);
 	}
 
 	// --------------------------------------------------------------------------

@@ -136,6 +136,11 @@ class FirebirdTest extends DBtest {
 
 	public function testTruncate()
 	{
+		if (version_compare(PHP_VERSION, '7.0.0', '>='))
+		{
+			$this->markTestSkipped("Segfaults on this version of PHP");
+		}
+
 		self::$db->truncate('create_test');
 
 		$this->assertTrue(self::$db->affected_rows() > 0);

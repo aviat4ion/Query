@@ -16,17 +16,18 @@
 /**
  * Tests for the Query Parser
  */
-class QPTest extends Query_TestCase {
+class Query_Parser_Test extends Query_TestCase {
 
 	public function setUp()
 	{
-		$this->parser = new Query\Query_Parser();
+		$db = new Query\Drivers\Sqlite\Driver("sqlite::memory:");
+		$this->parser = new Query\Query_Parser($db);
 	}
 
 	public function TestGeneric()
 	{
 		$matches = $this->parser->parse_join('table1.field1=table2.field2');
-		$this->assertIdentical($matches['combined'], array(
+		$this->assertEqual($matches['combined'], array(
 			'table1.field1', '=', 'table2.field2'
 		));
 	}
@@ -34,7 +35,7 @@ class QPTest extends Query_TestCase {
 	public function testGeneric2()
 	{
 		$matches = $this->parser->parse_join('db1.table1.field1!=db2.table2.field2');
-		$this->assertIdentical($matches['combined'], array(
+		$this->assertEqual($matches['combined'], array(
 			'db1.table1.field1','!=','db2.table2.field2'
 		));
 	}
@@ -42,7 +43,7 @@ class QPTest extends Query_TestCase {
 	public function testWUnderscore()
 	{
 		$matches = $this->parser->parse_join('table_1.field1 = tab_le2.field_2');
-		$this->assertIdentical($matches['combined'], array(
+		$this->assertEqual($matches['combined'], array(
 			'table_1.field1', '=', 'tab_le2.field_2'
 		));
 	}
@@ -50,7 +51,7 @@ class QPTest extends Query_TestCase {
 	public function testFunction()
 	{
 		$matches = $this->parser->parse_join('table1.field1 > SUM(3+5)');
-		$this->assertIdentical($matches['combined'], array(
+		$this->assertEqual($matches['combined'], array(
 			'table1.field1', '>', 'SUM(3+5)'
 		));
 	}

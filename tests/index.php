@@ -125,10 +125,10 @@ require_once(QBASE_DIR . 'autoload.php');
 $test_path = QTEST_DIR.'/databases/';
 
 // Require base testing classes
-require_once(QTEST_DIR . '/core/core.php');
+require_once(QTEST_DIR . '/core/core_test.php');
 require_once(QTEST_DIR . '/core/connection_manager_test.php');
-require_once(QTEST_DIR . '/core/db_test.php');
-//require_once(QTEST_DIR . '/core/query_parser_test.php');
+require_once(QTEST_DIR . '/core/base_db_test.php');
+require_once(QTEST_DIR . '/core/query_parser_test.php');
 require_once(QTEST_DIR . '/core/base_query_builder_test.php');
 
 $drivers = PDO::getAvailableDrivers();
@@ -139,10 +139,10 @@ if (function_exists('fbird_connect'))
 }
 
 $driver_test_map = array(
-	//'Firebird' => in_array('interbase', $drivers),
 	'MySQL' => in_array('mysql', $drivers),
 	'SQLite' => in_array('sqlite', $drivers),
 	'PgSQL' => in_array('pgsql', $drivers),
+	//'Firebird' => in_array('interbase', $drivers),
 	//'PDOFirebird' => in_array('firebird', $drivers)
 );
 

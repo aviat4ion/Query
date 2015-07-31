@@ -43,7 +43,12 @@ class PDOFirebirdQBTest extends QBTest {
 
 	public function testQueryFunctionAlias()
 	{
-$this->markTestSkipped("Segfault");
+$this->markTestSkipped();
+		if (version_compare(PHP_VERSION, '7.0.0', '<='))
+		{
+			$this->markTestSkipped("Segfaults on this version of PHP");
+		}
+
 		$db = Query();
 
 		$this->assertTrue(self::$db === $db);
@@ -84,7 +89,12 @@ $this->markTestSkipped("Segfault");
 
 	public function testTypeList()
 	{
-$this->markTestSkipped("Segfault");
+$this->markTestIncomplete();
+		if (version_compare(PHP_VERSION, '7.0.0', '<='))
+		{
+			$this->markTestSkipped("Segfaults on this version of PHP");
+		}
+
 		$this->doSetUp();
 		$sql = self::$db->get_sql()->type_list();
 		$query = self::$db->query($sql);

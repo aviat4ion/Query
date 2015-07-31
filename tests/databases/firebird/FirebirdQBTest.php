@@ -126,6 +126,12 @@ class FirebirdQBTest extends QBTest {
 
 	public function testResultErrors()
 	{
+
+		if (version_compare(PHP_VERSION, '7.0.0', '>='))
+		{
+			$this->markTestSkipped("Segfaults on this version of PHP");
+		}
+
 		$obj = self::$db->query('SELECT * FROM "create_test"');
 
 		// Test row count
