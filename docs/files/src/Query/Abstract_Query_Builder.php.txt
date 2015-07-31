@@ -171,13 +171,13 @@ abstract class Abstract_Query_Builder {
 	 * Alias to driver util class
 	 * @var \Query\Driver\Abstract_Util
 	 */
-	public $util;
+	protected $util;
 
 	/**
 	 * Alias to driver sql class
 	 * @var \Query\Driver\SQL_Interface
 	 */
-	public $sql;
+	protected $sql;
 
 	// --------------------------------------------------------------------------
 	// Methods
@@ -229,10 +229,10 @@ abstract class Abstract_Query_Builder {
 		// Escape the identifiers
 		$field = $this->db->quote_ident($field);
 
-		$as = ($as !== FALSE)
-			? $this->db->quote_ident($as)
-			: $field;
+		if ( ! is_string($as)) return $field;
 
+
+		$as = $this->db->quote_ident($as);
 		return "({$field}) AS {$as} ";
 	}
 
@@ -519,7 +519,7 @@ abstract class Abstract_Query_Builder {
 		$this->queries['total_time'] += $total_time;
 
 		// Set the last query to get rowcounts properly
-		$this->db->last_query = $sql;
+		$this->db->set_last_query($sql);
 	}
 
 	// --------------------------------------------------------------------------
@@ -571,7 +571,7 @@ abstract class Abstract_Query_Builder {
 	 *
 	 * @param string $type
 	 * @param string $table
-	 * @return $string
+	 * @return string
 	 */
 	protected function _compile($type='', $table='')
 	{

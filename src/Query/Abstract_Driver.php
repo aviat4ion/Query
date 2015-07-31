@@ -185,7 +185,7 @@ abstract class Abstract_Driver extends \PDO implements Driver_Interface {
 	/**
 	 * Set the common table name prefix
 	 *
-	 * @param string
+	 * @param string $prefix
 	 * @return void
 	 */
 	public function set_table_prefix($prefix)

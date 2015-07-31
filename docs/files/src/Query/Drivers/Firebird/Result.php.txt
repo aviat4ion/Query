@@ -48,7 +48,7 @@ class Result extends \PDOStatement {
 	/**
 	 * Reference to the db drive to de-duplicate error functions
 	 *
-	 * @var \Query\Driver\Firebird
+	 * @var \Query\Drivers\Firebird\Driver
 	 */
 	private $db;
 
@@ -58,7 +58,6 @@ class Result extends \PDOStatement {
 	 *
 	 * @param resource $link
 	 * @param Driver|null $db
-	 * @return void
 	 */
 	public function __construct($link, Driver $db = NULL)
 	{
@@ -138,7 +137,7 @@ class Result extends \PDOStatement {
 	 * Run a prepared statement query
 	 *
 	 * @param  array $args
-	 * @return Firebird_Result
+	 * @return Result
 	 */
 	public function execute($args = NULL)
 	{
@@ -259,17 +258,7 @@ class Result extends \PDOStatement {
 	 */
 	public function rowCount()
 	{
-		$rows = \fbird_affected_rows();
-
-		// Get the number of rows for the select query if you can
-		if ($rows === 0 && \is_resource($this->statement) && \get_resource_type($this->statement) === "interbase result")
-		{
-		// @codeCoverageIgnoreStart
-			$rows = \count($this->result);
-		}
-		// @codeCoverageIgnoreEnd
-
-		return $rows;
+		return \fbird_affected_rows();
 	}
 
 	// --------------------------------------------------------------------------

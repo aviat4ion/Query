@@ -66,12 +66,12 @@ class Query_Parser {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Public parser method for setting the parse string
+	 * Parser method for setting the parse string
 	 *
 	 * @param string $sql
 	 * @return array
 	 */
-	protected function parse_join($sql)
+	public function parse_join($sql)
 	{
 		// Get sql clause components
 		preg_match_all('`'.$this->match_patterns['function'].'`', $sql, $this->matches['functions'], PREG_SET_ORDER);

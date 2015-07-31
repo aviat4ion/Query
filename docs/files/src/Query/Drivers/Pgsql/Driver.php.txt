@@ -26,6 +26,7 @@ class Driver extends \Query\Abstract_Driver {
 	/**
 	 * Connect to a PosgreSQL database
 	 *
+	 * @codeCoverageIgnore
 	 * @param string $dsn
 	 * @param string $username
 	 * @param string $password

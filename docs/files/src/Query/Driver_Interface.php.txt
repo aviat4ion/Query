@@ -30,7 +30,6 @@ interface Driver_Interface {
 	 * @param string $username
 	 * @param string $password
 	 * @param array $driver_options
-	 * @return void
 	 */
 	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options = array());
 
@@ -194,16 +193,16 @@ interface Driver_Interface {
 	/**
 	 * Surrounds the string with the databases identifier escape characters
 	 *
-	 * @param mixed $ident
-	 * @return string
+	 * @param string|array $ident
+	 * @return string|array
 	 */
 	public function quote_ident($ident);
 
 	/**
 	 * Quote database table name, and set prefix
 	 *
-	 * @param string $table
-	 * @return string
+	 * @param string|array $table
+	 * @return string|array
 	 */
 	public function quote_table($table);
 
@@ -219,14 +218,14 @@ interface Driver_Interface {
 	/**
 	 * Get the SQL class for the current driver
 	 *
-	 * @return SQL\SQL_Interface
+	 * @return SQL_Interface
 	 */
 	public function get_sql();
 
 	/**
 	 * Get the Util class for the current driver
 	 *
-	 * @return Util\Abstract_Util
+	 * @return Abstract_Util
 	 */
 	public function get_util();
 
