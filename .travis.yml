@@ -1,4 +1,4 @@
-sudo: false
+#sudo: false
 
 language: php
 
@@ -11,7 +11,8 @@ php:
   - nightly
 
 install:
-  dpkg-reconfigure firebird2.5-superclassic
+  - suao apt-get install -qq php5-interbase firebird2.5-superclassic
+  - sudo dpkg-reconfigure firebird2.5-superclassic
 
 before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
@@ -21,12 +22,6 @@ before_script:
 script:
   - mkdir -p build/logs
   - phpunit --coverage-clover build/logs/clover.xml
-
-addons:
-  apt:
-    packages:
-      - php5-interbase
-      - firebird2.5-superclassic
 
 after_script:
     - wget https://scrutinizer-ci.com/ocular.phar
