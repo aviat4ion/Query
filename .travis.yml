@@ -11,7 +11,7 @@ php:
   - nightly
 
 install:
-  - suao apt-get install -qq php5-interbase firebird2.5-superclassic
+  - sudo apt-get install -qq php5-interbase firebird2.5-superclassic
   - sudo dpkg-reconfigure firebird2.5-superclassic
 
 before_script:
