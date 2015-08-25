@@ -16,6 +16,7 @@ before_install:
 
 install:
   - sudo dpkg-reconfigure firebird2.5-superclassic
+  - sudo /etc/init.d/firebird start
 
 before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
