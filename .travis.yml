@@ -15,8 +15,7 @@ before_install:
   - sudo apt-get install -qq php5-interbase firebird2.5-superclassic
 
 install:
-  - sudo dpkg-reconfigure firebird2.5-superclassic
-  - sudo /etc/init.d/firebird start
+  - sudo /etc/rc.d/init.d/firebird start
 
 before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
