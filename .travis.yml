@@ -15,10 +15,10 @@ before_install:
   - sudo apt-get install -qq php5-interbase firebird2.5-superclassic
 
 install:
-  - sudo service firebird2.5-super start
   - sudo chmod 777 build/tests/db_files/FB_TEST_DB.FDB
 
 before_script:
+  - sudo service firebird2.5-super start
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
   - psql -c 'create database test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS test;'
