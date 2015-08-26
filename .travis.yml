@@ -16,13 +16,13 @@ before_install:
 
 install:
   - sudo chmod 777 tests/db_files/FB_TEST_DB.FDB
+  - pecl install pdo_firebird
 
 before_script:
   - sudo service firebird2.5-super start
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
   - psql -c 'create database test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS test;'
-  - sudo pecl install pdo_firebird
   #- sudo php5enmod interbase
 
 script:
