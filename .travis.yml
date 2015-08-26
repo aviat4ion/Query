@@ -22,7 +22,8 @@ before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
   - psql -c 'create database test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS test;'
-  - sudo php5enmod interbase
+  - sudo pecl install pdo_firebird
+  #- sudo php5enmod interbase
 
 script:
   - mkdir -p build/logs
