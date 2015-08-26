@@ -22,6 +22,7 @@ before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
   - psql -c 'create database test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS test;'
+  - echo 'extension="interbase.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
   - mkdir -p build/logs
