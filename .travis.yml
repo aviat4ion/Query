@@ -22,7 +22,8 @@ before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
   - psql -c 'create database test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS test;'
-  - echo 'zend_extension="interbase.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - sudo cp /etc/php5/conf.d/interbase.ini /etc/php5/mods-available/interbase.ini
+  - sudo php5enmod interbase
 
 script:
   - mkdir -p build/logs
