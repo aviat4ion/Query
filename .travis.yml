@@ -13,6 +13,10 @@ php:
 before_install:
   - sudo apt-get update
   - sudo apt-get install -qq php5-interbase firebird2.5-super
+  - echo "extension = interbase.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = firebird.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "zend_extension = interbase.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "zend_extension = firebird.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 install:
   - sudo chmod 777 tests/db_files/FB_TEST_DB.FDB

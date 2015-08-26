@@ -13,11 +13,6 @@
 
 // --------------------------------------------------------------------------
 
-if (($var = getenv('CI')))
-{
-	dl('interbase.so');
-}
-
 /**
  * Quercus detection for workarounds
  */
