@@ -165,19 +165,19 @@ abstract class Abstract_Query_Builder {
 	 * Query parser class instance
 	 * @var Query_Parser
 	 */
-	protected $parser;
+	public $parser;
 
 	/**
 	 * Alias to driver util class
 	 * @var \Query\Driver\Abstract_Util
 	 */
-	protected $util;
+	public $util;
 
 	/**
 	 * Alias to driver sql class
 	 * @var \Query\Driver\SQL_Interface
 	 */
-	protected $sql;
+	public $sql;
 
 	// --------------------------------------------------------------------------
 	// Methods
