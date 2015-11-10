@@ -53,6 +53,9 @@
             <a href="#synopsis">Synopsis</a>
           </li>
           <li>
+            <a href="#coverage">Coverage</a>
+          </li>
+          <li>
             <a href="#members">Members</a>
           </li>
           <li>
@@ -73,7 +76,7 @@
         <ul/>
         <h2 id="synopsis">Synopsis</h2>
         <div class="synopsis">class QueryParser
-            {<br/><ul class="none"><li>// members</li><li>private <span title="Query\Driver_Interface">Driver_Interface</span> <a href="#members">$db</a>;
+            {<br/><ul class="none"><li>// members</li><li>private <span title="Query\DriverInterface">DriverInterface</span> <a href="#members">$db</a>;
                     </li><li>private array <a href="#members">$match_patterns</a> =
                         ;
                     </li><li>public array <a href="#members">$matches</a> =
@@ -85,13 +88,26 @@
                     </li></ul>
 
             }<br/></div>
+        <h2 id="coverage">Coverage</h2>
+        <table class="styled">
+          <tr>
+            <td>Methods</td>
+            <td class="percent">100%</td>
+            <td class="nummeric">4 / 4</td>
+          </tr>
+          <tr>
+            <td>Lines</td>
+            <td class="percent">100%</td>
+            <td class="nummeric">23 / 23</td>
+          </tr>
+        </table>
         <h2 id="members">Members</h2>
         <div class="styled members">
           <h4>private</h4>
           <ul class="members">
             <li id="db"><strong>$db</strong>
                 —
-                <a title="Query\Driver_Interface" href="../classes/Query_Driver_Interface.html">Query\Driver_Interface</a><br/><span class="indent">DB Driver</span></li>
+                <a title="Query\DriverInterface" href="../classes/Query_DriverInterface.html">Query\DriverInterface</a><br/><span class="indent">DB Driver</span></li>
             <li id="match_patterns"><strong>$match_patterns</strong>
                 —
                 array<br/><span class="indent">Regex patterns for various syntax components</span></li>
@@ -122,6 +138,26 @@
         </div>
         <h2 id="history">History</h2>
         <ul class="styled history">
+          <li>
+            <h3>2015-11-10T16:29:17-05:00 (commit #<span title="a1c3b9e7db3f6bba83b85240604151a9985546bb">a1c3b9e</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Change test setup to be more extensible</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-11-10T11:18:11-05:00 (commit #<span title="1e2a7ee5669b6512fa3549aa2bb46b4816b6899c">1e2a7ee</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Actually fix tests</pre>
+            </div>
+          </li>
           <li>
             <h3>2015-11-10T10:12:23-05:00 (commit #<span title="b5a141ffc741a4f271bf4e110814ac8861a2312f">b5a141f</span>)</h3>
             <div>
@@ -260,26 +296,6 @@
                         Commiter: Timothy J. Warren (tim@timshomepage.net)
                     </p>
               <pre class="wrapped">Improve code coverage</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2014-01-02T12:36:50-05:00 (commit #<span title="6dc9ed0d525d715598020fb03478e1777f8a972f">6dc9ed0</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J. Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J. Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update copyright for the new year</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2013-01-02T14:26:42-05:00 (commit #<span title="0e44bbaf0d8650a3ff9c23f276706ded5875ff88">0e44bba</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy Warren (tim@timshomepage.net) /
-                        Commiter: Timothy Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update year</pre>
             </div>
           </li>
         </ul>
