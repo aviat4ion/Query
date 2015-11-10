@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\QueryBuilderInterface</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../interfaces.html">Interfaces</a>
+          </li>
+          <li class="separator">
+            <a href="../interfaces.html#Query">Query</a>
+          </li>
+          <li class="separator">QueryBuilderInterface</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#violations">Violations</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/Query/QueryBuilderInterface.php.html#line24">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\</small>QueryBuilderInterface</h1>
+        <h4>Interface defining the Query Builder class</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">interface QueryBuilderInterface
+            {<br/><ul class="none"><li>// methods</li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select.html">select</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select_max.html">select_max</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select_min.html">select_min</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select_avg.html">select_avg</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select_sum.html">select_sum</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/distinct.html">distinct</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/explain.html">explain</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/from.html">from</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/like.html">like</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_like.html">or_like</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/not_like.html">not_like</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_not_like.html">or_not_like</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/having.html">having</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_having.html">or_having</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/where.html">where</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_where.html">or_where</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/where_in.html">where_in</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_where_in.html">or_where_in</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/where_not_in.html">where_not_in</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_where_not_in.html">or_where_not_in</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/set.html">set</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/join.html">join</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/group_by.html">group_by</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/order_by.html">order_by</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/limit.html">limit</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/group_start.html">group_start</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_group_start.html">or_group_start</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_not_group_start.html">or_not_group_start</a>()
+                    </li><li>public Query_Builder <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/group_end.html">group_end</a>()
+                    </li><li>public PDOStatement <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get.html">get</a>()
+                    </li><li>public PDOStatement <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_where.html">get_where</a>()
+                    </li><li>public int <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/count_all.html">count_all</a>()
+                    </li><li>public int <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/count_all_results.html">count_all_results</a>()
+                    </li><li>public PDOStatement <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/insert.html">insert</a>()
+                    </li><li>public PDOStatement|null <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/insert_batch.html">insert_batch</a>()
+                    </li><li>public PDOStatement <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/update.html">update</a>()
+                    </li><li>public PDOStatement <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/delete.html">delete</a>()
+                    </li><li>public string <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_compiled_select.html">get_compiled_select</a>()
+                    </li><li>public string <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_compiled_insert.html">get_compiled_insert</a>()
+                    </li><li>public string <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_compiled_update.html">get_compiled_update</a>()
+                    </li><li>public string <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_compiled_delete.html">get_compiled_delete</a>()
+                    </li><li>public void <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/reset_query.html">reset_query</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="count_all"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/count_all.html">count_all()</a>
+                — Retrieve the number of rows in the selected table</li>
+            <li id="count_all_results"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/count_all_results.html">count_all_results()</a>
+                — Retrieve the number of results for the generated query - used in place of the get() method</li>
+            <li id="delete"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/delete.html">delete()</a>
+                — Deletes data from a table</li>
+            <li id="distinct"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/distinct.html">distinct()</a>
+                — Adds the 'distinct' keyword to a query</li>
+            <li id="explain"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/explain.html">explain()</a>
+                — Shows the query plan for the query</li>
+            <li id="from"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/from.html">from()</a>
+                — Specify the database table to select from</li>
+            <li id="get"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get.html">get()</a>
+                — Select and retrieve all records from the current table, and/or execute current compiled query</li>
+            <li id="get_compiled_delete"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_compiled_delete.html">get_compiled_delete()</a>
+                — Returns the generated 'delete' sql query</li>
+            <li id="get_compiled_insert"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_compiled_insert.html">get_compiled_insert()</a>
+                — Returns the generated 'insert' sql query</li>
+            <li id="get_compiled_select"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_compiled_select.html">get_compiled_select()</a>
+                — Returns the generated 'select' sql query</li>
+            <li id="get_compiled_update"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_compiled_update.html">get_compiled_update()</a>
+                — Returns the generated 'update' sql query</li>
+            <li id="get_where"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get_where.html">get_where()</a>
+                — Convience method for get() with a where clause</li>
+            <li id="group_by"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/group_by.html">group_by()</a>
+                — Group the results by the selected field(s)</li>
+            <li id="group_end"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/group_end.html">group_end()</a>
+                — Ends a query group</li>
+            <li id="group_start"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/group_start.html">group_start()</a>
+                — Adds a paren to the current query for query grouping</li>
+            <li id="having"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/having.html">having()</a>
+                — Generates a 'Having' clause</li>
+            <li id="insert"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/insert.html">insert()</a>
+                — Creates an insert clause, and executes it</li>
+            <li id="insert_batch"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/insert_batch.html">insert_batch()</a>
+                — Creates and executes a batch insertion query</li>
+            <li id="join"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/join.html">join()</a>
+                — Creates a join phrase in a compiled query</li>
+            <li id="like"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/like.html">like()</a>
+                — Creates a Like clause in the sql statement</li>
+            <li id="limit"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/limit.html">limit()</a>
+                — Set a limit on the current sql statement</li>
+            <li id="not_like"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/not_like.html">not_like()</a>
+                — Generates a NOT LIKE clause</li>
+            <li id="or_group_start"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_group_start.html">or_group_start()</a>
+                — Adds a paren to the current query for query grouping, prefixed with 'OR'</li>
+            <li id="or_having"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_having.html">or_having()</a>
+                — Generates a 'Having' clause prefixed with 'OR'</li>
+            <li id="or_like"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_like.html">or_like()</a>
+                — Generates an OR Like clause</li>
+            <li id="or_not_group_start"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_not_group_start.html">or_not_group_start()</a>
+                — Adds a paren to the current query for query grouping, prefixed with 'OR NOT'</li>
+            <li id="or_not_like"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_not_like.html">or_not_like()</a>
+                — Generates a OR NOT LIKE clause</li>
+            <li id="or_where"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_where.html">or_where()</a>
+                — Where clause prefixed with "OR"</li>
+            <li id="or_where_in"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_where_in.html">or_where_in()</a>
+                — Where in statement prefixed with "or"</li>
+            <li id="or_where_not_in"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/or_where_not_in.html">or_where_not_in()</a>
+                — OR WHERE NOT IN (FOO) clause</li>
+            <li id="order_by"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/order_by.html">order_by()</a>
+                — Order the results by the selected field(s)</li>
+            <li id="reset_query"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/reset_query.html">reset_query()</a>
+                — Clear out the class variables, so the next query can be run</li>
+            <li id="select"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select.html">select()</a>
+                — Specifies rows to select in a query</li>
+            <li id="select_avg"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select_avg.html">select_avg()</a>
+                — Selects the average value of a field from a query</li>
+            <li id="select_max"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select_max.html">select_max()</a>
+                — Selects the maximum value of a field from a query</li>
+            <li id="select_min"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select_min.html">select_min()</a>
+                — Selects the minimum value of a field from a query</li>
+            <li id="select_sum"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select_sum.html">select_sum()</a>
+                — Selects the sum of a field from a query</li>
+            <li id="set"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/set.html">set()</a>
+                — Sets values for inserts / updates / deletes</li>
+            <li id="update"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/update.html">update()</a>
+                — Creates an update clause, and executes it</li>
+            <li id="where"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/where.html">where()</a>
+                — Specify condition(s) in the where clause of a query Note: this function works with key / value, or a passed array with key / value pairs</li>
+            <li id="where_in"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/where_in.html">where_in()</a>
+                — Where clause with 'IN' statement</li>
+            <li id="where_not_in"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/where_not_in.html">where_not_in()</a>
+                — WHERE NOT IN (FOO) clause</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.2-dev - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>

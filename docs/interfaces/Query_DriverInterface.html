@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\DriverInterface</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../interfaces.html">Interfaces</a>
+          </li>
+          <li class="separator">
+            <a href="../interfaces.html#Query">Query</a>
+          </li>
+          <li class="separator">DriverInterface</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#violations">Violations</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/Query/DriverInterface.php.html#line24">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\</small>DriverInterface</h1>
+        <h4>PDO Interface to implement for database drivers</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">interface DriverInterface
+            {<br/><ul class="none"><li>// methods</li><li>public void <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/__construct.html">__construct</a>()
+                    </li><li>public PDOStatement <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/prepare_query.html">prepare_query</a>()
+                    </li><li>public bool <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/beginTransaction.html">beginTransaction</a>()
+                    </li><li>public bool <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/commit.html">commit</a>()
+                    </li><li>public mixed <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/errorCode.html">errorCode</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/errorInfo.html">errorInfo</a>()
+                    </li><li>public int <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/exec.html">exec</a>()
+                    </li><li>public mixed <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/getAttribute.html">getAttribute</a>()
+                    </li><li>public bool <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/rollback.html">rollback</a>()
+                    </li><li>public bool <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/setAttribute.html">setAttribute</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_columns.html">get_columns</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_types.html">get_types</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_indexes.html">get_indexes</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_fks.html">get_fks</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_tables.html">get_tables</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_system_tables.html">get_system_tables</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_dbs.html">get_dbs</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_views.html">get_views</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_sequences.html">get_sequences</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_functions.html">get_functions</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_procedures.html">get_procedures</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_triggers.html">get_triggers</a>()
+                    </li><li>public string|array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/quote_ident.html">quote_ident</a>()
+                    </li><li>public string|array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/quote_table.html">quote_table</a>()
+                    </li><li>public PDOStatement <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/prepare_execute.html">prepare_execute</a>()
+                    </li><li>public SQL_Interface <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_sql.html">get_sql</a>()
+                    </li><li>public Abstract_Util <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_util.html">get_util</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/driver_query.html">driver_query</a>()
+                    </li><li>public int <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/affected_rows.html">affected_rows</a>()
+                    </li><li>public int <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/num_rows.html">num_rows</a>()
+                    </li><li>public string <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/prefix_table.html">prefix_table</a>()
+                    </li><li>public array <a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/insert_batch.html">insert_batch</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/__construct.html">__construct()</a>
+                — Constructor/Connection method</li>
+            <li id="affected_rows"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/affected_rows.html">affected_rows()</a>
+                — Returns number of rows affected by an INSERT, UPDATE, DELETE type query</li>
+            <li id="beginTransaction"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/beginTransaction.html">beginTransaction()</a>
+                — Begin a transaction</li>
+            <li id="commit"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/commit.html">commit()</a>
+                — Commit a transaction</li>
+            <li id="driver_query"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/driver_query.html">driver_query()</a>
+                — Method to simplify retrieving db results for meta-data queries</li>
+            <li id="errorCode"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/errorCode.html">errorCode()</a>
+                — Return the current error code</li>
+            <li id="errorInfo"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/errorInfo.html">errorInfo()</a>
+                — Return information about the current error</li>
+            <li id="exec"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/exec.html">exec()</a>
+                — Execute an SQL statement and return the number of affected rows</li>
+            <li id="getAttribute"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/getAttribute.html">getAttribute()</a>
+                — Get a connection attribute for the current db driver</li>
+            <li id="get_columns"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_columns.html">get_columns()</a>
+                — Retrieve column information for the current database table</li>
+            <li id="get_dbs"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_dbs.html">get_dbs()</a>
+                — Return list of dbs for the current connection, if possible</li>
+            <li id="get_fks"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_fks.html">get_fks()</a>
+                — Retrieve foreign keys for the table</li>
+            <li id="get_functions"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_functions.html">get_functions()</a>
+                — Return list of functions for the current database</li>
+            <li id="get_indexes"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_indexes.html">get_indexes()</a>
+                — Retrieve indexes for the table</li>
+            <li id="get_procedures"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_procedures.html">get_procedures()</a>
+                — Return list of stored procedures for the current database</li>
+            <li id="get_sequences"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_sequences.html">get_sequences()</a>
+                — Return list of sequences for the current database, if they exist</li>
+            <li id="get_sql"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_sql.html">get_sql()</a>
+                — Get the SQL class for the current driver</li>
+            <li id="get_system_tables"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_system_tables.html">get_system_tables()</a>
+                — Retrieves an array of non-user-created tables for the connection/database</li>
+            <li id="get_tables"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_tables.html">get_tables()</a>
+                — Return list of tables for the current database</li>
+            <li id="get_triggers"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_triggers.html">get_triggers()</a>
+                — Return list of triggers for the current database</li>
+            <li id="get_types"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_types.html">get_types()</a>
+                — Retrieve list of data types for the database</li>
+            <li id="get_util"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_util.html">get_util()</a>
+                — Get the Util class for the current driver</li>
+            <li id="get_views"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/get_views.html">get_views()</a>
+                — Return list of views for the current database</li>
+            <li id="insert_batch"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/insert_batch.html">insert_batch()</a>
+                — Create sql for batch insert</li>
+            <li id="num_rows"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/num_rows.html">num_rows()</a>
+                — Return the number of rows returned for a SELECT query</li>
+            <li id="prefix_table"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/prefix_table.html">prefix_table()</a>
+                — Prefixes a table if it is not already prefixed</li>
+            <li id="prepare_execute"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/prepare_execute.html">prepare_execute()</a>
+                — Create and execute a prepared statement with the provided parameters</li>
+            <li id="prepare_query"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/prepare_query.html">prepare_query()</a>
+                — Simplifies prepared statements for database queries</li>
+            <li id="quote_ident"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/quote_ident.html">quote_ident()</a>
+                — Surrounds the string with the databases identifier escape characters</li>
+            <li id="quote_table"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/quote_table.html">quote_table()</a>
+                — Quote database table name, and set prefix</li>
+            <li id="rollback"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/rollback.html">rollback()</a>
+                — Rollback a transaction</li>
+            <li id="setAttribute"><a title="Query\DriverInterface" href="../interfaces/Query_DriverInterface/setAttribute.html">setAttribute()</a>
+                — Set a connection attribute</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.2-dev - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>

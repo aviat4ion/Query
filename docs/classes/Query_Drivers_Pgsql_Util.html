@@ -76,15 +76,15 @@
         <ul/>
         <h2 id="synopsis">Synopsis</h2>
         <div class="synopsis">class Util
-                extends <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util.html">Abstract_Util</a>
+                extends <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil.html">AbstractUtil</a>
             {<br/><ul class="none"><li>// methods</li><li>public string <a title="Query\Drivers\Pgsql\Util" href="../classes/Query_Drivers_Pgsql_Util/backup_structure.html">backup_structure</a>()
                     </li><li>public string <a title="Query\Drivers\Pgsql\Util" href="../classes/Query_Drivers_Pgsql_Util/backup_data.html">backup_data</a>()
-                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Query\Abstract_Util">Abstract_Util</span></li><li>public void <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/__construct.html">__construct</a>()
-                        </li><li>public Driver_Interface <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/get_driver.html">get_driver</a>()
-                        </li><li>public string <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/create_table.html">create_table</a>()
-                        </li><li>public string <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/delete_table.html">delete_table</a>()
-                        </li><li>public abstract string <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/backup_structure.html">backup_structure</a>()
-                        </li><li>public abstract string <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/backup_data.html">backup_data</a>()
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Query\AbstractUtil">AbstractUtil</span></li><li>public void <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/__construct.html">__construct</a>()
+                        </li><li>public Driver_Interface <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/get_driver.html">get_driver</a>()
+                        </li><li>public string <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/create_table.html">create_table</a>()
+                        </li><li>public string <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/delete_table.html">delete_table</a>()
+                        </li><li>public abstract string <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/backup_structure.html">backup_structure</a>()
+                        </li><li>public abstract string <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/backup_data.html">backup_data</a>()
                         </li></ul>
 
             }<br/></div>
@@ -93,7 +93,7 @@
           <h4>Extends</h4>
           <ul>
             <li>
-              <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util.html">Query\Abstract_Util</a>
+              <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil.html">Query\AbstractUtil</a>
             </li>
           </ul>
         </div>
@@ -119,23 +119,33 @@
             <li id="backup_structure"><a title="Query\Drivers\Pgsql\Util" href="../classes/Query_Drivers_Pgsql_Util/backup_structure.html">backup_structure()</a>
                 — Create an SQL backup file for the current database's structure</li>
           </ul>
-          <h3>Inherited from <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util.html">Query\Abstract_Util</a></h3>
+          <h3>Inherited from <a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil.html">Query\AbstractUtil</a></h3>
           <h4>public</h4>
           <ul>
-            <li id="backup_data"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/backup_data.html">backup_data()</a>
+            <li id="backup_data"><a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/backup_data.html">backup_data()</a>
                 — Return an SQL file with the database data as insert statements</li>
-            <li id="backup_structure"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/backup_structure.html">backup_structure()</a>
+            <li id="backup_structure"><a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/backup_structure.html">backup_structure()</a>
                 — Return an SQL file with the database table structure</li>
-            <li id="create_table"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/create_table.html">create_table()</a>
+            <li id="create_table"><a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/create_table.html">create_table()</a>
                 — Convenience public function to generate sql for creating a db table</li>
-            <li id="delete_table"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/delete_table.html">delete_table()</a>
+            <li id="delete_table"><a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/delete_table.html">delete_table()</a>
                 — Drop the selected table</li>
-            <li id="get_driver"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/get_driver.html">get_driver()</a>
+            <li id="get_driver"><a title="Query\AbstractUtil" href="../classes/Query_AbstractUtil/get_driver.html">get_driver()</a>
                 — Get the driver object for the current connection</li>
           </ul>
         </div>
         <h2 id="history">History</h2>
         <ul class="styled history">
+          <li>
+            <h3>2015-11-10T10:12:23-05:00 (commit #<span title="b5a141ffc741a4f271bf4e110814ac8861a2312f">b5a141f</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Make class names Pascal Case</pre>
+            </div>
+          </li>
           <li>
             <h3>2015-07-29T16:51:17-04:00 (commit #<span title="8511c6a445e935547b59a1d3736e7c08cf9633ea">8511c6a</span>)</h3>
             <div>
@@ -284,16 +294,6 @@
                         Commiter: Timothy Warren (tim@timshomepage.net)
                     </p>
               <pre class="wrapped">Add package docblock options</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2012-04-19T11:42:50-04:00 (commit #<span title="845e0fee08952898aec2ff3bc3c44f19562414c8">845e0fe</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy Warren (tim@timshomepage.net) /
-                        Commiter: Timothy Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Added class reference in docs folder, improved comment consistency in classes</pre>
             </div>
           </li>
         </ul>

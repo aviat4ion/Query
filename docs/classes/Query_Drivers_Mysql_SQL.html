@@ -73,7 +73,7 @@
         <ul/>
         <h2 id="synopsis">Synopsis</h2>
         <div class="synopsis">class SQL
-                extends <a title="Query\Abstract_SQL" href="../classes/Query_Abstract_SQL.html">Abstract_SQL</a>
+                extends <a title="Query\AbstractSQL" href="../classes/Query_AbstractSQL.html">AbstractSQL</a>
             {<br/><ul class="none"><li>// methods</li><li>public string <a title="Query\Drivers\Mysql\SQL" href="../classes/Query_Drivers_Mysql_SQL/limit.html">limit</a>()
                     </li><li>public string <a title="Query\Drivers\Mysql\SQL" href="../classes/Query_Drivers_Mysql_SQL/explain.html">explain</a>()
                     </li><li>public string <a title="Query\Drivers\Mysql\SQL" href="../classes/Query_Drivers_Mysql_SQL/random.html">random</a>()
@@ -89,7 +89,7 @@
                     </li><li>public string <a title="Query\Drivers\Mysql\SQL" href="../classes/Query_Drivers_Mysql_SQL/column_list.html">column_list</a>()
                     </li><li>public string <a title="Query\Drivers\Mysql\SQL" href="../classes/Query_Drivers_Mysql_SQL/fk_list.html">fk_list</a>()
                     </li><li>public array <a title="Query\Drivers\Mysql\SQL" href="../classes/Query_Drivers_Mysql_SQL/index_list.html">index_list</a>()
-                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Query\Abstract_SQL">Abstract_SQL</span></li><li>public string <a title="Query\Abstract_SQL" href="../classes/Query_Abstract_SQL/limit.html">limit</a>()
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Query\AbstractSQL">AbstractSQL</span></li><li>public string <a title="Query\AbstractSQL" href="../classes/Query_AbstractSQL/limit.html">limit</a>()
                         </li></ul>
 
             }<br/></div>
@@ -98,7 +98,7 @@
           <h4>Extends</h4>
           <ul>
             <li>
-              <a title="Query\Abstract_SQL" href="../classes/Query_Abstract_SQL.html">Query\Abstract_SQL</a>
+              <a title="Query\AbstractSQL" href="../classes/Query_AbstractSQL.html">Query\AbstractSQL</a>
             </li>
           </ul>
         </div>
@@ -137,15 +137,25 @@
             <li id="view_list"><a title="Query\Drivers\Mysql\SQL" href="../classes/Query_Drivers_Mysql_SQL/view_list.html">view_list()</a>
                 — Returns sql to list views</li>
           </ul>
-          <h3>Inherited from <a title="Query\Abstract_SQL" href="../classes/Query_Abstract_SQL.html">Query\Abstract_SQL</a></h3>
+          <h3>Inherited from <a title="Query\AbstractSQL" href="../classes/Query_AbstractSQL.html">Query\AbstractSQL</a></h3>
           <h4>public</h4>
           <ul>
-            <li id="limit"><a title="Query\Abstract_SQL" href="../classes/Query_Abstract_SQL/limit.html">limit()</a>
+            <li id="limit"><a title="Query\AbstractSQL" href="../classes/Query_AbstractSQL/limit.html">limit()</a>
                 — Limit clause</li>
           </ul>
         </div>
         <h2 id="history">History</h2>
         <ul class="styled history">
+          <li>
+            <h3>2015-11-10T10:12:23-05:00 (commit #<span title="b5a141ffc741a4f271bf4e110814ac8861a2312f">b5a141f</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Make class names Pascal Case</pre>
+            </div>
+          </li>
           <li>
             <h3>2015-07-29T16:51:17-04:00 (commit #<span title="8511c6a445e935547b59a1d3736e7c08cf9633ea">8511c6a</span>)</h3>
             <div>
@@ -294,16 +304,6 @@
                         Commiter: Timothy Warren (tim@timshomepage.net)
                     </p>
               <pre class="wrapped">Changed invalid methods to return NULL instead of FALSE, added insert_batch</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2013-01-02T14:26:42-05:00 (commit #<span title="0e44bbaf0d8650a3ff9c23f276706ded5875ff88">0e44bba</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy Warren (tim@timshomepage.net) /
-                        Commiter: Timothy Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update year</pre>
             </div>
           </li>
         </ul>
