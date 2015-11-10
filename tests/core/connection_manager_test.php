@@ -2,7 +2,7 @@
 
 class Connection_Manager_Test extends Query_TestCase {
 
-	static $instance = NULL;
+	protected static $instance = NULL;
 
 	public static function setUpBeforeClass()
 	{
@@ -97,13 +97,6 @@ class Connection_Manager_Test extends Query_TestCase {
 		$this->assertInstanceOf('Query\\QueryBuilder', $conn);
 
 		$this->assertEqual($conn, self::$instance->get_connection('conn_manager'));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function testCreateDsn()
-	{
-
 	}
 }
 // End of connection_manager_test.php

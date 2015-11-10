@@ -19,18 +19,8 @@ class PgSQLQBTest extends QBTest {
 
 	public static function setUpBeforeClass()
 	{
-		// Attempt to connect, if there is a test config file
-		if (is_file(QTEST_DIR . "/settings.json"))
-		{
-			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
-			$params = $params->pgsql;
-			$params->type = "pgsql";
-			$params->port = 5432;
-			$params->prefix = 'create_';
-			$params->options = array();
-			$params->options[\PDO::ATTR_PERSISTENT] = TRUE;
-		}
-		elseif (getenv('CI')) // Travis CI Connection Info
+		$params = get_json_config();
+		if (getenv('CI')) // Travis CI Connection Info
 		{
 			$params = array(
 				'host' => '127.0.0.1',
@@ -41,6 +31,16 @@ class PgSQLQBTest extends QBTest {
 				'type' => 'pgsql',
 				'prefix' => 'create_'
 			);
+		}
+		// Attempt to connect, if there is a test config file
+		else if ($params !== FALSE)
+		{
+			$params = $params->pgsql;
+			$params->type = "pgsql";
+			//$params->port = 5432;
+			//$params->prefix = 'create_';
+			$params->options = array();
+			$params->options[\PDO::ATTR_PERSISTENT] = TRUE;
 		}
 
 		self::$db = Query($params);

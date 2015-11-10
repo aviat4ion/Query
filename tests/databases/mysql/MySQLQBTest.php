@@ -20,16 +20,8 @@ class MySQLQBTest extends QBTest {
 
 	public static function setUpBeforeClass()
 	{
-		// Attempt to connect, if there is a test config file
-		if (is_file(QTEST_DIR . "/settings.json"))
-		{
-			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
-			$params = $params->mysql;
-			$params->type = "MySQL";
-			$params->options = array();
-			$params->options[PDO::ATTR_PERSISTENT]  = TRUE;
-		}
-		elseif (($var = getenv('CI'))) // Travis CI Connection Info
+		$params = get_json_config();
+		if (($var = getenv('CI'))) // Travis CI Connection Info
 		{
 			$params = array(
 				'host' => '127.0.0.1',
@@ -40,6 +32,14 @@ class MySQLQBTest extends QBTest {
 				'pass' => NULL,
 				'type' => 'mysql'
 			);
+		}
+		// Attempt to connect, if there is a test config file
+		else if ($params !== FALSE)
+		{
+			$params = $params->mysql;
+			$params->type = "MySQL";
+			$params->options = array();
+			$params->options[PDO::ATTR_PERSISTENT]  = TRUE;
 		}
 
 		self::$db = Query($params);

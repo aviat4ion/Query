@@ -29,24 +29,22 @@ class PgTest extends DBTest {
 		{
 			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
-
 	}
 
 	public static function setUpBeforeClass()
 	{
 		$class = "Query\\Drivers\\Pgsql\\Driver";
 
-		// Attempt to connect, if there is a test config file
-		if (is_file(QTEST_DIR . "/settings.json"))
-		{
-			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
-			$params = $params->pgsql;
-
-			self::$db = new $class("pgsql:dbname={$params->database};port=5432", $params->user, $params->pass);
-		}
-		elseif (($var = getenv('CI')))
+		$params = get_json_config();
+		if (($var = getenv('CI')))
 		{
 			self::$db = new $class('host=127.0.0.1;port=5432;dbname=test', 'postgres');
+		}
+		// Attempt to connect, if there is a test config file
+		else if ($params !== FALSE)
+		{
+			$params = $params->pgsql;
+			self::$db = new $class("pgsql:dbname={$params->database};port=5432", $params->user, $params->pass);
 		}
 
 		self::$db->set_table_prefix('create_');

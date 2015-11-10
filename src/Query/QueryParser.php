@@ -135,4 +135,4 @@ class QueryParser {
 
 }
 
-// End of query_parser.php
+// End of QueryParser.php

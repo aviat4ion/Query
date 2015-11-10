@@ -23,19 +23,19 @@ class MySQLTest extends DBTest {
 
 	public static function setUpBeforeClass()
 	{
-		// Attempt to connect, if there is a test config file
-		if (is_file(QTEST_DIR . "/settings.json"))
+		$params = get_json_config();
+		if (($var = getenv('CI')))
 		{
-			$params = json_decode(file_get_contents(QTEST_DIR . "/settings.json"));
+			self::$db = new \Query\Drivers\Mysql\Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
+		}
+		// Attempt to connect, if there is a test config file
+		else if ($params !== FALSE)
+		{
 			$params = $params->mysql;
 
 			self::$db = new \Query\Drivers\Mysql\Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
 				PDO::ATTR_PERSISTENT => TRUE
 			));
-		}
-		elseif (($var = getenv('CI')))
-		{
-			self::$db = new \Query\Drivers\Mysql\Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
 
 		self::$db->set_table_prefix('create_');

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="animeclient" default="full-build">
+<project name="query" default="full-build">
  <!-- By default, we assume all tools to be on the $PATH -->
  <property name="pdepend" value="pdepend"/>
  <property name="phpcpd"  value="phpcpd"/>
@@ -10,23 +10,23 @@
  <property name="phpunit" value="phpunit"/>
  <property name="sonar" value="sonar-runner"/>
 
- <!-- Use this when the tools are located as PHARs in ${basedir}/build/tools
- <property name="pdepend" value="${basedir}/build/tools/pdepend.phar"/>
- <property name="phpcpd"  value="${basedir}/build/tools/phpcpd.phar"/>
- <property name="phpcs"   value="${basedir}/build/tools/phpcs.phar"/>
- <property name="phpdox"  value="${basedir}/build/tools/phpdox.phar"/>
- <property name="phploc"  value="${basedir}/build/tools/phploc.phar"/>
- <property name="phpmd"   value="${basedir}/build/tools/phpmd.phar"/>
- <property name="phpunit" value="${basedir}/build/tools/phpunit.phar"/> -->
+ <!-- Use this when the tools are located as PHARs in build/tools
+ <property name="pdepend" value="build/tools/pdepend.phar"/>
+ <property name="phpcpd"  value="build/tools/phpcpd.phar"/>
+ <property name="phpcs"   value="build/tools/phpcs.phar"/>
+ <property name="phpdox"  value="build/tools/phpdox.phar"/>
+ <property name="phploc"  value="build/tools/phploc.phar"/>
+ <property name="phpmd"   value="build/tools/phpmd.phar"/>
+ <property name="phpunit" value="build/tools/phpunit.phar"/> -->
 
- <!-- Use this when the tools are managed by Composer in ${basedir}/vendor/bin
- <property name="pdepend" value="${basedir}/vendor/bin/pdepend"/>
- <property name="phpcpd"  value="${basedir}/vendor/bin/phpcpd"/>
- <property name="phpcs"   value="${basedir}/vendor/bin/phpcs"/>
- <property name="phpdox"  value="${basedir}/vendor/bin/phpdox"/>
- <property name="phploc"  value="${basedir}/vendor/bin/phploc"/>
- <property name="phpmd"   value="${basedir}/vendor/bin/phpmd"/>
- <property name="phpunit" value="${basedir}/vendor/bin/phpunit"/> -->
+ <!-- Use this when the tools are managed by Composer in vendor/bin
+ <property name="pdepend" value="vendor/bin/pdepend"/>
+ <property name="phpcpd"  value="vendor/bin/phpcpd"/>
+ <property name="phpcs"   value="vendor/bin/phpcs"/>
+ <property name="phpdox"  value="vendor/bin/phpdox"/>
+ <property name="phploc"  value="vendor/bin/phploc"/>
+ <property name="phpmd"   value="vendor/bin/phpmd"/>
+ <property name="phpunit" value="vendor/bin/phpunit"/> -->
 
  <target name="full-build"
          depends="prepare,static-analysis,phpunit,phpdox,sonar,-check-failure"
@@ -61,11 +61,11 @@
  <target name="clean"
          unless="clean.done"
          description="Cleanup build artifacts">
-  <delete dir="${basedir}/build/api"/>
-  <delete dir="${basedir}/build/coverage"/>
-  <delete dir="${basedir}/build/logs"/>
-  <delete dir="${basedir}/build/pdepend"/>
-  <delete dir="${basedir}/build/phpdox"/>
+  <delete dir="build/api"/>
+  <delete dir="build/coverage"/>
+  <delete dir="build/logs"/>
+  <delete dir="build/pdepend"/>
+  <delete dir="build/phpdox"/>
   <property name="clean.done" value="true"/>
  </target>
 
@@ -73,11 +73,11 @@
          unless="prepare.done"
          depends="clean"
          description="Prepare for build">
-  <mkdir dir="${basedir}/build/api"/>
-  <mkdir dir="${basedir}/build/coverage"/>
-  <mkdir dir="${basedir}/build/logs"/>
-  <mkdir dir="${basedir}/build/pdepend"/>
-  <mkdir dir="${basedir}/build/phpdox"/>
+  <mkdir dir="build/api"/>
+  <mkdir dir="build/coverage"/>
+  <mkdir dir="build/logs"/>
+  <mkdir dir="build/pdepend"/>
+  <mkdir dir="build/phpdox"/>
   <property name="prepare.done" value="true"/>
  </target>
 
@@ -87,14 +87,12 @@
   <apply executable="php" taskname="lint">
    <arg value="-l" />
 
-   <fileset dir="${basedir}/src">
+   <fileset dir="src">
     <include name="**/*.php" />
-    <modified />
    </fileset>
 
-   <fileset dir="${basedir}/tests">
+   <fileset dir="tests">
     <include name="**/*.php" />
-    <modified />
    </fileset>
   </apply>
 
@@ -106,8 +104,8 @@
          description="Measure project size using PHPLOC and print human readable output. Intended for usage on the command line.">
   <exec executable="${phploc}" taskname="phploc">
    <arg value="--count-tests" />
-   <arg path="${basedir}/src" />
-   <arg path="${basedir}/tests" />
+   <arg path="src" />
+   <arg path="tests" />
   </exec>
 
   <property name="phploc.done" value="true"/>
@@ -120,11 +118,11 @@
   <exec executable="${phploc}" taskname="phploc">
    <arg value="--count-tests" />
    <arg value="--log-csv" />
-   <arg path="${basedir}/build/logs/phploc.csv" />
+   <arg path="build/logs/phploc.csv" />
    <arg value="--log-xml" />
-   <arg path="${basedir}/build/logs/phploc.xml" />
-   <arg path="${basedir}/src" />
-   <arg path="${basedir}/tests" />
+   <arg path="build/logs/phploc.xml" />
+   <arg path="src" />
+   <arg path="tests" />
   </exec>
 
   <property name="phploc.done" value="true"/>
@@ -135,10 +133,10 @@
          depends="prepare"
          description="Calculate software metrics using PHP_Depend and log result in XML format. Intended for usage within a continuous integration environment.">
   <exec executable="${pdepend}" taskname="pdepend">
-   <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
-   <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
-   <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
-   <arg path="${basedir}/src" />
+   <arg value="--jdepend-xml=build/logs/jdepend.xml" />
+   <arg value="--jdepend-chart=build/pdepend/dependencies.svg" />
+   <arg value="--overview-pyramid=build/pdepend/overview-pyramid.svg" />
+   <arg path="src" />
   </exec>
 
   <property name="pdepend.done" value="true"/>
@@ -151,8 +149,8 @@
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
-   <arg path="${basedir}/src" />
-   <arg path="${basedir}/tests" />
+   <arg path="src" />
+   <arg path="tests" />
   </exec>
 
   <property name="phpcs.done" value="true"/>
@@ -164,12 +162,12 @@
          description="Find coding standard violations using PHP_CodeSniffer and log result in XML format. Intended for usage within a continuous integration environment.">
   <exec executable="${phpcs}" output="/dev/null" taskname="phpcs">
    <arg value="--report=checkstyle" />
-   <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+   <arg value="--report-file=build/logs/checkstyle.xml" />
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
-   <arg path="${basedir}/src" />
-   <arg path="${basedir}/tests" />
+   <arg path="src" />
+   <arg path="tests" />
   </exec>
 
   <property name="phpcs.done" value="true"/>
@@ -179,7 +177,7 @@
          unless="phpcpd.done"
          description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">
   <exec executable="${phpcpd}" taskname="phpcpd">
-   <arg path="${basedir}/src" />
+   <arg path="src" />
   </exec>
 
   <property name="phpcpd.done" value="true"/>
@@ -191,8 +189,8 @@
          description="Find duplicate code using PHPCPD and log result in XML format. Intended for usage within a continuous integration environment.">
   <exec executable="${phpcpd}" taskname="phpcpd">
    <arg value="--log-pmd" />
-   <arg path="${basedir}/build/logs/pmd-cpd.xml" />
-   <arg path="${basedir}/src" />
+   <arg path="build/logs/pmd-cpd.xml" />
+   <arg path="src" />
   </exec>
 
   <property name="phpcpd.done" value="true"/>
@@ -202,9 +200,9 @@
          unless="phpunit.done"
          depends="prepare"
          description="Run unit tests with PHPUnit">
-  <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
+  <exec executable="${phpunit}" taskname="phpunit">
    <arg value="--configuration"/>
-   <arg path="${basedir}/build/phpunit.xml"/>
+   <arg path="build/phpunit.xml"/>
   </exec>
 
   <property name="phpunit.done" value="true"/>
@@ -216,7 +214,7 @@
          description="Run unit tests with PHPUnit (without generating code coverage reports)">
   <exec executable="${phpunit}" failonerror="true" taskname="phpunit">
    <arg value="--configuration"/>
-   <arg path="${basedir}/build/phpunit.xml"/>
+   <arg path="build/phpunit.xml"/>
    <arg value="--no-coverage"/>
   </exec>
 
@@ -227,7 +225,7 @@
          unless="phpdox.done"
          depends="phploc-ci,phpcs-ci,phpunit"
          description="Generate project documentation using phpDox">
-  <exec executable="${phpdox}" dir="${basedir}/build" taskname="phpdox"/>
+  <exec executable="${phpdox}" dir="build" taskname="phpdox"/>
 
   <property name="phpdox.done" value="true"/>
  </target>

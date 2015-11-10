@@ -1,0 +1,20 @@
+{
+	"mysql": {
+		"host":"localhost",
+		"database":"test",
+		"user":"test",
+		"name":"my",
+		"alias":"my",
+		"prefix":"create_",
+		"pass":""
+	},
+	"pgsql": {
+        "host":"localhost",
+		"database":"test",
+		"name":"pg",
+		"user":"test",
+		"pass":"test",
+		"prefix":"create_",
+        "port":5432
+	}
+}

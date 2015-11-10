@@ -31,6 +31,34 @@ if ( ! defined('IS_QUERCUS'))
 }
 
 /**
+ * Unit test bootstrap - Using phpunit
+ */
+define('QTEST_DIR', realpath(__DIR__));
+define('QBASE_DIR', realpath(QTEST_DIR.'/../') . '/');
+define('QDS', DIRECTORY_SEPARATOR);
+
+// Include db classes
+require_once(QBASE_DIR . 'autoload.php');
+
+function get_json_config()
+{
+	$files = array(
+		__DIR__ . '/settings.json',
+		__DIR__ . '/settings.json.dist'
+	);
+
+	foreach($files as $file)
+	{
+		if (is_file($file))
+		{
+			return json_decode(file_get_contents($file));
+		}
+	}
+
+	return FALSE;
+}
+
+/**
  * Base class for TestCases
  */
 class Query_TestCase extends PHPUnit_Framework_TestCase {
@@ -70,39 +98,29 @@ class Query_TestCase extends PHPUnit_Framework_TestCase {
 	{
 		if (is_object($first))
 		{
-            $res = ($first === $second);
-        }
-        else
-        {
+			$res = ($first === $second);
+		}
+		else
+		{
 			$temp = $first;
-	        $first = uniqid("test");
-	        $is_ref = ($first === $second);
-	        $first = $temp;
-	        $res = $is_ref;
-        }
-        $this->assertTrue($res, $message);
+			$first = uniqid("test");
+			$is_ref = ($first === $second);
+			$first = $temp;
+			$res = $is_ref;
+		}
+		$this->assertTrue($res, $message);
 	}
 }
 
 // --------------------------------------------------------------------------
-
-/**
- * Unit test bootstrap - Using phpunit
- */
-define('QTEST_DIR', realpath(dirname(__FILE__)));
-define('QBASE_DIR', realpath(QTEST_DIR.'/../') . '/');
-define('QDS', DIRECTORY_SEPARATOR);
-
 $path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
 @unlink($path);
-
-// Include db classes
-require_once(QBASE_DIR . 'autoload.php');
 
 // Require base testing classes
 //require_once(QTEST_DIR . '/core/core_test.php');
 require_once(QTEST_DIR . '/core/base_db_test.php');
 //require_once(QTEST_DIR . '/core/query_parser_test.php');
 require_once(QTEST_DIR . '/core/base_query_builder_test.php');
+
 
 // End of bootstrap.php

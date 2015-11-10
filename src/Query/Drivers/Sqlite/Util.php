@@ -114,9 +114,7 @@ class Util extends \Query\AbstractUtil {
 			$sql_array[] = $r['sql'];
 		}
 
-		$sql_structure = implode(";\n", $sql_array) . ";";
-
-		return $sql_structure;
+		return implode(";\n", $sql_array) . ";";
 	}
 }
 // End of sqlite_util.php
