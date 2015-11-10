@@ -21,7 +21,7 @@ namespace Query;
  * @package Query
  * @subpackage Query_Builder
  */
-interface Query_Builder_Interface {
+interface QueryBuilderInterface {
 
 	// --------------------------------------------------------------------------
 	// ! Select Queries

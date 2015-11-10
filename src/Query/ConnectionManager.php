@@ -22,7 +22,7 @@ namespace Query;
  * @package Query
  * @subpackage Core
  */
-final class Connection_Manager {
+final class ConnectionManager {
 
 	/**
 	 * Map of named database connections
@@ -144,7 +144,7 @@ final class Connection_Manager {
 		}
 
 		// Create Query Builder object
-		$conn = new Query_Builder($db, new Query_Parser($db));
+		$conn = new QueryBuilder($db, new QueryParser($db));
 
 
 		// Save it for later

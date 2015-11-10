@@ -21,7 +21,7 @@ namespace Query;
  * Abstract Class for internal implementation methods of the Query Builder
  * @package Query
  */
-abstract class Abstract_Query_Builder {
+abstract class AbstractQueryBuilder {
 
 	// --------------------------------------------------------------------------
 	// ! Constants

@@ -23,7 +23,7 @@ namespace Query\Drivers\Sqlite;
  * @method mixed query(string $sql)
  * @method string quote(string $str)
  */
-class Util extends \Query\Abstract_Util {
+class Util extends \Query\AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's data

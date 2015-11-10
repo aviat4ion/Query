@@ -25,7 +25,7 @@ namespace Query;
  * @package Query
  * @subpackage Drivers
  */
-abstract class Abstract_Driver extends \PDO implements Driver_Interface {
+abstract class AbstractDriver extends \PDO implements DriverInterface {
 
 	/**
 	 * Reference to the last executed query

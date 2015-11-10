@@ -21,7 +21,7 @@ namespace Query;
  * @package Query
  * @subpackage Query_Builder
  */
-class Query_Parser {
+class QueryParser {
 
 	/**
 	 * DB Driver

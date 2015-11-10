@@ -21,7 +21,7 @@ namespace Query\Drivers\Mysql;
  * @package Query
  * @subpackage Drivers
  */
-class SQL extends \Query\Abstract_SQL {
+class SQL extends \Query\AbstractSQL {
 
 	/**
 	 * Limit clause

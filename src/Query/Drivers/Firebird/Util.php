@@ -21,7 +21,7 @@ namespace Query\Drivers\Firebird;
  * @package Query
  * @subpackage Drivers
  */
-class Util extends \Query\Abstract_Util {
+class Util extends \Query\AbstractUtil {
 
 	/**
 	 * Convenience public function to generate sql for creating a db table

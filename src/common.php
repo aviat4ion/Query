@@ -91,7 +91,7 @@ if ( ! function_exists('from_camel_case'))
 		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
 		$ret = $matches[0];
 		foreach ($ret as &$match) {
-			$match = strtolower($match);// == strtoupper($match) ? strtolower($match) : lcfirst($match);
+			$match = strtolower($match);
 		}
 		return implode('_', $ret);
 	}
@@ -206,7 +206,7 @@ if ( ! function_exists('Query'))
 	 */
 	function Query($params = '')
 	{
-		$cmanager = \Query\Connection_Manager::get_instance();
+		$cmanager = \Query\ConnectionManager::get_instance();
 
 		// If you are getting a previously created connection
 		if (is_scalar($params))

@@ -21,7 +21,7 @@ namespace Query\Drivers\Pgsql;
  * @package Query
  * @subpackage Drivers
  */
-class Util extends \Query\Abstract_Util {
+class Util extends \Query\AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's structure

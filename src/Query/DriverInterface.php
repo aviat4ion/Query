@@ -21,7 +21,7 @@ namespace Query;
  * @package Query
  * @subpackage Drivers
  */
-interface Driver_Interface {
+interface DriverInterface {
 
 	/**
 	 * Constructor/Connection method

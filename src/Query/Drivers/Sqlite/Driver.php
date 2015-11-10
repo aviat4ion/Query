@@ -21,7 +21,7 @@ namespace Query\Drivers\Sqlite;
  * @package Query
  * @subpackage Drivers
  */
-class Driver extends \Query\Abstract_Driver {
+class Driver extends \Query\AbstractDriver {
 
 	/**
 	 * Reference to the last executed sql query

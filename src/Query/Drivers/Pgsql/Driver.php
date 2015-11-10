@@ -21,7 +21,7 @@ namespace Query\Drivers\Pgsql;
  * @package Query
  * @subpackage Drivers
  */
-class Driver extends \Query\Abstract_Driver {
+class Driver extends \Query\AbstractDriver {
 
 	/**
 	 * Connect to a PosgreSQL database

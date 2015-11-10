@@ -25,7 +25,7 @@ namespace Query;
  * @method string quote_ident(string $sql)
  * @method string quote_table(string $sql)
  */
-abstract class Abstract_Util {
+abstract class AbstractUtil {
 
 	/**
 	 * Reference to the current connection object
@@ -37,7 +37,7 @@ abstract class Abstract_Util {
 	 *
 	 * @param Driver_Interface $conn
 	 */
-	public function __construct(Driver_Interface $conn)
+	public function __construct(DriverInterface $conn)
 	{
 		$this->conn = $conn;
 	}

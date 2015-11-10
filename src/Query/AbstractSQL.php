@@ -21,7 +21,7 @@ namespace Query;
  * @package Query
  * @subpackage Drivers
  */
-abstract class Abstract_SQL implements SQL_Interface {
+abstract class AbstractSQL implements SQLInterface {
 
 	/**
 	 * Limit clause
