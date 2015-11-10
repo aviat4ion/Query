@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	colors="true"
+	stopOnFailure="false"
+	bootstrap="../tests/bootstrap.php">
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../src/*</directory>
+			<file>autoload.php</file>
+		</whitelist>
+	</filter>
+	<testsuites>
+		<testsuite name="CoreTests">
+			<file>../tests/core/core_test.php</file>
+			<file>../tests/core/query_parser_test.php</file>
+			<file>../tests/core/connection_manager_test.php</file>
+		</testsuite>
+		<testsuite name="MySQLTests">
+			<file>../tests/databases/mysql/MySQLTest.php</file>
+			<file>../tests/databases/mysql/MySQLQBTest.php</file>
+		</testsuite>
+		<testsuite name="PgSQLTests">
+			<file>../tests/databases/pgsql/PgSQLTest.php</file>
+			<file>../tests/databases/pgsql/PgSQLQBTest.php</file>
+		</testsuite>
+		<testsuite name="SQLiteTests">
+			<file>../tests/databases/sqlite/SQLiteTest.php</file>
+			<file>../tests/databases/sqlite/SQLiteQBTest.php</file>
+		</testsuite>
+		<testsuite name="FirebirdTests">
+			<file>../tests/databases/firebird/FirebirdTest.php</file>
+			<file>../tests/databases/firebird/FirebirdQBTest.php</file>
+		</testsuite>
+		<!--<testsuite name="PDOFirebirdTests">
+			<file>../tests/databases/pdofirebird/PDOFirebirdTest.php</file>
+			<file>../tests/databases/pdofirebird/PDOFirebirdQBTest.php</file>
+		</testsuite>-->
+	</testsuites>
+	<logging>
+		<log type="coverage-html" target="coverage"/>
+		<log type="coverage-clover" target="logs/clover.xml"/>
+		<log type="coverage-crap4j" target="logs/crap4j.xml"/>
+		<log type="coverage-xml" target="logs/coverage" />
+		<log type="junit" target="logs/junit.xml" logIncompleteSkipped="false"/>
+	</logging>
+</phpunit>
