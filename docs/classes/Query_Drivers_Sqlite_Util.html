@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\Drivers\Sqlite\Util</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html#Query_Drivers_Sqlite">Query\Drivers\Sqlite</a>
+          </li>
+          <li class="separator">Util</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#hierarchy">Hierarchy</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="#history">History</a>
+          </li>
+          <li>
+            <a href="../source/Query/Drivers/Sqlite/Util.php.html#line26">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\Drivers\Sqlite\</small>Util</h1>
+        <h4>SQLite-specific backup, import and creation methods</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Util
+                extends <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util.html">Abstract_Util</a>
+            {<br/><ul class="none"><li>// methods</li><li>public string <a title="Query\Drivers\Sqlite\Util" href="../classes/Query_Drivers_Sqlite_Util/backup_data.html">backup_data</a>()
+                    </li><li>public string <a title="Query\Drivers\Sqlite\Util" href="../classes/Query_Drivers_Sqlite_Util/backup_structure.html">backup_structure</a>()
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Query\Abstract_Util">Abstract_Util</span></li><li>public void <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/__construct.html">__construct</a>()
+                        </li><li>public Driver_Interface <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/get_driver.html">get_driver</a>()
+                        </li><li>public string <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/create_table.html">create_table</a>()
+                        </li><li>public string <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/delete_table.html">delete_table</a>()
+                        </li><li>public abstract string <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/backup_structure.html">backup_structure</a>()
+                        </li><li>public abstract string <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/backup_data.html">backup_data</a>()
+                        </li></ul>
+
+            }<br/></div>
+        <h2 id="hierarchy">Hierarchy</h2>
+        <div class="styled">
+          <h4>Extends</h4>
+          <ul>
+            <li>
+              <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util.html">Query\Abstract_Util</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="backup_data"><a title="Query\Drivers\Sqlite\Util" href="../classes/Query_Drivers_Sqlite_Util/backup_data.html">backup_data()</a>
+                — Create an SQL backup file for the current database's data</li>
+            <li id="backup_structure"><a title="Query\Drivers\Sqlite\Util" href="../classes/Query_Drivers_Sqlite_Util/backup_structure.html">backup_structure()</a>
+                — Create an SQL backup file for the current database's structure</li>
+          </ul>
+          <h3>Inherited from <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util.html">Query\Abstract_Util</a></h3>
+          <h4>public</h4>
+          <ul>
+            <li id="backup_data"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/backup_data.html">backup_data()</a>
+                — Return an SQL file with the database data as insert statements</li>
+            <li id="backup_structure"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/backup_structure.html">backup_structure()</a>
+                — Return an SQL file with the database table structure</li>
+            <li id="create_table"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/create_table.html">create_table()</a>
+                — Convenience public function to generate sql for creating a db table</li>
+            <li id="delete_table"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/delete_table.html">delete_table()</a>
+                — Drop the selected table</li>
+            <li id="get_driver"><a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util/get_driver.html">get_driver()</a>
+                — Get the driver object for the current connection</li>
+          </ul>
+        </div>
+        <h2 id="history">History</h2>
+        <ul class="styled history">
+          <li>
+            <h3>2015-07-29T16:51:17-04:00 (commit #<span title="8511c6a445e935547b59a1d3736e7c08cf9633ea">8511c6a</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Move library into src folder, fix simpletest test runner</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-16T16:56:13-04:00 (commit #<span title="bfc3ea33ca5c8ddc8500b3d2d8857b9f95304417">bfc3ea3</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Reorganize drivers into a more modern layout</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T15:32:09-04:00 (commit #<span title="17354ee87eae48b1ca3f852f61543487d79573d3">17354ee</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Move SQL and Util classes to their own namespaces</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T13:42:01-04:00 (commit #<span title="ff77cea04160f92894b5f1363b61611b47d1cb44">ff77cea</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove __call method from util classes</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-08T15:19:47-04:00 (commit #<span title="d87de2ba4771a8d0dfd10f0ba87fc595600cf4f1">d87de2b</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix sqlite tests</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-03T16:49:01-04:00 (commit #<span title="3eeea75b54bda5b7a4b7e010379a274d79cb94f4">3eeea75</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Cut down on some duplication, and increase test coverage</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-03T14:44:03-04:00 (commit #<span title="a3339200f0c40d7a8948c70600df919a2657b691">a333920</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Rename db_util to abstract_util, mark create_table method as deprecated</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-02T17:08:50-04:00 (commit #<span title="e3fdad520663e7523300578504d3a2a9d74ef1ec">e3fdad5</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Namespaces!</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-02T10:31:59-04:00 (commit #<span title="02d4e0e52e5fca6e9b136257cdc498dc654baaf5">02d4e0e</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">improve query builder and connection manager, skip coverage of some soon-to-be-removed methods</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-03-20T11:20:30-04:00 (commit #<span title="af73f80558f659ba546de6a210e2e3d92a5add4a">af73f80</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove pointless constructor over-riding</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-03-17T20:20:53-04:00 (commit #<span title="97275ba4046356088023bed36ca655e08b0449e4">97275ba</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update some docblocks for __called methods</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-02-21T15:02:41-05:00 (commit #<span title="4702ccb2b3fec900f084ae9ca3be602db73717e2">4702ccb</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">No more skipped tests, and minor update to query formatting</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-02-18T15:18:01-05:00 (commit #<span title="1095e85762a00b258adba716fa0bcab683043ee3">1095e85</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix some docblocks, and update test files to 2014</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-02-07T14:18:08-05:00 (commit #<span title="29f824b562e6539f83cc9c3c47ffd11286217e04">29f824b</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Reorganize sqlite tests and improve coverage</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-01-02T12:36:50-05:00 (commit #<span title="6dc9ed0d525d715598020fb03478e1777f8a972f">6dc9ed0</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update copyright for the new year</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2013-01-02T14:26:42-05:00 (commit #<span title="0e44bbaf0d8650a3ff9c23f276706ded5875ff88">0e44bba</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy Warren (tim@timshomepage.net) /
+                        Commiter: Timothy Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update year</pre>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.2-dev - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>

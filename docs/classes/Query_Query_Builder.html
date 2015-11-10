@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\Query_Builder</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html#Query">Query</a>
+          </li>
+          <li class="separator">Query_Builder</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#hierarchy">Hierarchy</a>
+          </li>
+          <li>
+            <a href="#constants">Constants</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="#history">History</a>
+          </li>
+          <li>
+            <a href="../source/Query/Query_Builder.php.html#line27">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\</small>Query_Builder</h1>
+        <h4>Convenience class for creating sql queries - also the class that instantiates the specific db driver</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Query_Builder
+                extends <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder.html">Abstract_Query_Builder</a>
+                implements
+                <a title="Query\Query_Builder_Interface" href="../interfaces/Query_Query_Builder_Interface.html">Query_Builder_Interface</a>
+            {<br/><ul class="none"><li>// Inherited constants from <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder.html">Abstract_Query_Builder</a></li><li>const <a href="#KEY">KEY</a> = 0;</li><li>const <a href="#VALUE">VALUE</a> = 1;</li><li>const <a href="#BOTH">BOTH</a> = 2;</li></ul><ul class="none"><li>// members</li><li>private array <a href="#members">$string_vars</a> =
+                        ;
+                    </li><li>private array <a href="#members">$array_vars</a> =
+                        ;
+                    </li></ul><ul class="none"><li>// Inherited members from <span title="Query\Abstract_Query_Builder">Abstract_Query_Builder</span></li><li>protected string <a href="#members">$select_string</a>;
+                        </li><li>protected  <a href="#members">$from_string</a>;
+                        </li><li>protected  <a href="#members">$set_string</a>;
+                        </li><li>protected  <a href="#members">$order_string</a>;
+                        </li><li>protected  <a href="#members">$group_string</a>;
+                        </li><li>protected array <a href="#members">$set_array_keys</a>;
+                        </li><li>protected array <a href="#members">$order_array</a>;
+                        </li><li>protected array <a href="#members">$group_array</a>;
+                        </li><li>protected array <a href="#members">$values</a>;
+                        </li><li>protected array <a href="#members">$where_values</a>;
+                        </li><li>protected  <a href="#members">$limit</a>;
+                        </li><li>protected  <a href="#members">$offset</a>;
+                        </li><li>protected array <a href="#members">$query_map</a>;
+                        </li><li>protected  <a href="#members">$having_map</a>;
+                        </li><li>public string <a href="#members">$conn_name</a>;
+                        </li><li>public  <a href="#members">$queries</a>;
+                        </li><li>protected <span title="Query\bool">bool</span> <a href="#members">$explain</a>;
+                        </li><li>public <span title="Query\Driver_Interface">Driver_Interface</span> <a href="#members">$db</a>;
+                        </li><li>protected <span title="Query\Query_Parser">Query_Parser</span> <a href="#members">$parser</a>;
+                        </li><li>protected <span title="\Query\Driver\Abstract_Util">Abstract_Util</span> <a href="#members">$util</a>;
+                        </li><li>protected <span title="\Query\Driver\SQL_Interface">SQL_Interface</span> <a href="#members">$sql</a>;
+                        </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/__construct.html">__construct</a>()
+                    </li><li>public void <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/__destruct.html">__destruct</a>()
+                    </li><li>public mixed <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/__call.html">__call</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select.html">select</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select_max.html">select_max</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select_min.html">select_min</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select_avg.html">select_avg</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select_sum.html">select_sum</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/distinct.html">distinct</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/explain.html">explain</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/from.html">from</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/like.html">like</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_like.html">or_like</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/not_like.html">not_like</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_not_like.html">or_not_like</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/having.html">having</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_having.html">or_having</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/where.html">where</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_where.html">or_where</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/where_in.html">where_in</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_where_in.html">or_where_in</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/where_not_in.html">where_not_in</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_where_not_in.html">or_where_not_in</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/set.html">set</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/join.html">join</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/group_by.html">group_by</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/order_by.html">order_by</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/limit.html">limit</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/group_start.html">group_start</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_group_start.html">or_group_start</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_not_group_start.html">or_not_group_start</a>()
+                    </li><li>public Query_Builder <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/group_end.html">group_end</a>()
+                    </li><li>public PDOStatement <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get.html">get</a>()
+                    </li><li>public PDOStatement <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_where.html">get_where</a>()
+                    </li><li>public int <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/count_all.html">count_all</a>()
+                    </li><li>public int <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/count_all_results.html">count_all_results</a>()
+                    </li><li>public PDOStatement <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/insert.html">insert</a>()
+                    </li><li>public PDOStatement <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/insert_batch.html">insert_batch</a>()
+                    </li><li>public PDOStatement <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/update.html">update</a>()
+                    </li><li>public PDOStatement <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/delete.html">delete</a>()
+                    </li><li>public string <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_compiled_select.html">get_compiled_select</a>()
+                    </li><li>public string <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_compiled_insert.html">get_compiled_insert</a>()
+                    </li><li>public string <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_compiled_update.html">get_compiled_update</a>()
+                    </li><li>public string <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_compiled_delete.html">get_compiled_delete</a>()
+                    </li><li>public void <a title="Query\Query_Builder" href="../classes/Query_Query_Builder/reset_query.html">reset_query</a>()
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Query\Abstract_Query_Builder">Abstract_Query_Builder</span></li><li>protected array <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_mixed_set.html">_mixed_set</a>()
+                        </li><li>protected string <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_select.html">_select</a>()
+                        </li><li>protected string <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_get_compile.html">_get_compile</a>()
+                        </li><li>protected Query_Builder <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_like.html">_like</a>()
+                        </li><li>protected Query_Builder <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_having.html">_having</a>()
+                        </li><li>protected array <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_where.html">_where</a>()
+                        </li><li>protected Query_Builder <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_where_string.html">_where_string</a>()
+                        </li><li>protected Query_Builder <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_where_in.html">_where_in</a>()
+                        </li><li>protected PDOStatement <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_run.html">_run</a>()
+                        </li><li>protected void <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_append_map.html">_append_map</a>()
+                        </li><li>protected void <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_append_query.html">_append_query</a>()
+                        </li><li>protected string <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_compile_type.html">_compile_type</a>()
+                        </li><li>protected string <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_compile.html">_compile</a>()
+                        </li></ul>
+
+            }<br/></div>
+        <h2 id="hierarchy">Hierarchy</h2>
+        <div class="styled">
+          <h4>Extends</h4>
+          <ul>
+            <li>
+              <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder.html">Query\Abstract_Query_Builder</a>
+            </li>
+          </ul>
+          <h4>Implements</h4>
+          <ul>
+            <li>
+              <a title="Query\Query_Builder_Interface" href="../interfaces/Query_Query_Builder_Interface.html">Query\Query_Builder_Interface</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="constants">Constants</h2>
+        <table class="styled">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="KEY">KEY</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td id="VALUE">VALUE</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td id="BOTH">BOTH</td>
+              <td>2</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="array_vars"><strong>$array_vars</strong>
+                —
+                array<br/><span class="indent">Array class variables to be reset</span></li>
+            <li id="string_vars"><strong>$string_vars</strong>
+                —
+                array<br/><span class="indent">String class values to be reset</span></li>
+          </ul>
+          <h4>protected</h4>
+          <ul class="members">
+            <li id="explain"><strong>$explain</strong>
+                —
+                <a title="Query\bool" href="../classes/Query_bool.html">Query\bool</a><br/><span class="indent">Whether to do only an explain on the query</span></li>
+            <li id="from_string"><strong>$from_string</strong>
+                —
+                string<br/><span class="indent">Compiled 'from' clause</span></li>
+            <li id="group_array"><strong>$group_array</strong>
+                —
+                array<br/><span class="indent">Key/val pairs for group by clause</span></li>
+            <li id="group_string"><strong>$group_string</strong>
+                —
+                string<br/><span class="indent">Group by clause</span></li>
+            <li id="having_map"><strong>$having_map</strong>
+                —
+                array<br/><span class="indent">Map for having clause</span></li>
+            <li id="limit"><strong>$limit</strong>
+                —
+                string<br/><span class="indent">Value for limit string</span></li>
+            <li id="offset"><strong>$offset</strong>
+                —
+                int<br/><span class="indent">Value for offset in limit string</span></li>
+            <li id="order_array"><strong>$order_array</strong>
+                —
+                array<br/><span class="indent">Key/val pairs for order by clause</span></li>
+            <li id="order_string"><strong>$order_string</strong>
+                —
+                string<br/><span class="indent">Order by clause</span></li>
+            <li id="parser"><strong>$parser</strong>
+                —
+                <a title="Query\Query_Parser" href="../classes/Query_Query_Parser.html">Query\Query_Parser</a><br/><span class="indent">Query parser class instance</span></li>
+            <li id="query_map"><strong>$query_map</strong>
+                —
+                array<br/><span class="indent">Query component order mapping for complex select queries</span></li>
+            <li id="select_string"><strong>$select_string</strong>
+                —
+                string<br/><span class="indent">Compiled 'select' clause</span></li>
+            <li id="set_array_keys"><strong>$set_array_keys</strong>
+                —
+                array<br/><span class="indent">Keys for insert/update statement</span></li>
+            <li id="set_string"><strong>$set_string</strong>
+                —
+                string<br/><span class="indent">Compiled arguments for insert / update</span></li>
+            <li id="sql"><strong>$sql</strong>
+                —
+                <a title="\Query\Driver\SQL_Interface" href="../classes/_Query_Driver_SQL_Interface.html">\Query\Driver\SQL_Interface</a><br/><span class="indent">Alias to driver sql class</span></li>
+            <li id="util"><strong>$util</strong>
+                —
+                <a title="\Query\Driver\Abstract_Util" href="../classes/_Query_Driver_Abstract_Util.html">\Query\Driver\Abstract_Util</a><br/><span class="indent">Alias to driver util class</span></li>
+            <li id="values"><strong>$values</strong>
+                —
+                array<br/><span class="indent">Values to apply to prepared statements</span></li>
+            <li id="where_values"><strong>$where_values</strong>
+                —
+                array<br/><span class="indent">Values to apply to where clauses in prepared statements</span></li>
+          </ul>
+          <h4>public</h4>
+          <ul class="members">
+            <li id="conn_name"><strong>$conn_name</strong>
+                —
+                string<br/><span class="indent">Convenience property for connection management</span></li>
+            <li id="db"><strong>$db</strong>
+                —
+                <a title="Query\Driver_Interface" href="../classes/Query_Driver_Interface.html">Query\Driver_Interface</a><br/><span class="indent">The current database driver</span></li>
+            <li id="queries"><strong>$queries</strong>
+                —
+                array<br/><span class="indent">List of queries executed</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/__construct.html">__construct()</a>
+                — Constructor</li>
+            <li id="__destruct"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/__destruct.html">__destruct()</a>
+                — Destructor</li>
+            <li id="__call"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/__call.html">__call()</a>
+                — Calls a function further down the inheritence chain</li>
+            <li id="count_all"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/count_all.html">count_all()</a>
+                — Retreive the number of rows in the selected table</li>
+            <li id="count_all_results"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/count_all_results.html">count_all_results()</a>
+                — Retrieve the number of results for the generated query - used in place of the get() method</li>
+            <li id="delete"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/delete.html">delete()</a>
+                — Deletes data from a table</li>
+            <li id="distinct"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/distinct.html">distinct()</a>
+                — Adds the 'distinct' keyword to a query</li>
+            <li id="explain"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/explain.html">explain()</a>
+                — Tell the database to give you the query plan instead of result set</li>
+            <li id="from"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/from.html">from()</a>
+                — Specify the database table to select from</li>
+            <li id="get"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get.html">get()</a>
+                — Select and retrieve all records from the current table, and/or execute current compiled query</li>
+            <li id="get_compiled_delete"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_compiled_delete.html">get_compiled_delete()</a>
+                — Returns the generated 'delete' sql query</li>
+            <li id="get_compiled_insert"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_compiled_insert.html">get_compiled_insert()</a>
+                — Returns the generated 'insert' sql query</li>
+            <li id="get_compiled_select"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_compiled_select.html">get_compiled_select()</a>
+                — Returns the generated 'select' sql query</li>
+            <li id="get_compiled_update"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_compiled_update.html">get_compiled_update()</a>
+                — Returns the generated 'update' sql query</li>
+            <li id="get_where"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/get_where.html">get_where()</a>
+                — Convenience method for get() with a where clause</li>
+            <li id="group_by"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/group_by.html">group_by()</a>
+                — Group the results by the selected field(s)</li>
+            <li id="group_end"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/group_end.html">group_end()</a>
+                — Ends a query group</li>
+            <li id="group_start"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/group_start.html">group_start()</a>
+                — Adds a paren to the current query for query grouping</li>
+            <li id="having"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/having.html">having()</a>
+                — Generates a 'Having' clause</li>
+            <li id="insert"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/insert.html">insert()</a>
+                — Creates an insert clause, and executes it</li>
+            <li id="insert_batch"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/insert_batch.html">insert_batch()</a>
+                — Creates and executes a batch insertion query</li>
+            <li id="join"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/join.html">join()</a>
+                — Creates a join phrase in a compiled query</li>
+            <li id="like"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/like.html">like()</a>
+                — Creates a Like clause in the sql statement</li>
+            <li id="limit"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/limit.html">limit()</a>
+                — Set a limit on the current sql statement</li>
+            <li id="not_like"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/not_like.html">not_like()</a>
+                — Generates a NOT LIKE clause</li>
+            <li id="or_group_start"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_group_start.html">or_group_start()</a>
+                — Adds a paren to the current query for query grouping, prefixed with 'OR'</li>
+            <li id="or_having"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_having.html">or_having()</a>
+                — Generates a 'Having' clause prefixed with 'OR'</li>
+            <li id="or_like"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_like.html">or_like()</a>
+                — Generates an OR Like clause</li>
+            <li id="or_not_group_start"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_not_group_start.html">or_not_group_start()</a>
+                — Adds a paren to the current query for query grouping, prefixed with 'OR NOT'</li>
+            <li id="or_not_like"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_not_like.html">or_not_like()</a>
+                — Generates a OR NOT LIKE clause</li>
+            <li id="or_where"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_where.html">or_where()</a>
+                — Where clause prefixed with "OR"</li>
+            <li id="or_where_in"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_where_in.html">or_where_in()</a>
+                — Where in statement prefixed with "or"</li>
+            <li id="or_where_not_in"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/or_where_not_in.html">or_where_not_in()</a>
+                — OR WHERE NOT IN (FOO) clause</li>
+            <li id="order_by"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/order_by.html">order_by()</a>
+                — Order the results by the selected field(s)</li>
+            <li id="reset_query"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/reset_query.html">reset_query()</a>
+                — Clear out the class variables, so the next query can be run</li>
+            <li id="select"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select.html">select()</a>
+                — Specifies rows to select in a query</li>
+            <li id="select_avg"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select_avg.html">select_avg()</a>
+                — Selects the average value of a field from a query</li>
+            <li id="select_max"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select_max.html">select_max()</a>
+                — Selects the maximum value of a field from a query</li>
+            <li id="select_min"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select_min.html">select_min()</a>
+                — Selects the minimum value of a field from a query</li>
+            <li id="select_sum"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/select_sum.html">select_sum()</a>
+                — Selects the sum of a field from a query</li>
+            <li id="set"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/set.html">set()</a>
+                — Sets values for inserts / updates / deletes</li>
+            <li id="update"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/update.html">update()</a>
+                — Creates an update clause, and executes it</li>
+            <li id="where"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/where.html">where()</a>
+                — Specify condition(s) in the where clause of a query Note: this function works with key / value, or a passed array with key / value pairs</li>
+            <li id="where_in"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/where_in.html">where_in()</a>
+                — Where clause with 'IN' statement</li>
+            <li id="where_not_in"><a title="Query\Query_Builder" href="../classes/Query_Query_Builder/where_not_in.html">where_not_in()</a>
+                — WHERE NOT IN (FOO) clause</li>
+          </ul>
+          <h3>Inherited from <a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder.html">Query\Abstract_Query_Builder</a></h3>
+          <h4>protected</h4>
+          <ul>
+            <li id="_append_map"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_append_map.html">_append_map()</a>
+                — Add an additional set of mapping pairs to a internal map</li>
+            <li id="_append_query"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_append_query.html">_append_query()</a>
+                — Convert the prepared statement into readable sql</li>
+            <li id="_compile"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_compile.html">_compile()</a>
+                — String together the sql statements for sending to the db</li>
+            <li id="_compile_type"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_compile_type.html">_compile_type()</a>
+                — Sub-method for generating sql strings</li>
+            <li id="_get_compile"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_get_compile.html">_get_compile()</a>
+                — Helper function for returning sql strings</li>
+            <li id="_having"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_having.html">_having()</a>
+                — Simplify building having clauses</li>
+            <li id="_like"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_like.html">_like()</a>
+                — Simplify 'like' methods</li>
+            <li id="_mixed_set"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_mixed_set.html">_mixed_set()</a>
+                — Set values in the class, with either an array or key value pair</li>
+            <li id="_run"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_run.html">_run()</a>
+                — Executes the compiled query</li>
+            <li id="_select"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_select.html">_select()</a>
+                — Method to simplify select_ methods</li>
+            <li id="_where"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_where.html">_where()</a>
+                — Do all the repeditive stuff for where/having type methods</li>
+            <li id="_where_in"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_where_in.html">_where_in()</a>
+                — Simplify where_in methods</li>
+            <li id="_where_string"><a title="Query\Abstract_Query_Builder" href="../classes/Query_Abstract_Query_Builder/_where_string.html">_where_string()</a>
+                — Simplify generating where string</li>
+          </ul>
+        </div>
+        <h2 id="history">History</h2>
+        <ul class="styled history">
+          <li>
+            <h3>2015-11-10T06:45:55-05:00 (commit #<span title="e6ac4a70ad5297a1f0594903de424e1a9136329f">e6ac4a7</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Set up jenkins build</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-29T16:51:17-04:00 (commit #<span title="8511c6a445e935547b59a1d3736e7c08cf9633ea">8511c6a</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Move library into src folder, fix simpletest test runner</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-17T16:01:41-04:00 (commit #<span title="b4118ce591ee74fdd71d609ac40355e830d56765">b4118ce</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update docs</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-16T16:56:13-04:00 (commit #<span title="bfc3ea33ca5c8ddc8500b3d2d8857b9f95304417">bfc3ea3</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Reorganize drivers into a more modern layout</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-11-07T12:14:46-05:00 (commit #<span title="675581823288b094043f6c4f7d60f79573d361b2">6755818</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix some issues with multiple array items in where statements</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-08-08T13:48:20-04:00 (commit #<span title="dd672df81d8f6e423b4b8ed6d7b8077306a191a3">dd672df</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Reorganize classes to autoload by namespace</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-06-30T11:21:40-04:00 (commit #<span title="2ccac504da4d9c98a30ef995724f6af5f1e5385b">2ccac50</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix small docblock discrepency</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-06-30T11:16:50-04:00 (commit #<span title="d4838bada336fd8501fe883b4156289ef7280532">d4838ba</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Add an additional type check to limit</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-06-09T17:02:14-04:00 (commit #<span title="1abd835f47cb9b1b8640655e49f3c1e14d15aacc">1abd835</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Attempting some Quercus compatibility, test-suite runs with simpletest as well as PHPUnit</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-28T16:41:46-04:00 (commit #<span title="6a38213a62c63da11cb4df1b6b82a264199dd6ef">6a38213</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Improve some tests and docblocks</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T21:29:40-04:00 (commit #<span title="315dc5e1c51eac9691273de861c1c3fa11585bf6">315dc5e</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">method shortening</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T20:14:19-04:00 (commit #<span title="2ae38bea8816a61688dfaedcd8195ad01ca6adfe">2ae38be</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove some variable setting logic duplication</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T17:07:50-04:00 (commit #<span title="81be910014785d017da9ab9154553102d6c0ed49">81be910</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Split Query Builder class</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T14:50:53-04:00 (commit #<span title="993a2aba51bbc5cf27401200c46ed3f381a712a4">993a2ab</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Allow camelCase method calls, update interfaces with missing methods</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-23T15:53:16-04:00 (commit #<span title="aa5aa8eb9792c179e3a47f6d483e8ef229430c71">aa5aa8e</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Docblock fixes and more dependency injection</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-22T14:02:54-04:00 (commit #<span title="0a64edd4534d1eaa86b2c3973a57ad4df173b103">0a64edd</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix some typos and docblocks</pre>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.2-dev - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>

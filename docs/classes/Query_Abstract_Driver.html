@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\Abstract_Driver</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html#Query">Query</a>
+          </li>
+          <li class="separator">Abstract_Driver</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#hierarchy">Hierarchy</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="#history">History</a>
+          </li>
+          <li>
+            <a href="../source/Query/Abstract_Driver.php.html#line28">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\</small>Abstract_Driver</h1>
+        <h4>Base Database class</h4>
+        <p>Extends PDO to simplify cross-database issues</p>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Abstract_Driver
+                extends <a title="PDO" href="../classes/PDO.html">PDO</a>
+                implements
+                <a title="Query\Driver_Interface" href="../interfaces/Query_Driver_Interface.html">Driver_Interface</a>
+            {<br/><ul class="none"><li>// members</li><li>protected <span title="\PDOStatement">PDOStatement</span> <a href="#members">$statement</a>;
+                    </li><li>protected string <a href="#members">$escape_char</a> =
+                        '"';
+                    </li><li>protected <span title="Query\SQL_Interface">SQL_Interface</span> <a href="#members">$sql</a>;
+                    </li><li>protected <span title="Query\Abstract_Util">Abstract_Util</span> <a href="#members">$util</a>;
+                    </li><li>protected  <a href="#members">$last_query</a>;
+                    </li><li>protected string <a href="#members">$table_prefix</a> =
+                        '';
+                    </li><li>protected <span title="Query\bool">bool</span> <a href="#members">$has_truncate</a> =
+                        TRUE;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/__construct.html">__construct</a>()
+                    </li><li>protected void <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/_load_sub_classes.html">_load_sub_classes</a>()
+                    </li><li>public mixed <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/__call.html">__call</a>()
+                    </li><li>public string <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_last_query.html">get_last_query</a>()
+                    </li><li>public void <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/set_last_query.html">set_last_query</a>()
+                    </li><li>public SQL_Interface <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_sql.html">get_sql</a>()
+                    </li><li>public Abstract_Util <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_util.html">get_util</a>()
+                    </li><li>public void <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/set_table_prefix.html">set_table_prefix</a>()
+                    </li><li>public PDOStatement <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/prepare_query.html">prepare_query</a>()
+                    </li><li>public PDOStatement <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/prepare_execute.html">prepare_execute</a>()
+                    </li><li>public int <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/affected_rows.html">affected_rows</a>()
+                    </li><li>public string <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/prefix_table.html">prefix_table</a>()
+                    </li><li>public string <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/quote_table.html">quote_table</a>()
+                    </li><li>public string <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/quote_ident.html">quote_ident</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_schemas.html">get_schemas</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_tables.html">get_tables</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_dbs.html">get_dbs</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_views.html">get_views</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_sequences.html">get_sequences</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_functions.html">get_functions</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_procedures.html">get_procedures</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_triggers.html">get_triggers</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_system_tables.html">get_system_tables</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_columns.html">get_columns</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_fks.html">get_fks</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_indexes.html">get_indexes</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_types.html">get_types</a>()
+                    </li><li>public array <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/driver_query.html">driver_query</a>()
+                    </li><li>public int <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/num_rows.html">num_rows</a>()
+                    </li><li>public null|array&lt;string|array|null&gt; <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/insert_batch.html">insert_batch</a>()
+                    </li><li>public mixed <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/_quote.html">_quote</a>()
+                    </li><li>protected string <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/_prefix.html">_prefix</a>()
+                    </li><li>public PDOStatement <a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/truncate.html">truncate</a>()
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="PDO">PDO</span></li><li>public void <a title="PDO" href="../classes/PDO/__construct.html">__construct</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/beginTransaction.html">beginTransaction</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/commit.html">commit</a>()
+                        </li><li>public mixed <a title="PDO" href="../classes/PDO/errorCode.html">errorCode</a>()
+                        </li><li>public array <a title="PDO" href="../classes/PDO/errorInfo.html">errorInfo</a>()
+                        </li><li>public int <a title="PDO" href="../classes/PDO/exec.html">exec</a>()
+                        </li><li>public mixed <a title="PDO" href="../classes/PDO/getAttribute.html">getAttribute</a>()
+                        </li><li>public array <a title="PDO" href="../classes/PDO/getAvailableDrivers.html">getAvailableDrivers</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/inTransaction.html">inTransaction</a>()
+                        </li><li>public string <a title="PDO" href="../classes/PDO/lastInsertId.html">lastInsertId</a>()
+                        </li><li>public PDOStatement <a title="PDO" href="../classes/PDO/prepare.html">prepare</a>()
+                        </li><li>public PDOStatement <a title="PDO" href="../classes/PDO/query.html">query</a>()
+                        </li><li>public string <a title="PDO" href="../classes/PDO/quote.html">quote</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/rollBack.html">rollBack</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/setAttribute.html">setAttribute</a>()
+                        </li></ul>
+
+            }<br/></div>
+        <h2 id="hierarchy">Hierarchy</h2>
+        <div class="styled">
+          <h4>Extends</h4>
+          <ul>
+            <li>
+              <a title="PDO" href="../classes/PDO.html">PDO</a>
+            </li>
+          </ul>
+          <h4>Implements</h4>
+          <ul>
+            <li>
+              <a title="Query\Driver_Interface" href="../interfaces/Query_Driver_Interface.html">Query\Driver_Interface</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>protected</h4>
+          <ul class="members">
+            <li id="escape_char"><strong>$escape_char</strong>
+                —
+                string<br/><span class="indent">Character to escape identifiers</span></li>
+            <li id="has_truncate"><strong>$has_truncate</strong>
+                —
+                <a title="Query\bool" href="../classes/Query_bool.html">Query\bool</a><br/><span class="indent">Whether the driver supports 'TRUNCATE'</span></li>
+            <li id="last_query"><strong>$last_query</strong>
+                —
+                string<br/><span class="indent">Last query executed</span></li>
+            <li id="sql"><strong>$sql</strong>
+                —
+                <a title="Query\SQL_Interface" href="../classes/Query_SQL_Interface.html">Query\SQL_Interface</a><br/><span class="indent">Reference to sql class</span></li>
+            <li id="statement"><strong>$statement</strong>
+                —
+                <a title="\PDOStatement" href="../classes/_PDOStatement.html">\PDOStatement</a><br/><span class="indent">Reference to the last executed query</span></li>
+            <li id="table_prefix"><strong>$table_prefix</strong>
+                —
+                string<br/><span class="indent">Prefix to apply to table names</span></li>
+            <li id="util"><strong>$util</strong>
+                —
+                <a title="Query\Abstract_Util" href="../classes/Query_Abstract_Util.html">Query\Abstract_Util</a><br/><span class="indent">Reference to util class</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>protected</h4>
+          <ul>
+            <li id="_load_sub_classes"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/_load_sub_classes.html">_load_sub_classes()</a>
+                — Loads the subclasses for the driver</li>
+            <li id="_prefix"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/_prefix.html">_prefix()</a>
+                — Sets the table prefix on the passed string</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/__construct.html">__construct()</a>
+                — PDO constructor wrapper</li>
+            <li id="__call"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/__call.html">__call()</a>
+                — Allow invoke to work on table object</li>
+            <li id="_quote"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/_quote.html">_quote()</a>
+                — Helper method for quote_ident</li>
+            <li id="affected_rows"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/affected_rows.html">affected_rows()</a>
+                — Returns number of rows affected by an INSERT, UPDATE, DELETE type query</li>
+            <li id="driver_query"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/driver_query.html">driver_query()</a>
+                — Method to simplify retrieving db results for meta-data queries</li>
+            <li id="get_columns"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_columns.html">get_columns()</a>
+                — Retrieve column information for the current database table</li>
+            <li id="get_dbs"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_dbs.html">get_dbs()</a>
+                — Return list of dbs for the current connection, if possible</li>
+            <li id="get_fks"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_fks.html">get_fks()</a>
+                — Retrieve foreign keys for the table</li>
+            <li id="get_functions"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_functions.html">get_functions()</a>
+                — Return list of functions for the current database</li>
+            <li id="get_indexes"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_indexes.html">get_indexes()</a>
+                — Retrieve indexes for the table</li>
+            <li id="get_last_query"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_last_query.html">get_last_query()</a>
+                — Get the last sql query exexcuted</li>
+            <li id="get_procedures"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_procedures.html">get_procedures()</a>
+                — Return list of stored procedures for the current database</li>
+            <li id="get_schemas"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_schemas.html">get_schemas()</a>
+                — Return schemas for databases that list them</li>
+            <li id="get_sequences"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_sequences.html">get_sequences()</a>
+                — Return list of sequences for the current database, if they exist</li>
+            <li id="get_sql"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_sql.html">get_sql()</a>
+                — Get the SQL class for the current driver</li>
+            <li id="get_system_tables"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_system_tables.html">get_system_tables()</a>
+                — Retrieves an array of non-user-created tables for the connection/database</li>
+            <li id="get_tables"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_tables.html">get_tables()</a>
+                — Return list of tables for the current database</li>
+            <li id="get_triggers"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_triggers.html">get_triggers()</a>
+                — Return list of triggers for the current database</li>
+            <li id="get_types"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_types.html">get_types()</a>
+                — Retrieve list of data types for the database</li>
+            <li id="get_util"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_util.html">get_util()</a>
+                — Get the Util class for the current driver</li>
+            <li id="get_views"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/get_views.html">get_views()</a>
+                — Return list of views for the current database</li>
+            <li id="insert_batch"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/insert_batch.html">insert_batch()</a>
+                — Create sql for batch insert</li>
+            <li id="num_rows"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/num_rows.html">num_rows()</a>
+                — Return the number of rows returned for a SELECT query</li>
+            <li id="prefix_table"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/prefix_table.html">prefix_table()</a>
+                — Prefixes a table if it is not already prefixed</li>
+            <li id="prepare_execute"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/prepare_execute.html">prepare_execute()</a>
+                — Create and execute a prepared statement with the provided parameters</li>
+            <li id="prepare_query"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/prepare_query.html">prepare_query()</a>
+                — Simplifies prepared statements for database queries</li>
+            <li id="quote_ident"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/quote_ident.html">quote_ident()</a>
+                — Surrounds the string with the databases identifier escape characters</li>
+            <li id="quote_table"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/quote_table.html">quote_table()</a>
+                — Quote database table name, and set prefix</li>
+            <li id="set_last_query"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/set_last_query.html">set_last_query()</a>
+                — Set the last query sql</li>
+            <li id="set_table_prefix"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/set_table_prefix.html">set_table_prefix()</a>
+                — Set the common table name prefix</li>
+            <li id="truncate"><a title="Query\Abstract_Driver" href="../classes/Query_Abstract_Driver/truncate.html">truncate()</a>
+                — Empty the passed table</li>
+          </ul>
+          <h3>Inherited from <a title="PDO" href="../classes/PDO.html">PDO</a></h3>
+          <h4>public</h4>
+          <ul>
+            <li id="beginTransaction"><a title="PDO" href="../classes/PDO/beginTransaction.html">beginTransaction()</a>
+                — 
+   Initiates a transaction
+  </li>
+            <li id="commit"><a title="PDO" href="../classes/PDO/commit.html">commit()</a>
+                — 
+   Commits a transaction
+  </li>
+            <li id="errorCode"><a title="PDO" href="../classes/PDO/errorCode.html">errorCode()</a>
+                — 
+   Fetch the SQLSTATE associated with the last operation on the database handle
+  </li>
+            <li id="errorInfo"><a title="PDO" href="../classes/PDO/errorInfo.html">errorInfo()</a>
+                — 
+   Fetch extended error information associated with the last operation on the database handle
+  </li>
+            <li id="exec"><a title="PDO" href="../classes/PDO/exec.html">exec()</a>
+                — 
+   Execute an SQL statement and return the number of affected rows
+  </li>
+            <li id="getAttribute"><a title="PDO" href="../classes/PDO/getAttribute.html">getAttribute()</a>
+                — 
+   Retrieve a database connection attribute
+  </li>
+            <li id="getAvailableDrivers"><a title="PDO" href="../classes/PDO/getAvailableDrivers.html">getAvailableDrivers()</a>
+                — 
+   Return an array of available PDO drivers
+  </li>
+            <li id="inTransaction"><a title="PDO" href="../classes/PDO/inTransaction.html">inTransaction()</a>
+                — 
+   Checks if inside a transaction
+  </li>
+            <li id="lastInsertId"><a title="PDO" href="../classes/PDO/lastInsertId.html">lastInsertId()</a>
+                — 
+   Returns the ID of the last inserted row or sequence value
+  </li>
+            <li id="prepare"><a title="PDO" href="../classes/PDO/prepare.html">prepare()</a>
+                — 
+   Prepares a statement for execution and returns a statement object
+  </li>
+            <li id="query"><a title="PDO" href="../classes/PDO/query.html">query()</a>
+                — 
+   Executes an SQL statement, returning a result set as a PDOStatement object
+  </li>
+            <li id="quote"><a title="PDO" href="../classes/PDO/quote.html">quote()</a>
+                — 
+   Quotes a string for use in a query.
+  </li>
+            <li id="rollBack"><a title="PDO" href="../classes/PDO/rollBack.html">rollBack()</a>
+                — 
+   Rolls back a transaction
+  </li>
+            <li id="setAttribute"><a title="PDO" href="../classes/PDO/setAttribute.html">setAttribute()</a>
+                — 
+   Set an attribute
+  </li>
+          </ul>
+        </div>
+        <h2 id="history">History</h2>
+        <ul class="styled history">
+          <li>
+            <h3>2015-07-31T10:56:16-04:00 (commit #<span title="555865bdb79fcaaf042ad43e45b3c9b0abbe02cc">555865b</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update docs</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-30T16:40:30-04:00 (commit #<span title="225017adeeeaa26d1348397124d2a4469124506f">225017a</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Lots of refactoring -- accessors/mutators instead of direct access, reduce query builder test database connections, and simplify some logic</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-30T13:13:12-04:00 (commit #<span title="8669fcc4be52c007f6471283cd57c77aad50a3cb">8669fcc</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Some scrutinizer fixes</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-29T16:51:17-04:00 (commit #<span title="8511c6a445e935547b59a1d3736e7c08cf9633ea">8511c6a</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Move library into src folder, fix simpletest test runner</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-17T16:01:41-04:00 (commit #<span title="b4118ce591ee74fdd71d609ac40355e830d56765">b4118ce</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update docs</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-17T15:38:06-04:00 (commit #<span title="28f5cb293471df47ad9ea08d161e911d296e5fb6">28f5cb2</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix Firebird tests and speed up tests by using one database connection for each query builder datbase test</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-16T16:56:13-04:00 (commit #<span title="bfc3ea33ca5c8ddc8500b3d2d8857b9f95304417">bfc3ea3</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Reorganize drivers into a more modern layout</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-08-08T13:48:20-04:00 (commit #<span title="dd672df81d8f6e423b4b8ed6d7b8077306a191a3">dd672df</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Reorganize classes to autoload by namespace</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-08-08T12:48:14-04:00 (commit #<span title="0a0548d754c132f3e0484b040da8fb75b4187f75">0a0548d</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove some useless code, extract an exception into its own class</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-07-15T11:01:47-04:00 (commit #<span title="2ae206462d3dc498e7ff8e057ff7d1f12faf61b5">2ae2064</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix some very minor code quality issues</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-06-30T11:01:44-04:00 (commit #<span title="7fd90aba76deffa0b55c611d9d9fdf4751af1176">7fd90ab</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove Table Builder classes</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-28T16:41:46-04:00 (commit #<span title="6a38213a62c63da11cb4df1b6b82a264199dd6ef">6a38213</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Improve some tests and docblocks</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T20:14:19-04:00 (commit #<span title="2ae38bea8816a61688dfaedcd8195ad01ca6adfe">2ae38be</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove some variable setting logic duplication</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T17:07:50-04:00 (commit #<span title="81be910014785d017da9ab9154553102d6c0ed49">81be910</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Split Query Builder class</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T16:28:48-04:00 (commit #<span title="9da781dd26b3e8ed4201a8ab9b8171fa452ff8f6">9da781d</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix access of member variable</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2014-04-24T16:25:04-04:00 (commit #<span title="5b531cf58879ebef87bb8de045f5b6e8649f1bf8">5b531cf</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">De-duplicate truncate method of drivers</pre>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.2-dev - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>

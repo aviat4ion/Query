@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\SQL_Interface</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../interfaces.html">Interfaces</a>
+          </li>
+          <li class="separator">
+            <a href="../interfaces.html#Query">Query</a>
+          </li>
+          <li class="separator">SQL_Interface</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#violations">Violations</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/Query/SQL_Interface.php.html#line24">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\</small>SQL_Interface</h1>
+        <h4>parent for database manipulation subclasses</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">interface SQL_Interface
+            {<br/><ul class="none"><li>// methods</li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/limit.html">limit</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/explain.html">explain</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/random.html">random</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/db_list.html">db_list</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/table_list.html">table_list</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/system_table_list.html">system_table_list</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/view_list.html">view_list</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/trigger_list.html">trigger_list</a>()
+                    </li><li>public NULL <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/function_list.html">function_list</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/procedure_list.html">procedure_list</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/sequence_list.html">sequence_list</a>()
+                    </li><li>public string|array <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/type_list.html">type_list</a>()
+                    </li><li>public string <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/column_list.html">column_list</a>()
+                    </li><li>public array <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/fk_list.html">fk_list</a>()
+                    </li><li>public array <a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/index_list.html">index_list</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="column_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/column_list.html">column_list()</a>
+                — Get information about the columns in the specified table</li>
+            <li id="db_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/db_list.html">db_list()</a>
+                — Returns sql to list other databases</li>
+            <li id="explain"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/explain.html">explain()</a>
+                — Modify the query to get the query plan</li>
+            <li id="fk_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/fk_list.html">fk_list()</a>
+                — Get the list of foreign keys for the current table</li>
+            <li id="function_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/function_list.html">function_list()</a>
+                — Return sql to list functions</li>
+            <li id="index_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/index_list.html">index_list()</a>
+                — Get the list of indexes for the current table</li>
+            <li id="limit"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/limit.html">limit()</a>
+                — Get database specific sql for limit clause</li>
+            <li id="procedure_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/procedure_list.html">procedure_list()</a>
+                — Return sql to list stored procedures</li>
+            <li id="random"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/random.html">random()</a>
+                — Get the sql for random ordering</li>
+            <li id="sequence_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/sequence_list.html">sequence_list()</a>
+                — Return sql to list sequences</li>
+            <li id="system_table_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/system_table_list.html">system_table_list()</a>
+                — Returns sql to list system tables</li>
+            <li id="table_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/table_list.html">table_list()</a>
+                — Returns sql to list tables</li>
+            <li id="trigger_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/trigger_list.html">trigger_list()</a>
+                — Returns sql to list triggers</li>
+            <li id="type_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/type_list.html">type_list()</a>
+                — Return sql to list database field types</li>
+            <li id="view_list"><a title="Query\SQL_Interface" href="../interfaces/Query_SQL_Interface/view_list.html">view_list()</a>
+                — Returns sql to list views</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.2-dev - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>
