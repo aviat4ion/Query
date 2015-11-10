@@ -21,7 +21,7 @@ class Query_Parser_Test extends Query_TestCase {
 	public function setUp()
 	{
 		$db = new Query\Drivers\Sqlite\Driver("sqlite::memory:");
-		$this->parser = new Query\Query_Parser($db);
+		$this->parser = new Query\QueryParser($db);
 	}
 
 	public function TestGeneric()

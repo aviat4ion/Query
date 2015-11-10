@@ -64,10 +64,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	/**
 	 * Constructor
 	 *
-	 * @param Driver_Interface $db
-	 * @param Query_Parser $parser
+	 * @param DriverInterface $db
+	 * @param QueryParser $parser
 	 */
-	public function __construct(Driver_Interface $db, Query_Parser $parser)
+	public function __construct(DriverInterface $db, QueryParser $parser)
 	{
 		// Inject driver and parser
 		$this->db = $db;

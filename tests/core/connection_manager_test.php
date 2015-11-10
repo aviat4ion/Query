@@ -6,7 +6,7 @@ class Connection_Manager_Test extends Query_TestCase {
 
 	public static function setUpBeforeClass()
 	{
-		self::$instance = Query\Connection_Manager::get_instance();
+		self::$instance = Query\ConnectionManager::get_instance();
 	}
 
 	// --------------------------------------------------------------------------
@@ -72,7 +72,7 @@ class Connection_Manager_Test extends Query_TestCase {
 		);
 
 		$conn = self::$instance->connect($params);
-		$this->assertInstanceOf('Query\\Query_Builder', $conn);
+		$this->assertInstanceOf('Query\\QueryBuilder', $conn);
 
 
 		// Check that the connection just made is returned from the get_connection method
@@ -94,7 +94,7 @@ class Connection_Manager_Test extends Query_TestCase {
 		);
 
 		$conn = self::$instance->connect($params);
-		$this->assertInstanceOf('Query\\Query_Builder', $conn);
+		$this->assertInstanceOf('Query\\QueryBuilder', $conn);
 
 		$this->assertEqual($conn, self::$instance->get_connection('conn_manager'));
 	}
