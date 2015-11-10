@@ -21,7 +21,7 @@ namespace Query;
  * @package Query
  * @subpackage Drivers
  */
-interface SQL_Interface {
+interface SQLInterface {
 
 	/**
 	 * Get database specific sql for limit clause

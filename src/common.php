@@ -179,9 +179,9 @@ if ( ! function_exists('regex_in_array'))
 
 		foreach($array as $item)
 		{
-			if (is_scalar($item))
+			if (is_scalar($item) && preg_match($pattern, $item))
 			{
-				if (preg_match($pattern, $item)) return TRUE;
+				return TRUE;
 			}
 		}
 
