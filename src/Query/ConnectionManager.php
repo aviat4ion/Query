@@ -123,7 +123,7 @@ final class ConnectionManager {
 	 * Parse the passed parameters and return a connection
 	 *
 	 * @param \stdClass $params
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function connect(\stdClass $params)
 	{

@@ -129,7 +129,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select($fields)
 	{
@@ -175,7 +175,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $field
 	 * @param string|FALSE $as
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select_max($field, $as=FALSE)
 	{
@@ -191,7 +191,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select_min($field, $as=FALSE)
 	{
@@ -207,7 +207,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select_avg($field, $as=FALSE)
 	{
@@ -223,7 +223,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select_sum($field, $as=FALSE)
 	{
@@ -237,7 +237,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function distinct()
 	{
@@ -251,7 +251,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	/**
 	 * Tell the database to give you the query plan instead of result set
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function explain()
 	{
@@ -265,7 +265,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * Specify the database table to select from
 	 *
 	 * @param string $tblname
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function from($tblname)
 	{
@@ -293,7 +293,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function like($field, $val, $pos='both')
 	{
@@ -308,7 +308,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_like($field, $val, $pos='both')
 	{
@@ -323,7 +323,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function not_like($field, $val, $pos='both')
 	{
@@ -338,7 +338,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_not_like($field, $val, $pos='both')
 	{
@@ -354,7 +354,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function having($key, $val=array())
 	{
@@ -368,7 +368,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_having($key, $val=array())
 	{
@@ -387,7 +387,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param mixed $escape
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function where($key, $val=array(), $escape=NULL)
 	{
@@ -401,7 +401,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $key
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_where($key, $val=array())
 	{
@@ -415,7 +415,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param mixed $field
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function where_in($field, $val=array())
 	{
@@ -429,7 +429,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_where_in($field, $val=array())
 	{
@@ -443,7 +443,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function where_not_in($field, $val=array())
 	{
@@ -457,7 +457,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_where_not_in($field, $val=array())
 	{
@@ -473,7 +473,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function set($key, $val = NULL)
 	{
@@ -499,7 +499,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function join($table, $condition, $type='')
 	{
@@ -524,7 +524,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function group_by($field)
 	{
@@ -550,7 +550,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function order_by($field, $type="")
 	{
@@ -589,7 +589,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @param int $limit
 	 * @param int|bool $offset
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function limit($limit, $offset=FALSE)
 	{
@@ -606,7 +606,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function group_start()
 	{
@@ -623,7 +623,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_group_start()
 	{
@@ -638,7 +638,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_not_group_start()
 	{
@@ -652,7 +652,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	/**
 	 * Ends a query group
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function group_end()
 	{
