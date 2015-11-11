@@ -584,7 +584,10 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	public function insert_batch($table, $data=array())
 	{
 		$first_row = current($data);
-		if ( ! is_array($first_row)) return NULL;
+		if ( ! is_array($first_row))
+		{
+			return NULL;
+		}
 
 		// Values for insertion
 		$vals = array();

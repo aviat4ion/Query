@@ -221,7 +221,10 @@ final class ConnectionManager {
 	 */
 	private function create_dsn($dbtype, \stdClass $params)
 	{
-		if (strtolower($dbtype) === 'pdo_firebird') $dbtype = 'firebird';
+		if (strtolower($dbtype) === 'pdo_firebird')
+		{
+			$dbtype = 'firebird';
+		}
 
 		$pairs = array();
 
