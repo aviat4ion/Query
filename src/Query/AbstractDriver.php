@@ -161,7 +161,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	/**
 	 * Get the SQL class for the current driver
 	 *
-	 * @return SQL_Interface
+	 * @return SQLInterface
 	 */
 	public function get_sql()
 	{
@@ -173,7 +173,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	/**
 	 * Get the Util class for the current driver
 	 *
-	 * @return Abstract_Util
+	 * @return AbstractUtil
 	 */
 	public function get_util()
 	{
