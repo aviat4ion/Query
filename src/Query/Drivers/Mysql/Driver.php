@@ -49,7 +49,10 @@ class Driver extends \Query\AbstractDriver {
 			));
 		}
 
-		if (strpos($dsn, 'mysql') === FALSE) $dsn = 'mysql:'.$dsn;
+		if (strpos($dsn, 'mysql') === FALSE)
+		{
+			$dsn = 'mysql:'.$dsn;
+		}
 
 		parent::__construct($dsn, $username, $password, $options);
 	}

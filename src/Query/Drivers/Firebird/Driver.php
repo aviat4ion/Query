@@ -79,7 +79,7 @@ class Driver extends \Query\AbstractDriver {
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = array())
 	{
-		$connect_function = (isset($options[\PDO::ATTR_PERSISTENT]) && $options[\PDO::ATTR_PERSISTENT] == TRUE)
+		$connect_function = (isset($options[\PDO::ATTR_PERSISTENT]) && $options[\PDO::ATTR_PERSISTENT])
 			? '\\fbird_pconnect'
 			: '\\fbird_connect';
 
@@ -87,7 +87,10 @@ class Driver extends \Query\AbstractDriver {
 		$this->service = \fbird_service_attach('localhost', $user, $pass);
 
 		// Throw an exception to make this match other pdo classes
-		if ( ! \is_resource($this->conn)) throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
+		if ( ! \is_resource($this->conn))
+		{
+			throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
+		}
 
 		// Load these classes here because this
 		// driver does not call the constructor
@@ -191,7 +194,10 @@ class Driver extends \Query\AbstractDriver {
 
 		// Throw the error as a exception
 		$err_string = \fbird_errmsg() . "Last query:" . $this->get_last_query();
-		if ($this->statement_link === FALSE) throw new \PDOException($err_string, \fbird_errcode(), NULL);
+		if ($this->statement_link === FALSE)
+		{
+			throw new \PDOException($err_string, \fbird_errcode(), NULL);
+		}
 
 		$this->statement = new Result($this->statement_link, $this);
 
@@ -213,7 +219,10 @@ class Driver extends \Query\AbstractDriver {
 		$this->statement_link = \fbird_prepare($this->conn, $query);
 
 		// Throw the error as an exception
-		if ($this->statement_link === FALSE) throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
+		if ($this->statement_link === FALSE)
+		{
+			throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
+		}
 
 		$this->statement = new Result($this->statement_link, $this);
 
@@ -366,7 +375,10 @@ class Driver extends \Query\AbstractDriver {
 	public function insert_batch($table, $data=array())
 	{
 		// Each member of the data array needs to be an array
-		if ( ! is_array(current($data))) return NULL;
+		if ( ! is_array(current($data)))
+		{
+			return NULL;
+		}
 
 		// Start the block of sql statements
 		$sql = "EXECUTE BLOCK AS BEGIN\n";

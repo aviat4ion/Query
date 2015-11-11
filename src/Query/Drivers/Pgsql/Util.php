@@ -62,7 +62,10 @@ class Util extends \Query\AbstractUtil {
 			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			// Don't add to the file if the table is empty
-			if (count($obj_res) < 1) continue;
+			if (count($obj_res) < 1)
+			{
+				continue;
+			}
 
 			$res = NULL;
 

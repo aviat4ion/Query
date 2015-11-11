@@ -88,7 +88,10 @@ class SQL extends \Query\AbstractSQL {
 	 */
 	public function table_list($database='')
 	{
-		if ( ! empty($database)) return "SHOW TABLES FROM `{$database}`";
+		if ( ! empty($database))
+		{
+			return "SHOW TABLES FROM `{$database}`";
+		}
 
 		return 'SHOW TABLES';
 	}

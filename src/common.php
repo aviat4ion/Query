@@ -147,7 +147,10 @@ if ( ! function_exists('array_column'))
 		$output = array();
 
 		// No point iterating over an empty array
-		if (empty($array)) return $array;
+		if (empty($array))
+		{
+			return $array;
+		}
 
 		foreach($array as $inner_array)
 		{
@@ -175,7 +178,10 @@ if ( ! function_exists('regex_in_array'))
 	 */
 	function regex_in_array(Array $array, $pattern)
 	{
-		if (empty($array)) return FALSE;
+		if (empty($array))
+		{
+			return FALSE;
+		}
 
 		foreach($array as $item)
 		{

@@ -60,7 +60,10 @@ class Util extends \Query\AbstractUtil {
 			unset($res);
 
 			// If the row is empty, continue;
-			if (empty($obj_res)) continue;
+			if (empty($obj_res))
+			{
+				continue;
+			}
 
 			// Nab the column names by getting the keys of the first row
 			$columns = array_keys(current($obj_res));

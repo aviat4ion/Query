@@ -677,10 +677,16 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function get($table='', $limit=FALSE, $offset=FALSE)
 	{
 		// Set the table
-		if ( ! empty($table)) $this->from($table);
+		if ( ! empty($table))
+		{
+			$this->from($table);
+		}
 
 		// Set the limit, if it exists
-		if (is_int($limit)) $this->limit($limit, $offset);
+		if (is_int($limit))
+		{
+			$this->limit($limit, $offset);
+		}
 
 		return $this->_run("get", $table);
 	}
@@ -732,7 +738,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function count_all_results($table='')
 	{
 		// Set the table
-		if ( ! empty($table)) $this->from($table);
+		if ( ! empty($table))
+		{
+			$this->from($table);
+		}
 
 		$result = $this->_run('get', $table);
 		$rows = $result->fetchAll();
@@ -751,8 +760,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function insert($table, $data=array())
 	{
-		// No use duplicating logic!
-		if ( ! empty($data)) $this->set($data);
+		if ( ! empty($data))
+		{
+			$this->set($data);
+		}
 
 		return $this->_run("insert", $table);
 	}
@@ -787,8 +798,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function update($table, $data=array())
 	{
-		// No use duplicating logic!
-		if ( ! empty($data)) $this->set($data);
+		if ( ! empty($data))
+		{
+			$this->set($data);
+		}
 
 		return $this->_run("update", $table);
 	}
@@ -805,7 +818,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function delete($table, $where='')
 	{
 		// Set the where clause
-		if ( ! empty($where)) $this->where($where);
+		if ( ! empty($where))
+		{
+			$this->where($where);
+		}
 
 		return $this->_run("delete", $table);
 	}
@@ -826,7 +842,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function get_compiled_select($table='', $reset=TRUE)
 	{
 		// Set the table
-		if ( ! empty($table)) $this->from($table);
+		if ( ! empty($table))
+		{
+			$this->from($table);
+		}
 
 		return $this->_get_compile('select', $table, $reset);
 	}

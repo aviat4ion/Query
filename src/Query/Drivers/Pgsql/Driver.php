@@ -34,7 +34,10 @@ class Driver extends \Query\AbstractDriver {
 	 */
 	public function __construct($dsn, $username=null, $password=null, array $options=array())
 	{
-		if (strpos($dsn, 'pgsql') === FALSE) $dsn = 'pgsql:'.$dsn;
+		if (strpos($dsn, 'pgsql') === FALSE)
+		{
+			$dsn = 'pgsql:'.$dsn;
+		}
 
 		parent::__construct($dsn, $username, $password, $options);
 	}
@@ -78,7 +81,10 @@ SQL;
 		{
 			foreach(array('update', 'delete') AS $type)
 			{
-				if ( ! isset($value_map[$key[$type]])) continue;
+				if ( ! isset($value_map[$key[$type]]))
+				{
+					continue;
+				}
 
 				$key[$type] = $value_map[$key[$type]];
 			}

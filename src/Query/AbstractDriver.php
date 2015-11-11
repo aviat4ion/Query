@@ -220,7 +220,10 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 		{
 			// Parameters are 1-based, the data is 0-based
 			// So, if the key is numeric, add 1
-			if(is_numeric($k)) $k++;
+			if(is_numeric($k))
+			{
+				$k++;
+			}
 			$this->statement->bindValue($k, $value);
 		}
 
@@ -533,7 +536,10 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 
 		// Return if the values are returned instead of a query,
 		// or if the query doesn't apply to the driver
-		if ( ! is_string($query)) return $query;
+		if ( ! is_string($query))
+		{
+			return $query;
+		}
 
 		// Run the query!
 		$res = $this->query($query);

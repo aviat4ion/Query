@@ -229,7 +229,10 @@ abstract class AbstractQueryBuilder {
 		// Escape the identifiers
 		$field = $this->db->quote_ident($field);
 
-		if ( ! is_string($as)) return $field;
+		if ( ! is_string($as))
+		{
+			return $field;
+		}
 
 
 		$as = $this->db->quote_ident($as);
@@ -251,7 +254,10 @@ abstract class AbstractQueryBuilder {
 		$sql = $this->_compile($type, $table);
 
 		// Reset the query builder for the next query
-		if ($reset) $this->reset_query();
+		if ($reset)
+		{
+			$this->reset_query();
+		}
 
 		return $sql;
 	}

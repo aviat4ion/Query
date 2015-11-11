@@ -47,7 +47,10 @@ class Driver extends \Query\AbstractDriver {
 	 */
 	public function __construct($dsn, $user=NULL, $pass=NULL, array $driver_options=array())
 	{
-		if (strpos($dsn, 'sqlite:') === FALSE) $dsn = "sqlite:{$dsn}";
+		if (strpos($dsn, 'sqlite:') === FALSE)
+		{
+			$dsn = "sqlite:{$dsn}";
+		}
 
 		parent::__construct($dsn, $user, $pass);
 	}
@@ -117,7 +120,10 @@ class Driver extends \Query\AbstractDriver {
 		// --------------------------------------------------------------------------
 
 		// Each member of the data array needs to be an array
-		if ( ! is_array(current($data))) return NULL;
+		if ( ! is_array(current($data)))
+		{
+			return NULL;
+		}
 
 		// Start the block of sql statements
 		$table = $this->quote_table($table);

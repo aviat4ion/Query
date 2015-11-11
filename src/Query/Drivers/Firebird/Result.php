@@ -61,7 +61,10 @@ class Result extends \PDOStatement {
 	 */
 	public function __construct($link, Driver $db = NULL)
 	{
-		if ( ! is_null($db)) $this->db = $db;
+		if ( ! is_null($db))
+		{
+			$this->db = $db;
+		}
 		$this->statement = $link;
 		$this->setFetchMode(\PDO::FETCH_ASSOC);
 		$this->row = -1;

@@ -38,7 +38,10 @@ class Util extends \Query\AbstractUtil {
 		foreach($dbs as &$d)
 		{
 			// Skip built-in dbs
-			if ($d == 'mysql') continue;
+			if ($d == 'mysql')
+			{
+				continue;
+			}
 
 			// Get the list of tables
 			$tables = $this->get_driver()->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
@@ -48,7 +51,10 @@ class Util extends \Query\AbstractUtil {
 				$array = $this->get_driver()->driver_query("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
 				$row = current($array);
 
-				if ( ! isset($row['Create Table'])) continue;
+				if ( ! isset($row['Create Table']))
+				{
+					continue;
+				}
 
 
 				$string[] = $row['Create Table'];
@@ -86,7 +92,10 @@ class Util extends \Query\AbstractUtil {
 			$rows = $res->fetchAll(\PDO::FETCH_ASSOC);
 
 			// Skip empty tables
-			if (count($rows) < 1) continue;
+			if (count($rows) < 1)
+			{
+				continue;
+			}
 
 			// Nab the column names by getting the keys of the first row
 			$columns = @array_keys($rows[0]);
