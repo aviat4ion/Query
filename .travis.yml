@@ -17,7 +17,9 @@ before_script:
 
 script:
   - mkdir -p build/logs
+  - cd build
   - phpunit --coverage-clover build/logs/clover.xml
+  - cd ../
 
 after_script:
     - wget https://scrutinizer-ci.com/ocular.phar
