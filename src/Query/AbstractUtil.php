@@ -6,7 +6,7 @@
  *
  * @package		Query
  * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2014
+ * @copyright	Copyright (c) 2012 - 2015
  * @link 		https://github.com/aviat4ion/Query
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
@@ -35,7 +35,7 @@ abstract class AbstractUtil {
 	/**
 	 * Save a reference to the connection object for later use
 	 *
-	 * @param Driver_Interface $conn
+	 * @param DriverInterface $conn
 	 */
 	public function __construct(DriverInterface $conn)
 	{

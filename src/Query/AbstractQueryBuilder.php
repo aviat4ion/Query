@@ -6,7 +6,7 @@
  *
  * @package		Query
  * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2014
+ * @copyright	Copyright (c) 2012 - 2015
  * @link 		https://github.com/aviat4ion/Query
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
@@ -163,19 +163,19 @@ abstract class AbstractQueryBuilder {
 
 	/**
 	 * Query parser class instance
-	 * @var Query_Parser
+	 * @var QueryParser
 	 */
 	public $parser;
 
 	/**
 	 * Alias to driver util class
-	 * @var \Query\Driver\Abstract_Util
+	 * @var \Query\Driver\AbstractUtil
 	 */
 	public $util;
 
 	/**
 	 * Alias to driver sql class
-	 * @var \Query\Driver\SQL_Interface
+	 * @var \Query\Driver\SQLInterface
 	 */
 	public $sql;
 
@@ -376,7 +376,7 @@ abstract class AbstractQueryBuilder {
 			$last_item = end($this->query_map);
 
 			// Determine the correct conjunction
-			$conjunctionList = array_pluck($this->query_map, 'conjunction');
+			$conjunctionList = array_column($this->query_map, 'conjunction');
 			if (empty($this->query_map) || ( ! regex_in_array($conjunctionList, "/^ ?\n?WHERE/i")))
 			{
 				$conj = "\nWHERE ";

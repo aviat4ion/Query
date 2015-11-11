@@ -6,7 +6,7 @@
  *
  * @package		Query
  * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2014
+ * @copyright	Copyright (c) 2012 - 2015
  * @link 		https://github.com/aviat4ion/Query
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
@@ -83,7 +83,7 @@ final class ConnectionManager {
 	 * Return  a connection manager instance
 	 *
 	 * @staticvar null $instance
-	 * @return Connection_Manager
+	 * @return ConnectionManager
 	 */
 	public static function get_instance()
 	{
@@ -98,7 +98,7 @@ final class ConnectionManager {
 	 * Returns the connection specified by the name given
 	 *
 	 * @param string|array|object $name
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 * @throws \InvalidArgumentException
 	 */
 	public function get_connection($name = '')

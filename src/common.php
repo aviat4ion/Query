@@ -7,7 +7,7 @@
  * @package		Query
  * @subpackage	Core
  * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2014
+ * @copyright	Copyright (c) 2012 - 2015
  * @link 		https://github.com/aviat4ion/Query
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
@@ -132,7 +132,7 @@ if ( ! function_exists('array_zipper'))
 
 // --------------------------------------------------------------------------
 
-if ( ! function_exists('array_pluck'))
+if ( ! function_exists('array_column'))
 {
 	/**
 	 * Get an array out of an multi-dimensional array based on a common
@@ -142,7 +142,7 @@ if ( ! function_exists('array_pluck'))
 	 * @param string $key
 	 * @return array
 	 */
-	function array_pluck(Array $array, $key)
+	function array_column(Array $array, $key)
 	{
 		$output = array();
 

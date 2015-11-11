@@ -6,7 +6,7 @@
  *
  * @package		Query
  * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2014
+ * @copyright	Copyright (c) 2012 - 2015
  * @link 		https://github.com/aviat4ion/Query
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
@@ -19,7 +19,7 @@ namespace Query;
  * Interface defining the Query Builder class
  *
  * @package Query
- * @subpackage Query_Builder
+ * @subpackage QueryBuilder
  */
 interface QueryBuilderInterface {
 
@@ -31,7 +31,7 @@ interface QueryBuilderInterface {
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select($fields);
 
@@ -42,7 +42,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select_max($field, $as=FALSE);
 
@@ -53,7 +53,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select_min($field, $as=FALSE);
 
@@ -64,7 +64,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select_avg($field, $as=FALSE);
 
@@ -75,7 +75,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function select_sum($field, $as=FALSE);
 
@@ -84,7 +84,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function distinct();
 
@@ -93,7 +93,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Shows the query plan for the query
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function explain();
 
@@ -103,7 +103,7 @@ interface QueryBuilderInterface {
 	 * Specify the database table to select from
 	 *
 	 * @param string $tblname
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function from($tblname);
 
@@ -117,7 +117,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function like($field, $val, $pos='both');
 
@@ -129,7 +129,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_like($field, $val, $pos='both');
 
@@ -141,7 +141,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function not_like($field, $val, $pos='both');
 
@@ -153,7 +153,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_not_like($field, $val, $pos='both');
 
@@ -166,7 +166,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function having($key, $val=array());
 
@@ -177,7 +177,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_having($key, $val=array());
 
@@ -193,7 +193,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param bool $escape
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function where($key, $val=array(), $escape = NULL);
 
@@ -204,7 +204,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $key
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_where($key, $val=array());
 
@@ -215,7 +215,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $field
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function where_in($field, $val=array());
 
@@ -226,7 +226,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_where_in($field, $val=array());
 
@@ -237,7 +237,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function where_not_in($field, $val=array());
 
@@ -248,7 +248,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_where_not_in($field, $val=array());
 
@@ -261,7 +261,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function set($key, $val = NULL);
 
@@ -273,7 +273,7 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function join($table, $condition, $type='');
 
@@ -283,7 +283,7 @@ interface QueryBuilderInterface {
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function group_by($field);
 
@@ -294,7 +294,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function order_by($field, $type="");
 
@@ -305,7 +305,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param int $limit
 	 * @param int|bool $offset
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function limit($limit, $offset=FALSE);
 
@@ -316,7 +316,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function group_start();
 
@@ -326,7 +326,7 @@ interface QueryBuilderInterface {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_group_start();
 
@@ -336,7 +336,7 @@ interface QueryBuilderInterface {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function or_not_group_start();
 
@@ -345,7 +345,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Ends a query group
 	 *
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	public function group_end();
 
@@ -500,4 +500,4 @@ interface QueryBuilderInterface {
 	public function reset_query();
 }
 
-// End of query_builder_interface.php
+// End of QueryBuilder_interface.php

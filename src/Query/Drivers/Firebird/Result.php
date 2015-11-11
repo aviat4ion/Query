@@ -6,7 +6,7 @@
  *
  * @package		Query
  * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2014
+ * @copyright	Copyright (c) 2012 - 2015
  * @link 		https://github.com/aviat4ion/Query
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
@@ -48,7 +48,7 @@ class Result extends \PDOStatement {
 	/**
 	 * Reference to the db drive to de-duplicate error functions
 	 *
-	 * @var \Query\Drivers\Firebird\Driver
+	 * @var Driver
 	 */
 	private $db;
 
