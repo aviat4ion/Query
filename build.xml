@@ -8,6 +8,7 @@
  <property name="phploc"  value="phploc"/>
  <property name="phpmd"   value="phpmd"/>
  <property name="phpunit" value="phpunit"/>
+ <property name="sonar" value="sonar-runner"/>
 
  <!-- Use this when the tools are located as PHARs in build/tools
  <property name="pdepend" value="build/tools/pdepend.phar"/>
@@ -28,7 +29,7 @@
  <property name="phpunit" value="vendor/bin/phpunit"/> -->
 
  <target name="full-build"
-         depends="prepare,static-analysis,phpunit,phpdox,-check-failure"
+         depends="prepare,static-analysis,phpunit,phpdox,sonar,-check-failure"
          description="Performs static analysis, runs the tests, and generates project documentation"/>
 
  <target name="full-build-parallel"
@@ -228,6 +229,12 @@
 
   <property name="phpdox.done" value="true"/>
  </target>
+
+<target name="sonar"
+		depends="phpunit">
+	<exec executable="${sonar}" taskname="sonar"/>
+	<property name="sonar.done" value="true"/>
+</target>
 
  <target name="-check-failure">
   <fail message="PHPUnit did not finish successfully">
