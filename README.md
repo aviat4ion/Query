@@ -17,7 +17,7 @@ A query builder/database abstraction layer, using prepared queries for security.
 ## Databases Supported
 
 * Firebird (via interbase extension)
-* Firebird (via PDO) -- expirimental
+* Firebird (via PDO) -- experimental
 * MySQL
 * PostgreSQL
 * SQLite
@@ -61,18 +61,18 @@ The parameters required depend on the database.
 You can use the `Query()` function as a reference to the last connected database. E.g.
 
 ```php
+<?php
 Query()->get('table_name');
-```
 
-or
-
-```php
+// or
 $result = Query()->query($sql);
 ```
 
 If the `alias` key is set in the parameters, you can refer to a specific database connection
 
 ```php
+<?php
+
 // Set the alias in the connection parameters
 $params['alias'] = 'old';
 
@@ -95,6 +95,7 @@ To run a plain query, `$db->query($sql)`
 An example of a moderately complex query:
 
 ```php
+<?php
 $query = $db->select('id, key as k, val')
 	->from('table t')
 	->where('k >', 3)
@@ -118,15 +119,19 @@ LIMIT 3 OFFSET 1
 
 To retreive the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
 
-	$query = $db->get('table_name');
+```php
+<?php
+$query = $db->get('table_name');
 
-	$results = $query->fetchAll(PDO::FETCH_ASSOC);
+$results = $query->fetchAll(PDO::FETCH_ASSOC);
+```
 
 
 ### Inserting / Updating
 
 An example of an insert query:
 ```php
+<?php
 $query = $db->set('foo', 'bar')
 	->set('foobar', 'baz')
 	->where('foo !=', 'bar')
@@ -136,6 +141,7 @@ $query = $db->set('foo', 'bar')
 An example of an update query:
 
 ```php
+<?php
 $query = $db->set('foo', 'bar')
 	->set('foobar', 'baz')
 	->where('foo !=', 'bar')
