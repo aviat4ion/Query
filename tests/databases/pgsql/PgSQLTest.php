@@ -36,7 +36,7 @@ class PgTest extends DBTest {
 		$class = "Query\\Drivers\\Pgsql\\Driver";
 
 		$params = get_json_config();
-		if (($var = getenv('CI')))
+		if (($var = getenv('TRAVIS')))
 		{
 			self::$db = new $class('host=127.0.0.1;port=5432;dbname=test', 'postgres');
 		}

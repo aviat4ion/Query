@@ -24,7 +24,7 @@ class MySQLTest extends DBTest {
 	public static function setUpBeforeClass()
 	{
 		$params = get_json_config();
-		if (($var = getenv('CI')))
+		if (($var = getenv('TRAVIS')))
 		{
 			self::$db = new \Query\Drivers\Mysql\Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}

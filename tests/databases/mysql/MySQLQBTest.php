@@ -21,7 +21,7 @@ class MySQLQBTest extends QBTest {
 	public static function setUpBeforeClass()
 	{
 		$params = get_json_config();
-		if (($var = getenv('CI'))) // Travis CI Connection Info
+		if (($var = getenv('TRAVIS'))) // Travis CI Connection Info
 		{
 			$params = array(
 				'host' => '127.0.0.1',
