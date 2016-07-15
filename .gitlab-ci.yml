@@ -7,6 +7,7 @@ services:
     - postgres:latest
 
 variables:
+    MYSQL_ROOT_PASSWORD: foo-bar-baz
     MYSQL_DATABASE: test
     MYSQL_USER: test
     MYSQL_PASSWORD: test
