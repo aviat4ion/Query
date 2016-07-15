@@ -1,0 +1,35 @@
+before_script:
+    # Install dependencies
+    - bash build/docker_install.sh > /dev/null
+
+services:
+    - mysql:latest
+    - postgres:latest
+
+variables:
+    MYSQL_DATABASE: test
+    MYSQL_USER: test
+    MYSQL_PASSWORD: test
+    POSTGRES_DB: test
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test
+
+test:5.4:
+    image: php:5.4
+    script:
+      - phpunit -c build
+
+test:5.5:
+    image: php:5.5
+    script:
+      - phpunit -c build
+
+test:5.6:
+    image: php:5.6
+    script:
+      - phpunit -c build
+
+test:7:
+    image: php:7
+    script:
+      - phpunit -c build
