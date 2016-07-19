@@ -44,7 +44,7 @@ class PgTest extends DBTest {
 		else if ($params !== FALSE)
 		{
 			$params = $params->pgsql;
-			self::$db = new $class("pgsql:dbname={$params->database};port=5432", $params->user, $params->pass);
+			self::$db = new $class("pgsql:host={$params->host};dbname={$params->database};port=5432", $params->user, $params->pass);
 		}
 
 		self::$db->set_table_prefix('create_');
