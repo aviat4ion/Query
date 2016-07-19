@@ -3,6 +3,9 @@
 # We need to install dependencies only for Docker
 [[ ! -e /.dockerenv ]] && [[ ! -e /.dockerinit ]] && exit 0
 
+# Where am I?
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 set -xe
 
 # Install git (the php image doesn't have it) which is required by composer
@@ -14,7 +17,7 @@ curl -Lo /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
 chmod +x /usr/local/bin/phpunit
 
 # Set up build config
-mv ../tests/settings.json.dist ../tests/settings.json
+mv "$DIR/../tests/settings.json.dist" "$DIR/../tests/settings.json"
 
 # Install mysql driver
 # Here you can install any other extension that you need
