@@ -68,7 +68,7 @@ class MySQLQBTest extends QBTest {
 		// The important thing is that there is an array
 		// of results returned
 		$this->assertTrue(is_array($res));
-		$this->assertTrue(count($res) > 1);
-		$this->assertTrue(array_key_exists('table', $res));
+		$this->assertTrue(count(array_keys($res[0])) > 1);
+		$this->assertTrue(array_key_exists('table', $res[0]));
 	}
 }
