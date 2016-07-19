@@ -13,6 +13,9 @@ apt-get install git libpq-dev libmysqlclient18 unzip -yqq
 curl -Lo /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
 chmod +x /usr/local/bin/phpunit
 
+# Set up build config
+mv ../tests/settings.json.dist ../tests/settings.json
+
 # Install mysql driver
 # Here you can install any other extension that you need
 docker-php-ext-install pdo_mysql
