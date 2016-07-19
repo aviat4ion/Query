@@ -15,6 +15,11 @@ variables:
     POSTGRES_USER: test
     POSTGRES_PASSWORD: test
 
+test:5.5:
+    image: php:5.5
+    script:
+      - phpunit -c build --no-coverage
+
 test:5.6:
     image: php:5.6
     script:
