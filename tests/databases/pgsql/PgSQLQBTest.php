@@ -66,11 +66,6 @@ class PgSQLQBTest extends QBTest {
 
 	public function testQueryExplain()
 	{
-		if (getenv('CI'))
-		{
-			$this->markTestSkipped("Skip this test on CI, because the check is Postgres version dependent");
-		}
-
 		$query = self::$db->select('id, key as k, val')
 			->explain()
 			->where('id >', 1)
@@ -79,7 +74,14 @@ class PgSQLQBTest extends QBTest {
 
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-		$expected = array (
+		// The exact results are version dependent
+		// The important thing is that there is an array
+		// of results returned
+		$this->assertTrue(is_array($res));
+		$this->assertTrue(count($res) > 1);
+		$this->assertTrue(array_key_exists('QUERY PLAN', $res[0]));
+
+		/*$expected = array (
 		  array (
 		    'QUERY PLAN' => 'Limit  (cost=6.31..10.54 rows=2 width=68)',
 		  ),
@@ -103,7 +105,7 @@ class PgSQLQBTest extends QBTest {
 		  ),
 		);
 
-		$this->assertEqual($expected, $res);
+		$this->assertEqual($expected, $res);*/
 	}
 
 	public function testBackupStructure()
