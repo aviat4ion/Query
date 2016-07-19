@@ -17,7 +17,8 @@ curl -Lo /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
 chmod +x /usr/local/bin/phpunit
 
 # Set up build config
-mv "$DIR/../tests/settings.json.dist" "$DIR/../tests/settings.json"
+rm "$DIR/../tests/settings.json.dist"
+mv "$DIR/../tests/settings-ci.json" "$DIR/../tests/settings.json"
 
 # Install mysql driver
 # Here you can install any other extension that you need

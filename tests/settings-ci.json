@@ -1,0 +1,29 @@
+{
+	"mysql": {
+		"host":"mysql",
+		"database":"test",
+		"user":"test",
+		"name":"my",
+		"alias":"my",
+		"prefix":"create_",
+		"pass":""
+	},
+	"pgsql": {
+		"host":"postgres",
+		"database":"test",
+		"name":"pg",
+		"user":"test",
+		"pass":"test",
+		"prefix":"create_",
+		"port":5432
+	},
+	"oci": {
+		"host":"localhost",
+		"database":"query_test",
+		"name": "oci",
+		"user": "query_test",
+		"pass": "test",
+		"prefix": "create_",
+		"port":49161
+	}
+}
