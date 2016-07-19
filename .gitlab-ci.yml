@@ -18,9 +18,9 @@ variables:
 test:5.6:
     image: php:5.6
     script:
-      - phpunit -c build
+      - phpunit -c build --no-coverage
 
 test:7:
     image: php:7
     script:
-      - phpunit -c build
+      - phpunit -c build --no-coverage
