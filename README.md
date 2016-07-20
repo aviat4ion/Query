@@ -1,30 +1,31 @@
 # Query
 
-A query builder/database abstraction layer, using prepared queries for security.
+A query builder/database abstraction layer, using prepared statements for security.
 
 [![Build Status](https://jenkins.timshomepage.net/buildStatus/icon?job=query)](https://jenkins.timshomepage.net/job/query/)
-[![Code Coverage](https://scrutinizer-ci.com/g/timw4mail/Query/badges/coverage.png?s=a96df5417089f90250aeb59013a3964b1ff9b588)](https://scrutinizer-ci.com/g/timw4mail/Query/)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/timw4mail/Query/badges/quality-score.png?s=ce0f185067d7049cfe3f0aba2ca30ed56fb97b20)](https://scrutinizer-ci.com/g/timw4mail/Query/)
+[![Code Coverage](https://scrutinizer-ci.com/g/aviat4ion/Query/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/aviat4ion/Query/?branch=develop)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aviat4ion/Query/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/aviat4ion/Query/?branch=develop)
 [![Latest Stable Version](https://poser.pugx.org/aviat4ion/query/v/stable.png)](https://packagist.org/packages/aviat4ion/query)
 [![Total Downloads](https://poser.pugx.org/aviat4ion/query/downloads.png)](https://packagist.org/packages/aviat4ion/query)
 [![Latest Unstable Version](https://poser.pugx.org/aviat4ion/query/v/unstable.png)](https://packagist.org/packages/aviat4ion/query)
 [![License](https://poser.pugx.org/aviat4ion/query/license.png)](http://www.dbad-license.org/)
 
 ## Requirements
-* Pdo extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
-* PHP 5.3+
+* PDO extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
+* Supported version of PHP (Older versions may work, but are not supported)
 
 ## Databases Supported
 
 * Firebird (via interbase extension)
-* Firebird (via PDO) -- experimental
 * MySQL
 * PostgreSQL
 * SQLite
 
 ## Including Query in your application
 
-To include Query in your PHP project, just include the `autoload.php` file. This will automatically load the classes that are supported by the current PHP installation.
+* Install via composer and include `vendor/autoload.php`
+or
+* Just include the `autoload.php` file. This will automatically load the classes that are supported by the current PHP installation.
 
 
 ## Connecting
@@ -35,14 +36,14 @@ Create a connection array or object similar to this:
 <?php
 
 $params = array(
-	'type' => 'mysql',
-	'host' => 'localhost',
+	'type' => 'mysql', // mysql, pgsql, firebird, sqlite
+	'host' => 'localhost', // address or socket
 	'user' => 'root',
 	'pass' => '',
 	'port' => '3306',
 	'database' => 'test_db',
 
-	// Only required
+	// Only required for
 	// SQLite or Firebird
 	'file' => '/path/to/db/file',
 
@@ -81,9 +82,9 @@ Query('old')->query($sql);
 ```
 
 ### Running Queries
-Query uses the same interface as CodeIgniter's [Active Record class](http://ellislab.com/codeigniter/user-guide/database/active_record.html). However, it does not implement the `update_batch` or caching methods.
+Query uses the same interface as CodeIgniter's [Query Builder](http://www.codeigniter.com/user_guide/database/query_builder.html) class. However, it does not implement the `update_batch` or caching methods. For specific query builder methods, see the [class documentation](https://gitdev.timshomepage.net/Query/docs/classes/Query_QueryBuilder.html#methods).
 
-####You can also run queries manually.
+#### You can also run queries manually.
 
 To run a prepared statement, call
 `$db->prepare_execute($sql, $params)`.
@@ -105,7 +106,7 @@ $query = $db->select('id, key as k, val')
 	->get();
 ```
 
-This will generate a query similar to (with this being the output for a Postgres database):
+This will generate a query similar to (with this being the output for a PostgreSQL database):
 
 ```sql
 SELECT "id", "key" AS "k", "val"
@@ -117,7 +118,7 @@ LIMIT 3 OFFSET 1
 ```
 
 
-To retreive the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
+To retrieve the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
 
 ```php
 <?php
@@ -148,5 +149,5 @@ $query = $db->set('foo', 'bar')
 	->update('table');
 ```
 
-The `set` method can also take an array as a paramater, instead of setting individual values.
+The `set` method can also take an array as a parameter, instead of setting individual values.
 
