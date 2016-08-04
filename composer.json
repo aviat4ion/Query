@@ -1,5 +1,5 @@
 {
-	"name":"aviat4ion/query",
+	"name":"aviat/query",
 	"type":"library",
 	"description":"Database Query Builder and Abstraction layer",
 	"keywords":[
@@ -21,7 +21,7 @@
 		"role": "Developer"
 	}],
 	"require": {
-		"php": ">=5.3"
+		"php": ">=5.4"
 	},
 	"autoload": {
 		"files": ["autoload.php"]
