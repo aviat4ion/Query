@@ -5,10 +5,10 @@ A query builder/database abstraction layer, using prepared statements for securi
 [![Build Status](https://jenkins.timshomepage.net/buildStatus/icon?job=query)](https://jenkins.timshomepage.net/job/query/)
 [![Code Coverage](https://scrutinizer-ci.com/g/aviat4ion/Query/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/aviat4ion/Query/?branch=develop)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aviat4ion/Query/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/aviat4ion/Query/?branch=develop)
-[![Latest Stable Version](https://poser.pugx.org/aviat4ion/query/v/stable.png)](https://packagist.org/packages/aviat4ion/query)
-[![Total Downloads](https://poser.pugx.org/aviat4ion/query/downloads.png)](https://packagist.org/packages/aviat4ion/query)
-[![Latest Unstable Version](https://poser.pugx.org/aviat4ion/query/v/unstable.png)](https://packagist.org/packages/aviat4ion/query)
-[![License](https://poser.pugx.org/aviat4ion/query/license.png)](http://www.dbad-license.org/)
+[![Latest Stable Version](https://poser.pugx.org/aviat/query/v/stable.png)](https://packagist.org/packages/aviat/query)
+[![Total Downloads](https://poser.pugx.org/aviat/query/downloads.png)](https://packagist.org/packages/aviat/query)
+[![Latest Unstable Version](https://poser.pugx.org/aviat/query/v/unstable.png)](https://packagist.org/packages/aviat/query)
+[![License](https://poser.pugx.org/aviat/query/license.png)](http://www.dbad-license.org/)
 
 ## Requirements
 * PDO extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
