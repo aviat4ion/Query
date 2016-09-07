@@ -184,7 +184,7 @@ class Driver extends \Query\AbstractDriver {
 	 *
 	 * @param string $sql
 	 * @return Result
-	 * @throws PDOException
+	 * @throws \PDOException
 	 */
 	public function query($sql = '')
 	{

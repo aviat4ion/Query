@@ -672,7 +672,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * Select and retrieve all records from the current table, and/or
 	 * execute current compiled query
 	 *
-	 * @param $table
+	 * @param string $table
 	 * @param int|bool $limit
 	 * @param int|bool $offset
 	 * @return \PDOStatement

@@ -53,7 +53,9 @@ final class ConnectionManager {
 
 	/**
 	 * Private clone method to prevent cloning
+	 *
 	 * @throws \DomainException
+	 * @return void
 	 */
 	public function __clone()
 	{
@@ -64,7 +66,9 @@ final class ConnectionManager {
 
 	/**
 	 * Prevent serialization of this object
+	 *
 	 * @throws \DomainException
+	 * @return void
 	 */
 	public function __sleep()
 	{
@@ -75,7 +79,9 @@ final class ConnectionManager {
 
 	/**
 	 * Make sure serialize/deserialize doesn't work
+	 *
 	 * @throws \DomainException
+	 * @return void
 	 */
 	public function __wakeup()
 	{

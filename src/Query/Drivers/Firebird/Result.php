@@ -44,7 +44,7 @@ class Result extends \PDOStatement {
 	/**
 	 * Data pulled from query
 	 *
-	 * @param mixed
+	 * @var mixed
 	 */
 	private $result = [];
 

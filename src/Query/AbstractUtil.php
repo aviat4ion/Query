@@ -32,6 +32,7 @@ abstract class AbstractUtil {
 
 	/**
 	 * Reference to the current connection object
+	 * @var DriverInterface
 	 */
 	private $conn;
 
