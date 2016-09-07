@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Sqlite;
+
+use Query\Drivers\AbstractSQL;
 
 /**
  * SQLite Specific SQL
@@ -24,7 +23,7 @@ namespace Query\Drivers\Sqlite;
  * @package Query
  * @subpackage Drivers
  */
-class SQL extends \Query\AbstractSQL {
+class SQL extends AbstractSQL {
 
 	/**
 	 * Get the query plan for the sql query

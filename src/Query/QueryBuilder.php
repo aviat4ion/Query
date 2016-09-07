@@ -13,12 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query;
 
-// --------------------------------------------------------------------------
+use Query\Drivers\DriverInterface;
 
 /**
  * Convenience class for creating sql queries - also the class that
@@ -27,7 +24,7 @@ namespace Query;
  * @package Query
  * @subpackage Query_Builder
  */
-class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterface*/ {
+class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface {
 
 	/**
 	 * String class values to be reset
@@ -132,7 +129,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select($fields)
 	{
@@ -178,7 +175,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $field
 	 * @param string|FALSE $as
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select_max($field, $as=FALSE)
 	{
@@ -194,7 +191,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select_min($field, $as=FALSE)
 	{
@@ -210,7 +207,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select_avg($field, $as=FALSE)
 	{
@@ -226,7 +223,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select_sum($field, $as=FALSE)
 	{
@@ -240,7 +237,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function distinct()
 	{
@@ -254,7 +251,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	/**
 	 * Tell the database to give you the query plan instead of result set
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function explain()
 	{
@@ -268,7 +265,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * Specify the database table to select from
 	 *
 	 * @param string $tblname
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function from($tblname)
 	{
@@ -296,7 +293,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function like($field, $val, $pos='both')
 	{
@@ -311,7 +308,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_like($field, $val, $pos='both')
 	{
@@ -326,7 +323,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function not_like($field, $val, $pos='both')
 	{
@@ -341,7 +338,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_not_like($field, $val, $pos='both')
 	{
@@ -357,7 +354,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function having($key, $val=[])
 	{
@@ -371,7 +368,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_having($key, $val=[])
 	{
@@ -390,7 +387,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param mixed $escape
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function where($key, $val=[], $escape=NULL)
 	{
@@ -404,7 +401,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $key
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_where($key, $val=[])
 	{
@@ -418,7 +415,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param mixed $field
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function where_in($field, $val=[])
 	{
@@ -432,7 +429,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_where_in($field, $val=[])
 	{
@@ -446,7 +443,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function where_not_in($field, $val=[])
 	{
@@ -460,7 +457,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_where_not_in($field, $val=[])
 	{
@@ -476,7 +473,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function set($key, $val = NULL)
 	{
@@ -502,7 +499,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function join($table, $condition, $type='')
 	{
@@ -527,7 +524,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function group_by($field)
 	{
@@ -553,7 +550,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function order_by($field, $type="")
 	{
@@ -592,7 +589,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 *
 	 * @param int $limit
 	 * @param int|bool $offset
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function limit($limit, $offset=FALSE)
 	{
@@ -609,7 +606,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function group_start()
 	{
@@ -624,9 +621,24 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 
 	/**
 	 * Adds a paren to the current query for query grouping,
+	 * prefixed with 'NOT'
+	 *
+	 * @return QueryBuilderInterface
+	 */
+	public function not_group_start()
+	{
+		$this->_append_map('', ' NOT (', 'group_start');
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_group_start()
 	{
@@ -641,7 +653,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_not_group_start()
 	{
@@ -655,7 +667,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	/**
 	 * Ends a query group
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function group_end()
 	{
@@ -736,9 +748,10 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 	 * in place of the get() method
 	 *
 	 * @param string $table
+	 * @param boolean $reset
 	 * @return int
 	 */
-	public function count_all_results($table='')
+	public function count_all_results($table='', $reset = TRUE)
 	{
 		// Set the table
 		if ( ! empty($table))
@@ -746,7 +759,7 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 			$this->from($table);
 		}
 
-		$result = $this->_run('get', $table);
+		$result = $this->_run('get', $table, NULL, NULL, $reset);
 		$rows = $result->fetchAll();
 
 		return (int) count($rows);
@@ -807,6 +820,46 @@ class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterfa
 		}
 
 		return $this->_run("update", $table);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Creates a batch update, and executes it.
+	 * Returns the number of affected rows
+	 *
+	 * @param string $table
+	 * @param array|object $data
+	 * @param string $where
+	 * @return int|null
+	 */
+	public function update_batch($table, $data, $where)
+	{
+		// Get the generated values and sql string
+		list($sql, $data) = $this->db->update_batch($table, $data, $where);
+
+		return ( ! is_null($sql))
+			? $this->_run('', $table, $sql, $data)
+			: NULL;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Insertion with automatic overwrite, rather than attempted duplication
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return \PDOStatement|null
+	 */
+	public function replace($table, $data=[])
+	{
+		if ( ! empty($data))
+		{
+			$this->set($data);
+		}
+
+		return $this->_run("replace", $table);
 	}
 
 	// --------------------------------------------------------------------------

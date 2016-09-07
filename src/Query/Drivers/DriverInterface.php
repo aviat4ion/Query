@@ -13,10 +13,7 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
-namespace Query;
+namespace Query\Drivers;
 
 /**
  * PDO Interface to implement for database drivers
@@ -24,7 +21,7 @@ namespace Query;
  * @package Query
  * @subpackage Drivers
  */
-interface DriverInterface {
+interface DriverInterface extends PDOInterface {
 
 	/**
 	 * Constructor/Connection method
@@ -45,65 +42,6 @@ interface DriverInterface {
 	 * @throws \InvalidArgumentException
 	 */
 	public function prepare_query($sql, $data);
-
-	/**
-	 * Begin a transaction
-	 *
-	 * @return bool
-	 */
-	public function beginTransaction();
-
-	/**
-	 * Commit a transaction
-	 *
-	 * @return bool
-	 */
-	public function commit();
-
-	/**
-	 * Return the current error code
-	 *
-	 * @return mixed
-	 */
-	public function errorCode();
-
-	/**
-	 * Return information about the current error
-	 *
-	 * @return array
-	 */
-	public function errorInfo();
-
-	/**
-	 * Execute an SQL statement and return the number of affected rows
-	 *
-	 * @param string $statement
-	 * @return int
-	 */
-	public function exec($statement);
-
-	/**
-	 *  Get a connection attribute for the current db driver
-	 *
-	 * @param int $attribute
-	 * @return mixed
-	 */
-	public function getAttribute($attribute);
-
-	/**
-	 * Rollback a transaction
-	 *
-	 * @return bool
-	 */
-	public function rollback();
-
-	/**
-	 * Set a connection attribute
-	 * @param int $attribute
-	 * @param mixed $value
-	 * @return bool
-	 */
-	public function setAttribute($attribute, $value);
 
 	/**
 	 * Retrieve column information for the current database table
@@ -218,19 +156,7 @@ interface DriverInterface {
 	 */
 	public function prepare_execute($sql, $params);
 
-	/**
-	 * Get the SQL class for the current driver
-	 *
-	 * @return SQL_Interface
-	 */
-	public function get_sql();
 
-	/**
-	 * Get the Util class for the current driver
-	 *
-	 * @return Abstract_Util
-	 */
-	public function get_util();
 
 	/**
 	 * Method to simplify retrieving db results for meta-data queries
@@ -272,5 +198,38 @@ interface DriverInterface {
 	 * @return array
 	 */
 	public function insert_batch($table, $data=[]);
+
+	/**
+	 * Creates a batch update, and executes it.
+	 * Returns the number of affected rows
+	 *
+	 * @param string $table
+	 * @param array|object $data
+	 * @param string $where
+	 * @return int|null
+	 */
+	public function update_batch($table, $data, $where);
+
+	/**
+	 * Get the SQL class for the current driver
+	 *
+	 * @return \Query\Drivers\SQLInterface
+	 */
+	public function get_sql();
+
+	/**
+	 * Get the Util class for the current driver
+	 *
+	 * @return \Query\Drivers\AbstractUtil
+	 */
+	public function get_util();
+
+	/**
+	 * Set the last query sql
+	 *
+	 * @param string $query_string
+	 * @return void
+	 */
+	public function set_last_query($query_string);
 }
 // End of driver_interface.php

@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Sqlite;
+
+use Query\Drivers\AbstractDriver;
 
 /**
  * SQLite specific class
@@ -24,12 +23,12 @@ namespace Query\Drivers\Sqlite;
  * @package Query
  * @subpackage Drivers
  */
-class Driver extends \Query\AbstractDriver {
+class Driver extends AbstractDriver {
 
 	/**
 	 * Reference to the last executed sql query
 	 *
-	 * @var PDOStatement
+	 * @var \PDOStatement
 	 */
 	protected $statement;
 

@@ -13,18 +13,17 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Pgsql;
 
+use Query\Drivers\AbstractDriver;
+
 /**
- * PostgreSQL specifc class
+ * PostgreSQL specific class
  *
  * @package Query
  * @subpackage Drivers
  */
-class Driver extends \Query\AbstractDriver {
+class Driver extends AbstractDriver {
 
 	/**
 	 * Connect to a PosgreSQL database

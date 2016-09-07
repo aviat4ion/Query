@@ -13,12 +13,7 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query;
-
-// --------------------------------------------------------------------------
 
 /**
  * Abstract Class for internal implementation methods of the Query Builder
@@ -160,7 +155,7 @@ abstract class AbstractQueryBuilder {
 
 	/**
 	 * The current database driver
-	 * @var Driver_Interface
+	 * @var \Query\Drivers\DriverInterface
 	 */
 	public $db;
 
@@ -172,13 +167,13 @@ abstract class AbstractQueryBuilder {
 
 	/**
 	 * Alias to driver util class
-	 * @var \Query\Driver\AbstractUtil
+	 * @var \Query\Drivers\AbstractUtil
 	 */
 	public $util;
 
 	/**
 	 * Alias to driver sql class
-	 * @var \Query\Driver\SQLInterface
+	 * @var \Query\Drivers\SQLInterface
 	 */
 	public $sql;
 
@@ -275,7 +270,7 @@ abstract class AbstractQueryBuilder {
 	 * @param string $pos
 	 * @param string $like
 	 * @param string $conj
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	protected function _like($field, $val, $pos, $like='LIKE', $conj='AND')
 	{
@@ -314,7 +309,7 @@ abstract class AbstractQueryBuilder {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param string $conj
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	protected function _having($key, $val=[], $conj='AND')
 	{
@@ -345,7 +340,7 @@ abstract class AbstractQueryBuilder {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Do all the repeditive stuff for where/having type methods
+	 * Do all the redundant stuff for where/having type methods
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
@@ -367,7 +362,7 @@ abstract class AbstractQueryBuilder {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param string $defaultConj
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	protected function _where_string($key, $val=[], $defaultConj='AND')
 	{
@@ -414,7 +409,7 @@ abstract class AbstractQueryBuilder {
 	 * @param mixed $val
 	 * @param string $in - The (not) in fragment
 	 * @param string $conj - The where in conjunction
-	 * @return Query_Builder
+	 * @return QueryBuilder
 	 */
 	protected function _where_in($key, $val=[], $in='IN', $conj='AND')
 	{
@@ -443,9 +438,10 @@ abstract class AbstractQueryBuilder {
 	 * @param string $table
 	 * @param string $sql
 	 * @param array|null $vals
+	 * @param boolean $reset
 	 * @return \PDOStatement
 	 */
-	protected function _run($type, $table, $sql=NULL, $vals=NULL)
+	protected function _run($type, $table, $sql=NULL, $vals=NULL, $reset=TRUE)
 	{
 		if (is_null($sql))
 		{
@@ -470,7 +466,10 @@ abstract class AbstractQueryBuilder {
 		$this->_append_query($vals, $sql, $total_time);
 
 		// Reset class state for next query
-		$this->reset_query();
+		if ($reset)
+		{
+			$this->reset_query();
+		}
 
 		return $res;
 	}
@@ -501,7 +500,7 @@ abstract class AbstractQueryBuilder {
 	 *
 	 * @param array $vals
 	 * @param string $sql
-	 * @param string $total_time
+	 * @param int $total_time
 	 * @return void
 	 */
 	protected function _append_query($vals, $sql, $total_time)
@@ -525,7 +524,7 @@ abstract class AbstractQueryBuilder {
 			'sql' => call_user_func_array('sprintf', $evals),
 		];
 
-		$this->queries['total_time'] += $total_time;
+		$this->queries['total_time'] += (int) $total_time;
 
 		// Set the last query to get rowcounts properly
 		$this->db->set_last_query($sql);
@@ -542,32 +541,40 @@ abstract class AbstractQueryBuilder {
 	 */
 	protected function _compile_type($type='', $table='')
 	{
-		if ($type === 'insert')
+		switch($type)
 		{
-			$param_count = count($this->set_array_keys);
-			$params = array_fill(0, $param_count, '?');
-			$sql = "INSERT INTO {$table} ("
-				. implode(',', $this->set_array_keys)
-				. ")\nVALUES (".implode(',', $params).')';
-		}
-		elseif ($type === 'update')
-		{
-			$sql = "UPDATE {$table}\nSET {$this->set_string}";
-		}
-		elseif ($type === 'delete')
-		{
-			$sql = "DELETE FROM {$table}";
-		}
-		else // GET queries
-		{
-			$sql = "SELECT * \nFROM {$this->from_string}";
+			case "insert":
+				$param_count = count($this->set_array_keys);
+				$params = array_fill(0, $param_count, '?');
+				$sql = "INSERT INTO {$table} ("
+					. implode(',', $this->set_array_keys)
+					. ")\nVALUES (".implode(',', $params).')';
+			break;
 
-			// Set the select string
-			if ( ! empty($this->select_string))
-			{
-				// Replace the star with the selected fields
-				$sql = str_replace('*', $this->select_string, $sql);
-			}
+			case "update":
+				$sql = "UPDATE {$table}\nSET {$this->set_string}";
+			break;
+
+			case "replace":
+				// @TODO implement
+				$sql = "";
+			break;
+
+			case "delete":
+				$sql = "DELETE FROM {$table}";
+			break;
+
+			// Get queries
+			default:
+				$sql = "SELECT * \nFROM {$this->from_string}";
+
+				// Set the select string
+				if ( ! empty($this->select_string))
+				{
+					// Replace the star with the selected fields
+					$sql = str_replace('*', $this->select_string, $sql);
+				}
+			break;
 		}
 
 		return $sql;
@@ -628,4 +635,4 @@ abstract class AbstractQueryBuilder {
 	}
 }
 
-// End of abstract_query_builder.php
+// End of abstract_QueryBuilder.php

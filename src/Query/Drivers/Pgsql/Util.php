@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Pgsql;
+
+use Query\Drivers\AbstractUtil;
 
 /**
  * Posgres-specific backup, import and creation methods
@@ -24,7 +23,7 @@ namespace Query\Drivers\Pgsql;
  * @package Query
  * @subpackage Drivers
  */
-class Util extends \Query\AbstractUtil {
+class Util extends AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's structure
@@ -33,7 +32,7 @@ class Util extends \Query\AbstractUtil {
 	 */
 	public function backup_structure()
 	{
-		// TODO Implement Backup function
+		// @TODO Implement Backup function
 		return '';
 	}
 

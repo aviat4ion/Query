@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Sqlite;
+
+use Query\Drivers\AbstractUtil;
 
 /**
  * SQLite-specific backup, import and creation methods
@@ -26,7 +25,7 @@ namespace Query\Drivers\Sqlite;
  * @method mixed query(string $sql)
  * @method string quote(string $str)
  */
-class Util extends \Query\AbstractUtil {
+class Util extends AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's data

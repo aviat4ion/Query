@@ -13,18 +13,17 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Pgsql;
 
+use Query\Drivers\AbstractSQL;
+
 /**
- * PostgreSQL specifc SQL
+ * PostgreSQL specific SQL
  *
  * @package Query
  * @subpackage Drivers
  */
-class SQL extends \Query\AbstractSQL {
+class SQL extends AbstractSQL {
 
 	/**
 	 * Get the query plan for the sql query

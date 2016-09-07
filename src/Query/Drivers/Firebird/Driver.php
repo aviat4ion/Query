@@ -13,10 +13,11 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Firebird;
+
+use Query\Drivers\AbstractDriver;
+use PDO;
+use PDOException;
 
 /**
  * Firebird Database class
@@ -26,7 +27,7 @@ namespace Query\Drivers\Firebird;
  * @package Query
  * @subpackage Drivers
  */
-class Driver extends \Query\AbstractDriver {
+class Driver extends AbstractDriver {
 
 	/**
 	 * Reference to the last query executed
@@ -82,7 +83,7 @@ class Driver extends \Query\AbstractDriver {
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = [])
 	{
-		$connect_function = (isset($options[\PDO::ATTR_PERSISTENT]) && $options[\PDO::ATTR_PERSISTENT])
+		$connect_function = (isset($options[PDO::ATTR_PERSISTENT]) && $options[PDO::ATTR_PERSISTENT])
 			? '\\fbird_pconnect'
 			: '\\fbird_connect';
 
@@ -92,12 +93,12 @@ class Driver extends \Query\AbstractDriver {
 		// Throw an exception to make this match other pdo classes
 		if ( ! \is_resource($this->conn))
 		{
-			throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
+			throw new PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
 		}
 
 		// Load these classes here because this
 		// driver does not call the constructor
-		// of DB_PDO, which defines these
+		// of AbstractDriver, which defines these
 		// class variables for the other drivers
 		$this->_load_sub_classes();
 	}
@@ -184,14 +185,13 @@ class Driver extends \Query\AbstractDriver {
 	 *
 	 * @param string $sql
 	 * @return Result
-	 * @throws \PDOException
+	 * @throws PDOException
 	 */
 	public function query($sql = '')
 	{
-
 		if (empty($sql))
 		{
-			throw new \PDOException("Query method requires an sql query!", 0, NULL);
+			throw new PDOException("Query method requires an sql query!", 0, NULL);
 		}
 
 		$this->statement_link = (isset($this->trans))
@@ -202,7 +202,7 @@ class Driver extends \Query\AbstractDriver {
 		$err_string = \fbird_errmsg() . "Last query:" . $this->get_last_query();
 		if ($this->statement_link === FALSE)
 		{
-			throw new \PDOException($err_string, \fbird_errcode(), NULL);
+			throw new PDOException($err_string, \fbird_errcode(), NULL);
 		}
 
 		$this->statement = new Result($this->statement_link, $this);
@@ -218,7 +218,7 @@ class Driver extends \Query\AbstractDriver {
 	 * @param string $query
 	 * @param array $options
 	 * @return Result
-	 * @throws \PDOException
+	 * @throws PDOException
 	 */
 	public function prepare($query, $options=[])
 	{
@@ -227,7 +227,7 @@ class Driver extends \Query\AbstractDriver {
 		// Throw the error as an exception
 		if ($this->statement_link === FALSE)
 		{
-			throw new \PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
+			throw new PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
 		}
 
 		$this->statement = new Result($this->statement_link, $this);
@@ -316,7 +316,7 @@ class Driver extends \Query\AbstractDriver {
 	 * @param int $param_type
 	 * @return string
 	 */
-	public function quote($str, $param_type = \PDO::PARAM_STR)
+	public function quote($str, $param_type = PDO::PARAM_STR)
 	{
 		if(is_numeric($str))
 		{

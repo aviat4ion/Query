@@ -16,7 +16,7 @@
 
 // --------------------------------------------------------------------------
 
-namespace Query;
+namespace Query\Drivers;
 
 /**
  * parent for database manipulation subclasses

@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Firebird;
+
+use Query\Drivers\AbstractSQL;
 
 /**
  * Firebird Specific SQL
@@ -24,7 +23,7 @@ namespace Query\Drivers\Firebird;
  * @package Query
  * @subpackage Drivers
  */
-class SQL extends \Query\AbstractSQL {
+class SQL extends AbstractSQL {
 
 	/**
 	 * Limit clause

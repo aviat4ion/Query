@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query;
+
+use Query\Drivers\DriverInterface;
 
 /**
  * Utility Class to parse sql clauses for properly escaping identifiers
@@ -59,7 +58,7 @@ class QueryParser {
 	/**
 	 * Constructor/entry point into parser
 	 *
-	 * @param Driver\DriverInterface $db
+	 * @param DriverInterface $db
 	 */
 	public function __construct(DriverInterface $db)
 	{

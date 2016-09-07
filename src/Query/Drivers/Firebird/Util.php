@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Firebird;
+
+use Query\Drivers\AbstractUtil;
 
 /**
  * Firebird-specific backup, import and creation methods
@@ -24,12 +23,11 @@ namespace Query\Drivers\Firebird;
  * @package Query
  * @subpackage Drivers
  */
-class Util extends \Query\AbstractUtil {
+class Util extends AbstractUtil {
 
 	/**
 	 * Convenience public function to generate sql for creating a db table
 	 *
-	 * @deprecated Use the table builder class instead
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints
@@ -57,11 +55,9 @@ class Util extends \Query\AbstractUtil {
 	/**
 	 * Create an SQL backup file for the current database's structure
 	 *
-	 * @param string $db_path
-	 * @param string $new_file
 	 * @return string
 	 */
-	public function backup_structure()
+	public function backup_structure(/* @param string $db_path, @param string $new_file */)
 	{
 		list($db_path, $new_file) = func_get_args();
 		return ibase_backup($this->get_driver()->get_service(), $db_path, $new_file, \IBASE_BKP_METADATA_ONLY);

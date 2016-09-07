@@ -13,25 +13,24 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Mysql;
 
+use Query\Drivers\AbstractSQL;
+
 /**
- * MySQL specifc SQL
+ * MySQL specific SQL
  *
  * @package Query
  * @subpackage Drivers
  */
-class SQL extends \Query\AbstractSQL {
+class SQL extends AbstractSQL {
 
 	/**
 	 * Limit clause
 	 *
 	 * @param string $sql
 	 * @param int $limit
-	 * @param int $offset
+	 * @param int|boolean $offset
 	 * @return string
 	 */
 	public function limit($sql, $limit, $offset=FALSE)

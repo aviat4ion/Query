@@ -465,7 +465,7 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @param array|object $data
 	 * @param string $where
-	 * @return int
+	 * @return int|null
 	 */
 	public function update_batch($table, $data, $where);
 

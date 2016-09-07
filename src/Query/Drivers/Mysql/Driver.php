@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Mysql;
+
+use Query\Drivers\AbstractDriver;
 
 /**
  * MySQL specific class
@@ -24,14 +23,21 @@ namespace Query\Drivers\Mysql;
  * @package Query
  * @subpackage Drivers
  */
-class Driver extends \Query\AbstractDriver {
+class Driver extends AbstractDriver {
 
 	/**
 	 * Set the backtick as the MySQL escape character
 	 *
 	 * @var string
 	 */
-	protected $escape_char = '`';
+	protected $escape_char_open = '`';
+
+	/**
+	 * Set the backtick as the MySQL escape character
+	 *
+	 * @var string
+	 */
+	protected $escape_char_close = '`';
 
 	/**
 	 * Connect to MySQL Database

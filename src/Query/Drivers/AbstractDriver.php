@@ -13,12 +13,11 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Drivers;
 
-// --------------------------------------------------------------------------
-
-namespace Query;
-
-// --------------------------------------------------------------------------
+use PDO;
+use PDOStatement;
+use InvalidArgumentException;
 
 /**
  * Base Database class
@@ -28,7 +27,7 @@ namespace Query;
  * @package Query
  * @subpackage Drivers
  */
-abstract class AbstractDriver extends \PDO implements DriverInterface {
+abstract class AbstractDriver extends PDO implements DriverInterface {
 
 	/**
 	 * Reference to the last executed query
@@ -37,10 +36,16 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	protected $statement;
 
 	/**
-	 * Character to escape identifiers
+	 * Start character to escape identifiers
 	 * @var string
 	 */
-	protected $escape_char = '"';
+	protected $escape_char_open = '"';
+
+	/**
+	 * End character to escape identifiers
+	 * @var string
+	 */
+	protected $escape_char_close = '"';
 
 	/**
 	 * Reference to sql class
@@ -83,7 +88,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options=[])
 	{
 		// Set PDO to display errors as exceptions, and apply driver options
-		$driver_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
+		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 		parent::__construct($dsn, $username, $password, $driver_options);
 
 		$this->_load_sub_classes();
@@ -103,8 +108,8 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 		$ns_array = explode("\\", $this_class);
 		array_pop($ns_array);
 		$driver = array_pop($ns_array);
-		$sql_class = "\\Query\\Drivers\\{$driver}\\SQL";
-		$util_class = "\\Query\\Drivers\\{$driver}\\Util";
+		$sql_class = __NAMESPACE__ . "\\{$driver}\\SQL";
+		$util_class = __NAMESPACE__ . "\\{$driver}\\Util";
 
 		$this->sql = new $sql_class();
 		$this->util = new $util_class($this);
@@ -137,7 +142,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Get the last sql query exexcuted
+	 * Get the last sql query executed
 	 *
 	 * @return string
 	 */
@@ -205,8 +210,8 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	 *
 	 * @param string $sql
 	 * @param array $data
-	 * @return \PDOStatement | FALSE
-	 * @throws \InvalidArgumentException
+	 * @return PDOStatement | FALSE
+	 * @throws InvalidArgumentException
 	 */
 	public function prepare_query($sql, $data)
 	{
@@ -215,7 +220,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 
 		if( ! (is_array($data) || is_object($data)))
 		{
-			throw new \InvalidArgumentException("Invalid data argument");
+			throw new InvalidArgumentException("Data argument must be an object or associative array");
 		}
 
 		// Bind the parameters
@@ -240,7 +245,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	 *
 	 * @param string $sql
 	 * @param array $params
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
 	public function prepare_execute($sql, $params)
 	{
@@ -281,14 +286,14 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 			// schema.table OR
 			// database.table OR
 			// table
-			$idents = explode('.', $table);
-			$segments = count($idents);
+			$identifierifiers = explode('.', $table);
+			$segments = count($identifierifiers);
 
 			// Quote the last item, and add the database prefix
-			$idents[$segments - 1] = $this->_prefix(end($idents));
+			$identifierifiers[$segments - 1] = $this->_prefix(end($identifierifiers));
 
 			// Rejoin
-			$table = implode('.', $idents);
+			$table = implode('.', $identifierifiers);
 		}
 
 		return $table;
@@ -315,26 +320,26 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	/**
 	 * Surrounds the string with the databases identifier escape characters
 	 *
-	 * @param mixed $ident
+	 * @param mixed $identifier
 	 * @return string
 	 */
-	public function quote_ident($ident)
+	public function quote_ident($identifier)
 	{
-		if (is_array($ident))
+		if (is_array($identifier))
 		{
-			return array_map([$this, __METHOD__], $ident);
+			return array_map([$this, __METHOD__], $identifier);
 		}
 
 		// Handle comma-separated identifiers
-		if (strpos($ident, ',') !== FALSE)
+		if (strpos($identifier, ',') !== FALSE)
 		{
-			$parts = array_map('mb_trim', explode(',', $ident));
+			$parts = array_map('mb_trim', explode(',', $identifier));
 			$parts = array_map([$this, __METHOD__], $parts);
-			$ident = implode(',', $parts);
+			$identifier = implode(',', $parts);
 		}
 
 		// Split each identifier by the period
-		$hiers = explode('.', $ident);
+		$hiers = explode('.', $identifier);
 		$hiers = array_map('mb_trim', $hiers);
 
 		// Re-compile the string
@@ -342,7 +347,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 
 		// Fix functions
 		$funcs = [];
-		preg_match_all("#{$this->escape_char}([a-zA-Z0-9_]+(\((.*?)\))){$this->escape_char}#iu", $raw, $funcs, PREG_SET_ORDER);
+		preg_match_all("#{$this->escape_char_open}([a-zA-Z0-9_]+(\((.*?)\))){$this->escape_char_close}#iu", $raw, $funcs, PREG_SET_ORDER);
 		foreach($funcs as $f)
 		{
 			// Unquote the function
@@ -547,7 +552,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 		// Run the query!
 		$res = $this->query($query);
 
-		$flag = ($filtered_index) ? \PDO::FETCH_NUM : \PDO::FETCH_ASSOC;
+		$flag = ($filtered_index) ? PDO::FETCH_NUM : PDO::FETCH_ASSOC;
 		$all = $res->fetchAll($flag);
 
 		return ($filtered_index) ? \db_filter($all, 0) : $all;
@@ -559,7 +564,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	 * Return the number of rows returned for a SELECT query
 	 *
 	 * @see http://us3.php.net/manual/en/pdostatement.rowcount.php#87110
-	 * @return int
+	 * @return int|null
 	 */
 	public function num_rows()
 	{
@@ -581,13 +586,14 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	 * Create sql for batch insert
 	 *
 	 * @param string $table
-	 * @param array $data
+	 * @param array|object $data
 	 * @return null|array<string|array|null>
 	 */
 	public function insert_batch($table, $data=[])
 	{
-		$first_row = current($data);
-		if ( ! is_array($first_row))
+		$data = (array) $data;
+		$first_row = (array) current($data);
+		if (is_scalar($first_row))
 		{
 			return NULL;
 		}
@@ -619,6 +625,23 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Creates a batch update, and executes it.
+	 * Returns the number of affected rows
+	 *
+	 * @param string $table
+	 * @param array|object $data
+	 * @param string $where
+	 * @return int|null
+	 */
+	public function update_batch($table, $data, $where)
+	{
+		// @TODO implement
+		return NULL;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Helper method for quote_ident
 	 *
 	 * @param mixed $str
@@ -631,10 +654,10 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 		// that value, otherwise, return the original value
 		return (
 			is_string($str)
-			&& strpos($str, $this->escape_char) !== 0
-			&& strrpos($str, $this->escape_char) !== 0
+			&& strpos($str, $this->escape_char_open) !== 0
+			&& strrpos($str, $this->escape_char_close) !== 0
 		)
-			? "{$this->escape_char}{$str}{$this->escape_char}"
+			? "{$this->escape_char_open}{$str}{$this->escape_char_close}"
 			: $str;
 
 	}
@@ -664,7 +687,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	 * Empty the passed table
 	 *
 	 * @param string $table
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
 	public function truncate($table)
 	{

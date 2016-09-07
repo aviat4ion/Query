@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Mysql;
+
+use Query\Drivers\AbstractUtil;
 
 /**
  * MySQL-specific backup, import and creation methods
@@ -24,7 +23,7 @@ namespace Query\Drivers\Mysql;
  * @package Query
  * @subpackage Drivers
  */
-class Util extends \Query\AbstractUtil {
+class Util extends AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's structure

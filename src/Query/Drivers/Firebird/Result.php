@@ -13,10 +13,10 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers\Firebird;
+
+use PDOStatement;
+use Query\Drivers\PDOStatementInterface;
 
 /**
  * Firebird result class to emulate PDOStatement Class - only implements
@@ -25,7 +25,7 @@ namespace Query\Drivers\Firebird;
  * @package Query
  * @subpackage Drivers
  */
-class Result extends \PDOStatement {
+class Result extends PDOStatement implements PDOStatementInterface {
 
 	/**
 	 * Reference to fbird resource
@@ -142,18 +142,18 @@ class Result extends \PDOStatement {
 	/**
 	 * Run a prepared statement query
 	 *
-	 * @param  array $args
+	 * @param  array $bound_input_params
 	 * @return Result
 	 */
-	public function execute($args = NULL)
+	public function execute($bound_input_params = NULL)
 	{
 		//Add the prepared statement as the first parameter
-		\array_unshift($args, $this->statement);
+		\array_unshift($bound_input_params, $this->statement);
 
 		// Let php do all the hard stuff in converting
 		// the array of arguments into a list of arguments
 		// Then pass the resource to the constructor
-		$this->__construct(\call_user_func_array('fbird_execute', $args));
+		$this->__construct(\call_user_func_array('fbird_execute', $bound_input_params));
 
 		return $this;
 	}
@@ -247,10 +247,10 @@ class Result extends \PDOStatement {
 	 * Emulate PDOStatement::fetchObject, but only for the default use
 	 *
 	 * @param string $class_name
-	 * @param array $ctor_args
-	 * @return stdClass
+	 * @param array|null $ctor_args
+	 * @return object
 	 */
-	public function fetchObject($class_name='stdClass', $ctor_args=[])
+	public function fetchObject($class_name='stdClass', $ctor_args=NULL)
 	{
 		return $this->fetch(\PDO::FETCH_OBJ);
 	}
