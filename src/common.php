@@ -2,15 +2,17 @@
 /**
  * Query
  *
- * Free Query Builder / Database Abstraction Layer
+ * SQL Query Builder / Database Abstraction Layer
  *
- * @package		Query
- * @subpackage	Core
- * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2015
- * @link 		https://github.com/aviat4ion/Query
- * @license		http://philsturgeon.co.uk/code/dbad-license
+ * PHP version 5.4
+ *
+ * @package     Query
+ * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @copyright   2012 - 2015 Timothy J. Warren
+ * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link        https://git.timshomepage.net/aviat4ion/Query
  */
+
 
 use Query\ConnectionManager;
 
