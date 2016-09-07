@@ -24,9 +24,6 @@ A query builder/database abstraction layer, using prepared statements for securi
 ## Including Query in your application
 
 * Install via composer and include `vendor/autoload.php`
-or
-* Just include the `autoload.php` file. This will automatically load the classes that are supported by the current PHP installation.
-
 
 ## Connecting
 
@@ -83,6 +80,7 @@ Query('old')->query($sql);
 
 ### Running Queries
 Query uses the same interface as CodeIgniter's [Query Builder](http://www.codeigniter.com/user_guide/database/query_builder.html) class. However, it does not implement the `update_batch` or caching methods. For specific query builder methods, see the [class documentation](https://gitdev.timshomepage.net/Query/docs/classes/Query_QueryBuilder.html#methods).
+Underscored methods are also aliased to camel case methods.
 
 #### You can also run queries manually.
 

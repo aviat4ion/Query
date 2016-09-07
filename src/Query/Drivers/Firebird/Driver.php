@@ -64,7 +64,7 @@ class Driver extends \Query\AbstractDriver {
 	/**
 	 * Firebird doesn't have the truncate keyword
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $has_truncate = FALSE;
 
@@ -77,7 +77,7 @@ class Driver extends \Query\AbstractDriver {
 	 * @param array $options
 	 * @throws \PDOException
 	 */
-	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = array())
+	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = [])
 	{
 		$connect_function = (isset($options[\PDO::ATTR_PERSISTENT]) && $options[\PDO::ATTR_PERSISTENT])
 			? '\\fbird_pconnect'
@@ -217,7 +217,7 @@ class Driver extends \Query\AbstractDriver {
 	 * @return Result
 	 * @throws \PDOException
 	 */
-	public function prepare($query, $options=array())
+	public function prepare($query, $options=[])
 	{
 		$this->statement_link = \fbird_prepare($this->conn, $query);
 
@@ -335,7 +335,7 @@ class Driver extends \Query\AbstractDriver {
 		$code = \fbird_errcode();
 		$msg = \fbird_errmsg();
 
-		return array(0, $code, $msg);
+		return [0, $code, $msg];
 	}
 
 	// --------------------------------------------------------------------------
@@ -375,7 +375,7 @@ class Driver extends \Query\AbstractDriver {
 	 * @param array $data
 	 * @return array
 	 */
-	public function insert_batch($table, $data=array())
+	public function insert_batch($table, $data=[])
 	{
 		// Each member of the data array needs to be an array
 		if ( ! is_array(current($data)))
@@ -396,7 +396,7 @@ class Driver extends \Query\AbstractDriver {
 		foreach($data as $item)
 		{
 			// Quote string values
-			$vals = array_map(array($this, 'quote'), $item);
+			$vals = array_map([$this, 'quote'], $item);
 
 			// Add the values in the sql
 			$sql .= $insert_template . implode(', ', $vals) . ");\n";
@@ -408,7 +408,7 @@ class Driver extends \Query\AbstractDriver {
 		// Return a null array value so the query is run as it is,
 		// not as a prepared statement, because a prepared statement
 		// doesn't work for this type of query in Firebird.
-		return array($sql, NULL);
+		return [$sql, NULL];
 	}
 }
 // End of firebird_driver.php

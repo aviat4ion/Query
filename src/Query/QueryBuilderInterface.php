@@ -31,7 +31,7 @@ interface QueryBuilderInterface {
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select($fields);
 
@@ -42,7 +42,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select_max($field, $as=FALSE);
 
@@ -53,7 +53,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select_min($field, $as=FALSE);
 
@@ -64,7 +64,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select_avg($field, $as=FALSE);
 
@@ -75,7 +75,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function select_sum($field, $as=FALSE);
 
@@ -84,7 +84,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function distinct();
 
@@ -93,7 +93,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Shows the query plan for the query
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function explain();
 
@@ -103,7 +103,7 @@ interface QueryBuilderInterface {
 	 * Specify the database table to select from
 	 *
 	 * @param string $tblname
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function from($tblname);
 
@@ -117,7 +117,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function like($field, $val, $pos='both');
 
@@ -129,7 +129,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_like($field, $val, $pos='both');
 
@@ -141,7 +141,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function not_like($field, $val, $pos='both');
 
@@ -153,7 +153,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_not_like($field, $val, $pos='both');
 
@@ -166,9 +166,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function having($key, $val=array());
+	public function having($key, $val=[]);
 
 	// --------------------------------------------------------------------------
 
@@ -177,9 +177,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function or_having($key, $val=array());
+	public function or_having($key, $val=[]);
 
 	// --------------------------------------------------------------------------
 	// ! 'Where' methods
@@ -193,9 +193,9 @@ interface QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param bool $escape
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function where($key, $val=array(), $escape = NULL);
+	public function where($key, $val=[], $escape = NULL);
 
 	// --------------------------------------------------------------------------
 
@@ -204,9 +204,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $key
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function or_where($key, $val=array());
+	public function or_where($key, $val=[]);
 
 	// --------------------------------------------------------------------------
 
@@ -215,9 +215,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $field
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function where_in($field, $val=array());
+	public function where_in($field, $val=[]);
 
 	// --------------------------------------------------------------------------
 
@@ -226,9 +226,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function or_where_in($field, $val=array());
+	public function or_where_in($field, $val=[]);
 
 	// --------------------------------------------------------------------------
 
@@ -237,9 +237,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function where_not_in($field, $val=array());
+	public function where_not_in($field, $val=[]);
 
 	// --------------------------------------------------------------------------
 
@@ -248,9 +248,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function or_where_not_in($field, $val=array());
+	public function or_where_not_in($field, $val=[]);
 
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
@@ -261,7 +261,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function set($key, $val = NULL);
 
@@ -273,7 +273,7 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function join($table, $condition, $type='');
 
@@ -283,7 +283,7 @@ interface QueryBuilderInterface {
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function group_by($field);
 
@@ -294,7 +294,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function order_by($field, $type="");
 
@@ -305,7 +305,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param int $limit
 	 * @param int|bool $offset
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function limit($limit, $offset=FALSE);
 
@@ -316,7 +316,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function group_start();
 
@@ -324,9 +324,19 @@ interface QueryBuilderInterface {
 
 	/**
 	 * Adds a paren to the current query for query grouping,
+	 * prefixed with 'NOT'
+	 * 
+	 * @return QueryBuilderInterface
+	 */
+	public function not_group_start();
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_group_start();
 
@@ -336,7 +346,7 @@ interface QueryBuilderInterface {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function or_not_group_start();
 
@@ -345,7 +355,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Ends a query group
 	 *
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	public function group_end();
 
@@ -375,7 +385,7 @@ interface QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return \PDOStatement
 	 */
-	public function get_where($table, $where=array(), $limit=FALSE, $offset=FALSE);
+	public function get_where($table, $where=[], $limit=FALSE, $offset=FALSE);
 
 	// --------------------------------------------------------------------------
 
@@ -394,9 +404,10 @@ interface QueryBuilderInterface {
 	 * in place of the get() method
 	 *
 	 * @param string $table
+	 * @param bool $reset - Whether to keep the query after counting the results
 	 * @return int
 	 */
-	public function count_all_results($table='');
+	public function count_all_results($table='', $reset=TRUE);
 
 	// --------------------------------------------------------------------------
 
@@ -407,7 +418,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return \PDOStatement
 	 */
-	public function insert($table, $data=array());
+	public function insert($table, $data=[]);
 
 	// --------------------------------------------------------------------------
 
@@ -418,7 +429,18 @@ interface QueryBuilderInterface {
 	 * @param array $data
 	 * @return \PDOStatement|null
 	 */
-	public function insert_batch($table, $data=array());
+	public function insert_batch($table, $data=[]);
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Insertion with automatic overwrite, rather than attempted duplication
+	 *
+	 * @param string $table
+	 * @param array $data
+	 * @return \PDOStatement|null
+	 */
+	public function replace($table, $data=[]);
 
 	// --------------------------------------------------------------------------
 
@@ -429,7 +451,20 @@ interface QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return \PDOStatement
 	 */
-	public function update($table, $data=array());
+	public function update($table, $data=[]);
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Creates a batch update, and executes it.
+	 * Returns the number of affected rows
+	 *
+	 * @param string $table
+	 * @param array|object $data
+	 * @param string $where
+	 * @return int
+	 */
+	public function update_batch($table, $data, $where);
 
 	// --------------------------------------------------------------------------
 
@@ -500,4 +535,4 @@ interface QueryBuilderInterface {
 	public function reset_query();
 }
 
-// End of QueryBuilder_interface.php
+// End of QueryBuilderInterface.php

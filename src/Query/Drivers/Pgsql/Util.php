@@ -42,7 +42,7 @@ class Util extends \Query\AbstractUtil {
 	 * @param array $exclude
 	 * @return string
 	 */
-	public function backup_data($exclude=array())
+	public function backup_data($exclude=[])
 	{
 		$tables = $this->get_driver()->get_tables();
 
@@ -72,7 +72,7 @@ class Util extends \Query\AbstractUtil {
 			// Nab the column names by getting the keys of the first row
 			$columns = @array_keys($obj_res[0]);
 
-			$insert_rows = array();
+			$insert_rows = [];
 
 			// Create the insert statements
 			foreach($obj_res as $row)
@@ -80,7 +80,7 @@ class Util extends \Query\AbstractUtil {
 				$row = array_values($row);
 
 				// Quote values as needed by type
-				$row = array_map(array($this->get_driver(), 'quote'), $row);
+				$row = array_map([$this->get_driver(), 'quote'], $row);
 				$row = array_map('trim', $row);
 
 

@@ -65,7 +65,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 
 	/**
 	 * Whether the driver supports 'TRUNCATE'
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $has_truncate = TRUE;
 
@@ -77,7 +77,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	 * @param string $password
 	 * @param array $driver_options
 	 */
-	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options=array())
+	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options=[])
 	{
 		// Set PDO to display errors as exceptions, and apply driver options
 		$driver_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
@@ -117,7 +117,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	 * @param array $args
 	 * @return mixed
 	 */
-	public function __call($name, $args = array())
+	public function __call($name, $args = [])
 	{
 		if (
 			isset($this->$name)
@@ -125,7 +125,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 			&& method_exists($this->$name, '__invoke')
 		)
 		{
-			return call_user_func_array(array($this->$name, '__invoke'), $args);
+			return call_user_func_array([$this->$name, '__invoke'], $args);
 		}
 	}
 
@@ -319,14 +319,14 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	{
 		if (is_array($ident))
 		{
-			return array_map(array($this, __METHOD__), $ident);
+			return array_map([$this, __METHOD__], $ident);
 		}
 
 		// Handle comma-separated identifiers
 		if (strpos($ident, ',') !== FALSE)
 		{
 			$parts = array_map('mb_trim', explode(',', $ident));
-			$parts = array_map(array($this, __METHOD__), $parts);
+			$parts = array_map([$this, __METHOD__], $parts);
 			$ident = implode(',', $parts);
 		}
 
@@ -335,10 +335,10 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 		$hiers = array_map('mb_trim', $hiers);
 
 		// Re-compile the string
-		$raw = implode('.', array_map(array($this, '_quote'), $hiers));
+		$raw = implode('.', array_map([$this, '_quote'], $hiers));
 
 		// Fix functions
-		$funcs = array();
+		$funcs = [];
 		preg_match_all("#{$this->escape_char}([a-zA-Z0-9_]+(\((.*?)\))){$this->escape_char}#iu", $raw, $funcs, PREG_SET_ORDER);
 		foreach($funcs as $f)
 		{
@@ -561,7 +561,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	public function num_rows()
 	{
 		$regex = '/^SELECT\s+(?:ALL\s+|DISTINCT\s+)?(?:.*?)\s+FROM\s+(.*)$/i';
-		$output = array();
+		$output = [];
 
 		if (preg_match($regex, $this->last_query, $output) > 0)
 		{
@@ -581,7 +581,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	 * @param array $data
 	 * @return null|array<string|array|null>
 	 */
-	public function insert_batch($table, $data=array())
+	public function insert_batch($table, $data=[])
 	{
 		$first_row = current($data);
 		if ( ! is_array($first_row))
@@ -590,7 +590,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 		}
 
 		// Values for insertion
-		$vals = array();
+		$vals = [];
 		foreach($data as $group)
 		{
 			$vals = array_merge($vals, array_values($group));
@@ -610,7 +610,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 		// Append the placeholder groups to the query
 		$sql .= implode(',', $param_list);
 
-		return array($sql, $vals);
+		return [$sql, $vals];
 	}
 
 	// --------------------------------------------------------------------------
@@ -666,7 +666,7 @@ abstract class AbstractDriver extends \PDO implements DriverInterface {
 	public function truncate($table)
 	{
 		$sql = ($this->has_truncate)
-			? 'TRUNCATE '
+			? 'TRUNCATE TABLE '
 			: 'DELETE FROM ';
 
 		$sql .= $this->quote_table($table);

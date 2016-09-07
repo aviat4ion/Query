@@ -33,7 +33,7 @@ class Driver extends \Query\AbstractDriver {
 	/**
 	 * SQLite has a truncate optimization,
 	 * but no support for the actual keyword
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $has_truncate = FALSE;
 
@@ -45,7 +45,7 @@ class Driver extends \Query\AbstractDriver {
 	 * @param string $pass
 	 * @param array $driver_options
 	 */
-	public function __construct($dsn, $user=NULL, $pass=NULL, array $driver_options=array())
+	public function __construct($dsn, $user=NULL, $pass=NULL, array $driver_options=[])
 	{
 		if (strpos($dsn, 'sqlite:') === FALSE)
 		{
@@ -80,17 +80,17 @@ class Driver extends \Query\AbstractDriver {
 	 */
 	public function get_fks($table)
 	{
-		$return_rows = array();
+		$return_rows = [];
 
 		foreach(parent::get_fks($table) as $row)
 		{
-			$return_rows[] = array(
+			$return_rows[] = [
 				'child_column' => $row['from'],
 				'parent_table' => $row['table'],
 				'parent_column' => $row['to'],
 				'update' => $row['on_update'],
 				'delete' => $row['on_delete']
-			);
+			];
 		}
 
 		return $return_rows;
@@ -106,7 +106,7 @@ class Driver extends \Query\AbstractDriver {
 	 * @param array $data
 	 * @return string
 	 */
-	public function insert_batch($table, $data=array())
+	public function insert_batch($table, $data=[])
 	{
 		// If greater than version 3.7.11, supports the same syntax as
 		// MySQL and Postgres
@@ -131,7 +131,7 @@ class Driver extends \Query\AbstractDriver {
 
 		// Create a key-value mapping for each field
 		$first = array_shift($data);
-		$cols = array();
+		$cols = [];
 		foreach($first as $colname => $datum)
 		{
 			$cols[] = $this->_quote($datum) . ' AS ' . $this->quote_ident($colname);
@@ -140,11 +140,11 @@ class Driver extends \Query\AbstractDriver {
 
 		foreach($data as $union)
 		{
-			$vals = array_map(array($this, 'quote'), $union);
+			$vals = array_map([$this, 'quote'], $union);
 			$sql .= "UNION SELECT " . implode(',', $vals) . "\n";
 		}
 
-		return array($sql, NULL);
+		return [$sql, NULL];
 	}
 }
 //End of sqlite_driver.php

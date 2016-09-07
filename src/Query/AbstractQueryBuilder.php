@@ -74,19 +74,19 @@ abstract class AbstractQueryBuilder {
 	 * Keys for insert/update statement
 	 * @var array
 	 */
-	protected $set_array_keys = array();
+	protected $set_array_keys = [];
 
 	/**
 	 * Key/val pairs for order by clause
 	 * @var array
 	 */
-	protected $order_array = array();
+	protected $order_array = [];
 
 	/**
 	 * Key/val pairs for group by clause
 	 * @var array
 	 */
-	protected $group_array = array();
+	protected $group_array = [];
 
 	// --------------------------------------------------------------------------
 	// ! Other Class vars
@@ -96,13 +96,13 @@ abstract class AbstractQueryBuilder {
 	 * Values to apply to prepared statements
 	 * @var array
 	 */
-	protected $values = array();
+	protected $values = [];
 
 	/**
 	 * Values to apply to where clauses in prepared statements
 	 * @var array
 	 */
-	protected $where_values = array();
+	protected $where_values = [];
 
 	/**
 	 * Value for limit string
@@ -112,7 +112,7 @@ abstract class AbstractQueryBuilder {
 
 	/**
 	 * Value for offset in limit string
-	 * @var int
+	 * @var integer
 	 */
 	protected $offset;
 
@@ -129,7 +129,7 @@ abstract class AbstractQueryBuilder {
 	 *
 	 * @var array
 	 */
-	protected $query_map = array();
+	protected $query_map = [];
 
 	/**
 	 * Map for having clause
@@ -151,7 +151,7 @@ abstract class AbstractQueryBuilder {
 
 	/**
 	 * Whether to do only an explain on the query
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $explain;
 
@@ -195,12 +195,12 @@ abstract class AbstractQueryBuilder {
 	protected function _mixed_set(&$var, $key, $val=NULL, $val_type=self::BOTH)
 	{
 		$arg = (is_scalar($key) && is_scalar($val))
-			? array($key => $val)
+			? [$key => $val]
 			: $key;
 
 		foreach($arg as $k => $v)
 		{
-			if (in_array($val_type, array(self::KEY, self::VALUE)))
+			if (in_array($val_type, [self::KEY, self::VALUE]))
 			{
 				$var[] = ($val_type === self::KEY)
 					? $k
@@ -313,7 +313,7 @@ abstract class AbstractQueryBuilder {
 	 * @param string $conj
 	 * @return Query_Builder
 	 */
-	protected function _having($key, $val=array(), $conj='AND')
+	protected function _having($key, $val=[], $conj='AND')
 	{
 		$where = $this->_where($key, $val);
 
@@ -330,10 +330,10 @@ abstract class AbstractQueryBuilder {
 			$item .= (count($f_array) === 1) ? '=?' : " {$f_array[1]} ?";
 
 			// Put in the having map
-			$this->having_map[] = array(
+			$this->having_map[] = [
 				'conjunction' => ( ! empty($this->having_map)) ? " {$conj} " : ' HAVING ',
 				'string' => $item
-			);
+			];
 		}
 
 		return $this;
@@ -348,9 +348,9 @@ abstract class AbstractQueryBuilder {
 	 * @param mixed $val
 	 * @return array
 	 */
-	protected function _where($key, $val=array())
+	protected function _where($key, $val=[])
 	{
-		$where = array();
+		$where = [];
 		$this->_mixed_set($where, $key, $val, self::BOTH);
 		$this->_mixed_set($this->where_values, $key, $val, self::VALUE);
 		return $where;
@@ -366,7 +366,7 @@ abstract class AbstractQueryBuilder {
 	 * @param string $defaultConj
 	 * @return Query_Builder
 	 */
-	protected function _where_string($key, $val=array(), $defaultConj='AND')
+	protected function _where_string($key, $val=[], $defaultConj='AND')
 	{
 		// Create key/value placeholders
 		foreach($this->_where($key, $val) as $f => $val)
@@ -413,7 +413,7 @@ abstract class AbstractQueryBuilder {
 	 * @param string $conj - The where in conjunction
 	 * @return Query_Builder
 	 */
-	protected function _where_in($key, $val=array(), $in='IN', $conj='AND')
+	protected function _where_in($key, $val=[], $in='IN', $conj='AND')
 	{
 		$key = $this->db->quote_ident($key);
 		$params = array_fill(0, count($val), '?');
@@ -484,11 +484,11 @@ abstract class AbstractQueryBuilder {
 	 */
 	protected function _append_map($conjunction = '', $string = '', $type = '')
 	{
-		array_push($this->query_map, array(
+		array_push($this->query_map, [
 			'type' => $type,
 			'conjunction' => $conjunction,
 			'string' => $string
-		));
+		]);
 	}
 
 	// --------------------------------------------------------------------------
@@ -503,7 +503,7 @@ abstract class AbstractQueryBuilder {
 	 */
 	protected function _append_query($vals, $sql, $total_time)
 	{
-		$evals = (is_array($vals)) ? $vals : array();
+		$evals = (is_array($vals)) ? $vals : [];
 		$esql = str_replace('?', "%s", $sql);
 
 		// Quote string values
@@ -517,10 +517,10 @@ abstract class AbstractQueryBuilder {
 		array_unshift($evals, $esql);
 
 		// Add the interpreted query to the list of executed queries
-		$this->queries[] = array(
+		$this->queries[] = [
 			'time' => $total_time,
 			'sql' => call_user_func_array('sprintf', $evals),
-		);
+		];
 
 		$this->queries['total_time'] += $total_time;
 
@@ -584,12 +584,12 @@ abstract class AbstractQueryBuilder {
 		// Get the base clause for the query
 		$sql = $this->_compile_type($type, $this->db->quote_table($table));
 
-		$clauses = array(
+		$clauses = [
 			'query_map',
 			'group_string',
 			'order_string',
 			'having_map',
-		);
+		];
 
 		// Set each type of subclause
 		foreach($clauses as $clause)

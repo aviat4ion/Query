@@ -31,7 +31,7 @@ interface DriverInterface {
 	 * @param string $password
 	 * @param array $driver_options
 	 */
-	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options = array());
+	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options = []);
 
 	/**
 	 * Simplifies prepared statements for database queries
@@ -268,6 +268,6 @@ interface DriverInterface {
 	 * @param array $data
 	 * @return array
 	 */
-	public function insert_batch($table, $data=array());
+	public function insert_batch($table, $data=[]);
 }
 // End of driver_interface.php

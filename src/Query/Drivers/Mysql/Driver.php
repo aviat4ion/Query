@@ -39,14 +39,14 @@ class Driver extends \Query\AbstractDriver {
 	 * @param string $password
 	 * @param array $options
 	 */
-	public function __construct($dsn, $username=null, $password=null, array $options=array())
+	public function __construct($dsn, $username=NULL, $password=NULL, array $options=[])
 	{
 		// Set the charset to UTF-8
 		if (defined('\\PDO::MYSQL_ATTR_INIT_COMMAND'))
 		{
-			$options = array_merge($options, array(
+			$options = array_merge($options, [
 				\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF-8 COLLATE 'UTF-8'",
-			));
+			]);
 		}
 
 		if (strpos($dsn, 'mysql') === FALSE)

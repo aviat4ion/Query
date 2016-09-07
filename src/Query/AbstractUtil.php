@@ -65,7 +65,7 @@ abstract class AbstractUtil {
 	 * @param bool $if_not_exists
 	 * @return string
 	 */
-	public function create_table($name, $fields, array $constraints=array(), $if_not_exists=TRUE)
+	public function create_table($name, $fields, array $constraints=[], $if_not_exists=TRUE)
 	{
 		$exists_str = ($if_not_exists) ? ' IF NOT EXISTS ' : ' ';
 
@@ -75,13 +75,13 @@ abstract class AbstractUtil {
 		// 		'constraint' => ...,
 		// 		'index' => ...,
 		// )
-		$column_array = \array_zipper(array(
+		$column_array = \array_zipper([
 			'type' => $fields,
 			'constraint' => $constraints
-		));
+		]);
 
 		// Join column definitions together
-		$columns = array();
+		$columns = [];
 		foreach($column_array as $n => $props)
 		{
 			$str = $this->get_driver()->quote_ident($n);

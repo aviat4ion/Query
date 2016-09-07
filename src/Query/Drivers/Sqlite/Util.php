@@ -31,7 +31,7 @@ class Util extends \Query\AbstractUtil {
 	 * @param array $excluded
 	 * @return string
 	 */
-	public function backup_data($excluded=array())
+	public function backup_data($excluded=[])
 	{
 		// Get a list of all the objects
 		$sql = 'SELECT DISTINCT "name"
@@ -68,7 +68,7 @@ class Util extends \Query\AbstractUtil {
 			// Nab the column names by getting the keys of the first row
 			$columns = array_keys(current($obj_res));
 
-			$insert_rows = array();
+			$insert_rows = [];
 
 			// Create the insert statements
 			foreach($obj_res as $row)
@@ -110,7 +110,7 @@ class Util extends \Query\AbstractUtil {
 		$res = $this->get_driver()->query($sql);
 		$result = $res->fetchAll(\PDO::FETCH_ASSOC);
 
-		$sql_array = array();
+		$sql_array = [];
 
 		foreach($result as $r)
 		{

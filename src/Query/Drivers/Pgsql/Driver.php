@@ -32,7 +32,7 @@ class Driver extends \Query\AbstractDriver {
 	 * @param string $password
 	 * @param array  $options
 	 */
-	public function __construct($dsn, $username=null, $password=null, array $options=array())
+	public function __construct($dsn, $username=NULL, $password=NULL, array $options=[])
 	{
 		if (strpos($dsn, 'pgsql') === FALSE)
 		{
@@ -70,16 +70,16 @@ SQL;
 	 */
 	public function get_fks($table)
 	{
-		$value_map = array(
+		$value_map = [
 			'c' => 'CASCADE',
 			'r' => 'RESTRICT',
-		);
+		];
 
 		$keys = parent::get_fks($table);
 
 		foreach($keys as &$key)
 		{
-			foreach(array('update', 'delete') AS $type)
+			foreach(['update', 'delete'] AS $type)
 			{
 				if ( ! isset($value_map[$key[$type]]))
 				{

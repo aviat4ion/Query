@@ -30,7 +30,7 @@ class Util extends \Query\AbstractUtil {
 	 */
 	public function backup_structure()
 	{
-		$string = array();
+		$string = [];
 
 		// Get databases
 		$dbs = $this->get_driver()->get_dbs();
@@ -72,7 +72,7 @@ class Util extends \Query\AbstractUtil {
 	 * @param array $exclude
 	 * @return string
 	 */
-	public function backup_data($exclude=array())
+	public function backup_data($exclude=[])
 	{
 		$tables = $this->get_driver()->get_tables();
 
@@ -100,7 +100,7 @@ class Util extends \Query\AbstractUtil {
 			// Nab the column names by getting the keys of the first row
 			$columns = @array_keys($rows[0]);
 
-			$insert_rows = array();
+			$insert_rows = [];
 
 			// Create the insert statements
 			foreach($rows as $row)

@@ -21,6 +21,7 @@ namespace Query;
  * @package Query
  * @subpackage Core
  */
-class BadDBDriverException extends \InvalidArgumentException {}
+class BadDBDriverException extends \InvalidArgumentException {
+}
 
 // End of BadDBDriverException.php

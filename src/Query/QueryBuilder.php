@@ -24,14 +24,14 @@ namespace Query;
  * @package Query
  * @subpackage Query_Builder
  */
-class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface {
+class QueryBuilder extends AbstractQueryBuilder /*implements QueryBuilderInterface*/ {
 
 	/**
 	 * String class values to be reset
 	 *
 	 * @var array
 	 */
-	private $string_vars = array(
+	private $string_vars = [
 		'select_string',
 		'from_string',
 		'set_string',
@@ -40,14 +40,14 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		'limit',
 		'offset',
 		'explain',
-	);
+	];
 
 	/**
 	 * Array class variables to be reset
 	 *
 	 * @var array
 	 */
-	private $array_vars = array(
+	private $array_vars = [
 		'set_array_keys',
 		'order_array',
 		'group_array',
@@ -55,7 +55,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		'where_values',
 		'query_map',
 		'having_map'
-	);
+	];
 
 	// --------------------------------------------------------------------------
 	// ! Methods
@@ -106,13 +106,13 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		// Allow camel-case method calls
 		$snake_name = \from_camel_case($name);
 
-		foreach(array($this, $this->db) as $object)
+		foreach([$this, $this->db] as $object)
 		{
-			foreach(array($name, $snake_name) as $method_name)
+			foreach([$name, $snake_name] as $method_name)
 			{
 				if (method_exists($object, $method_name))
 				{
-					return call_user_func_array(array($object, $method_name), $params);
+					return call_user_func_array([$object, $method_name], $params);
 				}
 			}
 
@@ -356,7 +356,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilder
 	 */
-	public function having($key, $val=array())
+	public function having($key, $val=[])
 	{
 		return $this->_having($key, $val, 'AND');
 	}
@@ -370,7 +370,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilder
 	 */
-	public function or_having($key, $val=array())
+	public function or_having($key, $val=[])
 	{
 		return $this->_having($key, $val, 'OR');
 	}
@@ -389,7 +389,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $escape
 	 * @return QueryBuilder
 	 */
-	public function where($key, $val=array(), $escape=NULL)
+	public function where($key, $val=[], $escape=NULL)
 	{
 		return $this->_where_string($key, $val, 'AND');
 	}
@@ -403,7 +403,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilder
 	 */
-	public function or_where($key, $val=array())
+	public function or_where($key, $val=[])
 	{
 		return $this->_where_string($key, $val, 'OR');
 	}
@@ -417,7 +417,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilder
 	 */
-	public function where_in($field, $val=array())
+	public function where_in($field, $val=[])
 	{
 		return $this->_where_in($field, $val);
 	}
@@ -431,7 +431,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilder
 	 */
-	public function or_where_in($field, $val=array())
+	public function or_where_in($field, $val=[])
 	{
 		return $this->_where_in($field, $val, 'IN', 'OR');
 	}
@@ -445,7 +445,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilder
 	 */
-	public function where_not_in($field, $val=array())
+	public function where_not_in($field, $val=[])
 	{
 		return $this->_where_in($field, $val, 'NOT IN', 'AND');
 	}
@@ -459,7 +459,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilder
 	 */
-	public function or_where_not_in($field, $val=array())
+	public function or_where_not_in($field, $val=[])
 	{
 		return $this->_where_in($field, $val, 'NOT IN', 'OR');
 	}
@@ -482,7 +482,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
-		$this->set_array_keys = array_map(array($this->db, '_quote'), $this->set_array_keys);
+		$this->set_array_keys = array_map([$this->db, '_quote'], $this->set_array_keys);
 
 		// Generate the "set" string
 		$this->set_string = implode('=?,', $this->set_array_keys);
@@ -530,7 +530,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	{
 		if ( ! is_scalar($field))
 		{
-			$new_group_array = array_map(array($this->db, 'quote_ident'), $field);
+			$new_group_array = array_map([$this->db, 'quote_ident'], $field);
 			$this->group_array = array_merge($this->group_array, $new_group_array);
 		}
 		else
@@ -566,7 +566,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		$field = $this->db->quote_ident($field);
 		$this->order_array[$field] = $type;
 
-		$order_clauses = array();
+		$order_clauses = [];
 
 		// Flatten key/val pairs into an array of space-separated pairs
 		foreach($this->order_array as $k => $v)
@@ -702,7 +702,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param int|bool $offset
 	 * @return \PDOStatement
 	 */
-	public function get_where($table, $where=array(), $limit=FALSE, $offset=FALSE)
+	public function get_where($table, $where=[], $limit=FALSE, $offset=FALSE)
 	{
 		// Create the where clause
 		$this->where($where);
@@ -758,7 +758,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $data
 	 * @return \PDOStatement
 	 */
-	public function insert($table, $data=array())
+	public function insert($table, $data=[])
 	{
 		if ( ! empty($data))
 		{
@@ -777,7 +777,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param array $data
 	 * @return \PDOStatement
 	 */
-	public function insert_batch($table, $data=array())
+	public function insert_batch($table, $data=[])
 	{
 		// Get the generated values and sql string
 		list($sql, $data) = $this->db->insert_batch($table, $data);
@@ -796,7 +796,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $data
 	 * @return \PDOStatement
 	 */
-	public function update($table, $data=array())
+	public function update($table, $data=[])
 	{
 		if ( ! empty($data))
 		{
@@ -913,7 +913,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		// Reset arrays
 		foreach($this->array_vars as $var)
 		{
-			$this->$var = array();
+			$this->$var = [];
 		}
 	}
 }

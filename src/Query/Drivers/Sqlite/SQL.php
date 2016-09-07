@@ -85,7 +85,7 @@ SQL;
 	 */
 	public function system_table_list()
 	{
-		return array('sqlite_master', 'sqlite_temp_master', 'sqlite_sequence');
+		return ['sqlite_master', 'sqlite_temp_master', 'sqlite_sequence'];
 	}
 
 	// --------------------------------------------------------------------------
@@ -159,7 +159,7 @@ SQL;
 	 */
 	public function type_list()
 	{
-		return array('INTEGER', 'REAL', 'TEXT', 'BLOB');
+		return ['INTEGER', 'REAL', 'TEXT', 'BLOB'];
 	}
 
 	// --------------------------------------------------------------------------

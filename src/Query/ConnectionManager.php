@@ -28,13 +28,13 @@ final class ConnectionManager {
 	 * Map of named database connections
 	 * @var array
 	 */
-	private $connections = array();
+	private $connections = [];
 
 	/**
 	 * Class instance variable
-	 * @var Connection_Manager
+	 * @var ConnectionManager
 	 */
-	private static $instance = null;
+	private static $instance = NULL;
 
 	// --------------------------------------------------------------------------
 
@@ -42,7 +42,9 @@ final class ConnectionManager {
 	 * Private constructor to prevent multiple instances
 	 * @codeCoverageIgnore
 	 */
-	private function __construct() {}
+	private function __construct() 
+ {
+ }
 
 	// --------------------------------------------------------------------------
 
@@ -87,7 +89,7 @@ final class ConnectionManager {
 	 */
 	public static function get_instance()
 	{
-		if (self::$instance === null)
+		if (self::$instance === NULL)
 		{
 			self::$instance = new self();
 		}
@@ -185,7 +187,7 @@ final class ConnectionManager {
 		}
 
 		// Set additional PDO options
-		$options = array();
+		$options = [];
 
 		if (isset($params->options))
 		{
@@ -201,13 +203,17 @@ final class ConnectionManager {
 		{
 			$dsn = $params->file;
 		}
+		else if(strtolower($dbtype) === 'oci')
+		{
+			$dsn = "dbname=//{$params->host}:{$params->port}/{$params->database}";
+		}
 		else
 		{
 			$dsn = $this->create_dsn($dbtype, $params);
 		}
 
 
-		return array($dsn, $dbtype, $params, $options);
+		return [$dsn, $dbtype, $params, $options];
 	}
 
 	// --------------------------------------------------------------------------
@@ -226,14 +232,14 @@ final class ConnectionManager {
 			$dbtype = 'firebird';
 		}
 
-		$pairs = array();
+		$pairs = [];
 
 		if ( ! empty($params->database))
 		{
-			$pairs[] = implode('=', array('dbname', $params->database));
+			$pairs[] = implode('=', ['dbname', $params->database]);
 		}
 
-		$skip = array(
+		$skip = [
 			'name' => 'name',
 			'pass' => 'pass',
 			'user' => 'user',
@@ -242,13 +248,13 @@ final class ConnectionManager {
 			'options' => 'options',
 			'database' => 'database',
 			'alias' => 'alias'
-		);
+		];
 
 		foreach($params as $key => $val)
 		{
 			if (( ! array_key_exists($key, $skip)) && ( ! empty($val)))
 			{
-				$pairs[] = implode('=', array($key, $val));
+				$pairs[] = implode('=', [$key, $val]);
 			}
 		}
 

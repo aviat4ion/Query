@@ -33,7 +33,7 @@ class Util extends \Query\AbstractUtil {
 	 * @param bool $if_not_exists
 	 * @return string
 	 */
-	public function create_table($name, $fields, array $constraints=array(), $if_not_exists=FALSE)
+	public function create_table($name, $fields, array $constraints=[], $if_not_exists=FALSE)
 	{
 		return parent::create_table($name, $fields, $constraints, FALSE);
 	}
@@ -73,7 +73,7 @@ class Util extends \Query\AbstractUtil {
 	 * @param bool $system_tables
 	 * @return string
 	 */
-	public function backup_data($exclude=array(), $system_tables=FALSE)
+	public function backup_data($exclude=[], $system_tables=FALSE)
 	{
 		// Determine which tables to use
 		$tables = $this->get_driver()->get_tables();
@@ -106,7 +106,7 @@ class Util extends \Query\AbstractUtil {
 			// Nab the column names by getting the keys of the first row
 			$columns = @array_keys($obj_res[0]);
 
-			$insert_rows = array();
+			$insert_rows = [];
 
 			// Create the insert statements
 			foreach($obj_res as $row)
@@ -116,7 +116,7 @@ class Util extends \Query\AbstractUtil {
 				// Quote values as needed by type
 				if(stripos($t, 'RDB$') === FALSE)
 				{
-					$row = array_map(array($this->get_driver(), 'quote'), $row);
+					$row = array_map([$this->get_driver(), 'quote'], $row);
 					$row = array_map('trim', $row);
 				}
 

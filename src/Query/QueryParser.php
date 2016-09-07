@@ -35,23 +35,23 @@ class QueryParser {
 	 *
 	 * @var array
 	 */
-	private $match_patterns = array(
+	private $match_patterns = [
 		'function' => '([a-zA-Z0-9_]+\((.*?)\))',
 		'identifier' => '([a-zA-Z0-9_-]+\.?)+',
 		'operator' => '=|AND|&&?|~|\|\|?|\^|/|>=?|<=?|-|%|OR|\+|NOT|\!=?|<>|XOR'
-	);
+	];
 
 	/**
 	 * Regex matches
 	 *
 	 * @var array
 	 */
-	public $matches = array(
-		'functions' => array(),
-		'identifiers' => array(),
-		'operators' => array(),
-		'combined' => array(),
-	);
+	public $matches = [
+		'functions' => [],
+		'identifiers' => [],
+		'operators' => [],
+		'combined' => [],
+	];
 
 	/**
 	 * Constructor/entry point into parser
@@ -83,7 +83,7 @@ class QueryParser {
 		preg_match_all($full_pattern, $sql, $this->matches['combined'], PREG_SET_ORDER);
 
 		// Go through the matches, and get the most relevant matches
-		$this->matches = array_map(array($this, 'filter_array'), $this->matches);
+		$this->matches = array_map([$this, 'filter_array'], $this->matches);
 
 		return $this->matches;
 	}
@@ -123,7 +123,7 @@ class QueryParser {
 	 */
 	protected function filter_array($array)
 	{
-		$new_array = array();
+		$new_array = [];
 
 		foreach($array as $row)
 		{

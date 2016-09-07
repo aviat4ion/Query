@@ -34,7 +34,7 @@ class Result extends \PDOStatement {
 	/**
 	 * Current row in result array
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	private $row;
 
@@ -43,7 +43,7 @@ class Result extends \PDOStatement {
 	 *
 	 * @param mixed
 	 */
-	private $result = array();
+	private $result = [];
 
 	/**
 	 * Reference to the db drive to de-duplicate error functions
@@ -68,7 +68,7 @@ class Result extends \PDOStatement {
 		$this->statement = $link;
 		$this->setFetchMode(\PDO::FETCH_ASSOC);
 		$this->row = -1;
-		$this->result = array();
+		$this->result = [];
 
 		// Create the result array, so that we can get row counts
 		// Check the resource type, because prepared statements are "interbase query"
@@ -212,7 +212,7 @@ class Result extends \PDOStatement {
 	 */
 	public function fetchAll($fetch_style=\PDO::FETCH_ASSOC, $statement=NULL, $ctor_args=NULL)
 	{
-		$all = array();
+		$all = [];
 
 		while($row = $this->fetch($fetch_style, $statement))
 		{
@@ -247,7 +247,7 @@ class Result extends \PDOStatement {
 	 * @param array $ctor_args
 	 * @return stdClass
 	 */
-	public function fetchObject($class_name='stdClass', $ctor_args=array())
+	public function fetchObject($class_name='stdClass', $ctor_args=[])
 	{
 		return $this->fetch(\PDO::FETCH_OBJ);
 	}
