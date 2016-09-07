@@ -12,6 +12,10 @@
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
 
+use Query\ConnectionManager;
+
+require __DIR__ . '/../vendor/autoload.php';
+
 // --------------------------------------------------------------------------
 
 /**
@@ -64,7 +68,7 @@ if ( ! function_exists('db_filter'))
 	 */
 	function db_filter($array, $index)
 	{
-		$new_array = array();
+		$new_array = [];
 
 		foreach($array as $a)
 		{
@@ -87,7 +91,8 @@ if ( ! function_exists('from_camel_case'))
 	 * @param string $input
 	 * @return string
 	 */
-	function from_camel_case($input) {
+	function from_camel_case($input) 
+ {
 		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
 		$ret = $matches[0];
 		foreach ($ret as &$match) {
@@ -112,7 +117,7 @@ if ( ! function_exists('array_zipper'))
 	 */
 	function array_zipper(Array $zipper_input)
 	{
-		$output = array();
+		$output = [];
 
 		foreach($zipper_input as $append_key => $values)
 		{
@@ -120,7 +125,7 @@ if ( ! function_exists('array_zipper'))
 			{
 				if ( ! isset($output[$index]))
 				{
-					$output[$index] = array();
+					$output[$index] = [];
 				}
 				$output[$index][$append_key] = $value;
 			}
@@ -144,7 +149,7 @@ if ( ! function_exists('array_column'))
 	 */
 	function array_column(Array $array, $key)
 	{
-		$output = array();
+		$output = [];
 
 		// No point iterating over an empty array
 		if (empty($array))
@@ -208,24 +213,26 @@ if ( ! function_exists('Query'))
 	 * connection created.
 	 *
 	 * @param string|object|array $params
-	 * @return Query\Query_Builder|null
+	 * @return Query\QueryBuilder|null
 	 */
 	function Query($params = '')
 	{
-		$cmanager = \Query\ConnectionManager::get_instance();
+		$manager = ConnectionManager::get_instance();
 
 		// If you are getting a previously created connection
 		if (is_scalar($params))
 		{
-			return $cmanager->get_connection($params);
+			return $manager->get_connection($params);
 		}
 		elseif ( ! is_scalar($params) && ! is_null($params))
 		{
 			$params_object = (object) $params;
 
 			// Otherwise, return a new connection
-			return $cmanager->connect($params_object);
+			return $manager->connect($params_object);
 		}
+
+		return NULL;
 	}
 }
 // End of common.php

@@ -99,6 +99,7 @@
 
                 <!-- PHPUnit Coverage XML -->
                 <source type="phpunit">
+                    <coverage path="logs/coverage.xml" />
                     <!-- <coverage path="clover.xml" />-->
                     <!--           @path - the directory where the xml code coverage report can be found -->
                     <!--<filter directory="${phpDox.project.source}" />-->

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ruleset name="Tim's Coding Standard">
+	<description>A variation of the CodeIgniter standard</description>
+
+	<file>../../src/</file>
+
+	<encoding>utf-8</encoding>
+
+	<rule ref="Generic.Files.LineEndings">
+		<properties>
+			<property name="eolChar" value="\n"/>
+		</properties>
+	</rule>
+
+	<!-- PHP files should OMIT the closing PHP tag -->
+	<rule ref="Zend.Files.ClosingTag"/>
+	<!-- Always use full PHP opening tags -->
+	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
+
+	<!-- Constants should always be fully uppercase -->
+	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+	<!-- TRUE, FALSE, and NULL keywords should always be fully uppercase -->
+	<rule ref="Generic.PHP.UpperCaseConstant"/>
+
+	<!-- One statement per line -->
+	<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+
+
+
+	<!-- Classes and functions should be commented -->
+	<rule ref="PEAR.Commenting.ClassComment">
+		<exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag" />
+		<exclude name="PEAR.Commenting.ClassComment.MissingPackageTag" />
+		<exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag" />
+		<exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag" />
+		<exclude name="PEAR.Commenting.ClassComment.MissingLinkTag" />
+	</rule>
+	<rule ref="PEAR.Commenting.FunctionComment">
+		<!-- Exclude this sniff because it doesn't understand multiple types -->
+		<exclude name="PEAR.Commenting.FunctionComment.MissingParamComment" />
+		<exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamType" />
+		<exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamName" />
+	</rule>
+
+	<!-- Use warnings for docblock comments for files and variables, since nothing is clearly explained -->
+	<rule ref="PEAR.Commenting.FileComment">
+		<exclude name="PEAR.Commenting.FileComment.InvalidVersion" />
+		<exclude name="PEAR.Commenting.FileComment.MissingCategoryTag" />
+		<properties>
+			<property name="error" value="false"/>
+		</properties>
+	</rule>
+
+	<rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
+	<rule ref="Squiz.Commenting.VariableComment">
+		<properties>
+			<property name="error" value="false"/>
+		</properties>
+	</rule>
+
+	<!-- Use Allman style indenting. With the exception of Class declarations,
+         braces are always placed on a line by themselves, and indented at the same level as the control statement that "owns" them. -->
+	<rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+	<rule ref="PEAR.WhiteSpace.ScopeClosingBrace">
+		<exclude name="PEAR.WhiteSpace.ScopeClosingBrace.BreakIndent" />
+	</rule>
+	<rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+
+	<!-- Use only short array syntax -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
+	<rule ref="Generic.PHP.ForbiddenFunctions">
+		<properties>
+			<property name="forbiddenFunctions" type="array" value="create_function=>null,eval=>null" />
+		</properties>
+	</rule>
+
+	<!-- Inherit CodeIgniter Rules -->
+	<!-- <rule ref="CodeIgniter">
+		<properties>
+			<property name="error" value="false" />
+		</properties>
+	</rule> -->
+</ruleset>

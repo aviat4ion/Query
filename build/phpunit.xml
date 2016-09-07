@@ -31,16 +31,15 @@
 			<file>../tests/databases/firebird/FirebirdTest.php</file>
 			<file>../tests/databases/firebird/FirebirdQBTest.php</file>
 		</testsuite>
-		<!--<testsuite name="PDOFirebirdTests">
-			<file>../tests/databases/pdofirebird/PDOFirebirdTest.php</file>
-			<file>../tests/databases/pdofirebird/PDOFirebirdQBTest.php</file>
-		</testsuite>-->
+		<!-- <testsuite name="OCITests">
+			<file>../tests/databases/oci/OCITest.php</file>
+			<file>../tests/databases/oci/OCIQBTest.php</file>
+		</testsuite> -->
 	</testsuites>
 	<logging>
 		<log type="coverage-html" target="coverage"/>
 		<log type="coverage-clover" target="logs/clover.xml"/>
-		<log type="coverage-crap4j" target="logs/crap4j.xml"/>
 		<log type="coverage-xml" target="logs/coverage" />
-		<log type="junit" target="logs/junit.xml" logIncompleteSkipped="false"/>
+		<log type="xml" target="logs/junit.xml" logIncompleteSkipped="true"/>
 	</logging>
 </phpunit>
