@@ -3,9 +3,6 @@ sudo: false
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
   - 7
   - 7.1
   - hhvm
@@ -15,6 +12,7 @@ before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
   - psql -c 'create database test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS test;'
+  - composer install
 
 script:
   - mkdir -p build/logs
@@ -28,6 +26,4 @@ after_script:
 
 matrix:
   allow_failures:
-    - php: 5.4
-    - php: 5.5
     - php: nightly
