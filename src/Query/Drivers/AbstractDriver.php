@@ -1,23 +1,24 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 5.4
+ * PHP version 7
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2015 Timothy J. Warren
+ * @copyright   2012 - 2016 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+
 namespace Query\Drivers;
 
+use InvalidArgumentException;
 use PDO;
 use PDOStatement;
-use InvalidArgumentException;
 
 /**
  * Base Database class
@@ -31,7 +32,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface {
 
 	/**
 	 * Reference to the last executed query
-	 * @var \PDOStatement
+	 * @var PDOStatement
 	 */
 	protected $statement;
 
@@ -63,7 +64,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface {
 	 * Last query executed
 	 * @var string
 	 */
-	protected $last_query;
+	protected $last_query = '';
 
 	/**
 	 * Prefix to apply to table names
@@ -125,7 +126,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface {
 	 * @param array $args
 	 * @return mixed
 	 */
-	public function __call($name, $args = [])
+	public function __call(string $name, array $args = [])
 	{
 		if (
 			isset($this->$name)
@@ -146,7 +147,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface {
 	 *
 	 * @return string
 	 */
-	public function get_last_query()
+	public function get_last_query(): string
 	{
 		return $this->last_query;
 	}
@@ -159,7 +160,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface {
 	 * @param string $query_string
 	 * @return void
 	 */
-	public function set_last_query($query_string)
+	public function set_last_query(string $query_string)
 	{
 		$this->last_query = $query_string;
 	}

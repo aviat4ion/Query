@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 $file_patterns = [
-	'src/*.php'
+	'src/*.php',
+	'tests/**/*.php',
 ];
 
 if ( ! function_exists('glob_recursive'))
@@ -34,6 +36,13 @@ function get_text_to_replace($tokens)
 	{
 		return "<?php\n" . $tokens[1][1];
 	}
+	// If there is a declare strict types,
+	else if ($tokens[1][0] === T_DECLARE && $tokens[9][0] === T_DOC_COMMENT)
+	{
+		// '<?php' and 'declare(strict_types=1);' makes for 8 tokens
+		// replace it all
+		return "<?php\ndeclare(strict_types=1);\n" . $tokens[9][1];
+	}
 	else if ($tokens[1][0] !== T_DOC_COMMENT)
 	{
 		return "<?php";
@@ -51,13 +60,16 @@ function replace_files(array $files, $template)
 	{
 		$source = file_get_contents($file);
 		$tokens = get_tokens($source);
+//print_r($tokens);
 		$text_to_replace = get_text_to_replace($tokens);
 
 		$header = file_get_contents(__DIR__ . $template);
-		$new_text = "<?php\n{$header}";
+		$new_text = "<?php declare(strict_types=1);\n{$header}";
 
 		$new_source = str_replace($text_to_replace, $new_text, $source);
 		file_put_contents($file, $new_source);
+
+		//break;
 	}
 }
 

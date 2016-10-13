@@ -1,21 +1,24 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 5.4
+ * PHP version 7
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2015 Timothy J. Warren
+ * @copyright   2012 - 2016 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+
 namespace Query\Drivers\Sqlite;
 
-use Query\Drivers\AbstractDriver;
+use PDO;
+use PDOStatement;
+use Query\Drivers\{AbstractDriver, DriverInterface};
 
 /**
  * SQLite specific class
@@ -23,12 +26,12 @@ use Query\Drivers\AbstractDriver;
  * @package Query
  * @subpackage Drivers
  */
-class Driver extends AbstractDriver {
+class Driver extends AbstractDriver implements DriverInterface {
 
 	/**
 	 * Reference to the last executed sql query
 	 *
-	 * @var \PDOStatement
+	 * @var PDOStatement
 	 */
 	protected $statement;
 
@@ -57,9 +60,6 @@ class Driver extends AbstractDriver {
 		parent::__construct($dsn, $user, $pass);
 	}
 
-
-	// --------------------------------------------------------------------------
-
 	/**
 	 * List tables for the current database
 	 *
@@ -69,10 +69,8 @@ class Driver extends AbstractDriver {
 	{
 		$sql = $this->sql->table_list();
 		$res = $this->query($sql);
-		return db_filter($res->fetchAll(\PDO::FETCH_ASSOC), 'name');
+		return db_filter($res->fetchAll(PDO::FETCH_ASSOC), 'name');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Retrieve foreign keys for the table
@@ -98,8 +96,6 @@ class Driver extends AbstractDriver {
 		return $return_rows;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Create sql for batch insert
 	 *
@@ -112,7 +108,7 @@ class Driver extends AbstractDriver {
 	{
 		// If greater than version 3.7.11, supports the same syntax as
 		// MySQL and Postgres
-		if (version_compare($this->getAttribute(\PDO::ATTR_SERVER_VERSION), '3.7.11', '>='))
+		if (version_compare($this->getAttribute(PDO::ATTR_SERVER_VERSION), '3.7.11', '>='))
 		{
 			return parent::insert_batch($table, $data);
 		}

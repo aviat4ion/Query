@@ -1,17 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 5.4
+ * PHP version 7
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2015 Timothy J. Warren
+ * @copyright   2012 - 2016 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
+
+
 
 namespace Query\Drivers;
 
@@ -111,12 +113,12 @@ interface PDOStatementInterface {
 	/**
 	 * Fetches the next row from a result set
 	 *
-	 * @param int $fetch_style
-	 * @param int $cursor_orientation
-	 * @param int $cursor_offset
+	 * @param int $how
+	 * @param int $orientation
+	 * @param int $offset
 	 * @return mixed
 	 */
-	public function fetch($fetch_style = PDO::ATTR_DEFAULT_FETCH_MODE, $cursor_orientation = PDO::FETCH_ORI_NEXT, $cursor_offset = 0);
+	public function fetch($how = PDO::ATTR_DEFAULT_FETCH_MODE, $orientation = PDO::FETCH_ORI_NEXT, $offset = 0);
 
 	/**
 	 * Returns a single column from the next row of a result set

@@ -1,14 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * OpenSQLManager
+ * Query
  *
- * Free Database manager for Open Source Databases
+ * SQL Query Builder / Database Abstraction Layer
  *
- * @author 		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2014
- * @link 		https://github.com/aviat4ion/OpenSQLManager
- * @license 	http://philsturgeon.co.uk/code/dbad-license
+ * PHP version 7
+ *
+ * @package     Query
+ * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @copyright   2012 - 2016 Timothy J. Warren
+ * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link        https://git.timshomepage.net/aviat4ion/Query
  */
+
 
 // --------------------------------------------------------------------------
 

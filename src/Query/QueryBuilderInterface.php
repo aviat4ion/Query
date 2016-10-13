@@ -1,22 +1,21 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 5.4
+ * PHP version 7
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2015 Timothy J. Warren
+ * @copyright   2012 - 2016 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query;
+
+use PDOStatement;
 
 /**
  * Interface defining the Query Builder class
@@ -36,7 +35,7 @@ interface QueryBuilderInterface {
 	 * @param string $fields
 	 * @return QueryBuilderInterface
 	 */
-	public function select($fields);
+	public function select(string $fields): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -47,7 +46,7 @@ interface QueryBuilderInterface {
 	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
-	public function select_max($field, $as=FALSE);
+	public function select_max($field, $as=FALSE): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -58,7 +57,7 @@ interface QueryBuilderInterface {
 	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
-	public function select_min($field, $as=FALSE);
+	public function select_min($field, $as=FALSE): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -69,7 +68,7 @@ interface QueryBuilderInterface {
 	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
-	public function select_avg($field, $as=FALSE);
+	public function select_avg($field, $as=FALSE): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -80,7 +79,7 @@ interface QueryBuilderInterface {
 	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
-	public function select_sum($field, $as=FALSE);
+	public function select_sum($field, $as=FALSE): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -89,7 +88,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function distinct();
+	public function distinct(): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -98,7 +97,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function explain();
+	public function explain(): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -108,7 +107,7 @@ interface QueryBuilderInterface {
 	 * @param string $tblname
 	 * @return QueryBuilderInterface
 	 */
-	public function from($tblname);
+	public function from($tblname): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! 'Like' methods
@@ -122,7 +121,7 @@ interface QueryBuilderInterface {
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function like($field, $val, $pos='both');
+	public function like($field, $val, $pos='both'): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -134,7 +133,7 @@ interface QueryBuilderInterface {
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function or_like($field, $val, $pos='both');
+	public function or_like($field, $val, $pos='both'): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -146,7 +145,7 @@ interface QueryBuilderInterface {
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function not_like($field, $val, $pos='both');
+	public function not_like($field, $val, $pos='both'): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -158,7 +157,7 @@ interface QueryBuilderInterface {
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function or_not_like($field, $val, $pos='both');
+	public function or_not_like($field, $val, $pos='both'): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! Having methods
@@ -171,7 +170,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function having($key, $val=[]);
+	public function having($key, $val=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -182,7 +181,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function or_having($key, $val=[]);
+	public function or_having($key, $val=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! 'Where' methods
@@ -198,7 +197,7 @@ interface QueryBuilderInterface {
 	 * @param bool $escape
 	 * @return QueryBuilderInterface
 	 */
-	public function where($key, $val=[], $escape = NULL);
+	public function where($key, $val=[], $escape = NULL): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -209,7 +208,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function or_where($key, $val=[]);
+	public function or_where($key, $val=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -220,7 +219,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function where_in($field, $val=[]);
+	public function where_in($field, $val=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -231,7 +230,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function or_where_in($field, $val=[]);
+	public function or_where_in($field, $val=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -242,7 +241,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function where_not_in($field, $val=[]);
+	public function where_not_in($field, $val=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -253,7 +252,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function or_where_not_in($field, $val=[]);
+	public function or_where_not_in($field, $val=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
@@ -266,7 +265,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function set($key, $val = NULL);
+	public function set($key, $val = NULL): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -278,7 +277,7 @@ interface QueryBuilderInterface {
 	 * @param string $type
 	 * @return QueryBuilderInterface
 	 */
-	public function join($table, $condition, $type='');
+	public function join($table, $condition, $type=''): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -288,7 +287,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $field
 	 * @return QueryBuilderInterface
 	 */
-	public function group_by($field);
+	public function group_by($field): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -299,7 +298,7 @@ interface QueryBuilderInterface {
 	 * @param string $type
 	 * @return QueryBuilderInterface
 	 */
-	public function order_by($field, $type="");
+	public function order_by($field, $type=""): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -310,7 +309,7 @@ interface QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return QueryBuilderInterface
 	 */
-	public function limit($limit, $offset=FALSE);
+	public function limit($limit, $offset=FALSE): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! Query Grouping Methods
@@ -321,17 +320,17 @@ interface QueryBuilderInterface {
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function group_start();
+	public function group_start(): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'NOT'
-	 * 
+	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function not_group_start();
+	public function not_group_start(): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -341,7 +340,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function or_group_start();
+	public function or_group_start(): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -351,7 +350,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function or_not_group_start();
+	public function or_not_group_start(): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 
@@ -360,7 +359,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function group_end();
+	public function group_end(): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! Query execution methods
@@ -373,22 +372,22 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @param int|bool $limit
 	 * @param int|bool $offset
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
-	public function get($table='', $limit=FALSE, $offset=FALSE);
+	public function get($table='', $limit=FALSE, $offset=FALSE): PDOStatement;
 
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Convience method for get() with a where clause
+	 * Convenience method for get() with a where clause
 	 *
 	 * @param string $table
 	 * @param array $where
 	 * @param int|bool $limit
 	 * @param int|bool $offset
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
-	public function get_where($table, $where=[], $limit=FALSE, $offset=FALSE);
+	public function get_where($table, $where=[], $limit=FALSE, $offset=FALSE): PDOStatement;
 
 	// --------------------------------------------------------------------------
 
@@ -398,7 +397,7 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @return int
 	 */
-	public function count_all($table);
+	public function count_all($table): int;
 
 	// --------------------------------------------------------------------------
 
@@ -410,7 +409,7 @@ interface QueryBuilderInterface {
 	 * @param bool $reset - Whether to keep the query after counting the results
 	 * @return int
 	 */
-	public function count_all_results($table='', $reset=TRUE);
+	public function count_all_results(string $table='', bool $reset=TRUE): int;
 
 	// --------------------------------------------------------------------------
 
@@ -419,9 +418,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
-	public function insert($table, $data=[]);
+	public function insert($table, $data=[]): PDOStatement;
 
 	// --------------------------------------------------------------------------
 
@@ -452,9 +451,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
-	public function update($table, $data=[]);
+	public function update($table, $data=[]): PDOStatement;
 
 	// --------------------------------------------------------------------------
 
@@ -476,9 +475,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $table
 	 * @param mixed $where
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
-	public function delete($table, $where='');
+	public function delete($table, $where=''): PDOStatement;
 
 	// --------------------------------------------------------------------------
 	// ! SQL Returning Methods
@@ -491,9 +490,7 @@ interface QueryBuilderInterface {
 	 * @param bool $reset
 	 * @return string
 	 */
-	public function get_compiled_select($table='', $reset=TRUE);
-
-	// --------------------------------------------------------------------------
+	public function get_compiled_select(string $table='', bool $reset=TRUE): string;
 
 	/**
 	 * Returns the generated 'insert' sql query
@@ -502,9 +499,7 @@ interface QueryBuilderInterface {
 	 * @param bool $reset
 	 * @return string
 	 */
-	public function get_compiled_insert($table, $reset=TRUE);
-
-	// --------------------------------------------------------------------------
+	public function get_compiled_insert(string $table, bool $reset=TRUE): string;
 
 	/**
 	 * Returns the generated 'update' sql query
@@ -513,9 +508,7 @@ interface QueryBuilderInterface {
 	 * @param bool $reset
 	 * @return string
 	 */
-	public function get_compiled_update($table='', $reset=TRUE);
-
-	// --------------------------------------------------------------------------
+	public function get_compiled_update(string $table='', bool $reset=TRUE): string;
 
 	/**
 	 * Returns the generated 'delete' sql query
@@ -524,7 +517,7 @@ interface QueryBuilderInterface {
 	 * @param bool $reset
 	 * @return string
 	 */
-	public function get_compiled_delete($table="", $reset=TRUE);
+	public function get_compiled_delete(string $table='', bool $reset=TRUE): string;
 
 	// --------------------------------------------------------------------------
 	// ! Miscellaneous Methods

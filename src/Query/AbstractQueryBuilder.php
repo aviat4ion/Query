@@ -1,14 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 5.4
+ * PHP version 7
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2015 Timothy J. Warren
+ * @copyright   2012 - 2016 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
@@ -29,7 +29,6 @@ abstract class AbstractQueryBuilder {
 	const VALUE = 1;
 	const BOTH 	= 2;
 
-
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Strings
 	// --------------------------------------------------------------------------
@@ -44,7 +43,7 @@ abstract class AbstractQueryBuilder {
 	 * Compiled 'from' clause
 	 * @var string
 	 */
-	protected $from_string;
+	protected $from_string = '';
 
 	/**
 	 * Compiled arguments for insert / update
@@ -213,8 +212,6 @@ abstract class AbstractQueryBuilder {
 		return $var;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Method to simplify select_ methods
 	 *
@@ -237,8 +234,6 @@ abstract class AbstractQueryBuilder {
 		return "({$field}) AS {$as} ";
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Helper function for returning sql strings
 	 *
@@ -260,8 +255,6 @@ abstract class AbstractQueryBuilder {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Simplify 'like' methods
 	 *
@@ -270,7 +263,7 @@ abstract class AbstractQueryBuilder {
 	 * @param string $pos
 	 * @param string $like
 	 * @param string $conj
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	protected function _like($field, $val, $pos, $like='LIKE', $conj='AND')
 	{
@@ -301,15 +294,13 @@ abstract class AbstractQueryBuilder {
 		return $this;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Simplify building having clauses
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param string $conj
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	protected function _having($key, $val=[], $conj='AND')
 	{
@@ -337,8 +328,6 @@ abstract class AbstractQueryBuilder {
 		return $this;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Do all the redundant stuff for where/having type methods
 	 *
@@ -354,15 +343,13 @@ abstract class AbstractQueryBuilder {
 		return $where;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Simplify generating where string
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param string $defaultConj
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	protected function _where_string($key, $val=[], $defaultConj='AND')
 	{
@@ -400,8 +387,6 @@ abstract class AbstractQueryBuilder {
 		return $this;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Simplify where_in methods
 	 *
@@ -409,7 +394,7 @@ abstract class AbstractQueryBuilder {
 	 * @param mixed $val
 	 * @param string $in - The (not) in fragment
 	 * @param string $conj - The where in conjunction
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
 	protected function _where_in($key, $val=[], $in='IN', $conj='AND')
 	{
@@ -428,8 +413,6 @@ abstract class AbstractQueryBuilder {
 
 		return $this;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Executes the compiled query
@@ -474,8 +457,6 @@ abstract class AbstractQueryBuilder {
 		return $res;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Add an additional set of mapping pairs to a internal map
 	 *
@@ -492,8 +473,6 @@ abstract class AbstractQueryBuilder {
 			'string' => $string
 		]);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Convert the prepared statement into readable sql
@@ -529,8 +508,6 @@ abstract class AbstractQueryBuilder {
 		// Set the last query to get rowcounts properly
 		$this->db->set_last_query($sql);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Sub-method for generating sql strings
@@ -579,8 +556,6 @@ abstract class AbstractQueryBuilder {
 
 		return $sql;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * String together the sql statements for sending to the db
@@ -634,5 +609,3 @@ abstract class AbstractQueryBuilder {
 		return $sql;
 	}
 }
-
-// End of abstract_QueryBuilder.php

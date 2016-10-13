@@ -1,21 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 5.4
+ * PHP version 7
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2015 Timothy J. Warren
+ * @copyright   2012 - 2016 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+
+
 namespace Query\Drivers\Mysql;
 
-use Query\Drivers\AbstractDriver;
+use Query\Drivers\{AbstractDriver, DriverInterface};
 
 /**
  * MySQL specific class
@@ -23,7 +25,7 @@ use Query\Drivers\AbstractDriver;
  * @package Query
  * @subpackage Drivers
  */
-class Driver extends AbstractDriver {
+class Driver extends AbstractDriver implements DriverInterface {
 
 	/**
 	 * Set the backtick as the MySQL escape character

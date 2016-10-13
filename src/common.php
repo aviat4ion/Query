@@ -1,17 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 5.4
+ * PHP version 7
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2015 Timothy J. Warren
+ * @copyright   2012 - 2016 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
+
 
 use Query\ConnectionManager;
 
@@ -23,25 +24,6 @@ require __DIR__ . '/../vendor/autoload.php';
  * Global functions that don't really fit anywhere else
  */
 
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('do_include'))
-{
-	/**
-	 * Bulk directory loading workaround for use
-	 * with array_map and glob
-	 *
-	 * @param string $path
-	 * @return void
-	 */
-	function do_include($path)
-	{
-		require_once($path);
-	}
-}
-
-// --------------------------------------------------------------------------
-
 if ( ! function_exists('mb_trim'))
 {
 	/**
@@ -50,7 +32,7 @@ if ( ! function_exists('mb_trim'))
 	 * @param string $string
 	 * @return string
 	 */
-	function mb_trim($string)
+	function mb_trim(string $string): string
 	{
 		return preg_replace("/(^\s+)|(\s+$)/us", "", $string);
 	}
@@ -67,7 +49,7 @@ if ( ! function_exists('db_filter'))
 	 * @param mixed $index
 	 * @return array
 	 */
-	function db_filter($array, $index)
+	function db_filter(array $array, $index): array
 	{
 		$new_array = [];
 
@@ -92,14 +74,36 @@ if ( ! function_exists('from_camel_case'))
 	 * @param string $input
 	 * @return string
 	 */
-	function from_camel_case($input) 
- {
+	function from_camel_case(string $input): string
+	{
 		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
 		$ret = $matches[0];
 		foreach ($ret as &$match) {
 			$match = strtolower($match);
 		}
 		return implode('_', $ret);
+	}
+}
+
+if ( ! function_exists('to_camel_case'))
+{
+	/**
+	 * Create a camelCase string from snake_case
+	 *
+	 * @param string $snake_case
+	 * @return string
+	 */
+	function to_camel_case(string $snake_case): string
+	{
+		$pieces = explode('_', $snake_case);
+
+		$pieces[0] = mb_strtolower($pieces[0]);
+		for($i = 1; $i < count($pieces); $i++)
+		{
+			$pieces[$i] = ucfirst(mb_strtolower($pieces[$i]));
+		}
+
+		return implode('', $pieces);
 	}
 }
 
@@ -116,7 +120,7 @@ if ( ! function_exists('array_zipper'))
 	 * @param array $zipper_input
 	 * @return array
 	 */
-	function array_zipper(Array $zipper_input)
+	function array_zipper(array $zipper_input): array
 	{
 		$output = [];
 
@@ -138,40 +142,6 @@ if ( ! function_exists('array_zipper'))
 
 // --------------------------------------------------------------------------
 
-if ( ! function_exists('array_column'))
-{
-	/**
-	 * Get an array out of an multi-dimensional array based on a common
-	 * key
-	 *
-	 * @param array $array
-	 * @param string $key
-	 * @return array
-	 */
-	function array_column(Array $array, $key)
-	{
-		$output = [];
-
-		// No point iterating over an empty array
-		if (empty($array))
-		{
-			return $array;
-		}
-
-		foreach($array as $inner_array)
-		{
-	 		if (array_key_exists($key, $inner_array))
-	 		{
-		 		$output[] = $inner_array[$key];
-	 		}
-		}
-
-		return $output;
-	}
-}
-
-// --------------------------------------------------------------------------
-
 if ( ! function_exists('regex_in_array'))
 {
 	/**
@@ -182,7 +152,7 @@ if ( ! function_exists('regex_in_array'))
 	 * @param string $pattern
 	 * @return bool
 	 */
-	function regex_in_array(Array $array, $pattern)
+	function regex_in_array(array $array, string $pattern): bool
 	{
 		if (empty($array))
 		{
