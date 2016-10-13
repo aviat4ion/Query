@@ -13,10 +13,10 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query;
+
+use InvalidArgumentException;
+use DomainException;
 
 /**
  * Connection manager class to manage connections for the
@@ -46,20 +46,20 @@ final class ConnectionManager {
 	 * @codeCoverageIgnore
 	 */
 	private function __construct() 
- {
- }
+	{
+	}
 
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Private clone method to prevent cloning
 	 *
-	 * @throws \DomainException
+	 * @throws DomainException
 	 * @return void
 	 */
 	public function __clone()
 	{
-		throw new \DomainException("Can't clone singleton");
+		throw new DomainException("Can't clone singleton");
 	}
 
 	// --------------------------------------------------------------------------
@@ -67,12 +67,12 @@ final class ConnectionManager {
 	/**
 	 * Prevent serialization of this object
 	 *
-	 * @throws \DomainException
+	 * @throws DomainException
 	 * @return void
 	 */
 	public function __sleep()
 	{
-		throw new \DomainException("No serializing of singleton");
+		throw new DomainException("No serializing of singleton");
 	}
 
 	// --------------------------------------------------------------------------
@@ -80,12 +80,12 @@ final class ConnectionManager {
 	/**
 	 * Make sure serialize/deserialize doesn't work
 	 *
-	 * @throws \DomainException
+	 * @throws DomainException
 	 * @return void
 	 */
 	public function __wakeup()
 	{
-		throw new \DomainException("Can't unserialize singleton");
+		throw new DomainException("Can't unserialize singleton");
 	}
 
 	// --------------------------------------------------------------------------
@@ -113,7 +113,7 @@ final class ConnectionManager {
 	 *
 	 * @param string|array|object $name
 	 * @return QueryBuilder
-	 * @throws \InvalidArgumentException
+	 * @throws InvalidArgumentException
 	 */
 	public function get_connection($name = '')
 	{
@@ -128,7 +128,7 @@ final class ConnectionManager {
 		}
 
 		// You should actually connect before trying to get a connection...
-		throw new \InvalidArgumentException("The specified connection does not exist");
+		throw new InvalidArgumentException("The specified connection does not exist");
 	}
 
 	// --------------------------------------------------------------------------

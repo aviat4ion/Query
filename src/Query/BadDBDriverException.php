@@ -13,10 +13,9 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
-
 namespace Query;
+
+use InvalidArgumentException;
 
 /**
  * Generic exception for bad drivers
@@ -24,7 +23,7 @@ namespace Query;
  * @package Query
  * @subpackage Core
  */
-class BadDBDriverException extends \InvalidArgumentException {
+class BadDBDriverException extends InvalidArgumentException {
 }
 
 // End of BadDBDriverException.php

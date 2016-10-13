@@ -28,11 +28,29 @@ if ( ! defined('IS_QUERCUS'))
 	}
 }
 
+function get_json_config()
+{
+	$files = array(
+		__DIR__ . '/settings.json',
+		__DIR__ . '/settings.json.dist'
+	);
+
+	foreach($files as $file)
+	{
+		if (is_file($file))
+		{
+			return json_decode(file_get_contents($file));
+		}
+	}
+
+	return FALSE;
+}
+
 // --------------------------------------------------------------------------
 
-// Include simpletest
-// it has to be in the tests folder
-require_once('simpletest/autorun.php');
+// Set up autoloaders
+require_once(__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/../vendor/simpletest/simpletest/autorun.php');
 
 /**
  * Base class for TestCases
@@ -96,6 +114,16 @@ abstract class Query_TestCase extends UnitTestCase {
 	}
 
 	/**
+	 * Alias to the method in PHPUnit
+	 *
+	 * @param string $message
+	 */
+	public function expectExceptionMessage($message)
+	{
+		// noop
+	}
+
+	/**
 	 * Alias for phpunit method
 	 *
 	 * @param string $name
@@ -104,7 +132,7 @@ abstract class Query_TestCase extends UnitTestCase {
 	 */
 	public function setExpectedException($name, $message='', $code=NULL)
 	{
-		$this->expectException($name);
+		$this->expectException($name, $message);
 	}
 }
 
@@ -116,9 +144,6 @@ abstract class Query_TestCase extends UnitTestCase {
 define('QTEST_DIR', __DIR__);
 define('QBASE_DIR', realpath(__DIR__ . '/../') . '/');
 define('QDS', DIRECTORY_SEPARATOR);
-
-// Include db classes
-require_once(QBASE_DIR . 'autoload.php');
 
 // Include db tests
 // Load db classes based on capability
@@ -142,7 +167,7 @@ $driver_test_map = array(
 	'MySQL' => in_array('mysql', $drivers),
 	'SQLite' => in_array('sqlite', $drivers),
 	'PgSQL' => in_array('pgsql', $drivers),
-	//'Firebird' => in_array('interbase', $drivers),
+	'Firebird' => in_array('interbase', $drivers),
 	//'PDOFirebird' => in_array('firebird', $drivers)
 );
 

@@ -333,6 +333,40 @@ abstract class QBTest extends Query_TestCase {
 
 	// --------------------------------------------------------------------------
 
+	public function testAndNotGroupStart()
+	{
+		$query = self::$db->select('id, key as k, val')
+			->from('test')
+			->group_start()
+			->where('id >', 1)
+			->where('id <', 900)
+			->group_end()
+			->not_group_start()
+			->where('id =', 0)
+			->group_end()
+			->limit(2, 1)
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function testNotGroupStart()
+	{
+		$query = self::$db->select('id, key as k, val')
+			->from('test')
+			->not_group_start()
+			->where('id =', 0)
+			->group_end()
+			->limit(2, 1)
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	// --------------------------------------------------------------------------
+
 	public function testGroupCamelCase()
 	{
 		$query = self::$db->select('id, key as k, val')

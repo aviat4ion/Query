@@ -13,7 +13,8 @@ class Connection_Manager_Test extends Query_TestCase {
 
 	public function testNoClone()
 	{
-		$this->setExpectedException('DomainException', "Can't clone singleton");
+		$this->expectException('DomainException');
+		$this->expectExceptionMessage("Can't clone singleton");
 		$clone = clone self::$instance;
 	}
 

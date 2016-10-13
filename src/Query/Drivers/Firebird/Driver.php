@@ -79,7 +79,7 @@ class Driver extends AbstractDriver {
 	 * @param string $user
 	 * @param string $pass
 	 * @param array $options
-	 * @throws \PDOException
+	 * @throws PDOException
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = [])
 	{

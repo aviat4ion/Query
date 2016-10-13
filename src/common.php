@@ -13,7 +13,6 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
 use Query\ConnectionManager;
 
 require __DIR__ . '/../vendor/autoload.php';

@@ -26,7 +26,7 @@ interface PDOStatementInterface {
 	 * Bind a column to a PHP variable
 	 *
 	 * @param mixed $column Number or name of the column in the result set
-	 * @param mixed &$param Name of the PHP variable to which the column will be bound
+	 * @param mixed $param Name of the PHP variable to which the column will be bound
 	 * @param int $type Data type of the parameter, specified by the PDO::PARAM_* constants
 	 * @param int $maxlen A hint for pre-allocation
 	 * @param mixed $driverdata Optional parameter(s) for the driver
@@ -40,7 +40,7 @@ interface PDOStatementInterface {
 	 * @param mixed $parameter Parameter identifier. For a prepared statement using named placeholders, this will be a
 	 * parameter name of the form :name. For a prepared statement using question mark placeholders, this will be the
 	 * 1-indexed position of the parameter.
-	 * @param mixed &$variable Name of the PHP variable to bind to the SQL statement parameter.
+	 * @param mixed $variable Name of the PHP variable to bind to the SQL statement parameter.
 	 * @param int $data_type Explicit data type for the parameter using the PDO::PARAM_* constants. To return an INOUT
 	 * parameter from a stored procedure, use the bitwise OR operator to set the PDO::PARAM_INPUT_OUTPUT bits
 	 * for the data_type parameter.

@@ -21,7 +21,7 @@
 		"role": "Developer"
 	}],
 	"require": {
-		"php": ">=5.4"
+		"php": "^7.0"
 	},
 	"require-dev": {
 		"consolidation/robo": "1.0.0-RC2",
@@ -33,18 +33,14 @@
 		"phpmd/phpmd": "^2.4",
 		"phpunit/phpunit": "^5.5",
 		"sebastian/phpcpd": "^2.0",
+		"simpletest/simpletest": "^1.1",
 		"squizlabs/php_codesniffer": "^3.0.0@RC",
-		"theseer/phpdox": "^0.9.0"
+		"phpdocumentor/phpdocumentor": "2.*"
 	},
 	"autoload": {
 		"psr-4": {
 			"Query\\": "src/Query"
 		},
 		"files": ["src/common.php"]
-	},
-	"autoload-dev": {
-		"psr-4" : {
-			"CodeIgniter\\": "build/CodeIgniter"
-		}
 	}
 }

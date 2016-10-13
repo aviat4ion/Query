@@ -16,6 +16,7 @@
 namespace Query;
 
 use Query\Drivers\DriverInterface;
+use BadMethodCallException;
 
 /**
  * Convenience class for creating sql queries - also the class that
@@ -99,7 +100,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $name
 	 * @param array $params
 	 * @return mixed
-	 * @throws \BadMethodCallException
+	 * @throws BadMethodCallException
 	 */
 	public function __call($name, $params)
 	{
@@ -118,7 +119,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 
 		}
 
-		throw new \BadMethodCallException("Method does not exist");
+		throw new BadMethodCallException("Method does not exist");
 	}
 
 	// --------------------------------------------------------------------------
@@ -174,7 +175,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * Selects the maximum value of a field from a query
 	 *
 	 * @param string $field
-	 * @param string|FALSE $as
+	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
 	public function select_max($field, $as=FALSE)
@@ -627,7 +628,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function not_group_start()
 	{
-		$this->_append_map('', ' NOT (', 'group_start');
+		$conj = (empty($this->query_map)) ? ' WHERE ' : ' AND ';
+
+		$this->_append_map($conj, ' NOT (', 'group_start');
 
 		return $this;
 	}
@@ -729,7 +732,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Retreive the number of rows in the selected table
+	 * Retrieve the number of rows in the selected table
 	 *
 	 * @param string $table
 	 * @return int
