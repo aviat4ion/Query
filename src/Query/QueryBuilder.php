@@ -12,7 +12,6 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
 namespace Query;
 
 use BadMethodCallException;
@@ -20,11 +19,7 @@ use PDOStatement;
 use Query\Drivers\DriverInterface;
 
 /**
- * Convenience class for creating sql queries - also the class that
- * instantiates the specific db driver
- *
- * @package Query
- * @subpackage Query_Builder
+ * Convenience class for creating sql queries
  */
 class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface {
 
@@ -33,12 +28,12 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @var array
 	 */
-	private $string_vars = [
-		'select_string',
-		'from_string',
-		'set_string',
-		'order_string',
-		'group_string',
+	private $stringVars = [
+		'selectString',
+		'fromString',
+		'setString',
+		'orderString',
+		'groupString',
 		'limit',
 		'offset',
 		'explain',
@@ -49,14 +44,14 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @var array
 	 */
-	private $array_vars = [
-		'set_array_keys',
-		'order_array',
-		'group_array',
+	private $arrayVars = [
+		'setArrayKeys',
+		'orderArray',
+		'groupArray',
 		'values',
-		'where_values',
-		'query_map',
-		'having_map'
+		'whereValues',
+		'queryMap',
+		'havingMap'
 	];
 
 	// --------------------------------------------------------------------------
@@ -78,8 +73,8 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		$this->queries['total_time'] = 0;
 
 		// Alias driver sql and util classes
-		$this->sql = $this->db->get_sql();
-		$this->util = $this->db->get_util();
+		$this->sql = $this->db->getSql();
+		$this->util = $this->db->getUtil();
 	}
 
 	/**
@@ -101,16 +96,16 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function __call(string $name, array $params)
 	{
-		// Allow camel-case method calls
-		$snake_name = \from_camel_case($name);
+		// Alias snake_case method calls
+		$camelName = \to_camel_case($name);
 
 		foreach([$this, $this->db] as $object)
 		{
-			foreach([$name, $snake_name] as $method_name)
+			foreach([$name, $camelName] as $methodName)
 			{
-				if (method_exists($object, $method_name))
+				if (method_exists($object, $methodName))
 				{
-					return call_user_func_array([$object, $method_name], $params);
+					return call_user_func_array([$object, $methodName], $params);
 				}
 			}
 
@@ -132,36 +127,36 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function select(string $fields): QueryBuilderInterface
 	{
 		// Split fields by comma
-		$fields_array = explode(',', $fields);
-		$fields_array = array_map('mb_trim', $fields_array);
+		$fieldsArray = explode(',', $fields);
+		$fieldsArray = array_map('mb_trim', $fieldsArray);
 
 		// Split on 'As'
-		foreach ($fields_array as $key => $field)
+		foreach ($fieldsArray as $key => $field)
 		{
 			if (stripos($field, 'as') !== FALSE)
 			{
-				$fields_array[$key] = preg_split('` as `i', $field);
-				$fields_array[$key] = array_map('mb_trim', $fields_array[$key]);
+				$fieldsArray[$key] = preg_split('` as `i', $field);
+				$fieldsArray[$key] = array_map('mb_trim', $fieldsArray[$key]);
 			}
 		}
 
 		// Quote the identifiers
-		$safe_array = $this->db->quote_ident($fields_array);
+		$safeArray = $this->db->quoteIdent($fieldsArray);
 
-		unset($fields_array);
+		unset($fieldsArray);
 
 		// Join the strings back together
-		for($i = 0, $c = count($safe_array); $i < $c; $i++)
+		for($i = 0, $c = count($safeArray); $i < $c; $i++)
 		{
-			if (is_array($safe_array[$i]))
+			if (is_array($safeArray[$i]))
 			{
-				$safe_array[$i] = implode(' AS ', $safe_array[$i]);
+				$safeArray[$i] = implode(' AS ', $safeArray[$i]);
 			}
 		}
 
-		$this->select_string .= implode(', ', $safe_array);
+		$this->selectString .= implode(', ', $safeArray);
 
-		unset($safe_array);
+		unset($safeArray);
 
 		return $this;
 	}
@@ -173,10 +168,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
-	public function select_max($field, $as=FALSE): QueryBuilderInterface
+	public function selectMax(string $field, $as=FALSE): QueryBuilderInterface
 	{
 		// Create the select string
-		$this->select_string .= ' MAX'.$this->_select($field, $as);
+		$this->selectString .= ' MAX'.$this->_select($field, $as);
 		return $this;
 	}
 
@@ -187,10 +182,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
-	public function select_min($field, $as=FALSE): QueryBuilderInterface
+	public function selectMin(string $field, $as=FALSE): QueryBuilderInterface
 	{
 		// Create the select string
-		$this->select_string .= ' MIN'.$this->_select($field, $as);
+		$this->selectString .= ' MIN'.$this->_select($field, $as);
 		return $this;
 	}
 
@@ -201,10 +196,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
-	public function select_avg($field, $as=FALSE): QueryBuilderInterface
+	public function selectAvg(string $field, $as=FALSE): QueryBuilderInterface
 	{
 		// Create the select string
-		$this->select_string .= ' AVG'.$this->_select($field, $as);
+		$this->selectString .= ' AVG'.$this->_select($field, $as);
 		return $this;
 	}
 
@@ -215,10 +210,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string|bool $as
 	 * @return QueryBuilderInterface
 	 */
-	public function select_sum($field, $as=FALSE): QueryBuilderInterface
+	public function selectSum(string $field, $as=FALSE): QueryBuilderInterface
 	{
 		// Create the select string
-		$this->select_string .= ' SUM'.$this->_select($field, $as);
+		$this->selectString .= ' SUM'.$this->_select($field, $as);
 		return $this;
 	}
 
@@ -230,7 +225,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function distinct(): QueryBuilderInterface
 	{
 		// Prepend the keyword to the select string
-		$this->select_string = ' DISTINCT '.$this->select_string;
+		$this->selectString = ' DISTINCT '.$this->selectString;
 		return $this;
 	}
 
@@ -254,15 +249,15 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function from($tblname): QueryBuilderInterface
 	{
 		// Split identifiers on spaces
-		$ident_array = explode(' ', \mb_trim($tblname));
-		$ident_array = array_map('\\mb_trim', $ident_array);
+		$identArray = explode(' ', \mb_trim($tblname));
+		$identArray = array_map('\\mb_trim', $identArray);
 
 		// Quote the identifiers
-		$ident_array[0] = $this->db->quote_table($ident_array[0]);
-		$ident_array = $this->db->quote_ident($ident_array);
+		$identArray[0] = $this->db->quoteTable($identArray[0]);
+		$identArray = $this->db->quoteIdent($identArray);
 
 		// Paste it back together
-		$this->from_string = implode(' ', $ident_array);
+		$this->fromString = implode(' ', $identArray);
 
 		return $this;
 	}
@@ -292,7 +287,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function or_like($field, $val, $pos='both'): QueryBuilderInterface
+	public function orLike($field, $val, $pos='both'): QueryBuilderInterface
 	{
 		return $this->_like($field, $val, $pos, 'LIKE', 'OR');
 	}
@@ -305,7 +300,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function not_like($field, $val, $pos='both'): QueryBuilderInterface
+	public function notLike($field, $val, $pos='both'): QueryBuilderInterface
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE', 'AND');
 	}
@@ -318,7 +313,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function or_not_like($field, $val, $pos='both'): QueryBuilderInterface
+	public function orNotLike($field, $val, $pos='both'): QueryBuilderInterface
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
 	}
@@ -346,7 +341,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function or_having($key, $val=[]): QueryBuilderInterface
+	public function orHaving($key, $val=[]): QueryBuilderInterface
 	{
 		return $this->_having($key, $val, 'OR');
 	}
@@ -367,7 +362,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function where($key, $val=[], $escape=NULL): QueryBuilderInterface
 	{
-		return $this->_where_string($key, $val, 'AND');
+		return $this->_whereString($key, $val, 'AND');
 	}
 
 	/**
@@ -377,9 +372,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function or_where($key, $val=[]): QueryBuilderInterface
+	public function orWhere($key, $val=[]): QueryBuilderInterface
 	{
-		return $this->_where_string($key, $val, 'OR');
+		return $this->_whereString($key, $val, 'OR');
 	}
 
 	/**
@@ -389,9 +384,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function where_in($field, $val=[]): QueryBuilderInterface
+	public function whereIn($field, $val=[]): QueryBuilderInterface
 	{
-		return $this->_where_in($field, $val);
+		return $this->_whereIn($field, $val);
 	}
 
 	/**
@@ -401,9 +396,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function or_where_in($field, $val=[]): QueryBuilderInterface
+	public function orWhereIn($field, $val=[]): QueryBuilderInterface
 	{
-		return $this->_where_in($field, $val, 'IN', 'OR');
+		return $this->_whereIn($field, $val, 'IN', 'OR');
 	}
 
 	/**
@@ -413,9 +408,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function where_not_in($field, $val=[]): QueryBuilderInterface
+	public function whereNotIn($field, $val=[]): QueryBuilderInterface
 	{
-		return $this->_where_in($field, $val, 'NOT IN', 'AND');
+		return $this->_whereIn($field, $val, 'NOT IN', 'AND');
 	}
 
 	/**
@@ -425,9 +420,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $val
 	 * @return QueryBuilderInterface
 	 */
-	public function or_where_not_in($field, $val=[]): QueryBuilderInterface
+	public function orWhereNotIn($field, $val=[]): QueryBuilderInterface
 	{
-		return $this->_where_in($field, $val, 'NOT IN', 'OR');
+		return $this->_whereIn($field, $val, 'NOT IN', 'OR');
 	}
 
 	// --------------------------------------------------------------------------
@@ -443,16 +438,16 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function set($key, $val = NULL): QueryBuilderInterface
 	{
-		$this->_mixed_set($this->set_array_keys, $key, $val, self::KEY);
-		$this->_mixed_set($this->values, $key, $val, self::VALUE);
+		$this->_mixedSet($this->setArrayKeys, $key, $val, self::KEY);
+		$this->_mixedSet($this->values, $key, $val, self::VALUE);
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
-		$this->set_array_keys = array_map([$this->db, '_quote'], $this->set_array_keys);
+		$this->setArrayKeys = array_map([$this->db, '_quote'], $this->setArrayKeys);
 
 		// Generate the "set" string
-		$this->set_string = implode('=?,', $this->set_array_keys);
-		$this->set_string .= '=?';
+		$this->setString = implode('=?,', $this->setArrayKeys);
+		$this->setString .= '=?';
 
 		return $this;
 	}
@@ -469,15 +464,15 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	{
 		// Prefix and quote table name
 		$table = explode(' ', mb_trim($table));
-		$table[0] = $this->db->quote_table($table[0]);
-		$table = $this->db->quote_ident($table);
+		$table[0] = $this->db->quoteTable($table[0]);
+		$table = $this->db->quoteIdent($table);
 		$table = implode(' ', $table);
 
 		// Parse out the join condition
-		$parsed_condition = $this->parser->compile_join($condition);
-		$condition = $table . ' ON ' . $parsed_condition;
+		$parsedCondition = $this->parser->compileJoin($condition);
+		$condition = $table . ' ON ' . $parsedCondition;
 
-		$this->_append_map("\n" . strtoupper($type) . ' JOIN ', $condition, 'join');
+		$this->_appendMap("\n" . strtoupper($type) . ' JOIN ', $condition, 'join');
 
 		return $this;
 	}
@@ -488,19 +483,19 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param mixed $field
 	 * @return QueryBuilderInterface
 	 */
-	public function group_by($field): QueryBuilderInterface
+	public function groupBy($field): QueryBuilderInterface
 	{
 		if ( ! is_scalar($field))
 		{
-			$new_group_array = array_map([$this->db, 'quote_ident'], $field);
-			$this->group_array = array_merge($this->group_array, $new_group_array);
+			$newGroupArray = array_map([$this->db, 'quoteIdent'], $field);
+			$this->groupArray = array_merge($this->groupArray, $newGroupArray);
 		}
 		else
 		{
-			$this->group_array[] = $this->db->quote_ident($field);
+			$this->groupArray[] = $this->db->quoteIdent($field);
 		}
 
-		$this->group_string = ' GROUP BY ' . implode(',', $this->group_array);
+		$this->groupString = ' GROUP BY ' . implode(',', $this->groupArray);
 
 		return $this;
 	}
@@ -512,7 +507,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $type
 	 * @return QueryBuilderInterface
 	 */
-	public function order_by($field, $type=""): QueryBuilderInterface
+	public function orderBy($field, $type=""): QueryBuilderInterface
 	{
 		// When ordering by random, do an ascending order if the driver
 		// doesn't support random ordering
@@ -523,20 +518,20 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		}
 
 		// Set fields for later manipulation
-		$field = $this->db->quote_ident($field);
-		$this->order_array[$field] = $type;
+		$field = $this->db->quoteIdent($field);
+		$this->orderArray[$field] = $type;
 
-		$order_clauses = [];
+		$orderClauses = [];
 
 		// Flatten key/val pairs into an array of space-separated pairs
-		foreach($this->order_array as $k => $v)
+		foreach($this->orderArray as $k => $v)
 		{
-			$order_clauses[] = $k . ' ' . strtoupper($v);
+			$orderClauses[] = $k . ' ' . strtoupper($v);
 		}
 
 		// Set the final string
-		$this->order_string = ( ! isset($rand))
-			? "\nORDER BY ".implode(', ', $order_clauses)
+		$this->orderString = ( ! isset($rand))
+			? "\nORDER BY ".implode(', ', $orderClauses)
 			: "\nORDER BY".$rand;
 
 		return $this;
@@ -566,11 +561,11 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function group_start(): QueryBuilderInterface
+	public function groupStart(): QueryBuilderInterface
 	{
-		$conj = (empty($this->query_map)) ? ' WHERE ' : ' ';
+		$conj = (empty($this->queryMap)) ? ' WHERE ' : ' ';
 
-		$this->_append_map($conj, '(', 'group_start');
+		$this->_appendMap($conj, '(', 'group_start');
 
 		return $this;
 	}
@@ -581,11 +576,11 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function not_group_start(): QueryBuilderInterface
+	public function notGroupStart(): QueryBuilderInterface
 	{
-		$conj = (empty($this->query_map)) ? ' WHERE ' : ' AND ';
+		$conj = (empty($this->queryMap)) ? ' WHERE ' : ' AND ';
 
-		$this->_append_map($conj, ' NOT (', 'group_start');
+		$this->_appendMap($conj, ' NOT (', 'group_start');
 
 		return $this;
 	}
@@ -596,9 +591,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function or_group_start(): QueryBuilderInterface
+	public function orGroupStart(): QueryBuilderInterface
 	{
-		$this->_append_map('', ' OR (', 'group_start');
+		$this->_appendMap('', ' OR (', 'group_start');
 
 		return $this;
 	}
@@ -609,9 +604,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function or_not_group_start(): QueryBuilderInterface
+	public function orNotGroupStart(): QueryBuilderInterface
 	{
-		$this->_append_map('', ' OR NOT (', 'group_start');
+		$this->_appendMap('', ' OR NOT (', 'group_start');
 
 		return $this;
 	}
@@ -621,9 +616,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @return QueryBuilderInterface
 	 */
-	public function group_end(): QueryBuilderInterface
+	public function groupEnd(): QueryBuilderInterface
 	{
-		$this->_append_map('', ')', 'group_end');
+		$this->_appendMap('', ')', 'group_end');
 
 		return $this;
 	}
@@ -667,7 +662,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function get_where($table, $where=[], $limit=FALSE, $offset=FALSE): PDOStatement
+	public function getWhere($table, $where=[], $limit=FALSE, $offset=FALSE): PDOStatement
 	{
 		// Create the where clause
 		$this->where($where);
@@ -682,9 +677,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $table
 	 * @return int
 	 */
-	public function count_all($table): int
+	public function countAll($table): int
 	{
-		$sql = 'SELECT * FROM '.$this->db->quote_table($table);
+		$sql = 'SELECT * FROM '.$this->db->quoteTable($table);
 		$res = $this->db->query($sql);
 		return (int) count($res->fetchAll());
 	}
@@ -697,7 +692,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param boolean $reset
 	 * @return int
 	 */
-	public function count_all_results(string $table='', bool $reset = TRUE): int
+	public function countAllResults(string $table='', bool $reset = TRUE): int
 	{
 		// Set the table
 		if ( ! empty($table))
@@ -735,10 +730,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param array $data
 	 * @return PDOStatement
 	 */
-	public function insert_batch($table, $data=[]): PDOStatement
+	public function insertBatch($table, $data=[]): PDOStatement
 	{
 		// Get the generated values and sql string
-		list($sql, $data) = $this->db->insert_batch($table, $data);
+		list($sql, $data) = $this->db->insertBatch($table, $data);
 
 		return ( ! is_null($sql))
 			? $this->_run('', $table, $sql, $data)
@@ -771,10 +766,10 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $where
 	 * @return int|null
 	 */
-	public function update_batch($table, $data, $where)
+	public function updateBatch($table, $data, $where)
 	{
 		// Get the generated values and sql string
-		list($sql, $data) = $this->db->update_batch($table, $data, $where);
+		list($sql, $data) = $this->db->updateBatch($table, $data, $where);
 
 		return ( ! is_null($sql))
 			? $this->_run('', $table, $sql, $data)
@@ -827,7 +822,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param bool $reset
 	 * @return string
 	 */
-	public function get_compiled_select(string $table='', bool $reset=TRUE): string
+	public function getCompiledSelect(string $table='', bool $reset=TRUE): string
 	{
 		// Set the table
 		if ( ! empty($table))
@@ -835,7 +830,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 			$this->from($table);
 		}
 
-		return $this->_get_compile('select', $table, $reset);
+		return $this->_getCompile('select', $table, $reset);
 	}
 
 	/**
@@ -845,9 +840,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param bool $reset
 	 * @return string
 	 */
-	public function get_compiled_insert(string $table, bool $reset=TRUE): string
+	public function getCompiledInsert(string $table, bool $reset=TRUE): string
 	{
-		return $this->_get_compile('insert', $table, $reset);
+		return $this->_getCompile('insert', $table, $reset);
 	}
 
 	/**
@@ -857,9 +852,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param bool $reset
 	 * @return string
 	 */
-	public function get_compiled_update(string $table='', bool $reset=TRUE): string
+	public function getCompiledUpdate(string $table='', bool $reset=TRUE): string
 	{
-		return $this->_get_compile('update', $table, $reset);
+		return $this->_getCompile('update', $table, $reset);
 	}
 
 	/**
@@ -869,9 +864,9 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param bool $reset
 	 * @return string
 	 */
-	public function get_compiled_delete(string $table='', bool $reset=TRUE): string
+	public function getCompiledDelete(string $table='', bool $reset=TRUE): string
 	{
-		return $this->_get_compile('delete', $table, $reset);
+		return $this->_getCompile('delete', $table, $reset);
 	}
 
 	// --------------------------------------------------------------------------
@@ -883,16 +878,16 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @return void
 	 */
-	public function reset_query()
+	public function resetQuery()
 	{
 		// Reset strings and booleans
-		foreach($this->string_vars as $var)
+		foreach($this->stringVars as $var)
 		{
 			$this->$var = NULL;
 		}
 
 		// Reset arrays
-		foreach($this->array_vars as $var)
+		foreach($this->arrayVars as $var)
 		{
 			$this->$var = [];
 		}

@@ -59,8 +59,8 @@ class CoreTest extends Query_TestCase {
 
 		$drivers = PDO::getAvailableDrivers();
 
-		$num_supported = count(array_intersect($drivers, $supported));
+		$numSupported = count(array_intersect($drivers, $supported));
 
-		$this->assertTrue($num_supported > 0);
+		$this->assertTrue($numSupported > 0);
 	}
 }

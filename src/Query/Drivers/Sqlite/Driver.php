@@ -12,19 +12,15 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
 namespace Query\Drivers\Sqlite;
 
 use PDO;
 use PDOStatement;
-use Query\Drivers\{AbstractDriver, DriverInterface};
+use Query\Drivers\AbstractDriver;
+use Query\Drivers\DriverInterface;
 
 /**
  * SQLite specific class
- *
- * @package Query
- * @subpackage Drivers
  */
 class Driver extends AbstractDriver implements DriverInterface {
 
@@ -40,7 +36,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * but no support for the actual keyword
 	 * @var boolean
 	 */
-	protected $has_truncate = FALSE;
+	protected $hasTruncate = FALSE;
 
 	/**
 	 * Open SQLite Database
@@ -48,9 +44,9 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @param string $dsn
 	 * @param string $user
 	 * @param string $pass
-	 * @param array $driver_options
+	 * @param array $driverOptions
 	 */
-	public function __construct($dsn, $user=NULL, $pass=NULL, array $driver_options=[])
+	public function __construct($dsn, $user=NULL, $pass=NULL, array $driverOptions=[])
 	{
 		if (strpos($dsn, 'sqlite:') === FALSE)
 		{
@@ -65,9 +61,9 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 *
 	 * @return mixed
 	 */
-	public function get_tables()
+	public function getTables()
 	{
-		$sql = $this->sql->table_list();
+		$sql = $this->sql->tableList();
 		$res = $this->query($sql);
 		return db_filter($res->fetchAll(PDO::FETCH_ASSOC), 'name');
 	}
@@ -78,13 +74,13 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function get_fks($table)
+	public function getFks($table)
 	{
-		$return_rows = [];
+		$returnRows = [];
 
-		foreach(parent::get_fks($table) as $row)
+		foreach(parent::getFks($table) as $row)
 		{
-			$return_rows[] = [
+			$returnRows[] = [
 				'child_column' => $row['from'],
 				'parent_table' => $row['table'],
 				'parent_column' => $row['to'],
@@ -93,7 +89,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 			];
 		}
 
-		return $return_rows;
+		return $returnRows;
 	}
 
 	/**
@@ -104,13 +100,13 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @param array $data
 	 * @return string
 	 */
-	public function insert_batch($table, $data=[])
+	public function insertBatch($table, $data=[])
 	{
 		// If greater than version 3.7.11, supports the same syntax as
 		// MySQL and Postgres
 		if (version_compare($this->getAttribute(PDO::ATTR_SERVER_VERSION), '3.7.11', '>='))
 		{
-			return parent::insert_batch($table, $data);
+			return parent::insertBatch($table, $data);
 		}
 
 		// --------------------------------------------------------------------------
@@ -124,7 +120,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 		}
 
 		// Start the block of sql statements
-		$table = $this->quote_table($table);
+		$table = $this->quoteTable($table);
 		$sql = "INSERT INTO {$table} \n";
 
 		// Create a key-value mapping for each field
@@ -132,7 +128,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 		$cols = [];
 		foreach($first as $colname => $datum)
 		{
-			$cols[] = $this->_quote($datum) . ' AS ' . $this->quote_ident($colname);
+			$cols[] = $this->_quote($datum) . ' AS ' . $this->quoteIdent($colname);
 		}
 		$sql .= "SELECT " . implode(', ', $cols) . "\n";
 
@@ -145,4 +141,3 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return [$sql, NULL];
 	}
 }
-//End of sqlite_driver.php

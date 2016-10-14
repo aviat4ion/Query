@@ -50,9 +50,9 @@
 
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-		$expected_possibilities = array();
+		$expectedPossibilities = array();
 
-		$expected_possibilities[] = array(
+		$expectedPossibilities[] = array(
 			array(
 				'order' => '0',
 				'from' => '0',
@@ -60,7 +60,7 @@
 			)
 		);
 
-		$expected_possibilities[] = array (
+		$expectedPossibilities[] = array (
 			array (
 				'selectid' => '0',
 				'order' => '0',
@@ -69,7 +69,7 @@
 			),
 		);
 
-		$expected_possibilities[] = array (
+		$expectedPossibilities[] = array (
 			array (
 				'selectid' => '0',
 				'order' => '0',
@@ -78,7 +78,7 @@
 			),
 		);
 
-		$expected_possibilities[] = array (
+		$expectedPossibilities[] = array (
 			array (
 				'selectid' => '0',
 				'order' => '0',
@@ -90,7 +90,7 @@
 		$passed = FALSE;
 
 		// Check for a matching possibility
-		foreach($expected_possibilities as $ep)
+		foreach($expectedPossibilities as $ep)
 		{
 			if ($res == $ep)
 			{

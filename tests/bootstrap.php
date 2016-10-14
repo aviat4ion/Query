@@ -30,13 +30,13 @@ require_once(QBASE_DIR . 'vendor/autoload.php');
  */
 if ( ! defined('IS_QUERCUS'))
 {
-	if ( ! isset($_SERVER_SOFTWARE))
+	if ( ! isset($_sERVERSOFTWARE))
 	{
 		define('IS_QUERCUS', FALSE);
 	}
 	else
 	{
-		$test = strpos($_SERVER["SERVER_SOFTWARE"],'Quercus') !== FALSE;
+		$test = strpos($_sERVER["SERVER_SOFTWARE"],'Quercus') !== FALSE;
 		define('IS_QUERCUS', $test);
 		unset($test);
 	}
@@ -106,9 +106,9 @@ class Query_TestCase extends TestCase {
 		{
 			$temp = $first;
 			$first = uniqid("test");
-			$is_ref = ($first === $second);
+			$isRef = ($first === $second);
 			$first = $temp;
-			$res = $is_ref;
+			$res = $isRef;
 		}
 		$this->assertTrue($res, $message);
 	}

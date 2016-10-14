@@ -12,17 +12,13 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
 namespace Query\Drivers\Pgsql;
 
-use Query\Drivers\{AbstractDriver, DriverInterface};
+use Query\Drivers\AbstractDriver;
+use Query\Drivers\DriverInterface;
 
 /**
  * PostgreSQL specific class
- *
- * @package Query
- * @subpackage Drivers
  */
 class Driver extends AbstractDriver implements DriverInterface {
 
@@ -52,7 +48,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 *
 	 * @return array
 	 */
-	public function get_schemas()
+	public function getSchemas()
 	{
 		$sql = <<<SQL
 			SELECT DISTINCT "schemaname" FROM "pg_tables"
@@ -60,7 +56,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 			AND "schemaname" != 'information_schema'
 SQL;
 
-		return $this->driver_query($sql);
+		return $this->driverQuery($sql);
 	}
 
 	// --------------------------------------------------------------------------
@@ -71,29 +67,28 @@ SQL;
 	 * @param string $table
 	 * @return array
 	 */
-	public function get_fks($table)
+	public function getFks($table)
 	{
-		$value_map = [
+		$valueMap = [
 			'c' => 'CASCADE',
 			'r' => 'RESTRICT',
 		];
 
-		$keys = parent::get_fks($table);
+		$keys = parent::getFks($table);
 
 		foreach($keys as &$key)
 		{
 			foreach(['update', 'delete'] AS $type)
 			{
-				if ( ! isset($value_map[$key[$type]]))
+				if ( ! isset($valueMap[$key[$type]]))
 				{
 					continue;
 				}
 
-				$key[$type] = $value_map[$key[$type]];
+				$key[$type] = $valueMap[$key[$type]];
 			}
 		}
 
 		return $keys;
 	}
 }
-//End of pgsql_driver.php

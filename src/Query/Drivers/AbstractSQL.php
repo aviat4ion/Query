@@ -13,11 +13,6 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers;
 
 /**
@@ -48,4 +43,3 @@ abstract class AbstractSQL implements SQLInterface {
 		return $sql;
 	}
 }
-// End of abstract_sql.php

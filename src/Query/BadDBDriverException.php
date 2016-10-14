@@ -12,9 +12,6 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query;
 
 use InvalidArgumentException;
@@ -27,5 +24,3 @@ use InvalidArgumentException;
  */
 class BadDBDriverException extends InvalidArgumentException {
 }
-
-// End of BadDBDriverException.php

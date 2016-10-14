@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 if ( ! function_exists('glob_recursive'))
 {
 	// Does not support flag GLOB_BRACE

@@ -12,8 +12,6 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
 namespace Query\Drivers;
 
 use PDO;
@@ -22,9 +20,6 @@ use PDOStatement;
 
 /**
  * Interface describing the PDO class in PHP
- *
- * @package Query
- * @subpackage Drivers
  */
 interface PDOInterface {
 
@@ -127,10 +122,10 @@ interface PDOInterface {
 	 * Quotes a string for use in a query
 	 *
 	 * @param string $string
-	 * @param int $parameter_type
+	 * @param int $parameterType
 	 * @return string|false
 	 */
-	public function quote($string, $parameter_type = PDO::PARAM_STR);
+	public function quote($string, $parameterType = PDO::PARAM_STR);
 
 	/**
 	 * Rolls back a transaction

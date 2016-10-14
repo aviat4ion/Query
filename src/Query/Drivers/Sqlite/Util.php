@@ -12,11 +12,9 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query\Drivers\Sqlite;
 
+use PDO;
 use Query\Drivers\AbstractUtil;
 
 /**
@@ -35,7 +33,7 @@ class Util extends AbstractUtil {
 	 * @param array $excluded
 	 * @return string
 	 */
-	public function backup_data($excluded=[])
+	public function backupData($excluded=[])
 	{
 		// Get a list of all the objects
 		$sql = 'SELECT DISTINCT "name"
@@ -47,81 +45,78 @@ class Util extends AbstractUtil {
 			$sql .= " AND \"name\" NOT IN('".implode("','", $excluded)."')";
 		}
 
-		$res = $this->get_driver()->query($sql);
-		$result = $res->fetchAll(\PDO::FETCH_ASSOC);
+		$res = $this->getDriver()->query($sql);
+		$result = $res->fetchAll(PDO::FETCH_ASSOC);
 
 		unset($res);
 
-		$output_sql = '';
+		$outputSql = '';
 
 		// Get the data for each object
 		foreach($result as $r)
 		{
 			$sql = 'SELECT * FROM "'.$r['name'].'"';
-			$res = $this->get_driver()->query($sql);
-			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
+			$res = $this->getDriver()->query($sql);
+			$objRes = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			unset($res);
 
 			// If the row is empty, continue;
-			if (empty($obj_res))
+			if (empty($objRes))
 			{
 				continue;
 			}
 
 			// Nab the column names by getting the keys of the first row
-			$columns = array_keys(current($obj_res));
+			$columns = array_keys(current($objRes));
 
-			$insert_rows = [];
+			$insertRows = [];
 
 			// Create the insert statements
-			foreach($obj_res as $row)
+			foreach($objRes as $row)
 			{
 				$row = array_values($row);
 
 				// Quote values as needed by type
 				for($i=0, $icount=count($row); $i<$icount; $i++)
 				{
-					$row[$i] = (is_numeric($row[$i])) ? $row[$i] : $this->get_driver()->quote($row[$i]);
+					$row[$i] = (is_numeric($row[$i])) ? $row[$i] : $this->getDriver()->quote($row[$i]);
 				}
 
-				$row_string = 'INSERT INTO "'.$r['name'].'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
+				$rowString = 'INSERT INTO "'.$r['name'].'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
 
 				unset($row);
 
-				$insert_rows[] = $row_string;
+				$insertRows[] = $rowString;
 			}
 
-			unset($obj_res);
+			unset($objRes);
 
-			$output_sql .= "\n\n".implode("\n", $insert_rows);
+			$outputSql .= "\n\n".implode("\n", $insertRows);
 		}
 
-		return $output_sql;
+		return $outputSql;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Create an SQL backup file for the current database's structure
 	 *
 	 * @return string
 	 */
-	public function backup_structure()
+	public function backupStructure()
 	{
 		// Fairly easy for SQLite...just query the master table
 		$sql = 'SELECT "sql" FROM "sqlite_master"';
-		$res = $this->get_driver()->query($sql);
-		$result = $res->fetchAll(\PDO::FETCH_ASSOC);
+		$res = $this->getDriver()->query($sql);
+		$result = $res->fetchAll(PDO::FETCH_ASSOC);
 
-		$sql_array = [];
+		$sqlArray = [];
 
 		foreach($result as $r)
 		{
-			$sql_array[] = $r['sql'];
+			$sqlArray[] = $r['sql'];
 		}
 
-		return implode(";\n", $sql_array) . ";";
+		return implode(";\n", $sqlArray) . ";";
 	}
 }
-// End of sqlite_util.php

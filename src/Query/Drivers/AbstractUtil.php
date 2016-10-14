@@ -13,16 +13,13 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
 namespace Query\Drivers;
 
 /**
  * Abstract class defining database / table creation methods
  *
- * @package Query
- * @subpackage Drivers
- * @method string quote_ident(string $sql)
- * @method string quote_table(string $sql)
+ * @method string quoteIdent(string $sql)
+ * @method string quoteTable(string $sql)
  */
 abstract class AbstractUtil {
 
@@ -42,19 +39,15 @@ abstract class AbstractUtil {
 		$this->conn = $conn;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the driver object for the current connection
 	 *
 	 * @return DriverInterface
 	 */
-	public function get_driver()
+	public function getDriver()
 	{
 		return $this->conn;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Convenience public function to generate sql for creating a db table
@@ -62,29 +55,29 @@ abstract class AbstractUtil {
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints
-	 * @param bool $if_not_exists
+	 * @param bool $ifNotExists
 	 * @return string
 	 */
-	public function create_table($name, $fields, array $constraints=[], $if_not_exists=TRUE)
+	public function createTable($name, $fields, array $constraints=[], $ifNotExists=TRUE)
 	{
-		$exists_str = ($if_not_exists) ? ' IF NOT EXISTS ' : ' ';
+		$existsStr = ($ifNotExists) ? ' IF NOT EXISTS ' : ' ';
 
 		// Reorganize into an array indexed with column information
-		// Eg $column_array[$colname] = array(
+		// Eg $columnArray[$colname] = array(
 		// 		'type' => ...,
 		// 		'constraint' => ...,
 		// 		'index' => ...,
 		// )
-		$column_array = \array_zipper([
+		$columnArray = \array_zipper([
 			'type' => $fields,
 			'constraint' => $constraints
 		]);
 
 		// Join column definitions together
 		$columns = [];
-		foreach($column_array as $n => $props)
+		foreach($columnArray as $n => $props)
 		{
-			$str = $this->get_driver()->quote_ident($n);
+			$str = $this->getDriver()->quoteIdent($n);
 			$str .= (isset($props['type'])) ? " {$props['type']}" : "";
 			$str .= (isset($props['constraint'])) ? " {$props['constraint']}" : "";
 
@@ -92,14 +85,12 @@ abstract class AbstractUtil {
 		}
 
 		// Generate the sql for the creation of the table
-		$sql = 'CREATE TABLE'.$exists_str.$this->get_driver()->quote_table($name).' (';
+		$sql = 'CREATE TABLE'.$existsStr.$this->getDriver()->quoteTable($name).' (';
 		$sql .= implode(', ', $columns);
 		$sql .= ')';
 
 		return $sql;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Drop the selected table
@@ -107,11 +98,10 @@ abstract class AbstractUtil {
 	 * @param string $name
 	 * @return string
 	 */
-	public function delete_table($name)
+	public function deleteTable($name)
 	{
-		return 'DROP TABLE IF EXISTS '.$this->get_driver()->quote_table($name);
+		return 'DROP TABLE IF EXISTS '.$this->getDriver()->quoteTable($name);
 	}
-
 
 	// --------------------------------------------------------------------------
 	// ! Abstract Methods
@@ -123,9 +113,7 @@ abstract class AbstractUtil {
 	 * @abstract
 	 * @return string
 	 */
-	abstract public function backup_structure();
-
-	// --------------------------------------------------------------------------
+	abstract public function backupStructure();
 
 	/**
 	 * Return an SQL file with the database data as insert statements
@@ -133,7 +121,6 @@ abstract class AbstractUtil {
 	 * @abstract
 	 * @return string
 	 */
-	abstract public function backup_data();
+	abstract public function backupData();
 
 }
-// End of abstract_util.php

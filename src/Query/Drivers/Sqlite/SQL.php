@@ -12,18 +12,12 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query\Drivers\Sqlite;
 
 use Query\Drivers\AbstractSQL;
 
 /**
  * SQLite Specific SQL
- *
- * @package Query
- * @subpackage Drivers
  */
 class SQL extends AbstractSQL {
 
@@ -38,8 +32,6 @@ class SQL extends AbstractSQL {
 		return "EXPLAIN QUERY PLAN {$sql}";
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Random ordering keyword
 	 *
@@ -50,26 +42,22 @@ class SQL extends AbstractSQL {
 		return ' RANDOM()';
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list other databases
 	 *
 	 * @return string
 	 */
-	public function db_list()
+	public function dbList()
 	{
 		return 'PRAGMA database_list';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Returns sql to list tables
 	 *
 	 * @return string
 	 */
-	public function table_list()
+	public function tableList()
 	{
 		return <<<SQL
 			SELECT DISTINCT "name"
@@ -80,93 +68,77 @@ class SQL extends AbstractSQL {
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * List the system tables
 	 *
 	 * @return string[]
 	 */
-	public function system_table_list()
+	public function systemTableList()
 	{
 		return ['sqlite_master', 'sqlite_temp_master', 'sqlite_sequence'];
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Returns sql to list views
 	 *
 	 * @return string
 	 */
-	public function view_list()
+	public function viewList()
 	{
 		return <<<SQL
 			SELECT "name" FROM "sqlite_master" WHERE "type" = 'view'
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list triggers
 	 *
 	 * @return string
 	 */
-	public function trigger_list()
+	public function triggerList()
 	{
 		return 'SELECT "name" FROM "sqlite_master" WHERE "type"=\'trigger\'';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return sql to list functions
 	 *
 	 * @return NULL
 	 */
-	public function function_list()
+	public function functionList()
 	{
 		return NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return sql to list stored procedures
 	 *
 	 * @return NULL
 	 */
-	public function procedure_list()
+	public function procedureList()
 	{
 		return NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return sql to list sequences
 	 *
 	 * @return NULL
 	 */
-	public function sequence_list()
+	public function sequenceList()
 	{
 		return NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * SQL to show list of field types
 	 *
 	 * @return string[]
 	 */
-	public function type_list()
+	public function typeList()
 	{
 		return ['INTEGER', 'REAL', 'TEXT', 'BLOB'];
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * SQL to show infromation about columns in a table
@@ -174,12 +146,10 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function column_list($table)
+	public function columnList($table)
 	{
-		return 'PRAGMA table_info("'.$table.'")';
+		return 'PRAGMA table_info("' . $table . '")';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Get the list of foreign keys for the current
@@ -188,12 +158,11 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function fk_list($table)
+	public function fkList($table)
 	{
 		return 'PRAGMA foreign_key_list("' . $table . '")';
 	}
 
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Get the list of indexes for the current table
@@ -201,10 +170,8 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function index_list($table)
+	public function indexList($table)
 	{
 		return 'PRAGMA index_list("' . $table . '")';
 	}
-
 }
-//End of sqlite_sql.php

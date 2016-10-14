@@ -12,18 +12,12 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query\Drivers\Mysql;
 
 use Query\Drivers\AbstractSQL;
 
 /**
  * MySQL specific SQL
- *
- * @package Query
- * @subpackage Drivers
  */
 class SQL extends AbstractSQL {
 
@@ -45,8 +39,6 @@ class SQL extends AbstractSQL {
 		return $sql." LIMIT {$offset}, {$limit}";
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the query plan for the sql query
 	 *
@@ -58,8 +50,6 @@ class SQL extends AbstractSQL {
 		return "EXPLAIN EXTENDED {$sql}";
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Random ordering keyword
 	 *
@@ -70,19 +60,15 @@ class SQL extends AbstractSQL {
 		return ' RAND() DESC';
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list other databases
 	 *
 	 * @return string
 	 */
-	public function db_list()
+	public function dbList()
 	{
 		return "SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')";
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Returns sql to list tables
@@ -90,7 +76,7 @@ class SQL extends AbstractSQL {
 	 * @param string $database
 	 * @return string
 	 */
-	public function table_list($database='')
+	public function tableList($database='')
 	{
 		if ( ! empty($database))
 		{
@@ -100,92 +86,76 @@ class SQL extends AbstractSQL {
 		return 'SHOW TABLES';
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Overridden in MySQL class
 	 *
 	 * @return string
 	 */
-	public function system_table_list()
+	public function systemTableList()
 	{
 		return 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
 			WHERE `TABLE_SCHEMA`=\'information_schema\'';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Returns sql to list views
 	 *
 	 * @return string
 	 */
-	public function view_list()
+	public function viewList()
 	{
 		return 'SELECT `table_name` FROM `information_schema`.`views`';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Returns sql to list triggers
 	 *
 	 * @return string
 	 */
-	public function trigger_list()
+	public function triggerList()
 	{
 		return 'SHOW TRIGGERS';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return sql to list functions
 	 *
 	 * @return string
 	 */
-	public function function_list()
+	public function functionList()
 	{
 		return 'SHOW FUNCTION STATUS';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return sql to list stored procedures
 	 *
 	 * @return string
 	 */
-	public function procedure_list()
+	public function procedureList()
 	{
 		return 'SHOW PROCEDURE STATUS';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return sql to list sequences
 	 *
 	 * @return NULL
 	 */
-	public function sequence_list()
+	public function sequenceList()
 	{
 		return NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * SQL to show list of field types
 	 *
 	 * @return string
 	 */
-	public function type_list()
+	public function typeList()
 	{
 		return "SELECT DISTINCT `DATA_TYPE` FROM `information_schema`.`COLUMNS`";
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * SQL to show infromation about columns in a table
@@ -193,12 +163,10 @@ class SQL extends AbstractSQL {
 	 * @param string $table
 	 * @return string
 	 */
-	public function column_list($table)
+	public function columnList($table)
 	{
 		return "SHOW FULL COLUMNS FROM {$table}";
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Get the list of foreign keys for the current
@@ -207,7 +175,7 @@ class SQL extends AbstractSQL {
 	 * @param string $table
 	 * @return string
 	 */
-	public function fk_list($table)
+	public function fkList($table)
 	{
 		return <<<SQL
 			SELECT DISTINCT `kcu`.`COLUMN_NAME` as `child_column`,
@@ -225,17 +193,14 @@ class SQL extends AbstractSQL {
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the list of indexes for the current table
 	 *
 	 * @param string $table
 	 * @return array
 	 */
-	public function index_list($table)
+	public function indexList($table)
 	{
 		return "SHOW INDEX IN {$table}";
 	}
 }
-//End of mysql_sql.php

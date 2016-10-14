@@ -12,21 +12,18 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
 namespace Query\Drivers\Firebird;
 
 use PDO;
 use PDOException;
-use Query\Drivers\{AbstractDriver, DriverInterface};
+use Query\Drivers\AbstractDriver;
+use Query\Drivers\DriverInterface;
 
 /**
  * Firebird Database class
  *
  * PDO-firebird isn't stable, so this is a wrapper of the fbird_ public functions.
  *
- * @package Query
- * @subpackage Drivers
  */
 class Driver extends AbstractDriver implements DriverInterface {
 
@@ -36,7 +33,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 *
 	 * @var resource
 	 */
-	protected $statement_link = NULL;
+	protected $statementLink = NULL;
 
 	/**
 	 * Reference to the current transaction
@@ -64,7 +61,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 *
 	 * @var boolean
 	 */
-	protected $has_truncate = FALSE;
+	protected $hasTruncate = FALSE;
 
 	/**
 	 * Open the link to the database
@@ -77,11 +74,11 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 */
 	public function __construct($dbpath, $user='SYSDBA', $pass='masterkey', array $options = [])
 	{
-		$connect_function = (isset($options[PDO::ATTR_PERSISTENT]) && $options[PDO::ATTR_PERSISTENT])
+		$connectFunction = (isset($options[PDO::ATTR_PERSISTENT]) && $options[PDO::ATTR_PERSISTENT])
 			? '\\fbird_pconnect'
 			: '\\fbird_connect';
 
-		$this->conn = $connect_function($dbpath, $user, $pass, 'utf-8', 0);
+		$this->conn = $connectFunction($dbpath, $user, $pass, 'utf-8', 0);
 		$this->service = \fbird_service_attach('localhost', $user, $pass);
 
 		// Throw an exception to make this match other pdo classes
@@ -94,10 +91,8 @@ class Driver extends AbstractDriver implements DriverInterface {
 		// driver does not call the constructor
 		// of AbstractDriver, which defines these
 		// class variables for the other drivers
-		$this->_load_sub_classes();
+		$this->_loadSubClasses();
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Cleanup some loose ends
@@ -108,20 +103,15 @@ class Driver extends AbstractDriver implements DriverInterface {
 		\fbird_service_detach($this->service);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return service handle
 	 *
 	 * @return resource
 	 */
-	public function get_service()
+	public function getService()
 	{
 		return $this->service;
 	}
-
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Execute an sql statement and return number of affected rows
@@ -134,8 +124,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return NULL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Implement for compatibility with PDO
 	 *
@@ -147,8 +135,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return NULL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return whether the current statement is in a transaction
 	 *
@@ -158,8 +144,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 	{
 		return ! is_null($this->trans);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Returns the last value of the specified generator
@@ -171,8 +155,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 	{
 		return \fbird_gen_id($name, 0, $this->conn);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Wrapper public function to better match PDO
@@ -188,23 +170,21 @@ class Driver extends AbstractDriver implements DriverInterface {
 			throw new PDOException("Query method requires an sql query!", 0, NULL);
 		}
 
-		$this->statement_link = (isset($this->trans))
+		$this->statementLink = (isset($this->trans))
 			? \fbird_query($this->trans, $sql)
 			: \fbird_query($this->conn, $sql);
 
 		// Throw the error as a exception
-		$err_string = \fbird_errmsg() . "Last query:" . $this->get_last_query();
-		if ($this->statement_link === FALSE)
+		$errString = \fbird_errmsg() . "Last query:" . $this->getLastQuery();
+		if ($this->statementLink === FALSE)
 		{
-			throw new PDOException($err_string, \fbird_errcode(), NULL);
+			throw new PDOException($errString, \fbird_errcode(), NULL);
 		}
 
-		$this->statement = new Result($this->statement_link, $this);
+		$this->statement = new Result($this->statementLink, $this);
 
 		return $this->statement;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Emulate PDO prepare
@@ -216,20 +196,18 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 */
 	public function prepare($query, $options=[])
 	{
-		$this->statement_link = \fbird_prepare($this->conn, $query);
+		$this->statementLink = \fbird_prepare($this->conn, $query);
 
 		// Throw the error as an exception
-		if ($this->statement_link === FALSE)
+		if ($this->statementLink === FALSE)
 		{
 			throw new PDOException(\fbird_errmsg(), \fbird_errcode(), NULL);
 		}
 
-		$this->statement = new Result($this->statement_link, $this);
+		$this->statement = new Result($this->statementLink, $this);
 
 		return $this->statement;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Start a database transaction
@@ -240,8 +218,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 	{
 		return (($this->trans = \fbird_trans($this->conn)) !== NULL) ? TRUE : NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Commit a database transaction
@@ -255,8 +231,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return $res;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Rollback a transaction
 	 *
@@ -269,8 +243,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return $res;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Set a connection attribute
 	 * @param int $attribute
@@ -282,8 +254,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return FALSE;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Prepare and execute a query
 	 *
@@ -291,26 +261,24 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @param array $args
 	 * @return Result
 	 */
-	public function prepare_execute($sql, $args)
+	public function prepareExecute($sql, $args)
 	{
 		$query = $this->prepare($sql);
 
 		// Set the statement in the class variable for easy later access
-		$this->statement_link =& $query;
+		$this->statementLink =& $query;
 
 		return $query->execute($args);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Method to emulate PDO->quote
 	 *
 	 * @param string $str
-	 * @param int $param_type
+	 * @param int $paramType
 	 * @return string
 	 */
-	public function quote($str, $param_type = PDO::PARAM_STR)
+	public function quote($str, $paramType = PDO::PARAM_STR)
 	{
 		if(is_numeric($str))
 		{
@@ -319,8 +287,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 
 		return "'".str_replace("'", "''", $str)."'";
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Method to emulate PDO->errorInfo / PDOStatement->errorInfo
@@ -335,8 +301,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return [0, $code, $msg];
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Method to emulate PDO->errorCode
 	 *
@@ -347,8 +311,6 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return \fbird_errcode();
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Bind a prepared query with arguments for executing
 	 *
@@ -356,14 +318,12 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @param array $params
 	 * @return NULL
 	 */
-	public function prepare_query($sql, $params)
+	public function prepareQuery($sql, $params)
 	{
 		// You can't bind query statements before execution with
 		// the firebird database
 		return NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Create sql for batch insert
@@ -372,7 +332,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @param array $data
 	 * @return array
 	 */
-	public function insert_batch($table, $data=[])
+	public function insertBatch($table, $data=[])
 	{
 		// Each member of the data array needs to be an array
 		if ( ! is_array(current($data)))
@@ -383,11 +343,11 @@ class Driver extends AbstractDriver implements DriverInterface {
 		// Start the block of sql statements
 		$sql = "EXECUTE BLOCK AS BEGIN\n";
 
-		$table = $this->quote_table($table);
+		$table = $this->quoteTable($table);
 		$fields = \array_keys(\current($data));
 
-		$insert_template = "INSERT INTO {$table} ("
-			. implode(',', $this->quote_ident($fields))
+		$insertTemplate = "INSERT INTO {$table} ("
+			. implode(',', $this->quoteIdent($fields))
 			. ") VALUES (";
 
 		foreach($data as $item)
@@ -396,7 +356,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 			$vals = array_map([$this, 'quote'], $item);
 
 			// Add the values in the sql
-			$sql .= $insert_template . implode(', ', $vals) . ");\n";
+			$sql .= $insertTemplate . implode(', ', $vals) . ");\n";
 		}
 
 		// End the block of SQL statements
@@ -408,4 +368,3 @@ class Driver extends AbstractDriver implements DriverInterface {
 		return [$sql, NULL];
 	}
 }
-// End of firebird_driver.php

@@ -84,17 +84,17 @@ class FirebirdQBTest extends QBTest {
 		$params->user = 'sysdba';
 		$params->pass = 'masterkey';
 		$params->prefix = '';
-		$f_conn = Query($params);
-		$q_conn = Query('wood');
+		$fConn = Query($params);
+		$qConn = Query('wood');
 
-		$this->assertReference($f_conn, $q_conn);
+		$this->assertReference($fConn, $qConn);
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testTypeList()
 	{
-		$sql = self::$db->sql->type_list();
+		$sql = self::$db->sql->typeList();
 		$query = self::$db->query($sql);
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -113,13 +113,13 @@ class FirebirdQBTest extends QBTest {
 			->where('id >', 1)
 			->where('id <', 900)
 			->limit(2, 1)
-			->get_compiled_select();
+			->getCompiledSelect();
 
 		$res2 = self::$db->select('id, key as k, val')
 			->where('id >', 1)
 			->where('id <', 900)
 			->limit(2, 1)
-			->get_compiled_select();
+			->getCompiledSelect();
 
 		// Queries are equal because explain is not a keyword in Firebird
 		$this->assertEqual($res, $res2);
@@ -155,6 +155,6 @@ class FirebirdQBTest extends QBTest {
 		$existing = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 		$backup = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_BKP.FDB';
 
-		$this->assertTrue(self::$db->get_util()->backup_structure($existing, $backup));
+		$this->assertTrue(self::$db->getUtil()->backupStructure($existing, $backup));
 	}
 }

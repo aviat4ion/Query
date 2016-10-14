@@ -12,9 +12,6 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query\Drivers\Firebird;
 
 use PDOStatement;
@@ -90,8 +87,6 @@ class Result extends PDOStatement implements PDOStatementInterface {
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Invalidate method for data consistency
 	 *
@@ -107,70 +102,62 @@ class Result extends PDOStatement implements PDOStatementInterface {
 		return NULL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Invalidate method for data consistency
 	 *
 	 * @param mixed $parameter
 	 * @param mixed $variable
-	 * @param int $data_type
+	 * @param int $dataType
 	 * @param mixed $maxlen
 	 * @param array $driverdata
 	 * @return NULL
 	 */
-	public function bindParam($parameter, &$variable, $data_type=NULL, $maxlen=NULL, $driverdata=NULL)
+	public function bindParam($parameter, &$variable, $dataType=NULL, $maxlen=NULL, $driverdata=NULL)
 	{
 		return NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Invalidate method for data consistency
 	 *
 	 * @param mixed $parameter
 	 * @param mixed $variable
-	 * @param int $data_type
+	 * @param int $dataType
 	 * @return NULL
 	 */
-	public function bindValue($parameter, $variable, $data_type=NULL)
+	public function bindValue($parameter, $variable, $dataType=NULL)
 	{
 		return NULL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Run a prepared statement query
 	 *
-	 * @param  array $bound_input_params
+	 * @param  array $boundInputParams
 	 * @return Result
 	 */
-	public function execute($bound_input_params = NULL)
+	public function execute($boundInputParams = NULL)
 	{
 		//Add the prepared statement as the first parameter
-		\array_unshift($bound_input_params, $this->statement);
+		\array_unshift($boundInputParams, $this->statement);
 
 		// Let php do all the hard stuff in converting
 		// the array of arguments into a list of arguments
 		// Then pass the resource to the constructor
-		$this->__construct(\call_user_func_array('fbird_execute', $bound_input_params));
+		$this->__construct(\call_user_func_array('fbird_execute', $boundInputParams));
 
 		return $this;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Emulate PDO fetch public function
 	 *
-	 * @param int $fetch_style
-	 * @param mixed $cursor_orientation
-	 * @param mixed $cursor_offset
+	 * @param int $fetchStyle
+	 * @param mixed $cursorOrientation
+	 * @param mixed $cursorOffset
 	 * @return mixed
 	 */
-	public function fetch($fetch_style=\PDO::FETCH_ASSOC, $cursor_orientation = \PDO::FETCH_ORI_NEXT, $cursor_offset=NULL)
+	public function fetch($fetchStyle=\PDO::FETCH_ASSOC, $cursorOrientation = \PDO::FETCH_ORI_NEXT, $cursorOffset=NULL)
 	{
 		// If there is no result, continue
 		if (empty($this->result))
@@ -187,7 +174,7 @@ class Result extends PDOStatement implements PDOStatementInterface {
 			return NULL;
 		}
 
-		switch($fetch_style)
+		switch($fetchStyle)
 		{
 			case \PDO::FETCH_OBJ:
 				$row = (object) $this->result[$this->row];
@@ -205,21 +192,19 @@ class Result extends PDOStatement implements PDOStatementInterface {
 		return $row;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Emulate PDO fetchAll public function
 	 *
-	 * @param int  $fetch_style
+	 * @param int  $fetchStyle
 	 * @param mixed $statement
-	 * @param mixed $ctor_args
+	 * @param mixed $ctorArgs
 	 * @return mixed
 	 */
-	public function fetchAll($fetch_style=\PDO::FETCH_ASSOC, $statement=NULL, $ctor_args=NULL)
+	public function fetchAll($fetchStyle=\PDO::FETCH_ASSOC, $statement=NULL, $ctorArgs=NULL)
 	{
 		$all = [];
 
-		while($row = $this->fetch($fetch_style, $statement))
+		while($row = $this->fetch($fetchStyle, $statement))
 		{
 			$all[] = $row;
 		}
@@ -229,35 +214,29 @@ class Result extends PDOStatement implements PDOStatementInterface {
 		return $all;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Emulate PDOStatement::fetchColumn
 	 *
-	 * @param int $column_num
+	 * @param int $columnNum
 	 * @return mixed
 	 */
-	public function fetchColumn($column_num=0)
+	public function fetchColumn($columnNum=0)
 	{
 		$row = $this->fetch(\PDO::FETCH_NUM);
-		return $row[$column_num];
+		return $row[$columnNum];
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Emulate PDOStatement::fetchObject, but only for the default use
 	 *
-	 * @param string $class_name
-	 * @param array|null $ctor_args
+	 * @param string $className
+	 * @param array|null $ctorArgs
 	 * @return object
 	 */
-	public function fetchObject($class_name='stdClass', $ctor_args=NULL)
+	public function fetchObject($className='stdClass', $ctorArgs=NULL)
 	{
 		return $this->fetch(\PDO::FETCH_OBJ);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return the number of rows affected by the previous query
@@ -269,8 +248,6 @@ class Result extends PDOStatement implements PDOStatementInterface {
 		return \fbird_affected_rows();
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Method to emulate PDOStatement->errorCode
 	 *
@@ -280,8 +257,6 @@ class Result extends PDOStatement implements PDOStatementInterface {
 	{
 		return $this->db->errorCode();
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Method to emulate PDO->errorInfo / PDOStatement->errorInfo
@@ -293,4 +268,3 @@ class Result extends PDOStatement implements PDOStatementInterface {
 		return $this->db->errorInfo();
 	}
 }
-// End of firebird_result.php

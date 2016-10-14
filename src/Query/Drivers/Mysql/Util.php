@@ -12,18 +12,13 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query\Drivers\Mysql;
 
+use PDO;
 use Query\Drivers\AbstractUtil;
 
 /**
  * MySQL-specific backup, import and creation methods
- *
- * @package Query
- * @subpackage Drivers
  */
 class Util extends AbstractUtil {
 
@@ -32,12 +27,12 @@ class Util extends AbstractUtil {
 	 *
 	 * @return string
 	 */
-	public function backup_structure()
+	public function backupStructure()
 	{
 		$string = [];
 
 		// Get databases
-		$dbs = $this->get_driver()->get_dbs();
+		$dbs = $this->getDriver()->getDbs();
 
 		foreach($dbs as &$d)
 		{
@@ -48,11 +43,11 @@ class Util extends AbstractUtil {
 			}
 
 			// Get the list of tables
-			$tables = $this->get_driver()->driver_query("SHOW TABLES FROM `{$d}`", TRUE);
+			$tables = $this->getDriver()->driverQuery("SHOW TABLES FROM `{$d}`", TRUE);
 
 			foreach($tables as $table)
 			{
-				$array = $this->get_driver()->driver_query("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
+				$array = $this->getDriver()->driverQuery("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
 				$row = current($array);
 
 				if ( ! isset($row['Create Table']))
@@ -68,17 +63,15 @@ class Util extends AbstractUtil {
 		return implode("\n\n", $string);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Create an SQL backup file for the current database's data
 	 *
 	 * @param array $exclude
 	 * @return string
 	 */
-	public function backup_data($exclude=[])
+	public function backupData($exclude=[])
 	{
-		$tables = $this->get_driver()->get_tables();
+		$tables = $this->getDriver()->getTables();
 
 		// Filter out the tables you don't want
 		if( ! empty($exclude))
@@ -86,14 +79,14 @@ class Util extends AbstractUtil {
 			$tables = array_diff($tables, $exclude);
 		}
 
-		$output_sql = '';
+		$outputSql = '';
 
 		// Select the rows from each Table
 		foreach($tables as $t)
 		{
 			$sql = "SELECT * FROM `{$t}`";
-			$res = $this->get_driver()->query($sql);
-			$rows = $res->fetchAll(\PDO::FETCH_ASSOC);
+			$res = $this->getDriver()->query($sql);
+			$rows = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			// Skip empty tables
 			if (count($rows) < 1)
@@ -104,7 +97,7 @@ class Util extends AbstractUtil {
 			// Nab the column names by getting the keys of the first row
 			$columns = @array_keys($rows[0]);
 
-			$insert_rows = [];
+			$insertRows = [];
 
 			// Create the insert statements
 			foreach($rows as $row)
@@ -114,21 +107,20 @@ class Util extends AbstractUtil {
 				// Workaround for Quercus
 				foreach($row as &$r)
 				{
-					$r = $this->get_driver()->quote($r);
+					$r = $this->getDriver()->quote($r);
 				}
 				$row = array_map('trim', $row);
 
-				$row_string = 'INSERT INTO `'.trim($t).'` (`'.implode('`,`', $columns).'`) VALUES ('.implode(',', $row).');';
+				$rowString = 'INSERT INTO `'.trim($t).'` (`'.implode('`,`', $columns).'`) VALUES ('.implode(',', $row).');';
 
 				$row = NULL;
 
-				$insert_rows[] = $row_string;
+				$insertRows[] = $rowString;
 			}
 
-			$output_sql .= "\n\n".implode("\n", $insert_rows)."\n";
+			$outputSql .= "\n\n".implode("\n", $insertRows)."\n";
 		}
 
-		return $output_sql;
+		return $outputSql;
 	}
 }
-// End of mysql_util.php

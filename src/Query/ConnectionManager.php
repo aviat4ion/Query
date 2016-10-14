@@ -12,9 +12,6 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query;
 
 use DomainException;
@@ -23,9 +20,6 @@ use InvalidArgumentException;
 /**
  * Connection manager class to manage connections for the
  * Query method
- *
- * @package Query
- * @subpackage Core
  */
 final class ConnectionManager {
 
@@ -41,8 +35,6 @@ final class ConnectionManager {
 	 */
 	private static $instance = NULL;
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Private constructor to prevent multiple instances
 	 * @codeCoverageIgnore
@@ -50,8 +42,6 @@ final class ConnectionManager {
 	private function __construct()
 	{
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Private clone method to prevent cloning
@@ -64,8 +54,6 @@ final class ConnectionManager {
 		throw new DomainException("Can't clone singleton");
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Prevent serialization of this object
 	 *
@@ -76,8 +64,6 @@ final class ConnectionManager {
 	{
 		throw new DomainException("No serializing of singleton");
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Make sure serialize/deserialize doesn't work
@@ -90,15 +76,13 @@ final class ConnectionManager {
 		throw new DomainException("Can't unserialize singleton");
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return  a connection manager instance
 	 *
 	 * @staticvar null $instance
 	 * @return ConnectionManager
 	 */
-	public static function get_instance()
+	public static function getInstance(): ConnectionManager
 	{
 		if (self::$instance === NULL)
 		{
@@ -108,16 +92,14 @@ final class ConnectionManager {
 		return self::$instance;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns the connection specified by the name given
 	 *
 	 * @param string|array|object $name
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 * @throws InvalidArgumentException
 	 */
-	public function get_connection($name = '')
+	public function getConnection($name = ''): QueryBuilderInterface
 	{
 		// If the parameter is a string, use it as an array index
 		if (is_scalar($name) && isset($this->connections[$name]))
@@ -133,17 +115,15 @@ final class ConnectionManager {
 		throw new InvalidArgumentException("The specified connection does not exist");
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Parse the passed parameters and return a connection
 	 *
 	 * @param \stdClass $params
-	 * @return QueryBuilder
+	 * @return QueryBuilderInterface
 	 */
-	public function connect(\stdClass $params)
+	public function connect(\stdClass $params): QueryBuilderInterface
 	{
-		list($dsn, $dbtype, $params, $options) = $this->parse_params($params);
+		list($dsn, $dbtype, $params, $options) = $this->parseParams($params);
 
 		$dbtype = ucfirst($dbtype);
 		$driver = "\\Query\\Drivers\\{$dbtype}\\Driver";
@@ -156,7 +136,7 @@ final class ConnectionManager {
 		// Set the table prefix, if it exists
 		if (isset($params->prefix))
 		{
-			$db->set_table_prefix($params->prefix);
+			$db->setTablePrefix($params->prefix);
 		}
 
 		// Create Query Builder object
@@ -176,8 +156,6 @@ final class ConnectionManager {
 		return $conn;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Parses params into a dsn and option array
 	 *
@@ -185,7 +163,7 @@ final class ConnectionManager {
 	 * @return array
 	 * @throws BadDBDriverException
 	 */
-	public function parse_params(\stdClass $params)
+	public function parseParams(\stdClass $params): array
 	{
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
@@ -220,14 +198,12 @@ final class ConnectionManager {
 		}
 		else
 		{
-			$dsn = $this->create_dsn($dbtype, $params);
+			$dsn = $this->createDsn($dbtype, $params);
 		}
 
 
 		return [$dsn, $dbtype, $params, $options];
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Create the dsn from the db type and params
@@ -236,7 +212,7 @@ final class ConnectionManager {
 	 * @param \stdClass $params
 	 * @return string
 	 */
-	private function create_dsn($dbtype, \stdClass $params)
+	private function createDsn(string $dbtype, \stdClass $params): string
 	{
 		if (strtolower($dbtype) === 'pdo_firebird')
 		{
@@ -272,4 +248,3 @@ final class ConnectionManager {
 		return strtolower($dbtype) . ':' . implode(';', $pairs);
 	}
 }
-// End of connection_manager.php

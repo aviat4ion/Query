@@ -13,8 +13,7 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-// --------------------------------------------------------------------------
+use Query\Drivers\Mysql\Driver;
 
 /**
  * MySQLTest class.
@@ -29,19 +28,19 @@ class MySQLTest extends DBTest {
 		$params = get_json_config();
 		if (($var = getenv('TRAVIS')))
 		{
-			self::$db = new \Query\Drivers\Mysql\Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
+			self::$db = new Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
 		// Attempt to connect, if there is a test config file
 		else if ($params !== FALSE)
 		{
 			$params = $params->mysql;
 
-			self::$db = new \Query\Drivers\Mysql\Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
+			self::$db = new Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
 				PDO::ATTR_PERSISTENT => TRUE
 			));
 		}
 
-		self::$db->set_table_prefix('create_');
+		self::$db->setTablePrefix('create_');
 	}
 
 	// --------------------------------------------------------------------------
@@ -65,7 +64,7 @@ class MySQLTest extends DBTest {
 		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/mysql.sql'));
 
 		//Attempt to create the table
-		$sql = self::$db->get_util()->create_table('test',
+		$sql = self::$db->getUtil()->createTable('test',
 			array(
 				'id' => 'int(10)',
 				'key' => 'TEXT',
@@ -79,7 +78,7 @@ class MySQLTest extends DBTest {
 		self::$db->query($sql);
 
 		//Attempt to create the table
-		$sql = self::$db->get_util()->create_table('join',
+		$sql = self::$db->getUtil()->createTable('join',
 			array(
 				'id' => 'int(10)',
 				'key' => 'TEXT',
@@ -92,7 +91,7 @@ class MySQLTest extends DBTest {
 		self::$db->query($sql);
 
 		//Check
-		$dbs = self::$db->get_tables();
+		$dbs = self::$db->getTables();
 
 		$this->assertTrue(in_array('create_test', $dbs));
 
@@ -114,7 +113,7 @@ class MySQLTest extends DBTest {
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepare_query($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepareQuery($sql, array(1,"boogers", "Gross"));
 
 		$res = $statement->execute();
 
@@ -132,7 +131,7 @@ SQL;
 SQL;
 		try
 		{
-			$statement = self::$db->prepare_query($sql, 'foo');
+			$statement = self::$db->prepareQuery($sql, 'foo');
 		}
 		catch(InvalidArgumentException $e)
 		{
@@ -149,7 +148,7 @@ SQL;
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$res = self::$db->prepare_execute($sql, array(
+		$res = self::$db->prepareExecute($sql, array(
 			2, "works", 'also?'
 		));
 
@@ -187,21 +186,21 @@ SQL;
 
 	public function testGetSchemas()
 	{
-		$this->assertNull(self::$db->get_schemas());
+		$this->assertNull(self::$db->getSchemas());
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetSequences()
 	{
-		$this->assertNull(self::$db->get_sequences());
+		$this->assertNull(self::$db->getSequences());
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testBackup()
 	{
-		$this->assertTrue(is_string(self::$db->get_util()->backup_structure()));
+		$this->assertTrue(is_string(self::$db->getUtil()->backupStructure()));
 	}
 
 

@@ -13,11 +13,6 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
-
-
-// --------------------------------------------------------------------------
-
 namespace Query\Drivers;
 
 /**
@@ -58,63 +53,63 @@ interface SQLInterface {
 	 *
 	 * @return string
 	 */
-	public function db_list();
+	public function dbList();
 
 	/**
 	 * Returns sql to list tables
 	 *
 	 * @return string
 	 */
-	public function table_list();
+	public function tableList();
 
 	/**
 	 * Returns sql to list system tables
 	 *
 	 * @return string
 	 */
-	public function system_table_list();
+	public function systemTableList();
 
 	/**
 	 * Returns sql to list views
 	 *
 	 * @return string
 	 */
-	public function view_list();
+	public function viewList();
 
 	/**
 	 * Returns sql to list triggers
 	 *
 	 * @return string
 	 */
-	public function trigger_list();
+	public function triggerList();
 
 	/**
 	 * Return sql to list functions
 	 *
 	 * @return NULL
 	 */
-	public function function_list();
+	public function functionList();
 
 	/**
 	 * Return sql to list stored procedures
 	 *
 	 * @return string
 	 */
-	public function procedure_list();
+	public function procedureList();
 
 	/**
 	 * Return sql to list sequences
 	 *
 	 * @return string
 	 */
-	public function sequence_list();
+	public function sequenceList();
 
 	/**
 	 * Return sql to list database field types
 	 *
 	 * @return string|array
 	 */
-	public function type_list();
+	public function typeList();
 
 	/**
 	 * Get information about the columns in the
@@ -123,7 +118,7 @@ interface SQLInterface {
 	 * @param string $table
 	 * @return string
 	 */
-	public function column_list($table);
+	public function columnList($table);
 
 	/**
 	 * Get the list of foreign keys for the current
@@ -132,7 +127,7 @@ interface SQLInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function fk_list($table);
+	public function fkList($table);
 
 	/**
 	 * Get the list of indexes for the current table
@@ -140,7 +135,5 @@ interface SQLInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function index_list($table);
-
+	public function indexList($table);
 }
-// End of sql_interface.php

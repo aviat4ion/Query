@@ -12,18 +12,12 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query\Drivers\Pgsql;
 
 use Query\Drivers\AbstractSQL;
 
 /**
  * PostgreSQL specific SQL
- *
- * @package Query
- * @subpackage Drivers
  */
 class SQL extends AbstractSQL {
 
@@ -38,8 +32,6 @@ class SQL extends AbstractSQL {
 		return "EXPLAIN VERBOSE {$sql}";
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Random ordering keyword
 	 *
@@ -50,14 +42,12 @@ class SQL extends AbstractSQL {
 		return ' RANDOM()';
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list other databases
 	 *
 	 * @return string
 	 */
-	public function db_list()
+	public function dbList()
 	{
 		return <<<SQL
 			SELECT "datname" FROM "pg_database"
@@ -66,14 +56,12 @@ class SQL extends AbstractSQL {
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list tables
 	 *
 	 * @return string
 	 */
-	public function table_list()
+	public function tableList()
 	{
 		return <<<SQL
 			SELECT "table_name"
@@ -84,14 +72,12 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list system tables
 	 *
 	 * @return string
 	 */
-	public function system_table_list()
+	public function systemTableList()
 	{
 		return <<<SQL
 			SELECT "table_name"
@@ -102,14 +88,12 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list views
 	 *
 	 * @return string
 	 */
-	public function view_list()
+	public function viewList()
 	{
 		return <<<SQL
 		 	SELECT "viewname" FROM "pg_views"
@@ -120,14 +104,12 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list triggers
 	 *
 	 * @return string
 	 */
-	public function trigger_list()
+	public function triggerList()
 	{
 		return <<<SQL
 			SELECT *
@@ -137,26 +119,22 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return sql to list functions
 	 *
 	 * @return NULL
 	 */
-	public function function_list()
+	public function functionList()
 	{
 		return NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return sql to list stored procedures
 	 *
 	 * @return string
 	 */
-	public function procedure_list()
+	public function procedureList()
 	{
 		return <<<SQL
 			SELECT "routine_name"
@@ -167,14 +145,12 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return sql to list sequences
 	 *
 	 * @return string
 	 */
-	public function sequence_list()
+	public function sequenceList()
 	{
 		return <<<SQL
 			SELECT "c"."relname"
@@ -184,15 +160,13 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return sql to list columns of the specified table
 	 *
 	 * @param string $table
 	 * @return string
 	 */
-	public function column_list($table)
+	public function columnList($table)
 	{
 		return <<<SQL
 			SELECT ordinal_position,
@@ -208,14 +182,12 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * SQL to show list of field types
 	 *
 	 * @return string
 	 */
-	public function type_list()
+	public function typeList()
 	{
 		return <<<SQL
 			SELECT "typname" FROM "pg_catalog"."pg_type"
@@ -225,8 +197,6 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the list of foreign keys for the current
 	 * table
@@ -234,7 +204,7 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function fk_list($table)
+	public function fkList($table)
 	{
 		return <<<SQL
 			SELECT
@@ -270,15 +240,13 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the list of indexes for the current table
 	 *
 	 * @param string $table
 	 * @return array
 	 */
-	public function index_list($table)
+	public function indexList($table)
 	{
 		return <<<SQL
 			SELECT
@@ -306,4 +274,3 @@ SQL;
 SQL;
 	}
 }
-//End of pgsql_sql.php

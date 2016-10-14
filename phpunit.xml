@@ -31,9 +31,5 @@
             <file>tests/databases/firebird/FirebirdTest.php</file>
             <file>tests/databases/firebird/FirebirdQBTest.php</file>
         </testsuite>
-        <!-- <testsuite name="OCITests">
-            <file>tests/databases/oci/OCITest.php</file>
-            <file>tests/databases/oci/OCIQBTest.php</file>
-        </testsuite> -->
     </testsuites>
 </phpunit>

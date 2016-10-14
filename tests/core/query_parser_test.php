@@ -27,9 +27,9 @@ class Query_Parser_Test extends Query_TestCase {
 		$this->parser = new Query\QueryParser($db);
 	}
 
-	public function TestGeneric()
+	public function testGeneric()
 	{
-		$matches = $this->parser->parse_join('table1.field1=table2.field2');
+		$matches = $this->parser->parseJoin('table1.field1=table2.field2');
 		$this->assertEqual($matches['combined'], array(
 			'table1.field1', '=', 'table2.field2'
 		));
@@ -37,7 +37,7 @@ class Query_Parser_Test extends Query_TestCase {
 
 	public function testGeneric2()
 	{
-		$matches = $this->parser->parse_join('db1.table1.field1!=db2.table2.field2');
+		$matches = $this->parser->parseJoin('db1.table1.field1!=db2.table2.field2');
 		$this->assertEqual($matches['combined'], array(
 			'db1.table1.field1','!=','db2.table2.field2'
 		));
@@ -45,7 +45,7 @@ class Query_Parser_Test extends Query_TestCase {
 
 	public function testWUnderscore()
 	{
-		$matches = $this->parser->parse_join('table_1.field1 = tab_le2.field_2');
+		$matches = $this->parser->parseJoin('table_1.field1 = tab_le2.field_2');
 		$this->assertEqual($matches['combined'], array(
 			'table_1.field1', '=', 'tab_le2.field_2'
 		));
@@ -53,7 +53,7 @@ class Query_Parser_Test extends Query_TestCase {
 
 	public function testFunction()
 	{
-		$matches = $this->parser->parse_join('table1.field1 > SUM(3+5)');
+		$matches = $this->parser->parseJoin('table1.field1 > SUM(3+5)');
 		$this->assertEqual($matches['combined'], array(
 			'table1.field1', '>', 'SUM(3+5)'
 		));

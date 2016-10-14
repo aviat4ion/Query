@@ -16,7 +16,7 @@
  */
 if ( ! defined('IS_QUERCUS'))
 {
-	if ( ! isset($_SERVER_SOFTWARE))
+	if ( ! array_key_exists('SERVER_SOFTWARE', $_SERVER))
 	{
 		define('IS_QUERCUS', FALSE);
 	}
@@ -147,7 +147,7 @@ define('QDS', DIRECTORY_SEPARATOR);
 
 // Include db tests
 // Load db classes based on capability
-$test_path = QTEST_DIR.'/databases/';
+$testPath = QTEST_DIR.'/databases/';
 
 // Require base testing classes
 require_once(QTEST_DIR . '/core/core_test.php');
@@ -163,7 +163,7 @@ if (function_exists('fbird_connect'))
 	$drivers[] = 'interbase';
 }
 
-$driver_test_map = array(
+$driverTestMap = array(
 	'MySQL' => in_array('mysql', $drivers),
 	'SQLite' => in_array('sqlite', $drivers),
 	'PgSQL' => in_array('pgsql', $drivers),
@@ -172,11 +172,11 @@ $driver_test_map = array(
 );
 
 // Determine which testcases to load
-foreach($driver_test_map as $name => $do_load)
+foreach($driverTestMap as $name => $doLoad)
 {
-	$path = $test_path . strtolower($name) . '/';
+	$path = $testPath . strtolower($name) . '/';
 
-	if ($do_load && (! IS_QUERCUS))
+	if ($doLoad && (! IS_QUERCUS))
 	{
 		require_once("{$path}{$name}Test.php");
 		require_once("{$path}{$name}QBTest.php");

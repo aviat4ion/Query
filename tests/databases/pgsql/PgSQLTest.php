@@ -51,7 +51,7 @@ class PgTest extends DBTest {
 			self::$db = new $class("pgsql:host={$params->host};dbname={$params->database};port=5432", $params->user, $params->pass);
 		}
 
-		self::$db->set_table_prefix('create_');
+		self::$db->setTablePrefix('create_');
 	}
 
 	// --------------------------------------------------------------------------
@@ -85,7 +85,7 @@ class PgTest extends DBTest {
 
 
 		//Attempt to create the table
-		$sql = self::$db->get_util()->create_table('create_test',
+		$sql = self::$db->getUtil()->createTable('create_test',
 			array(
 				'id' => 'integer',
 				'key' => 'TEXT',
@@ -99,7 +99,7 @@ class PgTest extends DBTest {
 		self::$db->query($sql);
 
 		//Attempt to create the table
-		$sql = self::$db->get_util()->create_table('create_join',
+		$sql = self::$db->getUtil()->createTable('create_join',
 			array(
 				'id' => 'integer',
 				'key' => 'TEXT',
@@ -118,7 +118,7 @@ class PgTest extends DBTest {
 		//$this->setUp();
 
 		//Check
-		$dbs = self::$db->get_tables();
+		$dbs = self::$db->getTables();
 		$this->assertTrue(in_array('create_test', $dbs));
 
 	}
@@ -130,8 +130,8 @@ class PgTest extends DBTest {
 		self::$db->truncate('create_test');
 		self::$db->truncate('create_join');
 
-		$ct_query = self::$db->query('SELECT * FROM create_test');
-		$cj_query = self::$db->query('SELECT * FROM create_join');
+		$ctQuery = self::$db->query('SELECT * FROM create_test');
+		$cjQuery = self::$db->query('SELECT * FROM create_join');
 	}
 
 	// --------------------------------------------------------------------------
@@ -142,7 +142,7 @@ class PgTest extends DBTest {
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepare_query($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepareQuery($sql, array(1,"boogers", "Gross"));
 
 		$statement->execute();
 
@@ -158,7 +158,7 @@ SQL;
 SQL;
 		try
 		{
-			$statement = self::$db->prepare_query($sql, 'foo');
+			$statement = self::$db->prepareQuery($sql, 'foo');
 		}
 		catch(InvalidArgumentException $e)
 		{
@@ -177,7 +177,7 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		self::$db->prepare_execute($sql, array(
+		self::$db->prepareExecute($sql, array(
 			2, "works", 'also?'
 		));
 
@@ -217,20 +217,20 @@ SQL;
 
 	public function testGetSchemas()
 	{
-		$this->assertTrue(is_array(self::$db->get_schemas()));
+		$this->assertTrue(is_array(self::$db->getSchemas()));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetDBs()
 	{
-		$this->assertTrue(is_array(self::$db->get_dbs()));
+		$this->assertTrue(is_array(self::$db->getDbs()));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetFunctions()
 	{
-		$this->assertNull(self::$db->get_functions());
+		$this->assertNull(self::$db->getFunctions());
 	}
 }

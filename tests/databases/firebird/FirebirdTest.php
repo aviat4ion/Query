@@ -32,7 +32,7 @@ class FirebirdTest extends DBtest {
 
 		// test the db driver directly
 		self::$db = new \Query\Drivers\Firebird\Driver('localhost:'.$dbpath);
-		self::$db->set_table_prefix('create_');
+		self::$db->setTablePrefix('create_');
 	}
 
 	public function setUp()
@@ -42,7 +42,7 @@ class FirebirdTest extends DBtest {
 			$this->markTestSkipped('Firebird extension does not exist');
 		}
 
-		$this->tables = self::$db->get_tables();
+		$this->tables = self::$db->getTables();
 	}
 
 	// --------------------------------------------------------------------------
@@ -88,20 +88,20 @@ class FirebirdTest extends DBtest {
 
 	public function testGetSystemTables()
 	{
-		$only_system = TRUE;
+		$onlySystem = TRUE;
 
-		$tables = self::$db->get_system_tables();
+		$tables = self::$db->getSystemTables();
 
 		foreach($tables as $t)
 		{
 			if(stripos($t, 'rdb$') !== 0 && stripos($t, 'mon$') !== 0)
 			{
-				$only_system = FALSE;
+				$onlySystem = FALSE;
 				break;
 			}
 		}
 
-		$this->assertTrue($only_system);
+		$this->assertTrue($onlySystem);
 	}
 
 	// --------------------------------------------------------------------------
@@ -111,7 +111,7 @@ class FirebirdTest extends DBtest {
 	public function testCreateTable()
 	{
 		//Attempt to create the table
-		$sql = self::$db->get_util()->create_table('create_delete', array(
+		$sql = self::$db->getUtil()->createTable('create_delete', array(
 			'id' => 'SMALLINT',
 			'key' => 'VARCHAR(64)',
 			'val' => 'BLOB SUB_TYPE TEXT'
@@ -119,7 +119,7 @@ class FirebirdTest extends DBtest {
 		self::$db->query($sql);
 
 		//Check
-		$this->assertTrue(in_array('create_delete', self::$db->get_tables()));
+		$this->assertTrue(in_array('create_delete', self::$db->getTables()));
 	}
 
 	// --------------------------------------------------------------------------
@@ -127,12 +127,12 @@ class FirebirdTest extends DBtest {
 	public function testDeleteTable()
 	{
 		//Attempt to delete the table
-		$sql = self::$db->get_util()->delete_table('create_delete');
+		$sql = self::$db->getUtil()->deleteTable('create_delete');
 		self::$db->query($sql);
 
 		//Check
-		$table_exists = in_array('create_delete', self::$db->get_tables());
-		$this->assertFalse($table_exists);
+		$tableExists = in_array('create_delete', self::$db->getTables());
+		$this->assertFalse($tableExists);
 	}
 
 	// --------------------------------------------------------------------------
@@ -141,7 +141,7 @@ class FirebirdTest extends DBtest {
 	{
 		self::$db->truncate('create_test');
 
-		$this->assertTrue(self::$db->affected_rows() > 0);
+		$this->assertTrue(self::$db->affectedRows() > 0);
 	}
 
 	// --------------------------------------------------------------------------
@@ -191,7 +191,7 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		self::$db->prepare_execute($sql, array(
+		self::$db->prepareExecute($sql, array(
 			2, "works", 'also?'
 		));
 
@@ -221,7 +221,7 @@ SQL;
 
 	public function testPrepareQuery()
 	{
-		$this->assertNull(self::$db->prepare_query('', array()));
+		$this->assertNull(self::$db->prepareQuery('', array()));
 	}
 
 	// --------------------------------------------------------------------------
@@ -251,7 +251,7 @@ SQL;
 
 	public function testDBList()
 	{
-		$res = self::$db->get_sql()->db_list();
+		$res = self::$db->getSql()->dbList();
 		$this->assertNULL($res);
 	}
 

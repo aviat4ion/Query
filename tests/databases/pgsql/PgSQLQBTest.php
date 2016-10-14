@@ -114,6 +114,6 @@ class PgSQLQBTest extends QBTest {
 
 	public function testBackupStructure()
 	{
-		$this->assertEquals('', self::$db->util->backup_structure());
+		$this->assertEquals('', self::$db->util->backupStructure());
 	}
 }

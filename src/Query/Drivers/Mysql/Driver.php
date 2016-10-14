@@ -12,18 +12,14 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query\Drivers\Mysql;
 
-use Query\Drivers\{AbstractDriver, DriverInterface};
+use PDO;
+use Query\Drivers\AbstractDriver;
+use Query\Drivers\DriverInterface;
 
 /**
  * MySQL specific class
- *
- * @package Query
- * @subpackage Drivers
  */
 class Driver extends AbstractDriver implements DriverInterface {
 
@@ -32,14 +28,14 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 *
 	 * @var string
 	 */
-	protected $escape_char_open = '`';
+	protected $escapeCharOpen = '`';
 
 	/**
 	 * Set the backtick as the MySQL escape character
 	 *
 	 * @var string
 	 */
-	protected $escape_char_close = '`';
+	protected $escapeCharClose = '`';
 
 	/**
 	 * Connect to MySQL Database
@@ -56,7 +52,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 		if (defined('\\PDO::MYSQL_ATTR_INIT_COMMAND'))
 		{
 			$options = array_merge($options, [
-				\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF-8 COLLATE 'UTF-8'",
+				PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF-8 COLLATE 'UTF-8'",
 			]);
 		}
 
@@ -68,4 +64,3 @@ class Driver extends AbstractDriver implements DriverInterface {
 		parent::__construct($dsn, $username, $password, $options);
 	}
 }
-//End of mysql_driver.php

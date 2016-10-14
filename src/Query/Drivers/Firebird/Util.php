@@ -12,17 +12,13 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
 namespace Query\Drivers\Firebird;
 
+use PDO;
 use Query\Drivers\AbstractUtil;
 
 /**
  * Firebird-specific backup, import and creation methods
- *
- * @package Query
- * @subpackage Drivers
  */
 class Util extends AbstractUtil {
 
@@ -32,12 +28,12 @@ class Util extends AbstractUtil {
 	 * @param string $name
 	 * @param array $fields
 	 * @param array $constraints
-	 * @param bool $if_not_exists
+	 * @param bool $ifNotExists
 	 * @return string
 	 */
-	public function create_table($name, $fields, array $constraints=[], $if_not_exists=FALSE)
+	public function createTable($name, $fields, array $constraints=[], $ifNotExists=FALSE)
 	{
-		return parent::create_table($name, $fields, $constraints, FALSE);
+		return parent::createTable($name, $fields, $constraints, FALSE);
 	}
 
 	/**
@@ -46,40 +42,36 @@ class Util extends AbstractUtil {
 	 * @param string $name
 	 * @return string
 	 */
-	public function delete_table($name)
+	public function deleteTable($name)
 	{
-		return 'DROP TABLE '.$this->get_driver()->quote_table($name);
+		return 'DROP TABLE '.$this->getDriver()->quoteTable($name);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Create an SQL backup file for the current database's structure
 	 *
 	 * @return string
 	 */
-	public function backup_structure(/* @param string $db_path, @param string $new_file */)
+	public function backupStructure(/* @param string $dbPath, @param string $newFile */)
 	{
-		list($db_path, $new_file) = func_get_args();
-		return ibase_backup($this->get_driver()->get_service(), $db_path, $new_file, \IBASE_BKP_METADATA_ONLY);
+		list($dbPath, $newFile) = func_get_args();
+		return ibase_backup($this->getDriver()->getService(), $dbPath, $newFile, \IBASE_BKP_METADATA_ONLY);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Create an SQL backup file for the current database's data
 	 *
 	 * @param array $exclude
-	 * @param bool $system_tables
+	 * @param bool $systemTables
 	 * @return string
 	 */
-	public function backup_data($exclude=[], $system_tables=FALSE)
+	public function backupData($exclude=[], $systemTables=FALSE)
 	{
 		// Determine which tables to use
-		$tables = $this->get_driver()->get_tables();
-		if($system_tables == TRUE)
+		$tables = $this->getDriver()->getTables();
+		if($systemTables == TRUE)
 		{
-			$tables = array_merge($tables, $this->get_driver()->get_system_tables());
+			$tables = array_merge($tables, $this->getDriver()->getSystemTables());
 		}
 
 		// Filter out the tables you don't want
@@ -88,49 +80,48 @@ class Util extends AbstractUtil {
 			$tables = array_diff($tables, $exclude);
 		}
 
-		$output_sql = '';
+		$outputSql = '';
 
 		// Get the data for each object
 		foreach($tables as $t)
 		{
 			$sql = 'SELECT * FROM "'.trim($t).'"';
-			$res = $this->get_driver()->query($sql);
-			$obj_res = $res->fetchAll(\PDO::FETCH_ASSOC);
+			$res = $this->getDriver()->query($sql);
+			$objRes = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			// Don't add to the file if the table is empty
-			if (count($obj_res) < 1)
+			if (count($objRes) < 1)
 			{
 				continue;
 			}
 
 			// Nab the column names by getting the keys of the first row
-			$columns = @array_keys($obj_res[0]);
+			$columns = @array_keys($objRes[0]);
 
-			$insert_rows = [];
+			$insertRows = [];
 
 			// Create the insert statements
-			foreach($obj_res as $row)
+			foreach($objRes as $row)
 			{
 				$row = array_values($row);
 
 				// Quote values as needed by type
 				if(stripos($t, 'RDB$') === FALSE)
 				{
-					$row = array_map([$this->get_driver(), 'quote'], $row);
+					$row = array_map([$this->getDriver(), 'quote'], $row);
 					$row = array_map('trim', $row);
 				}
 
-				$row_string = 'INSERT INTO "'.trim($t).'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
+				$rowString = 'INSERT INTO "'.trim($t).'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
 
 				$row = NULL;
 
-				$insert_rows[] = $row_string;
+				$insertRows[] = $rowString;
 			}
 
-			$output_sql .= "\n\nSET TRANSACTION;\n".implode("\n", $insert_rows)."\nCOMMIT;";
+			$outputSql .= "\n\nSET TRANSACTION;\n".implode("\n", $insertRows)."\nCOMMIT;";
 		}
 
-		return $output_sql;
+		return $outputSql;
 	}
 }
-// End of firebird_util.php

@@ -12,15 +12,10 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
 namespace Query\Drivers;
 
 /**
  * PDO Interface to implement for database drivers
- *
- * @package Query
- * @subpackage Drivers
  */
 interface DriverInterface extends PDOInterface {
 
@@ -30,9 +25,9 @@ interface DriverInterface extends PDOInterface {
 	 * @param string $dsn
 	 * @param string $username
 	 * @param string $password
-	 * @param array $driver_options
+	 * @param array $driverOptions
 	 */
-	public function __construct($dsn, $username=NULL, $password=NULL, array $driver_options = []);
+	public function __construct($dsn, $username=NULL, $password=NULL, array $driverOptions = []);
 
 	/**
 	 * Simplifies prepared statements for database queries
@@ -42,7 +37,7 @@ interface DriverInterface extends PDOInterface {
 	 * @return \PDOStatement | FALSE
 	 * @throws \InvalidArgumentException
 	 */
-	public function prepare_query($sql, $data);
+	public function prepareQuery($sql, $data);
 
 	/**
 	 * Retrieve column information for the current database table
@@ -50,14 +45,14 @@ interface DriverInterface extends PDOInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function get_columns($table);
+	public function getColumns($table);
 
 	/**
 	 * Retrieve list of data types for the database
 	 *
 	 * @return array
 	 */
-	public function get_types();
+	public function getTypes();
 
 	/**
 	 * Retrieve indexes for the table
@@ -65,7 +60,7 @@ interface DriverInterface extends PDOInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function get_indexes($table);
+	public function getIndexes($table);
 
 	/**
 	 * Retrieve foreign keys for the table
@@ -73,14 +68,14 @@ interface DriverInterface extends PDOInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function get_fks($table);
+	public function getFks($table);
 
 	/**
 	 * Return list of tables for the current database
 	 *
 	 * @return array
 	 */
-	public function get_tables();
+	public function getTables();
 
 	/**
 	 * Retrieves an array of non-user-created tables for
@@ -88,49 +83,49 @@ interface DriverInterface extends PDOInterface {
 	 *
 	 * @return array
 	 */
-	public function get_system_tables();
+	public function getSystemTables();
 
 	/**
 	 * Return list of dbs for the current connection, if possible
 	 *
 	 * @return array
 	 */
-	public function get_dbs();
+	public function getDbs();
 
 	/**
 	 * Return list of views for the current database
 	 *
 	 * @return array
 	 */
-	public function get_views();
+	public function getViews();
 
 	/**
 	 * Return list of sequences for the current database, if they exist
 	 *
 	 * @return array
 	 */
-	public function get_sequences();
+	public function getSequences();
 
 	/**
 	 * Return list of functions for the current database
 	 *
 	 * @return array
 	 */
-	public function get_functions();
+	public function getFunctions();
 
 	/**
 	 * Return list of stored procedures for the current database
 	 *
 	 * @return array
 	 */
-	public function get_procedures();
+	public function getProcedures();
 
 	/**
 	 * Return list of triggers for the current database
 	 *
 	 * @return array
 	 */
-	public function get_triggers();
+	public function getTriggers();
 
 	/**
 	 * Surrounds the string with the databases identifier escape characters
@@ -138,7 +133,7 @@ interface DriverInterface extends PDOInterface {
 	 * @param string|array $ident
 	 * @return string|array
 	 */
-	public function quote_ident($ident);
+	public function quoteIdent($ident);
 
 	/**
 	 * Quote database table name, and set prefix
@@ -146,7 +141,7 @@ interface DriverInterface extends PDOInterface {
 	 * @param string|array $table
 	 * @return string|array
 	 */
-	public function quote_table($table);
+	public function quoteTable($table);
 
 	/**
 	 * Create and execute a prepared statement with the provided parameters
@@ -155,7 +150,7 @@ interface DriverInterface extends PDOInterface {
 	 * @param array $params
 	 * @return \PDOStatement
 	 */
-	public function prepare_execute($sql, $params);
+	public function prepareExecute($sql, $params);
 
 
 
@@ -163,17 +158,17 @@ interface DriverInterface extends PDOInterface {
 	 * Method to simplify retrieving db results for meta-data queries
 	 *
 	 * @param string|array|null $query
-	 * @param bool $filtered_index
+	 * @param bool $filteredIndex
 	 * @return array
 	 */
-	public function driver_query($query, $filtered_index=TRUE);
+	public function driverQuery($query, $filteredIndex=TRUE);
 
 	/**
 	 * Returns number of rows affected by an INSERT, UPDATE, DELETE type query
 	 *
 	 * @return int
 	 */
-	public function affected_rows();
+	public function affectedRows();
 
 	/**
 	 * Return the number of rows returned for a SELECT query
@@ -181,7 +176,7 @@ interface DriverInterface extends PDOInterface {
 	 *
 	 * @return int
 	 */
-	public function num_rows();
+	public function numRows();
 
 	/**
 	 * Prefixes a table if it is not already prefixed
@@ -189,7 +184,7 @@ interface DriverInterface extends PDOInterface {
 	 * @param string $table
 	 * @return string
 	 */
-	public function prefix_table($table);
+	public function prefixTable($table);
 
 	/**
 	 * Create sql for batch insert
@@ -198,7 +193,7 @@ interface DriverInterface extends PDOInterface {
 	 * @param array $data
 	 * @return array
 	 */
-	public function insert_batch($table, $data=[]);
+	public function insertBatch($table, $data=[]);
 
 	/**
 	 * Creates a batch update, and executes it.
@@ -209,28 +204,27 @@ interface DriverInterface extends PDOInterface {
 	 * @param string $where
 	 * @return int|null
 	 */
-	public function update_batch($table, $data, $where);
+	public function updateBatch($table, $data, $where);
 
 	/**
 	 * Get the SQL class for the current driver
 	 *
-	 * @return \Query\Drivers\SQLInterface
+	 * @return SQLInterface
 	 */
-	public function get_sql();
+	public function getSql(): SQLInterface;
 
 	/**
 	 * Get the Util class for the current driver
 	 *
 	 * @return AbstractUtil
 	 */
-	public function get_util();
+	public function getUtil(): AbstractUtil;
 
 	/**
 	 * Set the last query sql
 	 *
-	 * @param string $query_string
+	 * @param string $queryString
 	 * @return void
 	 */
-	public function set_last_query(string $query_string);
+	public function setLastQuery(string $queryString);
 }
-// End of driver_interface.php

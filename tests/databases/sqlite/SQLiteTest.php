@@ -38,7 +38,7 @@ class SQLiteTest extends DBTest {
 		);
 
 		self::$db = Query($params);
-		self::$db->set_table_prefix('create_');
+		self::$db->setTablePrefix('create_');
 	}
 
 	// --------------------------------------------------------------------------
@@ -50,7 +50,7 @@ class SQLiteTest extends DBTest {
 		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
 
 		//Check
-		$dbs = self::$db->get_tables();
+		$dbs = self::$db->getTables();
 
 		$this->assertTrue(in_array('TEST1', $dbs));
 		$this->assertTrue(in_array('TEST2', $dbs));
@@ -65,9 +65,9 @@ class SQLiteTest extends DBTest {
 
 	/*public function testBackupData()
 	{
-		$sql = mb_trim(self::$db->get_util()->backup_data(array('create_join', 'create_test')));
+		$sql = mb_trim(self::$db->getUtil()->backupData(array('create_join', 'create_test')));
 
-		$sql_array = explode("\n", $sql);
+		$sqlArray = explode("\n", $sql);
 
 		$expected = <<<SQL
 INSERT INTO "create_test" ("id","key","val") VALUES (1,'boogers','Gross');
@@ -76,15 +76,15 @@ INSERT INTO "create_test" ("id","key","val") VALUES (10,12,14);
 INSERT INTO "create_test" ("id","key","val") VALUES (587,1,2);
 INSERT INTO "create_test" ("id","key","val") VALUES (999,'''ring''','''sale''');
 SQL;
-		$expected_array = explode("\n", $expected);
-		$this->assertEqual($expected_array, $sql_array);
+		$expectedArray = explode("\n", $expected);
+		$this->assertEqual($expectedArray, $sqlArray);
 	}*/
 
 	// --------------------------------------------------------------------------
 
 	public function testBackupStructure()
 	{
-		$sql = mb_trim(self::$db->get_util()->backup_structure());
+		$sql = mb_trim(self::$db->getUtil()->backupStructure());
 		$expected = <<<SQL
 CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
@@ -150,22 +150,22 @@ CREATE TABLE "testconstraints2" (
 ;
 SQL;
 
-		$expected_array = explode("\n", $expected);
-		$result_array = explode("\n", $sql);
+		$expectedArray = explode("\n", $expected);
+		$resultArray = explode("\n", $sql);
 
-		$this->assertEqual($expected_array, $result_array);
+		$this->assertEqual($expectedArray, $resultArray);
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testDeleteTable()
 	{
-		$sql = self::$db->get_util()->delete_table('create_delete');
+		$sql = self::$db->getUtil()->deleteTable('create_delete');
 
 		self::$db->query($sql);
 
 		//Check
-		$dbs = self::$db->get_tables();
+		$dbs = self::$db->getTables();
 		$this->assertFalse(in_array('create_delete', $dbs));
 	}
 
@@ -200,7 +200,7 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepare_query($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepareQuery($sql, array(1,"boogers", "Gross"));
 
 		$statement->execute();
 
@@ -214,7 +214,7 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		self::$db->prepare_execute($sql, array(
+		self::$db->prepareExecute($sql, array(
 			2, "works", 'also?'
 		));
 
@@ -260,14 +260,14 @@ SQL;
 
 	public function testGetDBs()
 	{
-		$this->assertTrue(is_array(self::$db->get_dbs()));
+		$this->assertTrue(is_array(self::$db->getDbs()));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetSchemas()
 	{
-		$this->assertNull(self::$db->get_schemas());
+		$this->assertNull(self::$db->getSchemas());
 	}
 
 	// --------------------------------------------------------------------------
@@ -276,13 +276,13 @@ SQL;
 
 	public function testNullMethods()
 	{
-		$sql = self::$db->sql->function_list();
+		$sql = self::$db->sql->functionList();
 		$this->assertEqual(NULL, $sql);
 
-		$sql = self::$db->sql->procedure_list();
+		$sql = self::$db->sql->procedureList();
 		$this->assertEqual(NULL, $sql);
 
-		$sql = self::$db->sql->sequence_list();
+		$sql = self::$db->sql->sequenceList();
 		$this->assertEqual(NULL, $sql);
 	}
 
@@ -290,7 +290,7 @@ SQL;
 
 	public function testGetSystemTables()
 	{
-		$sql = self::$db->get_system_tables();
+		$sql = self::$db->getSystemTables();
 		$this->assertTrue(is_array($sql));
 	}
 
@@ -298,20 +298,20 @@ SQL;
 
 	public function testGetSequences()
 	{
-		$this->assertNull(self::$db->get_sequences());
+		$this->assertNull(self::$db->getSequences());
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetFunctions()
 	{
-		$this->assertNull(self::$db->get_functions());
+		$this->assertNull(self::$db->getFunctions());
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testGetProcedures()
 	{
-		$this->assertNull(self::$db->get_procedures());
+		$this->assertNull(self::$db->getProcedures());
 	}
 }

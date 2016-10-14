@@ -12,18 +12,12 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
-
-
 namespace Query\Drivers\Firebird;
 
 use Query\Drivers\AbstractSQL;
 
 /**
  * Firebird Specific SQL
- *
- * @package Query
- * @subpackage Drivers
  */
 class SQL extends AbstractSQL {
 
@@ -38,7 +32,7 @@ class SQL extends AbstractSQL {
 	public function limit($sql, $limit, $offset=FALSE)
 	{
 		// Keep the current sql string safe for a moment
-		$orig_sql = $sql;
+		$origSql = $sql;
 
 		$sql = 'FIRST '. (int) $limit;
 
@@ -47,12 +41,10 @@ class SQL extends AbstractSQL {
 			$sql .= ' SKIP '. (int) $offset;
 		}
 
-		$sql = preg_replace("`SELECT`i", "SELECT {$sql}", $orig_sql);
+		$sql = preg_replace("`SELECT`i", "SELECT {$sql}", $origSql);
 
 		return $sql;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Get the query plan for the sql query
@@ -65,8 +57,6 @@ class SQL extends AbstractSQL {
 		return $sql;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Random ordering keyword
 	 *
@@ -77,27 +67,22 @@ class SQL extends AbstractSQL {
 		return NULL;
 	}
 
-
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list other databases
 	 *
 	 * @return NULL
 	 */
-	public function db_list()
+	public function dbList()
 	{
 		return NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Returns sql to list tables
 	 *
 	 * @return string
 	 */
-	public function table_list()
+	public function tableList()
 	{
 		return <<<SQL
 			SELECT TRIM("RDB\$RELATION_NAME")
@@ -108,14 +93,12 @@ class SQL extends AbstractSQL {
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list system tables
 	 *
 	 * @return string
 	 */
-	public function system_table_list()
+	public function systemTableList()
 	{
 		return <<<SQL
 			SELECT TRIM("RDB\$RELATION_NAME")
@@ -125,14 +108,12 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list views
 	 *
 	 * @return string
 	 */
-	public function view_list()
+	public function viewList()
 	{
 		return <<<SQL
 			SELECT DISTINCT TRIM("RDB\$VIEW_NAME")
@@ -140,14 +121,12 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Returns sql to list triggers
 	 *
 	 * @return string
 	 */
-	public function trigger_list()
+	public function triggerList()
 	{
 		return <<<SQL
 			SELECT * FROM "RDB\$FUNCTIONS"
@@ -155,26 +134,22 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return sql to list functions
 	 *
 	 * @return string
 	 */
-	public function function_list()
+	public function functionList()
 	{
 		return 'SELECT * FROM "RDB$FUNCTIONS"';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Return sql to list stored procedures
 	 *
 	 * @return string
 	 */
-	public function procedure_list()
+	public function procedureList()
 	{
 		return <<<SQL
 			SELECT "RDB\$PROCEDURE_NAME",
@@ -195,14 +170,12 @@ SQL;
 
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return sql to list sequences
 	 *
 	 * @return string
 	 */
-	public function sequence_list()
+	public function sequenceList()
 	{
 		return <<<SQL
 			SELECT TRIM("RDB\$GENERATOR_NAME")
@@ -211,15 +184,13 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Return sql to list columns of the specified table
 	 *
 	 * @param string $table
 	 * @return string
 	 */
-	public function column_list($table)
+	public function columnList($table)
 	{
 		return <<<SQL
 			SELECT r.RDB\$FIELD_NAME AS field_name,
@@ -258,14 +229,12 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * SQL to show list of field types
 	 *
 	 * @return string
 	 */
-	public function type_list()
+	public function typeList()
 	{
 		return <<<SQL
 			SELECT "RDB\$TYPE_NAME", "RDB\$FIELD_NAME" FROM "RDB\$TYPES"
@@ -274,8 +243,6 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the list of foreign keys for the current
 	 * table
@@ -283,7 +250,7 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function fk_list($table)
+	public function fkList($table)
 	{
 		return <<<SQL
 		SELECT DISTINCT
@@ -303,15 +270,13 @@ SQL;
 SQL;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the list of indexes for the current table
 	 *
 	 * @param string $table
 	 * @return array
 	 */
-	public function index_list($table)
+	public function indexList($table)
 	{
 		return <<<SQL
 			SELECT "RDB\$INDEX_NAME", "RDB\$UNIQUE_FLAG", "RDB\$FOREIGN_KEY"
@@ -320,4 +285,3 @@ SQL;
 SQL;
 	}
 }
-//End of firebird_sql.php

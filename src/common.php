@@ -51,37 +51,14 @@ if ( ! function_exists('db_filter'))
 	 */
 	function db_filter(array $array, $index): array
 	{
-		$new_array = [];
+		$newArray = [];
 
 		foreach($array as $a)
 		{
-			$new_array[] = $a[$index];
+			$newArray[] = $a[$index];
 		}
 
-		return $new_array;
-	}
-}
-
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('from_camel_case'))
-{
-	/**
-	 * Create a snake_case string from camelCase
-	 *
-	 * @see http://stackoverflow.com/questions/1993721/how-to-convert-camelcase-to-camel-case
-	 *
-	 * @param string $input
-	 * @return string
-	 */
-	function from_camel_case(string $input): string
-	{
-		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
-		$ret = $matches[0];
-		foreach ($ret as &$match) {
-			$match = strtolower($match);
-		}
-		return implode('_', $ret);
+		return $newArray;
 	}
 }
 
@@ -90,12 +67,12 @@ if ( ! function_exists('to_camel_case'))
 	/**
 	 * Create a camelCase string from snake_case
 	 *
-	 * @param string $snake_case
+	 * @param string $snakeCase
 	 * @return string
 	 */
-	function to_camel_case(string $snake_case): string
+	function to_camel_case(string $snakeCase): string
 	{
-		$pieces = explode('_', $snake_case);
+		$pieces = explode('_', $snakeCase);
 
 		$pieces[0] = mb_strtolower($pieces[0]);
 		for($i = 1; $i < count($pieces); $i++)
@@ -114,17 +91,17 @@ if ( ! function_exists('array_zipper'))
 	/**
 	 * Zip a set of arrays together on common keys
 	 *
-	 * The $zipper_input array is an array of arrays indexed by their place in the output
+	 * The $zipperInput array is an array of arrays indexed by their place in the output
 	 * array.
 	 *
-	 * @param array $zipper_input
+	 * @param array $zipperInput
 	 * @return array
 	 */
-	function array_zipper(array $zipper_input): array
+	function array_zipper(array $zipperInput): array
 	{
 		$output = [];
 
-		foreach($zipper_input as $append_key => $values)
+		foreach($zipperInput as $appendKey => $values)
 		{
 			foreach($values as $index => $value)
 			{
@@ -132,7 +109,7 @@ if ( ! function_exists('array_zipper'))
 				{
 					$output[$index] = [];
 				}
-				$output[$index][$append_key] = $value;
+				$output[$index][$appendKey] = $value;
 			}
 		}
 
@@ -188,19 +165,19 @@ if ( ! function_exists('Query'))
 	 */
 	function Query($params = '')
 	{
-		$manager = ConnectionManager::get_instance();
+		$manager = ConnectionManager::getInstance();
 
 		// If you are getting a previously created connection
 		if (is_scalar($params))
 		{
-			return $manager->get_connection($params);
+			return $manager->getConnection($params);
 		}
 		elseif ( ! is_scalar($params) && ! is_null($params))
 		{
-			$params_object = (object) $params;
+			$paramsObject = (object) $params;
 
 			// Otherwise, return a new connection
-			return $manager->connect($params_object);
+			return $manager->connect($paramsObject);
 		}
 
 		return NULL;
