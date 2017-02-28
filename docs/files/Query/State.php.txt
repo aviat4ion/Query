@@ -1,0 +1,123 @@
+<?php declare(strict_types=1);
+/**
+ * Query
+ *
+ * SQL Query Builder / Database Abstraction Layer
+ *
+ * PHP version 7
+ *
+ * @package     Query
+ * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @copyright   2012 - 2016 Timothy J. Warren
+ * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link        https://git.timshomepage.net/aviat4ion/Query
+ */
+
+namespace Query;
+
+class State {
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Strings
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Compiled 'select' clause
+	 * @var string
+	 */
+	protected $selectString = '';
+
+	/**
+	 * Compiled 'from' clause
+	 * @var string
+	 */
+	protected $fromString = '';
+
+	/**
+	 * Compiled arguments for insert / update
+	 * @var string
+	 */
+	protected $setString;
+
+	/**
+	 * Order by clause
+	 * @var string
+	 */
+	protected $orderString;
+
+	/**
+	 * Group by clause
+	 * @var string
+	 */
+	protected $groupString;
+
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Arrays
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Keys for insert/update statement
+	 * @var array
+	 */
+	protected $setArrayKeys = [];
+
+	/**
+	 * Key/val pairs for order by clause
+	 * @var array
+	 */
+	protected $orderArray = [];
+
+	/**
+	 * Key/val pairs for group by clause
+	 * @var array
+	 */
+	protected $groupArray = [];
+
+	// --------------------------------------------------------------------------
+	// ! Other Class vars
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Values to apply to prepared statements
+	 * @var array
+	 */
+	protected $values = [];
+
+	/**
+	 * Values to apply to where clauses in prepared statements
+	 * @var array
+	 */
+	protected $whereValues = [];
+
+	/**
+	 * Value for limit string
+	 * @var string
+	 */
+	protected $limit;
+
+	/**
+	 * Value for offset in limit string
+	 * @var integer
+	 */
+	protected $offset;
+
+	/**
+	 * Query component order mapping
+	 * for complex select queries
+	 *
+	 * Format:
+	 * array(
+	 *		'type' => 'where',
+	 *		'conjunction' => ' AND ',
+	 *		'string' => 'k=?'
+	 * )
+	 *
+	 * @var array
+	 */
+	protected $queryMap = [];
+
+	/**
+	 * Map for having clause
+	 * @var array
+	 */
+	protected $havingMap;
+}
