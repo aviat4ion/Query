@@ -12,7 +12,7 @@
 		"postgres",
 		"pdo"
 	],
-	"homepage":"https://github.com/aviat4ion/Query",
+	"homepage":"https://git.timshomepage.net/aviat/Query",
 	"license":"dbad-license",
 	"authors": [{
 		"name": "Timothy J. Warren",
@@ -42,5 +42,9 @@
 			"Query\\": "src/Query"
 		},
 		"files": ["src/common.php"]
+	},
+	"scripts": {
+		"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build"
+		"test": "vendor/bin/phpunit"
 	}
 }
