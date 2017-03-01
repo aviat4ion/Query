@@ -13,7 +13,7 @@
 		"pdo"
 	],
 	"homepage":"https://git.timshomepage.net/aviat/Query",
-	"license":"dbad-license",
+	"license":"MIT",
 	"authors": [{
 		"name": "Timothy J. Warren",
 		"email": "tim@timshomepage.net",
@@ -44,7 +44,7 @@
 		"files": ["src/common.php"]
 	},
 	"scripts": {
-		"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build"
+		"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build",
 		"test": "vendor/bin/phpunit"
 	}
 }
