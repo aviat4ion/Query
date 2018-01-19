@@ -13,15 +13,19 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests;
 
 // --------------------------------------------------------------------------
 
 /**
  * Parent Database Test Class
  */
-abstract class DBTest extends Query_TestCase {
+abstract class BaseDriverTest extends TestCase {
 
-	protected static $db = NULL;
+	/**
+	 * @var \Query\QueryBuilder
+	 */
+	protected static $db;
 
 	abstract public function testConnection();
 

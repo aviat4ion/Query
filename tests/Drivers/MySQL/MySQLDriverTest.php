@@ -13,7 +13,12 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests\Drivers\MySQL;
+
+use InvalidArgumentException;
+use PDO;
 use Query\Drivers\Mysql\Driver;
+use Query\Tests\BaseDriverTest;
 
 /**
  * MySQLTest class.
@@ -21,12 +26,12 @@ use Query\Drivers\Mysql\Driver;
  * @extends DBTest
  * @requires extension pdo_mysql
  */
-class MySQLTest extends DBTest {
+class MySQLDriverTest extends BaseDriverTest {
 
 	public static function setUpBeforeClass()
 	{
 		$params = get_json_config();
-		if (($var = getenv('TRAVIS')))
+		if ($var = getenv('TRAVIS'))
 		{
 			self::$db = new Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
@@ -54,7 +59,7 @@ class MySQLTest extends DBTest {
 
 	public function testConnection()
 	{
-		$this->assertIsA(self::$db, '\\Query\\Drivers\\Mysql\\Driver');
+		$this->assertIsA(self::$db, Driver::class);
 	}
 
 	// --------------------------------------------------------------------------
@@ -102,7 +107,10 @@ class MySQLTest extends DBTest {
 	public function testTruncate()
 	{
 		self::$db->truncate('test');
+		$this->assertEquals(0, self::$db->countAll('test'));
+
 		self::$db->truncate('join');
+		$this->assertEquals(0, self::$db->countAll('join'));
 	}
 
 	// --------------------------------------------------------------------------
@@ -125,18 +133,14 @@ SQL;
 
 	public function testBadPreparedStatement()
 	{
+		$this->expectException(InvalidArgumentException::class);
+
 		$sql = <<<SQL
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		try
-		{
-			$statement = self::$db->prepareQuery($sql, 'foo');
-		}
-		catch(InvalidArgumentException $e)
-		{
-			$this->assertTrue(TRUE);
-		}
+
+		self::$db->prepareQuery($sql, 'foo');
 
 	}
 

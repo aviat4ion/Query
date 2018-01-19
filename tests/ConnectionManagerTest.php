@@ -6,21 +6,25 @@
  *
  * PHP version 7
  *
- * @package     Query
- * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @package	 Query
+ * @author	  Timothy J. Warren <tim@timshomepage.net>
  * @copyright   2012 - 2016 Timothy J. Warren
- * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @license	 http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link		https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests;
 
-class Connection_Manager_Test extends Query_TestCase {
+use DomainException;
+use Query\{ConnectionManager, QueryBuilderInterface};
 
-	protected static $instance = NULL;
+class ConnectionManagerTest extends TestCase {
+
+	protected static $instance;
 
 	public static function setUpBeforeClass()
 	{
-		self::$instance = Query\ConnectionManager::getInstance();
+		self::$instance = ConnectionManager::getInstance();
 	}
 
 	// --------------------------------------------------------------------------
@@ -30,25 +34,29 @@ class Connection_Manager_Test extends Query_TestCase {
 		$this->expectException('DomainException');
 		$this->expectExceptionMessage("Can't clone singleton");
 		$clone = clone self::$instance;
+		$this->assertNull($clone);
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testNoSerialize()
 	{
-		$this->setExpectedException('DomainException', "No serializing of singleton");
-		$string = serialize(self::$instance);
+		$this->expectException(DomainException::class);
+		$this->expectExceptionMessage('No serializing of singleton');
+		serialize(self::$instance);
 
-		$this->setExpectedException('DomainException', "No serializing of singleton");
-		$string = self::$instance->__sleep();
+		$this->expectException(DomainException::class);
+		$this->expectExceptionMessage('No serializing of singleton');
+		self::$instance->__sleep();
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testNoUnserialize()
 	{
-		$this->setExpectedException('DomainException', "Can't unserialize singleton");
-		$obj = self::$instance->__wakeup();
+		$this->expectException(DomainException::class);
+		$this->expectExceptionMessage("Can't unserialize singleton");
+		self::$instance->__wakeup();
 	}
 
 	// --------------------------------------------------------------------------
@@ -87,7 +95,7 @@ class Connection_Manager_Test extends Query_TestCase {
 		);
 
 		$conn = self::$instance->connect($params);
-		$this->assertInstanceOf('Query\\QueryBuilder', $conn);
+		$this->assertInstanceOf(QueryBuilderInterface::class, $conn);
 
 
 		// Check that the connection just made is returned from the get_connection method
@@ -109,7 +117,7 @@ class Connection_Manager_Test extends Query_TestCase {
 		);
 
 		$conn = self::$instance->connect($params);
-		$this->assertInstanceOf('Query\\QueryBuilder', $conn);
+		$this->assertInstanceOf(QueryBuilderInterface::class, $conn);
 
 		$this->assertEqual($conn, self::$instance->getConnection('conn_manager'));
 	}

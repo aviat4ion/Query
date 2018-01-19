@@ -13,10 +13,14 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests;
+
+use PDO;
+
 /**
  * Query builder parent test class
  */
-abstract class QBTest extends Query_TestCase {
+abstract class BaseQueryBuilderTest extends TestCase {
 
 	protected static $db;
 
@@ -41,7 +45,7 @@ abstract class QBTest extends Query_TestCase {
 	{
 		$this->expectException('InvalidArgumentException');
 
-		$db = Query('foo');
+		Query('foo');
 	}
 
 	public function testFunctionGet()
@@ -506,7 +510,7 @@ abstract class QBTest extends Query_TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
-	
+
 	// ! DB update tests
 	public function testInsert()
 	{
@@ -521,10 +525,10 @@ abstract class QBTest extends Query_TestCase {
 	public function testInsertArray()
 	{
 		$query = self::$db->insert('test', array(
-				'id' => 587,
-				'key' => 1,
-				'val' => 2,
-			));
+			'id' => 587,
+			'key' => 1,
+			'val' => 2,
+		));
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
@@ -662,7 +666,7 @@ abstract class QBTest extends Query_TestCase {
 			'val' => 'baz'
 		))->getCompiledUpdate('test');
 
-		$this->assertTrue(is_string($sql));
+		$this->assertTrue(\is_string($sql));
 	}
 
 	public function testGetCompiledInsert()
@@ -673,7 +677,7 @@ abstract class QBTest extends Query_TestCase {
 			'val' => 'baz'
 		))->getCompiledInsert('test');
 
-		$this->assertTrue(is_string($sql));
+		$this->assertTrue(\is_string($sql));
 	}
 
 	public function testGetCompiledDelete()
@@ -681,7 +685,7 @@ abstract class QBTest extends Query_TestCase {
 		$sql = self::$db->where('id', 4)
 			->getCompiledDelete('test');
 
-		$this->assertTrue(is_string($sql));
+		$this->assertTrue(\is_string($sql));
 	}
 	// ! Error tests
 	/**

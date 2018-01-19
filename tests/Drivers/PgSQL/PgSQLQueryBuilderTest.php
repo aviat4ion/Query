@@ -13,13 +13,17 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests\Drivers\PgSQL;
+
+use PDO;
+use Query\Tests\BaseQueryBuilderTest;
 
 // --------------------------------------------------------------------------
 
 /**
  * @requires extension pdo_pgsql
  */
-class PgSQLQBTest extends QBTest {
+class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 
 	public static function setUpBeforeClass()
 	{

@@ -13,6 +13,8 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests;
+
 
 // --------------------------------------------------------------------------
 
@@ -21,7 +23,7 @@
  *
  * @extends UnitTestCase
  */
-class CoreTest extends Query_TestCase {
+class CoreTest extends TestCase {
 
 	/**
 	 * TestPHPVersion function.
@@ -31,7 +33,8 @@ class CoreTest extends Query_TestCase {
 	 */
 	public function testPHPVersion()
 	{
-		$this->assertTrue(version_compare(PHP_VERSION, "5.3", "ge"));
+		//$this->assertTrue(version_compare(PHP_VERSION, '7.1', 'ge'));
+		$this->assertTrue(PHP_VERSION_ID >= 70000);
 	}
 
 	// --------------------------------------------------------------------------
@@ -49,15 +52,15 @@ class CoreTest extends Query_TestCase {
 
 
 		// Make sure at least one of the supported drivers is enabled
-		$supported = array(
+		$supported = [
 			'firebird',
 			'mysql',
 			'pgsql',
 			'odbc',
 			'sqlite',
-		);
+		];
 
-		$drivers = PDO::getAvailableDrivers();
+		$drivers = \PDO::getAvailableDrivers();
 
 		$numSupported = count(array_intersect($drivers, $supported));
 

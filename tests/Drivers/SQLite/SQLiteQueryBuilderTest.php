@@ -13,6 +13,10 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests\Drivers\SQLite;
+
+use PDO;
+use Query\Tests\BaseQueryBuilderTest;
 
 // --------------------------------------------------------------------------
 
@@ -21,7 +25,7 @@
  *
  * @requires extension pdo_sqlite
  */
- class SQLiteQBTest extends QBTest {
+ class SQLiteQueryBuilderTest extends BaseQueryBuilderTest {
 
 	public static function setUpBeforeClass()
 	{

@@ -11,17 +11,12 @@
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
 
-use PHPUnit\Framework\TestCase;
-
 /**
  * Unit test bootstrap - Using phpunit
  */
 define('QTEST_DIR', realpath(__DIR__));
 define('QBASE_DIR', realpath(QTEST_DIR.'/../') . '/');
 define('QDS', DIRECTORY_SEPARATOR);
-
-// Set up autoloader
-require_once QBASE_DIR . 'vendor/autoload.php';
 
 // --------------------------------------------------------------------------
 
@@ -43,67 +38,8 @@ function get_json_config()
 	return FALSE;
 }
 
-/**
- * Base class for TestCases
- */
-class Query_TestCase extends TestCase {
-
-	/**
-	 * Wrapper for Simpletest's assertEqual
-	 *
-	 * @param mixed $expected
-	 * @param mixed $actual
-	 * @param string $message
-	 */
-	public function assertEqual($expected, $actual, $message='')
-	{
-		$this->assertEquals($expected, $actual, $message);
-	}
-
-	/**
-	 * Wrapper for SimpleTest's assertIsA
-	 *
-	 * @param object $object
-	 * @param string $type
-	 * @param string $message
-	 */
-	public function assertIsA($object, $type, $message='')
-	{
-		$this->assertTrue(is_a($object, $type), $message);
-	}
-
-	/**
-	 * Implementation of SimpleTest's assertReference
-	 *
-	 * @param mixed $first
-	 * @param mixed $second
-	 * @param string $message
-	 */
-	public function assertReference($first, $second, $message='')
-	{
-		if (is_object($first))
-		{
-			$res = ($first === $second);
-		}
-		else
-		{
-			$temp = $first;
-			$first = uniqid("test");
-			$isRef = ($first === $second);
-			$first = $temp;
-			$res = $isRef;
-		}
-		$this->assertTrue($res, $message);
-	}
-}
-
 // --------------------------------------------------------------------------
 $path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
 @unlink($path);
-
-// Require base testing classes
-require_once(QTEST_DIR . '/core/base_db_test.php');
-require_once(QTEST_DIR . '/core/base_query_builder_test.php');
-
 
 // End of bootstrap.php

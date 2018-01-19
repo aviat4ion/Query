@@ -13,6 +13,11 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests\Drivers\SQLite;
+
+use PDO;
+use Query\Drivers\Sqlite\Driver;
+use Query\Tests\BaseDriverTest;
 
 // --------------------------------------------------------------------------
 
@@ -22,7 +27,7 @@
  * @extends DBTest
  * @requires extension pdo_sqlite
  */
-class SQLiteTest extends DBTest {
+class SQLiteDriverTest extends BaseDriverTest {
 
 	public static function setupBeforeClass()
 	{
@@ -175,7 +180,7 @@ SQL;
 
 	public function testConnection()
 	{
-		$class = '\\Query\\Drivers\\Sqlite\\Driver';
+		$class = Driver::class;
 
 		$db = new $class(QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db');
 
@@ -190,6 +195,7 @@ SQL;
 	public function testTruncate()
 	{
 		self::$db->truncate('create_test');
+		$this->assertEquals(0, self::$db->countAll('create_test'));
 	}
 
 	// --------------------------------------------------------------------------
@@ -281,7 +287,7 @@ SQL;
 	public function testGetSystemTables()
 	{
 		$sql = self::$db->getSystemTables();
-		$this->assertTrue(is_array($sql));
+		$this->assertTrue(\is_array($sql));
 	}
 
 	// --------------------------------------------------------------------------

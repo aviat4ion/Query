@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
@@ -11,158 +11,151 @@
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
 
-function get_json_config()
-{
-	$files = array(
-		__DIR__ . '/settings.json',
-		__DIR__ . '/settings.json.dist'
-	);
+namespace {
+	/**
+	 * Unit test bootstrap - Using php simpletest
+	 */
+	\define('QTEST_DIR', __DIR__);
+	\define('QBASE_DIR', realpath(__DIR__ . '/../') . '/');
+	\define('QDS', DIRECTORY_SEPARATOR);
 
-	foreach($files as $file)
+	require_once QBASE_DIR . 'vendor/simpletest/simpletest/autorun.php';
+	require_once QBASE_DIR . 'vendor/autoload.php';
+}
+
+namespace Query\Tests {
+
+	/**
+	 * Base class for TestCases
+	 */
+	abstract class TestCase extends \UnitTestCase
 	{
-		if (is_file($file))
+
+		public function __construct()
 		{
-			return json_decode(file_get_contents($file));
+			$class = \get_class($this);
+
+			echo 'Ran test suite: ' . $class . '<br />';
+
+			if (method_exists($class, 'setupBeforeClass')) {
+				$class::setupBeforeClass();
+			}
+
+			parent::__construct();
+		}
+
+		public function __destruct()
+		{
+			$class = \get_class($this);
+
+			if (method_exists($class, 'tearDownAfterClass')) {
+				$class::tearDownAfterClass();
+			}
+		}
+
+		/**
+		 * Define assertInstanceOf for simpletest
+		 *
+		 * @param $expected
+		 * @param $actual
+		 * @param string $message
+		 */
+		public function assertInstanceOf($expected, $actual, $message = '')
+		{
+			$this->assertIsA($actual, $expected, $message);
+		}
+
+		/**
+		 * Alias to assertEqual
+		 *
+		 * @param mixed $expected
+		 * @param mixed $actual
+		 * @param string $message
+		 */
+		public function assertEquals($expected, $actual, $message = '')
+		{
+			$this->assertEqual($expected, $actual, $message);
+		}
+
+		/**
+		 * Alias to skipIf in SimpleTest
+		 *
+		 * @param string $message
+		 */
+		public function markTestSkipped($message = '')
+		{
+			$this->skipUnless(FALSE, $message);
+		}
+
+		/**
+		 * Alias to the method in PHPUnit
+		 *
+		 * @param string $message
+		 */
+		public function expectExceptionMessage($message)
+		{
+			// noop
 		}
 	}
 
-	return FALSE;
 }
-
-// --------------------------------------------------------------------------
-
-// Set up autoloaders
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../vendor/simpletest/simpletest/autorun.php';
 
 /**
- * Base class for TestCases
+ * Load the test suites
  */
-abstract class Query_TestCase extends UnitTestCase {
-
-	public function __construct()
+namespace {
+	function get_json_config()
 	{
-		$class = get_class($this);
+		$files = array(
+			__DIR__ . '/settings.json',
+			__DIR__ . '/settings.json.dist'
+		);
 
-		if (method_exists($class, 'setupBeforeClass'))
-		{
-			$class::setupBeforeClass();
+		foreach ($files as $file) {
+			if (is_file($file)) {
+				return json_decode(file_get_contents($file));
+			}
 		}
 
-		parent::__construct();
+		return FALSE;
 	}
 
-	public function __destruct()
-	{
-		$class = get_class($this);
+	// Include db tests
+	// Load db classes based on capability
+	$testPath = QTEST_DIR.'/Drivers/';
 
-		if (method_exists($class, 'tearDownAfterClass'))
+	// Require base testing classes
+	require_once QTEST_DIR . '/CoreTest.php';
+	require_once QTEST_DIR . '/ConnectionManagerTest.php';
+	require_once QTEST_DIR . '/QueryParserTest.php';
+
+	$drivers = PDO::getAvailableDrivers();
+
+	/* if (function_exists('fbird_connect'))
+	{
+		$drivers[] = 'interbase';
+	} */
+
+	$driverTestMap = [
+		'MySQL' => \in_array('mysql', $drivers, TRUE),
+		'SQLite' => \in_array('sqlite', $drivers, TRUE),
+		'PgSQL' => \in_array('pgsql', $drivers, TRUE),
+		// 'Firebird' => in_array('interbase', $drivers),
+		//'PDOFirebird' => in_array('firebird', $drivers)
+	];
+
+	// Determine which testcases to load
+	foreach($driverTestMap as $name => $doLoad)
+	{
+		$path = $testPath . $name;
+
+		if ($doLoad)
 		{
-			$class::tearDownAfterClass();
+			require_once "{$path}/{$name}DriverTest.php";
+			require_once "{$path}/{$name}QueryBuilderTest.php";
 		}
 	}
-
-	/**
-	 * Define assertInstanceOf for simpletest
-	 *
-	 * @param $expected
-	 * @param $actual
-	 * @param string $message
-	 */
-	public function assertInstanceOf($expected, $actual, $message = '')
-	{
-		$this->assertIsA($actual, $expected, $message);
-	}
-
-	/**
-	 * Alias to assertEqual
-	 *
-	 * @param mixed $expected
-	 * @param mixed $actual
-	 * @param string $message
-	 */
-	public function assertEquals($expected, $actual, $message = '')
-	{
-		$this->assertEqual($expected, $actual, $message);
-	}
-
-	/**
-	 * Alias to skipIf in SimpleTest
-	 *
-	 * @param string $message
-	 */
-	public function markTestSkipped($message = '')
-	{
-		$this->skipUnless(FALSE, $message);
-	}
-
-	/**
-	 * Alias to the method in PHPUnit
-	 *
-	 * @param string $message
-	 */
-	public function expectExceptionMessage($message)
-	{
-		// noop
-	}
-
-	/**
-	 * Alias for phpunit method
-	 *
-	 * @param string $name
-	 * @param string $message
-	 * @param int $code
-	 */
-	public function setExpectedException($name, $message='', $code=NULL)
-	{
-		$this->expectException($name, $message);
-	}
 }
 
-// --------------------------------------------------------------------------
 
-/**
- * Unit test bootstrap - Using php simpletest
- */
-define('QTEST_DIR', __DIR__);
-define('QBASE_DIR', realpath(__DIR__ . '/../') . '/');
-define('QDS', DIRECTORY_SEPARATOR);
-
-// Include db tests
-// Load db classes based on capability
-$testPath = QTEST_DIR.'/databases/';
-
-// Require base testing classes
-require_once QTEST_DIR . '/core/core_test.php';
-require_once QTEST_DIR . '/core/connection_manager_test.php';
-require_once QTEST_DIR . '/core/base_db_test.php';
-require_once QTEST_DIR . '/core/query_parser_test.php';
-require_once QTEST_DIR . '/core/base_query_builder_test.php';
-
-$drivers = PDO::getAvailableDrivers();
-
-if (function_exists('fbird_connect'))
-{
-	$drivers[] = 'interbase';
-}
-
-$driverTestMap = [
-	'MySQL' => in_array('mysql', $drivers, TRUE),
-	'SQLite' => in_array('sqlite', $drivers, TRUE),
-	'PgSQL' => in_array('pgsql', $drivers, TRUE),
-	// 'Firebird' => in_array('interbase', $drivers),
-	//'PDOFirebird' => in_array('firebird', $drivers)
-];
-
-// Determine which testcases to load
-foreach($driverTestMap as $name => $doLoad)
-{
-	$path = $testPath . strtolower($name) . '/';
-
-	if ($doLoad)
-	{
-		require_once "{$path}{$name}Test.php";
-		require_once "{$path}{$name}QBTest.php";
-	}
-}
 // End of index.php

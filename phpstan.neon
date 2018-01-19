@@ -1,6 +1,12 @@
 parameters:
 	autoload_files:
 		- %rootDir%/../../../tests/bootstrap.php
+		- %rootDir%/../../../tests/databases/mysql/MySQLTest.php
+		- %rootDir%/../../../tests/databases/mysql/MySQLQBTest.php
+		- %rootDir%/../../../tests/databases/pgsql/PgSQLTest.php
+		- %rootDir%/../../../tests/databases/pgsql/PgSQLQBTest.php
+		- %rootDir%/../../../tests/databases/sqlite/SQLiteTest.php
+		- %rootDir%/../../../tests/databases/sqlite/SQLiteQBTest.php
 	ignoreErrors:
 		- '#Access to an undefined property Aviat\\\Ion\\\Friend::\$[a-zA-Z0-9_]+#'
 		- '#Call to an undefined method Aviat\\\Ion\\\Friend::[a-zA-Z0-9_]+\(\)#'

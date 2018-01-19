@@ -13,13 +13,17 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests\Drivers\MySQL;
+
+use PDO;
+use Query\Tests\BaseQueryBuilderTest;
 
 // --------------------------------------------------------------------------
 
 /**
  * @requires extension pdo_mysql
  */
-class MySQLQBTest extends QBTest {
+class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 
 	public static function setUpBeforeClass()
 	{
@@ -52,7 +56,7 @@ class MySQLQBTest extends QBTest {
 
 	public function testExists()
 	{
-		$this->assertTrue(in_array('mysql', PDO::getAvailableDrivers()));
+		$this->assertTrue(\in_array('mysql', PDO::getAvailableDrivers(), TRUE));
 	}
 
 	// --------------------------------------------------------------------------

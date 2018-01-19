@@ -4,27 +4,28 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7
+ * PHP version 7.1
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2016 Timothy J. Warren
+ * @copyright   2012 - 2018 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
+namespace Query\Tests;
 
-
-// --------------------------------------------------------------------------
+use Query\QueryParser;
+use Query\Drivers\Sqlite\Driver;
 
 /**
  * Tests for the Query Parser
  */
-class Query_Parser_Test extends Query_TestCase {
+class QueryParserTest extends TestCase {
 
 	public function setUp()
 	{
-		$db = new Query\Drivers\Sqlite\Driver("sqlite::memory:");
-		$this->parser = new Query\QueryParser($db);
+		$db = new Driver('sqlite::memory:');
+		$this->parser = new QueryParser($db);
 	}
 
 	public function testGeneric()

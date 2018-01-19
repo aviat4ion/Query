@@ -13,8 +13,13 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests\Drivers\PgSQL;
 
 // --------------------------------------------------------------------------
+
+use InvalidArgumentException;
+use Query\Drivers\Pgsql\Driver;
+use Query\Tests\BaseDriverTest;
 
 /**
  * PgTest class.
@@ -22,33 +27,30 @@
  * @extends DBTest
  * @requires extension pdo_pgsql
  */
-class PgTest extends DBTest {
+class PgSQLDriverTest extends BaseDriverTest {
 
 	public function setUp()
-	{
-		$class = "Query\\Drivers\\Pgsql\\Driver";
-
+    {
 		// If the database isn't installed, skip the tests
-		if (( ! class_exists($class)) && ! IS_QUERCUS)
+		if ( ! class_exists(Driver::class))
 		{
-			$this->markTestSkipped("Postgres extension for PDO not loaded");
+			$this->markTestSkipped('Postgres extension for PDO not loaded');
 		}
 	}
 
 	public static function setUpBeforeClass()
 	{
-		$class = "Query\\Drivers\\Pgsql\\Driver";
 
 		$params = get_json_config();
-		if (($var = getenv('TRAVIS')))
+		if ($var = getenv('TRAVIS'))
 		{
-			self::$db = new $class('host=127.0.0.1;port=5432;dbname=test', 'postgres');
+			self::$db = new Driver('host=127.0.0.1;port=5432;dbname=test', 'postgres');
 		}
 		// Attempt to connect, if there is a test config file
 		else if ($params !== FALSE)
 		{
 			$params = $params->pgsql;
-			self::$db = new $class("pgsql:host={$params->host};dbname={$params->database};port=5432", $params->user, $params->pass);
+			self::$db = new Driver("pgsql:host={$params->host};dbname={$params->database};port=5432", $params->user, $params->pass);
 		}
 
 		self::$db->setTablePrefix('create_');
@@ -59,7 +61,7 @@ class PgTest extends DBTest {
 	public function testExists()
 	{
 		$drivers = \PDO::getAvailableDrivers();
-		$this->assertTrue(in_array('pgsql', $drivers));
+		$this->assertTrue(in_array('pgsql', $drivers, TRUE));
 	}
 
 	// --------------------------------------------------------------------------
@@ -68,7 +70,7 @@ class PgTest extends DBTest {
 	{
 		if (empty(self::$db))  return;
 
-		$this->assertIsA(self::$db, '\\Query\\Drivers\\Pgsql\\Driver');
+		$this->assertIsA(self::$db, Driver::class);
 	}
 
 	// --------------------------------------------------------------------------
@@ -119,7 +121,7 @@ class PgTest extends DBTest {
 
 		//Check
 		$dbs = self::$db->getTables();
-		$this->assertTrue(in_array('create_test', $dbs));
+		$this->assertTrue(in_array('create_test', $dbs, TRUE));
 
 	}
 
@@ -127,11 +129,11 @@ class PgTest extends DBTest {
 
 	public function testTruncate()
 	{
-		self::$db->truncate('create_test');
-		self::$db->truncate('create_join');
+		self::$db->truncate('test');
+		$this->assertEquals(0, self::$db->countAll('test'));
 
-		$ctQuery = self::$db->query('SELECT * FROM create_test');
-		$cjQuery = self::$db->query('SELECT * FROM create_join');
+		self::$db->truncate('join');
+		$this->assertEquals(0, self::$db->countAll('join'));
 	}
 
 	// --------------------------------------------------------------------------
@@ -142,7 +144,7 @@ class PgTest extends DBTest {
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepareQuery($sql, array(1,'boogers', 'Gross'));
 
 		$statement->execute();
 
@@ -152,19 +154,14 @@ SQL;
 
 	public function testBadPreparedStatement()
 	{
+		$this->expectException(InvalidArgumentException::class);
+
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		try
-		{
-			$statement = self::$db->prepareQuery($sql, 'foo');
-		}
-		catch(InvalidArgumentException $e)
-		{
-			$this->assertTrue(TRUE);
-		}
 
+		self::$db->prepareQuery($sql, 'foo');
 	}
 
 	// --------------------------------------------------------------------------
@@ -189,7 +186,7 @@ SQL;
 	{
 		if (empty(self::$db))  return;
 
-		$res = self::$db->beginTransaction();
+		self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
 		self::$db->query($sql);
@@ -204,7 +201,7 @@ SQL;
 	{
 		if (empty(self::$db))  return;
 
-		$res = self::$db->beginTransaction();
+		self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
 		self::$db->query($sql);

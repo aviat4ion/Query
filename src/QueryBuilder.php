@@ -105,7 +105,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 			{
 				if (method_exists($object, $methodName))
 				{
-					return call_user_func_array([$object, $methodName], $params);
+					return \call_user_func_array([$object, $methodName], $params);
 				}
 			}
 
@@ -645,12 +645,12 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		}
 
 		// Set the limit, if it exists
-		if (is_int($limit))
+		if (\is_int($limit))
 		{
 			$this->limit($limit, $offset);
 		}
 
-		return $this->_run("get", $table);
+		return $this->_run('get', $table);
 	}
 
 	/**

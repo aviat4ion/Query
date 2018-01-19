@@ -14,7 +14,10 @@
  */
 
 
-use Query\ConnectionManager;
+use Query\{
+    ConnectionManager,
+    QueryBuilderInterface
+};
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -34,7 +37,7 @@ if ( ! function_exists('mb_trim'))
 	 */
 	function mb_trim(string $string): string
 	{
-		return preg_replace("/(^\s+)|(\s+$)/us", "", $string);
+		return preg_replace('/(^\s+)|(\s+$)/u', '', $string);
 	}
 }
 
@@ -73,9 +76,10 @@ if ( ! function_exists('to_camel_case'))
 	function to_camel_case(string $snakeCase): string
 	{
 		$pieces = explode('_', $snakeCase);
+		$numPieces = count($pieces);
 
 		$pieces[0] = mb_strtolower($pieces[0]);
-		for($i = 1; $i < count($pieces); $i++)
+		for($i = 1; $i < $numPieces; $i++)
 		{
 			$pieces[$i] = ucfirst(mb_strtolower($pieces[$i]));
 		}
@@ -161,26 +165,27 @@ if ( ! function_exists('Query'))
 	 * connection created.
 	 *
 	 * @param string|object|array $params
-	 * @return Query\QueryBuilder|null
+	 * @return QueryBuilderInterface|null
 	 */
-	function Query($params = '')
+	function Query($params = ''): ?QueryBuilderInterface
 	{
 		$manager = ConnectionManager::getInstance();
+
+		if ($params === NULL)
+        {
+            return NULL;
+        }
 
 		// If you are getting a previously created connection
 		if (is_scalar($params))
 		{
 			return $manager->getConnection($params);
 		}
-		elseif ( ! is_scalar($params) && ! is_null($params))
-		{
-			$paramsObject = (object) $params;
 
-			// Otherwise, return a new connection
-			return $manager->connect($paramsObject);
-		}
+        $paramsObject = (object) $params;
 
-		return NULL;
+        // Otherwise, return a new connection
+        return $manager->connect($paramsObject);
 	}
 }
 // End of common.php
