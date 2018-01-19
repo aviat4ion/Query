@@ -11,23 +11,6 @@
  * @license		http://philsturgeon.co.uk/code/dbad-license
  */
 
-/**
- * Quercus detection for workarounds
- */
-if ( ! defined('IS_QUERCUS'))
-{
-	if ( ! array_key_exists('SERVER_SOFTWARE', $_SERVER))
-	{
-		define('IS_QUERCUS', FALSE);
-	}
-	else
-	{
-		$test = strpos($_SERVER["SERVER_SOFTWARE"],'Quercus') !== FALSE;
-		define('IS_QUERCUS', $test);
-		unset($test);
-	}
-}
-
 function get_json_config()
 {
 	$files = array(
@@ -49,8 +32,8 @@ function get_json_config()
 // --------------------------------------------------------------------------
 
 // Set up autoloaders
-require_once(__DIR__ . '/../vendor/autoload.php');
-require_once(__DIR__ . '/../vendor/simpletest/simpletest/autorun.php');
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/simpletest/simpletest/autorun.php';
 
 /**
  * Base class for TestCases
@@ -150,11 +133,11 @@ define('QDS', DIRECTORY_SEPARATOR);
 $testPath = QTEST_DIR.'/databases/';
 
 // Require base testing classes
-require_once(QTEST_DIR . '/core/core_test.php');
-require_once(QTEST_DIR . '/core/connection_manager_test.php');
-require_once(QTEST_DIR . '/core/base_db_test.php');
-require_once(QTEST_DIR . '/core/query_parser_test.php');
-require_once(QTEST_DIR . '/core/base_query_builder_test.php');
+require_once QTEST_DIR . '/core/core_test.php';
+require_once QTEST_DIR . '/core/connection_manager_test.php';
+require_once QTEST_DIR . '/core/base_db_test.php';
+require_once QTEST_DIR . '/core/query_parser_test.php';
+require_once QTEST_DIR . '/core/base_query_builder_test.php';
 
 $drivers = PDO::getAvailableDrivers();
 
@@ -163,23 +146,23 @@ if (function_exists('fbird_connect'))
 	$drivers[] = 'interbase';
 }
 
-$driverTestMap = array(
-	'MySQL' => in_array('mysql', $drivers),
-	'SQLite' => in_array('sqlite', $drivers),
-	'PgSQL' => in_array('pgsql', $drivers),
-	'Firebird' => in_array('interbase', $drivers),
+$driverTestMap = [
+	'MySQL' => in_array('mysql', $drivers, TRUE),
+	'SQLite' => in_array('sqlite', $drivers, TRUE),
+	'PgSQL' => in_array('pgsql', $drivers, TRUE),
+	// 'Firebird' => in_array('interbase', $drivers),
 	//'PDOFirebird' => in_array('firebird', $drivers)
-);
+];
 
 // Determine which testcases to load
 foreach($driverTestMap as $name => $doLoad)
 {
 	$path = $testPath . strtolower($name) . '/';
 
-	if ($doLoad && (! IS_QUERCUS))
+	if ($doLoad)
 	{
-		require_once("{$path}{$name}Test.php");
-		require_once("{$path}{$name}QBTest.php");
+		require_once "{$path}{$name}Test.php";
+		require_once "{$path}{$name}QBTest.php";
 	}
 }
 // End of index.php

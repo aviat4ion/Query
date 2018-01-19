@@ -21,26 +21,9 @@ define('QBASE_DIR', realpath(QTEST_DIR.'/../') . '/');
 define('QDS', DIRECTORY_SEPARATOR);
 
 // Set up autoloader
-require_once(QBASE_DIR . 'vendor/autoload.php');
+require_once QBASE_DIR . 'vendor/autoload.php';
 
 // --------------------------------------------------------------------------
-
-/**
- * Quercus detection for workarounds
- */
-if ( ! defined('IS_QUERCUS'))
-{
-	if ( ! isset($_sERVERSOFTWARE))
-	{
-		define('IS_QUERCUS', FALSE);
-	}
-	else
-	{
-		$test = strpos($_sERVER["SERVER_SOFTWARE"],'Quercus') !== FALSE;
-		define('IS_QUERCUS', $test);
-		unset($test);
-	}
-}
 
 function get_json_config()
 {

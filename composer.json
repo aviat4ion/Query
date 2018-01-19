@@ -44,7 +44,7 @@
 	},
 	"scripts": {
 		"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build",
-		"phpstan": "phpstan analyse src tests",
+		"phpstan": "phpstan analyse -l 3 -c phpstan.neon src tests",
 		"test": "vendor/bin/phpunit"
 	},
 	"scripts-descriptions": {

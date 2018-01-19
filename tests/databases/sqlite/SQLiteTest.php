@@ -52,13 +52,13 @@ class SQLiteTest extends DBTest {
 		//Check
 		$dbs = self::$db->getTables();
 
-		$this->assertTrue(in_array('TEST1', $dbs));
-		$this->assertTrue(in_array('TEST2', $dbs));
-		$this->assertTrue(in_array('NUMBERS', $dbs));
-		$this->assertTrue(in_array('NEWTABLE', $dbs));
-		$this->assertTrue(in_array('create_test', $dbs));
-		$this->assertTrue(in_array('create_join', $dbs));
-		$this->assertTrue(in_array('create_delete', $dbs));
+		$this->assertTrue(in_array('TEST1', $dbs, TRUE));
+		$this->assertTrue(in_array('TEST2', $dbs, TRUE));
+		$this->assertTrue(in_array('NUMBERS', $dbs, TRUE));
+		$this->assertTrue(in_array('NEWTABLE', $dbs, TRUE));
+		$this->assertTrue(in_array('create_test', $dbs, TRUE));
+		$this->assertTrue(in_array('create_join', $dbs, TRUE));
+		$this->assertTrue(in_array('create_delete', $dbs, TRUE));
 	}
 
 	// --------------------------------------------------------------------------
@@ -224,11 +224,6 @@ SQL;
 
 	public function testCommitTransaction()
 	{
-		if (IS_QUERCUS)
-		{
-			$this->markTestSkipped("JDBC Driver doesn't support transactions");
-		}
-
 		$res = self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (10, 12, 14)';
@@ -242,11 +237,6 @@ SQL;
 
 	public function testRollbackTransaction()
 	{
-		if (IS_QUERCUS)
-		{
-			$this->markTestSkipped("JDBC Driver doesn't support transactions");
-		}
-
 		$res = self::$db->beginTransaction();
 
 		$sql = 'INSERT INTO "create_test" ("id", "key", "val") VALUES (182, 96, 43)';
