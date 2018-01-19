@@ -30,7 +30,7 @@
 		"pdepend/pdepend": "^2.5",
 		"phploc/phploc": "^4.0",
 		"phpmd/phpmd": "^2.4",
-		"phpstan/phpstan": "*",
+		"phpstan/phpstan": "^0.9.1",
 		"phpunit/phpunit": "^5.5",
 		"sebastian/phpcpd": "^2.0",
 		"simpletest/simpletest": "^1.1",
@@ -38,14 +38,19 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Query\\": "src/Query"
+			"Query\\": "src"
 		},
 		"files": ["src/common.php"]
+	},
+  	"autoload-dev": {
+		"psr-4": {
+			"Query\\Tests\\": "tests"
+		}
 	},
 	"scripts": {
 		"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build",
 		"phpstan": "phpstan analyse -l 3 -c phpstan.neon src tests",
-		"test": "vendor/bin/phpunit"
+		"test": "phpunit -c build"
 	},
 	"scripts-descriptions": {
 		"coverage": "Generate test coverage report",
