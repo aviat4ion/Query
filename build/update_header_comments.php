@@ -2,9 +2,7 @@
 declare(strict_types=1);
 
 $file_patterns = [
-    'src/**/*.php',
     'src/*.php',
-    'tests/**/*.php',
     'tests/*.php',
     'Robofile.php'
 ];

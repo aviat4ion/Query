@@ -2,15 +2,16 @@
 /**
  * Query
  *
- * Free Query Builder / Database Abstraction Layer
+ * SQL Query Builder / Database Abstraction Layer
  *
- * @package		Query
- * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2013
- * @link 		https://github.com/aviat4ion/Query
- * @license		http://philsturgeon.co.uk/code/dbad-license
+ * PHP version 7.1
+ *
+ * @package     Query
+ * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @copyright   2012 - 2018 Timothy J. Warren
+ * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-
 namespace {
 	/**
 	 * Unit test bootstrap - Using php simpletest
