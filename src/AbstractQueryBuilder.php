@@ -335,7 +335,7 @@ abstract class AbstractQueryBuilder {
 	 * @param mixed $val
 	 * @return array
 	 */
-	protected function _where($key, array $val=[]): array
+	protected function _where($key, $val=[]): array
 	{
 		$where = [];
 		$this->_mixedSet($where, $key, $val);
@@ -351,7 +351,7 @@ abstract class AbstractQueryBuilder {
 	 * @param string $defaultConj
 	 * @return self
 	 */
-	protected function _whereString($key, array $values=[], string $defaultConj='AND'): self
+	protected function _whereString($key, $values=[], string $defaultConj='AND'): self
 	{
 		// Create key/value placeholders
 		foreach($this->_where($key, $values) as $f => $val)
