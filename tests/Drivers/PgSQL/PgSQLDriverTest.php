@@ -17,6 +17,7 @@ namespace Query\Tests\Drivers\PgSQL;
 // --------------------------------------------------------------------------
 
 use InvalidArgumentException;
+use PDO;
 use Query\Drivers\Pgsql\Driver;
 use Query\Tests\BaseDriverTest;
 
@@ -59,7 +60,7 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 	public function testExists()
 	{
-		$drivers = \PDO::getAvailableDrivers();
+		$drivers = PDO::getAvailableDrivers();
 		$this->assertTrue(in_array('pgsql', $drivers, TRUE));
 	}
 
@@ -147,6 +148,14 @@ SQL;
 
 		$statement->execute();
 
+		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=1')
+			->fetch(PDO::FETCH_ASSOC);
+
+		$this->assertEquals([
+			'id' => 1,
+			'key' => 'boogers',
+			'val' => 'Gross'
+		], $res);
 	}
 
 	// --------------------------------------------------------------------------
@@ -174,9 +183,17 @@ SQL;
 			VALUES (?,?,?)
 SQL;
 		self::$db->prepareExecute($sql, array(
-			2, "works", 'also?'
+			2, 'works', 'also?'
 		));
 
+		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=2')
+			->fetch(PDO::FETCH_ASSOC);
+
+		$this->assertEquals([
+			'id' => 2,
+			'key' => 'works',
+			'val' => 'also?'
+		], $res);
 	}
 
 	// --------------------------------------------------------------------------

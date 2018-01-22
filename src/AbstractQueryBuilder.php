@@ -198,7 +198,7 @@ abstract class AbstractQueryBuilder {
 
 		foreach($arg as $k => $v)
 		{
-			if (in_array($valType, [self::KEY, self::VALUE]))
+			if (\in_array($valType, [self::KEY, self::VALUE], TRUE))
 			{
 				$var[] = ($valType === self::KEY)
 					? $k
@@ -225,7 +225,7 @@ abstract class AbstractQueryBuilder {
 		// Escape the identifiers
 		$field = $this->db->quoteIdent($field);
 
-		if ( ! is_string($as))
+		if ( ! \is_string($as))
 		{
 			return $field;
 		}
@@ -263,20 +263,20 @@ abstract class AbstractQueryBuilder {
 	 * @param string $pos
 	 * @param string $like
 	 * @param string $conj
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	protected function _like(string $field, $val, string $pos, string $like='LIKE', string $conj='AND'): QueryBuilderInterface
+	protected function _like(string $field, $val, string $pos, string $like='LIKE', string $conj='AND'): self
 	{
 		$field = $this->db->quoteIdent($field);
 
 		// Add the like string into the order map
 		$like = $field. " {$like} ?";
 
-		if ($pos == 'before')
+		if ($pos === 'before')
 		{
 			$val = "%{$val}";
 		}
-		elseif ($pos == 'after')
+		elseif ($pos === 'after')
 		{
 			$val = "{$val}%";
 		}
@@ -285,7 +285,7 @@ abstract class AbstractQueryBuilder {
 			$val = "%{$val}%";
 		}
 
-		$conj = (empty($this->queryMap)) ? ' WHERE ' : " {$conj} ";
+		$conj = empty($this->queryMap) ? ' WHERE ' : " {$conj} ";
 		$this->_appendMap($conj, $like, 'like');
 
 		// Add to the values array
@@ -298,13 +298,13 @@ abstract class AbstractQueryBuilder {
 	 * Simplify building having clauses
 	 *
 	 * @param mixed $key
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @param string $conj
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	protected function _having($key, $val=[], string $conj='AND'): QueryBuilderInterface
+	protected function _having($key, $values=[], string $conj='AND'): self
 	{
-		$where = $this->_where($key, $val);
+		$where = $this->_where($key, $values);
 
 		// Create key/value placeholders
 		foreach($where as $f => $val)
@@ -335,10 +335,10 @@ abstract class AbstractQueryBuilder {
 	 * @param mixed $val
 	 * @return array
 	 */
-	protected function _where($key, $val=[]): array
+	protected function _where($key, array $val=[]): array
 	{
 		$where = [];
-		$this->_mixedSet($where, $key, $val, self::BOTH);
+		$this->_mixedSet($where, $key, $val);
 		$this->_mixedSet($this->whereValues, $key, $val, self::VALUE);
 		return $where;
 	}
@@ -347,14 +347,14 @@ abstract class AbstractQueryBuilder {
 	 * Simplify generating where string
 	 *
 	 * @param mixed $key
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @param string $defaultConj
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	protected function _whereString($key, $val=[], string $defaultConj='AND'): QueryBuilderInterface
+	protected function _whereString($key, array $values=[], string $defaultConj='AND'): self
 	{
 		// Create key/value placeholders
-		foreach($this->_where($key, $val) as $f => $val)
+		foreach($this->_where($key, $values) as $f => $val)
 		{
 			// Split each key by spaces, in case there
 			// is an operator such as >, <, !=, etc.
@@ -394,9 +394,9 @@ abstract class AbstractQueryBuilder {
 	 * @param mixed $val
 	 * @param string $in - The (not) in fragment
 	 * @param string $conj - The where in conjunction
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	protected function _whereIn($key, $val=[], string $in='IN', string $conj='AND'): QueryBuilderInterface
+	protected function _whereIn($key, $val=[], string $in='IN', string $conj='AND'): self
 	{
 		$key = $this->db->quoteIdent($key);
 		$params = array_fill(0, count($val), '?');
@@ -426,19 +426,19 @@ abstract class AbstractQueryBuilder {
 	 */
 	protected function _run(string $type, string $table, $sql=NULL, $vals=NULL, bool $reset=TRUE): PDOStatement
 	{
-		if (is_null($sql))
+		if ($sql === NULL)
 		{
 			$sql = $this->_compile($type, $table);
 		}
 
-		if (is_null($vals))
+		if ($vals === NULL)
 		{
 			$vals = array_merge($this->values, (array) $this->whereValues);
 		}
 
 		$startTime = microtime(TRUE);
 
-		$res = (empty($vals))
+		$res = empty($vals)
 			? $this->db->query($sql)
 			: $this->db->prepareExecute($sql, $vals);
 
@@ -467,11 +467,11 @@ abstract class AbstractQueryBuilder {
 	 */
 	protected function _appendMap(string $conjunction = '', string $string = '', string $type = '')
 	{
-		array_push($this->queryMap, [
+		$this->queryMap[] = [
 			'type' => $type,
 			'conjunction' => $conjunction,
 			'string' => $string
-		]);
+		];
 	}
 
 	/**
@@ -500,7 +500,7 @@ abstract class AbstractQueryBuilder {
 		// Add the interpreted query to the list of executed queries
 		$this->queries[] = [
 			'time' => $totalTime,
-			'sql' => call_user_func_array('sprintf', $evals),
+			'sql' => sprintf(...$evals)
 		];
 
 		$this->queries['total_time'] += $totalTime;
@@ -520,7 +520,7 @@ abstract class AbstractQueryBuilder {
 	{
 		switch($type)
 		{
-			case "insert":
+			case 'insert':
 				$paramCount = count($this->setArrayKeys);
 				$params = array_fill(0, $paramCount, '?');
 				$sql = "INSERT INTO {$table} ("
@@ -528,16 +528,16 @@ abstract class AbstractQueryBuilder {
 					. ")\nVALUES (".implode(',', $params).')';
 			break;
 
-			case "update":
+			case 'update':
 				$sql = "UPDATE {$table}\nSET {$this->setString}";
 			break;
 
-			case "replace":
+			case 'replace':
 				// @TODO implement
-				$sql = "";
+				$sql = '';
 			break;
 
-			case "delete":
+			case 'delete':
 				$sql = "DELETE FROM {$table}";
 			break;
 
@@ -580,7 +580,7 @@ abstract class AbstractQueryBuilder {
 		foreach($clauses as $clause)
 		{
 			$param = $this->$clause;
-			if (is_array($param))
+			if (\is_array($param))
 			{
 				foreach($param as $q)
 				{

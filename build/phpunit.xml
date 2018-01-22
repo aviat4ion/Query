@@ -3,26 +3,26 @@
 	addUncoveredFilesFromWhitelist="true"
 	colors="true"
 	stopOnFailure="false"
-	bootstrap="../tests/bootstrap.php">
+	bootstrap="./../tests/bootstrap.php">
 	<filter>
 		<whitelist>
-			<directory suffix=".php">../src/*</directory>
+			<directory suffix=".php">./../src/*</directory>
 		</whitelist>
 	</filter>
 	<testsuites>
 		<testsuite name="CoreTests">
-			<file>../tests/CoreTest.php</file>
-			<file>../tests/ConnectionManagerTest.php</file>
-			<file>../tests/QueryParserTest.php</file>
+			<file>./../tests/CoreTest.php</file>
+			<file>./../tests/ConnectionManagerTest.php</file>
+			<file>./../tests/QueryParserTest.php</file>
 		</testsuite>
 		<testsuite name="MySQL Tests">
-			<directory>../tests/Drivers/MySQL/</directory>
+			<directory>./../tests/Drivers/MySQL/</directory>
 		</testsuite>
 		<testsuite name="PgSQL Tests">
-			<directory>../tests/Drivers/PgSQL/</directory>
+			<directory>./../tests/Drivers/PgSQL/</directory>
 		</testsuite>
 		<testsuite name="SQLite Tests">
-			<directory>../tests/Drivers/SQLite/</directory>
+			<directory>./../tests/Drivers/SQLite/</directory>
 		</testsuite>
 		<!-- <testsuite name="FirebirdTests">
 			<file>../tests/databases/firebird/FirebirdTest.php</file>
@@ -34,7 +34,7 @@
 		</testsuite> -->
 	</testsuites>
 	<logging>
-		<log type="coverage-html" target="coverage"/>
+		<log type="coverage-html" target="./../coverage"/>
 		<log type="coverage-clover" target="logs/clover.xml"/>
 		<log type="coverage-xml" target="logs/coverage" />
 		<log type="xml" target="logs/junit.xml" logIncompleteSkipped="true"/>

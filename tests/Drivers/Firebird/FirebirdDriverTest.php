@@ -13,6 +13,11 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests\Drivers;
+
+use PDO;
+use Query\Drivers\Firebird\Driver;
+use Query\Tests\BaseDriverTest;
 
 // --------------------------------------------------------------------------
 
@@ -24,20 +29,20 @@
  * @extends DBtest
  * @requires extension interbase
  */
-class FirebirdTest extends DBtest {
+class FirebirdDriverTest extends BaseDriverTest {
 
 	public static function setupBeforeClass()
 	{
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
 		// test the db driver directly
-		self::$db = new \Query\Drivers\Firebird\Driver('localhost:'.$dbpath);
+		self::$db = new Driver('localhost:'.$dbpath);
 		self::$db->setTablePrefix('create_');
 	}
 
 	public function setUp()
 	{
-		if ( ! function_exists('\\fbird_connect'))
+		if ( ! \function_exists('\\fbird_connect'))
 		{
 			$this->markTestSkipped('Firebird extension does not exist');
 		}
@@ -73,15 +78,15 @@ class FirebirdTest extends DBtest {
 
 	public function testExists()
 	{
-		$this->assertTrue(function_exists('ibase_connect'));
-		$this->assertTrue(function_exists('fbird_connect'));
+		$this->assertTrue(\function_exists('ibase_connect'));
+		$this->assertTrue(\function_exists('fbird_connect'));
 	}
 
 	// --------------------------------------------------------------------------
 
 	public function testConnection()
 	{
-		$this->assertIsA(self::$db, '\\Query\\Drivers\\Firebird\\Driver');
+		$this->assertIsA(self::$db, Driver::class);
 	}
 
 	// --------------------------------------------------------------------------
@@ -119,7 +124,7 @@ class FirebirdTest extends DBtest {
 		self::$db->query($sql);
 
 		//Check
-		$this->assertTrue(in_array('create_delete', self::$db->getTables()));
+		$this->assertTrue(\in_array('create_delete', self::$db->getTables(), TRUE));
 	}
 
 	// --------------------------------------------------------------------------
@@ -131,7 +136,7 @@ class FirebirdTest extends DBtest {
 		self::$db->query($sql);
 
 		//Check
-		$tableExists = in_array('create_delete', self::$db->getTables());
+		$tableExists = \in_array('create_delete', self::$db->getTables(), TRUE);
 		$this->assertFalse($tableExists);
 	}
 
@@ -214,7 +219,7 @@ SQL;
 		// Numeric array
 		$res2 = self::$db->query('SELECT "id","key","val" FROM "create_test"');
 		$fetch = $res2->fetch(PDO::FETCH_NUM);
-		$this->assertTrue(is_array($fetch));
+		$this->assertTrue(\is_array($fetch));
 	}
 
 	// --------------------------------------------------------------------------

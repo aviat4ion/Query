@@ -30,7 +30,6 @@ class SQLiteDriverTest extends BaseDriverTest {
 
 	public static function setupBeforeClass()
 	{
-		$path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
 		$params = array(
 			'type' => 'sqlite',
 			'file' => ':memory:',
@@ -56,13 +55,13 @@ class SQLiteDriverTest extends BaseDriverTest {
 		//Check
 		$dbs = self::$db->getTables();
 
-		$this->assertTrue(in_array('TEST1', $dbs, TRUE));
-		$this->assertTrue(in_array('TEST2', $dbs, TRUE));
-		$this->assertTrue(in_array('NUMBERS', $dbs, TRUE));
-		$this->assertTrue(in_array('NEWTABLE', $dbs, TRUE));
-		$this->assertTrue(in_array('create_test', $dbs, TRUE));
-		$this->assertTrue(in_array('create_join', $dbs, TRUE));
-		$this->assertTrue(in_array('create_delete', $dbs, TRUE));
+		$this->assertTrue(\in_array('TEST1', $dbs, TRUE));
+		$this->assertTrue(\in_array('TEST2', $dbs, TRUE));
+		$this->assertTrue(\in_array('NUMBERS', $dbs, TRUE));
+		$this->assertTrue(\in_array('NEWTABLE', $dbs, TRUE));
+		$this->assertTrue(\in_array('create_test', $dbs, TRUE));
+		$this->assertTrue(\in_array('create_join', $dbs, TRUE));
+		$this->assertTrue(\in_array('create_delete', $dbs, TRUE));
 	}
 
 	// --------------------------------------------------------------------------
@@ -209,6 +208,14 @@ SQL;
 
 		$statement->execute();
 
+		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=1')
+			->fetch(PDO::FETCH_ASSOC);
+
+		$this->assertEquals([
+			'id' => 1,
+			'key' => 'boogers',
+			'val' => 'Gross'
+		], $res);
 	}
 
 	// --------------------------------------------------------------------------
@@ -223,6 +230,14 @@ SQL;
 			2, "works", 'also?'
 		));
 
+		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=2')
+			->fetch(PDO::FETCH_ASSOC);
+
+		$this->assertEquals([
+			'id' => 2,
+			'key' => 'works',
+			'val' => 'also?'
+		], $res);
 	}
 
 	// --------------------------------------------------------------------------

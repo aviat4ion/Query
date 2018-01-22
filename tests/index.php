@@ -131,18 +131,10 @@ namespace {
 	require_once QTEST_DIR . '/QueryParserTest.php';
 
 	$drivers = PDO::getAvailableDrivers();
-
-	/* if (function_exists('fbird_connect'))
-	{
-		$drivers[] = 'interbase';
-	} */
-
 	$driverTestMap = [
 		'MySQL' => \in_array('mysql', $drivers, TRUE),
 		'SQLite' => \in_array('sqlite', $drivers, TRUE),
 		'PgSQL' => \in_array('pgsql', $drivers, TRUE),
-		// 'Firebird' => in_array('interbase', $drivers),
-		//'PDOFirebird' => in_array('firebird', $drivers)
 	];
 
 	// Determine which testcases to load

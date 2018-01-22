@@ -13,6 +13,11 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
+namespace Query\Tests\Drivers;
+
+use PDO;
+use Query\Tests\BaseQueryBuilderTest;
+use InvalidArgumentException;
 
 // --------------------------------------------------------------------------
 
@@ -20,14 +25,14 @@
  * Firebird Query Builder Tests
  * @requires extension interbase
  */
-class FirebirdQBTest extends QBTest {
+class FirebirdQueryBuilderTest extends BaseQueryBuilderTest {
 
 	public static function setUpBeforeClass()
 	{
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
 		// test the query builder
-		$params = new Stdclass();
+		$params = new \Stdclass();
 		$params->alias = 'fire';
 		$params->type = 'firebird';
 		$params->file = $dbpath;
@@ -40,7 +45,7 @@ class FirebirdQBTest extends QBTest {
 
 	public function setUp()
 	{
-		if ( ! function_exists('\\fbird_connect'))
+		if ( ! \function_exists('\\fbird_connect'))
 		{
 			$this->markTestSkipped('Firebird extension does not exist');
 		}
@@ -76,7 +81,7 @@ class FirebirdQBTest extends QBTest {
 		$dbpath = QTEST_DIR.QDS.'db_files'.QDS.'FB_TEST_DB.FDB';
 
 		// test the query builder
-		$params = new Stdclass();
+		$params = new \Stdclass();
 		$params->alias = 'wood';
 		$params->type = 'firebird';
 		$params->file = $dbpath;

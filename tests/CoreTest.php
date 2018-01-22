@@ -30,7 +30,7 @@ class CoreTest extends TestCase {
 	 * @access public
 	 * @return void
 	 */
-	public function testPHPVersion()
+	public function testPHPVersion(): void
 	{
 		//$this->assertTrue(version_compare(PHP_VERSION, '7.1', 'ge'));
 		$this->assertTrue(PHP_VERSION_ID >= 70000);
@@ -44,7 +44,7 @@ class CoreTest extends TestCase {
 	 * @access public
 	 * @return void
 	 */
-	public function testHasPDO()
+	public function testHasPDO(): void
 	{
 		// PDO class exists
 		$this->assertTrue(class_exists('PDO'));
@@ -52,10 +52,8 @@ class CoreTest extends TestCase {
 
 		// Make sure at least one of the supported drivers is enabled
 		$supported = [
-			'firebird',
 			'mysql',
 			'pgsql',
-			'odbc',
 			'sqlite',
 		];
 
