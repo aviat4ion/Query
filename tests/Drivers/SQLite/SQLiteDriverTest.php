@@ -183,7 +183,7 @@ SQL;
 		$db = new $class(QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db');
 
 		$this->assertIsA($db, $class);
-		$this->assertIsA(self::$db->db, $class);
+		$this->assertIsA(self::$db->driver, $class);
 
 		unset($db);
 	}
@@ -286,13 +286,13 @@ SQL;
 
 	public function testNullMethods()
 	{
-		$sql = self::$db->sql->functionList();
+		$sql = self::$db->getSQL()->functionList();
 		$this->assertEqual(NULL, $sql);
 
-		$sql = self::$db->sql->procedureList();
+		$sql = self::$db->getSQL()->procedureList();
 		$this->assertEqual(NULL, $sql);
 
-		$sql = self::$db->sql->sequenceList();
+		$sql = self::$db->getSQL()->sequenceList();
 		$this->assertEqual(NULL, $sql);
 	}
 

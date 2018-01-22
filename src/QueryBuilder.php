@@ -16,12 +16,172 @@ namespace Query;
 
 use BadMethodCallException;
 use PDOStatement;
-use Query\Drivers\DriverInterface;
+use Query\Drivers\{
+	AbstractUtil,
+	DriverInterface,
+	SQLInterface
+};
 
 /**
  * Convenience class for creating sql queries
+ * @method query(mixed $sql): PDOStatement;
  */
-class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface {
+class QueryBuilder implements QueryBuilderInterface {
+
+	// --------------------------------------------------------------------------
+	// ! Constants
+	// --------------------------------------------------------------------------
+
+	const KEY 	= 0;
+	const VALUE = 1;
+	const BOTH 	= 2;
+
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Strings
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Compiled 'select' clause
+	 * @var string
+	 */
+	protected $selectString = '';
+
+	/**
+	 * Compiled 'from' clause
+	 * @var string
+	 */
+	protected $fromString = '';
+
+	/**
+	 * Compiled arguments for insert / update
+	 * @var string
+	 */
+	protected $setString;
+
+	/**
+	 * Order by clause
+	 * @var string
+	 */
+	protected $orderString;
+
+	/**
+	 * Group by clause
+	 * @var string
+	 */
+	protected $groupString;
+
+	// --------------------------------------------------------------------------
+	// ! SQL Clause Arrays
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Keys for insert/update statement
+	 * @var array
+	 */
+	protected $setArrayKeys = [];
+
+	/**
+	 * Key/val pairs for order by clause
+	 * @var array
+	 */
+	protected $orderArray = [];
+
+	/**
+	 * Key/val pairs for group by clause
+	 * @var array
+	 */
+	protected $groupArray = [];
+
+	// --------------------------------------------------------------------------
+	// ! Other Class vars
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Values to apply to prepared statements
+	 * @var array
+	 */
+	protected $values = [];
+
+	/**
+	 * Values to apply to where clauses in prepared statements
+	 * @var array
+	 */
+	protected $whereValues = [];
+
+	/**
+	 * Value for limit string
+	 * @var string
+	 */
+	protected $limit;
+
+	/**
+	 * Value for offset in limit string
+	 * @var integer
+	 */
+	protected $offset;
+
+	/**
+	 * Query component order mapping
+	 * for complex select queries
+	 *
+	 * Format:
+	 * array(
+	 *		'type' => 'where',
+	 *		'conjunction' => ' AND ',
+	 *		'string' => 'k=?'
+	 * )
+	 *
+	 * @var array
+	 */
+	protected $queryMap = [];
+
+	/**
+	 * Map for having clause
+	 * @var array
+	 */
+	protected $havingMap;
+
+	/**
+	 * Convenience property for connection management
+	 * @var string
+	 */
+	public $connName = '';
+
+	/**
+	 * List of queries executed
+	 * @var array
+	 */
+	public $queries;
+
+	/**
+	 * Whether to do only an explain on the query
+	 * @var boolean
+	 */
+	protected $explain;
+
+	/**
+	 * The current database driver
+	 * @var DriverInterface
+	 */
+	public $driver;
+
+	/**
+	 * Query parser class instance
+	 * @var QueryParser
+	 */
+	protected $parser;
+
+	/**
+	 * Alias to driver util class
+	 * @var AbstractUtil
+	 */
+	protected $util;
+
+	/**
+	 * Alias to driver sql class
+	 * @var SQLInterface
+	 */
+	protected $sql;
 
 	/**
 	 * String class values to be reset
@@ -61,20 +221,20 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	/**
 	 * Constructor
 	 *
-	 * @param DriverInterface $db
+	 * @param DriverInterface $driver
 	 * @param QueryParser $parser
 	 */
-	public function __construct(DriverInterface $db, QueryParser $parser)
+	public function __construct(DriverInterface $driver, QueryParser $parser)
 	{
 		// Inject driver and parser
-		$this->db = $db;
+		$this->driver = $driver;
 		$this->parser = $parser;
 
 		$this->queries['total_time'] = 0;
 
 		// Alias driver sql and util classes
-		$this->sql = $this->db->getSql();
-		$this->util = $this->db->getUtil();
+		$this->sql = $this->driver->getSql();
+		$this->util = $this->driver->getUtil();
 	}
 
 	/**
@@ -83,7 +243,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function __destruct()
 	{
-		$this->db = NULL;
+		$this->driver = NULL;
 	}
 
 	/**
@@ -99,7 +259,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		// Alias snake_case method calls
 		$camelName = \to_camel_case($name);
 
-		foreach([$this, $this->db] as $object)
+		foreach([$this, $this->driver] as $object)
 		{
 			foreach([$name, $camelName] as $methodName)
 			{
@@ -112,6 +272,15 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		}
 
 		throw new BadMethodCallException('Method does not exist');
+	}
+
+	// --------------------------------------------------------------------------
+	// ! Driver setters
+	// --------------------------------------------------------------------------
+
+	public function setDriver(DriverInterface $driver)
+	{
+
 	}
 
 	// --------------------------------------------------------------------------
@@ -141,14 +310,14 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		}
 
 		// Quote the identifiers
-		$safeArray = $this->db->quoteIdent($fieldsArray);
+		$safeArray = $this->driver->quoteIdent($fieldsArray);
 
 		unset($fieldsArray);
 
 		// Join the strings back together
 		for($i = 0, $c = count($safeArray); $i < $c; $i++)
 		{
-			if (is_array($safeArray[$i]))
+			if (\is_array($safeArray[$i]))
 			{
 				$safeArray[$i] = implode(' AS ', $safeArray[$i]);
 			}
@@ -253,8 +422,8 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		$identArray = array_map('\\mb_trim', $identArray);
 
 		// Quote the identifiers
-		$identArray[0] = $this->db->quoteTable($identArray[0]);
-		$identArray = $this->db->quoteIdent($identArray);
+		$identArray[0] = $this->driver->quoteTable($identArray[0]);
+		$identArray = $this->driver->quoteIdent($identArray);
 
 		// Paste it back together
 		$this->fromString = implode(' ', $identArray);
@@ -443,7 +612,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 
 		// Use the keys of the array to make the insert/update string
 		// Escape the field names
-		$this->setArrayKeys = array_map([$this->db, '_quote'], $this->setArrayKeys);
+		$this->setArrayKeys = array_map([$this->driver, '_quote'], $this->setArrayKeys);
 
 		// Generate the "set" string
 		$this->setString = implode('=?,', $this->setArrayKeys);
@@ -464,8 +633,8 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	{
 		// Prefix and quote table name
 		$table = explode(' ', mb_trim($table));
-		$table[0] = $this->db->quoteTable($table[0]);
-		$table = $this->db->quoteIdent($table);
+		$table[0] = $this->driver->quoteTable($table[0]);
+		$table = $this->driver->quoteIdent($table);
 		$table = implode(' ', $table);
 
 		// Parse out the join condition
@@ -487,12 +656,12 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	{
 		if ( ! is_scalar($field))
 		{
-			$newGroupArray = array_map([$this->db, 'quoteIdent'], $field);
+			$newGroupArray = array_map([$this->driver, 'quoteIdent'], $field);
 			$this->groupArray = array_merge($this->groupArray, $newGroupArray);
 		}
 		else
 		{
-			$this->groupArray[] = $this->db->quoteIdent($field);
+			$this->groupArray[] = $this->driver->quoteIdent($field);
 		}
 
 		$this->groupString = ' GROUP BY ' . implode(',', $this->groupArray);
@@ -507,7 +676,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 * @param string $type
 	 * @return QueryBuilderInterface
 	 */
-	public function orderBy($field, $type=""): QueryBuilderInterface
+	public function orderBy($field, $type=''): QueryBuilderInterface
 	{
 		// When ordering by random, do an ascending order if the driver
 		// doesn't support random ordering
@@ -518,7 +687,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 		}
 
 		// Set fields for later manipulation
-		$field = $this->db->quoteIdent($field);
+		$field = $this->driver->quoteIdent($field);
 		$this->orderArray[$field] = $type;
 
 		$orderClauses = [];
@@ -563,7 +732,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function groupStart(): QueryBuilderInterface
 	{
-		$conj = (empty($this->queryMap)) ? ' WHERE ' : ' ';
+		$conj = empty($this->queryMap) ? ' WHERE ' : ' ';
 
 		$this->_appendMap($conj, '(', 'group_start');
 
@@ -578,7 +747,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function notGroupStart(): QueryBuilderInterface
 	{
-		$conj = (empty($this->queryMap)) ? ' WHERE ' : ' AND ';
+		$conj = empty($this->queryMap) ? ' WHERE ' : ' AND ';
 
 		$this->_appendMap($conj, ' NOT (', 'group_start');
 
@@ -679,8 +848,8 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 */
 	public function countAll($table): int
 	{
-		$sql = 'SELECT * FROM '.$this->db->quoteTable($table);
-		$res = $this->db->query($sql);
+		$sql = 'SELECT * FROM '.$this->driver->quoteTable($table);
+		$res = $this->driver->query($sql);
 		return (int) count($res->fetchAll());
 	}
 
@@ -720,7 +889,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 			$this->set($data);
 		}
 
-		return $this->_run("insert", $table);
+		return $this->_run('insert', $table);
 	}
 
 	/**
@@ -733,7 +902,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function insertBatch($table, $data=[]): PDOStatement
 	{
 		// Get the generated values and sql string
-		list($sql, $data) = $this->db->insertBatch($table, $data);
+		list($sql, $data) = $this->driver->insertBatch($table, $data);
 
 		return ( ! is_null($sql))
 			? $this->_run('', $table, $sql, $data)
@@ -754,7 +923,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 			$this->set($data);
 		}
 
-		return $this->_run("update", $table);
+		return $this->_run('update', $table);
 	}
 
 	/**
@@ -769,7 +938,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	public function updateBatch($table, $data, $where)
 	{
 		// Get the generated values and sql string
-		list($sql, $data) = $this->db->updateBatch($table, $data, $where);
+		list($sql, $data) = $this->driver->updateBatch($table, $data, $where);
 
 		return ( ! is_null($sql))
 			? $this->_run('', $table, $sql, $data)
@@ -790,7 +959,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 			$this->set($data);
 		}
 
-		return $this->_run("replace", $table);
+		return $this->_run('replace', $table);
 	}
 
 	/**
@@ -808,7 +977,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 			$this->where($where);
 		}
 
-		return $this->_run("delete", $table);
+		return $this->_run('delete', $table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -878,7 +1047,7 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 	 *
 	 * @return void
 	 */
-	public function resetQuery()
+	public function resetQuery(): void
 	{
 		// Reset strings and booleans
 		foreach($this->stringVars as $var)
@@ -892,5 +1061,434 @@ class QueryBuilder extends AbstractQueryBuilder implements QueryBuilderInterface
 			$this->$var = [];
 		}
 	}
+
+	/**
+	 * Set values in the class, with either an array or key value pair
+	 *
+	 * @param array $var
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param int $valType
+	 * @return array
+	 */
+	protected function _mixedSet(array &$var, $key, $val=NULL, int $valType=self::BOTH): array
+	{
+		$arg = (is_scalar($key) && is_scalar($val))
+			? [$key => $val]
+			: $key;
+
+		foreach($arg as $k => $v)
+		{
+			if (\in_array($valType, [self::KEY, self::VALUE], TRUE))
+			{
+				$var[] = ($valType === self::KEY)
+					? $k
+					: $v;
+			}
+			else
+			{
+				$var[$k] = $v;
+			}
+		}
+
+		return $var;
+	}
+
+	/**
+	 * Method to simplify select_ methods
+	 *
+	 * @param string $field
+	 * @param string|bool $as
+	 * @return string
+	 */
+	protected function _select(string $field, $as = FALSE): string
+	{
+		// Escape the identifiers
+		$field = $this->driver->quoteIdent($field);
+
+		if ( ! \is_string($as))
+		{
+			return $field;
+		}
+
+		$as = $this->driver->quoteIdent($as);
+		return "({$field}) AS {$as} ";
+	}
+
+	/**
+	 * Helper function for returning sql strings
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @param bool $reset
+	 * @return string
+	 */
+	protected function _getCompile(string $type, string $table, bool $reset): string
+	{
+		$sql = $this->_compile($type, $table);
+
+		// Reset the query builder for the next query
+		if ($reset)
+		{
+			$this->resetQuery();
+		}
+
+		return $sql;
+	}
+
+	/**
+	 * Simplify 'like' methods
+	 *
+	 * @param string $field
+	 * @param mixed $val
+	 * @param string $pos
+	 * @param string $like
+	 * @param string $conj
+	 * @return self
+	 */
+	protected function _like(string $field, $val, string $pos, string $like='LIKE', string $conj='AND'): self
+	{
+		$field = $this->driver->quoteIdent($field);
+
+		// Add the like string into the order map
+		$like = $field. " {$like} ?";
+
+		if ($pos === 'before')
+		{
+			$val = "%{$val}";
+		}
+		elseif ($pos === 'after')
+		{
+			$val = "{$val}%";
+		}
+		else
+		{
+			$val = "%{$val}%";
+		}
+
+		$conj = empty($this->queryMap) ? ' WHERE ' : " {$conj} ";
+		$this->_appendMap($conj, $like, 'like');
+
+		// Add to the values array
+		$this->whereValues[] = $val;
+
+		return $this;
+	}
+
+	/**
+	 * Simplify building having clauses
+	 *
+	 * @param mixed $key
+	 * @param mixed $values
+	 * @param string $conj
+	 * @return self
+	 */
+	protected function _having($key, $values=[], string $conj='AND'): self
+	{
+		$where = $this->_where($key, $values);
+
+		// Create key/value placeholders
+		foreach($where as $f => $val)
+		{
+			// Split each key by spaces, in case there
+			// is an operator such as >, <, !=, etc.
+			$fArray = explode(' ', trim($f));
+
+			$item = $this->driver->quoteIdent($fArray[0]);
+
+			// Simple key value, or an operator
+			$item .= (count($fArray) === 1) ? '=?' : " {$fArray[1]} ?";
+
+			// Put in the having map
+			$this->havingMap[] = [
+				'conjunction' => ( ! empty($this->havingMap)) ? " {$conj} " : ' HAVING ',
+				'string' => $item
+			];
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Do all the redundant stuff for where/having type methods
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @return array
+	 */
+	protected function _where($key, $val=[]): array
+	{
+		$where = [];
+		$this->_mixedSet($where, $key, $val);
+		$this->_mixedSet($this->whereValues, $key, $val, self::VALUE);
+		return $where;
+	}
+
+	/**
+	 * Simplify generating where string
+	 *
+	 * @param mixed $key
+	 * @param mixed $values
+	 * @param string $defaultConj
+	 * @return self
+	 */
+	protected function _whereString($key, $values=[], string $defaultConj='AND'): self
+	{
+		// Create key/value placeholders
+		foreach($this->_where($key, $values) as $f => $val)
+		{
+			// Split each key by spaces, in case there
+			// is an operator such as >, <, !=, etc.
+			$fArray = explode(' ', trim($f));
+
+			$item = $this->driver->quoteIdent($fArray[0]);
+
+			// Simple key value, or an operator
+			$item .= (count($fArray) === 1) ? '=?' : " {$fArray[1]} ?";
+			$lastItem = end($this->queryMap);
+
+			// Determine the correct conjunction
+			$conjunctionList = array_column($this->queryMap, 'conjunction');
+			if (empty($this->queryMap) || ( ! regex_in_array($conjunctionList, "/^ ?\n?WHERE/i")))
+			{
+				$conj = "\nWHERE ";
+			}
+			elseif ($lastItem['type'] === 'group_start')
+			{
+				$conj = '';
+			}
+			else
+			{
+				$conj = " {$defaultConj} ";
+			}
+
+			$this->_appendMap($conj, $item, 'where');
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Simplify where_in methods
+	 *
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @param string $in - The (not) in fragment
+	 * @param string $conj - The where in conjunction
+	 * @return self
+	 */
+	protected function _whereIn($key, $val=[], string $in='IN', string $conj='AND'): self
+	{
+		$key = $this->driver->quoteIdent($key);
+		$params = array_fill(0, count($val), '?');
+
+		foreach($val as $v)
+		{
+			$this->whereValues[] = $v;
+		}
+
+		$conjunction = ( ! empty($this->queryMap)) ? " {$conj} " : ' WHERE ';
+		$str = $key . " {$in} (".implode(',', $params).') ';
+
+		$this->_appendMap($conjunction, $str, 'where_in');
+
+		return $this;
+	}
+
+	/**
+	 * Executes the compiled query
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @param string $sql
+	 * @param array|null $vals
+	 * @param boolean $reset
+	 * @return PDOStatement
+	 */
+	protected function _run(string $type, string $table, $sql=NULL, $vals=NULL, bool $reset=TRUE): PDOStatement
+	{
+		if ($sql === NULL)
+		{
+			$sql = $this->_compile($type, $table);
+		}
+
+		if ($vals === NULL)
+		{
+			$vals = array_merge($this->values, (array) $this->whereValues);
+		}
+
+		$startTime = microtime(TRUE);
+
+		$res = empty($vals)
+			? $this->driver->query($sql)
+			: $this->driver->prepareExecute($sql, $vals);
+
+		$endTime = microtime(TRUE);
+		$totalTime = number_format($endTime - $startTime, 5);
+
+		// Add this query to the list of executed queries
+		$this->_appendQuery($vals, $sql, (int) $totalTime);
+
+		// Reset class state for next query
+		if ($reset)
+		{
+			$this->resetQuery();
+		}
+
+		return $res;
+	}
+
+	/**
+	 * Add an additional set of mapping pairs to a internal map
+	 *
+	 * @param string $conjunction
+	 * @param string $string
+	 * @param string $type
+	 * @return void
+	 */
+	protected function _appendMap(string $conjunction = '', string $string = '', string $type = '')
+	{
+		$this->queryMap[] = [
+			'type' => $type,
+			'conjunction' => $conjunction,
+			'string' => $string
+		];
+	}
+
+	/**
+	 * Convert the prepared statement into readable sql
+	 *
+	 * @param array $vals
+	 * @param string $sql
+	 * @param int $totalTime
+	 * @return void
+	 */
+	protected function _appendQuery($vals, string $sql, int $totalTime)
+	{
+		$evals = \is_array($vals) ? $vals : [];
+		$esql = str_replace('?', "%s", $sql);
+
+		// Quote string values
+		foreach($evals as &$v)
+		{
+			$v = ( ! is_numeric($v))
+				? htmlentities($this->driver->quote($v), ENT_NOQUOTES, 'utf-8')
+				: $v;
+		}
+
+		// Add the query onto the array of values to pass
+		// as arguments to sprintf
+		array_unshift($evals, $esql);
+
+		// Add the interpreted query to the list of executed queries
+		$this->queries[] = [
+			'time' => $totalTime,
+			'sql' => sprintf(...$evals)
+		];
+
+		$this->queries['total_time'] += $totalTime;
+
+		// Set the last query to get rowcounts properly
+		$this->driver->setLastQuery($sql);
+	}
+
+	/**
+	 * Sub-method for generating sql strings
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @return string
+	 */
+	protected function _compileType(string $type='', string $table=''): string
+	{
+		switch($type)
+		{
+			case 'insert':
+				$paramCount = count($this->setArrayKeys);
+				$params = array_fill(0, $paramCount, '?');
+				$sql = "INSERT INTO {$table} ("
+					. implode(',', $this->setArrayKeys)
+					. ")\nVALUES (".implode(',', $params).')';
+				break;
+
+			case 'update':
+				$sql = "UPDATE {$table}\nSET {$this->setString}";
+				break;
+
+			case 'replace':
+				// @TODO implement
+				$sql = '';
+				break;
+
+			case 'delete':
+				$sql = "DELETE FROM {$table}";
+				break;
+
+			// Get queries
+			default:
+				$sql = "SELECT * \nFROM {$this->fromString}";
+
+				// Set the select string
+				if ( ! empty($this->selectString))
+				{
+					// Replace the star with the selected fields
+					$sql = str_replace('*', $this->selectString, $sql);
+				}
+				break;
+		}
+
+		return $sql;
+	}
+
+	/**
+	 * String together the sql statements for sending to the db
+	 *
+	 * @param string $type
+	 * @param string $table
+	 * @return string
+	 */
+	protected function _compile(string $type='', string $table=''): string
+	{
+		// Get the base clause for the query
+		$sql = $this->_compileType($type, $this->driver->quoteTable($table));
+
+		$clauses = [
+			'queryMap',
+			'groupString',
+			'orderString',
+			'havingMap',
+		];
+
+		// Set each type of subclause
+		foreach($clauses as $clause)
+		{
+			$param = $this->$clause;
+			if (\is_array($param))
+			{
+				foreach($param as $q)
+				{
+					$sql .= $q['conjunction'] . $q['string'];
+				}
+			}
+			else
+			{
+				$sql .= $param;
+			}
+		}
+
+		// Set the limit via the class variables
+		if (is_numeric($this->limit))
+		{
+			$sql = $this->sql->limit($sql, $this->limit, $this->offset);
+		}
+
+		// See if the query plan, rather than the
+		// query data should be returned
+		if ($this->explain === TRUE)
+		{
+			$sql = $this->sql->explain($sql);
+		}
+
+		return $sql;
+	}
 }
-// End of query_builder.php

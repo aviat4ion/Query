@@ -48,7 +48,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 *
 	 * @return array
 	 */
-	public function getSchemas()
+	public function getSchemas(): ?array
 	{
 		$sql = <<<SQL
 			SELECT DISTINCT "schemaname" FROM "pg_tables"
@@ -67,7 +67,7 @@ SQL;
 	 * @param string $table
 	 * @return array
 	 */
-	public function getFks($table)
+	public function getFks($table): array
 	{
 		$valueMap = [
 			'c' => 'CASCADE',
@@ -80,10 +80,8 @@ SQL;
 		{
 			foreach(['update', 'delete'] AS $type)
 			{
-				if ( ! isset($valueMap[$key[$type]]))
-				{
-					continue;
-				}
+				if ( ! isset($valueMap[$key[$type]])) continue;
+
 
 				$key[$type] = $valueMap[$key[$type]];
 			}

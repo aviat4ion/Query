@@ -16,7 +16,6 @@ A query builder/database abstraction layer, using prepared statements for securi
 
 ## Databases Supported
 
-* Firebird (via interbase extension)
 * MySQL
 * PostgreSQL
 * SQLite
@@ -41,7 +40,7 @@ $params = array(
 	'database' => 'test_db',
 
 	// Only required for
-	// SQLite or Firebird
+	// SQLite 
 	'file' => '/path/to/db/file',
 
 	// Optional paramaters
@@ -85,7 +84,7 @@ Underscored methods are also aliased to camel case methods.
 #### You can also run queries manually.
 
 To run a prepared statement, call
-`$db->prepare_execute($sql, $params)`.
+`$db->prepareExecute($sql, $params)`.
 
 To run a plain query, `$db->query($sql)`
 
@@ -98,8 +97,8 @@ An example of a moderately complex query:
 $query = $db->select('id, key as k, val')
 	->from('table t')
 	->where('k >', 3)
-	->or_where('id !=' 5)
-	->order_by('val', 'DESC')
+	->orWhere('id !=' 5)
+	->orderBy('val', 'DESC')
 	->limit(3, 1)
 	->get();
 ```

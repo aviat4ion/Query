@@ -61,7 +61,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 *
 	 * @return mixed
 	 */
-	public function getTables()
+	public function getTables(): array
 	{
 		$sql = $this->sql->tableList();
 		$res = $this->query($sql);
@@ -74,7 +74,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getFks($table)
+	public function getFks($table): array
 	{
 		$returnRows = [];
 

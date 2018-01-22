@@ -43,11 +43,11 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		else if ($params !== FALSE)
 		{
 			$params = $params->pgsql;
-			$params->type = "pgsql";
+			$params->type = 'pgsql';
 			//$params->port = 5432;
 			//$params->prefix = 'create_';
 			$params->options = array();
-			$params->options[\PDO::ATTR_PERSISTENT] = TRUE;
+			$params->options[PDO::ATTR_PERSISTENT] = TRUE;
 		}
 
 		self::$db = Query($params);
@@ -56,7 +56,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 	public function setUp()
  	{
  		// If the database isn't installed, skip the tests
-		if ( ! in_array('pgsql', PDO::getAvailableDrivers()))
+		if ( ! \in_array('pgsql', PDO::getAvailableDrivers(), TRUE))
 		{
 			$this->markTestSkipped("Postgres extension for PDO not loaded");
 		}
@@ -66,7 +66,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 
 	public function testExists()
 	{
-		$this->assertTrue(in_array('pgsql', PDO::getAvailableDrivers()));
+		$this->assertTrue(\in_array('pgsql', PDO::getAvailableDrivers(), TRUE));
 	}
 
 	// --------------------------------------------------------------------------
@@ -84,7 +84,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		// The exact results are version dependent
 		// The important thing is that there is an array
 		// of results returned
-		$this->assertTrue(is_array($res));
+		$this->assertTrue(\is_array($res));
 		$this->assertTrue(count($res) > 1);
 		$this->assertTrue(array_key_exists('QUERY PLAN', $res[0]));
 
@@ -117,6 +117,6 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 
 	public function testBackupStructure()
 	{
-		$this->assertEquals('', self::$db->util->backupStructure());
+		$this->assertEquals('', self::$db->getUtil()->backupStructure());
 	}
 }

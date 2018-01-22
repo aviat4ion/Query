@@ -152,8 +152,6 @@ interface DriverInterface extends PDOInterface {
 	 */
 	public function prepareExecute($sql, $params);
 
-
-
 	/**
 	 * Method to simplify retrieving db results for meta-data queries
 	 *

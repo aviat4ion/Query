@@ -527,7 +527,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @return void
 	 */
-	public function resetQuery();
+	public function resetQuery(): void;
 }
 
 // End of QueryBuilderInterface.php

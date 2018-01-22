@@ -27,7 +27,7 @@ class Util extends AbstractUtil {
 	 *
 	 * @return string
 	 */
-	public function backupStructure()
+	public function backupStructure(): string
 	{
 		$string = [];
 
@@ -37,7 +37,7 @@ class Util extends AbstractUtil {
 		foreach($dbs as &$d)
 		{
 			// Skip built-in dbs
-			if ($d == 'mysql')
+			if ($d === 'mysql')
 			{
 				continue;
 			}
@@ -69,7 +69,7 @@ class Util extends AbstractUtil {
 	 * @param array $exclude
 	 * @return string
 	 */
-	public function backupData($exclude=[])
+	public function backupData($exclude=[]): string
 	{
 		$tables = $this->getDriver()->getTables();
 

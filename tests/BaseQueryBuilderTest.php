@@ -62,6 +62,8 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$query = self::$db->get('test');
 
 		$this->assertIsA($query, 'PDOStatement');
+		$lastQuery = self::$db->getLastQuery();
+		$this->assertTrue(\is_string($lastQuery));
 	}
 
 	public function testPrefixGet()
@@ -519,6 +521,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			->insert('test');
 
 		$this->assertIsA($query, 'PDOStatement');
+		$this->assertTrue(self::$db->affectedRows() > 0);
 	}
 
 	public function testInsertArray()
@@ -567,6 +570,12 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			));
 
 		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	public function testUpdateBatch()
+	{
+		$query = self::$db->updateBatch('test', [], '');
+		$this->assertNull($query);
 	}
 
 	public function testSetArrayUpdate()

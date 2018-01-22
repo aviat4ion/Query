@@ -17,7 +17,7 @@ namespace Query\Drivers\Pgsql;
 use Query\Drivers\AbstractUtil;
 
 /**
- * Posgres-specific backup, import and creation methods
+ * Postgres-specific backup, import and creation methods
  */
 class Util extends AbstractUtil {
 
@@ -26,7 +26,7 @@ class Util extends AbstractUtil {
 	 *
 	 * @return string
 	 */
-	public function backupStructure()
+	public function backupStructure(): string
 	{
 		// @TODO Implement Backup function
 		return '';
@@ -38,7 +38,7 @@ class Util extends AbstractUtil {
 	 * @param array $exclude
 	 * @return string
 	 */
-	public function backupData($exclude=[])
+	public function backupData(array $exclude=[]): string
 	{
 		$tables = $this->getDriver()->getTables();
 

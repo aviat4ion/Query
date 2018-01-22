@@ -21,6 +21,10 @@ use Query\Drivers\Sqlite\Driver;
  * Tests for the Query Parser
  */
 class QueryParserTest extends TestCase {
+	/**
+	 * @var QueryParser
+	 */
+	protected $parser;
 
 	public function setUp()
 	{

@@ -33,7 +33,7 @@ class Util extends AbstractUtil {
 	 * @param array $excluded
 	 * @return string
 	 */
-	public function backupData($excluded=[])
+	public function backupData(array $excluded=[]): string
 	{
 		// Get a list of all the objects
 		$sql = 'SELECT DISTINCT "name"
@@ -103,7 +103,7 @@ class Util extends AbstractUtil {
 	 *
 	 * @return string
 	 */
-	public function backupStructure()
+	public function backupStructure(): string
 	{
 		// Fairly easy for SQLite...just query the master table
 		$sql = 'SELECT "sql" FROM "sqlite_master"';

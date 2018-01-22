@@ -51,7 +51,7 @@ class MySQLDriverTest extends BaseDriverTest {
 
 	public function testExists()
 	{
-		$this->assertTrue(in_array('mysql', PDO::getAvailableDrivers()));
+		$this->assertTrue(\in_array('mysql', PDO::getAvailableDrivers(), TRUE));
 	}
 
 	// --------------------------------------------------------------------------
@@ -97,7 +97,7 @@ class MySQLDriverTest extends BaseDriverTest {
 		//Check
 		$dbs = self::$db->getTables();
 
-		$this->assertTrue(in_array('create_test', $dbs));
+		$this->assertTrue(\in_array('create_test', $dbs, TRUE));
 
 	}
 

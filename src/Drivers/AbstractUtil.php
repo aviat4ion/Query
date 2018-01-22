@@ -26,16 +26,16 @@ abstract class AbstractUtil {
 	 * Reference to the current connection object
 	 * @var DriverInterface
 	 */
-	private $conn;
+	private $connection;
 
 	/**
 	 * Save a reference to the connection object for later use
 	 *
-	 * @param DriverInterface $conn
+	 * @param DriverInterface $connection
 	 */
-	public function __construct(DriverInterface $conn)
+	public function __construct(DriverInterface $connection)
 	{
-		$this->conn = $conn;
+		$this->connection = $connection;
 	}
 
 	/**
@@ -45,7 +45,7 @@ abstract class AbstractUtil {
 	 */
 	public function getDriver()
 	{
-		return $this->conn;
+		return $this->connection;
 	}
 
 	/**
@@ -59,7 +59,7 @@ abstract class AbstractUtil {
 	 */
 	public function createTable($name, $fields, array $constraints=[], $ifNotExists=TRUE)
 	{
-		$existsStr = ($ifNotExists) ? ' IF NOT EXISTS ' : ' ';
+		$existsStr = $ifNotExists ? ' IF NOT EXISTS ' : ' ';
 
 		// Reorganize into an array indexed with column information
 		// Eg $columnArray[$colname] = array(
@@ -77,8 +77,8 @@ abstract class AbstractUtil {
 		foreach($columnArray as $n => $props)
 		{
 			$str = $this->getDriver()->quoteIdent($n);
-			$str .= (isset($props['type'])) ? " {$props['type']}" : "";
-			$str .= (isset($props['constraint'])) ? " {$props['constraint']}" : "";
+			$str .= isset($props['type']) ? " {$props['type']}" : "";
+			$str .= isset($props['constraint']) ? " {$props['constraint']}" : "";
 
 			$columns[] = $str;
 		}
@@ -97,7 +97,7 @@ abstract class AbstractUtil {
 	 * @param string $name
 	 * @return string
 	 */
-	public function deleteTable($name)
+	public function deleteTable($name): string
 	{
 		return 'DROP TABLE IF EXISTS '.$this->getDriver()->quoteTable($name);
 	}
