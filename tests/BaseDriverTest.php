@@ -22,7 +22,7 @@ namespace Query\Tests;
 abstract class BaseDriverTest extends TestCase {
 
 	/**
-	 * @var \Query\QueryBuilder
+	 * @var \Query\QueryBuilderInterface|null
 	 */
 	protected static $db;
 

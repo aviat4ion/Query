@@ -22,11 +22,10 @@ use PDOStatement;
  * Base Database class
  *
  * Extends PDO to simplify cross-database issues
- *
- * @package Query
- * @subpackage Drivers
  */
-abstract class AbstractDriver extends PDO implements DriverInterface {
+abstract class AbstractDriver
+	extends PDO
+	implements DriverInterface {
 
 	/**
 	 * Reference to the last executed query
@@ -536,11 +535,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface {
 	public function insertBatch($table, $data=[])
 	{
 		$data = (array) $data;
-		$firstRow = current($data);
-		if (is_scalar($firstRow))
-		{
-			return NULL;
-		}
+		$firstRow = (array) current($data);
 
 		// Values for insertion
 		$vals = [];

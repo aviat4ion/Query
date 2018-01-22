@@ -17,7 +17,7 @@ namespace Query\Drivers;
 /**
  * PDO Interface to implement for database drivers
  */
-interface DriverInterface extends PDOInterface {
+interface DriverInterface {
 
 	/**
 	 * Constructor/Connection method

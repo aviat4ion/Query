@@ -21,6 +21,9 @@ use PDO;
  */
 abstract class BaseQueryBuilderTest extends TestCase {
 
+	/**
+	 * @var \Query\QueryBuilderInterface|null
+	 */
 	protected static $db;
 
 	public function __destruct()

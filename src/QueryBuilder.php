@@ -24,7 +24,6 @@ use Query\Drivers\{
 
 /**
  * Convenience class for creating sql queries
- * @method query(mixed $sql): PDOStatement;
  */
 class QueryBuilder implements QueryBuilderInterface {
 
@@ -272,15 +271,6 @@ class QueryBuilder implements QueryBuilderInterface {
 		}
 
 		throw new BadMethodCallException('Method does not exist');
-	}
-
-	// --------------------------------------------------------------------------
-	// ! Driver setters
-	// --------------------------------------------------------------------------
-
-	public function setDriver(DriverInterface $driver)
-	{
-
 	}
 
 	// --------------------------------------------------------------------------

@@ -31,9 +31,9 @@ final class ConnectionManager {
 
 	/**
 	 * Class instance variable
-	 * @var ConnectionManager
+	 * @var ConnectionManager|null
 	 */
-	private static $instance = NULL;
+	private static $instance;
 
 	/**
 	 * Private constructor to prevent multiple instances
@@ -62,7 +62,7 @@ final class ConnectionManager {
 	 */
 	public function __sleep()
 	{
-		throw new DomainException("No serializing of singleton");
+		throw new DomainException('No serializing of singleton');
 	}
 
 	/**
@@ -112,7 +112,7 @@ final class ConnectionManager {
 		}
 
 		// You should actually connect before trying to get a connection...
-		throw new InvalidArgumentException("The specified connection does not exist");
+		throw new InvalidArgumentException('The specified connection does not exist');
 	}
 
 	/**
@@ -214,11 +214,6 @@ final class ConnectionManager {
 	 */
 	private function createDsn(string $dbtype, \stdClass $params): string
 	{
-		if (strtolower($dbtype) === 'pdo_firebird')
-		{
-			$dbtype = 'firebird';
-		}
-
 		$pairs = [];
 
 		if ( ! empty($params->database))

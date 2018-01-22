@@ -2,5 +2,6 @@ parameters:
 	autoload_files:
 		- %rootDir%/../../../tests/bootstrap.php
 	ignoreErrors:
-		- '#Access to an undefined property Aviat\\\Ion\\\Friend::\$[a-zA-Z0-9_]+#'
-		- '#Call to an undefined method Aviat\\\Ion\\\Friend::[a-zA-Z0-9_]+\(\)#'
+		- '#Access to an undefined property Query\\QueryBuilderInterface::\$[a-zA-Z0-9_]+#'
+		- '#Call to an undefined method Query\\QueryBuilderInterface::[a-zA-Z0-9_]+\(\)#'
+		- '#Call to an undefined method Query\\Drivers\\DriverInterface::[a-zA-Z0-9_]+\(\)#'
