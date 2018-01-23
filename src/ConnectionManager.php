@@ -129,7 +129,7 @@ final class ConnectionManager {
 		$driver = "\\Query\\Drivers\\{$dbtype}\\Driver";
 
 		// Create the database connection
-		$db = ( ! empty($params->user))
+		$db =  ! empty($params->user)
 			? new $driver($dsn, $params->user, $params->pass, $options)
 			: new $driver($dsn, '', '', $options);
 
@@ -184,17 +184,9 @@ final class ConnectionManager {
 		}
 
 		// Create the dsn for the database to connect to
-		if (strtolower($dbtype) === 'firebird')
-		{
-			$dsn = "{$params->host}:{$params->file}";
-		}
-		else if(strtolower($dbtype) === 'sqlite')
+		if(strtolower($dbtype) === 'sqlite')
 		{
 			$dsn = $params->file;
-		}
-		else if(strtolower($dbtype) === 'oci')
-		{
-			$dsn = "dbname=//{$params->host}:{$params->port}/{$params->database}";
 		}
 		else
 		{
@@ -234,7 +226,7 @@ final class ConnectionManager {
 
 		foreach($params as $key => $val)
 		{
-			if (( ! array_key_exists($key, $skip)) && ( ! empty($val)))
+			if (( ! array_key_exists($key, $skip)) &&  ! empty($val))
 			{
 				$pairs[] = implode('=', [$key, $val]);
 			}
