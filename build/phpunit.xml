@@ -6,7 +6,7 @@
 	bootstrap="./../tests/bootstrap.php">
 	<filter>
 		<whitelist>
-			<directory suffix=".php">./../src/*</directory>
+			<directory suffix=".php">./../src/</directory>
 		</whitelist>
 	</filter>
 	<testsuites>

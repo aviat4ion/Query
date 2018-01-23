@@ -31,11 +31,11 @@ namespace Query\Tests {
 	 */
 	abstract class TestCase extends \UnitTestCase
 	{
-
 		public function __construct()
 		{
 			$class = \get_class($this);
 
+			echo '<pre>';
 			echo 'Ran test suite: ' . $class . '<br />';
 
 			if (method_exists($class, 'setupBeforeClass')) {
@@ -48,6 +48,8 @@ namespace Query\Tests {
 		public function __destruct()
 		{
 			$class = \get_class($this);
+
+			echo '</pre>';
 
 			if (method_exists($class, 'tearDownAfterClass')) {
 				$class::tearDownAfterClass();
