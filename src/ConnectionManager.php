@@ -106,7 +106,7 @@ final class ConnectionManager {
 		{
 			return $this->connections[$name];
 		}
-		elseif (empty($name) && ! empty($this->connections)) // Otherwise, return the last one
+		else if (empty($name) && ! empty($this->connections)) // Otherwise, return the last one
 		{
 			return end($this->connections);
 		}
