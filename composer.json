@@ -21,20 +21,19 @@
 		"role": "Developer"
 	}],
 	"require": {
-		"php": "^7.0"
+		"php": "^7.1"
 	},
 	"require-dev": {
 		"consolidation/robo": "^1.0.0",
-		"infection/infection": "^0.7.0",
 		"monolog/monolog": "^1.21",
 		"pdepend/pdepend": "^2.5",
 		"phploc/phploc": "^4.0",
-		"phpmd/phpmd": "^2.4",
 		"phpstan/phpstan": "^0.9.1",
 		"phpunit/phpunit": "^6.5",
-		"sebastian/phpcpd": "^2.0",
+		"sebastian/phpcpd": "^3.0",
 		"simpletest/simpletest": "^1.1",
-		"squizlabs/php_codesniffer": "^3.0.0"
+		"squizlabs/php_codesniffer": "^3.0.0",
+		"theseer/phpdox": "^0.11.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -48,6 +47,8 @@
 		}
 	},
 	"scripts": {
+		"build": "robo build",
+		"clean": "robo clean",
 		"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build",
 		"phpstan": "phpstan analyse -l 3 -c phpstan.neon src tests",
 		"test": "phpunit -c build --no-coverage"

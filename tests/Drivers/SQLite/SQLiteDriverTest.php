@@ -18,8 +18,6 @@ use PDO;
 use Query\Drivers\Sqlite\Driver;
 use Query\Tests\BaseDriverTest;
 
-// --------------------------------------------------------------------------
-
 /**
  * SQLiteTest class.
  *
@@ -64,8 +62,6 @@ class SQLiteDriverTest extends BaseDriverTest {
 		$this->assertTrue(\in_array('create_delete', $dbs, TRUE));
 	}
 
-	// --------------------------------------------------------------------------
-
 	/*public function testBackupData()
 	{
 		$sql = mb_trim(self::$db->getUtil()->backupData(array('create_join', 'create_test')));
@@ -82,8 +78,6 @@ SQL;
 		$expectedArray = explode("\n", $expected);
 		$this->assertEqual($expectedArray, $sqlArray);
 	}*/
-
-	// --------------------------------------------------------------------------
 
 	public function testBackupStructure()
 	{
@@ -159,8 +153,6 @@ SQL;
 		$this->assertEqual($expectedArray, $resultArray);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testDeleteTable()
 	{
 		$sql = self::$db->getUtil()->deleteTable('create_delete');
@@ -188,15 +180,11 @@ SQL;
 		unset($db);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testTruncate()
 	{
 		self::$db->truncate('create_test');
 		$this->assertEquals(0, self::$db->countAll('create_test'));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testPreparedStatements()
 	{
@@ -218,8 +206,6 @@ SQL;
 		], $res);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testPrepareExecute()
 	{
 		$sql = <<<SQL
@@ -240,8 +226,6 @@ SQL;
 		], $res);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testCommitTransaction()
 	{
 		$res = self::$db->beginTransaction();
@@ -252,8 +236,6 @@ SQL;
 		$res = self::$db->commit();
 		$this->assertTrue($res);
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testRollbackTransaction()
 	{
@@ -266,14 +248,10 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetDBs()
 	{
 		$this->assertTrue(is_array(self::$db->getDbs()));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetSchemas()
 	{
@@ -296,29 +274,21 @@ SQL;
 		$this->assertEqual(NULL, $sql);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetSystemTables()
 	{
 		$sql = self::$db->getSystemTables();
 		$this->assertTrue(\is_array($sql));
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetSequences()
 	{
 		$this->assertNull(self::$db->getSequences());
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetFunctions()
 	{
 		$this->assertNull(self::$db->getFunctions());
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetProcedures()
 	{

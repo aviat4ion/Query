@@ -544,7 +544,7 @@ abstract class AbstractDriver
 
 		$sql = "INSERT INTO {$table} ("
 			. implode(',', $this->quoteIdent($fields))
-			. ") VALUES ";
+			. ') VALUES ';
 
 		// Create the placeholder groups
 		$params = array_fill(0, count($fields), '?');

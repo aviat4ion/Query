@@ -17,8 +17,6 @@ namespace Query\Tests\Drivers\PgSQL;
 use PDO;
 use Query\Tests\BaseQueryBuilderTest;
 
-// --------------------------------------------------------------------------
-
 /**
  * @requires extension pdo_pgsql
  */
@@ -58,18 +56,14 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
  		// If the database isn't installed, skip the tests
 		if ( ! \in_array('pgsql', PDO::getAvailableDrivers(), TRUE))
 		{
-			$this->markTestSkipped("Postgres extension for PDO not loaded");
+			$this->markTestSkipped('Postgres extension for PDO not loaded');
 		}
  	}
-
- 	// --------------------------------------------------------------------------
 
 	public function testExists()
 	{
 		$this->assertTrue(\in_array('pgsql', PDO::getAvailableDrivers(), TRUE));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testQueryExplain()
 	{

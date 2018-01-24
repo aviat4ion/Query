@@ -17,8 +17,6 @@ namespace Query\Tests\Drivers\SQLite;
 use PDO;
 use Query\Tests\BaseQueryBuilderTest;
 
-// --------------------------------------------------------------------------
-
 /**
  * Class for testing Query Builder with SQLite
  *
@@ -32,16 +30,12 @@ use Query\Tests\BaseQueryBuilderTest;
 		self::$db = Query('test_sqlite');
 	}
 
- 	// --------------------------------------------------------------------------
-
 	public function testQueryFunctionAlias()
 	{
 		$db = Query('test_sqlite');
 
 		$this->assertTrue(self::$db === $db, "Alias passed into query function gives the original object back");
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testQueryExplain()
 	{

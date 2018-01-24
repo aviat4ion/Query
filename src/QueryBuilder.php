@@ -258,7 +258,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $tblname
 	 * @return QueryBuilderInterface
 	 */
-	public function from($tblname): QueryBuilderInterface
+	public function from(string $tblname): QueryBuilderInterface
 	{
 		// Split identifiers on spaces
 		$identArray = explode(' ', \mb_trim($tblname));
@@ -286,7 +286,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function like($field, $val, $pos='both'): QueryBuilderInterface
+	public function like(string $field, $val, string $pos='both'): QueryBuilderInterface
 	{
 		return $this->_like($field, $val, $pos);
 	}
@@ -299,7 +299,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function orLike($field, $val, $pos='both'): QueryBuilderInterface
+	public function orLike(string $field, $val, string $pos='both'): QueryBuilderInterface
 	{
 		return $this->_like($field, $val, $pos, 'LIKE', 'OR');
 	}
@@ -312,9 +312,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function notLike($field, $val, $pos='both'): QueryBuilderInterface
+	public function notLike(string $field, $val, string $pos='both'): QueryBuilderInterface
 	{
-		return $this->_like($field, $val, $pos, 'NOT LIKE', 'AND');
+		return $this->_like($field, $val, $pos, 'NOT LIKE');
 	}
 
 	/**
@@ -325,7 +325,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function orNotLike($field, $val, $pos='both'): QueryBuilderInterface
+	public function orNotLike(string $field, $val, string $pos='both'): QueryBuilderInterface
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
 	}
@@ -343,7 +343,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function having($key, $val=[]): QueryBuilderInterface
 	{
-		return $this->_having($key, $val, 'AND');
+		return $this->_having($key, $val);
 	}
 
 	/**
@@ -422,7 +422,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function whereNotIn($field, $val=[]): QueryBuilderInterface
 	{
-		return $this->_whereIn($field, $val, 'NOT IN', 'AND');
+		return $this->_whereIn($field, $val, 'NOT IN');
 	}
 
 	/**
@@ -488,7 +488,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $type
 	 * @return QueryBuilderInterface
 	 */
-	public function join($table, $condition, $type=''): QueryBuilderInterface
+	public function join(string $table, string $condition, string $type=''): QueryBuilderInterface
 	{
 		// Prefix and quote table name
 		$table = explode(' ', mb_trim($table));
@@ -537,7 +537,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $type
 	 * @return QueryBuilderInterface
 	 */
-	public function orderBy($field, $type=''): QueryBuilderInterface
+	public function orderBy(string $field, string $type=''): QueryBuilderInterface
 	{
 		// When ordering by random, do an ascending order if the driver
 		// doesn't support random ordering
@@ -560,7 +560,7 @@ class QueryBuilder implements QueryBuilderInterface {
 		}
 
 		// Set the final string
-		$orderString = ( ! isset($rand))
+		$orderString =  ! isset($rand)
 			? "\nORDER BY ".implode(', ', $orderClauses)
 			: "\nORDER BY".$rand;
 
@@ -576,7 +576,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return QueryBuilderInterface
 	 */
-	public function limit($limit, $offset=FALSE): QueryBuilderInterface
+	public function limit(int $limit, $offset=FALSE): QueryBuilderInterface
 	{
 		$this->state->setLimit($limit);
 		$this->state->setOffset($offset);
@@ -668,7 +668,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function get($table='', $limit=FALSE, $offset=FALSE): PDOStatement
+	public function get(string $table='', $limit=FALSE, $offset=FALSE): ?PDOStatement
 	{
 		// Set the table
 		if ( ! empty($table))
@@ -689,12 +689,12 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Convenience method for get() with a where clause
 	 *
 	 * @param string $table
-	 * @param array $where
+	 * @param mixed $where
 	 * @param int|bool $limit
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function getWhere($table, $where=[], $limit=FALSE, $offset=FALSE): PDOStatement
+	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): ?PDOStatement
 	{
 		// Create the where clause
 		$this->where($where);
@@ -709,7 +709,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $table
 	 * @return int
 	 */
-	public function countAll($table): int
+	public function countAll(string $table): int
 	{
 		$sql = 'SELECT * FROM '.$this->driver->quoteTable($table);
 		$res = $this->driver->query($sql);
@@ -745,7 +745,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function insert($table, $data=[]): PDOStatement
+	public function insert(string $table, $data=[]): ?PDOStatement
 	{
 		if ( ! empty($data))
 		{
@@ -762,10 +762,10 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param array $data
 	 * @return PDOStatement
 	 */
-	public function insertBatch($table, $data=[]): PDOStatement
+	public function insertBatch(string $table, $data=[]): ?PDOStatement
 	{
 		// Get the generated values and sql string
-		list($sql, $data) = $this->driver->insertBatch($table, $data);
+		[$sql, $data] = $this->driver->insertBatch($table, $data);
 
 		return $sql !== NULL
 			? $this->_run('', $table, $sql, $data)
@@ -779,7 +779,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function update($table, $data=[]): PDOStatement
+	public function update(string $table, $data=[]): PDOStatement
 	{
 		if ( ! empty($data))
 		{
@@ -796,9 +796,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $table
 	 * @param array|object $data
 	 * @param string $where
-	 * @return int|null
+	 * @return PDOStatement|null
 	 */
-	public function updateBatch($table, $data, $where)
+	public function updateBatch(string $table, $data, $where): ?PDOStatement
 	{
 		// Get the generated values and sql string
 		list($sql, $data) = $this->driver->updateBatch($table, $data, $where);
@@ -815,7 +815,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param array $data
 	 * @return \PDOStatement|null
 	 */
-	public function replace($table, $data=[])
+	public function replace(string $table, $data=[]): ?PDOStatement
 	{
 		if ( ! empty($data))
 		{
@@ -832,7 +832,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $where
 	 * @return PDOStatement
 	 */
-	public function delete($table, $where=''): PDOStatement
+	public function delete(string $table, $where=''): ?PDOStatement
 	{
 		// Set the where clause
 		if ( ! empty($where))
@@ -915,8 +915,6 @@ class QueryBuilder implements QueryBuilderInterface {
 		$this->state = new State();
 		$this->explain = FALSE;
 	}
-
-
 
 	/**
 	 * Method to simplify select_ methods
@@ -1144,7 +1142,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param boolean $reset
 	 * @return PDOStatement
 	 */
-	protected function _run(string $type, string $table, $sql=NULL, $vals=NULL, bool $reset=TRUE): PDOStatement
+	protected function _run(string $type, string $table, string $sql=NULL, array $vals=NULL, bool $reset=TRUE): PDOStatement
 	{
 		if ($sql === NULL)
 		{
@@ -1153,7 +1151,7 @@ class QueryBuilder implements QueryBuilderInterface {
 
 		if ($vals === NULL)
 		{
-			$vals = array_merge($this->state->getValues(), (array) $this->state->getWhereValues());
+			$vals = array_merge($this->state->getValues(), $this->state->getWhereValues());
 		}
 
 		$startTime = microtime(TRUE);
@@ -1185,7 +1183,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param int $totalTime
 	 * @return void
 	 */
-	protected function _appendQuery($vals, string $sql, int $totalTime)
+	protected function _appendQuery(array $vals = NULL, string $sql, int $totalTime)
 	{
 		$evals = \is_array($vals) ? $vals : [];
 		$esql = str_replace('?', "%s", $sql);

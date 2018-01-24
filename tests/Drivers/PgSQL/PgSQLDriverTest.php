@@ -12,11 +12,9 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
+
 namespace Query\Tests\Drivers\PgSQL;
 
-// --------------------------------------------------------------------------
-
-use InvalidArgumentException;
 use PDO;
 use Query\Drivers\Pgsql\Driver;
 use Query\Tests\BaseDriverTest;
@@ -57,15 +55,11 @@ class PgSQLDriverTest extends BaseDriverTest {
 		self::$db->setTablePrefix('create_');
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testExists()
 	{
 		$drivers = PDO::getAvailableDrivers();
 		$this->assertTrue(in_array('pgsql', $drivers, TRUE));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testConnection()
 	{
@@ -73,8 +67,6 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 		$this->assertIsA(self::$db, Driver::class);
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testCreateTable()
 	{
@@ -126,8 +118,6 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testTruncate()
 	{
 		self::$db->truncate('test');
@@ -136,8 +126,6 @@ class PgSQLDriverTest extends BaseDriverTest {
 		self::$db->truncate('join');
 		$this->assertEquals(0, self::$db->countAll('join'));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testPreparedStatements()
 	{
@@ -159,8 +147,6 @@ SQL;
 		], $res);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testBadPreparedStatement()
 	{
 		$this->expectException(TypeError::class);
@@ -172,8 +158,6 @@ SQL;
 
 		self::$db->prepareQuery($sql, 'foo');
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testPrepareExecute()
 	{
@@ -197,8 +181,6 @@ SQL;
 		], $res);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testCommitTransaction()
 	{
 		if (empty(self::$db))  return;
@@ -211,8 +193,6 @@ SQL;
 		$res = self::$db->commit();
 		$this->assertTrue($res);
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testRollbackTransaction()
 	{
@@ -227,21 +207,15 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetSchemas()
 	{
 		$this->assertTrue(is_array(self::$db->getSchemas()));
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetDBs()
 	{
 		$this->assertTrue(is_array(self::$db->getDbs()));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetFunctions()
 	{

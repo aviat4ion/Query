@@ -18,8 +18,6 @@ define('QTEST_DIR', realpath(__DIR__));
 define('QBASE_DIR', realpath(QTEST_DIR.'/../') . '/');
 define('QDS', DIRECTORY_SEPARATOR);
 
-// --------------------------------------------------------------------------
-
 function get_json_config()
 {
 	$files = array(
@@ -38,7 +36,6 @@ function get_json_config()
 	return FALSE;
 }
 
-// --------------------------------------------------------------------------
 $path = QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db';
 @unlink($path);
 

@@ -20,8 +20,6 @@ use Query\Drivers\AbstractUtil;
 /**
  * SQLite-specific backup, import and creation methods
  *
- * @package Query
- * @subpackage Drivers
  * @method mixed query(string $sql)
  * @method string quote(string $str)
  */

@@ -18,9 +18,6 @@ use PDOStatement;
 
 /**
  * Interface defining the Query Builder class
- *
- * @package Query
- * @subpackage QueryBuilder
  */
 interface QueryBuilderInterface {
 
@@ -36,8 +33,6 @@ interface QueryBuilderInterface {
 	 */
 	public function select(string $fields): QueryBuilderInterface;
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Selects the maximum value of a field from a query
 	 *
@@ -46,8 +41,6 @@ interface QueryBuilderInterface {
 	 * @return QueryBuilderInterface
 	 */
 	public function selectMax(string $field, $as=FALSE): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Selects the minimum value of a field from a query
@@ -58,8 +51,6 @@ interface QueryBuilderInterface {
 	 */
 	public function selectMin(string $field, $as=FALSE): QueryBuilderInterface;
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Selects the average value of a field from a query
 	 *
@@ -68,8 +59,6 @@ interface QueryBuilderInterface {
 	 * @return QueryBuilderInterface
 	 */
 	public function selectAvg(string $field, $as=FALSE): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Selects the sum of a field from a query
@@ -80,16 +69,12 @@ interface QueryBuilderInterface {
 	 */
 	public function selectSum(string $field, $as=FALSE): QueryBuilderInterface;
 
-	// --------------------------------------------------------------------------q
-
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
 	 * @return QueryBuilderInterface
 	 */
 	public function distinct(): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Shows the query plan for the query
@@ -98,15 +83,13 @@ interface QueryBuilderInterface {
 	 */
 	public function explain(): QueryBuilderInterface;
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Specify the database table to select from
 	 *
 	 * @param string $tblname
 	 * @return QueryBuilderInterface
 	 */
-	public function from($tblname): QueryBuilderInterface;
+	public function from(string $tblname): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! 'Like' methods
@@ -116,47 +99,41 @@ interface QueryBuilderInterface {
 	 * Creates a Like clause in the sql statement
 	 *
 	 * @param string $field
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function like($field, $val, $pos='both'): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function like(string $field, $values, string $pos='both'): QueryBuilderInterface;
 
 	/**
 	 * Generates an OR Like clause
 	 *
 	 * @param string $field
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function orLike($field, $val, $pos='both'): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function orLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
 
 	/**
 	 * Generates a NOT LIKE clause
 	 *
 	 * @param string $field
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function notLike($field, $val, $pos='both'): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function notLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
 
 	/**
 	 * Generates a OR NOT LIKE clause
 	 *
 	 * @param string $field
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @param string $pos
 	 * @return QueryBuilderInterface
 	 */
-	public function orNotLike($field, $val, $pos='both'): QueryBuilderInterface;
+	public function orNotLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! Having methods
@@ -166,21 +143,19 @@ interface QueryBuilderInterface {
 	 * Generates a 'Having' clause
 	 *
 	 * @param mixed $key
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @return QueryBuilderInterface
 	 */
-	public function having($key, $val=[]): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function having($key, $values=[]): QueryBuilderInterface;
 
 	/**
 	 * Generates a 'Having' clause prefixed with 'OR'
 	 *
 	 * @param mixed $key
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @return QueryBuilderInterface
 	 */
-	public function orHaving($key, $val=[]): QueryBuilderInterface;
+	public function orHaving($key, $values=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! 'Where' methods
@@ -192,66 +167,56 @@ interface QueryBuilderInterface {
 	 * passed array with key / value pairs
 	 *
 	 * @param mixed $key
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @param bool $escape
 	 * @return QueryBuilderInterface
 	 */
-	public function where($key, $val=[], $escape = NULL): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function where($key, $values=[], $escape = NULL): QueryBuilderInterface;
 
 	/**
 	 * Where clause prefixed with "OR"
 	 *
 	 * @param string $key
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @return QueryBuilderInterface
 	 */
-	public function orWhere($key, $val=[]): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function orWhere($key, $values=[]): QueryBuilderInterface;
 
 	/**
 	 * Where clause with 'IN' statement
 	 *
 	 * @param mixed $field
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @return QueryBuilderInterface
 	 */
-	public function whereIn($field, $val=[]): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function whereIn($field, $values=[]): QueryBuilderInterface;
 
 	/**
 	 * Where in statement prefixed with "or"
 	 *
 	 * @param string $field
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @return QueryBuilderInterface
 	 */
-	public function orWhereIn($field, $val=[]): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function orWhereIn($field, $values=[]): QueryBuilderInterface;
 
 	/**
 	 * WHERE NOT IN (FOO) clause
 	 *
 	 * @param string $field
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @return QueryBuilderInterface
 	 */
-	public function whereNotIn($field, $val=[]): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function whereNotIn($field, $values=[]): QueryBuilderInterface;
 
 	/**
 	 * OR WHERE NOT IN (FOO) clause
 	 *
 	 * @param string $field
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @return QueryBuilderInterface
 	 */
-	public function orWhereNotIn($field, $val=[]): QueryBuilderInterface;
+	public function orWhereNotIn($field, $values=[]): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
@@ -261,12 +226,10 @@ interface QueryBuilderInterface {
 	 * Sets values for inserts / updates / deletes
 	 *
 	 * @param mixed $key
-	 * @param mixed $val
+	 * @param mixed $values
 	 * @return QueryBuilderInterface
 	 */
-	public function set($key, $val = NULL): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function set($key, $values = NULL): QueryBuilderInterface;
 
 	/**
 	 * Creates a join phrase in a compiled query
@@ -276,9 +239,7 @@ interface QueryBuilderInterface {
 	 * @param string $type
 	 * @return QueryBuilderInterface
 	 */
-	public function join($table, $condition, $type=''): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function join(string $table, string $condition, string $type=''): QueryBuilderInterface;
 
 	/**
 	 * Group the results by the selected field(s)
@@ -288,8 +249,6 @@ interface QueryBuilderInterface {
 	 */
 	public function groupBy($field): QueryBuilderInterface;
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Order the results by the selected field(s)
 	 *
@@ -297,9 +256,7 @@ interface QueryBuilderInterface {
 	 * @param string $type
 	 * @return QueryBuilderInterface
 	 */
-	public function orderBy($field, $type=""): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
+	public function orderBy(string $field, string $type=''): QueryBuilderInterface;
 
 	/**
 	 * Set a limit on the current sql statement
@@ -308,7 +265,7 @@ interface QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return QueryBuilderInterface
 	 */
-	public function limit($limit, $offset=FALSE): QueryBuilderInterface;
+	public function limit(int $limit, $offset=FALSE): QueryBuilderInterface;
 
 	// --------------------------------------------------------------------------
 	// ! Query Grouping Methods
@@ -321,8 +278,6 @@ interface QueryBuilderInterface {
 	 */
 	public function groupStart(): QueryBuilderInterface;
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'NOT'
@@ -330,8 +285,6 @@ interface QueryBuilderInterface {
 	 * @return QueryBuilderInterface
 	 */
 	public function notGroupStart(): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Adds a paren to the current query for query grouping,
@@ -341,8 +294,6 @@ interface QueryBuilderInterface {
 	 */
 	public function orGroupStart(): QueryBuilderInterface;
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
@@ -350,8 +301,6 @@ interface QueryBuilderInterface {
 	 * @return QueryBuilderInterface
 	 */
 	public function orNotGroupStart(): QueryBuilderInterface;
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Ends a query group
@@ -373,9 +322,7 @@ interface QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function get($table='', $limit=FALSE, $offset=FALSE): PDOStatement;
-
-	// --------------------------------------------------------------------------
+	public function get(string $table='', $limit=FALSE, $offset=FALSE): ?PDOStatement;
 
 	/**
 	 * Convenience method for get() with a where clause
@@ -386,9 +333,7 @@ interface QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function getWhere($table, $where=[], $limit=FALSE, $offset=FALSE): PDOStatement;
-
-	// --------------------------------------------------------------------------
+	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): ?PDOStatement;
 
 	/**
 	 * Retrieve the number of rows in the selected table
@@ -396,9 +341,7 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @return int
 	 */
-	public function countAll($table): int;
-
-	// --------------------------------------------------------------------------
+	public function countAll(string $table): int;
 
 	/**
 	 * Retrieve the number of results for the generated query - used
@@ -410,8 +353,6 @@ interface QueryBuilderInterface {
 	 */
 	public function countAllResults(string $table='', bool $reset=TRUE): int;
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Creates an insert clause, and executes it
 	 *
@@ -419,31 +360,25 @@ interface QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function insert($table, $data=[]): PDOStatement;
-
-	// --------------------------------------------------------------------------
+	public function insert(string $table, $data=[]): ?PDOStatement;
 
 	/**
 	 * Creates and executes a batch insertion query
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return \PDOStatement|null
+	 * @return PDOStatement
 	 */
-	public function insertBatch($table, $data=[]);
-
-	// --------------------------------------------------------------------------
+	public function insertBatch(string $table, $data=[]): ?PDOStatement;
 
 	/**
 	 * Insertion with automatic overwrite, rather than attempted duplication
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return \PDOStatement|null
+	 * @return PDOStatement
 	 */
-	public function replace($table, $data=[]);
-
-	// --------------------------------------------------------------------------
+	public function replace(string $table, $data=[]): ?PDOStatement;
 
 	/**
 	 * Creates an update clause, and executes it
@@ -452,9 +387,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function update($table, $data=[]): PDOStatement;
-
-	// --------------------------------------------------------------------------
+	public function update(string $table, $data=[]): ?PDOStatement;
 
 	/**
 	 * Creates a batch update, and executes it.
@@ -463,11 +396,9 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @param array|object $data
 	 * @param string $where
-	 * @return int|null
+	 * @return PDOStatement
 	 */
-	public function updateBatch($table, $data, $where);
-
-	// --------------------------------------------------------------------------
+	public function updateBatch(string $table, $data, $where): ?PDOStatement;
 
 	/**
 	 * Deletes data from a table
@@ -476,7 +407,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $where
 	 * @return PDOStatement
 	 */
-	public function delete($table, $where=''): PDOStatement;
+	public function delete(string $table, $where=''): ?PDOStatement;
 
 	// --------------------------------------------------------------------------
 	// ! SQL Returning Methods

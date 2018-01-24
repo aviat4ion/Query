@@ -12,9 +12,8 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-namespace Query\Tests;
 
-// --------------------------------------------------------------------------
+namespace Query\Tests;
 
 /**
  * Parent Database Test Class
@@ -28,14 +27,10 @@ abstract class BaseDriverTest extends TestCase {
 
 	abstract public function testConnection();
 
-	// --------------------------------------------------------------------------
-
 	public static function tearDownAfterClass()
 	{
 		self::$db = NULL;
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetTables()
 	{
@@ -44,8 +39,6 @@ abstract class BaseDriverTest extends TestCase {
 		$this->assertTrue( ! empty($tables));
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetSystemTables()
 	{
 		$tables = self::$db->getSystemTables();
@@ -53,15 +46,11 @@ abstract class BaseDriverTest extends TestCase {
 		$this->assertTrue( ! empty($tables));
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testBackupData()
 	{
 		$this->assertTrue(is_string(self::$db->getUtil()->backupData(array('create_delete', FALSE))));
 		$this->assertTrue(is_string(self::$db->getUtil()->backupData(array('create_delete', TRUE))));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetColumns()
 	{
@@ -70,16 +59,12 @@ abstract class BaseDriverTest extends TestCase {
 		$this->assertTrue( ! empty($cols));
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetTypes()
 	{
 		$types = self::$db->getTypes();
 		$this->assertTrue(is_array($types));
 		$this->assertTrue( ! empty($types));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetFKs()
 	{
@@ -95,15 +80,11 @@ abstract class BaseDriverTest extends TestCase {
 		$this->assertEqual($expected, $keys);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetIndexes()
 	{
 		$keys = self::$db->getIndexes('test');
 		$this->assertTrue(is_array($keys));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetViews()
 	{
@@ -113,8 +94,6 @@ abstract class BaseDriverTest extends TestCase {
 		$this->assertTrue(is_array($views));
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetTriggers()
 	{
 		// @TODO standardize trigger output for different databases
@@ -122,8 +101,6 @@ abstract class BaseDriverTest extends TestCase {
 		$triggers = self::$db->getTriggers();
 		$this->assertTrue(is_array($triggers));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetSequences()
 	{
@@ -138,15 +115,11 @@ abstract class BaseDriverTest extends TestCase {
 		$this->assertEqual($expected, $seqs);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetProcedures()
 	{
 		$procedures = self::$db->getProcedures();
 		$this->assertTrue(is_array($procedures));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetFunctions()
 	{

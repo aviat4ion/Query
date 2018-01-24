@@ -18,9 +18,6 @@ use InvalidArgumentException;
 
 /**
  * Generic exception for bad drivers
- *
- * @package Query
- * @subpackage Core
  */
 class BadDBDriverException extends InvalidArgumentException {
 }

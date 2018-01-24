@@ -40,8 +40,6 @@ class Driver extends AbstractDriver {
 		parent::__construct($dsn, $username, $password, $options);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get a list of schemas for the current connection
 	 *
@@ -57,8 +55,6 @@ SQL;
 
 		return $this->driverQuery($sql);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Retrieve foreign keys for the table

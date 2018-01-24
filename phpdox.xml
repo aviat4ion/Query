@@ -9,7 +9,7 @@
     <bootstrap />
 
     <!-- A phpDox project to process, you can have multiple projects in one config file -->
-    <project name="Query" source="../src" workdir="phpdox/xml">
+    <project name="Query" source="src" workdir="build/phpdox/xml">
         <!--  @name    - The name of the project -->
         <!--  @source  - The source directory of the application to process -->
         <!--  @workdir - The directory to store the xml data files in -->
@@ -56,12 +56,12 @@
         </collector>
 
         <!--  Configuration of generation process -->
-        <generator output="../docs">
+        <generator output="apiDocumentation">
             <!-- @output - (Base-)Directory to store output data in -->
 
             <!-- A generation process consists of one or more build tasks and of (optional) enrich sources -->
 
-            <enrich base="logs">
+            <enrich base="build/logs">
                 <!-- @base - (Base-)Directory of datafiles used for enrich process -->
 
                 <!--<source type="...">-->
@@ -84,11 +84,9 @@
                 </source>
 
                 <!-- PHP Code Sniffer findings -->
-                <!--
                 <source type="phpcs">
-                    <file name="logs/phpcs.xml" />
+                    <file name="phpcs.xml" />
                 </source>
-                -->
 
                 <!-- PHPMessDetector -->
                 <!--
@@ -99,7 +97,7 @@
 
                 <!-- PHPUnit Coverage XML -->
                 <source type="phpunit">
-                    <coverage path="logs/coverage.xml" />
+                    <coverage path="coverage" />
                     <!-- <coverage path="clover.xml" />-->
                     <!--           @path - the directory where the xml code coverage report can be found -->
                     <!--<filter directory="${phpDox.project.source}" />-->

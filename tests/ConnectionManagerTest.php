@@ -26,8 +26,6 @@ class ConnectionManagerTest extends TestCase {
 		self::$instance = ConnectionManager::getInstance();
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testNoClone()
 	{
 		$this->expectException('DomainException');
@@ -35,8 +33,6 @@ class ConnectionManagerTest extends TestCase {
 		$clone = clone self::$instance;
 		$this->assertNull($clone);
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testNoSerialize()
 	{
@@ -49,16 +45,12 @@ class ConnectionManagerTest extends TestCase {
 		self::$instance->__sleep();
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testNoUnserialize()
 	{
 		$this->expectException(DomainException::class);
 		$this->expectExceptionMessage("Can't unserialize singleton");
 		self::$instance->__wakeup();
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testParseParams()
 	{
@@ -80,8 +72,6 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertEqual($expected, self::$instance->parseParams($params));
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testConnect()
 	{
 		$params = (object) array(
@@ -100,8 +90,6 @@ class ConnectionManagerTest extends TestCase {
 		// Check that the connection just made is returned from the get_connection method
 		$this->assertEqual($conn, self::$instance->getConnection());
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetConnection()
 	{

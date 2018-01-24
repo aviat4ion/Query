@@ -14,9 +14,6 @@
  */
 namespace Query\Tests;
 
-
-// --------------------------------------------------------------------------
-
 /**
  * CoreTest class - Compatibility and core functionality tests
  *
@@ -35,8 +32,6 @@ class CoreTest extends TestCase {
 		//$this->assertTrue(version_compare(PHP_VERSION, '7.1', 'ge'));
 		$this->assertTrue(PHP_VERSION_ID >= 70000);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * TestHasPDO function.

@@ -15,10 +15,7 @@
 namespace Query\Drivers;
 
 /**
- * parent for database manipulation subclasses
- *
- * @package Query
- * @subpackage Drivers
+ * Parent for database-specific syntax subclasses
  */
 abstract class AbstractSQL implements SQLInterface {
 

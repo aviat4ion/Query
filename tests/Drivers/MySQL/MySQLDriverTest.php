@@ -22,7 +22,6 @@ use TypeError;
 /**
  * MySQLTest class.
  *
- * @extends DBTest
  * @requires extension pdo_mysql
  */
 class MySQLDriverTest extends BaseDriverTest {
@@ -47,21 +46,15 @@ class MySQLDriverTest extends BaseDriverTest {
 		self::$db->setTablePrefix('create_');
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testExists()
 	{
 		$this->assertTrue(\in_array('mysql', PDO::getAvailableDrivers(), TRUE));
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testConnection()
 	{
 		$this->assertIsA(self::$db, Driver::class);
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testCreateTable()
 	{
@@ -101,8 +94,6 @@ class MySQLDriverTest extends BaseDriverTest {
 
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testTruncate()
 	{
 		self::$db->truncate('test');
@@ -111,8 +102,6 @@ class MySQLDriverTest extends BaseDriverTest {
 		self::$db->truncate('join');
 		$this->assertEquals(0, self::$db->countAll('join'));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testPreparedStatements()
 	{
@@ -128,8 +117,6 @@ SQL;
 
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testBadPreparedStatement()
 	{
 		$this->expectException(TypeError::class);
@@ -142,8 +129,6 @@ SQL;
 		self::$db->prepareQuery($sql, 'foo');
 
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testPrepareExecute()
 	{
@@ -159,8 +144,6 @@ SQL;
 
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testCommitTransaction()
 	{
 		$res = self::$db->beginTransaction();
@@ -171,8 +154,6 @@ SQL;
 		$res = self::$db->commit();
 		$this->assertTrue($res);
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testRollbackTransaction()
 	{
@@ -185,26 +166,18 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testGetSchemas()
 	{
 		$this->assertNull(self::$db->getSchemas());
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testGetSequences()
 	{
 		$this->assertNull(self::$db->getSequences());
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testBackup()
 	{
 		$this->assertTrue(is_string(self::$db->getUtil()->backupStructure()));
 	}
-
-
 }

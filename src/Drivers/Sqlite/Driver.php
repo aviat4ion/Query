@@ -121,12 +121,12 @@ class Driver extends AbstractDriver {
 		{
 			$cols[] = $this->_quote($datum) . ' AS ' . $this->quoteIdent($colname);
 		}
-		$sql .= "SELECT " . implode(', ', $cols) . "\n";
+		$sql .= 'SELECT ' . implode(', ', $cols) . "\n";
 
 		foreach($data as $union)
 		{
 			$vals = array_map([$this, 'quote'], $union);
-			$sql .= "UNION SELECT " . implode(',', $vals) . "\n";
+			$sql .= 'UNION SELECT ' . implode(',', $vals) . "\n";
 		}
 
 		return [$sql, NULL];

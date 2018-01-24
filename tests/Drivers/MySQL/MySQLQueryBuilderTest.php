@@ -17,8 +17,6 @@ namespace Query\Tests\Drivers\MySQL;
 use PDO;
 use Query\Tests\BaseQueryBuilderTest;
 
-// --------------------------------------------------------------------------
-
 /**
  * @requires extension pdo_mysql
  */
@@ -51,14 +49,10 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 		self::$db = Query($params);
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function testExists()
 	{
 		$this->assertTrue(\in_array('mysql', PDO::getAvailableDrivers(), TRUE));
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function testQueryExplain()
 	{

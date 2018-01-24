@@ -40,7 +40,7 @@ class RoboFile extends \Robo\Tasks {
 	 */
 	protected $cleanDirs = [
 		'coverage',
-		'docs',
+		'apiDocumentation',
 		'phpdoc',
 		'build/logs',
 		'build/phpdox',
@@ -76,14 +76,6 @@ class RoboFile extends \Robo\Tasks {
 	 */
 	public function clean()
 	{
-		$cleanFiles = [
-			'build/humbug.json',
-			'build/humbug-log.txt',
-		];
-		array_map(function ($file) {
-			@unlink($file);
-		}, $cleanFiles);
-
 		// So the task doesn't complain,
 		// make any 'missing' dirs to cleanup
 		array_map(function ($dir) {
@@ -102,10 +94,7 @@ class RoboFile extends \Robo\Tasks {
 	 */
 	public function coverage()
 	{
-		$this->taskPhpUnit()
-			->configFile('build/phpunit.xml')
-			->printed(true)
-			->run();
+		$this->_run(['phpdbg -qrr -- vendor/bin/phpunit -c build']);
 	}
 
 	/**
@@ -113,10 +102,7 @@ class RoboFile extends \Robo\Tasks {
 	 */
 	public function docs()
 	{
-		$cmd_parts = [
-			'phpdoc'
-		];
-		$this->_run($cmd_parts, ' && ');
+		$this->_run(['vendor/bin/phpdox']);
 	}
 
 	/**
@@ -132,29 +118,6 @@ class RoboFile extends \Robo\Tasks {
 		{
 			$this->parallelLint($chunk);
 		}
-	}
-
-
-	/**
-	 * Run mutation tests with humbug
-	 *
-	 * @param bool $stats - if true, generates stats rather than running mutation tests
-	 */
-	public function mutate($stats = FALSE)
-	{
-		$test_parts = [
-			'vendor/bin/humbug'
-		];
-
-		$stat_parts = [
-			'vendor/bin/humbug',
-			'--skip-killed=yes',
-			'-v',
-			'./build/humbug.json'
-		];
-
-		$cmd_parts = ($stats) ? $stat_parts : $test_parts;
-		$this->_run($cmd_parts);
 	}
 
 	/**
@@ -226,9 +189,8 @@ class RoboFile extends \Robo\Tasks {
 	public function test()
 	{
 		$this->lint();
-		$this->taskPHPUnit()
+		$this->taskPhpUnit()
 			->configFile('phpunit.xml')
-			->printed(true)
 			->run();
 		$this->_run(["php tests/index.php"]);
 	}

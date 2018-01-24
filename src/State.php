@@ -6,12 +6,13 @@
  *
  * PHP version 7.1
  *
- * @package     Query
- * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @package	 Query
+ * @author	  Timothy J. Warren <tim@timshomepage.net>
  * @copyright   2012 - 2018 Timothy J. Warren
- * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @license	 http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link		https://git.timshomepage.net/aviat4ion/Query
  */
+
 namespace Query;
 
 /**
@@ -92,7 +93,7 @@ class State {
 
 	/**
 	 * Value for limit string
-	 * @var int
+	 * @var integer
 	 */
 	protected $limit;
 
@@ -123,22 +124,20 @@ class State {
 	 */
 	protected $havingMap = [];
 
-	// --------------------------------------------------------------------------
-
-    /**
-     * @param string $str
-     * @return State
-     */
+	/**
+	 * @param string $str
+	 * @return State
+	 */
 	public function setSelectString(string $str): self
-    {
-        $this->selectString = $str;
-        return $this;
-    }
+	{
+		$this->selectString = $str;
+		return $this;
+	}
 
 	/**
 	 * @return string
 	 */
-    public function getSelectString(): string
+	public function getSelectString(): string
 	{
 		return $this->selectString;
 	}
@@ -147,7 +146,7 @@ class State {
 	 * @param string $str
 	 * @return State
 	 */
-    public function appendSelectString(string $str): self
+	public function appendSelectString(string $str): self
 	{
 		$this->selectString .= $str;
 		return $this;

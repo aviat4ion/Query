@@ -13,13 +13,10 @@
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-
 use Query\{
     ConnectionManager,
     QueryBuilderInterface
 };
-
-// --------------------------------------------------------------------------
 
 /**
  * Global functions that don't really fit anywhere else
@@ -35,8 +32,6 @@ function mb_trim(string $string): string
 {
 	return preg_replace('/(^\s+)|(\s+$)/u', '', $string);
 }
-
-// --------------------------------------------------------------------------
 
 /**
  * Filter out db rows into one array
@@ -56,8 +51,6 @@ function dbFilter(array $array, $index): array
 
 	return $newArray;
 }
-
-// --------------------------------------------------------------------------
 
 /**
  * Zip a set of arrays together on common keys
@@ -87,8 +80,6 @@ function arrayZipper(array $zipperInput): array
 	return $output;
 }
 
-// --------------------------------------------------------------------------
-
 /**
  * Determine whether a value in the passed array matches the pattern
  * passed
@@ -114,8 +105,6 @@ function regexInArray(array $array, string $pattern): bool
 
 	return FALSE;
 }
-
-// --------------------------------------------------------------------------
 
 /**
  * Connection function

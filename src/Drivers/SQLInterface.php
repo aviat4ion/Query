@@ -15,10 +15,7 @@
 namespace Query\Drivers;
 
 /**
- * parent for database manipulation subclasses
- *
- * @package Query
- * @subpackage Drivers
+ * Interface for database-specific syntax subclasses
  */
 interface SQLInterface {
 
