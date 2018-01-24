@@ -16,11 +16,7 @@ namespace Query;
 
 use BadMethodCallException;
 use PDOStatement;
-use Query\Drivers\{
-	AbstractUtil,
-	DriverInterface,
-	SQLInterface
-};
+use Query\Drivers\DriverInterface;
 
 /**
  * Convenience class for creating sql queries
@@ -37,7 +33,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * List of queries executed
 	 * @var array
 	 */
-	public $queries;
+	public $queries = [
+		'total_time' => 0
+	];
 
 	/**
 	 * Whether to do only an explain on the query
@@ -56,18 +54,6 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @var QueryParser
 	 */
 	protected $parser;
-
-	/**
-	 * Alias to driver util class
-	 * @var AbstractUtil
-	 */
-	protected $util;
-
-	/**
-	 * Alias to driver sql class
-	 * @var SQLInterface
-	 */
-	protected $sql;
 
 	/**
 	 * Query Builder state
@@ -93,12 +79,6 @@ class QueryBuilder implements QueryBuilderInterface {
 
 		// Create new State object
 		$this->state = new State();
-
-		$this->queries['total_time'] = 0;
-
-		// Alias driver sql and util classes
-		$this->sql = $this->driver->getSql();
-		$this->util = $this->driver->getUtil();
 	}
 
 	/**
@@ -543,7 +523,7 @@ class QueryBuilder implements QueryBuilderInterface {
 		// doesn't support random ordering
 		if (stripos($type, 'rand') !== FALSE)
 		{
-			$rand = $this->sql->random();
+			$rand = $this->driver->getSql()->random();
 			$type = $rand ?? 'ASC';
 		}
 
@@ -1306,14 +1286,14 @@ class QueryBuilder implements QueryBuilderInterface {
 		$limit = $this->state->getLimit();
 		if (is_numeric($limit))
 		{
-			$sql = $this->sql->limit($sql, $limit, $this->state->getOffset());
+			$sql = $this->driver->getSql()->limit($sql, $limit, $this->state->getOffset());
 		}
 
 		// See if the query plan, rather than the
 		// query data should be returned
 		if ($this->explain === TRUE)
 		{
-			$sql = $this->sql->explain($sql);
+			$sql = $this->driver->getSql()->explain($sql);
 		}
 
 		return $sql;
