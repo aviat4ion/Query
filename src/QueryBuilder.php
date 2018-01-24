@@ -120,19 +120,12 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function __call(string $name, array $params)
 	{
-		// Alias snake_case method calls
-		$camelName = \to_camel_case($name);
-
-		foreach([$this, $this->driver] as $object)
+		//foreach([$this, $this->driver] as $object)
 		{
-			foreach([$name, $camelName] as $methodName)
+			if (method_exists($this->driver, $name))
 			{
-				if (method_exists($object, $methodName))
-				{
-					return \call_user_func_array([$object, $methodName], $params);
-				}
+				return \call_user_func_array([$this->driver, $name], $params);
 			}
-
 		}
 
 		throw new BadMethodCallException('Method does not exist');
@@ -1102,7 +1095,7 @@ class QueryBuilder implements QueryBuilderInterface {
 
 			// Determine the correct conjunction
 			$conjunctionList = array_column($queryMap, 'conjunction');
-			if (empty($queryMap) || ( ! regex_in_array($conjunctionList, "/^ ?\n?WHERE/i")))
+			if (empty($queryMap) || ( ! \regexInArray($conjunctionList, "/^ ?\n?WHERE/i")))
 			{
 				$conj = "\nWHERE ";
 			}

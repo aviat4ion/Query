@@ -15,12 +15,11 @@
 namespace Query\Drivers\Pgsql;
 
 use Query\Drivers\AbstractDriver;
-use Query\Drivers\DriverInterface;
 
 /**
  * PostgreSQL specific class
  */
-class Driver extends AbstractDriver implements DriverInterface {
+class Driver extends AbstractDriver {
 
 	/**
 	 * Connect to a PosgreSQL database

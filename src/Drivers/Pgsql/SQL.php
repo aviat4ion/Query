@@ -27,7 +27,7 @@ class SQL extends AbstractSQL {
 	 * @param string $sql
 	 * @return string
 	 */
-	public function explain($sql)
+	public function explain(string $sql): string
 	{
 		return "EXPLAIN VERBOSE {$sql}";
 	}
@@ -37,7 +37,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function random()
+	public function random(): string
 	{
 		return ' RANDOM()';
 	}
@@ -47,7 +47,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function dbList()
+	public function dbList(): string
 	{
 		return <<<SQL
 			SELECT "datname" FROM "pg_database"
@@ -61,7 +61,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function tableList()
+	public function tableList(): string
 	{
 		return <<<SQL
 			SELECT "table_name"
@@ -77,7 +77,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function systemTableList()
+	public function systemTableList(): string
 	{
 		return <<<SQL
 			SELECT "table_name"
@@ -93,7 +93,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function viewList()
+	public function viewList(): string
 	{
 		return <<<SQL
 		 	SELECT "viewname" FROM "pg_views"
@@ -109,7 +109,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function triggerList()
+	public function triggerList(): string
 	{
 		return <<<SQL
 			SELECT *
@@ -122,9 +122,9 @@ SQL;
 	/**
 	 * Return sql to list functions
 	 *
-	 * @return NULL
+	 * @return string
 	 */
-	public function functionList()
+	public function functionList(): ?string
 	{
 		return NULL;
 	}
@@ -134,7 +134,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function procedureList()
+	public function procedureList(): string
 	{
 		return <<<SQL
 			SELECT "routine_name"
@@ -150,7 +150,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function sequenceList()
+	public function sequenceList(): string
 	{
 		return <<<SQL
 			SELECT "c"."relname"
@@ -166,7 +166,7 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function columnList($table)
+	public function columnList(string $table): string
 	{
 		return <<<SQL
 			SELECT ordinal_position,
@@ -187,7 +187,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function typeList()
+	public function typeList(): string
 	{
 		return <<<SQL
 			SELECT "typname" FROM "pg_catalog"."pg_type"
@@ -204,7 +204,7 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function fkList($table)
+	public function fkList(string $table): string
 	{
 		return <<<SQL
 			SELECT
@@ -244,9 +244,9 @@ SQL;
 	 * Get the list of indexes for the current table
 	 *
 	 * @param string $table
-	 * @return array
+	 * @return string
 	 */
-	public function indexList($table)
+	public function indexList(string $table): string
 	{
 		return <<<SQL
 			SELECT

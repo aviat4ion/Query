@@ -37,10 +37,12 @@ class Util extends AbstractUtil {
 		foreach($dbs as &$d)
 		{
 			// Skip built-in dbs
+			// @codeCoverageIgnoreStart
 			if ($d === 'mysql')
 			{
 				continue;
 			}
+			// @codeCoverageIgnoreEnd
 
 			// Get the list of tables
 			$tables = $this->getDriver()->driverQuery("SHOW TABLES FROM `{$d}`", TRUE);

@@ -15,21 +15,12 @@
 namespace Query\Drivers\Sqlite;
 
 use PDO;
-use PDOStatement;
 use Query\Drivers\AbstractDriver;
-use Query\Drivers\DriverInterface;
 
 /**
  * SQLite specific class
  */
-class Driver extends AbstractDriver implements DriverInterface {
-
-	/**
-	 * Reference to the last executed sql query
-	 *
-	 * @var PDOStatement
-	 */
-	protected $statement;
+class Driver extends AbstractDriver {
 
 	/**
 	 * SQLite has a truncate optimization,
@@ -65,7 +56,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	{
 		$sql = $this->sql->tableList();
 		$res = $this->query($sql);
-		return db_filter($res->fetchAll(PDO::FETCH_ASSOC), 'name');
+		return dbFilter($res->fetchAll(PDO::FETCH_ASSOC), 'name');
 	}
 
 	/**
@@ -98,9 +89,9 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @codeCoverageIgnore
 	 * @param string $table
 	 * @param array $data
-	 * @return string
+	 * @return array
 	 */
-	public function insertBatch($table, $data=[])
+	public function insertBatch(string $table, array $data=[]): array
 	{
 		// If greater than version 3.7.11, supports the same syntax as
 		// MySQL and Postgres
@@ -114,7 +105,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 		// --------------------------------------------------------------------------
 
 		// Each member of the data array needs to be an array
-		if ( ! is_array(current($data)))
+		if ( ! \is_array(current($data)))
 		{
 			return NULL;
 		}

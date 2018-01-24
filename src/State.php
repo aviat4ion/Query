@@ -165,7 +165,7 @@ class State {
 	 * @param string $fromString
 	 * @return State
 	 */
-	public function setFromString(string $fromString): State
+	public function setFromString(string $fromString): self
 	{
 		$this->fromString = $fromString;
 		return $this;
@@ -183,7 +183,7 @@ class State {
 	 * @param string $setString
 	 * @return State
 	 */
-	public function setSetString(string $setString): State
+	public function setSetString(string $setString): self
 	{
 		$this->setString = $setString;
 		return $this;
@@ -201,7 +201,7 @@ class State {
 	 * @param string $orderString
 	 * @return State
 	 */
-	public function setOrderString(string $orderString): State
+	public function setOrderString(string $orderString): self
 	{
 		$this->orderString = $orderString;
 		return $this;
@@ -219,7 +219,7 @@ class State {
 	 * @param string $groupString
 	 * @return State
 	 */
-	public function setGroupString(string $groupString): State
+	public function setGroupString(string $groupString): self
 	{
 		$this->groupString = $groupString;
 		return $this;
@@ -237,7 +237,7 @@ class State {
 	 * @param array $setArrayKeys
 	 * @return State
 	 */
-	public function appendSetArrayKeys(array $setArrayKeys): State
+	public function appendSetArrayKeys(array $setArrayKeys): self
 	{
 		$this->setArrayKeys = array_merge($this->setArrayKeys, $setArrayKeys);
 		return $this;
@@ -247,7 +247,7 @@ class State {
 	 * @param array $setArrayKeys
 	 * @return State
 	 */
-	public function setSetArrayKeys(array $setArrayKeys): State
+	public function setSetArrayKeys(array $setArrayKeys): self
 	{
 		$this->setArrayKeys = $setArrayKeys;
 		return $this;
@@ -266,7 +266,7 @@ class State {
 	 * @param mixed $orderArray
 	 * @return State
 	 */
-	public function setOrderArray(string $key, $orderArray): State
+	public function setOrderArray(string $key, $orderArray): self
 	{
 		$this->orderArray[$key] = $orderArray;
 		return $this;
@@ -284,7 +284,7 @@ class State {
 	 * @param array $groupArray
 	 * @return State
 	 */
-	public function setGroupArray(array $groupArray): State
+	public function setGroupArray(array $groupArray): self
 	{
 		$this->groupArray = $groupArray;
 		return $this;
@@ -294,7 +294,7 @@ class State {
 	 * @param string $groupArray
 	 * @return State
 	 */
-	public function appendGroupArray(string $groupArray): State
+	public function appendGroupArray(string $groupArray): self
 	{
 		$this->groupArray[] = $groupArray;
 		return $this;
@@ -312,7 +312,7 @@ class State {
 	 * @param array $values
 	 * @return State
 	 */
-	public function appendValues(array $values): State
+	public function appendValues(array $values): self
 	{
 		$this->values = array_merge($this->values, $values);
 		return $this;
@@ -330,7 +330,7 @@ class State {
 	 * @param mixed $val
 	 * @return State
 	 */
-	public function appendWhereValues($val): State
+	public function appendWhereValues($val): self
 	{
 		if (\is_array($val))
 		{
@@ -358,7 +358,7 @@ class State {
 	 * @param int $limit
 	 * @return State
 	 */
-	public function setLimit(int $limit): State
+	public function setLimit(int $limit): self
 	{
 		$this->limit = $limit;
 		return $this;
@@ -376,7 +376,7 @@ class State {
 	 * @param string|false $offset
 	 * @return State
 	 */
-	public function setOffset($offset): State
+	public function setOffset($offset): self
 	{
 		$this->offset = $offset;
 		return $this;
@@ -420,7 +420,7 @@ class State {
 	 * @param array $item
 	 * @return State
 	 */
-	public function appendHavingMap(array $item): State
+	public function appendHavingMap(array $item): self
 	{
 		$this->havingMap[] = $item;
 		return $this;

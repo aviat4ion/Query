@@ -83,7 +83,7 @@ abstract class AbstractDriver
 	 * @param string $password
 	 * @param array $driverOptions
 	 */
-	public function __construct($dsn, $username=NULL, $password=NULL, array $driverOptions=[])
+	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $driverOptions=[])
 	{
 		// Set PDO to display errors as exceptions, and apply driver options
 		$driverOptions[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
@@ -182,7 +182,7 @@ abstract class AbstractDriver
 	 * @param string $prefix
 	 * @return void
 	 */
-	public function setTablePrefix($prefix)
+	public function setTablePrefix(string $prefix): void
 	{
 		$this->tablePrefix = $prefix;
 	}
@@ -199,15 +199,10 @@ abstract class AbstractDriver
 	 * @return PDOStatement | FALSE
 	 * @throws InvalidArgumentException
 	 */
-	public function prepareQuery($sql, $data)
+	public function prepareQuery(string $sql, array $data): ?PDOStatement
 	{
 		// Prepare the sql, save the statement for easy access later
 		$this->statement = $this->prepare($sql);
-
-		if( ! (\is_array($data) || \is_object($data)))
-		{
-			throw new InvalidArgumentException('Data argument must be an object or associative array');
-		}
 
 		// Bind the parameters
 		foreach($data as $k => $value)
@@ -229,9 +224,10 @@ abstract class AbstractDriver
 	 *
 	 * @param string $sql
 	 * @param array $params
+	 * @throws InvalidArgumentException
 	 * @return PDOStatement
 	 */
-	public function prepareExecute($sql, $params): PDOStatement
+	public function prepareExecute(string $sql, array $params): ?PDOStatement
 	{
 		$this->statement = $this->prepareQuery($sql, $params);
 		$this->statement->execute();
@@ -255,7 +251,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return string
 	 */
-	public function prefixTable($table): string
+	public function prefixTable(string $table): string
 	{
 		// Add the prefix to the table name
 		// before quoting it
@@ -502,7 +498,7 @@ abstract class AbstractDriver
 		$flag = $filteredIndex ? PDO::FETCH_NUM : PDO::FETCH_ASSOC;
 		$all = $res->fetchAll($flag);
 
-		return $filteredIndex ? \db_filter($all, 0) : $all;
+		return $filteredIndex ? \dbFilter($all, 0) : $all;
 	}
 
 	/**
@@ -529,10 +525,10 @@ abstract class AbstractDriver
 	 * Create sql for batch insert
 	 *
 	 * @param string $table
-	 * @param array|object $data
+	 * @param mixed $data
 	 * @return null|array<string|array|null>
 	 */
-	public function insertBatch($table, $data=[])
+	public function insertBatch(string $table, array $data=[]): array
 	{
 		$data = (array) $data;
 		$firstRow = (array) current($data);
@@ -570,10 +566,28 @@ abstract class AbstractDriver
 	 * @param string $where
 	 * @return int|null
 	 */
-	public function updateBatch($table, $data, $where)
+	public function updateBatch(string $table, $data, $where)
 	{
 		// @TODO implement
 		return NULL;
+	}
+
+	/**
+	 * Empty the passed table
+	 *
+	 * @param string $table
+	 * @return PDOStatement
+	 */
+	public function truncate(string $table): PDOStatement
+	{
+		$sql = $this->hasTruncate
+			? 'TRUNCATE TABLE '
+			: 'DELETE FROM ';
+
+		$sql .= $this->quoteTable($table);
+
+		$this->statement = $this->query($sql);
+		return $this->statement;
 	}
 
 	/**
@@ -603,7 +617,7 @@ abstract class AbstractDriver
 	 * @param string $str
 	 * @return string
 	 */
-	protected function _prefix($str): string
+	protected function _prefix(string $str): string
 	{
 		// Don't prefix an already prefixed table
 		if (strpos($str, $this->tablePrefix) !== FALSE)
@@ -613,23 +627,4 @@ abstract class AbstractDriver
 
 		return $this->tablePrefix . $str;
 	}
-
-	/**
-	 * Empty the passed table
-	 *
-	 * @param string $table
-	 * @return PDOStatement
-	 */
-	public function truncate($table): PDOStatement
-	{
-		$sql = $this->hasTruncate
-			? 'TRUNCATE TABLE '
-			: 'DELETE FROM ';
-
-		$sql .= $this->quoteTable($table);
-
-		$this->statement = $this->query($sql);
-		return $this->statement;
-	}
-
 }

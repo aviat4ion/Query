@@ -200,6 +200,7 @@ final class ConnectionManager {
 	/**
 	 * Create the dsn from the db type and params
 	 *
+	 * @codeCoverageIgnore
 	 * @param string $dbtype
 	 * @param \stdClass $params
 	 * @return string

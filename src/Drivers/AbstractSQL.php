@@ -30,7 +30,7 @@ abstract class AbstractSQL implements SQLInterface {
 	 * @param int|bool $offset
 	 * @return string
 	 */
-	public function limit($sql, $limit, $offset=FALSE)
+	public function limit(string $sql, int $limit, $offset=FALSE): string
 	{
 		$sql .= "\nLIMIT {$limit}";
 

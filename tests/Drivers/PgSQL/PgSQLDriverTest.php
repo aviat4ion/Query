@@ -20,6 +20,7 @@ use InvalidArgumentException;
 use PDO;
 use Query\Drivers\Pgsql\Driver;
 use Query\Tests\BaseDriverTest;
+use TypeError;
 
 /**
  * PgTest class.
@@ -162,7 +163,7 @@ SQL;
 
 	public function testBadPreparedStatement()
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(TypeError::class);
 
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")

@@ -27,7 +27,7 @@ class SQL extends AbstractSQL {
 	 * @param string $sql
 	 * @return string
 	 */
-	public function explain($sql)
+	public function explain(string $sql): string
 	{
 		return "EXPLAIN QUERY PLAN {$sql}";
 	}
@@ -37,7 +37,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function random()
+	public function random(): string
 	{
 		return ' RANDOM()';
 	}
@@ -47,7 +47,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function dbList()
+	public function dbList(): string
 	{
 		return 'PRAGMA database_list';
 	}
@@ -57,7 +57,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function tableList()
+	public function tableList(): string
 	{
 		return <<<SQL
 			SELECT DISTINCT "name"
@@ -73,7 +73,7 @@ SQL;
 	 *
 	 * @return string[]
 	 */
-	public function systemTableList()
+	public function systemTableList(): array
 	{
 		return ['sqlite_master', 'sqlite_temp_master', 'sqlite_sequence'];
 	}
@@ -83,7 +83,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function viewList()
+	public function viewList(): string
 	{
 		return <<<SQL
 			SELECT "name" FROM "sqlite_master" WHERE "type" = 'view'
@@ -95,7 +95,7 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function triggerList()
+	public function triggerList(): string
 	{
 		return 'SELECT "name" FROM "sqlite_master" WHERE "type"=\'trigger\'';
 	}
@@ -103,9 +103,9 @@ SQL;
 	/**
 	 * Return sql to list functions
 	 *
-	 * @return NULL
+	 * @return string
 	 */
-	public function functionList()
+	public function functionList(): ?string
 	{
 		return NULL;
 	}
@@ -113,9 +113,9 @@ SQL;
 	/**
 	 * Return sql to list stored procedures
 	 *
-	 * @return NULL
+	 * @return string
 	 */
-	public function procedureList()
+	public function procedureList(): ?string
 	{
 		return NULL;
 	}
@@ -123,9 +123,9 @@ SQL;
 	/**
 	 * Return sql to list sequences
 	 *
-	 * @return NULL
+	 * @return string
 	 */
-	public function sequenceList()
+	public function sequenceList(): ?string
 	{
 		return NULL;
 	}
@@ -135,18 +135,18 @@ SQL;
 	 *
 	 * @return string[]
 	 */
-	public function typeList()
+	public function typeList(): array
 	{
 		return ['INTEGER', 'REAL', 'TEXT', 'BLOB'];
 	}
 
 	/**
-	 * SQL to show infromation about columns in a table
+	 * SQL to show information about columns in a table
 	 *
 	 * @param string $table
 	 * @return string
 	 */
-	public function columnList($table)
+	public function columnList(string $table): string
 	{
 		return 'PRAGMA table_info("' . $table . '")';
 	}
@@ -158,7 +158,7 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function fkList($table)
+	public function fkList(string $table): string
 	{
 		return 'PRAGMA foreign_key_list("' . $table . '")';
 	}
@@ -170,7 +170,7 @@ SQL;
 	 * @param string $table
 	 * @return string
 	 */
-	public function indexList($table)
+	public function indexList(string $table): string
 	{
 		return 'PRAGMA index_list("' . $table . '")';
 	}

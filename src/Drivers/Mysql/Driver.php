@@ -16,12 +16,11 @@ namespace Query\Drivers\Mysql;
 
 use PDO;
 use Query\Drivers\AbstractDriver;
-use Query\Drivers\DriverInterface;
 
 /**
  * MySQL specific class
  */
-class Driver extends AbstractDriver implements DriverInterface {
+class Driver extends AbstractDriver {
 
 	/**
 	 * Set the backtick as the MySQL escape character
@@ -46,7 +45,7 @@ class Driver extends AbstractDriver implements DriverInterface {
 	 * @param string $password
 	 * @param array $options
 	 */
-	public function __construct($dsn, $username=NULL, $password=NULL, array $options=[])
+	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $options=[])
 	{
 		// Set the charset to UTF-8
 		if (\defined('\\PDO::MYSQL_ATTR_INIT_COMMAND'))

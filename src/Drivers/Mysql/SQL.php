@@ -29,7 +29,7 @@ class SQL extends AbstractSQL {
 	 * @param int|boolean $offset
 	 * @return string
 	 */
-	public function limit($sql, $limit, $offset=FALSE)
+	public function limit(string $sql, int $limit, $offset=FALSE): string
 	{
 		if ( ! is_numeric($offset))
 		{
@@ -45,7 +45,7 @@ class SQL extends AbstractSQL {
 	 * @param string $sql
 	 * @return string
 	 */
-	public function explain($sql)
+	public function explain(string $sql): string
 	{
 		return "EXPLAIN EXTENDED {$sql}";
 	}
@@ -55,7 +55,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function random()
+	public function random(): string
 	{
 		return ' RAND() DESC';
 	}
@@ -65,7 +65,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function dbList()
+	public function dbList(): string
 	{
 		return "SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')";
 	}
@@ -76,12 +76,14 @@ class SQL extends AbstractSQL {
 	 * @param string $database
 	 * @return string
 	 */
-	public function tableList($database='')
+	public function tableList($database=''): string
 	{
+		// @codeCoverageIgnoreStart
 		if ( ! empty($database))
 		{
 			return "SHOW TABLES FROM `{$database}`";
 		}
+		// @codeCoverageIgnoreEnd
 
 		return 'SHOW TABLES';
 	}
@@ -91,7 +93,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function systemTableList()
+	public function systemTableList(): string
 	{
 		return 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
 			WHERE `TABLE_SCHEMA`=\'information_schema\'';
@@ -102,7 +104,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function viewList()
+	public function viewList(): string
 	{
 		return 'SELECT `table_name` FROM `information_schema`.`views`';
 	}
@@ -112,7 +114,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function triggerList()
+	public function triggerList(): string
 	{
 		return 'SHOW TRIGGERS';
 	}
@@ -122,7 +124,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function functionList()
+	public function functionList(): string
 	{
 		return 'SHOW FUNCTION STATUS';
 	}
@@ -132,7 +134,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function procedureList()
+	public function procedureList(): string
 	{
 		return 'SHOW PROCEDURE STATUS';
 	}
@@ -140,9 +142,9 @@ class SQL extends AbstractSQL {
 	/**
 	 * Return sql to list sequences
 	 *
-	 * @return NULL
+	 * @return string
 	 */
-	public function sequenceList()
+	public function sequenceList(): ?string
 	{
 		return NULL;
 	}
@@ -152,7 +154,7 @@ class SQL extends AbstractSQL {
 	 *
 	 * @return string
 	 */
-	public function typeList()
+	public function typeList(): string
 	{
 		return "SELECT DISTINCT `DATA_TYPE` FROM `information_schema`.`COLUMNS`";
 	}
@@ -163,7 +165,7 @@ class SQL extends AbstractSQL {
 	 * @param string $table
 	 * @return string
 	 */
-	public function columnList($table)
+	public function columnList(string $table): string
 	{
 		return "SHOW FULL COLUMNS FROM {$table}";
 	}
@@ -175,7 +177,7 @@ class SQL extends AbstractSQL {
 	 * @param string $table
 	 * @return string
 	 */
-	public function fkList($table)
+	public function fkList(string $table): string
 	{
 		return <<<SQL
 			SELECT DISTINCT `kcu`.`COLUMN_NAME` as `child_column`,
@@ -197,9 +199,9 @@ SQL;
 	 * Get the list of indexes for the current table
 	 *
 	 * @param string $table
-	 * @return array
+	 * @return string
 	 */
-	public function indexList($table)
+	public function indexList(string $table): string
 	{
 		return "SHOW INDEX IN {$table}";
 	}

@@ -14,10 +14,10 @@
  */
 namespace Query\Tests\Drivers\MySQL;
 
-use InvalidArgumentException;
 use PDO;
 use Query\Drivers\Mysql\Driver;
 use Query\Tests\BaseDriverTest;
+use TypeError;
 
 /**
  * MySQLTest class.
@@ -132,7 +132,7 @@ SQL;
 
 	public function testBadPreparedStatement()
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(TypeError::class);
 
 		$sql = <<<SQL
 			INSERT INTO `create_test` (`id`, `key`, `val`)

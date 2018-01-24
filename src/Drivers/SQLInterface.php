@@ -30,7 +30,7 @@ interface SQLInterface {
 	 * @param int|bool $offset
 	 * @return string
 	 */
-	public function limit($sql, $limit, $offset=FALSE);
+	public function limit(string $sql, int $limit, $offset=FALSE): string;
 
 	/**
 	 * Modify the query to get the query plan
@@ -38,33 +38,33 @@ interface SQLInterface {
 	 * @param string $sql
 	 * @return string
 	 */
-	public function explain($sql);
+	public function explain(string $sql): string;
 
 	/**
 	 * Get the sql for random ordering
 	 *
 	 * @return string
 	 */
-	public function random();
+	public function random(): string;
 
 	/**
 	 * Returns sql to list other databases
 	 *
 	 * @return string
 	 */
-	public function dbList();
+	public function dbList(): string;
 
 	/**
 	 * Returns sql to list tables
 	 *
 	 * @return string
 	 */
-	public function tableList();
+	public function tableList(): string;
 
 	/**
 	 * Returns sql to list system tables
 	 *
-	 * @return string
+	 * @return string|array
 	 */
 	public function systemTableList();
 
@@ -73,35 +73,35 @@ interface SQLInterface {
 	 *
 	 * @return string
 	 */
-	public function viewList();
+	public function viewList(): string;
 
 	/**
 	 * Returns sql to list triggers
 	 *
 	 * @return string
 	 */
-	public function triggerList();
+	public function triggerList(): ?string;
 
 	/**
 	 * Return sql to list functions
 	 *
-	 * @return NULL
+	 * @return string
 	 */
-	public function functionList();
+	public function functionList(): ?string;
 
 	/**
 	 * Return sql to list stored procedures
 	 *
 	 * @return string
 	 */
-	public function procedureList();
+	public function procedureList(): ?string;
 
 	/**
 	 * Return sql to list sequences
 	 *
 	 * @return string
 	 */
-	public function sequenceList();
+	public function sequenceList(): ?string;
 
 	/**
 	 * Return sql to list database field types
@@ -117,22 +117,22 @@ interface SQLInterface {
 	 * @param string $table
 	 * @return string
 	 */
-	public function columnList($table);
+	public function columnList(string $table): string;
 
 	/**
 	 * Get the list of foreign keys for the current
 	 * table
 	 *
 	 * @param string $table
-	 * @return array
+	 * @return string
 	 */
-	public function fkList($table);
+	public function fkList(string $table): string;
 
 	/**
 	 * Get the list of indexes for the current table
 	 *
 	 * @param string $table
-	 * @return array
+	 * @return string
 	 */
-	public function indexList($table);
+	public function indexList(string $table): string;
 }

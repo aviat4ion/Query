@@ -63,4 +63,14 @@ class CoreTest extends TestCase {
 
 		$this->assertTrue($numSupported > 0);
 	}
+
+	public function testNullQuery(): void
+	{
+		$this->assertNull(\Query(NULL));
+	}
+
+	public function testEmptyRegexInArray(): void
+	{
+		$this->assertFalse(\regexInArray([], 'foo'));
+	}
 }

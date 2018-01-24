@@ -14,6 +14,8 @@
  */
 namespace Query\Drivers;
 
+use PDOStatement;
+
 /**
  * PDO Interface to implement for database drivers
  */
@@ -27,17 +29,17 @@ interface DriverInterface {
 	 * @param string $password
 	 * @param array $driverOptions
 	 */
-	public function __construct($dsn, $username=NULL, $password=NULL, array $driverOptions = []);
+	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $driverOptions = []);
 
 	/**
 	 * Simplifies prepared statements for database queries
 	 *
 	 * @param string $sql
 	 * @param array $data
-	 * @return \PDOStatement | FALSE
+	 * @return \PDOStatement|null
 	 * @throws \InvalidArgumentException
 	 */
-	public function prepareQuery($sql, $data);
+	public function prepareQuery(string $sql, array $data): ?PDOStatement;
 
 	/**
 	 * Retrieve column information for the current database table
@@ -45,14 +47,14 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getColumns($table);
+	public function getColumns($table): ?array;
 
 	/**
 	 * Retrieve list of data types for the database
 	 *
 	 * @return array
 	 */
-	public function getTypes();
+	public function getTypes(): ?array;
 
 	/**
 	 * Retrieve indexes for the table
@@ -60,7 +62,7 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getIndexes($table);
+	public function getIndexes($table): ?array;
 
 	/**
 	 * Retrieve foreign keys for the table
@@ -68,14 +70,14 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getFks($table);
+	public function getFks($table): ?array;
 
 	/**
 	 * Return list of tables for the current database
 	 *
 	 * @return array
 	 */
-	public function getTables();
+	public function getTables(): ?array;
 
 	/**
 	 * Retrieves an array of non-user-created tables for
@@ -83,49 +85,49 @@ interface DriverInterface {
 	 *
 	 * @return array
 	 */
-	public function getSystemTables();
+	public function getSystemTables(): ?array;
 
 	/**
 	 * Return list of dbs for the current connection, if possible
 	 *
 	 * @return array
 	 */
-	public function getDbs();
+	public function getDbs(): ?array;
 
 	/**
 	 * Return list of views for the current database
 	 *
 	 * @return array
 	 */
-	public function getViews();
+	public function getViews(): ?array;
 
 	/**
 	 * Return list of sequences for the current database, if they exist
 	 *
 	 * @return array
 	 */
-	public function getSequences();
+	public function getSequences(): ?array;
 
 	/**
 	 * Return list of functions for the current database
 	 *
 	 * @return array
 	 */
-	public function getFunctions();
+	public function getFunctions(): ?array;
 
 	/**
 	 * Return list of stored procedures for the current database
 	 *
 	 * @return array
 	 */
-	public function getProcedures();
+	public function getProcedures(): ?array;
 
 	/**
 	 * Return list of triggers for the current database
 	 *
 	 * @return array
 	 */
-	public function getTriggers();
+	public function getTriggers(): ?array;
 
 	/**
 	 * Surrounds the string with the databases identifier escape characters
@@ -148,9 +150,9 @@ interface DriverInterface {
 	 *
 	 * @param string $sql
 	 * @param array $params
-	 * @return \PDOStatement
+	 * @return PDOStatement
 	 */
-	public function prepareExecute($sql, $params);
+	public function prepareExecute(string $sql, array $params): ?PDOStatement;
 
 	/**
 	 * Method to simplify retrieving db results for meta-data queries
@@ -159,14 +161,14 @@ interface DriverInterface {
 	 * @param bool $filteredIndex
 	 * @return array
 	 */
-	public function driverQuery($query, $filteredIndex=TRUE);
+	public function driverQuery($query, $filteredIndex=TRUE): ?array;
 
 	/**
 	 * Returns number of rows affected by an INSERT, UPDATE, DELETE type query
 	 *
 	 * @return int
 	 */
-	public function affectedRows();
+	public function affectedRows(): int;
 
 	/**
 	 * Return the number of rows returned for a SELECT query
@@ -174,7 +176,7 @@ interface DriverInterface {
 	 *
 	 * @return int
 	 */
-	public function numRows();
+	public function numRows(): ?int;
 
 	/**
 	 * Prefixes a table if it is not already prefixed
@@ -182,7 +184,7 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return string
 	 */
-	public function prefixTable($table);
+	public function prefixTable(string $table): string;
 
 	/**
 	 * Create sql for batch insert
@@ -191,7 +193,7 @@ interface DriverInterface {
 	 * @param array $data
 	 * @return array
 	 */
-	public function insertBatch($table, $data=[]);
+	public function insertBatch(string $table, array $data=[]): array;
 
 	/**
 	 * Creates a batch update, and executes it.
@@ -202,7 +204,7 @@ interface DriverInterface {
 	 * @param string $where
 	 * @return int|null
 	 */
-	public function updateBatch($table, $data, $where);
+	public function updateBatch(string $table, $data, $where);
 
 	/**
 	 * Get the SQL class for the current driver
@@ -224,5 +226,5 @@ interface DriverInterface {
 	 * @param string $queryString
 	 * @return void
 	 */
-	public function setLastQuery(string $queryString);
+	public function setLastQuery(string $queryString): void;
 }

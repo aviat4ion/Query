@@ -67,7 +67,7 @@ abstract class AbstractUtil {
 		// 		'constraint' => ...,
 		// 		'index' => ...,
 		// )
-		$columnArray = \array_zipper([
+		$columnArray = \arrayZipper([
 			'type' => $fields,
 			'constraint' => $constraints
 		]);
