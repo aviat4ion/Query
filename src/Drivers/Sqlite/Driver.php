@@ -37,7 +37,7 @@ class Driver extends AbstractDriver {
 	 * @param string $pass
 	 * @param array $driverOptions
 	 */
-	public function __construct($dsn, $user=NULL, $pass=NULL, array $driverOptions=[])
+	public function __construct(string $dsn, string $user=NULL, string $pass=NULL, array $driverOptions=[])
 	{
 		if (strpos($dsn, 'sqlite:') === FALSE)
 		{
