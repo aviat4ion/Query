@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\ConnectionManager</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html#Query">Query</a>
+          </li>
+          <li class="separator">ConnectionManager</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#coverage">Coverage</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="#history">History</a>
+          </li>
+          <li>
+            <a href="../source/ConnectionManager.php.html#line24">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\</small>ConnectionManager</h1>
+        <h4>Connection manager class to manage connections for the Query method</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class ConnectionManager
+            {<br/><ul class="none"><li>// methods</li><li>public void <a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/__clone.html">__clone</a>()
+                    </li><li>public void <a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/__sleep.html">__sleep</a>()
+                    </li><li>public void <a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/__wakeup.html">__wakeup</a>()
+                    </li><li>public static <span title="ConnectionManager">ConnectionManager</span> <a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/getInstance.html">getInstance</a>()
+                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/getConnection.html">getConnection</a>()
+                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/connect.html">connect</a>()
+                    </li><li>public array <a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/parseParams.html">parseParams</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="coverage">Coverage</h2>
+        <table class="styled">
+          <tr>
+            <td>Methods</td>
+            <td class="percent">0%</td>
+            <td class="nummeric">0 / 7</td>
+          </tr>
+          <tr>
+            <td>Lines</td>
+            <td class="percent">0%</td>
+            <td class="nummeric"> / </td>
+          </tr>
+        </table>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="__clone"><a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/__clone.html">__clone()</a>
+                — Private clone method to prevent cloning</li>
+            <li id="__sleep"><a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/__sleep.html">__sleep()</a>
+                — Prevent serialization of this object</li>
+            <li id="__wakeup"><a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/__wakeup.html">__wakeup()</a>
+                — Make sure serialize/deserialize doesn't work</li>
+            <li id="connect"><a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/connect.html">connect()</a>
+                — Parse the passed parameters and return a connection</li>
+            <li id="getConnection"><a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/getConnection.html">getConnection()</a>
+                — Returns the connection specified by the name given</li>
+            <li id="getInstance"><a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/getInstance.html">getInstance()</a>
+                — Return  a connection manager instance</li>
+            <li id="parseParams"><a title="Query\ConnectionManager" href="../classes/Query_ConnectionManager/parseParams.html">parseParams()</a>
+                — Parses params into a dsn and option array</li>
+          </ul>
+        </div>
+        <h2 id="history">History</h2>
+        <ul class="styled history">
+          <li>
+            <h3>2018-01-24T18:14:03+00:00 (commit #<span title="1d583bcc23524ad8840e4be580e549e8d6e549f4">1d583bc</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Add more type hinting</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-23T18:49:51+00:00 (commit #<span title="516ddcd76d07f1f9973f5dea89a9c4dbdb2b430c">516ddcd</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update builds to remove PHP 7 support</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-23T16:29:43+00:00 (commit #<span title="908b9f39cd21d8c7c569d12e66a8ea7e5612267e">908b9f3</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove some dead code from the connection manager</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-22T21:04:29+00:00 (commit #<span title="8401cceb0daec6282b2c6cd20ef965592a322aa6">8401cce</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove PDOInterface to prevent conflicts in method parameters with native PDO object</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-19T20:47:34+00:00 (commit #<span title="369ca6eb0439091697ee9cbc34c83e9a4bdaace3">369ca6e</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Flatten source structure a bit</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-19T18:43:19+00:00 (commit #<span title="c735c27559da47b4d53867da59cd706e8048f4a0">c735c27</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update file headers</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-10-14T01:55:23+00:00 (commit #<span title="b8d4768b1bfe0f38d6b65f0d4acd982793c0e9ee">b8d4768</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">camelCase methods and properties</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-10-13T02:12:25+00:00 (commit #<span title="6740aaef79540842110b2f162d17a9373d2c30da">6740aae</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">PHP7 or bust!</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-10-13T00:32:23+00:00 (commit #<span title="3eb4d889f9a18b6e3c157dc5a4bbf8bac955ba97">3eb4d88</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Add Or Not Like method</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-09-07T18:22:52+00:00 (commit #<span title="2db7ad182db1419adb766249c9855d548adefd70">2db7ad1</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">More style fixes</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-09-07T17:17:17+00:00 (commit #<span title="24f3b1d7011b6087a549e190582386c2669da8ce">24f3b1d</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update header comments</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-09-07T17:10:03+00:00 (commit #<span title="bb382131cc0d34c5ef725a27b7133c595d11825e">bb38213</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Code Style fixes</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-11-11T20:44:24+00:00 (commit #<span title="c0674d5faa1ca16775611331181bc8446efb97ce">c0674d5</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove the last of the one line if statements</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-11-11T14:25:21+00:00 (commit #<span title="e62f5771a5d6cde4ca6f18f62bd99834ea0d06a0">e62f577</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix a bunch of one line if statements</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-11-11T01:59:03+00:00 (commit #<span title="2613a1c8a44d7b94f427dce703114a25f38b15e8">2613a1c</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update lots of comments</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-11-10T22:30:18+00:00 (commit #<span title="8d65af5c4ac3972015bc2cc56f9341fce0dfc388">8d65af5</span>)</h3>
+            <div>
+              <p>
+                        Author: Scrutinizer Auto-Fixer (auto-fixer@scrutinizer-ci.com) /
+                        Commiter: Scrutinizer Auto-Fixer (auto-fixer@scrutinizer-ci.com)
+                    </p>
+              <pre class="wrapped">Scrutinizer Auto-Fixes
+
+This commit consists of patches automatically generated for this project on https://scrutinizer-ci.com</pre>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.11.0-dev - Copyright (C) 2010 - 2018 by Arne Blankerts and Contributors</span>
+    </footer>
+  </body>
+</html>
