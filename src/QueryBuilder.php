@@ -120,12 +120,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function __call(string $name, array $params)
 	{
-		//foreach([$this, $this->driver] as $object)
+		if (method_exists($this->driver, $name))
 		{
-			if (method_exists($this->driver, $name))
-			{
-				return \call_user_func_array([$this->driver, $name], $params);
-			}
+			return \call_user_func_array([$this->driver, $name], $params);
 		}
 
 		throw new BadMethodCallException('Method does not exist');

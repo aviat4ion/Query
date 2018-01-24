@@ -30,7 +30,7 @@ class Driver extends AbstractDriver {
 	 * @param string $password
 	 * @param array  $options
 	 */
-	public function __construct($dsn, $username=NULL, $password=NULL, array $options=[])
+	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $options=[])
 	{
 		if (strpos($dsn, 'pgsql') === FALSE)
 		{
