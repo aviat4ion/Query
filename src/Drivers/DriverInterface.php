@@ -204,7 +204,7 @@ interface DriverInterface {
 	 * @param string $where
 	 * @return int|null
 	 */
-	public function updateBatch(string $table, $data, $where);
+	public function updateBatch(string $table, $data, $where): ?int;
 
 	/**
 	 * Get the SQL class for the current driver

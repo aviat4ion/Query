@@ -119,6 +119,12 @@ SQL;
 
 	public function testBadPreparedStatement()
 	{
+		if (is_a($this, \UnitTestCase::class))
+		{
+			$this->markTestSkipped();
+			return;
+		}
+
 		$this->expectException(TypeError::class);
 
 		$sql = <<<SQL
