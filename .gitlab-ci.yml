@@ -1,7 +1,8 @@
 before_script:
     # Install dependencies
     - bash build/docker_install.sh > /dev/null
-
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install --ignore-platform-reqs
 services:
     - mysql:latest
     - postgres:latest
