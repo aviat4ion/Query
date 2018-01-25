@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\Drivers\SQLInterface</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../interfaces.html">Interfaces</a>
+          </li>
+          <li class="separator">
+            <a href="../interfaces.html#Query_Drivers">Query\Drivers</a>
+          </li>
+          <li class="separator">SQLInterface</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#violations">Violations</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/Drivers/SQLInterface.php.html#line20">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\Drivers\</small>SQLInterface</h1>
+        <h4>Interface for database-specific syntax subclasses</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">interface SQLInterface
+            {<br/><ul class="none"><li>// methods</li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/limit.html">limit</a>()
+                    </li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/explain.html">explain</a>()
+                    </li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/random.html">random</a>()
+                    </li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/dbList.html">dbList</a>()
+                    </li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/tableList.html">tableList</a>()
+                    </li><li>public string|array <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/systemTableList.html">systemTableList</a>()
+                    </li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/viewList.html">viewList</a>()
+                    </li><li>public ?string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/triggerList.html">triggerList</a>()
+                    </li><li>public ?string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/functionList.html">functionList</a>()
+                    </li><li>public ?string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/procedureList.html">procedureList</a>()
+                    </li><li>public ?string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/sequenceList.html">sequenceList</a>()
+                    </li><li>public string|array <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/typeList.html">typeList</a>()
+                    </li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/columnList.html">columnList</a>()
+                    </li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/fkList.html">fkList</a>()
+                    </li><li>public string <a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/indexList.html">indexList</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="columnList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/columnList.html">columnList()</a>
+                — Get information about the columns in the specified table</li>
+            <li id="dbList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/dbList.html">dbList()</a>
+                — Returns sql to list other databases</li>
+            <li id="explain"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/explain.html">explain()</a>
+                — Modify the query to get the query plan</li>
+            <li id="fkList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/fkList.html">fkList()</a>
+                — Get the list of foreign keys for the current table</li>
+            <li id="functionList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/functionList.html">functionList()</a>
+                — Return sql to list functions</li>
+            <li id="indexList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/indexList.html">indexList()</a>
+                — Get the list of indexes for the current table</li>
+            <li id="limit"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/limit.html">limit()</a>
+                — Get database specific sql for limit clause</li>
+            <li id="procedureList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/procedureList.html">procedureList()</a>
+                — Return sql to list stored procedures</li>
+            <li id="random"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/random.html">random()</a>
+                — Get the sql for random ordering</li>
+            <li id="sequenceList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/sequenceList.html">sequenceList()</a>
+                — Return sql to list sequences</li>
+            <li id="systemTableList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/systemTableList.html">systemTableList()</a>
+                — Returns sql to list system tables</li>
+            <li id="tableList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/tableList.html">tableList()</a>
+                — Returns sql to list tables</li>
+            <li id="triggerList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/triggerList.html">triggerList()</a>
+                — Returns sql to list triggers</li>
+            <li id="typeList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/typeList.html">typeList()</a>
+                — Return sql to list database field types</li>
+            <li id="viewList"><a title="Query\Drivers\SQLInterface" href="../interfaces/Query_Drivers_SQLInterface/viewList.html">viewList()</a>
+                — Returns sql to list views</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.11.0-dev - Copyright (C) 2010 - 2018 by Arne Blankerts and Contributors</span>
+    </footer>
+  </body>
+</html>

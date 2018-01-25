@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\State</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html#Query">Query</a>
+          </li>
+          <li class="separator">State</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#coverage">Coverage</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="#history">History</a>
+          </li>
+          <li>
+            <a href="../source/State.php.html#line21">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\</small>State</h1>
+        <h4>Query builder state</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class State
+            {<br/><ul class="none"><li>// methods</li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setSelectString.html">setSelectString</a>()
+                    </li><li>public string <a title="Query\State" href="../classes/Query_State/getSelectString.html">getSelectString</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/appendSelectString.html">appendSelectString</a>()
+                    </li><li>public string <a title="Query\State" href="../classes/Query_State/getFromString.html">getFromString</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setFromString.html">setFromString</a>()
+                    </li><li>public string <a title="Query\State" href="../classes/Query_State/getSetString.html">getSetString</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setSetString.html">setSetString</a>()
+                    </li><li>public string <a title="Query\State" href="../classes/Query_State/getOrderString.html">getOrderString</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setOrderString.html">setOrderString</a>()
+                    </li><li>public string <a title="Query\State" href="../classes/Query_State/getGroupString.html">getGroupString</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setGroupString.html">setGroupString</a>()
+                    </li><li>public array <a title="Query\State" href="../classes/Query_State/getSetArrayKeys.html">getSetArrayKeys</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/appendSetArrayKeys.html">appendSetArrayKeys</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setSetArrayKeys.html">setSetArrayKeys</a>()
+                    </li><li>public array <a title="Query\State" href="../classes/Query_State/getOrderArray.html">getOrderArray</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setOrderArray.html">setOrderArray</a>()
+                    </li><li>public array <a title="Query\State" href="../classes/Query_State/getGroupArray.html">getGroupArray</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setGroupArray.html">setGroupArray</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/appendGroupArray.html">appendGroupArray</a>()
+                    </li><li>public array <a title="Query\State" href="../classes/Query_State/getValues.html">getValues</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/appendValues.html">appendValues</a>()
+                    </li><li>public array <a title="Query\State" href="../classes/Query_State/getWhereValues.html">getWhereValues</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/appendWhereValues.html">appendWhereValues</a>()
+                    </li><li>public ?int <a title="Query\State" href="../classes/Query_State/getLimit.html">getLimit</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setLimit.html">setLimit</a>()
+                    </li><li>public string|false <a title="Query\State" href="../classes/Query_State/getOffset.html">getOffset</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/setOffset.html">setOffset</a>()
+                    </li><li>public array <a title="Query\State" href="../classes/Query_State/getQueryMap.html">getQueryMap</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/appendMap.html">appendMap</a>()
+                    </li><li>public array <a title="Query\State" href="../classes/Query_State/getHavingMap.html">getHavingMap</a>()
+                    </li><li>public <span title="State">State</span> <a title="Query\State" href="../classes/Query_State/appendHavingMap.html">appendHavingMap</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="coverage">Coverage</h2>
+        <table class="styled">
+          <tr>
+            <td>Methods</td>
+            <td class="percent">0%</td>
+            <td class="nummeric">0 / 31</td>
+          </tr>
+          <tr>
+            <td>Lines</td>
+            <td class="percent">0%</td>
+            <td class="nummeric"> / </td>
+          </tr>
+        </table>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="appendGroupArray">
+              <a title="Query\State" href="../classes/Query_State/appendGroupArray.html">appendGroupArray()</a>
+            </li>
+            <li id="appendHavingMap">
+              <a title="Query\State" href="../classes/Query_State/appendHavingMap.html">appendHavingMap()</a>
+            </li>
+            <li id="appendMap"><a title="Query\State" href="../classes/Query_State/appendMap.html">appendMap()</a>
+                — Add an additional set of mapping pairs to a internal map</li>
+            <li id="appendSelectString">
+              <a title="Query\State" href="../classes/Query_State/appendSelectString.html">appendSelectString()</a>
+            </li>
+            <li id="appendSetArrayKeys">
+              <a title="Query\State" href="../classes/Query_State/appendSetArrayKeys.html">appendSetArrayKeys()</a>
+            </li>
+            <li id="appendValues">
+              <a title="Query\State" href="../classes/Query_State/appendValues.html">appendValues()</a>
+            </li>
+            <li id="appendWhereValues">
+              <a title="Query\State" href="../classes/Query_State/appendWhereValues.html">appendWhereValues()</a>
+            </li>
+            <li id="getFromString">
+              <a title="Query\State" href="../classes/Query_State/getFromString.html">getFromString()</a>
+            </li>
+            <li id="getGroupArray">
+              <a title="Query\State" href="../classes/Query_State/getGroupArray.html">getGroupArray()</a>
+            </li>
+            <li id="getGroupString">
+              <a title="Query\State" href="../classes/Query_State/getGroupString.html">getGroupString()</a>
+            </li>
+            <li id="getHavingMap">
+              <a title="Query\State" href="../classes/Query_State/getHavingMap.html">getHavingMap()</a>
+            </li>
+            <li id="getLimit">
+              <a title="Query\State" href="../classes/Query_State/getLimit.html">getLimit()</a>
+            </li>
+            <li id="getOffset">
+              <a title="Query\State" href="../classes/Query_State/getOffset.html">getOffset()</a>
+            </li>
+            <li id="getOrderArray">
+              <a title="Query\State" href="../classes/Query_State/getOrderArray.html">getOrderArray()</a>
+            </li>
+            <li id="getOrderString">
+              <a title="Query\State" href="../classes/Query_State/getOrderString.html">getOrderString()</a>
+            </li>
+            <li id="getQueryMap">
+              <a title="Query\State" href="../classes/Query_State/getQueryMap.html">getQueryMap()</a>
+            </li>
+            <li id="getSelectString">
+              <a title="Query\State" href="../classes/Query_State/getSelectString.html">getSelectString()</a>
+            </li>
+            <li id="getSetArrayKeys">
+              <a title="Query\State" href="../classes/Query_State/getSetArrayKeys.html">getSetArrayKeys()</a>
+            </li>
+            <li id="getSetString">
+              <a title="Query\State" href="../classes/Query_State/getSetString.html">getSetString()</a>
+            </li>
+            <li id="getValues">
+              <a title="Query\State" href="../classes/Query_State/getValues.html">getValues()</a>
+            </li>
+            <li id="getWhereValues">
+              <a title="Query\State" href="../classes/Query_State/getWhereValues.html">getWhereValues()</a>
+            </li>
+            <li id="setFromString">
+              <a title="Query\State" href="../classes/Query_State/setFromString.html">setFromString()</a>
+            </li>
+            <li id="setGroupArray">
+              <a title="Query\State" href="../classes/Query_State/setGroupArray.html">setGroupArray()</a>
+            </li>
+            <li id="setGroupString">
+              <a title="Query\State" href="../classes/Query_State/setGroupString.html">setGroupString()</a>
+            </li>
+            <li id="setLimit">
+              <a title="Query\State" href="../classes/Query_State/setLimit.html">setLimit()</a>
+            </li>
+            <li id="setOffset">
+              <a title="Query\State" href="../classes/Query_State/setOffset.html">setOffset()</a>
+            </li>
+            <li id="setOrderArray">
+              <a title="Query\State" href="../classes/Query_State/setOrderArray.html">setOrderArray()</a>
+            </li>
+            <li id="setOrderString">
+              <a title="Query\State" href="../classes/Query_State/setOrderString.html">setOrderString()</a>
+            </li>
+            <li id="setSelectString">
+              <a title="Query\State" href="../classes/Query_State/setSelectString.html">setSelectString()</a>
+            </li>
+            <li id="setSetArrayKeys">
+              <a title="Query\State" href="../classes/Query_State/setSetArrayKeys.html">setSetArrayKeys()</a>
+            </li>
+            <li id="setSetString">
+              <a title="Query\State" href="../classes/Query_State/setSetString.html">setSetString()</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="history">History</h2>
+        <ul class="styled history">
+          <li>
+            <h3>2018-01-24T20:03:41+00:00 (commit #<span title="f967aaf96ea1c4cc43e8bae85c465beb84424a1e">f967aaf</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove method separators, update documentation building configuration</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-24T18:14:03+00:00 (commit #<span title="1d583bcc23524ad8840e4be580e549e8d6e549f4">1d583bc</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Add more type hinting</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-23T16:22:23+00:00 (commit #<span title="e4ca039b3d7b8ed82f662a183f02261df0fba416">e4ca039</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Use State class to simplify management of query builder state</pre>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.11.0-dev - Copyright (C) 2010 - 2018 by Arne Blankerts and Contributors</span>
+    </footer>
+  </body>
+</html>

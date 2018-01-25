@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Query\Drivers\Pgsql\Driver</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.html#Query_Drivers_Pgsql">Query\Drivers\Pgsql</a>
+          </li>
+          <li class="separator">Driver</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#hierarchy">Hierarchy</a>
+          </li>
+          <li>
+            <a href="#coverage">Coverage</a>
+          </li>
+          <li>
+            <a href="#tasks">Tasks</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="#history">History</a>
+          </li>
+          <li>
+            <a href="../source/Drivers/Pgsql/Driver.php.html#line22">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Query\Drivers\Pgsql\</small>Driver</h1>
+        <h4>PostgreSQL specific class</h4>
+        <p/>
+        <ul/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class Driver
+                extends <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver.html">AbstractDriver</a>
+            {<br/><ul class="none"><li>// methods</li><li>public void <a title="Query\Drivers\Pgsql\Driver" href="../classes/Query_Drivers_Pgsql_Driver/__construct.html">__construct</a>()
+                    </li><li>public ?array <a title="Query\Drivers\Pgsql\Driver" href="../classes/Query_Drivers_Pgsql_Driver/getSchemas.html">getSchemas</a>()
+                    </li><li>public array <a title="Query\Drivers\Pgsql\Driver" href="../classes/Query_Drivers_Pgsql_Driver/getFks.html">getFks</a>()
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Query\Drivers\AbstractDriver">AbstractDriver</span></li><li>public void <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/__construct.html">__construct</a>()
+                        </li><li>public mixed <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/__call.html">__call</a>()
+                        </li><li>public string <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getLastQuery.html">getLastQuery</a>()
+                        </li><li>public void <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/setLastQuery.html">setLastQuery</a>()
+                        </li><li>public SQLInterface <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSql.html">getSql</a>()
+                        </li><li>public AbstractUtil <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getUtil.html">getUtil</a>()
+                        </li><li>public void <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/setTablePrefix.html">setTablePrefix</a>()
+                        </li><li>public PDOStatement <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prepareQuery.html">prepareQuery</a>()
+                        </li><li>public PDOStatement <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prepareExecute.html">prepareExecute</a>()
+                        </li><li>public int <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/affectedRows.html">affectedRows</a>()
+                        </li><li>public string <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prefixTable.html">prefixTable</a>()
+                        </li><li>public string <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/quoteTable.html">quoteTable</a>()
+                        </li><li>public string|array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/quoteIdent.html">quoteIdent</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSchemas.html">getSchemas</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getTables.html">getTables</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getDbs.html">getDbs</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getViews.html">getViews</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSequences.html">getSequences</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getFunctions.html">getFunctions</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getProcedures.html">getProcedures</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getTriggers.html">getTriggers</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSystemTables.html">getSystemTables</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getColumns.html">getColumns</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getFks.html">getFks</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getIndexes.html">getIndexes</a>()
+                        </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getTypes.html">getTypes</a>()
+                        </li><li>public array|null <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/driverQuery.html">driverQuery</a>()
+                        </li><li>public int|null <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/numRows.html">numRows</a>()
+                        </li><li>public null|array&lt;string|array|null&gt; <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/insertBatch.html">insertBatch</a>()
+                        </li><li>public int|null <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/updateBatch.html">updateBatch</a>()
+                        </li><li>public PDOStatement <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/truncate.html">truncate</a>()
+                        </li><li>public mixed <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/_quote.html">_quote</a>()
+                        </li></ul><ul class="none"><li>// Inherited methods from <span title="PDO">PDO</span></li><li>public void <a title="PDO" href="../classes/PDO/__construct.html">__construct</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/beginTransaction.html">beginTransaction</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/commit.html">commit</a>()
+                        </li><li>public mixed <a title="PDO" href="../classes/PDO/errorCode.html">errorCode</a>()
+                        </li><li>public array <a title="PDO" href="../classes/PDO/errorInfo.html">errorInfo</a>()
+                        </li><li>public int <a title="PDO" href="../classes/PDO/exec.html">exec</a>()
+                        </li><li>public mixed <a title="PDO" href="../classes/PDO/getAttribute.html">getAttribute</a>()
+                        </li><li>public array <a title="PDO" href="../classes/PDO/getAvailableDrivers.html">getAvailableDrivers</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/inTransaction.html">inTransaction</a>()
+                        </li><li>public string <a title="PDO" href="../classes/PDO/lastInsertId.html">lastInsertId</a>()
+                        </li><li>public PDOStatement <a title="PDO" href="../classes/PDO/prepare.html">prepare</a>()
+                        </li><li>public PDOStatement <a title="PDO" href="../classes/PDO/query.html">query</a>()
+                        </li><li>public string <a title="PDO" href="../classes/PDO/quote.html">quote</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/rollBack.html">rollBack</a>()
+                        </li><li>public bool <a title="PDO" href="../classes/PDO/setAttribute.html">setAttribute</a>()
+                        </li></ul>
+
+            }<br/></div>
+        <h2 id="hierarchy">Hierarchy</h2>
+        <div class="styled">
+          <h4>Extends</h4>
+          <ul>
+            <li>
+              <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver.html">Query\Drivers\AbstractDriver</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="coverage">Coverage</h2>
+        <table class="styled">
+          <tr>
+            <td>Methods</td>
+            <td class="percent">0%</td>
+            <td class="nummeric">0 / 3</td>
+          </tr>
+          <tr>
+            <td>Lines</td>
+            <td class="percent">0%</td>
+            <td class="nummeric"> / </td>
+          </tr>
+        </table>
+        <h2 id="tasks">Tasks</h2>
+        <table class="styled">
+          <thead>
+            <tr>
+              <th style="width:3em;">Line</th>
+              <th>Task</th>
+            </tr>
+          </thead>
+          <tr>
+            <td class="nummeric">571</td>
+            <td>implement</td>
+          </tr>
+        </table>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Query\Drivers\Pgsql\Driver" href="../classes/Query_Drivers_Pgsql_Driver/__construct.html">__construct()</a>
+                — Connect to a PosgreSQL database</li>
+            <li id="getFks"><a title="Query\Drivers\Pgsql\Driver" href="../classes/Query_Drivers_Pgsql_Driver/getFks.html">getFks()</a>
+                — Retrieve foreign keys for the table</li>
+            <li id="getSchemas"><a title="Query\Drivers\Pgsql\Driver" href="../classes/Query_Drivers_Pgsql_Driver/getSchemas.html">getSchemas()</a>
+                — Get a list of schemas for the current connection</li>
+          </ul>
+          <h3>Inherited from <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver.html">Query\Drivers\AbstractDriver</a></h3>
+          <h4>public</h4>
+          <ul>
+            <li id="__call"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/__call.html">__call()</a>
+                — Allow invoke to work on table object</li>
+            <li id="_quote"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/_quote.html">_quote()</a>
+                — Helper method for quote_ident</li>
+            <li id="affectedRows"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/affectedRows.html">affectedRows()</a>
+                — Returns number of rows affected by an INSERT, UPDATE, DELETE type query</li>
+            <li id="driverQuery"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/driverQuery.html">driverQuery()</a>
+                — Method to simplify retrieving db results for meta-data queries</li>
+            <li id="getColumns"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getColumns.html">getColumns()</a>
+                — Retrieve column information for the current database table</li>
+            <li id="getDbs"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getDbs.html">getDbs()</a>
+                — Return list of dbs for the current connection, if possible</li>
+            <li id="getFks"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getFks.html">getFks()</a>
+                — Retrieve foreign keys for the table</li>
+            <li id="getFunctions"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getFunctions.html">getFunctions()</a>
+                — Return list of functions for the current database</li>
+            <li id="getIndexes"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getIndexes.html">getIndexes()</a>
+                — Retrieve indexes for the table</li>
+            <li id="getLastQuery"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getLastQuery.html">getLastQuery()</a>
+                — Get the last sql query executed</li>
+            <li id="getProcedures"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getProcedures.html">getProcedures()</a>
+                — Return list of stored procedures for the current database</li>
+            <li id="getSchemas"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSchemas.html">getSchemas()</a>
+                — Return schemas for databases that list them</li>
+            <li id="getSequences"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSequences.html">getSequences()</a>
+                — Return list of sequences for the current database, if they exist</li>
+            <li id="getSql"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSql.html">getSql()</a>
+                — Get the SQL class for the current driver</li>
+            <li id="getSystemTables"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSystemTables.html">getSystemTables()</a>
+                — Retrieves an array of non-user-created tables for the connection/database</li>
+            <li id="getTables"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getTables.html">getTables()</a>
+                — Return list of tables for the current database</li>
+            <li id="getTriggers"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getTriggers.html">getTriggers()</a>
+                — Return list of triggers for the current database</li>
+            <li id="getTypes"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getTypes.html">getTypes()</a>
+                — Retrieve list of data types for the database</li>
+            <li id="getUtil"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getUtil.html">getUtil()</a>
+                — Get the Util class for the current driver</li>
+            <li id="getViews"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getViews.html">getViews()</a>
+                — Return list of views for the current database</li>
+            <li id="insertBatch"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/insertBatch.html">insertBatch()</a>
+                — Create sql for batch insert</li>
+            <li id="numRows"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/numRows.html">numRows()</a>
+                — Return the number of rows returned for a SELECT query</li>
+            <li id="prefixTable"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prefixTable.html">prefixTable()</a>
+                — Prefixes a table if it is not already prefixed</li>
+            <li id="prepareExecute"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prepareExecute.html">prepareExecute()</a>
+                — Create and execute a prepared statement with the provided parameters</li>
+            <li id="prepareQuery"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prepareQuery.html">prepareQuery()</a>
+                — Simplifies prepared statements for database queries</li>
+            <li id="quoteIdent"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/quoteIdent.html">quoteIdent()</a>
+                — Surrounds the string with the databases identifier escape characters</li>
+            <li id="quoteTable"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/quoteTable.html">quoteTable()</a>
+                — Quote database table name, and set prefix</li>
+            <li id="setLastQuery"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/setLastQuery.html">setLastQuery()</a>
+                — Set the last query sql</li>
+            <li id="setTablePrefix"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/setTablePrefix.html">setTablePrefix()</a>
+                — Set the common table name prefix</li>
+            <li id="truncate"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/truncate.html">truncate()</a>
+                — Empty the passed table</li>
+            <li id="updateBatch"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/updateBatch.html">updateBatch()</a>
+                — Creates a batch update, and executes it.</li>
+          </ul>
+          <h3>Inherited from <a title="PDO" href="../classes/PDO.html">PDO</a></h3>
+          <h4>public</h4>
+          <ul>
+            <li id="beginTransaction"><a title="PDO" href="../classes/PDO/beginTransaction.html">beginTransaction()</a>
+                — 
+   Initiates a transaction
+  </li>
+            <li id="commit"><a title="PDO" href="../classes/PDO/commit.html">commit()</a>
+                — 
+   Commits a transaction
+  </li>
+            <li id="errorCode"><a title="PDO" href="../classes/PDO/errorCode.html">errorCode()</a>
+                — 
+   Fetch the SQLSTATE associated with the last operation on the database handle
+  </li>
+            <li id="errorInfo"><a title="PDO" href="../classes/PDO/errorInfo.html">errorInfo()</a>
+                — 
+   Fetch extended error information associated with the last operation on the database handle
+  </li>
+            <li id="exec"><a title="PDO" href="../classes/PDO/exec.html">exec()</a>
+                — 
+   Execute an SQL statement and return the number of affected rows
+  </li>
+            <li id="getAttribute"><a title="PDO" href="../classes/PDO/getAttribute.html">getAttribute()</a>
+                — 
+   Retrieve a database connection attribute
+  </li>
+            <li id="getAvailableDrivers"><a title="PDO" href="../classes/PDO/getAvailableDrivers.html">getAvailableDrivers()</a>
+                — 
+   Return an array of available PDO drivers
+  </li>
+            <li id="inTransaction"><a title="PDO" href="../classes/PDO/inTransaction.html">inTransaction()</a>
+                — 
+   Checks if inside a transaction
+  </li>
+            <li id="lastInsertId"><a title="PDO" href="../classes/PDO/lastInsertId.html">lastInsertId()</a>
+                — 
+   Returns the ID of the last inserted row or sequence value
+  </li>
+            <li id="prepare"><a title="PDO" href="../classes/PDO/prepare.html">prepare()</a>
+                — 
+   Prepares a statement for execution and returns a statement object
+  </li>
+            <li id="query"><a title="PDO" href="../classes/PDO/query.html">query()</a>
+                — 
+   Executes an SQL statement, returning a result set as a PDOStatement object
+  </li>
+            <li id="quote"><a title="PDO" href="../classes/PDO/quote.html">quote()</a>
+                — 
+   Quotes a string for use in a query.
+  </li>
+            <li id="rollBack"><a title="PDO" href="../classes/PDO/rollBack.html">rollBack()</a>
+                — 
+   Rolls back a transaction
+  </li>
+            <li id="setAttribute"><a title="PDO" href="../classes/PDO/setAttribute.html">setAttribute()</a>
+                — 
+   Set an attribute
+  </li>
+          </ul>
+        </div>
+        <h2 id="history">History</h2>
+        <ul class="styled history">
+          <li>
+            <h3>2018-01-24T20:03:41+00:00 (commit #<span title="f967aaf96ea1c4cc43e8bae85c465beb84424a1e">f967aaf</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove method separators, update documentation building configuration</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-24T18:25:42+00:00 (commit #<span title="16e50c3277e8d7284bccf4c9883af82d9fd83d16">16e50c3</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix some missed type hints</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-24T18:14:03+00:00 (commit #<span title="1d583bcc23524ad8840e4be580e549e8d6e549f4">1d583bc</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Add more type hinting</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-22T20:43:56+00:00 (commit #<span title="91eb8123d151dde674aa5aec4efbd1dc09e0b490">91eb812</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Various refactoring</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-19T20:47:34+00:00 (commit #<span title="369ca6eb0439091697ee9cbc34c83e9a4bdaace3">369ca6e</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Flatten source structure a bit</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2018-01-19T18:43:19+00:00 (commit #<span title="c735c27559da47b4d53867da59cd706e8048f4a0">c735c27</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update file headers</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-10-14T01:55:23+00:00 (commit #<span title="b8d4768b1bfe0f38d6b65f0d4acd982793c0e9ee">b8d4768</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">camelCase methods and properties</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-10-13T02:12:25+00:00 (commit #<span title="6740aaef79540842110b2f162d17a9373d2c30da">6740aae</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">PHP7 or bust!</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-09-07T21:39:19+00:00 (commit #<span title="ca601623ba0b2a5879c01597efbf55bbde3a34fa">ca60162</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Miscellaneous cleanup and refactoring</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-09-07T17:17:17+00:00 (commit #<span title="24f3b1d7011b6087a549e190582386c2669da8ce">24f3b1d</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update header comments</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2016-09-07T17:10:03+00:00 (commit #<span title="bb382131cc0d34c5ef725a27b7133c595d11825e">bb38213</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Code Style fixes</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-11-11T14:25:21+00:00 (commit #<span title="e62f5771a5d6cde4ca6f18f62bd99834ea0d06a0">e62f577</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Fix a bunch of one line if statements</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-11-11T01:59:03+00:00 (commit #<span title="2613a1c8a44d7b94f427dce703114a25f38b15e8">2613a1c</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Update lots of comments</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-11-10T15:12:23+00:00 (commit #<span title="b5a141ffc741a4f271bf4e110814ac8861a2312f">b5a141f</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Make class names Pascal Case</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-30T20:40:30+00:00 (commit #<span title="225017adeeeaa26d1348397124d2a4469124506f">225017a</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Lots of refactoring -- accessors/mutators instead of direct access, reduce query builder test database connections, and simplify some logic</pre>
+            </div>
+          </li>
+          <li>
+            <h3>2015-07-29T20:51:17+00:00 (commit #<span title="8511c6a445e935547b59a1d3736e7c08cf9633ea">8511c6a</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J. Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J. Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Move library into src folder, fix simpletest test runner</pre>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.11.0-dev - Copyright (C) 2010 - 2018 by Arne Blankerts and Contributors</span>
+    </footer>
+  </body>
+</html>

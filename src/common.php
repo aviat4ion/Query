@@ -1,231 +1,141 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Query
  *
- * Free Query Builder / Database Abstraction Layer
+ * SQL Query Builder / Database Abstraction Layer
  *
- * @package		Query
- * @subpackage	Core
- * @author		Timothy J. Warren
- * @copyright	Copyright (c) 2012 - 2015
- * @link 		https://github.com/aviat4ion/Query
- * @license		http://philsturgeon.co.uk/code/dbad-license
+ * PHP version 7
+ *
+ * @package     Query
+ * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @copyright   2012 - 2016 Timothy J. Warren
+ * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link        https://git.timshomepage.net/aviat4ion/Query
  */
 
-// --------------------------------------------------------------------------
+use Query\{
+    ConnectionManager,
+    QueryBuilderInterface
+};
 
 /**
  * Global functions that don't really fit anywhere else
  */
 
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('do_include'))
+/**
+ * Multibyte-safe trim function
+ *
+ * @param string $string
+ * @return string
+ */
+function mb_trim(string $string): string
 {
-	/**
-	 * Bulk directory loading workaround for use
-	 * with array_map and glob
-	 *
-	 * @param string $path
-	 * @return void
-	 */
-	function do_include($path)
-	{
-		require_once($path);
-	}
+	return preg_replace('/(^\s+)|(\s+$)/u', '', $string);
 }
 
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('mb_trim'))
+/**
+ * Filter out db rows into one array
+ *
+ * @param array $array
+ * @param mixed $index
+ * @return array
+ */
+function dbFilter(array $array, $index): array
 {
-	/**
-	 * Multibyte-safe trim function
-	 *
-	 * @param string $string
-	 * @return string
-	 */
-	function mb_trim($string)
+	$newArray = [];
+
+	foreach($array as $a)
 	{
-		return preg_replace("/(^\s+)|(\s+$)/us", "", $string);
+		$newArray[] = $a[$index];
 	}
+
+	return $newArray;
 }
 
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('db_filter'))
+/**
+ * Zip a set of arrays together on common keys
+ *
+ * The $zipperInput array is an array of arrays indexed by their place in the output
+ * array.
+ *
+ * @param array $zipperInput
+ * @return array
+ */
+function arrayZipper(array $zipperInput): array
 {
-	/**
-	 * Filter out db rows into one array
-	 *
-	 * @param array $array
-	 * @param mixed $index
-	 * @return array
-	 */
-	function db_filter($array, $index)
-	{
-		$new_array = array();
+	$output = [];
 
-		foreach($array as $a)
+	foreach($zipperInput as $appendKey => $values)
+	{
+		foreach($values as $index => $value)
 		{
-			$new_array[] = $a[$index];
-		}
-
-		return $new_array;
-	}
-}
-
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('from_camel_case'))
-{
-	/**
-	 * Create a snake_case string from camelCase
-	 *
-	 * @see http://stackoverflow.com/questions/1993721/how-to-convert-camelcase-to-camel-case
-	 *
-	 * @param string $input
-	 * @return string
-	 */
-	function from_camel_case($input) {
-		preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
-		$ret = $matches[0];
-		foreach ($ret as &$match) {
-			$match = strtolower($match);
-		}
-		return implode('_', $ret);
-	}
-}
-
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('array_zipper'))
-{
-	/**
-	 * Zip a set of arrays together on common keys
-	 *
-	 * The $zipper_input array is an array of arrays indexed by their place in the output
-	 * array.
-	 *
-	 * @param array $zipper_input
-	 * @return array
-	 */
-	function array_zipper(Array $zipper_input)
-	{
-		$output = array();
-
-		foreach($zipper_input as $append_key => $values)
-		{
-			foreach($values as $index => $value)
+			if ( ! isset($output[$index]))
 			{
-				if ( ! isset($output[$index]))
-				{
-					$output[$index] = array();
-				}
-				$output[$index][$append_key] = $value;
+				$output[$index] = [];
 			}
+			$output[$index][$appendKey] = $value;
 		}
-
-		return $output;
 	}
+
+	return $output;
 }
 
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('array_column'))
+/**
+ * Determine whether a value in the passed array matches the pattern
+ * passed
+ *
+ * @param array $array
+ * @param string $pattern
+ * @return bool
+ */
+function regexInArray(array $array, string $pattern): bool
 {
-	/**
-	 * Get an array out of an multi-dimensional array based on a common
-	 * key
-	 *
-	 * @param array $array
-	 * @param string $key
-	 * @return array
-	 */
-	function array_column(Array $array, $key)
+	if (empty($array))
 	{
-		$output = array();
-
-		// No point iterating over an empty array
-		if (empty($array))
-		{
-			return $array;
-		}
-
-		foreach($array as $inner_array)
-		{
-	 		if (array_key_exists($key, $inner_array))
-	 		{
-		 		$output[] = $inner_array[$key];
-	 		}
-		}
-
-		return $output;
-	}
-}
-
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('regex_in_array'))
-{
-	/**
-	 * Determine whether a value in the passed array matches the pattern
-	 * passed
-	 *
-	 * @param array $array
-	 * @param string $pattern
-	 * @return bool
-	 */
-	function regex_in_array(Array $array, $pattern)
-	{
-		if (empty($array))
-		{
-			return FALSE;
-		}
-
-		foreach($array as $item)
-		{
-			if (is_scalar($item) && preg_match($pattern, $item))
-			{
-				return TRUE;
-			}
-		}
-
 		return FALSE;
 	}
-}
 
-// --------------------------------------------------------------------------
-
-if ( ! function_exists('Query'))
-{
-	/**
-	 * Connection function
-	 *
-	 * Send an array or object as connection parameters to create a connection. If
-	 * the array or object has an 'alias' parameter, passing that string to this
-	 * function will return that connection. Passing no parameters returns the last
-	 * connection created.
-	 *
-	 * @param string|object|array $params
-	 * @return Query\Query_Builder|null
-	 */
-	function Query($params = '')
+	foreach($array as $item)
 	{
-		$cmanager = \Query\ConnectionManager::get_instance();
-
-		// If you are getting a previously created connection
-		if (is_scalar($params))
+		if (is_scalar($item) && preg_match($pattern, $item))
 		{
-			return $cmanager->get_connection($params);
-		}
-		elseif ( ! is_scalar($params) && ! is_null($params))
-		{
-			$params_object = (object) $params;
-
-			// Otherwise, return a new connection
-			return $cmanager->connect($params_object);
+			return TRUE;
 		}
 	}
+
+	return FALSE;
 }
+
+/**
+ * Connection function
+ *
+ * Send an array or object as connection parameters to create a connection. If
+ * the array or object has an 'alias' parameter, passing that string to this
+ * function will return that connection. Passing no parameters returns the last
+ * connection created.
+ *
+ * @param string|object|array $params
+ * @return QueryBuilderInterface|null
+ */
+function Query($params = ''): ?QueryBuilderInterface
+{
+	if ($params === NULL)
+	{
+		return NULL;
+	}
+
+	$manager = ConnectionManager::getInstance();
+
+	// If you are getting a previously created connection
+	if (is_scalar($params))
+	{
+		return $manager->getConnection($params);
+	}
+
+	$paramsObject = (object) $params;
+
+	// Otherwise, return a new connection
+	return $manager->connect($paramsObject);
+}
+
 // End of common.php

@@ -12,8 +12,8 @@
 		"postgres",
 		"pdo"
 	],
-	"homepage":"https://github.com/aviat4ion/Query",
-	"license":"dbad-license",
+	"homepage":"https://git.timshomepage.net/aviat/Query",
+	"license":"MIT",
 	"authors": [{
 		"name": "Timothy J. Warren",
 		"email": "tim@timshomepage.net",
@@ -21,9 +21,40 @@
 		"role": "Developer"
 	}],
 	"require": {
-		"php": ">=5.4"
+		"php": "^7.1"
+	},
+	"require-dev": {
+		"consolidation/robo": "^1.0.0",
+		"monolog/monolog": "^1.21",
+		"pdepend/pdepend": "^2.5",
+		"phploc/phploc": "^4.0",
+		"phpstan/phpstan": "^0.9.1",
+		"phpunit/phpunit": "^6.5",
+		"sebastian/phpcpd": "^3.0",
+		"simpletest/simpletest": "^1.1",
+		"squizlabs/php_codesniffer": "^3.0.0",
+		"theseer/phpdox": "^0.11.0"
 	},
 	"autoload": {
-		"files": ["autoload.php"]
+		"psr-4": {
+			"Query\\": "src"
+		},
+		"files": ["src/common.php"]
+	},
+  	"autoload-dev": {
+		"psr-4": {
+			"Query\\Tests\\": "tests"
+		}
+	},
+	"scripts": {
+		"build": "robo build",
+		"clean": "robo clean",
+		"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build",
+		"phpstan": "phpstan analyse -l 3 -c phpstan.neon src tests",
+		"test": "phpunit -c build --no-coverage"
+	},
+	"scripts-descriptions": {
+		"coverage": "Generate test coverage report",
+		"test": "Run unit tests"
 	}
 }

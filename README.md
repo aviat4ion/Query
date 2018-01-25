@@ -5,10 +5,10 @@ A query builder/database abstraction layer, using prepared statements for securi
 [![Build Status](https://jenkins.timshomepage.net/buildStatus/icon?job=query)](https://jenkins.timshomepage.net/job/query/)
 [![Code Coverage](https://scrutinizer-ci.com/g/aviat4ion/Query/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/aviat4ion/Query/?branch=develop)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aviat4ion/Query/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/aviat4ion/Query/?branch=develop)
-[![Latest Stable Version](https://poser.pugx.org/aviat4ion/query/v/stable.png)](https://packagist.org/packages/aviat4ion/query)
-[![Total Downloads](https://poser.pugx.org/aviat4ion/query/downloads.png)](https://packagist.org/packages/aviat4ion/query)
-[![Latest Unstable Version](https://poser.pugx.org/aviat4ion/query/v/unstable.png)](https://packagist.org/packages/aviat4ion/query)
-[![License](https://poser.pugx.org/aviat4ion/query/license.png)](http://www.dbad-license.org/)
+[![Latest Stable Version](https://poser.pugx.org/aviat/query/v/stable.png)](https://packagist.org/packages/aviat/query)
+[![Total Downloads](https://poser.pugx.org/aviat/query/downloads.png)](https://packagist.org/packages/aviat/query)
+[![Latest Unstable Version](https://poser.pugx.org/aviat/query/v/unstable.png)](https://packagist.org/packages/aviat/query)
+[![License](https://poser.pugx.org/aviat/query/license.png)](http://www.dbad-license.org/)
 
 ## Requirements
 * PDO extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
@@ -16,7 +16,6 @@ A query builder/database abstraction layer, using prepared statements for securi
 
 ## Databases Supported
 
-* Firebird (via interbase extension)
 * MySQL
 * PostgreSQL
 * SQLite
@@ -24,9 +23,6 @@ A query builder/database abstraction layer, using prepared statements for securi
 ## Including Query in your application
 
 * Install via composer and include `vendor/autoload.php`
-or
-* Just include the `autoload.php` file. This will automatically load the classes that are supported by the current PHP installation.
-
 
 ## Connecting
 
@@ -44,7 +40,7 @@ $params = array(
 	'database' => 'test_db',
 
 	// Only required for
-	// SQLite or Firebird
+	// SQLite 
 	'file' => '/path/to/db/file',
 
 	// Optional paramaters
@@ -83,11 +79,12 @@ Query('old')->query($sql);
 
 ### Running Queries
 Query uses the same interface as CodeIgniter's [Query Builder](http://www.codeigniter.com/user_guide/database/query_builder.html) class. However, it does not implement the `update_batch` or caching methods. For specific query builder methods, see the [class documentation](https://gitdev.timshomepage.net/Query/docs/classes/Query_QueryBuilder.html#methods).
+Underscored methods are also aliased to camel case methods.
 
 #### You can also run queries manually.
 
 To run a prepared statement, call
-`$db->prepare_execute($sql, $params)`.
+`$db->prepareExecute($sql, $params)`.
 
 To run a plain query, `$db->query($sql)`
 
@@ -100,8 +97,8 @@ An example of a moderately complex query:
 $query = $db->select('id, key as k, val')
 	->from('table t')
 	->where('k >', 3)
-	->or_where('id !=' 5)
-	->order_by('val', 'DESC')
+	->orWhere('id !=' 5)
+	->orderBy('val', 'DESC')
 	->limit(3, 1)
 	->get();
 ```

@@ -1,46 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+	addUncoveredFilesFromWhitelist="true"
 	colors="true"
 	stopOnFailure="false"
-	bootstrap="../tests/bootstrap.php">
+	bootstrap="./../tests/bootstrap.php">
 	<filter>
 		<whitelist>
-			<directory suffix=".php">../src/*</directory>
-			<file>autoload.php</file>
+			<directory suffix=".php">./../src/</directory>
 		</whitelist>
 	</filter>
 	<testsuites>
 		<testsuite name="CoreTests">
-			<file>../tests/core/core_test.php</file>
-			<file>../tests/core/query_parser_test.php</file>
-			<file>../tests/core/connection_manager_test.php</file>
+			<file>./../tests/CoreTest.php</file>
+			<file>./../tests/ConnectionManagerTest.php</file>
+			<file>./../tests/QueryParserTest.php</file>
 		</testsuite>
-		<testsuite name="MySQLTests">
-			<file>../tests/databases/mysql/MySQLTest.php</file>
-			<file>../tests/databases/mysql/MySQLQBTest.php</file>
+		<testsuite name="MySQL Tests">
+			<directory>./../tests/Drivers/MySQL/</directory>
 		</testsuite>
-		<testsuite name="PgSQLTests">
-			<file>../tests/databases/pgsql/PgSQLTest.php</file>
-			<file>../tests/databases/pgsql/PgSQLQBTest.php</file>
+		<testsuite name="PgSQL Tests">
+			<directory>./../tests/Drivers/PgSQL/</directory>
 		</testsuite>
-		<testsuite name="SQLiteTests">
-			<file>../tests/databases/sqlite/SQLiteTest.php</file>
-			<file>../tests/databases/sqlite/SQLiteQBTest.php</file>
+		<testsuite name="SQLite Tests">
+			<directory>./../tests/Drivers/SQLite/</directory>
 		</testsuite>
-		<testsuite name="FirebirdTests">
-			<file>../tests/databases/firebird/FirebirdTest.php</file>
-			<file>../tests/databases/firebird/FirebirdQBTest.php</file>
-		</testsuite>
-		<!--<testsuite name="PDOFirebirdTests">
-			<file>../tests/databases/pdofirebird/PDOFirebirdTest.php</file>
-			<file>../tests/databases/pdofirebird/PDOFirebirdQBTest.php</file>
-		</testsuite>-->
 	</testsuites>
 	<logging>
-		<log type="coverage-html" target="coverage"/>
+		<log type="coverage-html" target="./../coverage"/>
 		<log type="coverage-clover" target="logs/clover.xml"/>
-		<log type="coverage-crap4j" target="logs/crap4j.xml"/>
 		<log type="coverage-xml" target="logs/coverage" />
-		<log type="junit" target="logs/junit.xml" logIncompleteSkipped="false"/>
+		<log type="xml" target="logs/junit.xml" logIncompleteSkipped="true"/>
 	</logging>
 </phpunit>
