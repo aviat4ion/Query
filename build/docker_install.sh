@@ -10,7 +10,7 @@ set -xe
 
 # Install git (the php image doesn't have it) which is required by composer
 apt-get update -yqq
-apt-get install git libpq-dev libmysqlclient18 unzip firebird2.5-superclassic -yqq
+apt-get install git libpq-dev libmysqlclient18 unzip -yqq
 
 # Install phpunit, the tool that we will use for testing
 curl -Lo /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
@@ -25,5 +25,5 @@ mv "$DIR/../tests/settings-ci.json" "$DIR/../tests/settings.json"
 docker-php-ext-install pdo_mysql
 docker-php-ext-install pdo_pgsql
 #docker-php-ext-install pdo_oci
-docker-php-ext-install interbase
-docker-php-ext-install pdo_firebird
+#docker-php-ext-install interbase
+#docker-php-ext-install pdo_firebird
