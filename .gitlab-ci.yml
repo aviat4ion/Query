@@ -19,9 +19,9 @@ variables:
 test:7.1:
     image: php:7.1
     script:
-      - phpunit -c build  --no-coverage
+      - vendor/bin/phpunit -c build  --no-coverage
 
 test:7.2:
     image: php:7.2
     script:
-      - phpunit -c build  --no-coverage
+      - vendor/bin/phpunit -c build  --no-coverage
