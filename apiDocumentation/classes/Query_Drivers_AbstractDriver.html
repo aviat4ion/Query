@@ -86,8 +86,8 @@
                     </li><li>public <span title="SQLInterface">SQLInterface</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getSql.html">getSql</a>()
                     </li><li>public <span title="AbstractUtil">AbstractUtil</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getUtil.html">getUtil</a>()
                     </li><li>public void <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/setTablePrefix.html">setTablePrefix</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prepareQuery.html">prepareQuery</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prepareExecute.html">prepareExecute</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prepareQuery.html">prepareQuery</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prepareExecute.html">prepareExecute</a>()
                     </li><li>public int <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/affectedRows.html">affectedRows</a>()
                     </li><li>public string <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/prefixTable.html">prefixTable</a>()
                     </li><li>public string <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/quoteTable.html">quoteTable</a>()
@@ -109,7 +109,7 @@
                     </li><li>public ?int <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/numRows.html">numRows</a>()
                     </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/insertBatch.html">insertBatch</a>()
                     </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/updateBatch.html">updateBatch</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/truncate.html">truncate</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/truncate.html">truncate</a>()
                     </li><li>public mixed <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/_quote.html">_quote</a>()
                     </li></ul><ul class="none"><li>// Inherited methods from <span title="PDO">PDO</span></li><li>public void <a title="PDO" href="../classes/PDO/__construct.html">__construct</a>()
                         </li><li>public bool <a title="PDO" href="../classes/PDO/beginTransaction.html">beginTransaction</a>()
@@ -290,6 +290,16 @@
         <h2 id="history">History</h2>
         <ul class="styled history">
           <li>
+            <h3>2018-01-26T20:45:46+00:00 (commit #<span title="33bb440bd28d77e903a58f24afc585706e2d0f56">33bb440</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">SQLite improvements, remove nullable PDOStatement return values</pre>
+            </div>
+          </li>
+          <li>
             <h3>2018-01-26T13:39:30+00:00 (commit #<span title="3067976cb170a4c26d78b21167978bb6ab4fdb7e">3067976</span>)</h3>
             <div>
               <p>
@@ -439,16 +449,6 @@ This commit consists of patches automatically generated for this project on http
                         Commiter: Timothy J Warren (tim@timshomepage.net)
                     </p>
               <pre class="wrapped">Fix a bunch of one line if statements</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2015-11-11T01:59:03+00:00 (commit #<span title="2613a1c8a44d7b94f427dce703114a25f38b15e8">2613a1c</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update lots of comments</pre>
             </div>
           </li>
         </ul>

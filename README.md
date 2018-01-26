@@ -32,7 +32,7 @@ Create a connection array or object similar to this:
 <?php
 
 $params = array(
-	'type' => 'mysql', // mysql, pgsql, firebird, sqlite
+	'type' => 'mysql', // mysql, pgsql, sqlite
 	'host' => 'localhost', // address or socket
 	'user' => 'root',
 	'pass' => '',
@@ -43,7 +43,7 @@ $params = array(
 	// SQLite 
 	'file' => '/path/to/db/file',
 
-	// Optional paramaters
+	// Optional parameters
 	'prefix' => 'tbl_', 	// Database table prefix
 	'alias' => 'old' 		// Connection name for the Query function
 );
@@ -119,8 +119,10 @@ ORDER BY "val" DESC
 LIMIT 3 OFFSET 1
 ```
 
-
-To retrieve the results of a query, use the PDO method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or [fetchAll](http://php.net/manual/en/pdostatement.fetchall.php).
+The query execution methods `get`, `getWhere`, `insert`,
+ `insertBatch`,`update`, and `delete` return a native [PDOStatemnt](http://php.net/manual/en/class.pdostatement.php) object.
+To retrieve the results of a query, use the PDOStatement method [fetch](http://php.net/manual/en/pdostatement.fetch.php) and/or 
+[fetchAll](http://php.net/manual/en/pdostatement.fetchall.php). 
 
 ```php
 <?php
