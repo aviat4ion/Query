@@ -12,8 +12,8 @@ A query builder/database abstraction layer, using prepared statements for securi
 
 ## Requirements
 * PDO extensions for the databases you wish to use (unless it's Firebird, in which case, the interbase extension is required)
-* Supported version of PHP (Older versions may work, but are not supported)
-
+* PHP 7.1 or later
+ 
 ## Databases Supported
 
 * MySQL
@@ -78,8 +78,13 @@ Query('old')->query($sql);
 ```
 
 ### Running Queries
-Query uses the same interface as CodeIgniter's [Query Builder](http://www.codeigniter.com/user_guide/database/query_builder.html) class. However, it does not implement the `update_batch` or caching methods. For specific query builder methods, see the [class documentation](https://gitdev.timshomepage.net/Query/docs/classes/Query_QueryBuilder.html#methods).
-Underscored methods are also aliased to camel case methods.
+Query is based on CodeIgniter's [Query Builder](http://www.codeigniter.com/user_guide/database/query_builder.html) class. 
+However, it has camelCased method names, and does not implement the caching methods. 
+For specific query builder methods, see the [class documentation](https://gitdev.timshomepage.net/Query/apiDocumentation/classes/Query_QueryBuilder.html#methods).
+
+Other database methods not directly involved in building queries, are also available from the query builder object. 
+The methods available depend on the database, but common methods  are documented 
+[here](https://gitdev.timshomepage.net/Query/apiDocumentation/classes/Query_Drivers_AbstractDriver.html#methods).
 
 #### You can also run queries manually.
 
