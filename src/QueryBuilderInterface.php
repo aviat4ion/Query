@@ -393,12 +393,12 @@ interface QueryBuilderInterface {
 	 * Creates a batch update, and executes it.
 	 * Returns the number of affected rows
 	 *
-	 * @param string $table
-	 * @param array|object $data
-	 * @param string $where
-	 * @return PDOStatement
+	 * @param string $table The table to update
+	 * @param array $data an array of update values
+	 * @param string $where The where key
+	 * @return int|null
 	 */
-	public function updateBatch(string $table, $data, $where): ?PDOStatement;
+	public function updateBatch(string $table, array $data, string $where): ?int;
 
 	/**
 	 * Deletes data from a table

@@ -27,7 +27,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		$params = get_json_config();
 		if (getenv('TRAVIS')) // Travis CI Connection Info
 		{
-			$params = array(
+			$params = [
 				'host' => '127.0.0.1',
 				'port' => '5432',
 				'database' => 'test',
@@ -35,7 +35,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 				'pass' => '',
 				'type' => 'pgsql',
 				'prefix' => 'create_'
-			);
+			];
 		}
 		// Attempt to connect, if there is a test config file
 		else if ($params !== FALSE)
@@ -44,7 +44,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 			$params->type = 'pgsql';
 			//$params->port = 5432;
 			//$params->prefix = 'create_';
-			$params->options = array();
+			$params->options = [];
 			$params->options[PDO::ATTR_PERSISTENT] = TRUE;
 		}
 

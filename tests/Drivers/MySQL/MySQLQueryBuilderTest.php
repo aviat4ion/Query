@@ -25,9 +25,9 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 	public static function setUpBeforeClass()
 	{
 		$params = get_json_config();
-		if (($var = getenv('TRAVIS'))) // Travis CI Connection Info
+		if ($var = getenv('TRAVIS')) // Travis CI Connection Info
 		{
-			$params = array(
+			$params = [
 				'host' => '127.0.0.1',
 				'port' => '3306',
 				'database' => 'test',
@@ -35,14 +35,14 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 				'user' => 'root',
 				'pass' => NULL,
 				'type' => 'mysql'
-			);
+			];
 		}
 		// Attempt to connect, if there is a test config file
 		else if ($params !== FALSE)
 		{
 			$params = $params->mysql;
-			$params->type = "MySQL";
-			$params->options = array();
+			$params->type = 'MySQL';
+			$params->options = [];
 			$params->options[PDO::ATTR_PERSISTENT]  = TRUE;
 		}
 
@@ -67,7 +67,7 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 		// The exact results are version dependent
 		// The important thing is that there is an array
 		// of results returned
-		$this->assertTrue(is_array($res));
+		$this->assertTrue(\is_array($res));
 		$this->assertTrue(count(array_keys($res[0])) > 1);
 		$this->assertTrue(array_key_exists('table', $res[0]));
 	}

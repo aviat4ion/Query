@@ -38,9 +38,9 @@ class MySQLDriverTest extends BaseDriverTest {
 		{
 			$params = $params->mysql;
 
-			self::$db = new Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
+			self::$db = new Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, [
 				PDO::ATTR_PERSISTENT => TRUE
-			));
+			]);
 		}
 
 		self::$db->setTablePrefix('create_');
@@ -62,28 +62,28 @@ class MySQLDriverTest extends BaseDriverTest {
 
 		//Attempt to create the table
 		$sql = self::$db->getUtil()->createTable('test',
-			array(
+			[
 				'id' => 'int(10)',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
-			),
-			array(
+			],
+			[
 				'id' => 'PRIMARY KEY'
-			)
+			]
 		);
 
 		self::$db->query($sql);
 
 		//Attempt to create the table
 		$sql = self::$db->getUtil()->createTable('join',
-			array(
+			[
 				'id' => 'int(10)',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
-			),
-			array(
+			],
+			[
 				'id' => 'PRIMARY KEY'
-			)
+			]
 		);
 		self::$db->query($sql);
 
@@ -93,6 +93,7 @@ class MySQLDriverTest extends BaseDriverTest {
 		$this->assertTrue(\in_array('create_test', $dbs, TRUE));
 
 	}
+
 
 	public function testTruncate()
 	{
@@ -109,7 +110,7 @@ class MySQLDriverTest extends BaseDriverTest {
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepareQuery($sql, [1,"boogers", "Gross"]);
 
 		$res = $statement->execute();
 
@@ -142,9 +143,9 @@ SQL;
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$res = self::$db->prepareExecute($sql, array(
+		$res = self::$db->prepareExecute($sql, [
 			2, "works", 'also?'
-		));
+		]);
 
 		$this->assertInstanceOf('PDOStatement', $res);
 
@@ -184,6 +185,6 @@ SQL;
 
 	public function testBackup()
 	{
-		$this->assertTrue(is_string(self::$db->getUtil()->backupStructure()));
+		$this->assertTrue(\is_string(self::$db->getUtil()->backupStructure()));
 	}
 }

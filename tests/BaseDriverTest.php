@@ -35,46 +35,46 @@ abstract class BaseDriverTest extends TestCase {
 	public function testGetTables()
 	{
 		$tables = self::$db->getTables();
-		$this->assertTrue(is_array($tables));
+		$this->assertTrue(\is_array($tables));
 		$this->assertTrue( ! empty($tables));
 	}
 
 	public function testGetSystemTables()
 	{
 		$tables = self::$db->getSystemTables();
-		$this->assertTrue(is_array($tables));
+		$this->assertTrue(\is_array($tables));
 		$this->assertTrue( ! empty($tables));
 	}
 
 	public function testBackupData()
 	{
-		$this->assertTrue(is_string(self::$db->getUtil()->backupData(array('create_delete', FALSE))));
-		$this->assertTrue(is_string(self::$db->getUtil()->backupData(array('create_delete', TRUE))));
+		$this->assertTrue(\is_string(self::$db->getUtil()->backupData(['create_delete', FALSE])));
+		$this->assertTrue(\is_string(self::$db->getUtil()->backupData(['create_delete', TRUE])));
 	}
 
 	public function testGetColumns()
 	{
 		$cols = self::$db->getColumns('test');
-		$this->assertTrue(is_array($cols));
+		$this->assertTrue(\is_array($cols));
 		$this->assertTrue( ! empty($cols));
 	}
 
 	public function testGetTypes()
 	{
 		$types = self::$db->getTypes();
-		$this->assertTrue(is_array($types));
+		$this->assertTrue(\is_array($types));
 		$this->assertTrue( ! empty($types));
 	}
 
 	public function testGetFKs()
 	{
-		$expected = array(array(
+		$expected = [[
 			'child_column' => 'ext_id',
 			'parent_table' => 'testconstraints',
 			'parent_column' => 'someid',
 			'update' => 'CASCADE',
 			'delete' => 'CASCADE'
-		));
+		]];
 
 		$keys = self::$db->getFks('testconstraints2');
 		$this->assertEqual($expected, $keys);
@@ -83,15 +83,15 @@ abstract class BaseDriverTest extends TestCase {
 	public function testGetIndexes()
 	{
 		$keys = self::$db->getIndexes('test');
-		$this->assertTrue(is_array($keys));
+		$this->assertTrue(\is_array($keys));
 	}
 
 	public function testGetViews()
 	{
 		$views = self::$db->getViews();
-		$expected = array('numbersview', 'testview');
+		$expected = ['numbersview', 'testview'];
 		$this->assertEqual($expected, array_values($views));
-		$this->assertTrue(is_array($views));
+		$this->assertTrue(\is_array($views));
 	}
 
 	public function testGetTriggers()
@@ -99,7 +99,7 @@ abstract class BaseDriverTest extends TestCase {
 		// @TODO standardize trigger output for different databases
 
 		$triggers = self::$db->getTriggers();
-		$this->assertTrue(is_array($triggers));
+		$this->assertTrue(\is_array($triggers));
 	}
 
 	public function testGetSequences()
@@ -109,22 +109,22 @@ abstract class BaseDriverTest extends TestCase {
 		// Normalize sequence names
 		$seqs = array_map('strtolower', $seqs);
 
-		$expected = array('newtable_seq');
+		$expected = ['newtable_seq'];
 
-		$this->assertTrue(is_array($seqs));
+		$this->assertTrue(\is_array($seqs));
 		$this->assertEqual($expected, $seqs);
 	}
 
 	public function testGetProcedures()
 	{
 		$procedures = self::$db->getProcedures();
-		$this->assertTrue(is_array($procedures));
+		$this->assertTrue(\is_array($procedures));
 	}
 
 	public function testGetFunctions()
 	{
 		$funcs = self::$db->getFunctions();
-		$this->assertTrue(is_array($funcs));
+		$this->assertTrue(\is_array($funcs));
 	}
 }
 // End of db_test.php

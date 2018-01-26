@@ -14,6 +14,7 @@
  */
 namespace Query\Drivers;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -130,6 +131,15 @@ interface DriverInterface {
 	public function getTriggers(): ?array;
 
 	/**
+	 * Quotes a string for use in a query (from native PDO)
+	 *
+	 * @param string $string
+	 * @param int $parameter_type
+	 * @return string
+	 */
+	public function quote($string, $parameter_type = NULL);
+
+	/**
 	 * Surrounds the string with the databases identifier escape characters
 	 *
 	 * @param string|array $ident
@@ -200,11 +210,11 @@ interface DriverInterface {
 	 * Returns the number of affected rows
 	 *
 	 * @param string $table
-	 * @param array|object $data
+	 * @param array $data
 	 * @param string $where
-	 * @return int|null
+	 * @return array
 	 */
-	public function updateBatch(string $table, $data, $where): ?int;
+	public function updateBatch(string $table, array $data, string $where): array;
 
 	/**
 	 * Get the SQL class for the current driver

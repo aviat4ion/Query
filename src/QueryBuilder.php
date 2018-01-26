@@ -774,18 +774,22 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Returns the number of affected rows
 	 *
 	 * @param string $table
-	 * @param array|object $data
+	 * @param array $data
 	 * @param string $where
-	 * @return PDOStatement|null
+	 * @return int|null
 	 */
-	public function updateBatch(string $table, $data, $where): ?PDOStatement
+	public function updateBatch(string $table, array $data, string $where): ?int
 	{
-		// Get the generated values and sql string
-		list($sql, $data) = $this->driver->updateBatch($table, $data, $where);
+		if (empty($table) || empty($data) || empty($where))
+		{
+			return NULL;
+		}
 
-		return $sql !== NULL
-			? $this->_run('', $table, $sql, $data)
-			: NULL;
+		// Get the generated values and sql string
+		[$sql, $data, $affectedRows] = $this->driver->updateBatch($table, $data, $where);
+
+		$this->_run('', $table, $sql, $data);
+		return $affectedRows;
 	}
 
 	/**
@@ -1158,14 +1162,14 @@ class QueryBuilder implements QueryBuilderInterface {
 	/**
 	 * Convert the prepared statement into readable sql
 	 *
-	 * @param array $vals
+	 * @param array $values
 	 * @param string $sql
 	 * @param int $totalTime
 	 * @return void
 	 */
-	protected function _appendQuery(array $vals = NULL, string $sql, int $totalTime)
+	protected function _appendQuery(array $values = NULL, string $sql, int $totalTime)
 	{
-		$evals = \is_array($vals) ? $vals : [];
+		$evals = \is_array($values) ? $values : [];
 		$esql = str_replace('?', "%s", $sql);
 
 		// Quote string values

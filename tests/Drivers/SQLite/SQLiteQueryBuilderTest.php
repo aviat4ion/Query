@@ -34,7 +34,7 @@ use Query\Tests\BaseQueryBuilderTest;
 	{
 		$db = Query('test_sqlite');
 
-		$this->assertTrue(self::$db === $db, "Alias passed into query function gives the original object back");
+		$this->assertTrue(self::$db === $db, 'Alias passed into query function gives the original object back');
 	}
 
 	public function testQueryExplain()
@@ -47,49 +47,49 @@ use Query\Tests\BaseQueryBuilderTest;
 
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-		$expectedPossibilities = array();
+		$expectedPossibilities = [];
 
-		$expectedPossibilities[] = array(
-			array(
+		$expectedPossibilities[] = [
+			[
 				'order' => '0',
 				'from' => '0',
 				'detail' => 'TABLE create_test USING PRIMARY KEY',
-			)
-		);
+			]
+		];
 
-		$expectedPossibilities[] = array (
-			array (
+		$expectedPossibilities[] = [
+			[
 				'selectid' => '0',
 				'order' => '0',
 				'from' => '0',
 				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~60000 rows)',
-			),
-		);
+			],
+		];
 
-		$expectedPossibilities[] = array (
-			array (
+		$expectedPossibilities[] = [
+			[
 				'selectid' => '0',
 				'order' => '0',
 				'from' => '0',
 				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
-			),
-		);
+			],
+		];
 
-		$expectedPossibilities[] = array (
-			array (
+		$expectedPossibilities[] = [
+			[
 				'selectid' => '0',
 				'order' => '0',
 				'from' => '0',
 				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~62500 rows)',
-			),
-		);
+			],
+		];
 
 		$passed = FALSE;
 
 		// Check for a matching possibility
 		foreach($expectedPossibilities as $ep)
 		{
-			if ($res == $ep)
+			if ($res === $ep)
 			{
 				$this->assertTrue(TRUE);
 				$passed = TRUE;

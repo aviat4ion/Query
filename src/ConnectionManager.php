@@ -118,12 +118,13 @@ final class ConnectionManager {
 	/**
 	 * Parse the passed parameters and return a connection
 	 *
-	 * @param \stdClass $params
+	 * @param object|array $params
+	 * @throws BadDBDriverException
 	 * @return QueryBuilderInterface
 	 */
-	public function connect(\stdClass $params): QueryBuilderInterface
+	public function connect($params): QueryBuilderInterface
 	{
-		list($dsn, $dbtype, $params, $options) = $this->parseParams($params);
+		[$dsn, $dbtype, $params, $options] = $this->parseParams($params);
 
 		$dbtype = ucfirst($dbtype);
 		$driver = "\\Query\\Drivers\\{$dbtype}\\Driver";
@@ -160,11 +161,12 @@ final class ConnectionManager {
 	 * Parses params into a dsn and option array
 	 *
 	 * @param \stdClass $params
-	 * @return array
+	 * @return object|array
 	 * @throws BadDBDriverException
 	 */
-	public function parseParams(\stdClass $params): array
+	public function parseParams($params): array
 	{
+		$params = (object) $params;
 		$params->type = strtolower($params->type);
 		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
 		$dbtype = ucfirst($dbtype);
@@ -202,10 +204,10 @@ final class ConnectionManager {
 	 *
 	 * @codeCoverageIgnore
 	 * @param string $dbtype
-	 * @param \stdClass $params
+	 * @param array|object $params
 	 * @return string
 	 */
-	private function createDsn(string $dbtype, \stdClass $params): string
+	private function createDsn(string $dbtype, $params): string
 	{
 		$pairs = [];
 

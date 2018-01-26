@@ -87,6 +87,11 @@ namespace Query\Tests {
 			$this->skipUnless(FALSE, $message);
 		}
 
+		public function expectException($exception = FALSE, $message = '%s')
+		{
+			return parent::expectException(FALSE);
+		}
+
 		/**
 		 * Alias to the method in PHPUnit
 		 *
@@ -106,10 +111,10 @@ namespace Query\Tests {
 namespace {
 	function get_json_config()
 	{
-		$files = array(
+		$files = [
 			__DIR__ . '/settings.json',
 			__DIR__ . '/settings.json.dist'
-		);
+		];
 
 		foreach ($files as $file) {
 			if (is_file($file)) {

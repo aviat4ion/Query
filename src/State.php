@@ -108,11 +108,11 @@ class State {
 	 * for complex select queries
 	 *
 	 * Format:
-	 * array(
+	 * [
 	 *		'type' => 'where',
 	 *		'conjunction' => ' AND ',
 	 *		'string' => 'k=?'
-	 * )
+	 * ]
 	 *
 	 * @var array
 	 */

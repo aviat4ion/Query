@@ -20,10 +20,10 @@ define('QDS', DIRECTORY_SEPARATOR);
 
 function get_json_config()
 {
-	$files = array(
+	$files = [
 		__DIR__ . '/settings.json',
 		__DIR__ . '/settings.json.dist'
-	);
+	];
 
 	foreach($files as $file)
 	{

@@ -14,6 +14,10 @@
  */
 namespace Query\Tests;
 
+use function Query;
+use function regexInArray;
+use PDO;
+
 /**
  * CoreTest class - Compatibility and core functionality tests
  *
@@ -29,8 +33,9 @@ class CoreTest extends TestCase {
 	 */
 	public function testPHPVersion(): void
 	{
-		//$this->assertTrue(version_compare(PHP_VERSION, '7.1', 'ge'));
-		$this->assertTrue(PHP_VERSION_ID >= 70000);
+		$this->assertTrue(PHP_VERSION_ID >= 70100);
+		$this->assertTrue(PHP_MAJOR_VERSION >= 7);
+		$this->assertTrue(PHP_MINOR_VERSION >= 1);
 	}
 
 	/**
@@ -52,7 +57,7 @@ class CoreTest extends TestCase {
 			'sqlite',
 		];
 
-		$drivers = \PDO::getAvailableDrivers();
+		$drivers = PDO::getAvailableDrivers();
 
 		$numSupported = count(array_intersect($drivers, $supported));
 
@@ -61,11 +66,11 @@ class CoreTest extends TestCase {
 
 	public function testNullQuery(): void
 	{
-		$this->assertNull(\Query(NULL));
+		$this->assertNull(Query(NULL));
 	}
 
 	public function testEmptyRegexInArray(): void
 	{
-		$this->assertFalse(\regexInArray([], 'foo'));
+		$this->assertFalse(regexInArray([], 'foo'));
 	}
 }

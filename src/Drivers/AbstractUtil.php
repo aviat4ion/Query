@@ -62,11 +62,11 @@ abstract class AbstractUtil {
 		$existsStr = $ifNotExists ? ' IF NOT EXISTS ' : ' ';
 
 		// Reorganize into an array indexed with column information
-		// Eg $columnArray[$colname] = array(
+		// Eg $columnArray[$colname] = [
 		// 		'type' => ...,
 		// 		'constraint' => ...,
 		// 		'index' => ...,
-		// )
+		// ]
 		$columnArray = \arrayZipper([
 			'type' => $fields,
 			'constraint' => $constraints

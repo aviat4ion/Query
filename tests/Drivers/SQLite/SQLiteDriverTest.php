@@ -28,15 +28,15 @@ class SQLiteDriverTest extends BaseDriverTest {
 
 	public static function setupBeforeClass()
 	{
-		$params = array(
+		$params = [
 			'type' => 'sqlite',
 			'file' => ':memory:',
 			'prefix' => 'create_',
 			'alias' => 'test_sqlite',
-			'options' => array(
+			'options' => [
 				PDO::ATTR_PERSISTENT => TRUE
-			)
-		);
+			]
+		];
 
 		self::$db = Query($params);
 		self::$db->setTablePrefix('create_');
@@ -64,7 +64,7 @@ class SQLiteDriverTest extends BaseDriverTest {
 
 	/*public function testBackupData()
 	{
-		$sql = mb_trim(self::$db->getUtil()->backupData(array('create_join', 'create_test')));
+		$sql = mb_trim(self::$db->getUtil()->backupData(['create_join', 'create_test']));
 
 		$sqlArray = explode("\n", $sql);
 
@@ -192,7 +192,7 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepareQuery($sql, [1,"boogers", "Gross"]);
 
 		$statement->execute();
 
@@ -212,9 +212,9 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		self::$db->prepareExecute($sql, array(
+		self::$db->prepareExecute($sql, [
 			2, "works", 'also?'
-		));
+		]);
 
 		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=2')
 			->fetch(PDO::FETCH_ASSOC);

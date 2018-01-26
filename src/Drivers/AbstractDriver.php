@@ -561,15 +561,73 @@ abstract class AbstractDriver
 	 * Creates a batch update, and executes it.
 	 * Returns the number of affected rows
 	 *
-	 * @param string $table
-	 * @param array|object $data
-	 * @param string $where
-	 * @return int|null
+	 * @param string $table The table to update
+	 * @param array $data an array of update values
+	 * @param string $where The where key
+	 * @return array<string,array,int>
 	 */
-	public function updateBatch(string $table, $data, $where)
+	public function updateBatch(string $table, array $data, string $where): array
 	{
-		// @TODO implement
-		return NULL;
+		$affectedRows = 0;
+		$insertData = [];
+		$fieldLines = [];
+
+		$sql = 'UPDATE ' . $this->quoteTable($table) . ' SET ';
+
+		// Get the keys of the current set of data, except the one used to
+		// set the update condition
+		$fields = array_unique(
+			array_reduce($data, function ($previous, $current) use (&$affectedRows, $where) {
+                $affectedRows++;
+				$keys = array_diff(array_keys($current), [$where]);
+
+                if ($previous === NULL)
+                {
+                    return $keys;
+                }
+
+                return array_merge($previous, $keys);
+            })
+		);
+
+		// Create the CASE blocks for each data set
+		foreach ($fields as $field)
+		{
+			$line =  $this->quoteIdent($field) . " = CASE\n";
+
+			$cases = [];
+			foreach ($data as $case)
+			{
+				if (array_key_exists($field, $case))
+				{
+					$insertData[] = $case[$where];
+					$insertData[] = $case[$field];
+					$cases[] = 'WHEN ' . $this->quoteIdent($where) . ' =? '
+						. 'THEN ? ';
+				}
+			}
+
+			$line .= implode("\n", $cases) . "\n";
+			$line .= 'ELSE ' . $this->quoteIdent($field) . ' END';
+
+			$fieldLines[] = $line;
+		}
+
+		$sql .= implode(",\n", $fieldLines) . "\n";
+
+		$whereValues = array_column($data, $where);
+		foreach ($whereValues as $value)
+		{
+			$insertData[] = $value;
+		}
+
+		// Create the placeholders for the WHERE IN clause
+		$placeholders = array_fill(0, count($whereValues), '?');
+
+		$sql .= 'WHERE ' . $this->quoteIdent($where) . ' IN ';
+		$sql .= '(' . implode(',', $placeholders) . ')';
+
+		return [$sql, $insertData, $affectedRows];
 	}
 
 	/**
@@ -578,7 +636,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return PDOStatement
 	 */
-	public function truncate(string $table): PDOStatement
+	public function truncate(string $table): ?PDOStatement
 	{
 		$sql = $this->hasTruncate
 			? 'TRUNCATE TABLE '

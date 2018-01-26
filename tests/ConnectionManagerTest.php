@@ -26,6 +26,11 @@ class ConnectionManagerTest extends TestCase {
 		self::$instance = ConnectionManager::getInstance();
 	}
 
+	public static function tearDownAfterClass()
+	{
+		self::$instance = NULL;
+	}
+
 	public function testNoClone()
 	{
 		$this->expectException('DomainException');
@@ -54,34 +59,34 @@ class ConnectionManagerTest extends TestCase {
 
 	public function testParseParams()
 	{
-		$params = (object) array(
-			'type' => 'sqlite',
-			'file' => ':memory:',
-			'options' => array(
+		$params = new class {
+			public $type = 'sqlite';
+			public $file = ':memory:';
+			public $options = [
 				'foo' => 'bar'
-			)
-		);
+			];
+		};
 
-		$expected = array(
+		$expected = [
 			':memory:',
 			'Sqlite',
 			$params,
-			array('foo' => 'bar')
-		);
+			['foo' => 'bar']
+		];
 
 		$this->assertEqual($expected, self::$instance->parseParams($params));
 	}
 
 	public function testConnect()
 	{
-		$params = (object) array(
-			'type' => 'sqlite',
-			'file' => ':memory:',
-			'prefix' => 'create_',
-			'options' => array(
+		$params = new class {
+			public $type = 'sqlite';
+			public $file = ':memory:';
+			public $prefix = 'create_';
+			public $options = [
 				'foo' => 'bar'
-			)
-		);
+			];
+		};
 
 		$conn = self::$instance->connect($params);
 		$this->assertInstanceOf(QueryBuilderInterface::class, $conn);
@@ -93,15 +98,15 @@ class ConnectionManagerTest extends TestCase {
 
 	public function testGetConnection()
 	{
-		$params = (object) array(
+		$params = (object) [
 			'type' => 'sqlite',
 			'file' => ':memory:',
 			'prefix' => 'create_',
 			'alias' => 'conn_manager',
-			'options' => array(
+			'options' => [
 				'foo' => 'bar'
-			)
-		);
+			]
+		];
 
 		$conn = self::$instance->connect($params);
 		$this->assertInstanceOf(QueryBuilderInterface::class, $conn);

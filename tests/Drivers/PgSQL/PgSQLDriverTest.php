@@ -81,28 +81,28 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 		//Attempt to create the table
 		$sql = self::$db->getUtil()->createTable('create_test',
-			array(
+			[
 				'id' => 'integer',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
-			),
-			array(
+			],
+			[
 				'id' => 'PRIMARY KEY'
-			)
+			]
 		);
 
 		self::$db->query($sql);
 
 		//Attempt to create the table
 		$sql = self::$db->getUtil()->createTable('create_join',
-			array(
+			[
 				'id' => 'integer',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
-			),
-			array(
+			],
+			[
 				'id' => 'PRIMARY KEY'
-			)
+			]
 		);
 		self::$db->query($sql);
 
@@ -133,7 +133,7 @@ class PgSQLDriverTest extends BaseDriverTest {
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, array(1,'boogers', 'Gross'));
+		$statement = self::$db->prepareQuery($sql, [1,'boogers', 'Gross']);
 
 		$statement->execute();
 
@@ -173,9 +173,9 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		self::$db->prepareExecute($sql, array(
+		self::$db->prepareExecute($sql, [
 			2, 'works', 'also?'
-		));
+		]);
 
 		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=2')
 			->fetch(PDO::FETCH_ASSOC);
@@ -215,12 +215,12 @@ SQL;
 
 	public function testGetSchemas()
 	{
-		$this->assertTrue(is_array(self::$db->getSchemas()));
+		$this->assertTrue(\is_array(self::$db->getSchemas()));
 	}
 
 	public function testGetDBs()
 	{
-		$this->assertTrue(is_array(self::$db->getDbs()));
+		$this->assertTrue(\is_array(self::$db->getDbs()));
 	}
 
 	public function testGetFunctions()
