@@ -130,7 +130,7 @@ $RECYCLE.BIN/
 
 test_config.json
 index.html
-tests/db_files/*
+tests/db_files/*.db
 build/api/*
 build/coverage/*
 build/logs/*

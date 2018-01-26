@@ -12,12 +12,12 @@
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat4ion/Query
  */
-namespace Query;
+namespace Query\Exception;
 
 use InvalidArgumentException;
 
 /**
- * Generic exception for bad drivers
+ * Exception for missing database connection
  */
-class BadDBDriverException extends InvalidArgumentException {
+class NonExistentConnectionException extends InvalidArgumentException {
 }

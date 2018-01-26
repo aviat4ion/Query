@@ -16,6 +16,7 @@ namespace Query\Tests\Drivers\SQLite;
 
 use PDO;
 use Query\Drivers\Sqlite\Driver;
+use Query\Exception\NotImplementedException;
 use Query\Tests\BaseDriverTest;
 
 /**
@@ -83,7 +84,8 @@ SQL;
 	{
 		$sql = mb_trim(self::$db->getUtil()->backupStructure());
 		$expected = <<<SQL
-CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
+CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "key" TEXT, "val" TEXT);
+CREATE TABLE sqlite_sequence(name,seq);
 CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE "create_delete" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE TEST1 (
@@ -250,7 +252,7 @@ SQL;
 
 	public function testGetDBs()
 	{
-		$this->assertTrue(is_array(self::$db->getDbs()));
+		$this->assertTrue(\is_array(self::$db->getDbs()));
 	}
 
 	public function testGetSchemas()
@@ -262,18 +264,6 @@ SQL;
 	// ! SQL tests
 	// --------------------------------------------------------------------------
 
-	public function testNullMethods()
-	{
-		$sql = self::$db->getSQL()->functionList();
-		$this->assertEqual(NULL, $sql);
-
-		$sql = self::$db->getSQL()->procedureList();
-		$this->assertEqual(NULL, $sql);
-
-		$sql = self::$db->getSQL()->sequenceList();
-		$this->assertEqual(NULL, $sql);
-	}
-
 	public function testGetSystemTables()
 	{
 		$sql = self::$db->getSystemTables();
@@ -282,16 +272,19 @@ SQL;
 
 	public function testGetSequences()
 	{
-		$this->assertNull(self::$db->getSequences());
+		$sql = self::$db->getSequences();
+		$this->assertEquals(['create_test'], $sql);
 	}
 
 	public function testGetFunctions()
 	{
-		$this->assertNull(self::$db->getFunctions());
+		$this->expectException(NotImplementedException::class);
+		self::$db->getFunctions();
 	}
 
 	public function testGetProcedures()
 	{
-		$this->assertNull(self::$db->getProcedures());
+		$this->expectException(NotImplementedException::class);
+		self::$db->getProcedures();
 	}
 }

@@ -322,7 +322,7 @@ interface QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function get(string $table='', $limit=FALSE, $offset=FALSE): ?PDOStatement;
+	public function get(string $table='', $limit=FALSE, $offset=FALSE): PDOStatement;
 
 	/**
 	 * Convenience method for get() with a where clause
@@ -333,7 +333,7 @@ interface QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): ?PDOStatement;
+	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): PDOStatement;
 
 	/**
 	 * Retrieve the number of rows in the selected table
@@ -360,7 +360,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function insert(string $table, $data=[]): ?PDOStatement;
+	public function insert(string $table, $data=[]): PDOStatement;
 
 	/**
 	 * Creates and executes a batch insertion query
@@ -369,7 +369,7 @@ interface QueryBuilderInterface {
 	 * @param array $data
 	 * @return PDOStatement
 	 */
-	public function insertBatch(string $table, $data=[]): ?PDOStatement;
+	public function insertBatch(string $table, $data=[]): PDOStatement;
 
 	/**
 	 * Insertion with automatic overwrite, rather than attempted duplication
@@ -378,7 +378,7 @@ interface QueryBuilderInterface {
 	 * @param array $data
 	 * @return PDOStatement
 	 */
-	public function replace(string $table, $data=[]): ?PDOStatement;
+	public function replace(string $table, $data=[]): PDOStatement;
 
 	/**
 	 * Creates an update clause, and executes it
@@ -387,7 +387,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function update(string $table, $data=[]): ?PDOStatement;
+	public function update(string $table, $data=[]): PDOStatement;
 
 	/**
 	 * Creates a batch update, and executes it.
@@ -407,7 +407,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $where
 	 * @return PDOStatement
 	 */
-	public function delete(string $table, $where=''): ?PDOStatement;
+	public function delete(string $table, $where=''): PDOStatement;
 
 	// --------------------------------------------------------------------------
 	// ! SQL Returning Methods

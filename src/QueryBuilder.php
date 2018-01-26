@@ -648,7 +648,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function get(string $table='', $limit=FALSE, $offset=FALSE): ?PDOStatement
+	public function get(string $table='', $limit=FALSE, $offset=FALSE): PDOStatement
 	{
 		// Set the table
 		if ( ! empty($table))
@@ -674,7 +674,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param int|bool $offset
 	 * @return PDOStatement
 	 */
-	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): ?PDOStatement
+	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): PDOStatement
 	{
 		// Create the where clause
 		$this->where($where);
@@ -725,7 +725,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function insert(string $table, $data=[]): ?PDOStatement
+	public function insert(string $table, $data=[]): PDOStatement
 	{
 		if ( ! empty($data))
 		{
@@ -742,7 +742,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param array $data
 	 * @return PDOStatement
 	 */
-	public function insertBatch(string $table, $data=[]): ?PDOStatement
+	public function insertBatch(string $table, $data=[]): PDOStatement
 	{
 		// Get the generated values and sql string
 		[$sql, $data] = $this->driver->insertBatch($table, $data);
@@ -799,7 +799,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param array $data
 	 * @return \PDOStatement|null
 	 */
-	public function replace(string $table, $data=[]): ?PDOStatement
+	public function replace(string $table, $data=[]): PDOStatement
 	{
 		if ( ! empty($data))
 		{
@@ -816,7 +816,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $where
 	 * @return PDOStatement
 	 */
-	public function delete(string $table, $where=''): ?PDOStatement
+	public function delete(string $table, $where=''): PDOStatement
 	{
 		// Set the where clause
 		if ( ! empty($where))
@@ -1167,7 +1167,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param int $totalTime
 	 * @return void
 	 */
-	protected function _appendQuery(array $values = NULL, string $sql, int $totalTime)
+	protected function _appendQuery(array $values = NULL, string $sql, int $totalTime): void
 	{
 		$evals = \is_array($values) ? $values : [];
 		$esql = str_replace('?', "%s", $sql);

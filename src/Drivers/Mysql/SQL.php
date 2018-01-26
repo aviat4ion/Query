@@ -67,7 +67,10 @@ class SQL extends AbstractSQL {
 	 */
 	public function dbList(): string
 	{
-		return "SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')";
+		return <<<SQL
+			SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')
+SQL;
+
 	}
 
 	/**
@@ -95,8 +98,10 @@ class SQL extends AbstractSQL {
 	 */
 	public function systemTableList(): string
 	{
-		return 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
-			WHERE `TABLE_SCHEMA`=\'information_schema\'';
+		return <<<SQL
+			SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
+			WHERE `TABLE_SCHEMA`='information_schema'
+SQL;
 	}
 
 	/**
@@ -156,7 +161,7 @@ class SQL extends AbstractSQL {
 	 */
 	public function typeList(): string
 	{
-		return "SELECT DISTINCT `DATA_TYPE` FROM `information_schema`.`COLUMNS`";
+		return 'SELECT DISTINCT `DATA_TYPE` FROM `information_schema`.`COLUMNS`';
 	}
 
 	/**
@@ -180,11 +185,12 @@ class SQL extends AbstractSQL {
 	public function fkList(string $table): string
 	{
 		return <<<SQL
-			SELECT DISTINCT `kcu`.`COLUMN_NAME` as `child_column`,
-					`kcu`.`REFERENCED_TABLE_NAME` as `parent_table`,
-					`kcu`.`REFERENCED_COLUMN_NAME` as `parent_column`,
-					`rc`.`UPDATE_RULE` AS `update`,
-					`rc`.`DELETE_RULE` AS `delete`
+			SELECT DISTINCT 
+				`kcu`.`COLUMN_NAME` as `child_column`,
+				`kcu`.`REFERENCED_TABLE_NAME` as `parent_table`,
+				`kcu`.`REFERENCED_COLUMN_NAME` as `parent_column`,
+				`rc`.`UPDATE_RULE` AS `update`,
+				`rc`.`DELETE_RULE` AS `delete`
 			FROM `INFORMATION_SCHEMA`.`TABLE_CONSTRAINTS` `tc`
 			INNER JOIN `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
 				ON `kcu`.`CONSTRAINT_NAME`=`tc`.`CONSTRAINT_NAME`

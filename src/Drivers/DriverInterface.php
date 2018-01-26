@@ -14,7 +14,6 @@
  */
 namespace Query\Drivers;
 
-use PDO;
 use PDOStatement;
 
 /**
@@ -40,7 +39,7 @@ interface DriverInterface {
 	 * @return \PDOStatement|null
 	 * @throws \InvalidArgumentException
 	 */
-	public function prepareQuery(string $sql, array $data): ?PDOStatement;
+	public function prepareQuery(string $sql, array $data): PDOStatement;
 
 	/**
 	 * Retrieve column information for the current database table
@@ -162,7 +161,7 @@ interface DriverInterface {
 	 * @param array $params
 	 * @return PDOStatement
 	 */
-	public function prepareExecute(string $sql, array $params): ?PDOStatement;
+	public function prepareExecute(string $sql, array $params): PDOStatement;
 
 	/**
 	 * Method to simplify retrieving db results for meta-data queries

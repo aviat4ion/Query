@@ -199,7 +199,7 @@ abstract class AbstractDriver
 	 * @return PDOStatement | FALSE
 	 * @throws InvalidArgumentException
 	 */
-	public function prepareQuery(string $sql, array $data): ?PDOStatement
+	public function prepareQuery(string $sql, array $data): PDOStatement
 	{
 		// Prepare the sql, save the statement for easy access later
 		$this->statement = $this->prepare($sql);
@@ -227,7 +227,7 @@ abstract class AbstractDriver
 	 * @throws InvalidArgumentException
 	 * @return PDOStatement
 	 */
-	public function prepareExecute(string $sql, array $params): ?PDOStatement
+	public function prepareExecute(string $sql, array $params): PDOStatement
 	{
 		$this->statement = $this->prepareQuery($sql, $params);
 		$this->statement->execute();
@@ -636,7 +636,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return PDOStatement
 	 */
-	public function truncate(string $table): ?PDOStatement
+	public function truncate(string $table): PDOStatement
 	{
 		$sql = $this->hasTruncate
 			? 'TRUNCATE TABLE '

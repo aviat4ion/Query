@@ -16,7 +16,7 @@ namespace Query\Tests;
 
 use BadMethodCallException;
 use PDO;
-use Query\BadDBDriverException;
+use Query\Exception\BadDBDriverException;
 
 /**
  * Query builder parent test class

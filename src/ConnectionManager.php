@@ -15,7 +15,6 @@
 namespace Query;
 
 use DomainException;
-use InvalidArgumentException;
 
 /**
  * Connection manager class to manage connections for the
@@ -97,7 +96,7 @@ final class ConnectionManager {
 	 *
 	 * @param string|array|object $name
 	 * @return QueryBuilderInterface
-	 * @throws InvalidArgumentException
+	 * @throws Exception\NonExistentConnectionException
 	 */
 	public function getConnection($name = ''): QueryBuilderInterface
 	{
@@ -112,14 +111,14 @@ final class ConnectionManager {
 		}
 
 		// You should actually connect before trying to get a connection...
-		throw new InvalidArgumentException('The specified connection does not exist');
+		throw new Exception\NonExistentConnectionException('The specified connection does not exist');
 	}
 
 	/**
 	 * Parse the passed parameters and return a connection
 	 *
 	 * @param object|array $params
-	 * @throws BadDBDriverException
+	 * @throws Exception\BadDBDriverException
 	 * @return QueryBuilderInterface
 	 */
 	public function connect($params): QueryBuilderInterface
@@ -162,7 +161,7 @@ final class ConnectionManager {
 	 *
 	 * @param \stdClass $params
 	 * @return object|array
-	 * @throws BadDBDriverException
+	 * @throws Exception\BadDBDriverException
 	 */
 	public function parseParams($params): array
 	{
@@ -174,7 +173,7 @@ final class ConnectionManager {
 		// Make sure the class exists
 		if ( ! class_exists("\\Query\\Drivers\\{$dbtype}\\Driver"))
 		{
-			throw new BadDBDriverException('Database driver does not exist, or is not supported');
+			throw new Exception\BadDBDriverException('Database driver does not exist, or is not supported');
 		}
 
 		// Set additional PDO options

@@ -19,9 +19,6 @@ use Query\Drivers\AbstractUtil;
 
 /**
  * SQLite-specific backup, import and creation methods
- *
- * @method mixed query(string $sql)
- * @method string quote(string $str)
  */
 class Util extends AbstractUtil {
 
@@ -78,7 +75,7 @@ class Util extends AbstractUtil {
 				// Quote values as needed by type
 				for($i=0, $icount=count($row); $i<$icount; $i++)
 				{
-					$row[$i] = (is_numeric($row[$i])) ? $row[$i] : $this->getDriver()->quote($row[$i]);
+					$row[$i] = is_numeric($row[$i]) ? $row[$i] : $this->getDriver()->quote($row[$i]);
 				}
 
 				$rowString = 'INSERT INTO "'.$r['name'].'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
