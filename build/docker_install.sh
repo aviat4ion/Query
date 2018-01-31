@@ -9,8 +9,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 set -xe
 
 # Install git (the php image doesn't have it) which is required by composer
-apt-get update -yqq
-apt-get install git libpq-dev unzip -yqq
+echo -e 'http://dl-cdn.alpinelinux.org/alpine/edge/main\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing' > /etc/apk/repositories
+apk add --no-cache \
+	curl \
+	git
 
 # Install phpunit, the tool that we will use for testing
 curl -Lo /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
