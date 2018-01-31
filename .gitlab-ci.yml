@@ -5,7 +5,7 @@ before_script:
     - php composer.phar install --ignore-platform-reqs
 services:
     - mysql:latest
-    - postgres:latest
+    - postgres:alpine
 
 variables:
     MYSQL_ROOT_PASSWORD: foo-bar-baz

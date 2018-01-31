@@ -13,7 +13,8 @@ set -xe
 echo -e 'http://dl-cdn.alpinelinux.org/alpine/edge/main\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing' > /etc/apk/repositories
 apk add --no-cache \
 	curl \
-	git
+	git \
+	postgresql-dev
 
 # Install phpunit, the tool that we will use for testing
 curl -Lo /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
@@ -25,8 +26,8 @@ mv "$DIR/../tests/settings-ci.json" "$DIR/../tests/settings.json"
 
 # Install mysql driver
 # Here you can install any other extension that you need
-docker-php-ext-install pdo_mysql
-docker-php-ext-install pdo_pgsql
+docker-php-ext-install pdo pdo_mysql pdo_pgsql
+#docker-php-ext-install pdo_pgsql
 #docker-php-ext-install pdo_oci
 #docker-php-ext-install interbase
 #docker-php-ext-install pdo_firebird
