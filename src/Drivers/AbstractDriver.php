@@ -578,16 +578,16 @@ abstract class AbstractDriver
 		// set the update condition
 		$fields = array_unique(
 			array_reduce($data, function ($previous, $current) use (&$affectedRows, $where) {
-                $affectedRows++;
+				$affectedRows++;
 				$keys = array_diff(array_keys($current), [$where]);
 
-                if ($previous === NULL)
-                {
-                    return $keys;
-                }
+				if ($previous === NULL)
+				{
+					return $keys;
+				}
 
-                return array_merge($previous, $keys);
-            })
+				return array_merge($previous, $keys);
+			})
 		);
 
 		// Create the CASE blocks for each data set

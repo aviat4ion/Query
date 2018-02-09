@@ -6,16 +6,16 @@
  *
  * PHP version 7
  *
- * @package     Query
- * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @package	 Query
+ * @author	  Timothy J. Warren <tim@timshomepage.net>
  * @copyright   2012 - 2016 Timothy J. Warren
- * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @license	 http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link		https://git.timshomepage.net/aviat4ion/Query
  */
 
 use Query\{
-    ConnectionManager,
-    QueryBuilderInterface
+	ConnectionManager,
+	QueryBuilderInterface
 };
 
 /**
