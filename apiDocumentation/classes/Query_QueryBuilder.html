@@ -127,7 +127,6 @@
                     </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/insertBatch.html">insertBatch</a>()
                     </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/update.html">update</a>()
                     </li><li>public ?int <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/updateBatch.html">updateBatch</a>()
-                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/replace.html">replace</a>()
                     </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/delete.html">delete</a>()
                     </li><li>public string <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/getCompiledSelect.html">getCompiledSelect</a>()
                     </li><li>public string <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/getCompiledInsert.html">getCompiledInsert</a>()
@@ -151,7 +150,7 @@
           <tr>
             <td>Methods</td>
             <td class="percent">0%</td>
-            <td class="nummeric">0 / 48</td>
+            <td class="nummeric">0 / 47</td>
           </tr>
           <tr>
             <td>Lines</td>
@@ -248,8 +247,6 @@
                 — OR WHERE NOT IN (FOO) clause</li>
             <li id="orderBy"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orderBy.html">orderBy()</a>
                 — Order the results by the selected field(s)</li>
-            <li id="replace"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/replace.html">replace()</a>
-                — Insertion with automatic overwrite, rather than attempted duplication</li>
             <li id="resetQuery"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/resetQuery.html">resetQuery()</a>
                 — Clear out the class variables, so the next query can be run</li>
             <li id="select"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/select.html">select()</a>
@@ -278,6 +275,16 @@
         </div>
         <h2 id="history">History</h2>
         <ul class="styled history">
+          <li>
+            <h3>2018-02-12T21:17:22+00:00 (commit #<span title="09b6610eb131febc08899694de34105d4b9e4306">09b6610</span>)</h3>
+            <div>
+              <p>
+                        Author: Timothy J Warren (tim@timshomepage.net) /
+                        Commiter: Timothy J Warren (tim@timshomepage.net)
+                    </p>
+              <pre class="wrapped">Remove unimplemented replace method</pre>
+            </div>
+          </li>
           <li>
             <h3>2018-01-26T20:45:46+00:00 (commit #<span title="33bb440bd28d77e903a58f24afc585706e2d0f56">33bb440</span>)</h3>
             <div>
@@ -426,16 +433,6 @@
                         Commiter: Timothy J Warren (tim@timshomepage.net)
                     </p>
               <pre class="wrapped">Add Or Not Like method</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-09-07T21:39:19+00:00 (commit #<span title="ca601623ba0b2a5879c01597efbf55bbde3a34fa">ca60162</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Miscellaneous cleanup and refactoring</pre>
             </div>
           </li>
         </ul>
