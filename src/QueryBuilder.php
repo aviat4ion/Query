@@ -793,23 +793,6 @@ class QueryBuilder implements QueryBuilderInterface {
 	}
 
 	/**
-	 * Insertion with automatic overwrite, rather than attempted duplication
-	 *
-	 * @param string $table
-	 * @param array $data
-	 * @return \PDOStatement|null
-	 */
-	public function replace(string $table, $data=[]): PDOStatement
-	{
-		if ( ! empty($data))
-		{
-			$this->set($data);
-		}
-
-		return $this->_run('replace', $table);
-	}
-
-	/**
 	 * Deletes data from a table
 	 *
 	 * @param string $table
@@ -914,7 +897,9 @@ class QueryBuilder implements QueryBuilderInterface {
 
 		if ( ! \is_string($as))
 		{
+			// @codeCoverageIgnoreStart
 			return $field;
+			// @codeCoverageIgnoreEnd
 		}
 
 		$as = $this->driver->quoteIdent($as);
@@ -1199,6 +1184,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	/**
 	 * Sub-method for generating sql strings
 	 *
+	 * @codeCoverageIgnore
 	 * @param string $type
 	 * @param string $table
 	 * @return string
@@ -1219,11 +1205,6 @@ class QueryBuilder implements QueryBuilderInterface {
 			case 'update':
 				$setString = $this->state->getSetString();
 				$sql = "UPDATE {$table}\nSET {$setString}";
-				break;
-
-			case 'replace':
-				// @TODO implement
-				$sql = '';
 				break;
 
 			case 'delete':

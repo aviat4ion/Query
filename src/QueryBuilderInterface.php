@@ -372,15 +372,6 @@ interface QueryBuilderInterface {
 	public function insertBatch(string $table, $data=[]): PDOStatement;
 
 	/**
-	 * Insertion with automatic overwrite, rather than attempted duplication
-	 *
-	 * @param string $table
-	 * @param array $data
-	 * @return PDOStatement
-	 */
-	public function replace(string $table, $data=[]): PDOStatement;
-
-	/**
 	 * Creates an update clause, and executes it
 	 *
 	 * @param string $table
