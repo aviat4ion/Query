@@ -22,7 +22,7 @@ use Query\Tests\BaseQueryBuilderTest;
  */
 class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		$params = get_json_config();
 		if (getenv('TRAVIS')) // Travis CI Connection Info
@@ -51,7 +51,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		self::$db = Query($params);
 	}
 
-	public function setUp()
+	public function setUp(): void
  	{
  		// If the database isn't installed, skip the tests
 		if ( ! \in_array('pgsql', PDO::getAvailableDrivers(), TRUE))
@@ -60,12 +60,12 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		}
  	}
 
-	public function testExists()
+	public function testExists(): void
 	{
 		$this->assertTrue(\in_array('pgsql', PDO::getAvailableDrivers(), TRUE));
 	}
 
-	public function testQueryExplain()
+	public function testQueryExplain(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->explain()
@@ -109,7 +109,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		$this->assertEqual($expected, $res);*/
 	}
 
-	public function testBackupStructure()
+	public function testBackupStructure(): void
 	{
 		$this->assertEquals('', self::$db->getUtil()->backupStructure());
 	}

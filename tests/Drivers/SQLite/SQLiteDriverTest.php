@@ -27,7 +27,7 @@ use Query\Tests\BaseDriverTest;
  */
 class SQLiteDriverTest extends BaseDriverTest {
 
-	public static function setupBeforeClass()
+	public static function setupBeforeClass(): void
 	{
 		$params = [
 			'type' => 'sqlite',
@@ -47,7 +47,7 @@ class SQLiteDriverTest extends BaseDriverTest {
 	// ! Util Method tests
 	// --------------------------------------------------------------------------
 
-	public function testCreateTable()
+	public function testCreateTable(): void
 	{
 		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
 
@@ -80,7 +80,7 @@ SQL;
 		$this->assertEqual($expectedArray, $sqlArray);
 	}*/
 
-	public function testBackupStructure()
+	public function testBackupStructure(): void
 	{
 		$sql = mb_trim(self::$db->getUtil()->backupStructure());
 		$expected = <<<SQL
@@ -155,7 +155,7 @@ SQL;
 		$this->assertEqual($expectedArray, $resultArray);
 	}
 
-	public function testDeleteTable()
+	public function testDeleteTable(): void
 	{
 		$sql = self::$db->getUtil()->deleteTable('create_delete');
 
@@ -170,7 +170,7 @@ SQL;
 	// ! General tests
 	// --------------------------------------------------------------------------
 
-	public function testConnection()
+	public function testConnection(): void
 	{
 		$class = Driver::class;
 
@@ -182,13 +182,13 @@ SQL;
 		unset($db);
 	}
 
-	public function testTruncate()
+	public function testTruncate(): void
 	{
 		self::$db->truncate('create_test');
 		$this->assertEquals(0, self::$db->countAll('create_test'));
 	}
 
-	public function testPreparedStatements()
+	public function testPreparedStatements(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
@@ -208,7 +208,7 @@ SQL;
 		], $res);
 	}
 
-	public function testPrepareExecute()
+	public function testPrepareExecute(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
@@ -228,7 +228,7 @@ SQL;
 		], $res);
 	}
 
-	public function testCommitTransaction()
+	public function testCommitTransaction(): void
 	{
 		$res = self::$db->beginTransaction();
 
@@ -239,7 +239,7 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testRollbackTransaction()
+	public function testRollbackTransaction(): void
 	{
 		$res = self::$db->beginTransaction();
 
@@ -250,12 +250,12 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testGetDBs()
+	public function testGetDBs(): void
 	{
 		$this->assertTrue(\is_array(self::$db->getDbs()));
 	}
 
-	public function testGetSchemas()
+	public function testGetSchemas(): void
 	{
 		$this->assertNull(self::$db->getSchemas());
 	}
@@ -264,25 +264,25 @@ SQL;
 	// ! SQL tests
 	// --------------------------------------------------------------------------
 
-	public function testGetSystemTables()
+	public function testGetSystemTables(): void
 	{
 		$sql = self::$db->getSystemTables();
 		$this->assertTrue(\is_array($sql));
 	}
 
-	public function testGetSequences()
+	public function testGetSequences(): void
 	{
 		$sql = self::$db->getSequences();
 		$this->assertEquals(['create_test'], $sql);
 	}
 
-	public function testGetFunctions()
+	public function testGetFunctions(): void
 	{
 		$this->expectException(NotImplementedException::class);
 		self::$db->getFunctions();
 	}
 
-	public function testGetProcedures()
+	public function testGetProcedures(): void
 	{
 		$this->expectException(NotImplementedException::class);
 		self::$db->getProcedures();

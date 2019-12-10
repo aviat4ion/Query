@@ -22,7 +22,7 @@ use Query\Tests\BaseQueryBuilderTest;
  */
 class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		$params = get_json_config();
 		if ($var = getenv('TRAVIS')) // Travis CI Connection Info
@@ -49,12 +49,12 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 		self::$db = Query($params);
 	}
 
-	public function testExists()
+	public function testExists(): void
 	{
 		$this->assertTrue(\in_array('mysql', PDO::getAvailableDrivers(), TRUE));
 	}
 
-	public function testQueryExplain()
+	public function testQueryExplain(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->explain()

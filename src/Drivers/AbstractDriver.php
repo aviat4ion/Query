@@ -14,6 +14,8 @@
  */
 namespace Query\Drivers;
 
+use function dbFilter;
+
 use InvalidArgumentException;
 use PDO;
 use PDOStatement;
@@ -297,7 +299,7 @@ abstract class AbstractDriver
 	 */
 	public function quoteIdent($identifier)
 	{
-		if (\is_array($identifier))
+		if (is_array($identifier))
 		{
 			return array_map([$this, __METHOD__], $identifier);
 		}
@@ -480,14 +482,14 @@ abstract class AbstractDriver
 	public function driverQuery($query, $filteredIndex=TRUE): ?array
 	{
 		// Call the appropriate method, if it exists
-		if (\is_string($query) && method_exists($this->sql, $query))
+		if (is_string($query) && method_exists($this->sql, $query))
 		{
 			$query = $this->getSql()->$query();
 		}
 
 		// Return if the values are returned instead of a query,
 		// or if the query doesn't apply to the driver
-		if ( ! \is_string($query))
+		if ( ! is_string($query))
 		{
 			return $query;
 		}
@@ -498,7 +500,7 @@ abstract class AbstractDriver
 		$flag = $filteredIndex ? PDO::FETCH_NUM : PDO::FETCH_ASSOC;
 		$all = $res->fetchAll($flag);
 
-		return $filteredIndex ? \dbFilter($all, 0) : $all;
+		return $filteredIndex ? dbFilter($all, 0) : $all;
 	}
 
 	/**
@@ -526,7 +528,7 @@ abstract class AbstractDriver
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return null|array<string|array|null>
+	 * @return array<string|array|null>
 	 */
 	public function insertBatch(string $table, array $data=[]): array
 	{
@@ -539,6 +541,7 @@ abstract class AbstractDriver
 		{
 			$vals = array_merge($vals, array_values($group));
 		}
+
 		$table = $this->quoteTable($table);
 		$fields = array_keys($firstRow);
 
@@ -577,7 +580,7 @@ abstract class AbstractDriver
 		// Get the keys of the current set of data, except the one used to
 		// set the update condition
 		$fields = array_unique(
-			array_reduce($data, function ($previous, $current) use (&$affectedRows, $where) {
+			array_reduce($data, static function ($previous, $current) use (&$affectedRows, $where) {
 				$affectedRows++;
 				$keys = array_diff(array_keys($current), [$where]);
 

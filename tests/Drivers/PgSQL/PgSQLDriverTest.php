@@ -27,7 +27,7 @@ use TypeError;
  */
 class PgSQLDriverTest extends BaseDriverTest {
 
-	public function setUp()
+	public function setUp(): void
     {
 		// If the database isn't installed, skip the tests
 		if ( ! class_exists(Driver::class))
@@ -36,7 +36,7 @@ class PgSQLDriverTest extends BaseDriverTest {
 		}
 	}
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 
 		$params = get_json_config();
@@ -54,20 +54,20 @@ class PgSQLDriverTest extends BaseDriverTest {
 		self::$db->setTablePrefix('create_');
 	}
 
-	public function testExists()
+	public function testExists(): void
 	{
 		$drivers = PDO::getAvailableDrivers();
 		$this->assertTrue(in_array('pgsql', $drivers, TRUE));
 	}
 
-	public function testConnection()
+	public function testConnection(): void
 	{
 		if (empty(self::$db))  return;
 
 		$this->assertIsA(self::$db, Driver::class);
 	}
 
-	public function testCreateTable()
+	public function testCreateTable(): void
 	{
 		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/pgsql.sql'));
 
@@ -117,7 +117,7 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 	}
 
-	public function testTruncate()
+	public function testTruncate(): void
 	{
 		self::$db->truncate('test');
 		$this->assertEquals(0, self::$db->countAll('test'));
@@ -126,7 +126,7 @@ class PgSQLDriverTest extends BaseDriverTest {
 		$this->assertEquals(0, self::$db->countAll('join'));
 	}
 
-	public function testPreparedStatements()
+	public function testPreparedStatements(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
@@ -146,7 +146,7 @@ SQL;
 		], $res);
 	}
 
-	public function testBadPreparedStatement()
+	public function testBadPreparedStatement(): void
 	{
 		if (is_a($this, \UnitTestCase::class))
 		{
@@ -164,7 +164,7 @@ SQL;
 		self::$db->prepareQuery($sql, 'foo');
 	}
 
-	public function testPrepareExecute()
+	public function testPrepareExecute(): void
 	{
 		if (empty(self::$db))  return;
 
@@ -186,7 +186,7 @@ SQL;
 		], $res);
 	}
 
-	public function testCommitTransaction()
+	public function testCommitTransaction(): void
 	{
 		if (empty(self::$db))  return;
 
@@ -199,7 +199,7 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testRollbackTransaction()
+	public function testRollbackTransaction(): void
 	{
 		if (empty(self::$db))  return;
 
@@ -212,17 +212,17 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testGetSchemas()
+	public function testGetSchemas(): void
 	{
 		$this->assertTrue(\is_array(self::$db->getSchemas()));
 	}
 
-	public function testGetDBs()
+	public function testGetDBs(): void
 	{
 		$this->assertTrue(\is_array(self::$db->getDbs()));
 	}
 
-	public function testGetFunctions()
+	public function testGetFunctions(): void
 	{
 		$this->assertNull(self::$db->getFunctions());
 	}

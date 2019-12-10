@@ -190,7 +190,7 @@ class RoboFile extends \Robo\Tasks {
 	{
 		$this->lint();
 		$this->taskPhpUnit()
-			->configFile('phpunit.xml')
+			->configFile('build/phpunit.xml')
 			->run();
 		$this->_run(["php tests/index.php"]);
 	}

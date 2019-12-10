@@ -26,7 +26,7 @@ use TypeError;
  */
 class MySQLDriverTest extends BaseDriverTest {
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		$params = get_json_config();
 		if ($var = getenv('TRAVIS'))
@@ -46,17 +46,17 @@ class MySQLDriverTest extends BaseDriverTest {
 		self::$db->setTablePrefix('create_');
 	}
 
-	public function testExists()
+	public function testExists(): void
 	{
 		$this->assertTrue(\in_array('mysql', PDO::getAvailableDrivers(), TRUE));
 	}
 
-	public function testConnection()
+	public function testConnection(): void
 	{
 		$this->assertIsA(self::$db, Driver::class);
 	}
 
-	public function testCreateTable()
+	public function testCreateTable(): void
 	{
 		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/mysql.sql'));
 
@@ -95,7 +95,7 @@ class MySQLDriverTest extends BaseDriverTest {
 	}
 
 
-	public function testTruncate()
+	public function testTruncate(): void
 	{
 		self::$db->truncate('test');
 		$this->assertEquals(0, self::$db->countAll('test'));
@@ -104,13 +104,13 @@ class MySQLDriverTest extends BaseDriverTest {
 		$this->assertEquals(0, self::$db->countAll('join'));
 	}
 
-	public function testPreparedStatements()
+	public function testPreparedStatements(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, [1,"boogers", "Gross"]);
+		$statement = self::$db->prepareQuery($sql, [1, 'boogers', 'Gross']);
 
 		$res = $statement->execute();
 
@@ -118,7 +118,7 @@ SQL;
 
 	}
 
-	public function testBadPreparedStatement()
+	public function testBadPreparedStatement(): void
 	{
 		if (is_a($this, \UnitTestCase::class))
 		{
@@ -137,21 +137,21 @@ SQL;
 
 	}
 
-	public function testPrepareExecute()
+	public function testPrepareExecute(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
 		$res = self::$db->prepareExecute($sql, [
-			2, "works", 'also?'
+			2, 'works', 'also?'
 		]);
 
 		$this->assertInstanceOf('PDOStatement', $res);
 
 	}
 
-	public function testCommitTransaction()
+	public function testCommitTransaction(): void
 	{
 		$res = self::$db->beginTransaction();
 
@@ -162,7 +162,7 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testRollbackTransaction()
+	public function testRollbackTransaction(): void
 	{
 		$res = self::$db->beginTransaction();
 
@@ -173,17 +173,17 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testGetSchemas()
+	public function testGetSchemas(): void
 	{
 		$this->assertNull(self::$db->getSchemas());
 	}
 
-	public function testGetSequences()
+	public function testGetSequences(): void
 	{
 		$this->assertNull(self::$db->getSequences());
 	}
 
-	public function testBackup()
+	public function testBackup(): void
 	{
 		$this->assertTrue(\is_string(self::$db->getUtil()->backupStructure()));
 	}

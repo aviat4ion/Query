@@ -24,20 +24,20 @@ use Query\Tests\BaseQueryBuilderTest;
  */
  class SQLiteQueryBuilderTest extends BaseQueryBuilderTest {
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		// Defined in the SQLiteTest.php file
 		self::$db = Query('test_sqlite');
 	}
 
-	public function testQueryFunctionAlias()
+	public function testQueryFunctionAlias(): void
 	{
 		$db = Query('test_sqlite');
 
 		$this->assertTrue(self::$db === $db, 'Alias passed into query function gives the original object back');
 	}
 
-	public function testQueryExplain()
+	public function testQueryExplain(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->explain()
@@ -81,6 +81,15 @@ use Query\Tests\BaseQueryBuilderTest;
 				'order' => '0',
 				'from' => '0',
 				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~62500 rows)',
+			],
+		];
+
+		$expectedPossibilities[] = [
+			[
+				'id' => '6',
+				'parent' => '0',
+				'notused' => '0',
+				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
 			],
 		];
 

@@ -17,6 +17,7 @@ namespace Query\Tests;
 use BadMethodCallException;
 use PDO;
 use Query\Exception\BadDBDriverException;
+use Query\QueryBuilderInterface;
 
 /**
  * Query builder parent test class
@@ -24,7 +25,7 @@ use Query\Exception\BadDBDriverException;
 abstract class BaseQueryBuilderTest extends TestCase {
 
 	/**
-	 * @var \Query\QueryBuilderInterface|null
+	 * @var QueryBuilderInterface|null
 	 */
 	protected static $db;
 
@@ -36,7 +37,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		}
 	}
 
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		if (PHP_SAPI !== 'cli' && PHP_SAPI !== 'phpdbg')
 		{
@@ -47,17 +48,17 @@ abstract class BaseQueryBuilderTest extends TestCase {
 	}
 
 	// ! Driver-specific results
-	abstract public function testQueryExplain();
+	abstract public function testQueryExplain(): void;
 
 	// ! Get tests
-	public function testInvalidConnectionName()
+	public function testInvalidConnectionName(): void
 	{
 		$this->expectException('InvalidArgumentException');
 
 		Query('foo');
 	}
 
-	public function testFunctionGet()
+	public function testFunctionGet(): void
 	{
 		$query = self::$db->select('id, COUNT(id) as count')
 			->from('test')
@@ -67,7 +68,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testGet()
+	public function testGet(): void
 	{
 		$query = self::$db->get('test');
 
@@ -76,14 +77,14 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertTrue(\is_string($lastQuery));
 	}
 
-	public function testPrefixGet()
+	public function testPrefixGet(): void
 	{
 		$query = self::$db->from('test')->get();
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testGetWNumRows()
+	public function testGetWNumRows(): void
 	{
 		$query = self::$db->get('test');
 		$numrows = count($query->fetchAll(PDO::FETCH_NUM));
@@ -91,28 +92,28 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertEqual(self::$db->numRows(), $numrows);
 	}
 
-	public function testGetLimit()
+	public function testGetLimit(): void
 	{
 		$query = self::$db->get('test', 2);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testGetLimitSkip()
+	public function testGetLimitSkip(): void
 	{
 		$query = self::$db->get('test', 2, 1);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testGetWhere()
+	public function testGetWhere(): void
 	{
 		$query = self::$db->getWhere('test', ['id !=' => 1], 2, 1);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testHaving()
+	public function testHaving(): void
 	{
 		$query = self::$db->select('id')
 			->from('test')
@@ -124,7 +125,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testOrHaving()
+	public function testOrHaving(): void
 	{
 		$query = self::$db->select('id')
 			->from('test')
@@ -136,7 +137,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 	// ! Select tests
-	public function testSelectWhereGet()
+	public function testSelectWhereGet(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->where('id >', 1)
@@ -146,7 +147,17 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectAvg()
+	public function testSelectWhereGetNoAs(): void
+	{
+		$query = self::$db->select('id, key, val')
+			->where('id >', 1)
+			->where('id <', 900)
+			->get('test', 2, 1);
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	public function testSelectAvg(): void
 	{
 		$query = self::$db->selectAvg('id', 'di')
 			->get('test');
@@ -154,7 +165,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectSum()
+	public function testSelectSum(): void
 	{
 		$query = self::$db->selectSum('id', 'di')
 			->get('test');
@@ -162,7 +173,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectDistinct()
+	public function testSelectDistinct(): void
 	{
 		$query = self::$db->selectSum('id', 'di')
 			->distinct()
@@ -171,7 +182,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectGet()
+	public function testSelectGet(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->get('test', 2, 1);
@@ -179,7 +190,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectFromGet()
+	public function testSelectFromGet(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test ct')
@@ -189,7 +200,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectFromLimitGet()
+	public function testSelectFromLimitGet(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test ct')
@@ -200,7 +211,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectWhereGet2()
+	public function testSelectWhereGet2(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->where('id !=', 1)
@@ -209,7 +220,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectMax()
+	public function testSelectMax(): void
 	{
 		$query = self::$db->selectMax('id', 'di')
 			->get('test');
@@ -217,7 +228,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testSelectMin()
+	public function testSelectMin(): void
 	{
 		$query = self::$db->selectMin('id', 'di')
 			->get('test');
@@ -225,7 +236,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testMultiOrderBy()
+	public function testMultiOrderBy(): void
 	{
 		$query = self::$db->from('test')
 			->orderBy('id, key')
@@ -234,7 +245,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 	// ! Grouping tests
-	public function testGroup()
+	public function testGroup(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -248,7 +259,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testOrGroup()
+	public function testOrGroup(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -265,7 +276,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testOrNotGroup()
+	public function testOrNotGroup(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -282,7 +293,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testAndNotGroupStart()
+	public function testAndNotGroupStart(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -299,7 +310,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testNotGroupStart()
+	public function testNotGroupStart(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -312,7 +323,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testGroupCamelCase()
+	public function testGroupCamelCase(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -329,7 +340,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 	// ! Where In tests
-	public function testWhereIn()
+	public function testWhereIn(): void
 	{
 		$query = self::$db->from('test')
 			->whereIn('id', [0, 6, 56, 563, 341])
@@ -338,7 +349,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testOrWhereIn()
+	public function testOrWhereIn(): void
 	{
 		$query = self::$db->from('test')
 			->where('key', 'false')
@@ -348,7 +359,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testWhereNotIn()
+	public function testWhereNotIn(): void
 	{
 		$query = self::$db->from('test')
 			->where('key', 'false')
@@ -358,7 +369,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testOrWhereNotIn()
+	public function testOrWhereNotIn(): void
 	{
 		$query = self::$db->from('test')
 			->where('key', 'false')
@@ -368,7 +379,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 	// ! Query modifier tests
-	public function testOrderBy()
+	public function testOrderBy(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -382,7 +393,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testOrderByRandom()
+	public function testOrderByRandom(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -395,7 +406,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testGroupBy()
+	public function testGroupBy(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -413,7 +424,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 
 	//public function testOr
 
-	public function testOrWhere()
+	public function testOrWhere(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -425,7 +436,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testLike()
+	public function testLike(): void
 	{
 		$query = self::$db->from('test')
 			->like('key', 'og')
@@ -434,7 +445,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testOrLike()
+	public function testOrLike(): void
 	{
 		$query = self::$db->from('test')
 			->like('key', 'og')
@@ -444,7 +455,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testOrNotLike()
+	public function testOrNotLike(): void
 	{
 		$query = self::$db->from('test')
 			->like('key', 'og', 'before')
@@ -454,7 +465,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testNotLike()
+	public function testNotLike(): void
 	{
 		$query = self::$db->from('test')
 			->like('key', 'og', 'before')
@@ -464,7 +475,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testLikeBefore()
+	public function testLikeBefore(): void
 	{
 		$query = self::$db->from('test')
 			->like('key', 'og', 'before')
@@ -473,7 +484,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testLikeAfter()
+	public function testLikeAfter(): void
 	{
 		$query = self::$db->from('test')
 			->like('key', 'og', 'after')
@@ -482,7 +493,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testJoin()
+	public function testJoin(): void
 	{
 		$query = self::$db->from('test ct')
 			->join('join cj', 'cj.id = ct.id')
@@ -491,7 +502,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testLeftJoin()
+	public function testLeftJoin(): void
 	{
 		$query = self::$db->from('test ct')
 			->join('join cj', 'cj.id = ct.id', 'left')
@@ -500,7 +511,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testInnerJoin()
+	public function testInnerJoin(): void
 	{
 		$query = self::$db->from('test ct')
 			->join('join cj', 'cj.id = ct.id', 'inner')
@@ -509,7 +520,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testJoinWithMultipleWhereValues()
+	public function testJoinWithMultipleWhereValues(): void
 	{
 		$query = self::$db->from('test ct')
 			->join('join cj', 'cj.id=ct.id', 'inner')
@@ -523,7 +534,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 	}
 
 	// ! DB update tests
-	public function testInsert()
+	public function testInsert(): void
 	{
 		$query = self::$db->set('id', 98)
 			->set('key', 84)
@@ -534,7 +545,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertTrue(self::$db->affectedRows() > 0);
 	}
 
-	public function testInsertArray()
+	public function testInsertArray(): void
 	{
 		$query = self::$db->insert('test', [
 			'id' => 587,
@@ -545,7 +556,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testInsertBatch()
+	public function testInsertBatch(): void
 	{
 		$data = [
 			[
@@ -570,7 +581,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testUpdate()
+	public function testUpdate(): void
 	{
 		$query = self::$db->where('id', 7)
 			->update('test', [
@@ -582,13 +593,13 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testUpdateBatchNull()
+	public function testUpdateBatchNull(): void
 	{
 		$query = self::$db->updateBatch('test', [], '');
 		$this->assertNull($query);
 	}
 
-	public function testDriverUpdateBatch()
+	public function testDriverUpdateBatch(): void
 	{
 		$data = [
 			[
@@ -607,7 +618,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertEquals(2, $affectedRows);
 	}
 
-	public function testSetArrayUpdate()
+	public function testSetArrayUpdate(): void
 	{
 		$array = [
 			'id' => 22,
@@ -622,7 +633,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testWhereSetUpdate()
+	public function testWhereSetUpdate(): void
 	{
 		$query = self::$db->where('id', 36)
 			->set('id', 36)
@@ -633,14 +644,14 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testDelete()
+	public function testDelete(): void
 	{
 		$query = self::$db->delete('test', ['id' => 5]);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testDeleteWithMultipleWhereValues()
+	public function testDeleteWithMultipleWhereValues(): void
 	{
 		$query = self::$db->delete('test', [
 			'id' => 5,
@@ -651,21 +662,21 @@ abstract class BaseQueryBuilderTest extends TestCase {
 	}
 
 	// ! Non-data read queries
-	public function testCountAll()
+	public function testCountAll(): void
 	{
 		$query = self::$db->countAll('test');
 
 		$this->assertTrue(is_numeric($query));
 	}
 
-	public function testCountAllResults()
+	public function testCountAllResults(): void
 	{
 		$query = self::$db->countAllResults('test');
 
 		$this->assertTrue(is_numeric($query));
 	}
 
-	public function testCountAllResults2()
+	public function testCountAllResults2(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->from('test')
@@ -677,25 +688,25 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertTrue(is_numeric($query));
 	}
 
-	public function testNumRows()
+	public function testNumRows(): void
 	{
 		self::$db->get('test');
 		$this->assertTrue(is_numeric(self::$db->numRows()));
 	}
 
 	// ! Compiled Query tests
-	public function testGetCompiledSelect()
+	public function testGetCompiledSelect(): void
 	{
 		$sql = self::$db->getCompiledSelect('test');
 		$qbRes = self::$db->get('test');
 		$sqlRes = self::$db->query($sql);
 
-		$this->assertIsA($qbRes,'PDOStatement', "Query Builder Result is a PDO Statement");
-		$this->assertIsA($sqlRes, 'PDOStatement', "SQL Result is a PDO Statement");
+		$this->assertIsA($qbRes,'PDOStatement', 'Query Builder Result is a PDO Statement');
+		$this->assertIsA($sqlRes, 'PDOStatement', 'SQL Result is a PDO Statement');
 		//$this->assertEquals($qbRes, $sqlRes);
 	}
 
-	public function testGetCompiledUpdate()
+	public function testGetCompiledUpdate(): void
 	{
 		$sql = self::$db->set([
 			'id' => 4,
@@ -706,7 +717,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertTrue(\is_string($sql));
 	}
 
-	public function testGetCompiledInsert()
+	public function testGetCompiledInsert(): void
 	{
 		$sql = self::$db->set([
 			'id' => 4,
@@ -717,7 +728,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertTrue(\is_string($sql));
 	}
 
-	public function testGetCompiledDelete()
+	public function testGetCompiledDelete(): void
 	{
 		$sql = self::$db->where('id', 4)
 			->getCompiledDelete('test');
@@ -728,7 +739,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 	/**
 	 * Handles invalid drivers
 	 */
-	public function testBadDriver()
+	public function testBadDriver(): void
 	{
 		$params = [
 			'host' => '127.0.0.1',
@@ -744,14 +755,14 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		self::$db = Query($params);
 	}
 
-	public function testBadMethod()
+	public function testBadMethod(): void
 	{
 		$this->expectException(BadMethodCallException::class);
 
 		self::$db->foo();
 	}
 
-	public function testBadNumRows()
+	public function testBadNumRows(): void
 	{
 		self::$db->set([
 			'id' => 999,

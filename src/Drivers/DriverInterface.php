@@ -14,6 +14,7 @@
  */
 namespace Query\Drivers;
 
+use InvalidArgumentException;
 use PDOStatement;
 
 /**
@@ -36,8 +37,8 @@ interface DriverInterface {
 	 *
 	 * @param string $sql
 	 * @param array $data
-	 * @return \PDOStatement|null
-	 * @throws \InvalidArgumentException
+	 * @return PDOStatement|null
+	 * @throws InvalidArgumentException
 	 */
 	public function prepareQuery(string $sql, array $data): PDOStatement;
 
@@ -128,15 +129,6 @@ interface DriverInterface {
 	 * @return array
 	 */
 	public function getTriggers(): ?array;
-
-	/**
-	 * Quotes a string for use in a query (from native PDO)
-	 *
-	 * @param string $string
-	 * @param int $parameter_type
-	 * @return string
-	 */
-	public function quote($string, $parameter_type = NULL);
 
 	/**
 	 * Surrounds the string with the databases identifier escape characters

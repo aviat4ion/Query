@@ -21,17 +21,17 @@ class ConnectionManagerTest extends TestCase {
 
 	protected static $instance;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		self::$instance = ConnectionManager::getInstance();
 	}
 
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		self::$instance = NULL;
 	}
 
-	public function testNoClone()
+	public function testNoClone(): void
 	{
 		$this->expectException('DomainException');
 		$this->expectExceptionMessage("Can't clone singleton");
@@ -39,7 +39,7 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertNull($clone);
 	}
 
-	public function testNoSerialize()
+	public function testNoSerialize(): void
 	{
 		$this->expectException(DomainException::class);
 		$this->expectExceptionMessage('No serializing of singleton');
@@ -50,14 +50,14 @@ class ConnectionManagerTest extends TestCase {
 		self::$instance->__sleep();
 	}
 
-	public function testNoUnserialize()
+	public function testNoUnserialize(): void
 	{
 		$this->expectException(DomainException::class);
 		$this->expectExceptionMessage("Can't unserialize singleton");
 		self::$instance->__wakeup();
 	}
 
-	public function testParseParams()
+	public function testParseParams(): void
 	{
 		$params = new class {
 			public $type = 'sqlite';
@@ -77,7 +77,7 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertEqual($expected, self::$instance->parseParams($params));
 	}
 
-	public function testConnect()
+	public function testConnect(): void
 	{
 		$params = new class {
 			public $type = 'sqlite';
@@ -96,7 +96,7 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertEqual($conn, self::$instance->getConnection());
 	}
 
-	public function testGetConnection()
+	public function testGetConnection(): void
 	{
 		$params = (object) [
 			'type' => 'sqlite',

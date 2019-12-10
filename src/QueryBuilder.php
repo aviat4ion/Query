@@ -14,6 +14,8 @@
  */
 namespace Query;
 
+use function regexInArray;
+
 use BadMethodCallException;
 use PDOStatement;
 use Query\Drivers\DriverInterface;
@@ -1059,7 +1061,7 @@ class QueryBuilder implements QueryBuilderInterface {
 
 			// Determine the correct conjunction
 			$conjunctionList = array_column($queryMap, 'conjunction');
-			if (empty($queryMap) || ( ! \regexInArray($conjunctionList, "/^ ?\n?WHERE/i")))
+			if (empty($queryMap) || ( ! regexInArray($conjunctionList, "/^ ?\n?WHERE/i")))
 			{
 				$conj = "\nWHERE ";
 			}
@@ -1152,10 +1154,10 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param int $totalTime
 	 * @return void
 	 */
-	protected function _appendQuery(array $values = NULL, string $sql, int $totalTime): void
+	protected function _appendQuery(array $values, string $sql, int $totalTime): void
 	{
 		$evals = \is_array($values) ? $values : [];
-		$esql = str_replace('?', "%s", $sql);
+		$esql = str_replace('?', '%s', $sql);
 
 		// Quote string values
 		foreach($evals as &$v)
