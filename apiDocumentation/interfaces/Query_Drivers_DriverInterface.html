@@ -59,7 +59,7 @@
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="../source/Drivers/DriverInterface.php.html#line22">Source</a>
+            <a href="../source/Drivers/DriverInterface.php.html#line38">Source</a>
           </li>
         </ul>
       </nav>
@@ -78,13 +78,13 @@
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getFks.html">getFks</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getTables.html">getTables</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getSystemTables.html">getSystemTables</a>()
+                    </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getSchemas.html">getSchemas</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getDbs.html">getDbs</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getViews.html">getViews</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getSequences.html">getSequences</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getFunctions.html">getFunctions</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getProcedures.html">getProcedures</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getTriggers.html">getTriggers</a>()
-                    </li><li>public string <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quote.html">quote</a>()
                     </li><li>public string|array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quoteIdent.html">quoteIdent</a>()
                     </li><li>public string|array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quoteTable.html">quoteTable</a>()
                     </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/prepareExecute.html">prepareExecute</a>()
@@ -94,9 +94,12 @@
                     </li><li>public string <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/prefixTable.html">prefixTable</a>()
                     </li><li>public array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/insertBatch.html">insertBatch</a>()
                     </li><li>public array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/updateBatch.html">updateBatch</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/truncate.html">truncate</a>()
                     </li><li>public <span title="SQLInterface">SQLInterface</span> <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getSql.html">getSql</a>()
                     </li><li>public <span title="AbstractUtil">AbstractUtil</span> <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getUtil.html">getUtil</a>()
+                    </li><li>public string <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getLastQuery.html">getLastQuery</a>()
                     </li><li>public void <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/setLastQuery.html">setLastQuery</a>()
+                    </li><li>public void <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/setTablePrefix.html">setTablePrefix</a>()
                     </li></ul>
 
             }<br/></div>
@@ -120,8 +123,12 @@
                 — Return list of functions for the current database</li>
             <li id="getIndexes"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getIndexes.html">getIndexes()</a>
                 — Retrieve indexes for the table</li>
+            <li id="getLastQuery"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getLastQuery.html">getLastQuery()</a>
+                — Get the last sql query executed</li>
             <li id="getProcedures"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getProcedures.html">getProcedures()</a>
                 — Return list of stored procedures for the current database</li>
+            <li id="getSchemas"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getSchemas.html">getSchemas()</a>
+                — Return schemas for databases that list them. Returns database list if schemas are databases for the current driver.</li>
             <li id="getSequences"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getSequences.html">getSequences()</a>
                 — Return list of sequences for the current database, if they exist</li>
             <li id="getSql"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getSql.html">getSql()</a>
@@ -148,14 +155,16 @@
                 — Create and execute a prepared statement with the provided parameters</li>
             <li id="prepareQuery"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/prepareQuery.html">prepareQuery()</a>
                 — Simplifies prepared statements for database queries</li>
-            <li id="quote"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quote.html">quote()</a>
-                — Quotes a string for use in a query (from native PDO)</li>
             <li id="quoteIdent"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quoteIdent.html">quoteIdent()</a>
                 — Surrounds the string with the databases identifier escape characters</li>
             <li id="quoteTable"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quoteTable.html">quoteTable()</a>
                 — Quote database table name, and set prefix</li>
             <li id="setLastQuery"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/setLastQuery.html">setLastQuery()</a>
                 — Set the last query sql</li>
+            <li id="setTablePrefix"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/setTablePrefix.html">setTablePrefix()</a>
+                — Set the common table name prefix</li>
+            <li id="truncate"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/truncate.html">truncate()</a>
+                — Empty the passed table</li>
             <li id="updateBatch"><a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/updateBatch.html">updateBatch()</a>
                 — Creates a batch update, and executes it.</li>
           </ul>
@@ -163,7 +172,7 @@
       </section>
     </div>
     <footer>
-      <span>Generated using phpDox 0.11.0-dev - Copyright (C) 2010 - 2018 by Arne Blankerts and Contributors</span>
+      <span>Generated using phpDox 0.12.0-dev - Copyright (C) 2010 - 2019 by Arne Blankerts and Contributors</span>
     </footer>
   </body>
 </html>

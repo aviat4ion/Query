@@ -68,7 +68,7 @@
         <h4>
    Prepares a statement for execution and returns a statement object
   </h4>
-        <p>Prepares an SQL statement to be executed by the PDOStatement::execute method. The SQL statement can contain zero or more named (:name) or question mark (?) parameter markers for which real values will be substituted when the statement is executed. You cannot use both named and question mark parameter markers within the same SQL statement; pick one or the other parameter style. Use these parameters to bind any user-input, do not include the user-input directly in the query.</p>
+        <p>Prepares an SQL statement to be executed by the PDOStatement::execute method. The statement template can contain zero or more named (:name) or question mark (?) parameter markers for which real values will be substituted when the statement is executed. Both named and question mark parameter markers cannot be used within the same statement template; only one or the other parameter style. Use these parameters to bind any user-input, do not include the user-input directly in the query.</p>
         <ul/>
         <h2 id="signature">Signature</h2>
         <div class="styled synopsis">
@@ -97,7 +97,7 @@
       </section>
     </div>
     <footer>
-      <span>Generated using phpDox 0.11.0-dev - Copyright (C) 2010 - 2018 by Arne Blankerts and Contributors</span>
+      <span>Generated using phpDox 0.12.0-dev - Copyright (C) 2010 - 2019 by Arne Blankerts and Contributors</span>
     </footer>
   </body>
 </html>
