@@ -84,9 +84,11 @@
                 </source>
 
                 <!-- PHP Code Sniffer findings -->
-                <source type="phpcs">
+                <!--
+				<source type="phpcs">
                     <file name="phpcs.xml" />
                 </source>
+                -->
 
                 <!-- PHPMessDetector -->
                 <!--
@@ -96,14 +98,12 @@
                 -->
 
                 <!-- PHPUnit Coverage XML -->
-                <source type="phpunit">
+                <!--
+				<source type="phpunit">
+					<filter directory="${phpDox.project.source}" />
                     <coverage path="coverage" />
-                    <!-- <coverage path="clover.xml" />-->
-                    <!--           @path - the directory where the xml code coverage report can be found -->
-                    <!--<filter directory="${phpDox.project.source}" />-->
-                    <!-- @directory - path of the phpunit config whitelist filter directory -->
                 </source>
-
+				-->
             </enrich>
 
             <!-- <build engine="..." enabled="true" output="..." /> -->
