@@ -4,15 +4,15 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7
+ * PHP version 7.2
  *
- * @package	 Query
- * @author	  Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2016 Timothy J. Warren
- * @license	 http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link		https://git.timshomepage.net/aviat4ion/Query
+ * @package     Query
+ * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @copyright   2012 - 2019 Timothy J. Warren
+ * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
-
 namespace {
 
 	use Query\{
