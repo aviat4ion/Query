@@ -111,6 +111,7 @@ class Util extends AbstractUtil {
 				{
 					$r = $this->getDriver()->quote($r);
 				}
+				unset($r);
 				$row = array_map('trim', $row);
 
 				$rowString = 'INSERT INTO `'.trim($t).'` (`'.implode('`,`', $columns).'`) VALUES ('.implode(',', $row).');';

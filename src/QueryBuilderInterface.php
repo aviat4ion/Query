@@ -14,10 +14,46 @@
  */
 namespace Query;
 
+use PDO;
 use PDOStatement;
 
 /**
  * Interface defining the Query Builder class
+ *
+ * @method affectedRows(): int
+ * @method beginTransaction(): bool
+ * @method commit(): bool
+ * @method errorCode(): string
+ * @method errorInfo(): array
+ * @method exec(string $statement): int
+ * @method getAttribute(int $attribute)
+ * @method getColumns(string $table): array | null
+ * @method getDbs(): array | null
+ * @method getFks(string $table): array | null
+ * @method getFunctions(): array | null
+ * @method getIndexes(string $table): array | null
+ * @method getLastQuery(): string
+ * @method getProcedures(): array | null
+ * @method getSchemas(): array | null
+ * @method getSequences(): array | null
+ * @method getSystemTables(): array | null
+ * @method getTables(): array
+ * @method getTriggers(): array | null
+ * @method getTypes(): array | null
+ * @method getUtil(): \Query\Drivers\AbstractUtil
+ * @method getViews(): array | null
+ * @method inTransaction(): bool
+ * @method lastInsertId(string $name = NULL): string
+ * @method numRows(): int | null
+ * @method prepare(string $statement, array $driver_options = []): PDOStatement
+ * @method prepareExecute(string $sql, array $params): PDOStatement
+ * @method prepareQuery(string $sql, array $data): PDOStatement
+ * @method query(string $statement): PDOStatement
+ * @method quote(string $string, int $parameter_type = PDO::PARAM_STR): string
+ * @method rollback(): bool
+ * @method setAttribute(int $attribute, $value): bool
+ * @method setTablePrefix(string $prefix): void
+ * @method truncate(string $table): PDOStatement
  */
 interface QueryBuilderInterface {
 
@@ -29,67 +65,67 @@ interface QueryBuilderInterface {
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function select(string $fields): QueryBuilderInterface;
+	public function select(string $fields): self;
 
 	/**
 	 * Selects the maximum value of a field from a query
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectMax(string $field, $as=FALSE): QueryBuilderInterface;
+	public function selectMax(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the minimum value of a field from a query
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectMin(string $field, $as=FALSE): QueryBuilderInterface;
+	public function selectMin(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the average value of a field from a query
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectAvg(string $field, $as=FALSE): QueryBuilderInterface;
+	public function selectAvg(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the sum of a field from a query
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectSum(string $field, $as=FALSE): QueryBuilderInterface;
+	public function selectSum(string $field, $as=FALSE): self;
 
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function distinct(): QueryBuilderInterface;
+	public function distinct(): self;
 
 	/**
 	 * Shows the query plan for the query
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function explain(): QueryBuilderInterface;
+	public function explain(): self;
 
 	/**
 	 * Specify the database table to select from
 	 *
 	 * @param string $tblname
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function from(string $tblname): QueryBuilderInterface;
+	public function from(string $tblname): self;
 
 	// --------------------------------------------------------------------------
 	// ! 'Like' methods
@@ -101,9 +137,9 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function like(string $field, $values, string $pos='both'): QueryBuilderInterface;
+	public function like(string $field, $values, string $pos='both'): self;
 
 	/**
 	 * Generates an OR Like clause
@@ -111,9 +147,9 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
+	public function orLike(string $field, $values, string $pos='both'): self;
 
 	/**
 	 * Generates a NOT LIKE clause
@@ -121,9 +157,9 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function notLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
+	public function notLike(string $field, $values, string $pos='both'): self;
 
 	/**
 	 * Generates a OR NOT LIKE clause
@@ -131,9 +167,9 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orNotLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
+	public function orNotLike(string $field, $values, string $pos='both'): self;
 
 	// --------------------------------------------------------------------------
 	// ! Having methods
@@ -144,18 +180,18 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function having($key, $values=[]): QueryBuilderInterface;
+	public function having($key, $values=[]): self;
 
 	/**
 	 * Generates a 'Having' clause prefixed with 'OR'
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orHaving($key, $values=[]): QueryBuilderInterface;
+	public function orHaving($key, $values=[]): self;
 
 	// --------------------------------------------------------------------------
 	// ! 'Where' methods
@@ -169,54 +205,54 @@ interface QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $values
 	 * @param bool $escape
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function where($key, $values=[], $escape = NULL): QueryBuilderInterface;
+	public function where($key, $values=[], $escape = NULL): self;
 
 	/**
 	 * Where clause prefixed with "OR"
 	 *
 	 * @param string $key
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhere($key, $values=[]): QueryBuilderInterface;
+	public function orWhere($key, $values=[]): self;
 
 	/**
 	 * Where clause with 'IN' statement
 	 *
 	 * @param mixed $field
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function whereIn($field, $values=[]): QueryBuilderInterface;
+	public function whereIn($field, $values=[]): self;
 
 	/**
 	 * Where in statement prefixed with "or"
 	 *
 	 * @param string $field
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhereIn($field, $values=[]): QueryBuilderInterface;
+	public function orWhereIn($field, $values=[]): self;
 
 	/**
 	 * WHERE NOT IN (FOO) clause
 	 *
 	 * @param string $field
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function whereNotIn($field, $values=[]): QueryBuilderInterface;
+	public function whereNotIn($field, $values=[]): self;
 
 	/**
 	 * OR WHERE NOT IN (FOO) clause
 	 *
 	 * @param string $field
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhereNotIn($field, $values=[]): QueryBuilderInterface;
+	public function orWhereNotIn($field, $values=[]): self;
 
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
@@ -227,9 +263,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function set($key, $values = NULL): QueryBuilderInterface;
+	public function set($key, $values = NULL): self;
 
 	/**
 	 * Creates a join phrase in a compiled query
@@ -237,35 +273,35 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function join(string $table, string $condition, string $type=''): QueryBuilderInterface;
+	public function join(string $table, string $condition, string $type=''): self;
 
 	/**
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupBy($field): QueryBuilderInterface;
+	public function groupBy($field): self;
 
 	/**
 	 * Order the results by the selected field(s)
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orderBy(string $field, string $type=''): QueryBuilderInterface;
+	public function orderBy(string $field, string $type=''): self;
 
 	/**
 	 * Set a limit on the current sql statement
 	 *
 	 * @param int $limit
 	 * @param int|bool $offset
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function limit(int $limit, $offset=FALSE): QueryBuilderInterface;
+	public function limit(int $limit, $offset=FALSE): self;
 
 	// --------------------------------------------------------------------------
 	// ! Query Grouping Methods
@@ -274,40 +310,40 @@ interface QueryBuilderInterface {
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupStart(): QueryBuilderInterface;
+	public function groupStart(): self;
 
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'NOT'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function notGroupStart(): QueryBuilderInterface;
+	public function notGroupStart(): self;
 
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orGroupStart(): QueryBuilderInterface;
+	public function orGroupStart(): self;
 
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orNotGroupStart(): QueryBuilderInterface;
+	public function orNotGroupStart(): self;
 
 	/**
 	 * Ends a query group
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupEnd(): QueryBuilderInterface;
+	public function groupEnd(): self;
 
 	// --------------------------------------------------------------------------
 	// ! Query execution methods

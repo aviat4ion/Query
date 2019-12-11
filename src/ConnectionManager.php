@@ -105,7 +105,8 @@ final class ConnectionManager {
 		{
 			return $this->connections[$name];
 		}
-		else if (empty($name) && ! empty($this->connections)) // Otherwise, return the last one
+
+		if (empty($name) && ! empty($this->connections)) // Otherwise, return the last one
 		{
 			return end($this->connections);
 		}
@@ -123,10 +124,10 @@ final class ConnectionManager {
 	 */
 	public function connect($params): QueryBuilderInterface
 	{
-		[$dsn, $dbtype, $params, $options] = $this->parseParams($params);
+		[$dsn, $dbType, $params, $options] = $this->parseParams($params);
 
-		$dbtype = ucfirst($dbtype);
-		$driver = "\\Query\\Drivers\\{$dbtype}\\Driver";
+		$dbType = ucfirst($dbType);
+		$driver = "\\Query\\Drivers\\{$dbType}\\Driver";
 
 		// Create the database connection
 		$db =  ! empty($params->user)
@@ -159,19 +160,19 @@ final class ConnectionManager {
 	/**
 	 * Parses params into a dsn and option array
 	 *
-	 * @param \stdClass $params
-	 * @return object|array
+	 * @param object | array $params
+	 * @return array
 	 * @throws Exception\BadDBDriverException
 	 */
 	public function parseParams($params): array
 	{
 		$params = (object) $params;
 		$params->type = strtolower($params->type);
-		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
-		$dbtype = ucfirst($dbtype);
+		$dbType = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
+		$dbType = ucfirst($dbType);
 
 		// Make sure the class exists
-		if ( ! class_exists("\\Query\\Drivers\\{$dbtype}\\Driver"))
+		if ( ! class_exists("\\Query\\Drivers\\{$dbType}\\Driver"))
 		{
 			throw new Exception\BadDBDriverException('Database driver does not exist, or is not supported');
 		}
@@ -185,28 +186,28 @@ final class ConnectionManager {
 		}
 
 		// Create the dsn for the database to connect to
-		if(strtolower($dbtype) === 'sqlite')
+		if(strtolower($dbType) === 'sqlite')
 		{
 			$dsn = $params->file;
 		}
 		else
 		{
-			$dsn = $this->createDsn($dbtype, $params);
+			$dsn = $this->createDsn($dbType, $params);
 		}
 
 
-		return [$dsn, $dbtype, $params, $options];
+		return [$dsn, $dbType, $params, $options];
 	}
 
 	/**
 	 * Create the dsn from the db type and params
 	 *
 	 * @codeCoverageIgnore
-	 * @param string $dbtype
+	 * @param string $dbType
 	 * @param array|object $params
 	 * @return string
 	 */
-	private function createDsn(string $dbtype, $params): string
+	private function createDsn(string $dbType, $params): string
 	{
 		$pairs = [];
 
@@ -234,6 +235,6 @@ final class ConnectionManager {
 			}
 		}
 
-		return strtolower($dbtype) . ':' . implode(';', $pairs);
+		return strtolower($dbType) . ':' . implode(';', $pairs);
 	}
 }

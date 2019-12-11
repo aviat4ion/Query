@@ -44,13 +44,14 @@ class SQL extends AbstractSQL {
 	}
 
 	/**
-	 * Returns sql to list other databases
+	 * Returns sql to list other databases. Meaningless for SQLite, as this
+	 * just returns the database(s) that we are currently connected to.
 	 *
 	 * @return string
 	 */
 	public function dbList(): string
 	{
-		return 'PRAGMA database_list';
+		return '';
 	}
 
 	/**

@@ -16,9 +16,6 @@ namespace Query\Drivers;
 
 /**
  * Abstract class defining database / table creation methods
- *
- * @method string quoteIdent(string $sql)
- * @method string quoteTable(string $sql)
  */
 abstract class AbstractUtil {
 
@@ -43,7 +40,7 @@ abstract class AbstractUtil {
 	 *
 	 * @return DriverInterface
 	 */
-	public function getDriver()
+	public function getDriver(): DriverInterface
 	{
 		return $this->connection;
 	}
@@ -57,7 +54,7 @@ abstract class AbstractUtil {
 	 * @param bool $ifNotExists
 	 * @return string
 	 */
-	public function createTable($name, $fields, array $constraints=[], $ifNotExists=TRUE)
+	public function createTable($name, $fields, array $constraints=[], $ifNotExists=TRUE): string
 	{
 		$existsStr = $ifNotExists ? ' IF NOT EXISTS ' : ' ';
 
@@ -77,8 +74,8 @@ abstract class AbstractUtil {
 		foreach($columnArray as $n => $props)
 		{
 			$str = $this->getDriver()->quoteIdent($n);
-			$str .= isset($props['type']) ? " {$props['type']}" : "";
-			$str .= isset($props['constraint']) ? " {$props['constraint']}" : "";
+			$str .= isset($props['type']) ? " {$props['type']}" : '';
+			$str .= isset($props['constraint']) ? " {$props['constraint']}" : '';
 
 			$columns[] = $str;
 		}
@@ -112,7 +109,7 @@ abstract class AbstractUtil {
 	 * @abstract
 	 * @return string
 	 */
-	abstract public function backupStructure();
+	abstract public function backupStructure(): string;
 
 	/**
 	 * Return an SQL file with the database data as insert statements
@@ -120,6 +117,6 @@ abstract class AbstractUtil {
 	 * @abstract
 	 * @return string
 	 */
-	abstract public function backupData();
+	abstract public function backupData(): string;
 
 }

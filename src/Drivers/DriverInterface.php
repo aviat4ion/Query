@@ -15,12 +15,27 @@
 namespace Query\Drivers;
 
 use InvalidArgumentException;
+use PDO;
 use PDOStatement;
 
 /**
  * PDO Interface to implement for database drivers
+ *
+ * @method beginTransaction(): bool
+ * @method commit(): bool
+ * @method errorCode(): string
+ * @method errorInfo(): array
+ * @method exec(string $statement): int
+ * @method getAttribute(int $attribute)
+ * @method inTransaction(): bool
+ * @method lastInsertId(string $name = NULL): string
+ * @method prepare(string $statement, array $driver_options = []): PDOStatement
+ * @method query(string $statement): PDOStatement
+ * @method quote(string $string, int $parameter_type = PDO::PARAM_STR): string
+ * @method rollback(): bool
+ * @method setAttribute(int $attribute, $value): bool
  */
-interface DriverInterface {
+interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Constructor/Connection method
@@ -48,7 +63,7 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getColumns($table): ?array;
+	public function getColumns(string $table): ?array;
 
 	/**
 	 * Retrieve list of data types for the database
@@ -63,7 +78,7 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getIndexes($table): ?array;
+	public function getIndexes(string $table): ?array;
 
 	/**
 	 * Retrieve foreign keys for the table
@@ -71,7 +86,7 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getFks($table): ?array;
+	public function getFks(string $table): ?array;
 
 	/**
 	 * Return list of tables for the current database
@@ -87,6 +102,14 @@ interface DriverInterface {
 	 * @return array
 	 */
 	public function getSystemTables(): ?array;
+
+	/**
+	 * Return schemas for databases that list them. Returns
+	 * database list if schemas are databases for the current driver.
+	 *
+	 * @return array
+	 */
+	public function getSchemas(): ?array;
 
 	/**
 	 * Return list of dbs for the current connection, if possible
@@ -208,6 +231,14 @@ interface DriverInterface {
 	public function updateBatch(string $table, array $data, string $where): array;
 
 	/**
+	 * Empty the passed table
+	 *
+	 * @param string $table
+	 * @return PDOStatement
+	 */
+	public function truncate(string $table): PDOStatement;
+
+	/**
 	 * Get the SQL class for the current driver
 	 *
 	 * @return SQLInterface
@@ -222,10 +253,25 @@ interface DriverInterface {
 	public function getUtil(): AbstractUtil;
 
 	/**
+	 * Get the last sql query executed
+	 *
+	 * @return string
+	 */
+	public function getLastQuery(): string;
+
+	/**
 	 * Set the last query sql
 	 *
 	 * @param string $queryString
 	 * @return void
 	 */
 	public function setLastQuery(string $queryString): void;
+
+	/**
+	 * Set the common table name prefix
+	 *
+	 * @param string $prefix
+	 * @return void
+	 */
+	public function setTablePrefix(string $prefix): void;
 }

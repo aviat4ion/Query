@@ -75,8 +75,10 @@ SQL;
 		{
 			foreach(['update', 'delete'] AS $type)
 			{
-				if ( ! isset($valueMap[$key[$type]])) continue;
-
+				if ( ! isset($valueMap[$key[$type]]))
+				{
+					continue;
+				}
 
 				$key[$type] = $valueMap[$key[$type]];
 			}

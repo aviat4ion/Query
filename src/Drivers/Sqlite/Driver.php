@@ -14,6 +14,9 @@
  */
 namespace Query\Drivers\Sqlite;
 
+use function is_array;
+
+use InvalidArgumentException;
 use PDO;
 use Query\Drivers\AbstractDriver;
 
@@ -45,6 +48,16 @@ class Driver extends AbstractDriver {
 		}
 
 		parent::__construct($dsn, $user, $pass);
+	}
+
+	/**
+	 * Return list of dbs for the current connection, if possible. Meaningless for SQLite.
+	 *
+	 * @return array | null
+	 */
+	public function getDbs(): ?array
+	{
+		return NULL;
 	}
 
 	/**
@@ -105,9 +118,9 @@ class Driver extends AbstractDriver {
 		// --------------------------------------------------------------------------
 
 		// Each member of the data array needs to be an array
-		if ( ! \is_array(current($data)))
+		if ( ! is_array(current($data)))
 		{
-			return NULL;
+			throw new InvalidArgumentException('$data must be an array of arrays');
 		}
 
 		// Start the block of sql statements
@@ -117,9 +130,9 @@ class Driver extends AbstractDriver {
 		// Create a key-value mapping for each field
 		$first = array_shift($data);
 		$cols = [];
-		foreach($first as $colname => $datum)
+		foreach($first as $colName => $datum)
 		{
-			$cols[] = $this->_quote($datum) . ' AS ' . $this->quoteIdent($colname);
+			$cols[] = $this->_quote($datum) . ' AS ' . $this->quoteIdent($colName);
 		}
 		$sql .= 'SELECT ' . implode(', ', $cols) . "\n";
 

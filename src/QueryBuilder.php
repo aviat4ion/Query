@@ -17,11 +17,47 @@ namespace Query;
 use function regexInArray;
 
 use BadMethodCallException;
+use PDO;
 use PDOStatement;
 use Query\Drivers\DriverInterface;
 
 /**
  * Convenience class for creating sql queries
+ *
+ * @method affectedRows(): int
+ * @method beginTransaction(): bool
+ * @method commit(): bool
+ * @method errorCode(): string
+ * @method errorInfo(): array
+ * @method exec(string $statement): int
+ * @method getAttribute(int $attribute)
+ * @method getColumns(string $table): array | null
+ * @method getDbs(): array | null
+ * @method getFks(string $table): array | null
+ * @method getFunctions(): array | null
+ * @method getIndexes(string $table): array | null
+ * @method getLastQuery(): string
+ * @method getProcedures(): array | null
+ * @method getSchemas(): array | null
+ * @method getSequences(): array | null
+ * @method getSystemTables(): array | null
+ * @method getTables(): array
+ * @method getTriggers(): array | null
+ * @method getTypes(): array | null
+ * @method getUtil(): \Query\Drivers\AbstractUtil
+ * @method getViews(): array | null
+ * @method inTransaction(): bool
+ * @method lastInsertId(string $name = NULL): string
+ * @method numRows(): int | null
+ * @method prepare(string $statement, array $driver_options = []): PDOStatement
+ * @method prepareExecute(string $sql, array $params): PDOStatement
+ * @method prepareQuery(string $sql, array $data): PDOStatement
+ * @method query(string $statement): PDOStatement
+ * @method quote(string $string, int $parameter_type = PDO::PARAM_STR): string
+ * @method rollback(): bool
+ * @method setAttribute(int $attribute, $value): bool
+ * @method setTablePrefix(string $prefix): void
+ * @method truncate(string $table): PDOStatement
  */
 class QueryBuilder implements QueryBuilderInterface {
 
@@ -49,7 +85,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * The current database driver
 	 * @var DriverInterface
 	 */
-	public $driver;
+	protected $driver;
 
 	/**
 	 * Query parser class instance
@@ -93,7 +129,8 @@ class QueryBuilder implements QueryBuilderInterface {
 	}
 
 	/**
-	 * Calls a function further down the inheritance chain
+	 * Calls a function further down the inheritance chain.
+	 * 'Implements' methods on the driver object
 	 *
 	 * @param string $name
 	 * @param array $params
@@ -208,6 +245,16 @@ class QueryBuilder implements QueryBuilderInterface {
 	{
 		// Create the select string
 		$this->state->appendSelectString(' SUM'.$this->_select($field, $as));
+		return $this;
+	}
+
+	/**
+	 * @todo implement
+	 * @param string $fields
+	 * @return $this
+	 */
+	public function returning(string $fields = '*'): QueryBuilderInterface
+	{
 		return $this;
 	}
 
@@ -937,9 +984,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @param string $like
 	 * @param string $conj
-	 * @return self
+	 * @return QueryBuilderInterface
 	 */
-	protected function _like(string $field, $val, string $pos, string $like='LIKE', string $conj='AND'): self
+	protected function _like(string $field, $val, string $pos, string $like='LIKE', string $conj='AND'): QueryBuilderInterface
 	{
 		$field = $this->driver->quoteIdent($field);
 
@@ -974,9 +1021,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $values
 	 * @param string $conj
-	 * @return self
+	 * @return QueryBuilderInterface
 	 */
-	protected function _having($key, $values=[], string $conj='AND'): self
+	protected function _having($key, $values=[], string $conj='AND'): QueryBuilderInterface
 	{
 		$where = $this->_where($key, $values);
 
@@ -1040,9 +1087,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $values
 	 * @param string $defaultConj
-	 * @return self
+	 * @return QueryBuilderInterface
 	 */
-	protected function _whereString($key, $values=[], string $defaultConj='AND'): self
+	protected function _whereString($key, $values=[], string $defaultConj='AND'): QueryBuilderInterface
 	{
 		// Create key/value placeholders
 		foreach($this->_where($key, $values) as $f => $val)
@@ -1087,9 +1134,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $val
 	 * @param string $in - The (not) in fragment
 	 * @param string $conj - The where in conjunction
-	 * @return self
+	 * @return QueryBuilderInterface
 	 */
-	protected function _whereIn($key, $val=[], string $in='IN', string $conj='AND'): self
+	protected function _whereIn($key, $val=[], string $in='IN', string $conj='AND'): QueryBuilderInterface
 	{
 		$key = $this->driver->quoteIdent($key);
 		$params = array_fill(0, count($val), '?');
@@ -1166,6 +1213,7 @@ class QueryBuilder implements QueryBuilderInterface {
 				? htmlentities($this->driver->quote($v), ENT_NOQUOTES, 'utf-8')
 				: $v;
 		}
+		unset($v);
 
 		// Add the query onto the array of values to pass
 		// as arguments to sprintf

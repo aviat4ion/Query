@@ -73,9 +73,11 @@ class Util extends AbstractUtil {
 				$row = array_values($row);
 
 				// Quote values as needed by type
-				for($i=0, $icount=count($row); $i<$icount; $i++)
+				foreach ($row as $i => $_)
 				{
-					$row[$i] = is_numeric($row[$i]) ? $row[$i] : $this->getDriver()->quote($row[$i]);
+					$row[$i] = (is_numeric($row[$i]))
+						? $row[$i]
+						: $this->getDriver()->quote($row[$i]);
 				}
 
 				$rowString = 'INSERT INTO "'.$r['name'].'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
@@ -112,6 +114,6 @@ class Util extends AbstractUtil {
 			$sqlArray[] = $r['sql'];
 		}
 
-		return implode(";\n", $sqlArray) . ";";
+		return implode(";\n", $sqlArray) . ';';
 	}
 }

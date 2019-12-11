@@ -131,6 +131,8 @@ abstract class AbstractDriver
 		{
 			return \call_user_func_array([$this->$name, '__invoke'], $args);
 		}
+
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -325,10 +327,8 @@ abstract class AbstractDriver
 		foreach($funcs as $f)
 		{
 			// Unquote the function
-			$raw = str_replace($f[0], $f[1], $raw);
-
 			// Quote the inside identifiers
-			$raw = str_replace($f[3], $this->quoteIdent($f[3]), $raw);
+			$raw = str_replace(array($f[0], $f[3]), array($f[1], $this->quoteIdent($f[3])), $raw);
 		}
 
 		return $raw;
@@ -341,7 +341,8 @@ abstract class AbstractDriver
 	 */
 	public function getSchemas(): ?array
 	{
-		return NULL;
+		// Most DBMSs conflate schemas and databases
+		return $this->getDbs();
 	}
 
 	/**
@@ -361,7 +362,7 @@ abstract class AbstractDriver
 	 *
 	 * @return array
 	 */
-	public function getDbs(): array
+	public function getDbs(): ?array
 	{
 		return $this->driverQuery('dbList');
 	}
@@ -435,7 +436,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return array
 	 */
-	public function getColumns($table): ?array
+	public function getColumns(string $table): ?array
 	{
 		return $this->driverQuery($this->getSql()->columnList($this->prefixTable($table)), FALSE);
 	}
@@ -446,7 +447,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return array
 	 */
-	public function getFks($table): ?array
+	public function getFks(string $table): ?array
 	{
 		return $this->driverQuery($this->getSql()->fkList($table), FALSE);
 	}
@@ -457,7 +458,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return array
 	 */
-	public function getIndexes($table): ?array
+	public function getIndexes(string $table): ?array
 	{
 		return $this->driverQuery($this->getSql()->indexList($this->prefixTable($table)), FALSE);
 	}
