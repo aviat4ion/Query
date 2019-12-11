@@ -90,9 +90,12 @@ abstract class BaseDriverTest extends TestCase {
 	public function testGetViews(): void
 	{
 		$views = self::$db->getViews();
-		$expected = ['numbersview', 'testview'];
-		$this->assertEqual($expected, array_values($views));
+
 		$this->assertTrue(\is_array($views));
+		foreach (['numbersview', 'testview'] as $searchView)
+		{
+			$this->assertTrue(in_array($searchView, $views, TRUE));
+		}
 	}
 
 	public function testGetTriggers(): void

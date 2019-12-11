@@ -24,6 +24,7 @@ use Query\Tests\BaseDriverTest;
  *
  * @extends DBTest
  * @requires extension pdo_sqlite
+ * @covers \Query\Drivers\Sqlite\Driver
  */
 class SQLiteDriverTest extends BaseDriverTest {
 
@@ -177,7 +178,6 @@ SQL;
 		$db = new $class(QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db');
 
 		$this->assertIsA($db, $class);
-		$this->assertIsA(self::$db->driver, $class);
 
 		unset($db);
 	}
@@ -194,7 +194,7 @@ SQL;
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, [1,"boogers", "Gross"]);
+		$statement = self::$db->prepareQuery($sql, [1, 'boogers', 'Gross']);
 
 		$statement->execute();
 
@@ -215,7 +215,7 @@ SQL;
 			VALUES (?,?,?)
 SQL;
 		self::$db->prepareExecute($sql, [
-			2, "works", 'also?'
+			2, 'works', 'also?'
 		]);
 
 		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=2')
@@ -252,7 +252,7 @@ SQL;
 
 	public function testGetDBs(): void
 	{
-		$this->assertTrue(\is_array(self::$db->getDbs()));
+		$this->assertNull(self::$db->getDbs());
 	}
 
 	public function testGetSchemas(): void

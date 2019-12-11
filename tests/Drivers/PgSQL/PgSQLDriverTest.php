@@ -24,6 +24,7 @@ use TypeError;
  *
  * @extends DBTest
  * @requires extension pdo_pgsql
+ * @covers \Query\Drivers\Pgsql\Driver
  */
 class PgSQLDriverTest extends BaseDriverTest {
 

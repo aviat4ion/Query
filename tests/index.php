@@ -16,9 +16,9 @@ namespace {
 	/**
 	 * Unit test bootstrap - Using php simpletest
 	 */
-	\define('QTEST_DIR', __DIR__);
-	\define('QBASE_DIR', realpath(__DIR__ . '/../') . '/');
-	\define('QDS', DIRECTORY_SEPARATOR);
+	define('QTEST_DIR', __DIR__);
+	define('QBASE_DIR', realpath(__DIR__ . '/../') . '/');
+	define('QDS', DIRECTORY_SEPARATOR);
 
 	require_once QBASE_DIR . 'vendor/simpletest/simpletest/autorun.php';
 	require_once QBASE_DIR . 'vendor/autoload.php';
@@ -29,8 +29,7 @@ namespace Query\Tests {
 	/**
 	 * Base class for TestCases
 	 */
-	abstract class TestCase extends \UnitTestCase
-	{
+	abstract class TestCase extends \UnitTestCase {
 		public function __construct()
 		{
 			$class = \get_class($this);
@@ -102,7 +101,6 @@ namespace Query\Tests {
 			// noop
 		}
 	}
-
 }
 
 /**

@@ -22,6 +22,7 @@ use TypeError;
 /**
  * MySQLTest class.
  *
+ * @covers \Query\Drivers\Mysql\Driver
  * @requires extension pdo_mysql
  */
 class MySQLDriverTest extends BaseDriverTest {
@@ -153,7 +154,7 @@ SQL;
 
 	public function testCommitTransaction(): void
 	{
-		$res = self::$db->beginTransaction();
+		$this->assertTrue(self::$db->beginTransaction());
 
 		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (10, 12, 14)';
 		self::$db->query($sql);
@@ -164,7 +165,7 @@ SQL;
 
 	public function testRollbackTransaction(): void
 	{
-		$res = self::$db->beginTransaction();
+		$this->assertTrue(self::$db->beginTransaction());
 
 		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (182, 96, 43)';
 		self::$db->query($sql);
@@ -175,7 +176,7 @@ SQL;
 
 	public function testGetSchemas(): void
 	{
-		$this->assertNull(self::$db->getSchemas());
+		$this->assertEqual(['test'], self::$db->getSchemas());
 	}
 
 	public function testGetSequences(): void
