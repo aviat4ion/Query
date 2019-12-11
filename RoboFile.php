@@ -94,7 +94,11 @@ class RoboFile extends \Robo\Tasks {
 	 */
 	public function coverage()
 	{
-		$this->_run(['phpdbg -qrr -- vendor/bin/phpunit -c build']);
+		$this->taskPhpUnit()
+			->configFile('build/phpunit.xml')
+			->run();
+		// $this->_run(['phpdbg -qrr -- vendor/bin/phpunit -c build']);
+
 	}
 
 	/**

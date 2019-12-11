@@ -27,7 +27,7 @@
 	<logging>
 		<log type="coverage-html" target="./../coverage"/>
 		<log type="coverage-clover" target="logs/clover.xml"/>
-		<log type="coverage-xml" target="logs/coverage" />
+		<log type="coverage-xml" lowUpperBound="85" highLowerBound="90" showUncoveredFiles="true" target="logs/coverage" />
 		<log type="junit" target="logs/junit.xml" />
 	</logging>
 </phpunit>

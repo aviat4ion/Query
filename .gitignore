@@ -137,7 +137,6 @@ build/logs/*
 build/pdepend/*
 build/phpdox/*
 cache.properties
-._*
 tests/settings.json
 .php_cs
 coverage/*
@@ -146,3 +145,4 @@ composer.lock
 docs/phpdoc*
 .project
 all_tests
+build/.phpunit.result.cache
