@@ -177,7 +177,7 @@ SQL;
 
 	public function testGetSchemas(): void
 	{
-		$this->assertEqual(['test'], self::$db->getSchemas());
+		$this->assertTrue(in_array('test', self::$db->getSchemas()));
 	}
 
 	public function testGetSequences(): void
