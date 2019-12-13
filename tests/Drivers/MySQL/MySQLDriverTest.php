@@ -23,7 +23,6 @@ use TypeError;
 /**
  * MySQLTest class.
  *
- * @covers \Query\Drivers\Mysql\Driver
  * @requires extension pdo_mysql
  */
 class MySQLDriverTest extends BaseDriverTest {

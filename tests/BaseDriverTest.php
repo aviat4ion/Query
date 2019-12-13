@@ -131,5 +131,12 @@ abstract class BaseDriverTest extends TestCase {
 		$funcs = self::$db->getFunctions();
 		$this->assertTrue(\is_array($funcs));
 	}
+
+	public function testGetVersion(): void
+	{
+		$version = self::$db->getVersion();
+		$this->assertTrue(is_string($version));
+		$this->assertTrue(strlen($version) > 0);
+	}
 }
 // End of db_test.php

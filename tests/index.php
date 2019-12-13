@@ -35,7 +35,11 @@ namespace Query\Tests {
 		{
 			$class = \get_class($this);
 
-			echo 'Ran test suite: ' . $class . '<br />';
+			if (PHP_SAPI !== 'cli')
+			{
+				echo 'Running test suite: ' . $class . '<br />';
+				flush();
+			}
 
 			if (method_exists($class, 'setupBeforeClass')) {
 				$class::setupBeforeClass();

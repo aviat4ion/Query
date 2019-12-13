@@ -109,7 +109,7 @@ class Driver extends AbstractDriver {
 	{
 		// If greater than version 3.7.11, supports the same syntax as
 		// MySQL and Postgres
-		if (version_compare($this->getAttribute(PDO::ATTR_SERVER_VERSION), '3.7.11', '>='))
+		if (version_compare($this->getVersion(), '3.7.11', '>='))
 		{
 			return parent::insertBatch($table, $data);
 		}
@@ -144,5 +144,18 @@ class Driver extends AbstractDriver {
 		}
 
 		return [$sql, NULL];
+	}
+
+	/**
+	 * Generate the returning clause for the current database
+	 *
+	 * @param string $query
+	 * @param string $select
+	 * @return string
+	 */
+	public function returning(string $query, string $select): string
+	{
+		// Return the same query, as the returning clause is not supported
+		return $query;
 	}
 }

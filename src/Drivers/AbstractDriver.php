@@ -475,6 +475,16 @@ abstract class AbstractDriver
 	}
 
 	/**
+	 * Get the version of the database engine
+	 *
+	 * @return string
+	 */
+	public function getVersion(): string
+	{
+		return $this->getAttribute(PDO::ATTR_SERVER_VERSION);
+	}
+
+	/**
 	 * Method to simplify retrieving db results for meta-data queries
 	 *
 	 * @param string|array|null $query
@@ -651,6 +661,18 @@ abstract class AbstractDriver
 
 		$this->statement = $this->query($sql);
 		return $this->statement;
+	}
+
+	/**
+	 * Generate the returning clause for the current database
+	 *
+	 * @param string $query
+	 * @param string $select
+	 * @return string
+	 */
+	public function returning(string $query, string $select): string
+	{
+		return "{$query} RETURNING {$select}";
 	}
 
 	/**

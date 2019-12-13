@@ -25,7 +25,6 @@ use Query\Tests\BaseDriverTest;
  *
  * @extends DBTest
  * @requires extension pdo_sqlite
- * @covers \Query\Drivers\Sqlite\Driver
  */
 class SQLiteDriverTest extends BaseDriverTest {
 
@@ -253,6 +252,9 @@ SQL;
 
 	public function testGetDBs(): void
 	{
+		$driverSQL = self::$db->getSql()->dbList();
+		$this->assertEqual('', $driverSQL);
+
 		$this->assertNull(self::$db->getDbs());
 	}
 

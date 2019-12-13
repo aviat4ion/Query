@@ -78,7 +78,9 @@ SQL;
 			{
 				if ( ! isset($valueMap[$key[$type]]))
 				{
+					// @codeCoverageIgnoreStart
 					continue;
+					// @codeCoverageIgnoreEnd
 				}
 
 				$key[$type] = $valueMap[$key[$type]];

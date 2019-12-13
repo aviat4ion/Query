@@ -24,6 +24,7 @@ class ConnectionManagerTest extends TestCase {
 
 	public static function setUpBeforeClass(): void
 	{
+		ConnectionManager::getInstance();
 		self::$instance = ConnectionManager::getInstance();
 	}
 

@@ -254,6 +254,13 @@ interface DriverInterface /* extends the interface of PDO */ {
 	public function getUtil(): AbstractUtil;
 
 	/**
+	 * Get the version of the database engine
+	 *
+	 * @return string
+	 */
+	public function getVersion(): string;
+
+	/**
 	 * Get the last sql query executed
 	 *
 	 * @return string
