@@ -8,7 +8,7 @@
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2020 Timothy J. Warren
+ * @copyright   2012 - 2019 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     3.0.0
@@ -25,20 +25,6 @@ use PDO;
  * @extends UnitTestCase
  */
 class CoreTest extends TestCase {
-
-	/**
-	 * TestPHPVersion function.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function testPHPVersion(): void
-	{
-		$this->assertTrue(PHP_VERSION_ID >= 70100);
-		$this->assertTrue(PHP_MAJOR_VERSION >= 7);
-		$this->assertTrue(PHP_MINOR_VERSION >= 1);
-	}
-
 	/**
 	 * TestHasPDO function.
 	 *
