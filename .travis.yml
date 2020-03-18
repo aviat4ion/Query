@@ -1,18 +1,13 @@
 dist: xenial
 os: linux
 
-arch:
-  - amd64
-  - arm64
-  - ppc64le
+arch: amd64
 
 language: php
 
 services:
-  - if: arch = amd64
-    - [ mysql, postgresql ]
-  - if: arch != amd64
-    - mysql
+  - mysql
+  - postgresql
 
 php:
   - 7.2
@@ -21,9 +16,8 @@ php:
   - nightly
 
 before_script:
-  - if: arch = amd64
-    - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
-    - psql -c 'create database test;' -U postgres
+  - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
+  - psql -c 'create database test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS test;'
   - composer install --ignore-platform-reqs
 
@@ -34,10 +28,9 @@ script:
   - cd ../
 
 after_script:
-    - wget https://scrutinizer-ci.com/ocular.phar
-    - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
 jobs:
   allow_failures:
     - php: nightly
-    - arch: [arm64, ppc64le]
