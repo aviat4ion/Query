@@ -1,4 +1,14 @@
-sudo: false
+dist: xenial
+os:
+  - linux
+  - osx
+  - windows
+  - freebsd
+
+arch:
+  - amd64
+  - arm64
+  - ppc64le
 
 language: php
 
@@ -28,6 +38,6 @@ after_script:
     - wget https://scrutinizer-ci.com/ocular.phar
     - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
-matrix:
+jobs:
   allow_failures:
     - php: nightly
