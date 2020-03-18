@@ -1,9 +1,5 @@
 dist: xenial
-os:
-  - linux
-  - osx
-  - windows
-  - freebsd
+os: linux
 
 arch:
   - amd64
@@ -41,3 +37,4 @@ after_script:
 jobs:
   allow_failures:
     - php: nightly
+    - arch: [arm64, ppc64le]
