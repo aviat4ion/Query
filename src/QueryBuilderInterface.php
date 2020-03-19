@@ -42,6 +42,7 @@ use PDOStatement;
  * @method getTriggers(): array | null
  * @method getTypes(): array | null
  * @method getUtil(): \Query\Drivers\AbstractUtil
+ * @method getVersion(): string
  * @method getViews(): array | null
  * @method inTransaction(): bool
  * @method lastInsertId(string $name = NULL): string
@@ -105,6 +106,14 @@ interface QueryBuilderInterface {
 	 * @return self
 	 */
 	public function selectSum(string $field, $as=FALSE): self;
+
+	/**
+	 * Add a 'returning' clause to an insert,update, or delete query
+	 *
+	 * @param string $fields
+	 * @return self
+	 */
+	public function returning(string $fields = '*'): self;
 
 	/**
 	 * Adds the 'distinct' keyword to a query

@@ -8,7 +8,7 @@
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2020 Timothy J. Warren
+ * @copyright   2012 - 2019 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     3.0.0
@@ -71,5 +71,15 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 		$this->assertTrue(\is_array($res));
 		$this->assertTrue(count(array_keys($res[0])) > 1);
 		$this->assertTrue(array_key_exists('table', $res[0]));
+	}
+
+	public function testInsertReturning(): void
+	{
+		$this->markTestSkipped();
+	}
+
+	public function testUpdateReturning(): void
+	{
+		$this->markTestSkipped();
 	}
 }

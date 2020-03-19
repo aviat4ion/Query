@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+	beStrictAboutOutputDuringTests="false"
 	colors="true"
 	stopOnFailure="false"
-	bootstrap="./../tests/bootstrap.php">
+	bootstrap="./../tests/bootstrap.php"
+	verbose="true"
+>
 	<filter>
 		<whitelist>
 			<directory suffix=".php">./../src/</directory>

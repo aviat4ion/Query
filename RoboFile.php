@@ -1,4 +1,7 @@
 <?php declare(strict_types=1);
+
+use Robo\Tasks;
+
 if ( ! function_exists('glob_recursive'))
 {
 	// Does not support flag GLOB_BRACE
@@ -20,7 +23,7 @@ if ( ! function_exists('glob_recursive'))
  *
  * @see http://robo.li/
  */
-class RoboFile extends \Robo\Tasks {
+class RoboFile extends Tasks {
 
 	/**
 	 * Directories used by analysis tools
@@ -51,20 +54,20 @@ class RoboFile extends \Robo\Tasks {
 	/**
 	 * Do static analysis tasks
 	 */
-	public function analyze()
+	public function analyze(): void
 	{
 		$this->prepare();
 		$this->lint();
 		$this->phploc(TRUE);
 		$this->phpcs(TRUE);
-		$this->dependencyReport();
+		$this->phpmd(TRUE);
 		$this->phpcpdReport();
 	}
 
 	/**
 	 * Run all tests, generate coverage, generate docs, generate code statistics
 	 */
-	public function build()
+	public function build(): void
 	{
 		$this->analyze();
 		$this->coverage();
@@ -74,11 +77,11 @@ class RoboFile extends \Robo\Tasks {
 	/**
 	 * Cleanup temporary files
 	 */
-	public function clean()
+	public function clean(): void
 	{
 		// So the task doesn't complain,
 		// make any 'missing' dirs to cleanup
-		array_map(function ($dir) {
+		array_map(static function ($dir) {
 			if ( ! is_dir($dir))
 			{
 				`mkdir -p {$dir}`;
@@ -92,19 +95,15 @@ class RoboFile extends \Robo\Tasks {
 	/**
 	 * Run unit tests and generate coverage reports
 	 */
-	public function coverage()
+	public function coverage(): void
 	{
-		$this->taskPhpUnit()
-			->configFile('build/phpunit.xml')
-			->run();
-		// $this->_run(['phpdbg -qrr -- vendor/bin/phpunit -c build']);
-
+		$this->_run(['phpdbg -qrr -- vendor/bin/phpunit -c build']);
 	}
 
 	/**
 	 * Generate documentation with phpdox
 	 */
-	public function docs()
+	public function docs(): void
 	{
 		$this->_run(['vendor/bin/phpdox']);
 	}
@@ -112,11 +111,11 @@ class RoboFile extends \Robo\Tasks {
 	/**
 	 * Verify that source files are valid
 	 */
-	public function lint()
+	public function lint(): void
 	{
 		$files = $this->getAllSourceFiles();
 
-		$chunks = array_chunk($files, (int)`getconf _NPROCESSORS_ONLN`);
+		$chunks = array_chunk($files, (int)shell_exec('getconf _NPROCESSORS_ONLN'));
 
 		foreach($chunks as $chunk)
 		{
@@ -129,7 +128,7 @@ class RoboFile extends \Robo\Tasks {
 	 *
 	 * @param bool $report - if true, generates reports instead of direct output
 	 */
-	public function phpcs($report = FALSE)
+	public function phpcs($report = FALSE): void
 	{
 		$dir = __DIR__;
 
@@ -149,12 +148,36 @@ class RoboFile extends \Robo\Tasks {
 		$this->_run($cmd_parts);
 	}
 
+	public function phpmd($report = FALSE): void
+	{
+		$report_cmd_parts = [
+			'vendor/bin/phpmd',
+			'./src',
+			'xml',
+			'cleancode,codesize,controversial,design,naming,unusedcode',
+			'--exclude ParallelAPIRequest',
+			'--reportfile ./build/logs/phpmd.xml'
+		];
+
+		$normal_cmd_parts = [
+			'vendor/bin/phpmd',
+			'./src',
+			'ansi',
+			'cleancode,codesize,controversial,design,naming,unusedcode',
+			'--exclude ParallelAPIRequest'
+		];
+
+		$cmd_parts = ($report) ? $report_cmd_parts : $normal_cmd_parts;
+
+		$this->_run($cmd_parts);
+	}
+
 	/**
 	 * Run the phploc tool
 	 *
 	 * @param bool $report - if true, generates reports instead of direct output
 	 */
-	public function phploc($report = FALSE)
+	public function phploc($report = FALSE): void
 	{
 		// Command for generating reports
 		$report_cmd_parts = [
@@ -182,7 +205,7 @@ class RoboFile extends \Robo\Tasks {
 	/**
 	 * Create temporary directories
 	 */
-	public function prepare()
+	public function prepare(): void
 	{
 		array_map([$this, '_mkdir'], $this->taskDirs);
 	}
@@ -190,7 +213,7 @@ class RoboFile extends \Robo\Tasks {
 	/**
 	 * Lint php files and run unit tests
 	 */
-	public function test()
+	public function test(): void
 	{
 		$this->lint();
 		$this->taskPhpUnit()
@@ -202,7 +225,7 @@ class RoboFile extends \Robo\Tasks {
 	/**
 	 * Watches for file updates, and automatically runs appropriate actions
 	 */
-	public function watch()
+	public function watch(): void
 	{
 		$this->taskWatch()
 			->monitor('composer.json', function() {
@@ -218,26 +241,11 @@ class RoboFile extends \Robo\Tasks {
 	}
 
 	/**
-	 * Create pdepend reports
-	 */
-	protected function dependencyReport()
-	{
-		$cmd_parts = [
-			'vendor/bin/pdepend',
-			'--jdepend-xml=build/logs/jdepend.xml',
-			'--jdepend-chart=build/pdepend/dependencies.svg',
-			'--overview-pyramid=build/pdepend/overview-pyramid.svg',
-			'src'
-		];
-		$this->_run($cmd_parts);
-	}
-
-	/**
 	 * Get the total list of source files, including tests
 	 *
 	 * @return array
 	 */
-	protected function getAllSourceFiles()
+	protected function getAllSourceFiles(): array
 	{
 		$files = array_merge(
 			glob_recursive('build/*.php'),
@@ -256,7 +264,7 @@ class RoboFile extends \Robo\Tasks {
 	 *
 	 * @param array $chunk
 	 */
-	protected function parallelLint(array $chunk)
+	protected function parallelLint(array $chunk): void
 	{
 		$task = $this->taskParallelExec()
 			->timeout(5)
@@ -273,7 +281,7 @@ class RoboFile extends \Robo\Tasks {
 	/**
 	 * Generate copy paste detector report
 	 */
-	protected function phpcpdReport()
+	protected function phpcpdReport(): void
 	{
 		$cmd_parts = [
 			'vendor/bin/phpcpd',
@@ -290,7 +298,7 @@ class RoboFile extends \Robo\Tasks {
 	 * @param array $cmd_parts - command arguments
 	 * @param string $join_on - what to join the command arguments with
 	 */
-	protected function _run(array $cmd_parts, $join_on = ' ')
+	protected function _run(array $cmd_parts, $join_on = ' '): void
 	{
 		$this->taskExec(implode($join_on, $cmd_parts))->run();
 	}

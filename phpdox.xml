@@ -78,24 +78,20 @@
                 </source>
 
                 <!-- git vcs information -->
-                <source type="git">
+                <!-- <source type="git">
                     <git binary="/usr/bin/git" />
                     <history enabled="true" limit="15" cache="${phpDox.project.workdir}/gitlog.xml" />
-                </source>
+                </source> -->
 
                 <!-- PHP Code Sniffer findings -->
-                <!--
-				<source type="phpcs">
+				<source type="checkstyle">
                     <file name="phpcs.xml" />
                 </source>
-                -->
 
                 <!-- PHPMessDetector -->
-                <!--
                 <source type="pmd">
-                    <file name="pmd.xml" />
+                    <file name="phpmd.xml" />
                 </source>
-                -->
 
                 <!-- PHPUnit Coverage XML -->
                 <!--

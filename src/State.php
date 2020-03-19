@@ -17,6 +17,25 @@ namespace Query;
 
 /**
  * Query builder state
+ *
+ * @method getSelectString(): string
+ * @method getFromString(): string
+ * @method getSetString(): string
+ * @method getOrderString(): string
+ * @method getGroupString(): string
+ * @method getSetArrayKeys(): array
+ * @method getOrderArray(): array
+ * @method getGroupArray(): array
+ * @method getValues(): array
+ * @method getWhereValues(): array
+ * @method getLimit(): int
+ * @method getOffset()
+ * @method getQueryMap(): array
+ * @method getHavingMap(): array
+ *
+ * @method setSelectString(string): self
+ * @method setFromString(string): self
+ * @method setSetString(string): self
  */
 class State {
 	// --------------------------------------------------------------------------
@@ -124,22 +143,28 @@ class State {
 	 */
 	protected $havingMap = [];
 
-	/**
-	 * @param string $str
-	 * @return State
-	 */
-	public function setSelectString(string $str): self
+	public function __call(string $name, array $arguments)
 	{
-		$this->selectString = $str;
-		return $this;
-	}
+		if (strpos($name, 'get', 0) === 0)
+		{
+			$maybeProp = lcfirst(substr($name, 3));
+			if (isset($this->$maybeProp))
+			{
+				return $this->$maybeProp;
+			}
+		}
 
-	/**
-	 * @return string
-	 */
-	public function getSelectString(): string
-	{
-		return $this->selectString;
+		if (strpos($name, 'set', 0) === 0)
+		{
+			$maybeProp = lcfirst(substr($name, 3));
+			if (isset($this->$maybeProp))
+			{
+				$this->$maybeProp = $arguments[0];
+				return $this;
+			}
+		}
+
+		return NULL;
 	}
 
 	/**
@@ -153,50 +178,6 @@ class State {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getFromString(): string
-	{
-		return $this->fromString;
-	}
-
-	/**
-	 * @param string $fromString
-	 * @return State
-	 */
-	public function setFromString(string $fromString): self
-	{
-		$this->fromString = $fromString;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getSetString(): string
-	{
-		return $this->setString;
-	}
-
-	/**
-	 * @param string $setString
-	 * @return State
-	 */
-	public function setSetString(string $setString): self
-	{
-		$this->setString = $setString;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getOrderString(): string
-	{
-		return $this->orderString;
-	}
-
-	/**
 	 * @param string $orderString
 	 * @return State
 	 */
@@ -207,14 +188,6 @@ class State {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getGroupString(): string
-	{
-		return $this->groupString;
-	}
-
-	/**
 	 * @param string $groupString
 	 * @return State
 	 */
@@ -222,14 +195,6 @@ class State {
 	{
 		$this->groupString = $groupString;
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getSetArrayKeys(): array
-	{
-		return $this->setArrayKeys;
 	}
 
 	/**
@@ -253,14 +218,6 @@ class State {
 	}
 
 	/**
-	 * @return array
-	 */
-	public function getOrderArray(): array
-	{
-		return $this->orderArray;
-	}
-
-	/**
 	 * @param string $key
 	 * @param mixed $orderArray
 	 * @return State
@@ -269,14 +226,6 @@ class State {
 	{
 		$this->orderArray[$key] = $orderArray;
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getGroupArray(): array
-	{
-		return $this->groupArray;
 	}
 
 	/**
@@ -300,14 +249,6 @@ class State {
 	}
 
 	/**
-	 * @return array
-	 */
-	public function getValues(): array
-	{
-		return $this->values;
-	}
-
-	/**
 	 * @param array $values
 	 * @return State
 	 */
@@ -315,14 +256,6 @@ class State {
 	{
 		$this->values = array_merge($this->values, $values);
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getWhereValues(): array
-	{
-		return $this->whereValues;
 	}
 
 	/**
@@ -346,14 +279,6 @@ class State {
 	}
 
 	/**
-	 * @return int
-	 */
-	public function getLimit(): ?int
-	{
-		return $this->limit;
-	}
-
-	/**
 	 * @param int $limit
 	 * @return State
 	 */
@@ -364,14 +289,6 @@ class State {
 	}
 
 	/**
-	 * @return string|false
-	 */
-	public function getOffset()
-	{
-		return $this->offset;
-	}
-
-	/**
 	 * @param string|false $offset
 	 * @return State
 	 */
@@ -379,14 +296,6 @@ class State {
 	{
 		$this->offset = $offset;
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getQueryMap(): array
-	{
-		return $this->queryMap;
 	}
 
 	/**
@@ -405,14 +314,6 @@ class State {
 			'string' => $string
 		];
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getHavingMap(): array
-	{
-		return $this->havingMap;
 	}
 
 	/**

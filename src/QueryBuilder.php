@@ -15,6 +15,7 @@
  */
 namespace Query;
 
+use function is_array;
 use function regexInArray;
 
 use BadMethodCallException;
@@ -46,6 +47,7 @@ use Query\Drivers\DriverInterface;
  * @method getTriggers(): array | null
  * @method getTypes(): array | null
  * @method getUtil(): \Query\Drivers\AbstractUtil
+ * @method getVersion(): string
  * @method getViews(): array | null
  * @method inTransaction(): bool
  * @method lastInsertId(string $name = NULL): string
@@ -78,9 +80,15 @@ class QueryBuilder implements QueryBuilderInterface {
 
 	/**
 	 * Whether to do only an explain on the query
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $explain = FALSE;
+
+	/**
+	 * Whether to return data from a modification query
+	 * @var bool
+	 */
+	protected $returning = FALSE;
 
 	/**
 	 * The current database driver
@@ -142,7 +150,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	{
 		if (method_exists($this->driver, $name))
 		{
-			return \call_user_func_array([$this->driver, $name], $params);
+			return $this->driver->$name(...$params);
 		}
 
 		throw new BadMethodCallException('Method does not exist');
@@ -180,11 +188,11 @@ class QueryBuilder implements QueryBuilderInterface {
 		unset($fieldsArray);
 
 		// Join the strings back together
-		for($i = 0, $c = count($safeArray); $i < $c; $i++)
+		foreach ($safeArray as $i => $iValue)
 		{
-			if (\is_array($safeArray[$i]))
+			if (is_array($iValue))
 			{
-				$safeArray[$i] = implode(' AS ', $safeArray[$i]);
+				$safeArray[$i] = implode(' AS ', $iValue);
 			}
 		}
 
@@ -250,12 +258,21 @@ class QueryBuilder implements QueryBuilderInterface {
 	}
 
 	/**
-	 * @todo implement
+	 * Add a 'returning' clause to an insert,update, or delete query
+	 *
 	 * @param string $fields
 	 * @return $this
 	 */
-	public function returning(string $fields = '*'): QueryBuilderInterface
+	public function returning(string $fields = ''): QueryBuilderInterface
 	{
+		$this->returning = TRUE;
+
+		// Re-use the string select field for generating the returning type clause
+		if ($fields !== '')
+		{
+			return $this->select($fields);
+		}
+
 		return $this;
 	}
 
@@ -762,7 +779,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->from($table);
 		}
 
-		$result = $this->_run('get', $table, NULL, NULL, $reset);
+		$result = $this->_run(QueryType::SELECT, $table, NULL, NULL, $reset);
 		$rows = $result->fetchAll();
 
 		return (int) count($rows);
@@ -782,7 +799,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->set($data);
 		}
 
-		return $this->_run('insert', $table);
+		return $this->_run(QueryType::INSERT, $table);
 	}
 
 	/**
@@ -796,6 +813,8 @@ class QueryBuilder implements QueryBuilderInterface {
 	{
 		// Get the generated values and sql string
 		[$sql, $data] = $this->driver->insertBatch($table, $data);
+
+
 
 		return $sql !== NULL
 			? $this->_run('', $table, $sql, $data)
@@ -816,7 +835,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->set($data);
 		}
 
-		return $this->_run('update', $table);
+		return $this->_run(QueryType::UPDATE, $table);
 	}
 
 	/**
@@ -857,7 +876,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->where($where);
 		}
 
-		return $this->_run('delete', $table);
+		return $this->_run(QueryType::DELETE, $table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -879,7 +898,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->from($table);
 		}
 
-		return $this->_getCompile('select', $table, $reset);
+		return $this->_getCompile(QueryType::SELECT, $table, $reset);
 	}
 
 	/**
@@ -891,7 +910,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function getCompiledInsert(string $table, bool $reset=TRUE): string
 	{
-		return $this->_getCompile('insert', $table, $reset);
+		return $this->_getCompile(QueryType::INSERT, $table, $reset);
 	}
 
 	/**
@@ -903,7 +922,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function getCompiledUpdate(string $table='', bool $reset=TRUE): string
 	{
-		return $this->_getCompile('update', $table, $reset);
+		return $this->_getCompile(QueryType::UPDATE, $table, $reset);
 	}
 
 	/**
@@ -915,7 +934,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function getCompiledDelete(string $table='', bool $reset=TRUE): string
 	{
-		return $this->_getCompile('delete', $table, $reset);
+		return $this->_getCompile(QueryType::DELETE, $table, $reset);
 	}
 
 	// --------------------------------------------------------------------------
@@ -931,6 +950,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	{
 		$this->state = new State();
 		$this->explain = FALSE;
+		$this->returning = FALSE;
 	}
 
 	/**
@@ -1204,7 +1224,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	protected function _appendQuery(array $values, string $sql, int $totalTime): void
 	{
-		$evals = \is_array($values) ? $values : [];
+		$evals = is_array($values) ? $values : [];
 		$esql = str_replace('?', '%s', $sql);
 
 		// Quote string values
@@ -1240,29 +1260,29 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $table
 	 * @return string
 	 */
-	protected function _compileType(string $type='', string $table=''): string
+	protected function _compileType(string $type=QueryType::SELECT, string $table=''): string
 	{
 		$setArrayKeys = $this->state->getSetArrayKeys();
 		switch($type)
 		{
-			case 'insert':
+			case QueryType::INSERT:
 				$paramCount = count($setArrayKeys);
 				$params = array_fill(0, $paramCount, '?');
 				$sql = "INSERT INTO {$table} ("
 					. implode(',', $setArrayKeys)
 					. ")\nVALUES (".implode(',', $params).')';
-				break;
+			break;
 
-			case 'update':
+			case QueryType::UPDATE:
 				$setString = $this->state->getSetString();
 				$sql = "UPDATE {$table}\nSET {$setString}";
-				break;
+			break;
 
-			case 'delete':
+			case QueryType::DELETE:
 				$sql = "DELETE FROM {$table}";
-				break;
+			break;
 
-			// Get queries
+			case QueryType::SELECT:
 			default:
 				$fromString = $this->state->getFromString();
 				$selectString = $this->state->getSelectString();
@@ -1275,7 +1295,7 @@ class QueryBuilder implements QueryBuilderInterface {
 					// Replace the star with the selected fields
 					$sql = str_replace('*', $selectString, $sql);
 				}
-				break;
+			break;
 		}
 
 		return $sql;
@@ -1305,7 +1325,7 @@ class QueryBuilder implements QueryBuilderInterface {
 		{
 			$func = 'get' . ucFirst($clause);
 			$param = $this->state->$func();
-			if (\is_array($param))
+			if (is_array($param))
 			{
 				foreach($param as $q)
 				{
@@ -1325,6 +1345,9 @@ class QueryBuilder implements QueryBuilderInterface {
 			$sql = $this->driver->getSql()->limit($sql, $limit, $this->state->getOffset());
 		}
 
+		// Set the returning clause, if applicable
+		$sql = $this->_compileReturning($sql, $type);
+
 		// See if the query plan, rather than the
 		// query data should be returned
 		if ($this->explain === TRUE)
@@ -1333,5 +1356,52 @@ class QueryBuilder implements QueryBuilderInterface {
 		}
 
 		return $sql;
+	}
+
+	/**
+	 * Generate returning clause of query
+	 *
+	 * @param string $sql
+	 * @param string $type
+	 * @return string
+	 */
+	protected function _compileReturning(string $sql, string $type): string
+	{
+		if ($this->returning === FALSE)
+		{
+			return $sql;
+		}
+
+		$rawSelect = $this->state->getSelectString();
+		$selectString = ($rawSelect === '') ? '*' : $rawSelect;
+		$returningSQL = $this->driver->returning($sql, $selectString);
+
+		if ($returningSQL === $sql)
+		{
+			// If the driver doesn't support the returning clause, it returns the original query.
+			// Fake the same result with a transaction and a select query
+			if ( ! $this->inTransaction())
+			{
+				$this->beginTransaction();
+			}
+
+			// Generate the appropriate select query for the returning clause fallback
+			switch ($type)
+			{
+				case QueryType::INSERT:
+					// @TODO figure out a good response for insert query
+				break;
+
+				case QueryType::UPDATE:
+					// @TODO figure out a good response for update query
+				break;
+
+				case QueryType::DELETE:
+					// @TODO Figure out a good response for delete query
+				break;
+			}
+		}
+
+		return $returningSQL;
 	}
 }

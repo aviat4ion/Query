@@ -557,6 +557,24 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
+	public function testInsertReturning(): void
+	{
+		$query = self::$db->set('id', 99)
+			->set('key', 84)
+			->set('val', 120)
+			->returning()
+			->insert('test');
+
+		$row = $query->fetch(PDO::FETCH_ASSOC);
+
+		$this->assertIsA($query, 'PDOStatement');
+		$this->assertEqual([
+			'id' => 99,
+			'key' => 84,
+			'val' => 120,
+		], $row);
+	}
+
 	public function testInsertBatch(): void
 	{
 		$data = [
@@ -592,6 +610,33 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			]);
 
 		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	public function testUpdateReturning(): void
+	{
+		// Make sure the id exists so there isn't an error for that reason
+		self::$db->insert('test', [
+			'id' => 7,
+			'key' => 'kjsgarik yugasdikh',
+			'val' => 'alkfiasghdfdhs',
+		]);
+
+		$query = self::$db->where('id', 7)
+			->set([
+				'id' => 7,
+				'key' => 'gogle',
+				'val' => 'non-word'
+			])
+			->returning('key')
+			->update('test');
+
+		$this->assertIsA($query, 'PDOStatement');
+		$row = $query->fetch(PDO::FETCH_ASSOC);
+		$this->assertEqual([
+			'key' => 'gogle',
+		], $row, json_encode($query->errorInfo()));
+
+		// $this->assertNotEqual(FALSE, $row, $query->errorInfo());
 	}
 
 	public function testUpdateBatchNull(): void
@@ -648,6 +693,13 @@ abstract class BaseQueryBuilderTest extends TestCase {
 	public function testDelete(): void
 	{
 		$query = self::$db->delete('test', ['id' => 5]);
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
+	public function testDeleteReturning():void
+	{
+		$query = self::$db->returning()->delete('test', ['id' => 99]);
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
