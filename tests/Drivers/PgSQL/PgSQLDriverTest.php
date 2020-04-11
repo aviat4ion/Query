@@ -4,7 +4,7 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.2
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
