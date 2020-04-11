@@ -31,7 +31,7 @@ class Driver extends AbstractDriver {
 	 * but no support for the actual keyword
 	 * @var boolean
 	 */
-	protected $hasTruncate = FALSE;
+	protected bool $hasTruncate = FALSE;
 
 	/**
 	 * Open SQLite Database

@@ -24,7 +24,7 @@ abstract class AbstractUtil {
 	 * Reference to the current connection object
 	 * @var DriverInterface
 	 */
-	private $connection;
+	private DriverInterface $connection;
 
 	/**
 	 * Save a reference to the connection object for later use

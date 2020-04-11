@@ -28,14 +28,14 @@ class Driver extends AbstractDriver {
 	 *
 	 * @var string
 	 */
-	protected $escapeCharOpen = '`';
+	protected string $escapeCharOpen = '`';
 
 	/**
 	 * Set the backtick as the MySQL escape character
 	 *
 	 * @var string
 	 */
-	protected $escapeCharClose = '`';
+	protected string $escapeCharClose = '`';
 
 	/**
 	 * Connect to MySQL Database

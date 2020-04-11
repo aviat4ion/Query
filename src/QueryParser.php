@@ -27,14 +27,14 @@ class QueryParser {
 	 *
 	 * @var DriverInterface
 	 */
-	private $db;
+	private DriverInterface $db;
 
 	/**
 	 * Regex patterns for various syntax components
 	 *
 	 * @var array
 	 */
-	private $matchPatterns = [
+	private array $matchPatterns = [
 		'function' => '([a-zA-Z0-9_]+\((.*?)\))',
 		'identifier' => '([a-zA-Z0-9_-]+\.?)+',
 		'operator' => '=|AND|&&?|~|\|\|?|\^|/|>=?|<=?|-|%|OR|\+|NOT|\!=?|<>|XOR'
@@ -45,7 +45,7 @@ class QueryParser {
 	 *
 	 * @var array
 	 */
-	public $matches = [
+	public array $matches = [
 		'functions' => [],
 		'identifiers' => [],
 		'operators' => [],

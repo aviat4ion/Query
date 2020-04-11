@@ -10,7 +10,7 @@ A query builder/database abstraction layer, using prepared statements for securi
 
 ## Requirements
 * PDO extensions for the databases you wish to use
-* PHP 7.2 or later
+* PHP 7.4 or later
 
 ## Databases Supported
 

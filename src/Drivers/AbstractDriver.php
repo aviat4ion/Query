@@ -34,49 +34,49 @@ abstract class AbstractDriver
 	 * Reference to the last executed query
 	 * @var PDOStatement
 	 */
-	protected $statement;
+	protected PDOStatement $statement;
 
 	/**
 	 * Start character to escape identifiers
 	 * @var string
 	 */
-	protected $escapeCharOpen = '"';
+	protected string $escapeCharOpen = '"';
 
 	/**
 	 * End character to escape identifiers
 	 * @var string
 	 */
-	protected $escapeCharClose = '"';
+	protected string $escapeCharClose = '"';
 
 	/**
 	 * Reference to sql class
 	 * @var SQLInterface
 	 */
-	protected $sql;
+	protected SQLInterface $sql;
 
 	/**
 	 * Reference to util class
 	 * @var AbstractUtil
 	 */
-	protected $util;
+	protected AbstractUtil $util;
 
 	/**
 	 * Last query executed
 	 * @var string
 	 */
-	protected $lastQuery = '';
+	protected string $lastQuery = '';
 
 	/**
 	 * Prefix to apply to table names
 	 * @var string
 	 */
-	protected $tablePrefix = '';
+	protected string $tablePrefix = '';
 
 	/**
 	 * Whether the driver supports 'TRUNCATE'
 	 * @var boolean
 	 */
-	protected $hasTruncate = TRUE;
+	protected bool $hasTruncate = TRUE;
 
 	/**
 	 * PDO constructor wrapper

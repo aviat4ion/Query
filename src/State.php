@@ -46,31 +46,31 @@ class State {
 	 * Compiled 'select' clause
 	 * @var string
 	 */
-	protected $selectString = '';
+	protected string $selectString = '';
 
 	/**
 	 * Compiled 'from' clause
 	 * @var string
 	 */
-	protected $fromString = '';
+	protected string $fromString = '';
 
 	/**
 	 * Compiled arguments for insert / update
 	 * @var string
 	 */
-	protected $setString = '';
+	protected string $setString = '';
 
 	/**
 	 * Order by clause
 	 * @var string
 	 */
-	protected $orderString = '';
+	protected string $orderString = '';
 
 	/**
 	 * Group by clause
 	 * @var string
 	 */
-	protected $groupString = '';
+	protected string $groupString = '';
 
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Arrays
@@ -80,19 +80,19 @@ class State {
 	 * Keys for insert/update statement
 	 * @var array
 	 */
-	protected $setArrayKeys = [];
+	protected array $setArrayKeys = [];
 
 	/**
 	 * Key/val pairs for order by clause
 	 * @var array
 	 */
-	protected $orderArray = [];
+	protected array $orderArray = [];
 
 	/**
 	 * Key/val pairs for group by clause
 	 * @var array
 	 */
-	protected $groupArray = [];
+	protected array $groupArray = [];
 
 	// --------------------------------------------------------------------------
 	// ! Other Class vars
@@ -102,19 +102,19 @@ class State {
 	 * Values to apply to prepared statements
 	 * @var array
 	 */
-	protected $values = [];
+	protected array $values = [];
 
 	/**
 	 * Values to apply to where clauses in prepared statements
 	 * @var array
 	 */
-	protected $whereValues = [];
+	protected array $whereValues = [];
 
 	/**
 	 * Value for limit string
 	 * @var integer
 	 */
-	protected $limit;
+	protected int $limit;
 
 	/**
 	 * Value for offset in limit string
@@ -135,13 +135,13 @@ class State {
 	 *
 	 * @var array
 	 */
-	protected $queryMap = [];
+	protected array $queryMap = [];
 
 	/**
 	 * Map for having clause
 	 * @var array
 	 */
-	protected $havingMap = [];
+	protected array $havingMap = [];
 
 	public function __call(string $name, array $arguments)
 	{

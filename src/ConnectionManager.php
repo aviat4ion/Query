@@ -27,7 +27,7 @@ final class ConnectionManager {
 	 * Map of named database connections
 	 * @var array
 	 */
-	private $connections = [];
+	private array $connections = [];
 
 	/**
 	 * Class instance variable
@@ -60,7 +60,7 @@ final class ConnectionManager {
 	 * @throws DomainException
 	 * @return void
 	 */
-	public function __sleep()
+	public function __sleep(): void
 	{
 		throw new DomainException('No serializing of singleton');
 	}
@@ -71,7 +71,7 @@ final class ConnectionManager {
 	 * @throws DomainException
 	 * @return void
 	 */
-	public function __wakeup()
+	public function __wakeup(): void
 	{
 		throw new DomainException("Can't unserialize singleton");
 	}
@@ -169,7 +169,7 @@ final class ConnectionManager {
 	{
 		$params = (object) $params;
 		$params->type = strtolower($params->type);
-		$dbType = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
+		$dbType = ($params->type === 'postgresql') ? 'pgsql' : $params->type;
 		$dbType = ucfirst($dbType);
 
 		// Make sure the class exists
