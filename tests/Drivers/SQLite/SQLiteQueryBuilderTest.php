@@ -47,51 +47,12 @@ use Query\Tests\BaseQueryBuilderTest;
 			->get('create_test', 2, 1);
 
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
+		$actualDetail = $res[0]['detail'];
+		$this->assertTrue(is_string($actualDetail));
 
-		$expectedPossibilities = [];
-
-		$expectedPossibilities[] = [
-			[
-				'order' => '0',
-				'from' => '0',
-				'detail' => 'TABLE create_test USING PRIMARY KEY',
-			]
-		];
-
-		$expectedPossibilities[] = [
-			[
-				'selectid' => '0',
-				'order' => '0',
-				'from' => '0',
-				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~60000 rows)',
-			],
-		];
-
-		$expectedPossibilities[] = [
-			[
-				'selectid' => '0',
-				'order' => '0',
-				'from' => '0',
-				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
-			],
-		];
-
-		$expectedPossibilities[] = [
-			[
-				'selectid' => '0',
-				'order' => '0',
-				'from' => '0',
-				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~62500 rows)',
-			],
-		];
-
-		$expectedPossibilities[] = [
-			[
-				'id' => '6',
-				'parent' => '0',
-				'notused' => '0',
-				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
-			],
+		$expectedPossibilities = [
+			'TABLE create_test USING PRIMARY KEY',
+			'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
 		];
 
 		$passed = FALSE;
@@ -99,9 +60,8 @@ use Query\Tests\BaseQueryBuilderTest;
 		// Check for a matching possibility
 		foreach($expectedPossibilities as $ep)
 		{
-			if ($res === $ep)
+			if (stripos($actualDetail, $ep) !== FALSE)
 			{
-				$this->assertTrue(TRUE);
 				$passed = TRUE;
 			}
 		}
@@ -110,8 +70,9 @@ use Query\Tests\BaseQueryBuilderTest;
 		if ( ! $passed)
 		{
 			var_export($res);
-			$this->assertTrue(FALSE);
 		}
+
+		$this->assertTrue($passed);
 	}
 
 	 public function testInsertReturning(): void
