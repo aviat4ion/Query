@@ -56,13 +56,13 @@
             <a href="#hierarchy">Hierarchy</a>
           </li>
           <li>
+            <a href="#violations">Violations</a>
+          </li>
+          <li>
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="#history">History</a>
-          </li>
-          <li>
-            <a href="../source/Drivers/AbstractDriver.php.html#line28">Source</a>
+            <a href="../source/Drivers/AbstractDriver.php.html#line30">Source</a>
           </li>
         </ul>
       </nav>
@@ -102,11 +102,13 @@
                     </li><li>public ?array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getFks.html">getFks</a>()
                     </li><li>public ?array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getIndexes.html">getIndexes</a>()
                     </li><li>public ?array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getTypes.html">getTypes</a>()
+                    </li><li>public string <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getVersion.html">getVersion</a>()
                     </li><li>public ?array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/driverQuery.html">driverQuery</a>()
                     </li><li>public ?int <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/numRows.html">numRows</a>()
                     </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/insertBatch.html">insertBatch</a>()
                     </li><li>public array <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/updateBatch.html">updateBatch</a>()
                     </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/truncate.html">truncate</a>()
+                    </li><li>public string <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/returning.html">returning</a>()
                     </li><li>public mixed <a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/_quote.html">_quote</a>()
                     </li></ul><ul class="none"><li>// Inherited methods from <span title="PDO">PDO</span></li><li>public void <a title="PDO" href="../classes/PDO/__construct.html">__construct</a>()
                         </li><li>public bool <a title="PDO" href="../classes/PDO/beginTransaction.html">beginTransaction</a>()
@@ -140,6 +142,36 @@
               <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface.html">Query\Drivers\DriverInterface</a>
             </li>
           </ul>
+        </div>
+        <h2 id="violations">Violations</h2>
+        <div class="styled">
+          <h3>Checkstyle</h3>
+          <table class="styled">
+            <thead>
+              <tr>
+                <th>Line</th>
+                <th>Column</th>
+                <th>Severity</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tr>
+              <td class="line">333</td>
+              <td>23</td>
+              <td>
+                <span title="Generic.Arrays.DisallowLongArraySyntax.Found">error</span>
+              </td>
+              <td>Short array syntax must be used to define arrays</td>
+            </tr>
+            <tr>
+              <td class="line">333</td>
+              <td>44</td>
+              <td>
+                <span title="Generic.Arrays.DisallowLongArraySyntax.Found">error</span>
+              </td>
+              <td>Short array syntax must be used to define arrays</td>
+            </tr>
+          </table>
         </div>
         <h2 id="methods">Methods</h2>
         <div class="styled">
@@ -185,6 +217,8 @@
                 — Retrieve list of data types for the database</li>
             <li id="getUtil"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getUtil.html">getUtil()</a>
                 — Get the Util class for the current driver</li>
+            <li id="getVersion"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getVersion.html">getVersion()</a>
+                — Get the version of the database engine</li>
             <li id="getViews"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/getViews.html">getViews()</a>
                 — Return list of views for the current database</li>
             <li id="insertBatch"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/insertBatch.html">insertBatch()</a>
@@ -201,6 +235,8 @@
                 — Surrounds the string with the databases identifier escape characters</li>
             <li id="quoteTable"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/quoteTable.html">quoteTable()</a>
                 — Quote database table name, and set prefix</li>
+            <li id="returning"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/returning.html">returning()</a>
+                — Generate the returning clause for the current database</li>
             <li id="setLastQuery"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/setLastQuery.html">setLastQuery()</a>
                 — Set the last query sql</li>
             <li id="setTablePrefix"><a title="Query\Drivers\AbstractDriver" href="../classes/Query_Drivers_AbstractDriver/setTablePrefix.html">setTablePrefix()</a>
@@ -271,173 +307,10 @@
   </li>
           </ul>
         </div>
-        <h2 id="history">History</h2>
-        <ul class="styled history">
-          <li>
-            <h3>2019-12-10T12:17:40-05:00 (commit #<span title="6a36a85ac078694c1dff255815b8ae04e368fcaf">6a36a85</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update dependencies and tests</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-02-09T16:14:40-05:00 (commit #<span title="2839e6ad6e82a393e9b004cf9802c0280f7eec53">2839e6a</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Fix some indentation issues</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-26T15:45:46-05:00 (commit #<span title="33bb440bd28d77e903a58f24afc585706e2d0f56">33bb440</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">SQLite improvements, remove nullable PDOStatement return values</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-26T08:39:30-05:00 (commit #<span title="3067976cb170a4c26d78b21167978bb6ab4fdb7e">3067976</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Add updateBatch method</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-24T15:03:41-05:00 (commit #<span title="f967aaf96ea1c4cc43e8bae85c465beb84424a1e">f967aaf</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Remove method separators, update documentation building configuration</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-24T13:14:03-05:00 (commit #<span title="1d583bcc23524ad8840e4be580e549e8d6e549f4">1d583bc</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Add more type hinting</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-22T16:04:29-05:00 (commit #<span title="8401cceb0daec6282b2c6cd20ef965592a322aa6">8401cce</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Remove PDOInterface to prevent conflicts in method parameters with native PDO object</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-22T15:43:56-05:00 (commit #<span title="91eb8123d151dde674aa5aec4efbd1dc09e0b490">91eb812</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Various refactoring</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-19T15:47:34-05:00 (commit #<span title="369ca6eb0439091697ee9cbc34c83e9a4bdaace3">369ca6e</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Flatten source structure a bit</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-19T13:43:19-05:00 (commit #<span title="c735c27559da47b4d53867da59cd706e8048f4a0">c735c27</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update file headers</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-10-13T21:55:23-04:00 (commit #<span title="b8d4768b1bfe0f38d6b65f0d4acd982793c0e9ee">b8d4768</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">camelCase methods and properties</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-10-12T22:12:25-04:00 (commit #<span title="6740aaef79540842110b2f162d17a9373d2c30da">6740aae</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">PHP7 or bust!</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-09-07T17:39:19-04:00 (commit #<span title="ca601623ba0b2a5879c01597efbf55bbde3a34fa">ca60162</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Miscellaneous cleanup and refactoring</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-09-07T13:17:17-04:00 (commit #<span title="24f3b1d7011b6087a549e190582386c2669da8ce">24f3b1d</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update header comments</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-09-07T13:10:03-04:00 (commit #<span title="bb382131cc0d34c5ef725a27b7133c595d11825e">bb38213</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Code Style fixes</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2015-11-11T15:44:24-05:00 (commit #<span title="c0674d5faa1ca16775611331181bc8446efb97ce">c0674d5</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Remove the last of the one line if statements</pre>
-            </div>
-          </li>
-        </ul>
       </section>
     </div>
     <footer>
-      <span>Generated using phpDox 0.12.0-dev - Copyright (C) 2010 - 2019 by Arne Blankerts and Contributors</span>
+      <span>Generated using phpDox 0.12.0-dev - Copyright (C) 2010 - 2020 by Arne Blankerts and Contributors</span>
     </footer>
   </body>
 </html>
