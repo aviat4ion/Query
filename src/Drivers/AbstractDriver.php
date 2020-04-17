@@ -20,6 +20,7 @@ use function dbFilter;
 use InvalidArgumentException;
 use PDO;
 use PDOStatement;
+use function is_string;
 
 /**
  * Base Database class
@@ -52,7 +53,7 @@ abstract class AbstractDriver
 	 * Reference to sql class
 	 * @var SQLInterface
 	 */
-	protected SQLInterface $sql;
+	protected SQLInterface $driverSQL;
 
 	/**
 	 * Reference to util class
@@ -110,7 +111,7 @@ abstract class AbstractDriver
 		$sqlClass = __NAMESPACE__ . "\\{$driver}\\SQL";
 		$utilClass = __NAMESPACE__ . "\\{$driver}\\Util";
 
-		$this->sql = new $sqlClass();
+		$this->driverSQL = new $sqlClass();
 		$this->util = new $utilClass($this);
 	}
 
@@ -168,7 +169,7 @@ abstract class AbstractDriver
 	 */
 	public function getSql(): SQLInterface
 	{
-		return $this->sql;
+		return $this->driverSQL;
 	}
 
 	/**
@@ -494,7 +495,7 @@ abstract class AbstractDriver
 	public function driverQuery($query, $filteredIndex=TRUE): ?array
 	{
 		// Call the appropriate method, if it exists
-		if (is_string($query) && method_exists($this->sql, $query))
+		if (is_string($query) && method_exists($this->driverSQL, $query))
 		{
 			$query = $this->getSql()->$query();
 		}
@@ -687,7 +688,7 @@ abstract class AbstractDriver
 		// and is not already quoted before quoting
 		// that value, otherwise, return the original value
 		return (
-			\is_string($str)
+			is_string($str)
 			&& strpos($str, $this->escapeCharOpen) !== 0
 			&& strrpos($str, $this->escapeCharClose) !== 0
 		)

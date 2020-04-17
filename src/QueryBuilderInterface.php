@@ -108,14 +108,6 @@ interface QueryBuilderInterface {
 	public function selectSum(string $field, $as=FALSE): self;
 
 	/**
-	 * Add a 'returning' clause to an insert,update, or delete query
-	 *
-	 * @param string $fields
-	 * @return self
-	 */
-	public function returning(string $fields = '*'): self;
-
-	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
 	 * @return self
@@ -308,10 +300,10 @@ interface QueryBuilderInterface {
 	 * Set a limit on the current sql statement
 	 *
 	 * @param int $limit
-	 * @param int|bool $offset
+	 * @param int|null $offset
 	 * @return self
 	 */
-	public function limit(int $limit, $offset=FALSE): self;
+	public function limit(int $limit, ?int $offset=NULL): self;
 
 	// --------------------------------------------------------------------------
 	// ! Query Grouping Methods
@@ -364,22 +356,22 @@ interface QueryBuilderInterface {
 	 * execute current compiled query
 	 *
 	 * @param string $table
-	 * @param int|bool $limit
-	 * @param int|bool $offset
+	 * @param int|null $limit
+	 * @param int|null $offset
 	 * @return PDOStatement
 	 */
-	public function get(string $table='', $limit=FALSE, $offset=FALSE): PDOStatement;
+	public function get(string $table='', ?int $limit=NULL, ?int $offset=NULL): PDOStatement;
 
 	/**
 	 * Convenience method for get() with a where clause
 	 *
 	 * @param string $table
 	 * @param array $where
-	 * @param int|bool $limit
-	 * @param int|bool $offset
+	 * @param int|null $limit
+	 * @param int|null $offset
 	 * @return PDOStatement
 	 */
-	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): PDOStatement;
+	public function getWhere(string $table, $where=[], ?int $limit=NULL, ?int $offset=NULL): PDOStatement;
 
 	/**
 	 * Retrieve the number of rows in the selected table
@@ -413,9 +405,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return PDOStatement
+	 * @return PDOStatement | null
 	 */
-	public function insertBatch(string $table, $data=[]): PDOStatement;
+	public function insertBatch(string $table, $data=[]): ?PDOStatement;
 
 	/**
 	 * Creates an update clause, and executes it

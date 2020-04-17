@@ -15,6 +15,8 @@
  */
 namespace Query;
 
+use function is_array;
+
 /**
  * Query builder state
  *
@@ -28,14 +30,20 @@ namespace Query;
  * @method getGroupArray(): array
  * @method getValues(): array
  * @method getWhereValues(): array
- * @method getLimit(): int
+ * @method getLimit(): int|null
  * @method getOffset()
  * @method getQueryMap(): array
  * @method getHavingMap(): array
  *
- * @method setSelectString(string): self
- * @method setFromString(string): self
- * @method setSetString(string): self
+ * @method setSelectString(string $selectString): self
+ * @method setFromString(string $fromString): self
+ * @method setSetString(string $setString): self
+ * @method setOrderString(string $orderString): self
+ * @method setGroupString(string $groupString): self
+ * @method setSetArrayKeys(array $arrayKeys): self
+ * @method setGroupArray(array $array): self
+ * @method setLimit(int $limit): self
+ * @method setOffset(?int $offset): self
  */
 class State {
 	// --------------------------------------------------------------------------
@@ -112,15 +120,15 @@ class State {
 
 	/**
 	 * Value for limit string
-	 * @var integer
+	 * @var int
 	 */
-	protected int $limit;
+	protected ?int $limit = NULL;
 
 	/**
 	 * Value for offset in limit string
-	 * @var string|false
+	 * @var int
 	 */
-	protected $offset = FALSE;
+	protected ?int $offset = NULL;
 
 	/**
 	 * Query component order mapping
@@ -178,42 +186,12 @@ class State {
 	}
 
 	/**
-	 * @param string $orderString
-	 * @return State
-	 */
-	public function setOrderString(string $orderString): self
-	{
-		$this->orderString = $orderString;
-		return $this;
-	}
-
-	/**
-	 * @param string $groupString
-	 * @return State
-	 */
-	public function setGroupString(string $groupString): self
-	{
-		$this->groupString = $groupString;
-		return $this;
-	}
-
-	/**
 	 * @param array $setArrayKeys
 	 * @return State
 	 */
 	public function appendSetArrayKeys(array $setArrayKeys): self
 	{
 		$this->setArrayKeys = array_merge($this->setArrayKeys, $setArrayKeys);
-		return $this;
-	}
-
-	/**
-	 * @param array $setArrayKeys
-	 * @return State
-	 */
-	public function setSetArrayKeys(array $setArrayKeys): self
-	{
-		$this->setArrayKeys = $setArrayKeys;
 		return $this;
 	}
 
@@ -225,16 +203,6 @@ class State {
 	public function setOrderArray(string $key, $orderArray): self
 	{
 		$this->orderArray[$key] = $orderArray;
-		return $this;
-	}
-
-	/**
-	 * @param array $groupArray
-	 * @return State
-	 */
-	public function setGroupArray(array $groupArray): self
-	{
-		$this->groupArray = $groupArray;
 		return $this;
 	}
 
@@ -264,7 +232,7 @@ class State {
 	 */
 	public function appendWhereValues($val): self
 	{
-		if (\is_array($val))
+		if (is_array($val))
 		{
 			foreach($val as $v)
 			{
@@ -275,26 +243,6 @@ class State {
 		}
 
 		$this->whereValues[] = $val;
-		return $this;
-	}
-
-	/**
-	 * @param int $limit
-	 * @return State
-	 */
-	public function setLimit(int $limit): self
-	{
-		$this->limit = $limit;
-		return $this;
-	}
-
-	/**
-	 * @param string|false $offset
-	 * @return State
-	 */
-	public function setOffset($offset): self
-	{
-		$this->offset = $offset;
 		return $this;
 	}
 

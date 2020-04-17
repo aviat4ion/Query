@@ -15,10 +15,8 @@
  */
 namespace {
 
-	use Query\{
-		ConnectionManager,
-		QueryBuilderInterface
-	};
+	use Query\ConnectionManager;
+	use Query\QueryBuilderInterface;
 
 	/**
 	 * Global functions that don't really fit anywhere else
@@ -139,6 +137,5 @@ namespace {
 		// Otherwise, return a new connection
 		return $manager->connect($paramsObject);
 	}
-
 }
 // End of common.php

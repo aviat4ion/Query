@@ -68,7 +68,7 @@ class Driver extends AbstractDriver {
 	 */
 	public function getTables(): array
 	{
-		$sql = $this->sql->tableList();
+		$sql = $this->getSql()->tableList();
 		$res = $this->query($sql);
 		return dbFilter($res->fetchAll(PDO::FETCH_ASSOC), 'name');
 	}

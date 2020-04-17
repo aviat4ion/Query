@@ -25,10 +25,10 @@ interface SQLInterface {
 	 *
 	 * @param string $sql
 	 * @param int $limit
-	 * @param int|bool $offset
+	 * @param int|null $offset
 	 * @return string
 	 */
-	public function limit(string $sql, int $limit, $offset=FALSE): string;
+	public function limit(string $sql, int $limit, ?int $offset=NULL): string;
 
 	/**
 	 * Modify the query to get the query plan

@@ -16,13 +16,13 @@
 namespace Query;
 
 /**
- * 'Enum' of query types
+ * 'Enum' of query map types
  */
-class QueryType {
-	public const SELECT = 'select';
-	public const INSERT = 'insert';
-	public const INSERT_BATCH = 'insert_batch';
-	public const UPDATE = 'update';
-	public const UPDATE_BATCH = 'update_batch';
-	public const DELETE = 'delete';
+class MapType {
+	public const GROUP_END = 'group_end';
+	public const GROUP_START = 'group_start';
+	public const JOIN = 'join';
+	public const LIKE = 'like';
+	public const WHERE = 'where';
+	public const WHERE_IN = 'where_in';
 }

@@ -16,6 +16,7 @@
 namespace Query;
 
 use DomainException;
+use stdClass;
 
 /**
  * Connection manager class to manage connections for the
@@ -33,7 +34,7 @@ final class ConnectionManager {
 	 * Class instance variable
 	 * @var ConnectionManager|null
 	 */
-	private static $instance;
+	private static ?ConnectionManager $instance = NULL;
 
 	/**
 	 * Private constructor to prevent multiple instances
@@ -119,7 +120,7 @@ final class ConnectionManager {
 	/**
 	 * Parse the passed parameters and return a connection
 	 *
-	 * @param object|array $params
+	 * @param array|object $params
 	 * @throws Exception\BadDBDriverException
 	 * @return QueryBuilderInterface
 	 */
@@ -161,13 +162,13 @@ final class ConnectionManager {
 	/**
 	 * Parses params into a dsn and option array
 	 *
-	 * @param object | array $params
+	 * @param array|object $rawParams
 	 * @return array
 	 * @throws Exception\BadDBDriverException
 	 */
-	public function parseParams($params): array
+	public function parseParams($rawParams): array
 	{
-		$params = (object) $params;
+		$params = (object) $rawParams;
 		$params->type = strtolower($params->type);
 		$dbType = ($params->type === 'postgresql') ? 'pgsql' : $params->type;
 		$dbType = ucfirst($dbType);
@@ -205,10 +206,10 @@ final class ConnectionManager {
 	 *
 	 * @codeCoverageIgnore
 	 * @param string $dbType
-	 * @param array|object $params
+	 * @param stdClass $params
 	 * @return string
 	 */
-	private function createDsn(string $dbType, $params): string
+	private function createDsn(string $dbType, stdClass $params): string
 	{
 		$pairs = [];
 

@@ -17,6 +17,7 @@ namespace Query\Drivers\Mysql;
 
 use PDO;
 use Query\Drivers\AbstractDriver;
+use function defined;
 
 /**
  * MySQL specific class
@@ -49,7 +50,7 @@ class Driver extends AbstractDriver {
 	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $options=[])
 	{
 		// Set the charset to UTF-8
-		if (\defined('\\PDO::MYSQL_ATTR_INIT_COMMAND'))
+		if (defined('\\PDO::MYSQL_ATTR_INIT_COMMAND'))
 		{
 			$options = array_merge($options, [
 				PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF-8 COLLATE 'UTF-8'",

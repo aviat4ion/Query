@@ -15,6 +15,7 @@
  */
 namespace Query\Drivers\Pgsql;
 
+use PDO;
 use Query\Drivers\AbstractUtil;
 
 /**
@@ -56,7 +57,7 @@ class Util extends AbstractUtil {
 		{
 			$sql = 'SELECT * FROM "'.trim($t).'"';
 			$res = $this->getDriver()->query($sql);
-			$objRes = $res->fetchAll(\PDO::FETCH_ASSOC);
+			$objRes = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			// Don't add to the file if the table is empty
 			if (count($objRes) < 1)

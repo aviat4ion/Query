@@ -57,7 +57,7 @@ class Util extends AbstractUtil {
 
 			unset($res);
 
-			// If the row is empty, continue;
+			// If the row is empty, continue
 			if (empty($objRes))
 			{
 				continue;

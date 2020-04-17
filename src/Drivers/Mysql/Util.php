@@ -33,7 +33,8 @@ class Util extends AbstractUtil {
 		$string = [];
 
 		// Get databases
-		$dbs = $this->getDriver()->getDbs();
+		$driver = $this->getDriver();
+		$dbs = $driver->getDbs();
 
 		foreach($dbs as &$d)
 		{
@@ -46,11 +47,11 @@ class Util extends AbstractUtil {
 			// @codeCoverageIgnoreEnd
 
 			// Get the list of tables
-			$tables = $this->getDriver()->driverQuery("SHOW TABLES FROM `{$d}`", TRUE);
+			$tables = $driver->driverQuery("SHOW TABLES FROM `{$d}`", TRUE);
 
 			foreach($tables as $table)
 			{
-				$array = $this->getDriver()->driverQuery("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
+				$array = $driver->driverQuery("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
 				$row = current($array);
 
 				if ( ! isset($row['Create Table']))
@@ -72,9 +73,10 @@ class Util extends AbstractUtil {
 	 * @param array $exclude
 	 * @return string
 	 */
-	public function backupData($exclude=[]): string
+	public function backupData(array $exclude=[]): string
 	{
-		$tables = $this->getDriver()->getTables();
+		$driver = $this->getDriver();
+		$tables = $driver->getTables();
 
 		// Filter out the tables you don't want
 		if( ! empty($exclude))
@@ -88,7 +90,7 @@ class Util extends AbstractUtil {
 		foreach($tables as $t)
 		{
 			$sql = "SELECT * FROM `{$t}`";
-			$res = $this->getDriver()->query($sql);
+			$res = $driver->query($sql);
 			$rows = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			// Skip empty tables
@@ -110,7 +112,7 @@ class Util extends AbstractUtil {
 				// Workaround for Quercus
 				foreach($row as &$r)
 				{
-					$r = $this->getDriver()->quote($r);
+					$r = $driver->quote($r);
 				}
 				unset($r);
 				$row = array_map('trim', $row);

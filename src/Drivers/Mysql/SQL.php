@@ -30,7 +30,7 @@ class SQL extends AbstractSQL {
 	 * @param int|boolean $offset
 	 * @return string
 	 */
-	public function limit(string $sql, int $limit, $offset=FALSE): string
+	public function limit(string $sql, int $limit, ?int $offset=NULL): string
 	{
 		if ( ! is_numeric($offset))
 		{
@@ -166,7 +166,7 @@ SQL;
 	}
 
 	/**
-	 * SQL to show infromation about columns in a table
+	 * SQL to show information about columns in a table
 	 *
 	 * @param string $table
 	 * @return string
@@ -186,7 +186,7 @@ SQL;
 	public function fkList(string $table): string
 	{
 		return <<<SQL
-			SELECT DISTINCT 
+			SELECT DISTINCT
 				`kcu`.`COLUMN_NAME` as `child_column`,
 				`kcu`.`REFERENCED_TABLE_NAME` as `parent_table`,
 				`kcu`.`REFERENCED_COLUMN_NAME` as `parent_column`,
