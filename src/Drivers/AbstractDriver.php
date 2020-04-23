@@ -309,7 +309,7 @@ abstract class AbstractDriver
 		}
 
 		// Handle comma-separated identifiers
-		if (strpos($identifier, ',') !== FALSE)
+		if (is_string($identifier) && strpos($identifier, ',') !== FALSE)
 		{
 			$parts = array_map('mb_trim', explode(',', $identifier));
 			$parts = array_map([$this, __METHOD__], $parts);
