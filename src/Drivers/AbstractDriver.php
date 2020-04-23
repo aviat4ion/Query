@@ -308,8 +308,11 @@ abstract class AbstractDriver
 			return array_map([$this, __METHOD__], $identifier);
 		}
 
+		// Make all the string-handling methods happy
+		$identifier = (string)$identifier;
+
 		// Handle comma-separated identifiers
-		if (is_string($identifier) && strpos($identifier, ',') !== FALSE)
+		if (strpos($identifier, ',') !== FALSE)
 		{
 			$parts = array_map('mb_trim', explode(',', $identifier));
 			$parts = array_map([$this, __METHOD__], $parts);
