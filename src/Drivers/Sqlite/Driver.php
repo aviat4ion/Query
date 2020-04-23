@@ -4,16 +4,20 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Drivers\Sqlite;
 
+use function is_array;
+
+use InvalidArgumentException;
 use PDO;
 use Query\Drivers\AbstractDriver;
 
@@ -27,7 +31,7 @@ class Driver extends AbstractDriver {
 	 * but no support for the actual keyword
 	 * @var boolean
 	 */
-	protected $hasTruncate = FALSE;
+	protected bool $hasTruncate = FALSE;
 
 	/**
 	 * Open SQLite Database
@@ -48,13 +52,23 @@ class Driver extends AbstractDriver {
 	}
 
 	/**
+	 * Return list of dbs for the current connection, if possible. Meaningless for SQLite.
+	 *
+	 * @return array | null
+	 */
+	public function getDbs(): ?array
+	{
+		return NULL;
+	}
+
+	/**
 	 * List tables for the current database
 	 *
 	 * @return mixed
 	 */
 	public function getTables(): array
 	{
-		$sql = $this->sql->tableList();
+		$sql = $this->getSql()->tableList();
 		$res = $this->query($sql);
 		return dbFilter($res->fetchAll(PDO::FETCH_ASSOC), 'name');
 	}
@@ -95,7 +109,7 @@ class Driver extends AbstractDriver {
 	{
 		// If greater than version 3.7.11, supports the same syntax as
 		// MySQL and Postgres
-		if (version_compare($this->getAttribute(PDO::ATTR_SERVER_VERSION), '3.7.11', '>='))
+		if (version_compare($this->getVersion(), '3.7.11', '>='))
 		{
 			return parent::insertBatch($table, $data);
 		}
@@ -105,9 +119,9 @@ class Driver extends AbstractDriver {
 		// --------------------------------------------------------------------------
 
 		// Each member of the data array needs to be an array
-		if ( ! \is_array(current($data)))
+		if ( ! is_array(current($data)))
 		{
-			return NULL;
+			throw new InvalidArgumentException('$data must be an array of arrays');
 		}
 
 		// Start the block of sql statements
@@ -117,9 +131,9 @@ class Driver extends AbstractDriver {
 		// Create a key-value mapping for each field
 		$first = array_shift($data);
 		$cols = [];
-		foreach($first as $colname => $datum)
+		foreach($first as $colName => $datum)
 		{
-			$cols[] = $this->_quote($datum) . ' AS ' . $this->quoteIdent($colname);
+			$cols[] = $this->_quote($datum) . ' AS ' . $this->quoteIdent($colName);
 		}
 		$sql .= 'SELECT ' . implode(', ', $cols) . "\n";
 
@@ -130,5 +144,18 @@ class Driver extends AbstractDriver {
 		}
 
 		return [$sql, NULL];
+	}
+
+	/**
+	 * Generate the returning clause for the current database
+	 *
+	 * @param string $query
+	 * @param string $select
+	 * @return string
+	 */
+	public function returning(string $query, string $select): string
+	{
+		// Return the same query, as the returning clause is not supported
+		return $query;
 	}
 }

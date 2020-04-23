@@ -4,16 +4,18 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Drivers\Pgsql;
 
+use PDO;
 use Query\Drivers\AbstractUtil;
 
 /**
@@ -55,7 +57,7 @@ class Util extends AbstractUtil {
 		{
 			$sql = 'SELECT * FROM "'.trim($t).'"';
 			$res = $this->getDriver()->query($sql);
-			$objRes = $res->fetchAll(\PDO::FETCH_ASSOC);
+			$objRes = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			// Don't add to the file if the table is empty
 			if (count($objRes) < 1)

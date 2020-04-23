@@ -4,13 +4,14 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Drivers\Mysql;
 
@@ -29,7 +30,7 @@ class SQL extends AbstractSQL {
 	 * @param int|boolean $offset
 	 * @return string
 	 */
-	public function limit(string $sql, int $limit, $offset=FALSE): string
+	public function limit(string $sql, int $limit, ?int $offset=NULL): string
 	{
 		if ( ! is_numeric($offset))
 		{
@@ -67,7 +68,10 @@ class SQL extends AbstractSQL {
 	 */
 	public function dbList(): string
 	{
-		return "SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')";
+		return <<<SQL
+			SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')
+SQL;
+
 	}
 
 	/**
@@ -95,8 +99,10 @@ class SQL extends AbstractSQL {
 	 */
 	public function systemTableList(): string
 	{
-		return 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
-			WHERE `TABLE_SCHEMA`=\'information_schema\'';
+		return <<<SQL
+			SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
+			WHERE `TABLE_SCHEMA`='information_schema'
+SQL;
 	}
 
 	/**
@@ -156,11 +162,11 @@ class SQL extends AbstractSQL {
 	 */
 	public function typeList(): string
 	{
-		return "SELECT DISTINCT `DATA_TYPE` FROM `information_schema`.`COLUMNS`";
+		return 'SELECT DISTINCT `DATA_TYPE` FROM `information_schema`.`COLUMNS`';
 	}
 
 	/**
-	 * SQL to show infromation about columns in a table
+	 * SQL to show information about columns in a table
 	 *
 	 * @param string $table
 	 * @return string
@@ -180,11 +186,12 @@ class SQL extends AbstractSQL {
 	public function fkList(string $table): string
 	{
 		return <<<SQL
-			SELECT DISTINCT `kcu`.`COLUMN_NAME` as `child_column`,
-					`kcu`.`REFERENCED_TABLE_NAME` as `parent_table`,
-					`kcu`.`REFERENCED_COLUMN_NAME` as `parent_column`,
-					`rc`.`UPDATE_RULE` AS `update`,
-					`rc`.`DELETE_RULE` AS `delete`
+			SELECT DISTINCT
+				`kcu`.`COLUMN_NAME` as `child_column`,
+				`kcu`.`REFERENCED_TABLE_NAME` as `parent_table`,
+				`kcu`.`REFERENCED_COLUMN_NAME` as `parent_column`,
+				`rc`.`UPDATE_RULE` AS `update`,
+				`rc`.`DELETE_RULE` AS `delete`
 			FROM `INFORMATION_SCHEMA`.`TABLE_CONSTRAINTS` `tc`
 			INNER JOIN `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
 				ON `kcu`.`CONSTRAINT_NAME`=`tc`.`CONSTRAINT_NAME`

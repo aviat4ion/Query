@@ -4,18 +4,20 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Tests\Drivers\SQLite;
 
 use PDO;
 use Query\Drivers\Sqlite\Driver;
+use Query\Exception\NotImplementedException;
 use Query\Tests\BaseDriverTest;
 
 /**
@@ -26,17 +28,17 @@ use Query\Tests\BaseDriverTest;
  */
 class SQLiteDriverTest extends BaseDriverTest {
 
-	public static function setupBeforeClass()
+	public static function setupBeforeClass(): void
 	{
-		$params = array(
+		$params = [
 			'type' => 'sqlite',
 			'file' => ':memory:',
 			'prefix' => 'create_',
 			'alias' => 'test_sqlite',
-			'options' => array(
+			'options' => [
 				PDO::ATTR_PERSISTENT => TRUE
-			)
-		);
+			]
+		];
 
 		self::$db = Query($params);
 		self::$db->setTablePrefix('create_');
@@ -46,7 +48,7 @@ class SQLiteDriverTest extends BaseDriverTest {
 	// ! Util Method tests
 	// --------------------------------------------------------------------------
 
-	public function testCreateTable()
+	public function testCreateTable(): void
 	{
 		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
 
@@ -64,7 +66,7 @@ class SQLiteDriverTest extends BaseDriverTest {
 
 	/*public function testBackupData()
 	{
-		$sql = mb_trim(self::$db->getUtil()->backupData(array('create_join', 'create_test')));
+		$sql = mb_trim(self::$db->getUtil()->backupData(['create_join', 'create_test']));
 
 		$sqlArray = explode("\n", $sql);
 
@@ -79,11 +81,12 @@ SQL;
 		$this->assertEqual($expectedArray, $sqlArray);
 	}*/
 
-	public function testBackupStructure()
+	public function testBackupStructure(): void
 	{
 		$sql = mb_trim(self::$db->getUtil()->backupStructure());
 		$expected = <<<SQL
-CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
+CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "key" TEXT, "val" TEXT);
+CREATE TABLE sqlite_sequence(name,seq);
 CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE "create_delete" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
 CREATE TABLE TEST1 (
@@ -153,7 +156,7 @@ SQL;
 		$this->assertEqual($expectedArray, $resultArray);
 	}
 
-	public function testDeleteTable()
+	public function testDeleteTable(): void
 	{
 		$sql = self::$db->getUtil()->deleteTable('create_delete');
 
@@ -168,31 +171,30 @@ SQL;
 	// ! General tests
 	// --------------------------------------------------------------------------
 
-	public function testConnection()
+	public function testConnection(): void
 	{
 		$class = Driver::class;
 
 		$db = new $class(QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db');
 
 		$this->assertIsA($db, $class);
-		$this->assertIsA(self::$db->driver, $class);
 
 		unset($db);
 	}
 
-	public function testTruncate()
+	public function testTruncate(): void
 	{
 		self::$db->truncate('create_test');
 		$this->assertEquals(0, self::$db->countAll('create_test'));
 	}
 
-	public function testPreparedStatements()
+	public function testPreparedStatements(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepareQuery($sql, [1, 'boogers', 'Gross']);
 
 		$statement->execute();
 
@@ -206,15 +208,15 @@ SQL;
 		], $res);
 	}
 
-	public function testPrepareExecute()
+	public function testPrepareExecute(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		self::$db->prepareExecute($sql, array(
-			2, "works", 'also?'
-		));
+		self::$db->prepareExecute($sql, [
+			2, 'works', 'also?'
+		]);
 
 		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=2')
 			->fetch(PDO::FETCH_ASSOC);
@@ -226,7 +228,7 @@ SQL;
 		], $res);
 	}
 
-	public function testCommitTransaction()
+	public function testCommitTransaction(): void
 	{
 		$res = self::$db->beginTransaction();
 
@@ -237,7 +239,7 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testRollbackTransaction()
+	public function testRollbackTransaction(): void
 	{
 		$res = self::$db->beginTransaction();
 
@@ -248,12 +250,15 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testGetDBs()
+	public function testGetDBs(): void
 	{
-		$this->assertTrue(is_array(self::$db->getDbs()));
+		$driverSQL = self::$db->getSql()->dbList();
+		$this->assertEqual('', $driverSQL);
+
+		$this->assertNull(self::$db->getDbs());
 	}
 
-	public function testGetSchemas()
+	public function testGetSchemas(): void
 	{
 		$this->assertNull(self::$db->getSchemas());
 	}
@@ -262,36 +267,27 @@ SQL;
 	// ! SQL tests
 	// --------------------------------------------------------------------------
 
-	public function testNullMethods()
-	{
-		$sql = self::$db->getSQL()->functionList();
-		$this->assertEqual(NULL, $sql);
-
-		$sql = self::$db->getSQL()->procedureList();
-		$this->assertEqual(NULL, $sql);
-
-		$sql = self::$db->getSQL()->sequenceList();
-		$this->assertEqual(NULL, $sql);
-	}
-
-	public function testGetSystemTables()
+	public function testGetSystemTables(): void
 	{
 		$sql = self::$db->getSystemTables();
 		$this->assertTrue(\is_array($sql));
 	}
 
-	public function testGetSequences()
+	public function testGetSequences(): void
 	{
-		$this->assertNull(self::$db->getSequences());
+		$sql = self::$db->getSequences();
+		$this->assertEquals(['create_test'], $sql);
 	}
 
-	public function testGetFunctions()
+	public function testGetFunctions(): void
 	{
-		$this->assertNull(self::$db->getFunctions());
+		$this->expectException(NotImplementedException::class);
+		self::$db->getFunctions();
 	}
 
-	public function testGetProcedures()
+	public function testGetProcedures(): void
 	{
-		$this->assertNull(self::$db->getProcedures());
+		$this->expectException(NotImplementedException::class);
+		self::$db->getProcedures();
 	}
 }

@@ -1,17 +1,23 @@
-sudo: false
+dist: xenial
+os: linux
+
+arch: amd64
 
 language: php
 
+services:
+  - mysql
+  - postgresql
+
 php:
-  - 7.1
-  - 7.2
+  - 7.4
   - nightly
 
 before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
   - psql -c 'create database test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS test;'
-  - composer install
+  - composer install --ignore-platform-reqs
 
 script:
   - mkdir -p build/logs
@@ -20,9 +26,9 @@ script:
   - cd ../
 
 after_script:
-    - wget https://scrutinizer-ci.com/ocular.phar
-    - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
-matrix:
+jobs:
   allow_failures:
     - php: nightly

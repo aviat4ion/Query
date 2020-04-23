@@ -4,21 +4,19 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Drivers;
 
 /**
  * Abstract class defining database / table creation methods
- *
- * @method string quoteIdent(string $sql)
- * @method string quoteTable(string $sql)
  */
 abstract class AbstractUtil {
 
@@ -26,7 +24,7 @@ abstract class AbstractUtil {
 	 * Reference to the current connection object
 	 * @var DriverInterface
 	 */
-	private $connection;
+	private DriverInterface $connection;
 
 	/**
 	 * Save a reference to the connection object for later use
@@ -43,7 +41,7 @@ abstract class AbstractUtil {
 	 *
 	 * @return DriverInterface
 	 */
-	public function getDriver()
+	public function getDriver(): DriverInterface
 	{
 		return $this->connection;
 	}
@@ -57,16 +55,16 @@ abstract class AbstractUtil {
 	 * @param bool $ifNotExists
 	 * @return string
 	 */
-	public function createTable($name, $fields, array $constraints=[], $ifNotExists=TRUE)
+	public function createTable($name, $fields, array $constraints=[], $ifNotExists=TRUE): string
 	{
 		$existsStr = $ifNotExists ? ' IF NOT EXISTS ' : ' ';
 
 		// Reorganize into an array indexed with column information
-		// Eg $columnArray[$colname] = array(
+		// Eg $columnArray[$colname] = [
 		// 		'type' => ...,
 		// 		'constraint' => ...,
 		// 		'index' => ...,
-		// )
+		// ]
 		$columnArray = \arrayZipper([
 			'type' => $fields,
 			'constraint' => $constraints
@@ -77,8 +75,8 @@ abstract class AbstractUtil {
 		foreach($columnArray as $n => $props)
 		{
 			$str = $this->getDriver()->quoteIdent($n);
-			$str .= isset($props['type']) ? " {$props['type']}" : "";
-			$str .= isset($props['constraint']) ? " {$props['constraint']}" : "";
+			$str .= isset($props['type']) ? " {$props['type']}" : '';
+			$str .= isset($props['constraint']) ? " {$props['constraint']}" : '';
 
 			$columns[] = $str;
 		}
@@ -112,7 +110,7 @@ abstract class AbstractUtil {
 	 * @abstract
 	 * @return string
 	 */
-	abstract public function backupStructure();
+	abstract public function backupStructure(): string;
 
 	/**
 	 * Return an SQL file with the database data as insert statements
@@ -120,6 +118,6 @@ abstract class AbstractUtil {
 	 * @abstract
 	 * @return string
 	 */
-	abstract public function backupData();
+	abstract public function backupData(): string;
 
 }

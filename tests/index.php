@@ -4,21 +4,22 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace {
 	/**
 	 * Unit test bootstrap - Using php simpletest
 	 */
-	\define('QTEST_DIR', __DIR__);
-	\define('QBASE_DIR', realpath(__DIR__ . '/../') . '/');
-	\define('QDS', DIRECTORY_SEPARATOR);
+	define('QTEST_DIR', __DIR__);
+	define('QBASE_DIR', realpath(__DIR__ . '/../') . '/');
+	define('QDS', DIRECTORY_SEPARATOR);
 
 	require_once QBASE_DIR . 'vendor/simpletest/simpletest/autorun.php';
 	require_once QBASE_DIR . 'vendor/autoload.php';
@@ -29,13 +30,16 @@ namespace Query\Tests {
 	/**
 	 * Base class for TestCases
 	 */
-	abstract class TestCase extends \UnitTestCase
-	{
+	abstract class TestCase extends \UnitTestCase {
 		public function __construct()
 		{
 			$class = \get_class($this);
 
-			echo 'Ran test suite: ' . $class . '<br />';
+			if (PHP_SAPI !== 'cli')
+			{
+				echo 'Running test suite: ' . $class . '<br />';
+				flush();
+			}
 
 			if (method_exists($class, 'setupBeforeClass')) {
 				$class::setupBeforeClass();
@@ -87,6 +91,11 @@ namespace Query\Tests {
 			$this->skipUnless(FALSE, $message);
 		}
 
+		public function expectException($exception = FALSE, $message = '%s')
+		{
+			return parent::expectException(FALSE);
+		}
+
 		/**
 		 * Alias to the method in PHPUnit
 		 *
@@ -97,7 +106,6 @@ namespace Query\Tests {
 			// noop
 		}
 	}
-
 }
 
 /**
@@ -106,10 +114,10 @@ namespace Query\Tests {
 namespace {
 	function get_json_config()
 	{
-		$files = array(
+		$files = [
 			__DIR__ . '/settings.json',
 			__DIR__ . '/settings.json.dist'
-		);
+		];
 
 		foreach ($files as $file) {
 			if (is_file($file)) {

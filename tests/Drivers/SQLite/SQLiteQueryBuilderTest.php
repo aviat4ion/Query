@@ -4,13 +4,14 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Tests\Drivers\SQLite;
 
@@ -24,20 +25,20 @@ use Query\Tests\BaseQueryBuilderTest;
  */
  class SQLiteQueryBuilderTest extends BaseQueryBuilderTest {
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		// Defined in the SQLiteTest.php file
 		self::$db = Query('test_sqlite');
 	}
 
-	public function testQueryFunctionAlias()
+	public function testQueryFunctionAlias(): void
 	{
 		$db = Query('test_sqlite');
 
-		$this->assertTrue(self::$db === $db, "Alias passed into query function gives the original object back");
+		$this->assertTrue(self::$db === $db, 'Alias passed into query function gives the original object back');
 	}
 
-	public function testQueryExplain()
+	public function testQueryExplain(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->explain()
@@ -46,52 +47,21 @@ use Query\Tests\BaseQueryBuilderTest;
 			->get('create_test', 2, 1);
 
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
+		$actualDetail = $res[0]['detail'];
+		$this->assertTrue(is_string($actualDetail));
 
-		$expectedPossibilities = array();
-
-		$expectedPossibilities[] = array(
-			array(
-				'order' => '0',
-				'from' => '0',
-				'detail' => 'TABLE create_test USING PRIMARY KEY',
-			)
-		);
-
-		$expectedPossibilities[] = array (
-			array (
-				'selectid' => '0',
-				'order' => '0',
-				'from' => '0',
-				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~60000 rows)',
-			),
-		);
-
-		$expectedPossibilities[] = array (
-			array (
-				'selectid' => '0',
-				'order' => '0',
-				'from' => '0',
-				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
-			),
-		);
-
-		$expectedPossibilities[] = array (
-			array (
-				'selectid' => '0',
-				'order' => '0',
-				'from' => '0',
-				'detail' => 'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?) (~62500 rows)',
-			),
-		);
+		$expectedPossibilities = [
+			'TABLE create_test USING PRIMARY KEY',
+			'SEARCH TABLE create_test USING INTEGER PRIMARY KEY (rowid>? AND rowid<?)',
+		];
 
 		$passed = FALSE;
 
 		// Check for a matching possibility
 		foreach($expectedPossibilities as $ep)
 		{
-			if ($res == $ep)
+			if (stripos($actualDetail, $ep) !== FALSE)
 			{
-				$this->assertTrue(TRUE);
 				$passed = TRUE;
 			}
 		}
@@ -100,7 +70,18 @@ use Query\Tests\BaseQueryBuilderTest;
 		if ( ! $passed)
 		{
 			var_export($res);
-			$this->assertTrue(FALSE);
 		}
+
+		$this->assertTrue($passed);
 	}
+
+	 public function testInsertReturning(): void
+	 {
+		 $this->markTestSkipped();
+	 }
+
+	 public function testUpdateReturning(): void
+	 {
+		 $this->markTestSkipped();
+	 }
 }

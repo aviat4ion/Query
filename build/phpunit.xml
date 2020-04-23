@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-	addUncoveredFilesFromWhitelist="true"
+	beStrictAboutOutputDuringTests="false"
 	colors="true"
 	stopOnFailure="false"
-	bootstrap="./../tests/bootstrap.php">
+	bootstrap="./../tests/bootstrap.php"
+	verbose="true"
+>
 	<filter>
 		<whitelist>
 			<directory suffix=".php">./../src/</directory>
@@ -28,7 +30,7 @@
 	<logging>
 		<log type="coverage-html" target="./../coverage"/>
 		<log type="coverage-clover" target="logs/clover.xml"/>
-		<log type="coverage-xml" target="logs/coverage" />
-		<log type="xml" target="logs/junit.xml" logIncompleteSkipped="true"/>
+		<log type="coverage-xml" lowUpperBound="85" highLowerBound="90" showUncoveredFiles="true" target="logs/coverage" />
+		<log type="junit" target="logs/junit.xml" />
 	</logging>
 </phpunit>

@@ -4,13 +4,14 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Tests\Drivers\PgSQL;
 
@@ -22,12 +23,12 @@ use Query\Tests\BaseQueryBuilderTest;
  */
 class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		$params = get_json_config();
 		if (getenv('TRAVIS')) // Travis CI Connection Info
 		{
-			$params = array(
+			$params = [
 				'host' => '127.0.0.1',
 				'port' => '5432',
 				'database' => 'test',
@@ -35,7 +36,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 				'pass' => '',
 				'type' => 'pgsql',
 				'prefix' => 'create_'
-			);
+			];
 		}
 		// Attempt to connect, if there is a test config file
 		else if ($params !== FALSE)
@@ -44,14 +45,14 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 			$params->type = 'pgsql';
 			//$params->port = 5432;
 			//$params->prefix = 'create_';
-			$params->options = array();
+			$params->options = [];
 			$params->options[PDO::ATTR_PERSISTENT] = TRUE;
 		}
 
 		self::$db = Query($params);
 	}
 
-	public function setUp()
+	public function setUp(): void
  	{
  		// If the database isn't installed, skip the tests
 		if ( ! \in_array('pgsql', PDO::getAvailableDrivers(), TRUE))
@@ -60,12 +61,12 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		}
  	}
 
-	public function testExists()
+	public function testExists(): void
 	{
 		$this->assertTrue(\in_array('pgsql', PDO::getAvailableDrivers(), TRUE));
 	}
 
-	public function testQueryExplain()
+	public function testQueryExplain(): void
 	{
 		$query = self::$db->select('id, key as k, val')
 			->explain()
@@ -109,7 +110,7 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		$this->assertEqual($expected, $res);*/
 	}
 
-	public function testBackupStructure()
+	public function testBackupStructure(): void
 	{
 		$this->assertEquals('', self::$db->getUtil()->backupStructure());
 	}

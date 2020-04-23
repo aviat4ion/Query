@@ -4,13 +4,14 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Tests;
 
@@ -26,41 +27,41 @@ class QueryParserTest extends TestCase {
 	 */
 	protected $parser;
 
-	public function setUp()
+	public function setUp(): void
 	{
 		$db = new Driver('sqlite::memory:');
 		$this->parser = new QueryParser($db);
 	}
 
-	public function testGeneric()
+	public function testGeneric(): void
 	{
 		$matches = $this->parser->parseJoin('table1.field1=table2.field2');
-		$this->assertEqual($matches['combined'], array(
+		$this->assertEqual($matches['combined'], [
 			'table1.field1', '=', 'table2.field2'
-		));
+		]);
 	}
 
-	public function testGeneric2()
+	public function testGeneric2(): void
 	{
 		$matches = $this->parser->parseJoin('db1.table1.field1!=db2.table2.field2');
-		$this->assertEqual($matches['combined'], array(
+		$this->assertEqual($matches['combined'], [
 			'db1.table1.field1','!=','db2.table2.field2'
-		));
+		]);
 	}
 
-	public function testWUnderscore()
+	public function testWUnderscore(): void
 	{
 		$matches = $this->parser->parseJoin('table_1.field1 = tab_le2.field_2');
-		$this->assertEqual($matches['combined'], array(
+		$this->assertEqual($matches['combined'], [
 			'table_1.field1', '=', 'tab_le2.field_2'
-		));
+		]);
 	}
 
-	public function testFunction()
+	public function testFunction(): void
 	{
 		$matches = $this->parser->parseJoin('table1.field1 > SUM(3+5)');
-		$this->assertEqual($matches['combined'], array(
+		$this->assertEqual($matches['combined'], [
 			'table1.field1', '>', 'SUM(3+5)'
-		));
+		]);
 	}
 }

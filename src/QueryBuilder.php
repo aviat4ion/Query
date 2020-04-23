@@ -4,110 +4,27 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query;
 
-use BadMethodCallException;
+use function is_array;
+use function is_int;
+use function mb_trim;
+
 use PDOStatement;
-use Query\Drivers\DriverInterface;
 
 /**
  * Convenience class for creating sql queries
  */
-class QueryBuilder implements QueryBuilderInterface {
-
-	/**
-	 * Convenience property for connection management
-	 * @var string
-	 */
-	public $connName = '';
-
-	/**
-	 * List of queries executed
-	 * @var array
-	 */
-	public $queries = [
-		'total_time' => 0
-	];
-
-	/**
-	 * Whether to do only an explain on the query
-	 * @var boolean
-	 */
-	protected $explain = FALSE;
-
-	/**
-	 * The current database driver
-	 * @var DriverInterface
-	 */
-	public $driver;
-
-	/**
-	 * Query parser class instance
-	 * @var QueryParser
-	 */
-	protected $parser;
-
-	/**
-	 * Query Builder state
-	 * @var State
-	 */
-	protected $state;
-
-	// --------------------------------------------------------------------------
-	// ! Methods
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Constructor
-	 *
-	 * @param DriverInterface $driver
-	 * @param QueryParser $parser
-	 */
-	public function __construct(DriverInterface $driver, QueryParser $parser)
-	{
-		// Inject driver and parser
-		$this->driver = $driver;
-		$this->parser = $parser;
-
-		// Create new State object
-		$this->state = new State();
-	}
-
-	/**
-	 * Destructor
-	 * @codeCoverageIgnore
-	 */
-	public function __destruct()
-	{
-		$this->driver = NULL;
-	}
-
-	/**
-	 * Calls a function further down the inheritance chain
-	 *
-	 * @param string $name
-	 * @param array $params
-	 * @return mixed
-	 * @throws BadMethodCallException
-	 */
-	public function __call(string $name, array $params)
-	{
-		if (method_exists($this->driver, $name))
-		{
-			return \call_user_func_array([$this->driver, $name], $params);
-		}
-
-		throw new BadMethodCallException('Method does not exist');
-	}
-
+class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	// --------------------------------------------------------------------------
 	// ! Select Queries
 	// --------------------------------------------------------------------------
@@ -116,9 +33,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function select(string $fields): QueryBuilderInterface
+	public function select(string $fields): self
 	{
 		// Split fields by comma
 		$fieldsArray = explode(',', $fields);
@@ -140,11 +57,11 @@ class QueryBuilder implements QueryBuilderInterface {
 		unset($fieldsArray);
 
 		// Join the strings back together
-		for($i = 0, $c = count($safeArray); $i < $c; $i++)
+		foreach ($safeArray as $i => $iValue)
 		{
-			if (\is_array($safeArray[$i]))
+			if (is_array($iValue))
 			{
-				$safeArray[$i] = implode(' AS ', $safeArray[$i]);
+				$safeArray[$i] = implode(' AS ', $iValue);
 			}
 		}
 
@@ -158,9 +75,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectMax(string $field, $as=FALSE): QueryBuilderInterface
+	public function selectMax(string $field, $as=FALSE): self
 	{
 		// Create the select string
 		$this->state->appendSelectString(' MAX'.$this->_select($field, $as));
@@ -172,9 +89,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectMin(string $field, $as=FALSE): QueryBuilderInterface
+	public function selectMin(string $field, $as=FALSE): self
 	{
 		// Create the select string
 		$this->state->appendSelectString(' MIN'.$this->_select($field, $as));
@@ -186,9 +103,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectAvg(string $field, $as=FALSE): QueryBuilderInterface
+	public function selectAvg(string $field, $as=FALSE): self
 	{
 		// Create the select string
 		$this->state->appendSelectString(' AVG'.$this->_select($field, $as));
@@ -200,9 +117,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectSum(string $field, $as=FALSE): QueryBuilderInterface
+	public function selectSum(string $field, $as=FALSE): self
 	{
 		// Create the select string
 		$this->state->appendSelectString(' SUM'.$this->_select($field, $as));
@@ -210,11 +127,30 @@ class QueryBuilder implements QueryBuilderInterface {
 	}
 
 	/**
+	 * Add a 'returning' clause to an insert,update, or delete query
+	 *
+	 * @param string $fields
+	 * @return $this
+	 */
+	public function returning(string $fields = ''): self
+	{
+		$this->returning = TRUE;
+
+		// Re-use the string select field for generating the returning type clause
+		if ($fields !== '')
+		{
+			return $this->select($fields);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function distinct(): QueryBuilderInterface
+	public function distinct(): self
 	{
 		// Prepend the keyword to the select string
 		$this->state->setSelectString(' DISTINCT' . $this->state->getSelectString());
@@ -224,9 +160,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	/**
 	 * Tell the database to give you the query plan instead of result set
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function explain(): QueryBuilderInterface
+	public function explain(): self
 	{
 		$this->explain = TRUE;
 		return $this;
@@ -235,14 +171,27 @@ class QueryBuilder implements QueryBuilderInterface {
 	/**
 	 * Specify the database table to select from
 	 *
-	 * @param string $tblname
-	 * @return QueryBuilderInterface
+	 * Alias of `from` method to better match CodeIgniter 4
+	 *
+	 * @param string $tableName
+	 * @return self
 	 */
-	public function from(string $tblname): QueryBuilderInterface
+	public function table(string $tableName): self
+	{
+		return $this->from($tableName);
+	}
+
+	/**
+	 * Specify the database table to select from
+	 *
+	 * @param string $tableName
+	 * @return self
+	 */
+	public function from(string $tableName): self
 	{
 		// Split identifiers on spaces
-		$identArray = explode(' ', \mb_trim($tblname));
-		$identArray = array_map('\\mb_trim', $identArray);
+		$identArray = explode(' ', mb_trim($tableName));
+		$identArray = array_map('mb_trim', $identArray);
 
 		// Quote the identifiers
 		$identArray[0] = $this->driver->quoteTable($identArray[0]);
@@ -264,9 +213,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function like(string $field, $val, string $pos='both'): QueryBuilderInterface
+	public function like(string $field, $val, string $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos);
 	}
@@ -277,9 +226,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orLike(string $field, $val, string $pos='both'): QueryBuilderInterface
+	public function orLike(string $field, $val, string $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'LIKE', 'OR');
 	}
@@ -290,9 +239,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function notLike(string $field, $val, string $pos='both'): QueryBuilderInterface
+	public function notLike(string $field, $val, string $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE');
 	}
@@ -303,9 +252,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $val
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orNotLike(string $field, $val, string $pos='both'): QueryBuilderInterface
+	public function orNotLike(string $field, $val, string $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
 	}
@@ -319,9 +268,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function having($key, $val=[]): QueryBuilderInterface
+	public function having($key, $val=[]): self
 	{
 		return $this->_having($key, $val);
 	}
@@ -331,9 +280,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orHaving($key, $val=[]): QueryBuilderInterface
+	public function orHaving($key, $val=[]): self
 	{
 		return $this->_having($key, $val, 'OR');
 	}
@@ -350,9 +299,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $val
 	 * @param mixed $escape
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function where($key, $val=[], $escape=NULL): QueryBuilderInterface
+	public function where($key, $val=[], $escape=NULL): self
 	{
 		return $this->_whereString($key, $val);
 	}
@@ -362,9 +311,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $key
 	 * @param mixed $val
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhere($key, $val=[]): QueryBuilderInterface
+	public function orWhere($key, $val=[]): self
 	{
 		return $this->_whereString($key, $val, 'OR');
 	}
@@ -374,9 +323,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param mixed $field
 	 * @param mixed $val
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function whereIn($field, $val=[]): QueryBuilderInterface
+	public function whereIn($field, $val=[]): self
 	{
 		return $this->_whereIn($field, $val);
 	}
@@ -386,9 +335,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhereIn($field, $val=[]): QueryBuilderInterface
+	public function orWhereIn($field, $val=[]): self
 	{
 		return $this->_whereIn($field, $val, 'IN', 'OR');
 	}
@@ -398,9 +347,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function whereNotIn($field, $val=[]): QueryBuilderInterface
+	public function whereNotIn($field, $val=[]): self
 	{
 		return $this->_whereIn($field, $val, 'NOT IN');
 	}
@@ -410,9 +359,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param mixed $val
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhereNotIn($field, $val=[]): QueryBuilderInterface
+	public function orWhereNotIn($field, $val=[]): self
 	{
 		return $this->_whereIn($field, $val, 'NOT IN', 'OR');
 	}
@@ -426,9 +375,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function set($key, $val = NULL): QueryBuilderInterface
+	public function set($key, $val = NULL): self
 	{
 		if (is_scalar($key))
 		{
@@ -466,21 +415,21 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function join(string $table, string $condition, string $type=''): QueryBuilderInterface
+	public function join(string $table, string $condition, string $type=''): self
 	{
 		// Prefix and quote table name
-		$table = explode(' ', mb_trim($table));
-		$table[0] = $this->driver->quoteTable($table[0]);
-		$table = $this->driver->quoteIdent($table);
-		$table = implode(' ', $table);
+		$tableArr = explode(' ', mb_trim($table));
+		$tableArr[0] = $this->driver->quoteTable($tableArr[0]);
+		$tableArr = $this->driver->quoteIdent($tableArr);
+		$table = implode(' ', $tableArr);
 
 		// Parse out the join condition
 		$parsedCondition = $this->parser->compileJoin($condition);
 		$condition = $table . ' ON ' . $parsedCondition;
 
-		$this->state->appendMap("\n" . strtoupper($type) . ' JOIN ', $condition, 'join');
+		$this->state->appendMap("\n" . strtoupper($type) . ' JOIN ', $condition, MapType::JOIN);
 
 		return $this;
 	}
@@ -489,16 +438,17 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupBy($field): QueryBuilderInterface
+	public function groupBy($field): self
 	{
 		if ( ! is_scalar($field))
 		{
-			$newGroupArray = array_map([$this->driver, 'quoteIdent'], $field);
-			$this->state->setGroupArray(
-				array_merge($this->state->getGroupArray(), $newGroupArray)
+			$newGroupArray = array_merge(
+				$this->state->getGroupArray(),
+				array_map([$this->driver, 'quoteIdent'], $field)
 			);
+			$this->state->setGroupArray($newGroupArray);
 		}
 		else
 		{
@@ -515,9 +465,9 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orderBy(string $field, string $type=''): QueryBuilderInterface
+	public function orderBy(string $field, string $type=''): self
 	{
 		// When ordering by random, do an ascending order if the driver
 		// doesn't support random ordering
@@ -553,10 +503,10 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Set a limit on the current sql statement
 	 *
 	 * @param int $limit
-	 * @param int|bool $offset
-	 * @return QueryBuilderInterface
+	 * @param int|null $offset
+	 * @return self
 	 */
-	public function limit(int $limit, $offset=FALSE): QueryBuilderInterface
+	public function limit(int $limit, ?int $offset=NULL): self
 	{
 		$this->state->setLimit($limit);
 		$this->state->setOffset($offset);
@@ -571,13 +521,13 @@ class QueryBuilder implements QueryBuilderInterface {
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupStart(): QueryBuilderInterface
+	public function groupStart(): self
 	{
 		$conj = empty($this->state->getQueryMap()) ? ' WHERE ' : ' ';
 
-		$this->state->appendMap($conj, '(', 'group_start');
+		$this->state->appendMap($conj, '(', MapType::GROUP_START);
 
 		return $this;
 	}
@@ -586,13 +536,13 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'NOT'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function notGroupStart(): QueryBuilderInterface
+	public function notGroupStart(): self
 	{
 		$conj = empty($this->state->getQueryMap()) ? ' WHERE ' : ' AND ';
 
-		$this->state->appendMap($conj, ' NOT (', 'group_start');
+		$this->state->appendMap($conj, ' NOT (', MapType::GROUP_START);
 
 		return $this;
 	}
@@ -601,11 +551,11 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orGroupStart(): QueryBuilderInterface
+	public function orGroupStart(): self
 	{
-		$this->state->appendMap('', ' OR (', 'group_start');
+		$this->state->appendMap('', ' OR (', MapType::GROUP_START);
 
 		return $this;
 	}
@@ -614,11 +564,11 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orNotGroupStart(): QueryBuilderInterface
+	public function orNotGroupStart(): self
 	{
-		$this->state->appendMap('', ' OR NOT (', 'group_start');
+		$this->state->appendMap('', ' OR NOT (', MapType::GROUP_START);
 
 		return $this;
 	}
@@ -626,11 +576,11 @@ class QueryBuilder implements QueryBuilderInterface {
 	/**
 	 * Ends a query group
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupEnd(): QueryBuilderInterface
+	public function groupEnd(): self
 	{
-		$this->state->appendMap('', ')', 'group_end');
+		$this->state->appendMap('', ')', MapType::GROUP_END);
 
 		return $this;
 	}
@@ -644,11 +594,11 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * execute current compiled query
 	 *
 	 * @param string $table
-	 * @param int|bool $limit
-	 * @param int|bool $offset
+	 * @param int|null $limit
+	 * @param int|null $offset
 	 * @return PDOStatement
 	 */
-	public function get(string $table='', $limit=FALSE, $offset=FALSE): ?PDOStatement
+	public function get(string $table='', ?int $limit=NULL, ?int $offset=NULL): PDOStatement
 	{
 		// Set the table
 		if ( ! empty($table))
@@ -657,7 +607,7 @@ class QueryBuilder implements QueryBuilderInterface {
 		}
 
 		// Set the limit, if it exists
-		if (\is_int($limit))
+		if (is_int($limit))
 		{
 			$this->limit($limit, $offset);
 		}
@@ -670,11 +620,11 @@ class QueryBuilder implements QueryBuilderInterface {
 	 *
 	 * @param string $table
 	 * @param mixed $where
-	 * @param int|bool $limit
-	 * @param int|bool $offset
+	 * @param int|null $limit
+	 * @param int|null $offset
 	 * @return PDOStatement
 	 */
-	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): ?PDOStatement
+	public function getWhere(string $table, $where=[], ?int $limit=NULL, ?int $offset=NULL): PDOStatement
 	{
 		// Create the where clause
 		$this->where($where);
@@ -712,7 +662,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->from($table);
 		}
 
-		$result = $this->_run('get', $table, NULL, NULL, $reset);
+		$result = $this->_run(QueryType::SELECT, $table, NULL, NULL, $reset);
 		$rows = $result->fetchAll();
 
 		return (int) count($rows);
@@ -725,14 +675,14 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function insert(string $table, $data=[]): ?PDOStatement
+	public function insert(string $table, $data=[]): PDOStatement
 	{
 		if ( ! empty($data))
 		{
 			$this->set($data);
 		}
 
-		return $this->_run('insert', $table);
+		return $this->_run(QueryType::INSERT, $table);
 	}
 
 	/**
@@ -766,7 +716,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->set($data);
 		}
 
-		return $this->_run('update', $table);
+		return $this->_run(QueryType::UPDATE, $table);
 	}
 
 	/**
@@ -774,35 +724,22 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * Returns the number of affected rows
 	 *
 	 * @param string $table
-	 * @param array|object $data
-	 * @param string $where
-	 * @return PDOStatement|null
-	 */
-	public function updateBatch(string $table, $data, $where): ?PDOStatement
-	{
-		// Get the generated values and sql string
-		list($sql, $data) = $this->driver->updateBatch($table, $data, $where);
-
-		return $sql !== NULL
-			? $this->_run('', $table, $sql, $data)
-			: NULL;
-	}
-
-	/**
-	 * Insertion with automatic overwrite, rather than attempted duplication
-	 *
-	 * @param string $table
 	 * @param array $data
-	 * @return \PDOStatement|null
+	 * @param string $where
+	 * @return int|null
 	 */
-	public function replace(string $table, $data=[]): ?PDOStatement
+	public function updateBatch(string $table, array $data, string $where): ?int
 	{
-		if ( ! empty($data))
+		if (empty($table) || empty($data) || empty($where))
 		{
-			$this->set($data);
+			return NULL;
 		}
 
-		return $this->_run('replace', $table);
+		// Get the generated values and sql string
+		[$sql, $data, $affectedRows] = $this->driver->updateBatch($table, $data, $where);
+
+		$this->_run('', $table, $sql, $data);
+		return $affectedRows;
 	}
 
 	/**
@@ -812,7 +749,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 * @param mixed $where
 	 * @return PDOStatement
 	 */
-	public function delete(string $table, $where=''): ?PDOStatement
+	public function delete(string $table, $where=''): PDOStatement
 	{
 		// Set the where clause
 		if ( ! empty($where))
@@ -820,7 +757,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->where($where);
 		}
 
-		return $this->_run('delete', $table);
+		return $this->_run(QueryType::DELETE, $table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -842,7 +779,7 @@ class QueryBuilder implements QueryBuilderInterface {
 			$this->from($table);
 		}
 
-		return $this->_getCompile('select', $table, $reset);
+		return $this->_getCompile(QueryType::SELECT, $table, $reset);
 	}
 
 	/**
@@ -854,7 +791,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function getCompiledInsert(string $table, bool $reset=TRUE): string
 	{
-		return $this->_getCompile('insert', $table, $reset);
+		return $this->_getCompile(QueryType::INSERT, $table, $reset);
 	}
 
 	/**
@@ -866,7 +803,7 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function getCompiledUpdate(string $table='', bool $reset=TRUE): string
 	{
-		return $this->_getCompile('update', $table, $reset);
+		return $this->_getCompile(QueryType::UPDATE, $table, $reset);
 	}
 
 	/**
@@ -878,424 +815,6 @@ class QueryBuilder implements QueryBuilderInterface {
 	 */
 	public function getCompiledDelete(string $table='', bool $reset=TRUE): string
 	{
-		return $this->_getCompile('delete', $table, $reset);
-	}
-
-	// --------------------------------------------------------------------------
-	// ! Miscellaneous Methods
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Clear out the class variables, so the next query can be run
-	 *
-	 * @return void
-	 */
-	public function resetQuery(): void
-	{
-		$this->state = new State();
-		$this->explain = FALSE;
-	}
-
-	/**
-	 * Method to simplify select_ methods
-	 *
-	 * @param string $field
-	 * @param string|bool $as
-	 * @return string
-	 */
-	protected function _select(string $field, $as = FALSE): string
-	{
-		// Escape the identifiers
-		$field = $this->driver->quoteIdent($field);
-
-		if ( ! \is_string($as))
-		{
-			return $field;
-		}
-
-		$as = $this->driver->quoteIdent($as);
-		return "({$field}) AS {$as} ";
-	}
-
-	/**
-	 * Helper function for returning sql strings
-	 *
-	 * @param string $type
-	 * @param string $table
-	 * @param bool $reset
-	 * @return string
-	 */
-	protected function _getCompile(string $type, string $table, bool $reset): string
-	{
-		$sql = $this->_compile($type, $table);
-
-		// Reset the query builder for the next query
-		if ($reset)
-		{
-			$this->resetQuery();
-		}
-
-		return $sql;
-	}
-
-	/**
-	 * Simplify 'like' methods
-	 *
-	 * @param string $field
-	 * @param mixed $val
-	 * @param string $pos
-	 * @param string $like
-	 * @param string $conj
-	 * @return self
-	 */
-	protected function _like(string $field, $val, string $pos, string $like='LIKE', string $conj='AND'): self
-	{
-		$field = $this->driver->quoteIdent($field);
-
-		// Add the like string into the order map
-		$like = $field. " {$like} ?";
-
-		if ($pos === 'before')
-		{
-			$val = "%{$val}";
-		}
-		elseif ($pos === 'after')
-		{
-			$val = "{$val}%";
-		}
-		else
-		{
-			$val = "%{$val}%";
-		}
-
-		$conj = empty($this->state->getQueryMap()) ? ' WHERE ' : " {$conj} ";
-		$this->state->appendMap($conj, $like, 'like');
-
-		// Add to the values array
-		$this->state->appendWhereValues($val);
-
-		return $this;
-	}
-
-	/**
-	 * Simplify building having clauses
-	 *
-	 * @param mixed $key
-	 * @param mixed $values
-	 * @param string $conj
-	 * @return self
-	 */
-	protected function _having($key, $values=[], string $conj='AND'): self
-	{
-		$where = $this->_where($key, $values);
-
-		// Create key/value placeholders
-		foreach($where as $f => $val)
-		{
-			// Split each key by spaces, in case there
-			// is an operator such as >, <, !=, etc.
-			$fArray = explode(' ', trim($f));
-
-			$item = $this->driver->quoteIdent($fArray[0]);
-
-			// Simple key value, or an operator
-			$item .= (count($fArray) === 1) ? '=?' : " {$fArray[1]} ?";
-
-			// Put in the having map
-			$this->state->appendHavingMap([
-				'conjunction' => empty($this->state->getHavingMap())
-					? ' HAVING '
-					: " {$conj} ",
-				'string' => $item
-			]);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Do all the redundant stuff for where/having type methods
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
-	 * @return array
-	 */
-	protected function _where($key, $val=[]): array
-	{
-		$where = [];
-		$pairs = [];
-
-		if (is_scalar($key))
-		{
-			$pairs[$key] = $val;
-		}
-		else
-		{
-			$pairs = $key;
-		}
-
-		foreach($pairs as $k => $v)
-		{
-			$where[$k] = $v;
-			$this->state->appendWhereValues($v);
-		}
-
-		return $where;
-	}
-
-	/**
-	 * Simplify generating where string
-	 *
-	 * @param mixed $key
-	 * @param mixed $values
-	 * @param string $defaultConj
-	 * @return self
-	 */
-	protected function _whereString($key, $values=[], string $defaultConj='AND'): self
-	{
-		// Create key/value placeholders
-		foreach($this->_where($key, $values) as $f => $val)
-		{
-			$queryMap = $this->state->getQueryMap();
-
-			// Split each key by spaces, in case there
-			// is an operator such as >, <, !=, etc.
-			$fArray = explode(' ', trim($f));
-
-			$item = $this->driver->quoteIdent($fArray[0]);
-
-			// Simple key value, or an operator
-			$item .= (count($fArray) === 1) ? '=?' : " {$fArray[1]} ?";
-			$lastItem = end($queryMap);
-
-			// Determine the correct conjunction
-			$conjunctionList = array_column($queryMap, 'conjunction');
-			if (empty($queryMap) || ( ! \regexInArray($conjunctionList, "/^ ?\n?WHERE/i")))
-			{
-				$conj = "\nWHERE ";
-			}
-			elseif ($lastItem['type'] === 'group_start')
-			{
-				$conj = '';
-			}
-			else
-			{
-				$conj = " {$defaultConj} ";
-			}
-
-			$this->state->appendMap($conj, $item, 'where');
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Simplify where_in methods
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
-	 * @param string $in - The (not) in fragment
-	 * @param string $conj - The where in conjunction
-	 * @return self
-	 */
-	protected function _whereIn($key, $val=[], string $in='IN', string $conj='AND'): self
-	{
-		$key = $this->driver->quoteIdent($key);
-		$params = array_fill(0, count($val), '?');
-		$this->state->appendWhereValues($val);
-
-		$conjunction =  empty($this->state->getQueryMap()) ? ' WHERE ' : " {$conj} ";
-		$str = $key . " {$in} (".implode(',', $params).') ';
-
-		$this->state->appendMap($conjunction, $str, 'where_in');
-
-		return $this;
-	}
-
-	/**
-	 * Executes the compiled query
-	 *
-	 * @param string $type
-	 * @param string $table
-	 * @param string $sql
-	 * @param array|null $vals
-	 * @param boolean $reset
-	 * @return PDOStatement
-	 */
-	protected function _run(string $type, string $table, string $sql=NULL, array $vals=NULL, bool $reset=TRUE): PDOStatement
-	{
-		if ($sql === NULL)
-		{
-			$sql = $this->_compile($type, $table);
-		}
-
-		if ($vals === NULL)
-		{
-			$vals = array_merge($this->state->getValues(), $this->state->getWhereValues());
-		}
-
-		$startTime = microtime(TRUE);
-
-		$res = empty($vals)
-			? $this->driver->query($sql)
-			: $this->driver->prepareExecute($sql, $vals);
-
-		$endTime = microtime(TRUE);
-		$totalTime = number_format($endTime - $startTime, 5);
-
-		// Add this query to the list of executed queries
-		$this->_appendQuery($vals, $sql, (int) $totalTime);
-
-		// Reset class state for next query
-		if ($reset)
-		{
-			$this->resetQuery();
-		}
-
-		return $res;
-	}
-
-	/**
-	 * Convert the prepared statement into readable sql
-	 *
-	 * @param array $vals
-	 * @param string $sql
-	 * @param int $totalTime
-	 * @return void
-	 */
-	protected function _appendQuery(array $vals = NULL, string $sql, int $totalTime)
-	{
-		$evals = \is_array($vals) ? $vals : [];
-		$esql = str_replace('?', "%s", $sql);
-
-		// Quote string values
-		foreach($evals as &$v)
-		{
-			$v = ( ! is_numeric($v))
-				? htmlentities($this->driver->quote($v), ENT_NOQUOTES, 'utf-8')
-				: $v;
-		}
-
-		// Add the query onto the array of values to pass
-		// as arguments to sprintf
-		array_unshift($evals, $esql);
-
-		// Add the interpreted query to the list of executed queries
-		$this->queries[] = [
-			'time' => $totalTime,
-			'sql' => sprintf(...$evals)
-		];
-
-		$this->queries['total_time'] += $totalTime;
-
-		// Set the last query to get rowcounts properly
-		$this->driver->setLastQuery($sql);
-	}
-
-	/**
-	 * Sub-method for generating sql strings
-	 *
-	 * @param string $type
-	 * @param string $table
-	 * @return string
-	 */
-	protected function _compileType(string $type='', string $table=''): string
-	{
-		$setArrayKeys = $this->state->getSetArrayKeys();
-		switch($type)
-		{
-			case 'insert':
-				$paramCount = count($setArrayKeys);
-				$params = array_fill(0, $paramCount, '?');
-				$sql = "INSERT INTO {$table} ("
-					. implode(',', $setArrayKeys)
-					. ")\nVALUES (".implode(',', $params).')';
-				break;
-
-			case 'update':
-				$setString = $this->state->getSetString();
-				$sql = "UPDATE {$table}\nSET {$setString}";
-				break;
-
-			case 'replace':
-				// @TODO implement
-				$sql = '';
-				break;
-
-			case 'delete':
-				$sql = "DELETE FROM {$table}";
-				break;
-
-			// Get queries
-			default:
-				$fromString = $this->state->getFromString();
-				$selectString = $this->state->getSelectString();
-
-				$sql = "SELECT * \nFROM {$fromString}";
-
-				// Set the select string
-				if ( ! empty($selectString))
-				{
-					// Replace the star with the selected fields
-					$sql = str_replace('*', $selectString, $sql);
-				}
-				break;
-		}
-
-		return $sql;
-	}
-
-	/**
-	 * String together the sql statements for sending to the db
-	 *
-	 * @param string $type
-	 * @param string $table
-	 * @return string
-	 */
-	protected function _compile(string $type='', string $table=''): string
-	{
-		// Get the base clause for the query
-		$sql = $this->_compileType($type, $this->driver->quoteTable($table));
-
-		$clauses = [
-			'queryMap',
-			'groupString',
-			'orderString',
-			'havingMap',
-		];
-
-		// Set each type of subclause
-		foreach($clauses as $clause)
-		{
-			$func = 'get' . ucFirst($clause);
-			$param = $this->state->$func();
-			if (\is_array($param))
-			{
-				foreach($param as $q)
-				{
-					$sql .= $q['conjunction'] . $q['string'];
-				}
-			}
-			else
-			{
-				$sql .= $param;
-			}
-		}
-
-		// Set the limit via the class variables
-		$limit = $this->state->getLimit();
-		if (is_numeric($limit))
-		{
-			$sql = $this->driver->getSql()->limit($sql, $limit, $this->state->getOffset());
-		}
-
-		// See if the query plan, rather than the
-		// query data should be returned
-		if ($this->explain === TRUE)
-		{
-			$sql = $this->driver->getSql()->explain($sql);
-		}
-
-		return $sql;
+		return $this->_getCompile(QueryType::DELETE, $table, $reset);
 	}
 }

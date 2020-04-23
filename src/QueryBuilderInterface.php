@@ -4,20 +4,58 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query;
 
+use PDO;
 use PDOStatement;
 
 /**
  * Interface defining the Query Builder class
+ *
+ * @method affectedRows(): int
+ * @method beginTransaction(): bool
+ * @method commit(): bool
+ * @method errorCode(): string
+ * @method errorInfo(): array
+ * @method exec(string $statement): int
+ * @method getAttribute(int $attribute)
+ * @method getColumns(string $table): array | null
+ * @method getDbs(): array | null
+ * @method getFks(string $table): array | null
+ * @method getFunctions(): array | null
+ * @method getIndexes(string $table): array | null
+ * @method getLastQuery(): string
+ * @method getProcedures(): array | null
+ * @method getSchemas(): array | null
+ * @method getSequences(): array | null
+ * @method getSystemTables(): array | null
+ * @method getTables(): array
+ * @method getTriggers(): array | null
+ * @method getTypes(): array | null
+ * @method getUtil(): \Query\Drivers\AbstractUtil
+ * @method getVersion(): string
+ * @method getViews(): array | null
+ * @method inTransaction(): bool
+ * @method lastInsertId(string $name = NULL): string
+ * @method numRows(): int | null
+ * @method prepare(string $statement, array $driver_options = []): PDOStatement
+ * @method prepareExecute(string $sql, array $params): PDOStatement
+ * @method prepareQuery(string $sql, array $data): PDOStatement
+ * @method query(string $statement): PDOStatement
+ * @method quote(string $string, int $parameter_type = PDO::PARAM_STR): string
+ * @method rollback(): bool
+ * @method setAttribute(int $attribute, $value): bool
+ * @method setTablePrefix(string $prefix): void
+ * @method truncate(string $table): PDOStatement
  */
 interface QueryBuilderInterface {
 
@@ -29,67 +67,77 @@ interface QueryBuilderInterface {
 	 * Specifies rows to select in a query
 	 *
 	 * @param string $fields
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function select(string $fields): QueryBuilderInterface;
+	public function select(string $fields): self;
 
 	/**
 	 * Selects the maximum value of a field from a query
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectMax(string $field, $as=FALSE): QueryBuilderInterface;
+	public function selectMax(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the minimum value of a field from a query
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectMin(string $field, $as=FALSE): QueryBuilderInterface;
+	public function selectMin(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the average value of a field from a query
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectAvg(string $field, $as=FALSE): QueryBuilderInterface;
+	public function selectAvg(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the sum of a field from a query
 	 *
 	 * @param string $field
 	 * @param string|bool $as
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function selectSum(string $field, $as=FALSE): QueryBuilderInterface;
+	public function selectSum(string $field, $as=FALSE): self;
 
 	/**
 	 * Adds the 'distinct' keyword to a query
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function distinct(): QueryBuilderInterface;
+	public function distinct(): self;
 
 	/**
 	 * Shows the query plan for the query
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function explain(): QueryBuilderInterface;
+	public function explain(): self;
 
 	/**
 	 * Specify the database table to select from
 	 *
-	 * @param string $tblname
-	 * @return QueryBuilderInterface
+	 * Alias of `from` method to better match CodeIgniter 4
+	 *
+	 * @param string $tableName
+	 * @return self
 	 */
-	public function from(string $tblname): QueryBuilderInterface;
+	public function table(string $tableName): self;
+
+	/**
+	 * Specify the database table to select from
+	 *
+	 * @param string $tableName
+	 * @return self
+	 */
+	public function from(string $tableName): self;
 
 	// --------------------------------------------------------------------------
 	// ! 'Like' methods
@@ -101,9 +149,9 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function like(string $field, $values, string $pos='both'): QueryBuilderInterface;
+	public function like(string $field, $values, string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates an OR Like clause
@@ -111,9 +159,9 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
+	public function orLike(string $field, $values, string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a NOT LIKE clause
@@ -121,9 +169,9 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function notLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
+	public function notLike(string $field, $values, string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a OR NOT LIKE clause
@@ -131,9 +179,9 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 * @param string $pos
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orNotLike(string $field, $values, string $pos='both'): QueryBuilderInterface;
+	public function orNotLike(string $field, $values, string $pos=LikeType::BOTH): self;
 
 	// --------------------------------------------------------------------------
 	// ! Having methods
@@ -144,18 +192,18 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function having($key, $values=[]): QueryBuilderInterface;
+	public function having($key, $values=[]): self;
 
 	/**
 	 * Generates a 'Having' clause prefixed with 'OR'
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orHaving($key, $values=[]): QueryBuilderInterface;
+	public function orHaving($key, $values=[]): self;
 
 	// --------------------------------------------------------------------------
 	// ! 'Where' methods
@@ -169,54 +217,54 @@ interface QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $values
 	 * @param bool $escape
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function where($key, $values=[], $escape = NULL): QueryBuilderInterface;
+	public function where($key, $values=[], $escape = NULL): self;
 
 	/**
 	 * Where clause prefixed with "OR"
 	 *
 	 * @param string $key
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhere($key, $values=[]): QueryBuilderInterface;
+	public function orWhere($key, $values=[]): self;
 
 	/**
 	 * Where clause with 'IN' statement
 	 *
 	 * @param mixed $field
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function whereIn($field, $values=[]): QueryBuilderInterface;
+	public function whereIn($field, $values=[]): self;
 
 	/**
 	 * Where in statement prefixed with "or"
 	 *
 	 * @param string $field
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhereIn($field, $values=[]): QueryBuilderInterface;
+	public function orWhereIn($field, $values=[]): self;
 
 	/**
 	 * WHERE NOT IN (FOO) clause
 	 *
 	 * @param string $field
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function whereNotIn($field, $values=[]): QueryBuilderInterface;
+	public function whereNotIn($field, $values=[]): self;
 
 	/**
 	 * OR WHERE NOT IN (FOO) clause
 	 *
 	 * @param string $field
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orWhereNotIn($field, $values=[]): QueryBuilderInterface;
+	public function orWhereNotIn($field, $values=[]): self;
 
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
@@ -227,9 +275,9 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function set($key, $values = NULL): QueryBuilderInterface;
+	public function set($key, $values = NULL): self;
 
 	/**
 	 * Creates a join phrase in a compiled query
@@ -237,35 +285,35 @@ interface QueryBuilderInterface {
 	 * @param string $table
 	 * @param string $condition
 	 * @param string $type
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function join(string $table, string $condition, string $type=''): QueryBuilderInterface;
+	public function join(string $table, string $condition, string $type=JoinType::INNER): self;
 
 	/**
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupBy($field): QueryBuilderInterface;
+	public function groupBy($field): self;
 
 	/**
 	 * Order the results by the selected field(s)
 	 *
 	 * @param string $field
 	 * @param string $type
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orderBy(string $field, string $type=''): QueryBuilderInterface;
+	public function orderBy(string $field, string $type=''): self;
 
 	/**
 	 * Set a limit on the current sql statement
 	 *
 	 * @param int $limit
-	 * @param int|bool $offset
-	 * @return QueryBuilderInterface
+	 * @param int|null $offset
+	 * @return self
 	 */
-	public function limit(int $limit, $offset=FALSE): QueryBuilderInterface;
+	public function limit(int $limit, ?int $offset=NULL): self;
 
 	// --------------------------------------------------------------------------
 	// ! Query Grouping Methods
@@ -274,40 +322,40 @@ interface QueryBuilderInterface {
 	/**
 	 * Adds a paren to the current query for query grouping
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupStart(): QueryBuilderInterface;
+	public function groupStart(): self;
 
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'NOT'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function notGroupStart(): QueryBuilderInterface;
+	public function notGroupStart(): self;
 
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orGroupStart(): QueryBuilderInterface;
+	public function orGroupStart(): self;
 
 	/**
 	 * Adds a paren to the current query for query grouping,
 	 * prefixed with 'OR NOT'
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function orNotGroupStart(): QueryBuilderInterface;
+	public function orNotGroupStart(): self;
 
 	/**
 	 * Ends a query group
 	 *
-	 * @return QueryBuilderInterface
+	 * @return self
 	 */
-	public function groupEnd(): QueryBuilderInterface;
+	public function groupEnd(): self;
 
 	// --------------------------------------------------------------------------
 	// ! Query execution methods
@@ -318,22 +366,22 @@ interface QueryBuilderInterface {
 	 * execute current compiled query
 	 *
 	 * @param string $table
-	 * @param int|bool $limit
-	 * @param int|bool $offset
+	 * @param int|null $limit
+	 * @param int|null $offset
 	 * @return PDOStatement
 	 */
-	public function get(string $table='', $limit=FALSE, $offset=FALSE): ?PDOStatement;
+	public function get(string $table='', ?int $limit=NULL, ?int $offset=NULL): PDOStatement;
 
 	/**
 	 * Convenience method for get() with a where clause
 	 *
 	 * @param string $table
 	 * @param array $where
-	 * @param int|bool $limit
-	 * @param int|bool $offset
+	 * @param int|null $limit
+	 * @param int|null $offset
 	 * @return PDOStatement
 	 */
-	public function getWhere(string $table, $where=[], $limit=FALSE, $offset=FALSE): ?PDOStatement;
+	public function getWhere(string $table, $where=[], ?int $limit=NULL, ?int $offset=NULL): PDOStatement;
 
 	/**
 	 * Retrieve the number of rows in the selected table
@@ -360,25 +408,16 @@ interface QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function insert(string $table, $data=[]): ?PDOStatement;
+	public function insert(string $table, $data=[]): PDOStatement;
 
 	/**
 	 * Creates and executes a batch insertion query
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return PDOStatement
+	 * @return PDOStatement | null
 	 */
 	public function insertBatch(string $table, $data=[]): ?PDOStatement;
-
-	/**
-	 * Insertion with automatic overwrite, rather than attempted duplication
-	 *
-	 * @param string $table
-	 * @param array $data
-	 * @return PDOStatement
-	 */
-	public function replace(string $table, $data=[]): ?PDOStatement;
 
 	/**
 	 * Creates an update clause, and executes it
@@ -387,18 +426,18 @@ interface QueryBuilderInterface {
 	 * @param mixed $data
 	 * @return PDOStatement
 	 */
-	public function update(string $table, $data=[]): ?PDOStatement;
+	public function update(string $table, $data=[]): PDOStatement;
 
 	/**
 	 * Creates a batch update, and executes it.
 	 * Returns the number of affected rows
 	 *
-	 * @param string $table
-	 * @param array|object $data
-	 * @param string $where
-	 * @return PDOStatement
+	 * @param string $table The table to update
+	 * @param array $data an array of update values
+	 * @param string $where The where key
+	 * @return int|null
 	 */
-	public function updateBatch(string $table, $data, $where): ?PDOStatement;
+	public function updateBatch(string $table, array $data, string $where): ?int;
 
 	/**
 	 * Deletes data from a table
@@ -407,7 +446,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $where
 	 * @return PDOStatement
 	 */
-	public function delete(string $table, $where=''): ?PDOStatement;
+	public function delete(string $table, $where=''): PDOStatement;
 
 	// --------------------------------------------------------------------------
 	// ! SQL Returning Methods

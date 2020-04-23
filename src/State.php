@@ -4,19 +4,46 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
- * @package	 Query
- * @author	  Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
- * @license	 http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link		https://git.timshomepage.net/aviat4ion/Query
+ * @package     Query
+ * @author      Timothy J. Warren <tim@timshomepage.net>
+ * @copyright   2012 - 2020 Timothy J. Warren
+ * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
-
 namespace Query;
+
+use function is_array;
 
 /**
  * Query builder state
+ *
+ * @method getSelectString(): string
+ * @method getFromString(): string
+ * @method getSetString(): string
+ * @method getOrderString(): string
+ * @method getGroupString(): string
+ * @method getSetArrayKeys(): array
+ * @method getOrderArray(): array
+ * @method getGroupArray(): array
+ * @method getValues(): array
+ * @method getWhereValues(): array
+ * @method getLimit(): int|null
+ * @method getOffset()
+ * @method getQueryMap(): array
+ * @method getHavingMap(): array
+ *
+ * @method setSelectString(string $selectString): self
+ * @method setFromString(string $fromString): self
+ * @method setSetString(string $setString): self
+ * @method setOrderString(string $orderString): self
+ * @method setGroupString(string $groupString): self
+ * @method setSetArrayKeys(array $arrayKeys): self
+ * @method setGroupArray(array $array): self
+ * @method setLimit(int $limit): self
+ * @method setOffset(?int $offset): self
  */
 class State {
 	// --------------------------------------------------------------------------
@@ -27,31 +54,31 @@ class State {
 	 * Compiled 'select' clause
 	 * @var string
 	 */
-	protected $selectString = '';
+	protected string $selectString = '';
 
 	/**
 	 * Compiled 'from' clause
 	 * @var string
 	 */
-	protected $fromString = '';
+	protected string $fromString = '';
 
 	/**
 	 * Compiled arguments for insert / update
 	 * @var string
 	 */
-	protected $setString = '';
+	protected string $setString = '';
 
 	/**
 	 * Order by clause
 	 * @var string
 	 */
-	protected $orderString = '';
+	protected string $orderString = '';
 
 	/**
 	 * Group by clause
 	 * @var string
 	 */
-	protected $groupString = '';
+	protected string $groupString = '';
 
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Arrays
@@ -61,19 +88,19 @@ class State {
 	 * Keys for insert/update statement
 	 * @var array
 	 */
-	protected $setArrayKeys = [];
+	protected array $setArrayKeys = [];
 
 	/**
 	 * Key/val pairs for order by clause
 	 * @var array
 	 */
-	protected $orderArray = [];
+	protected array $orderArray = [];
 
 	/**
 	 * Key/val pairs for group by clause
 	 * @var array
 	 */
-	protected $groupArray = [];
+	protected array $groupArray = [];
 
 	// --------------------------------------------------------------------------
 	// ! Other Class vars
@@ -83,63 +110,69 @@ class State {
 	 * Values to apply to prepared statements
 	 * @var array
 	 */
-	protected $values = [];
+	protected array $values = [];
 
 	/**
 	 * Values to apply to where clauses in prepared statements
 	 * @var array
 	 */
-	protected $whereValues = [];
+	protected array $whereValues = [];
 
 	/**
 	 * Value for limit string
-	 * @var integer
+	 * @var int
 	 */
-	protected $limit;
+	protected ?int $limit = NULL;
 
 	/**
 	 * Value for offset in limit string
-	 * @var string|false
+	 * @var int
 	 */
-	protected $offset = FALSE;
+	protected ?int $offset = NULL;
 
 	/**
 	 * Query component order mapping
 	 * for complex select queries
 	 *
 	 * Format:
-	 * array(
+	 * [
 	 *		'type' => 'where',
 	 *		'conjunction' => ' AND ',
 	 *		'string' => 'k=?'
-	 * )
+	 * ]
 	 *
 	 * @var array
 	 */
-	protected $queryMap = [];
+	protected array $queryMap = [];
 
 	/**
 	 * Map for having clause
 	 * @var array
 	 */
-	protected $havingMap = [];
+	protected array $havingMap = [];
 
-	/**
-	 * @param string $str
-	 * @return State
-	 */
-	public function setSelectString(string $str): self
+	public function __call(string $name, array $arguments)
 	{
-		$this->selectString = $str;
-		return $this;
-	}
+		if (strpos($name, 'get', 0) === 0)
+		{
+			$maybeProp = lcfirst(substr($name, 3));
+			if (isset($this->$maybeProp))
+			{
+				return $this->$maybeProp;
+			}
+		}
 
-	/**
-	 * @return string
-	 */
-	public function getSelectString(): string
-	{
-		return $this->selectString;
+		if (strpos($name, 'set', 0) === 0)
+		{
+			$maybeProp = lcfirst(substr($name, 3));
+			if (isset($this->$maybeProp))
+			{
+				$this->$maybeProp = $arguments[0];
+				return $this;
+			}
+		}
+
+		return NULL;
 	}
 
 	/**
@@ -153,86 +186,6 @@ class State {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getFromString(): string
-	{
-		return $this->fromString;
-	}
-
-	/**
-	 * @param string $fromString
-	 * @return State
-	 */
-	public function setFromString(string $fromString): self
-	{
-		$this->fromString = $fromString;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getSetString(): string
-	{
-		return $this->setString;
-	}
-
-	/**
-	 * @param string $setString
-	 * @return State
-	 */
-	public function setSetString(string $setString): self
-	{
-		$this->setString = $setString;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getOrderString(): string
-	{
-		return $this->orderString;
-	}
-
-	/**
-	 * @param string $orderString
-	 * @return State
-	 */
-	public function setOrderString(string $orderString): self
-	{
-		$this->orderString = $orderString;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getGroupString(): string
-	{
-		return $this->groupString;
-	}
-
-	/**
-	 * @param string $groupString
-	 * @return State
-	 */
-	public function setGroupString(string $groupString): self
-	{
-		$this->groupString = $groupString;
-		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getSetArrayKeys(): array
-	{
-		return $this->setArrayKeys;
-	}
-
-	/**
 	 * @param array $setArrayKeys
 	 * @return State
 	 */
@@ -240,24 +193,6 @@ class State {
 	{
 		$this->setArrayKeys = array_merge($this->setArrayKeys, $setArrayKeys);
 		return $this;
-	}
-
-	/**
-	 * @param array $setArrayKeys
-	 * @return State
-	 */
-	public function setSetArrayKeys(array $setArrayKeys): self
-	{
-		$this->setArrayKeys = $setArrayKeys;
-		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getOrderArray(): array
-	{
-		return $this->orderArray;
 	}
 
 	/**
@@ -272,24 +207,6 @@ class State {
 	}
 
 	/**
-	 * @return array
-	 */
-	public function getGroupArray(): array
-	{
-		return $this->groupArray;
-	}
-
-	/**
-	 * @param array $groupArray
-	 * @return State
-	 */
-	public function setGroupArray(array $groupArray): self
-	{
-		$this->groupArray = $groupArray;
-		return $this;
-	}
-
-	/**
 	 * @param string $groupArray
 	 * @return State
 	 */
@@ -297,14 +214,6 @@ class State {
 	{
 		$this->groupArray[] = $groupArray;
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getValues(): array
-	{
-		return $this->values;
 	}
 
 	/**
@@ -318,20 +227,12 @@ class State {
 	}
 
 	/**
-	 * @return array
-	 */
-	public function getWhereValues(): array
-	{
-		return $this->whereValues;
-	}
-
-	/**
 	 * @param mixed $val
 	 * @return State
 	 */
 	public function appendWhereValues($val): self
 	{
-		if (\is_array($val))
+		if (is_array($val))
 		{
 			foreach($val as $v)
 			{
@@ -343,50 +244,6 @@ class State {
 
 		$this->whereValues[] = $val;
 		return $this;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getLimit(): ?int
-	{
-		return $this->limit;
-	}
-
-	/**
-	 * @param int $limit
-	 * @return State
-	 */
-	public function setLimit(int $limit): self
-	{
-		$this->limit = $limit;
-		return $this;
-	}
-
-	/**
-	 * @return string|false
-	 */
-	public function getOffset()
-	{
-		return $this->offset;
-	}
-
-	/**
-	 * @param string|false $offset
-	 * @return State
-	 */
-	public function setOffset($offset): self
-	{
-		$this->offset = $offset;
-		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getQueryMap(): array
-	{
-		return $this->queryMap;
 	}
 
 	/**
@@ -405,14 +262,6 @@ class State {
 			'string' => $string
 		];
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getHavingMap(): array
-	{
-		return $this->havingMap;
 	}
 
 	/**

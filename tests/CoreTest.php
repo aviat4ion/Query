@@ -4,15 +4,20 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Tests;
+
+use function Query;
+use function regexInArray;
+use PDO;
 
 /**
  * CoreTest class - Compatibility and core functionality tests
@@ -20,19 +25,6 @@ namespace Query\Tests;
  * @extends UnitTestCase
  */
 class CoreTest extends TestCase {
-
-	/**
-	 * TestPHPVersion function.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function testPHPVersion(): void
-	{
-		//$this->assertTrue(version_compare(PHP_VERSION, '7.1', 'ge'));
-		$this->assertTrue(PHP_VERSION_ID >= 70000);
-	}
-
 	/**
 	 * TestHasPDO function.
 	 *
@@ -52,7 +44,7 @@ class CoreTest extends TestCase {
 			'sqlite',
 		];
 
-		$drivers = \PDO::getAvailableDrivers();
+		$drivers = PDO::getAvailableDrivers();
 
 		$numSupported = count(array_intersect($drivers, $supported));
 
@@ -61,11 +53,11 @@ class CoreTest extends TestCase {
 
 	public function testNullQuery(): void
 	{
-		$this->assertNull(\Query(NULL));
+		$this->assertNull(Query(NULL));
 	}
 
 	public function testEmptyRegexInArray(): void
 	{
-		$this->assertFalse(\regexInArray([], 'foo'));
+		$this->assertFalse(regexInArray([], 'foo'));
 	}
 }

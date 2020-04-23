@@ -4,17 +4,19 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Drivers\Sqlite;
 
 use Query\Drivers\AbstractSQL;
+use Query\Exception\NotImplementedException;
 
 /**
  * SQLite Specific SQL
@@ -43,13 +45,14 @@ class SQL extends AbstractSQL {
 	}
 
 	/**
-	 * Returns sql to list other databases
+	 * Returns sql to list other databases. Meaningless for SQLite, as this
+	 * just returns the database(s) that we are currently connected to.
 	 *
 	 * @return string
 	 */
 	public function dbList(): string
 	{
-		return 'PRAGMA database_list';
+		return '';
 	}
 
 	/**
@@ -60,11 +63,13 @@ class SQL extends AbstractSQL {
 	public function tableList(): string
 	{
 		return <<<SQL
-			SELECT DISTINCT "name"
-			FROM "sqlite_master"
-			WHERE "type"='table'
-			AND "name" NOT LIKE 'sqlite_%'
-			ORDER BY "name" DESC
+            SELECT "name" FROM (
+				SELECT * FROM "sqlite_master" UNION ALL
+				SELECT * FROM "sqlite_temp_master"
+			)
+        	WHERE "type"='table'
+        	AND "name" NOT LIKE "sqlite_%"
+        	ORDER BY "name"
 SQL;
 	}
 
@@ -75,7 +80,11 @@ SQL;
 	 */
 	public function systemTableList(): array
 	{
-		return ['sqlite_master', 'sqlite_temp_master', 'sqlite_sequence'];
+		return [
+			'sqlite_master',
+			'sqlite_temp_master',
+			'sqlite_sequence'
+		];
 	}
 
 	/**
@@ -97,27 +106,31 @@ SQL;
 	 */
 	public function triggerList(): string
 	{
-		return 'SELECT "name" FROM "sqlite_master" WHERE "type"=\'trigger\'';
+		return <<<SQL
+			SELECT "name" FROM "sqlite_master" WHERE "type"='trigger'
+SQL;
 	}
 
 	/**
 	 * Return sql to list functions
 	 *
+	 * @throws NotImplementedException
 	 * @return string
 	 */
-	public function functionList(): ?string
+	public function functionList(): string
 	{
-		return NULL;
+		throw new NotImplementedException('Functionality does not exist in SQLite');
 	}
 
 	/**
 	 * Return sql to list stored procedures
 	 *
+	 * @throws NotImplementedException
 	 * @return string
 	 */
-	public function procedureList(): ?string
+	public function procedureList(): string
 	{
-		return NULL;
+		throw new NotImplementedException('Functionality does not exist in SQLite');
 	}
 
 	/**
@@ -125,9 +138,9 @@ SQL;
 	 *
 	 * @return string
 	 */
-	public function sequenceList(): ?string
+	public function sequenceList(): string
 	{
-		return NULL;
+		return 'SELECT "name" FROM "sqlite_sequence"';
 	}
 
 	/**
@@ -137,7 +150,7 @@ SQL;
 	 */
 	public function typeList(): array
 	{
-		return ['INTEGER', 'REAL', 'TEXT', 'BLOB'];
+		return ['INTEGER', 'REAL', 'TEXT', 'BLOB', 'NULL'];
 	}
 
 	/**
@@ -148,7 +161,9 @@ SQL;
 	 */
 	public function columnList(string $table): string
 	{
-		return 'PRAGMA table_info("' . $table . '")';
+		return <<<SQL
+			PRAGMA table_info("$table")
+SQL;
 	}
 
 	/**
@@ -160,7 +175,9 @@ SQL;
 	 */
 	public function fkList(string $table): string
 	{
-		return 'PRAGMA foreign_key_list("' . $table . '")';
+		return <<<SQL
+			PRAGMA foreign_key_list("$table")
+SQL;
 	}
 
 
@@ -172,6 +189,8 @@ SQL;
 	 */
 	public function indexList(string $table): string
 	{
-		return 'PRAGMA index_list("' . $table . '")';
+		return <<<SQL
+			PRAGMA index_list("$table")
+SQL;
 	}
 }

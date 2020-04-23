@@ -4,13 +4,14 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query;
 
@@ -26,14 +27,14 @@ class QueryParser {
 	 *
 	 * @var DriverInterface
 	 */
-	private $db;
+	private DriverInterface $db;
 
 	/**
 	 * Regex patterns for various syntax components
 	 *
 	 * @var array
 	 */
-	private $matchPatterns = [
+	private array $matchPatterns = [
 		'function' => '([a-zA-Z0-9_]+\((.*?)\))',
 		'identifier' => '([a-zA-Z0-9_-]+\.?)+',
 		'operator' => '=|AND|&&?|~|\|\|?|\^|/|>=?|<=?|-|%|OR|\+|NOT|\!=?|<>|XOR'
@@ -44,7 +45,7 @@ class QueryParser {
 	 *
 	 * @var array
 	 */
-	public $matches = [
+	public array $matches = [
 		'functions' => [],
 		'identifiers' => [],
 		'operators' => [],

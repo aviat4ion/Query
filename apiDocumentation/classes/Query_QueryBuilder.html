@@ -56,7 +56,7 @@
             <a href="#hierarchy">Hierarchy</a>
           </li>
           <li>
-            <a href="#coverage">Coverage</a>
+            <a href="#violations">Violations</a>
           </li>
           <li>
             <a href="#members">Members</a>
@@ -65,10 +65,7 @@
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="#history">History</a>
-          </li>
-          <li>
-            <a href="../source/QueryBuilder.php.html#line24">Source</a>
+            <a href="../source/QueryBuilder.php.html#line27">Source</a>
           </li>
         </ul>
       </nav>
@@ -79,66 +76,71 @@
         <ul/>
         <h2 id="synopsis">Synopsis</h2>
         <div class="synopsis">class QueryBuilder
+                extends <a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase.html">QueryBuilderBase</a>
                 implements
                 <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface.html">QueryBuilderInterface</a>
-            {<br/><ul class="none"><li>// members</li><li>public string <a href="#members">$connName</a> =
-                        '';
-                    </li><li>public array <a href="#members">$queries</a> =
-                        ;
-                    </li><li>public <span title="Query\Drivers\DriverInterface">DriverInterface</span> <a href="#members">$driver</a>;
-                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/__construct.html">__construct</a>()
-                    </li><li>public void <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/__destruct.html">__destruct</a>()
-                    </li><li>public mixed <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/__call.html">__call</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/select.html">select</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectMax.html">selectMax</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectMin.html">selectMin</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectAvg.html">selectAvg</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectSum.html">selectSum</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/distinct.html">distinct</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/explain.html">explain</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/from.html">from</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/like.html">like</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orLike.html">orLike</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/notLike.html">notLike</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orNotLike.html">orNotLike</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/having.html">having</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orHaving.html">orHaving</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/where.html">where</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orWhere.html">orWhere</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/whereIn.html">whereIn</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orWhereIn.html">orWhereIn</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/whereNotIn.html">whereNotIn</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orWhereNotIn.html">orWhereNotIn</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/set.html">set</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/join.html">join</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/groupBy.html">groupBy</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orderBy.html">orderBy</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/limit.html">limit</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/groupStart.html">groupStart</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/notGroupStart.html">notGroupStart</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orGroupStart.html">orGroupStart</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orNotGroupStart.html">orNotGroupStart</a>()
-                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/groupEnd.html">groupEnd</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/get.html">get</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/getWhere.html">getWhere</a>()
+            {<br/><ul class="none"><li>// Inherited members from <span title="Query\QueryBuilderBase">QueryBuilderBase</span></li><li>public string <a href="#members">$connName</a>;
+                        </li><li>public array <a href="#members">$queries</a>;
+                        </li></ul><ul class="none"><li>// methods</li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/select.html">select</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectMax.html">selectMax</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectMin.html">selectMin</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectAvg.html">selectAvg</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectSum.html">selectSum</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/returning.html">returning</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/distinct.html">distinct</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/explain.html">explain</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/table.html">table</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/from.html">from</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/like.html">like</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orLike.html">orLike</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/notLike.html">notLike</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orNotLike.html">orNotLike</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/having.html">having</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orHaving.html">orHaving</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/where.html">where</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orWhere.html">orWhere</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/whereIn.html">whereIn</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orWhereIn.html">orWhereIn</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/whereNotIn.html">whereNotIn</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orWhereNotIn.html">orWhereNotIn</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/set.html">set</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/join.html">join</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/groupBy.html">groupBy</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orderBy.html">orderBy</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/limit.html">limit</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/groupStart.html">groupStart</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/notGroupStart.html">notGroupStart</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orGroupStart.html">orGroupStart</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orNotGroupStart.html">orNotGroupStart</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/groupEnd.html">groupEnd</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/get.html">get</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/getWhere.html">getWhere</a>()
                     </li><li>public int <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/countAll.html">countAll</a>()
                     </li><li>public int <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/countAllResults.html">countAllResults</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/insert.html">insert</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/insert.html">insert</a>()
                     </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/insertBatch.html">insertBatch</a>()
                     </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/update.html">update</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/updateBatch.html">updateBatch</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/replace.html">replace</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/delete.html">delete</a>()
+                    </li><li>public ?int <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/updateBatch.html">updateBatch</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/delete.html">delete</a>()
                     </li><li>public string <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/getCompiledSelect.html">getCompiledSelect</a>()
                     </li><li>public string <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/getCompiledInsert.html">getCompiledInsert</a>()
                     </li><li>public string <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/getCompiledUpdate.html">getCompiledUpdate</a>()
                     </li><li>public string <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/getCompiledDelete.html">getCompiledDelete</a>()
-                    </li><li>public void <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/resetQuery.html">resetQuery</a>()
-                    </li></ul>
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Query\QueryBuilderBase">QueryBuilderBase</span></li><li>public void <a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase/__construct.html">__construct</a>()
+                        </li><li>public void <a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase/__destruct.html">__destruct</a>()
+                        </li><li>public mixed <a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase/__call.html">__call</a>()
+                        </li><li>public void <a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase/resetQuery.html">resetQuery</a>()
+                        </li></ul>
 
             }<br/></div>
         <h2 id="hierarchy">Hierarchy</h2>
         <div class="styled">
+          <h4>Extends</h4>
+          <ul>
+            <li>
+              <a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase.html">Query\QueryBuilderBase</a>
+            </li>
+          </ul>
           <h4>Implements</h4>
           <ul>
             <li>
@@ -146,19 +148,173 @@
             </li>
           </ul>
         </div>
-        <h2 id="coverage">Coverage</h2>
-        <table class="styled">
-          <tr>
-            <td>Methods</td>
-            <td class="percent">0%</td>
-            <td class="nummeric">0 / 48</td>
-          </tr>
-          <tr>
-            <td>Lines</td>
-            <td class="percent">0%</td>
-            <td class="nummeric"> / </td>
-          </tr>
-        </table>
+        <h2 id="violations">Violations</h2>
+        <div class="styled">
+          <h3>PHPMessDetector</h3>
+          <table class="styled">
+            <thead>
+              <tr>
+                <th>Line</th>
+                <th>Rule</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tr>
+              <td class="line">80</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectMax has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">80</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">94</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectMin has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">94</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">108</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectAvg has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">108</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">122</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectSum has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">122</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">387 - 389</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#elseexpression" target="_blank" title="Clean Code Rules">ElseExpression</a>
+              </td>
+              <td>The method set uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.</td>
+            </tr>
+            <tr>
+              <td class="line">454 - 456</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#elseexpression" target="_blank" title="Clean Code Rules">ElseExpression</a>
+              </td>
+              <td>The method groupBy uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.</td>
+            </tr>
+            <tr>
+              <td class="line">657</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method countAllResults has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">698</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">700</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">701</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">739</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">739</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$affectedRows' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">741</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">742</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$affectedRows' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">774</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledSelect has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">792</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledInsert has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">804</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledUpdate has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">816</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledDelete has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+          </table>
+        </div>
         <h2 id="members">Members</h2>
         <div class="styled members">
           <h4>public</h4>
@@ -166,9 +322,6 @@
             <li id="connName"><strong>$connName</strong>
                 —
                 string<br/><span class="indent">Convenience property for connection management</span></li>
-            <li id="driver"><strong>$driver</strong>
-                —
-                <a title="Query\Drivers\DriverInterface" href="../classes/Query_Drivers_DriverInterface.html">Query\Drivers\DriverInterface</a><br/><span class="indent">The current database driver</span></li>
             <li id="queries"><strong>$queries</strong>
                 —
                 array<br/><span class="indent">List of queries executed</span></li>
@@ -178,12 +331,6 @@
         <div class="styled">
           <h4>public</h4>
           <ul>
-            <li id="__construct"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/__construct.html">__construct()</a>
-                — Constructor</li>
-            <li id="__destruct"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/__destruct.html">__destruct()</a>
-                — Destructor</li>
-            <li id="__call"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/__call.html">__call()</a>
-                — Calls a function further down the inheritance chain</li>
             <li id="countAll"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/countAll.html">countAll()</a>
                 — Retrieve the number of rows in the selected table</li>
             <li id="countAllResults"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/countAllResults.html">countAllResults()</a>
@@ -248,10 +395,8 @@
                 — OR WHERE NOT IN (FOO) clause</li>
             <li id="orderBy"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orderBy.html">orderBy()</a>
                 — Order the results by the selected field(s)</li>
-            <li id="replace"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/replace.html">replace()</a>
-                — Insertion with automatic overwrite, rather than attempted duplication</li>
-            <li id="resetQuery"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/resetQuery.html">resetQuery()</a>
-                — Clear out the class variables, so the next query can be run</li>
+            <li id="returning"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/returning.html">returning()</a>
+                — Add a 'returning' clause to an insert,update, or delete query</li>
             <li id="select"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/select.html">select()</a>
                 — Specifies rows to select in a query</li>
             <li id="selectAvg"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/selectAvg.html">selectAvg()</a>
@@ -264,6 +409,8 @@
                 — Selects the sum of a field from a query</li>
             <li id="set"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/set.html">set()</a>
                 — Sets values for inserts / updates / deletes</li>
+            <li id="table"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/table.html">table()</a>
+                — Specify the database table to select from</li>
             <li id="update"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/update.html">update()</a>
                 — Creates an update clause, and executes it</li>
             <li id="updateBatch"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/updateBatch.html">updateBatch()</a>
@@ -275,174 +422,19 @@
             <li id="whereNotIn"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/whereNotIn.html">whereNotIn()</a>
                 — WHERE NOT IN (FOO) clause</li>
           </ul>
+          <h3>Inherited from <a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase.html">Query\QueryBuilderBase</a></h3>
+          <h4>public</h4>
+          <ul>
+            <li id="__call"><a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase/__call.html">__call()</a>
+                — Calls a function further down the inheritance chain.</li>
+            <li id="resetQuery"><a title="Query\QueryBuilderBase" href="../classes/Query_QueryBuilderBase/resetQuery.html">resetQuery()</a>
+                — Clear out the class variables, so the next query can be run</li>
+          </ul>
         </div>
-        <h2 id="history">History</h2>
-        <ul class="styled history">
-          <li>
-            <h3>2018-01-24T20:23:26+00:00 (commit #<span title="73e4c35163f3579f2dbaf2971ca707928f58f541">73e4c35</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Remove some old code coupling and boilerplate</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-24T20:03:41+00:00 (commit #<span title="f967aaf96ea1c4cc43e8bae85c465beb84424a1e">f967aaf</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Remove method separators, update documentation building configuration</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-24T18:25:42+00:00 (commit #<span title="16e50c3277e8d7284bccf4c9883af82d9fd83d16">16e50c3</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Fix some missed type hints</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-24T18:14:03+00:00 (commit #<span title="1d583bcc23524ad8840e4be580e549e8d6e549f4">1d583bc</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Add more type hinting</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-23T16:22:23+00:00 (commit #<span title="e4ca039b3d7b8ed82f662a183f02261df0fba416">e4ca039</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Use State class to simplify management of query builder state</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-22T21:04:29+00:00 (commit #<span title="8401cceb0daec6282b2c6cd20ef965592a322aa6">8401cce</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Remove PDOInterface to prevent conflicts in method parameters with native PDO object</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-22T20:43:56+00:00 (commit #<span title="91eb8123d151dde674aa5aec4efbd1dc09e0b490">91eb812</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Various refactoring</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-19T21:48:52+00:00 (commit #<span title="4df07b6c727a41ec8cca150f0697f504b69a1111">4df07b6</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update test layout to better match source layout</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-19T20:47:34+00:00 (commit #<span title="369ca6eb0439091697ee9cbc34c83e9a4bdaace3">369ca6e</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Flatten source structure a bit</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2018-01-19T18:43:19+00:00 (commit #<span title="c735c27559da47b4d53867da59cd706e8048f4a0">c735c27</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update file headers</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-10-14T01:55:23+00:00 (commit #<span title="b8d4768b1bfe0f38d6b65f0d4acd982793c0e9ee">b8d4768</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">camelCase methods and properties</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-10-13T02:12:25+00:00 (commit #<span title="6740aaef79540842110b2f162d17a9373d2c30da">6740aae</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">PHP7 or bust!</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-10-13T00:32:23+00:00 (commit #<span title="3eb4d889f9a18b6e3c157dc5a4bbf8bac955ba97">3eb4d88</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Add Or Not Like method</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-09-07T21:39:19+00:00 (commit #<span title="ca601623ba0b2a5879c01597efbf55bbde3a34fa">ca60162</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Miscellaneous cleanup and refactoring</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-09-07T18:22:52+00:00 (commit #<span title="2db7ad182db1419adb766249c9855d548adefd70">2db7ad1</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">More style fixes</pre>
-            </div>
-          </li>
-          <li>
-            <h3>2016-09-07T17:17:17+00:00 (commit #<span title="24f3b1d7011b6087a549e190582386c2669da8ce">24f3b1d</span>)</h3>
-            <div>
-              <p>
-                        Author: Timothy J Warren (tim@timshomepage.net) /
-                        Commiter: Timothy J Warren (tim@timshomepage.net)
-                    </p>
-              <pre class="wrapped">Update header comments</pre>
-            </div>
-          </li>
-        </ul>
       </section>
     </div>
     <footer>
-      <span>Generated using phpDox 0.11.0-dev - Copyright (C) 2010 - 2018 by Arne Blankerts and Contributors</span>
+      <span>Generated using phpDox 0.12.0-dev - Copyright (C) 2010 - 2020 by Arne Blankerts and Contributors</span>
     </footer>
   </body>
 </html>

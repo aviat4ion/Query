@@ -4,18 +4,19 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query;
 
 use DomainException;
-use InvalidArgumentException;
+use stdClass;
 
 /**
  * Connection manager class to manage connections for the
@@ -27,13 +28,13 @@ final class ConnectionManager {
 	 * Map of named database connections
 	 * @var array
 	 */
-	private $connections = [];
+	private array $connections = [];
 
 	/**
 	 * Class instance variable
 	 * @var ConnectionManager|null
 	 */
-	private static $instance;
+	private static ?ConnectionManager $instance = NULL;
 
 	/**
 	 * Private constructor to prevent multiple instances
@@ -60,7 +61,7 @@ final class ConnectionManager {
 	 * @throws DomainException
 	 * @return void
 	 */
-	public function __sleep()
+	public function __sleep(): void
 	{
 		throw new DomainException('No serializing of singleton');
 	}
@@ -71,7 +72,7 @@ final class ConnectionManager {
 	 * @throws DomainException
 	 * @return void
 	 */
-	public function __wakeup()
+	public function __wakeup(): void
 	{
 		throw new DomainException("Can't unserialize singleton");
 	}
@@ -97,7 +98,7 @@ final class ConnectionManager {
 	 *
 	 * @param string|array|object $name
 	 * @return QueryBuilderInterface
-	 * @throws InvalidArgumentException
+	 * @throws Exception\NonExistentConnectionException
 	 */
 	public function getConnection($name = ''): QueryBuilderInterface
 	{
@@ -106,27 +107,29 @@ final class ConnectionManager {
 		{
 			return $this->connections[$name];
 		}
-		else if (empty($name) && ! empty($this->connections)) // Otherwise, return the last one
+
+		if (empty($name) && ! empty($this->connections)) // Otherwise, return the last one
 		{
 			return end($this->connections);
 		}
 
 		// You should actually connect before trying to get a connection...
-		throw new InvalidArgumentException('The specified connection does not exist');
+		throw new Exception\NonExistentConnectionException('The specified connection does not exist');
 	}
 
 	/**
 	 * Parse the passed parameters and return a connection
 	 *
-	 * @param \stdClass $params
+	 * @param array|object $params
+	 * @throws Exception\BadDBDriverException
 	 * @return QueryBuilderInterface
 	 */
-	public function connect(\stdClass $params): QueryBuilderInterface
+	public function connect($params): QueryBuilderInterface
 	{
-		list($dsn, $dbtype, $params, $options) = $this->parseParams($params);
+		[$dsn, $dbType, $params, $options] = $this->parseParams($params);
 
-		$dbtype = ucfirst($dbtype);
-		$driver = "\\Query\\Drivers\\{$dbtype}\\Driver";
+		$dbType = ucfirst($dbType);
+		$driver = "\\Query\\Drivers\\{$dbType}\\Driver";
 
 		// Create the database connection
 		$db =  ! empty($params->user)
@@ -159,20 +162,21 @@ final class ConnectionManager {
 	/**
 	 * Parses params into a dsn and option array
 	 *
-	 * @param \stdClass $params
+	 * @param array|object $rawParams
 	 * @return array
-	 * @throws BadDBDriverException
+	 * @throws Exception\BadDBDriverException
 	 */
-	public function parseParams(\stdClass $params): array
+	public function parseParams($rawParams): array
 	{
+		$params = (object) $rawParams;
 		$params->type = strtolower($params->type);
-		$dbtype = ($params->type !== 'postgresql') ? $params->type : 'pgsql';
-		$dbtype = ucfirst($dbtype);
+		$dbType = ($params->type === 'postgresql') ? 'pgsql' : $params->type;
+		$dbType = ucfirst($dbType);
 
 		// Make sure the class exists
-		if ( ! class_exists("\\Query\\Drivers\\{$dbtype}\\Driver"))
+		if ( ! class_exists("\\Query\\Drivers\\{$dbType}\\Driver"))
 		{
-			throw new BadDBDriverException('Database driver does not exist, or is not supported');
+			throw new Exception\BadDBDriverException('Database driver does not exist, or is not supported');
 		}
 
 		// Set additional PDO options
@@ -184,28 +188,28 @@ final class ConnectionManager {
 		}
 
 		// Create the dsn for the database to connect to
-		if(strtolower($dbtype) === 'sqlite')
+		if(strtolower($dbType) === 'sqlite')
 		{
 			$dsn = $params->file;
 		}
 		else
 		{
-			$dsn = $this->createDsn($dbtype, $params);
+			$dsn = $this->createDsn($dbType, $params);
 		}
 
 
-		return [$dsn, $dbtype, $params, $options];
+		return [$dsn, $dbType, $params, $options];
 	}
 
 	/**
 	 * Create the dsn from the db type and params
 	 *
 	 * @codeCoverageIgnore
-	 * @param string $dbtype
-	 * @param \stdClass $params
+	 * @param string $dbType
+	 * @param stdClass $params
 	 * @return string
 	 */
-	private function createDsn(string $dbtype, \stdClass $params): string
+	private function createDsn(string $dbType, stdClass $params): string
 	{
 		$pairs = [];
 
@@ -233,6 +237,6 @@ final class ConnectionManager {
 			}
 		}
 
-		return strtolower($dbtype) . ':' . implode(';', $pairs);
+		return strtolower($dbType) . ':' . implode(';', $pairs);
 	}
 }

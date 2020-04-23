@@ -78,32 +78,28 @@
                 </source>
 
                 <!-- git vcs information -->
-                <source type="git">
+                <!-- <source type="git">
                     <git binary="/usr/bin/git" />
                     <history enabled="true" limit="15" cache="${phpDox.project.workdir}/gitlog.xml" />
-                </source>
+                </source> -->
 
                 <!-- PHP Code Sniffer findings -->
-                <source type="phpcs">
+				<source type="checkstyle">
                     <file name="phpcs.xml" />
                 </source>
 
                 <!-- PHPMessDetector -->
-                <!--
                 <source type="pmd">
-                    <file name="pmd.xml" />
+                    <file name="phpmd.xml" />
                 </source>
-                -->
 
                 <!-- PHPUnit Coverage XML -->
-                <source type="phpunit">
+                <!--
+				<source type="phpunit">
+					<filter directory="${phpDox.project.source}" />
                     <coverage path="coverage" />
-                    <!-- <coverage path="clover.xml" />-->
-                    <!--           @path - the directory where the xml code coverage report can be found -->
-                    <!--<filter directory="${phpDox.project.source}" />-->
-                    <!-- @directory - path of the phpunit config whitelist filter directory -->
                 </source>
-
+				-->
             </enrich>
 
             <!-- <build engine="..." enabled="true" output="..." /> -->

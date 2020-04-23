@@ -4,22 +4,39 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Drivers;
 
+use InvalidArgumentException;
+use PDO;
 use PDOStatement;
 
 /**
  * PDO Interface to implement for database drivers
+ *
+ * @method beginTransaction(): bool
+ * @method commit(): bool
+ * @method errorCode(): string
+ * @method errorInfo(): array
+ * @method exec(string $statement): int
+ * @method getAttribute(int $attribute)
+ * @method inTransaction(): bool
+ * @method lastInsertId(string $name = NULL): string
+ * @method prepare(string $statement, array $driver_options = []): PDOStatement
+ * @method query(string $statement): PDOStatement
+ * @method quote(string $string, int $parameter_type = PDO::PARAM_STR): string
+ * @method rollback(): bool
+ * @method setAttribute(int $attribute, $value): bool
  */
-interface DriverInterface {
+interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Constructor/Connection method
@@ -36,10 +53,10 @@ interface DriverInterface {
 	 *
 	 * @param string $sql
 	 * @param array $data
-	 * @return \PDOStatement|null
-	 * @throws \InvalidArgumentException
+	 * @return PDOStatement|null
+	 * @throws InvalidArgumentException
 	 */
-	public function prepareQuery(string $sql, array $data): ?PDOStatement;
+	public function prepareQuery(string $sql, array $data): PDOStatement;
 
 	/**
 	 * Retrieve column information for the current database table
@@ -47,7 +64,7 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getColumns($table): ?array;
+	public function getColumns(string $table): ?array;
 
 	/**
 	 * Retrieve list of data types for the database
@@ -62,7 +79,7 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getIndexes($table): ?array;
+	public function getIndexes(string $table): ?array;
 
 	/**
 	 * Retrieve foreign keys for the table
@@ -70,7 +87,7 @@ interface DriverInterface {
 	 * @param string $table
 	 * @return array
 	 */
-	public function getFks($table): ?array;
+	public function getFks(string $table): ?array;
 
 	/**
 	 * Return list of tables for the current database
@@ -86,6 +103,14 @@ interface DriverInterface {
 	 * @return array
 	 */
 	public function getSystemTables(): ?array;
+
+	/**
+	 * Return schemas for databases that list them. Returns
+	 * database list if schemas are databases for the current driver.
+	 *
+	 * @return array
+	 */
+	public function getSchemas(): ?array;
 
 	/**
 	 * Return list of dbs for the current connection, if possible
@@ -140,10 +165,10 @@ interface DriverInterface {
 	/**
 	 * Quote database table name, and set prefix
 	 *
-	 * @param string|array $table
-	 * @return string|array
+	 * @param string $table
+	 * @return string
 	 */
-	public function quoteTable($table);
+	public function quoteTable(string $table): string;
 
 	/**
 	 * Create and execute a prepared statement with the provided parameters
@@ -152,7 +177,7 @@ interface DriverInterface {
 	 * @param array $params
 	 * @return PDOStatement
 	 */
-	public function prepareExecute(string $sql, array $params): ?PDOStatement;
+	public function prepareExecute(string $sql, array $params): PDOStatement;
 
 	/**
 	 * Method to simplify retrieving db results for meta-data queries
@@ -200,11 +225,19 @@ interface DriverInterface {
 	 * Returns the number of affected rows
 	 *
 	 * @param string $table
-	 * @param array|object $data
+	 * @param array $data
 	 * @param string $where
-	 * @return int|null
+	 * @return array
 	 */
-	public function updateBatch(string $table, $data, $where);
+	public function updateBatch(string $table, array $data, string $where): array;
+
+	/**
+	 * Empty the passed table
+	 *
+	 * @param string $table
+	 * @return PDOStatement
+	 */
+	public function truncate(string $table): PDOStatement;
 
 	/**
 	 * Get the SQL class for the current driver
@@ -221,10 +254,32 @@ interface DriverInterface {
 	public function getUtil(): AbstractUtil;
 
 	/**
+	 * Get the version of the database engine
+	 *
+	 * @return string
+	 */
+	public function getVersion(): string;
+
+	/**
+	 * Get the last sql query executed
+	 *
+	 * @return string
+	 */
+	public function getLastQuery(): string;
+
+	/**
 	 * Set the last query sql
 	 *
 	 * @param string $queryString
 	 * @return void
 	 */
 	public function setLastQuery(string $queryString): void;
+
+	/**
+	 * Set the common table name prefix
+	 *
+	 * @param string $prefix
+	 * @return void
+	 */
+	public function setTablePrefix(string $prefix): void;
 }

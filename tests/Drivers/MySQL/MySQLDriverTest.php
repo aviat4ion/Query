@@ -4,13 +4,14 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Tests\Drivers\MySQL;
 
@@ -26,7 +27,7 @@ use TypeError;
  */
 class MySQLDriverTest extends BaseDriverTest {
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		$params = get_json_config();
 		if ($var = getenv('TRAVIS'))
@@ -38,52 +39,52 @@ class MySQLDriverTest extends BaseDriverTest {
 		{
 			$params = $params->mysql;
 
-			self::$db = new Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, array(
+			self::$db = new Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, [
 				PDO::ATTR_PERSISTENT => TRUE
-			));
+			]);
 		}
 
 		self::$db->setTablePrefix('create_');
 	}
 
-	public function testExists()
+	public function testExists(): void
 	{
 		$this->assertTrue(\in_array('mysql', PDO::getAvailableDrivers(), TRUE));
 	}
 
-	public function testConnection()
+	public function testConnection(): void
 	{
 		$this->assertIsA(self::$db, Driver::class);
 	}
 
-	public function testCreateTable()
+	public function testCreateTable(): void
 	{
 		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/mysql.sql'));
 
 		//Attempt to create the table
 		$sql = self::$db->getUtil()->createTable('test',
-			array(
+			[
 				'id' => 'int(10)',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
-			),
-			array(
+			],
+			[
 				'id' => 'PRIMARY KEY'
-			)
+			]
 		);
 
 		self::$db->query($sql);
 
 		//Attempt to create the table
 		$sql = self::$db->getUtil()->createTable('join',
-			array(
+			[
 				'id' => 'int(10)',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
-			),
-			array(
+			],
+			[
 				'id' => 'PRIMARY KEY'
-			)
+			]
 		);
 		self::$db->query($sql);
 
@@ -94,7 +95,8 @@ class MySQLDriverTest extends BaseDriverTest {
 
 	}
 
-	public function testTruncate()
+
+	public function testTruncate(): void
 	{
 		self::$db->truncate('test');
 		$this->assertEquals(0, self::$db->countAll('test'));
@@ -103,13 +105,13 @@ class MySQLDriverTest extends BaseDriverTest {
 		$this->assertEquals(0, self::$db->countAll('join'));
 	}
 
-	public function testPreparedStatements()
+	public function testPreparedStatements(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, array(1,"boogers", "Gross"));
+		$statement = self::$db->prepareQuery($sql, [1, 'boogers', 'Gross']);
 
 		$res = $statement->execute();
 
@@ -117,8 +119,14 @@ SQL;
 
 	}
 
-	public function testBadPreparedStatement()
+	public function testBadPreparedStatement(): void
 	{
+		if (is_a($this, \UnitTestCase::class))
+		{
+			$this->markTestSkipped();
+			return;
+		}
+
 		$this->expectException(TypeError::class);
 
 		$sql = <<<SQL
@@ -130,23 +138,23 @@ SQL;
 
 	}
 
-	public function testPrepareExecute()
+	public function testPrepareExecute(): void
 	{
 		$sql = <<<SQL
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
-		$res = self::$db->prepareExecute($sql, array(
-			2, "works", 'also?'
-		));
+		$res = self::$db->prepareExecute($sql, [
+			2, 'works', 'also?'
+		]);
 
 		$this->assertInstanceOf('PDOStatement', $res);
 
 	}
 
-	public function testCommitTransaction()
+	public function testCommitTransaction(): void
 	{
-		$res = self::$db->beginTransaction();
+		$this->assertTrue(self::$db->beginTransaction());
 
 		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (10, 12, 14)';
 		self::$db->query($sql);
@@ -155,9 +163,9 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testRollbackTransaction()
+	public function testRollbackTransaction(): void
 	{
-		$res = self::$db->beginTransaction();
+		$this->assertTrue(self::$db->beginTransaction());
 
 		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (182, 96, 43)';
 		self::$db->query($sql);
@@ -166,18 +174,18 @@ SQL;
 		$this->assertTrue($res);
 	}
 
-	public function testGetSchemas()
+	public function testGetSchemas(): void
 	{
-		$this->assertNull(self::$db->getSchemas());
+		$this->assertTrue(in_array('test', self::$db->getSchemas()));
 	}
 
-	public function testGetSequences()
+	public function testGetSequences(): void
 	{
 		$this->assertNull(self::$db->getSequences());
 	}
 
-	public function testBackup()
+	public function testBackup(): void
 	{
-		$this->assertTrue(is_string(self::$db->getUtil()->backupStructure()));
+		$this->assertTrue(\is_string(self::$db->getUtil()->backupStructure()));
 	}
 }

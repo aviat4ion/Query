@@ -4,13 +4,14 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Tests;
 
@@ -21,12 +22,18 @@ class ConnectionManagerTest extends TestCase {
 
 	protected static $instance;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
+		ConnectionManager::getInstance();
 		self::$instance = ConnectionManager::getInstance();
 	}
 
-	public function testNoClone()
+	public static function tearDownAfterClass(): void
+	{
+		self::$instance = NULL;
+	}
+
+	public function testNoClone(): void
 	{
 		$this->expectException('DomainException');
 		$this->expectExceptionMessage("Can't clone singleton");
@@ -34,7 +41,7 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertNull($clone);
 	}
 
-	public function testNoSerialize()
+	public function testNoSerialize(): void
 	{
 		$this->expectException(DomainException::class);
 		$this->expectExceptionMessage('No serializing of singleton');
@@ -45,43 +52,43 @@ class ConnectionManagerTest extends TestCase {
 		self::$instance->__sleep();
 	}
 
-	public function testNoUnserialize()
+	public function testNoUnserialize(): void
 	{
 		$this->expectException(DomainException::class);
 		$this->expectExceptionMessage("Can't unserialize singleton");
 		self::$instance->__wakeup();
 	}
 
-	public function testParseParams()
+	public function testParseParams(): void
 	{
-		$params = (object) array(
-			'type' => 'sqlite',
-			'file' => ':memory:',
-			'options' => array(
+		$params = new class {
+			public $type = 'sqlite';
+			public $file = ':memory:';
+			public $options = [
 				'foo' => 'bar'
-			)
-		);
+			];
+		};
 
-		$expected = array(
+		$expected = [
 			':memory:',
 			'Sqlite',
 			$params,
-			array('foo' => 'bar')
-		);
+			['foo' => 'bar']
+		];
 
 		$this->assertEqual($expected, self::$instance->parseParams($params));
 	}
 
-	public function testConnect()
+	public function testConnect(): void
 	{
-		$params = (object) array(
-			'type' => 'sqlite',
-			'file' => ':memory:',
-			'prefix' => 'create_',
-			'options' => array(
+		$params = new class {
+			public $type = 'sqlite';
+			public $file = ':memory:';
+			public $prefix = 'create_';
+			public $options = [
 				'foo' => 'bar'
-			)
-		);
+			];
+		};
 
 		$conn = self::$instance->connect($params);
 		$this->assertInstanceOf(QueryBuilderInterface::class, $conn);
@@ -91,17 +98,17 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertEqual($conn, self::$instance->getConnection());
 	}
 
-	public function testGetConnection()
+	public function testGetConnection(): void
 	{
-		$params = (object) array(
+		$params = (object) [
 			'type' => 'sqlite',
 			'file' => ':memory:',
 			'prefix' => 'create_',
 			'alias' => 'conn_manager',
-			'options' => array(
+			'options' => [
 				'foo' => 'bar'
-			)
-		);
+			]
+		];
 
 		$conn = self::$instance->connect($params);
 		$this->assertInstanceOf(QueryBuilderInterface::class, $conn);

@@ -4,19 +4,25 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.1
+ * PHP version 7.4
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2018 Timothy J. Warren
+ * @copyright   2012 - 2020 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link        https://git.timshomepage.net/aviat4ion/Query
+ * @link        https://git.timshomepage.net/aviat/Query
+ * @version     3.0.0
  */
 namespace Query\Drivers;
 
 use InvalidArgumentException;
 use PDO;
 use PDOStatement;
+
+use function call_user_func_array;
+use function dbFilter;
+use function is_object;
+use function is_string;
 
 /**
  * Base Database class
@@ -31,49 +37,49 @@ abstract class AbstractDriver
 	 * Reference to the last executed query
 	 * @var PDOStatement
 	 */
-	protected $statement;
+	protected PDOStatement $statement;
 
 	/**
 	 * Start character to escape identifiers
 	 * @var string
 	 */
-	protected $escapeCharOpen = '"';
+	protected string $escapeCharOpen = '"';
 
 	/**
 	 * End character to escape identifiers
 	 * @var string
 	 */
-	protected $escapeCharClose = '"';
+	protected string $escapeCharClose = '"';
 
 	/**
 	 * Reference to sql class
 	 * @var SQLInterface
 	 */
-	protected $sql;
+	protected SQLInterface $driverSQL;
 
 	/**
 	 * Reference to util class
 	 * @var AbstractUtil
 	 */
-	protected $util;
+	protected AbstractUtil $util;
 
 	/**
 	 * Last query executed
 	 * @var string
 	 */
-	protected $lastQuery = '';
+	protected string $lastQuery = '';
 
 	/**
 	 * Prefix to apply to table names
 	 * @var string
 	 */
-	protected $tablePrefix = '';
+	protected string $tablePrefix = '';
 
 	/**
 	 * Whether the driver supports 'TRUNCATE'
 	 * @var boolean
 	 */
-	protected $hasTruncate = TRUE;
+	protected bool $hasTruncate = TRUE;
 
 	/**
 	 * PDO constructor wrapper
@@ -107,7 +113,7 @@ abstract class AbstractDriver
 		$sqlClass = __NAMESPACE__ . "\\{$driver}\\SQL";
 		$utilClass = __NAMESPACE__ . "\\{$driver}\\Util";
 
-		$this->sql = new $sqlClass();
+		$this->driverSQL = new $sqlClass();
 		$this->util = new $utilClass($this);
 	}
 
@@ -123,12 +129,14 @@ abstract class AbstractDriver
 	{
 		if (
 			isset($this->$name)
-			&& \is_object($this->$name)
+			&& is_object($this->$name)
 			&& method_exists($this->$name, '__invoke')
 		)
 		{
-			return \call_user_func_array([$this->$name, '__invoke'], $args);
+			return call_user_func_array([$this->$name, '__invoke'], $args);
 		}
+
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -163,7 +171,7 @@ abstract class AbstractDriver
 	 */
 	public function getSql(): SQLInterface
 	{
-		return $this->sql;
+		return $this->driverSQL;
 	}
 
 	/**
@@ -199,7 +207,7 @@ abstract class AbstractDriver
 	 * @return PDOStatement | FALSE
 	 * @throws InvalidArgumentException
 	 */
-	public function prepareQuery(string $sql, array $data): ?PDOStatement
+	public function prepareQuery(string $sql, array $data): PDOStatement
 	{
 		// Prepare the sql, save the statement for easy access later
 		$this->statement = $this->prepare($sql);
@@ -227,7 +235,7 @@ abstract class AbstractDriver
 	 * @throws InvalidArgumentException
 	 * @return PDOStatement
 	 */
-	public function prepareExecute(string $sql, array $params): ?PDOStatement
+	public function prepareExecute(string $sql, array $params): PDOStatement
 	{
 		$this->statement = $this->prepareQuery($sql, $params);
 		$this->statement->execute();
@@ -281,7 +289,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return string
 	 */
-	public function quoteTable($table): string
+	public function quoteTable(string $table): string
 	{
 		$table = $this->prefixTable($table);
 
@@ -297,10 +305,13 @@ abstract class AbstractDriver
 	 */
 	public function quoteIdent($identifier)
 	{
-		if (\is_array($identifier))
+		if (is_array($identifier))
 		{
 			return array_map([$this, __METHOD__], $identifier);
 		}
+
+		// Make all the string-handling methods happy
+		$identifier = (string)$identifier;
 
 		// Handle comma-separated identifiers
 		if (strpos($identifier, ',') !== FALSE)
@@ -323,10 +334,8 @@ abstract class AbstractDriver
 		foreach($funcs as $f)
 		{
 			// Unquote the function
-			$raw = str_replace($f[0], $f[1], $raw);
-
 			// Quote the inside identifiers
-			$raw = str_replace($f[3], $this->quoteIdent($f[3]), $raw);
+			$raw = str_replace([$f[0], $f[3]], [$f[1], $this->quoteIdent($f[3])], $raw);
 		}
 
 		return $raw;
@@ -339,7 +348,8 @@ abstract class AbstractDriver
 	 */
 	public function getSchemas(): ?array
 	{
-		return NULL;
+		// Most DBMSs conflate schemas and databases
+		return $this->getDbs();
 	}
 
 	/**
@@ -359,7 +369,7 @@ abstract class AbstractDriver
 	 *
 	 * @return array
 	 */
-	public function getDbs(): array
+	public function getDbs(): ?array
 	{
 		return $this->driverQuery('dbList');
 	}
@@ -433,7 +443,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return array
 	 */
-	public function getColumns($table): ?array
+	public function getColumns(string $table): ?array
 	{
 		return $this->driverQuery($this->getSql()->columnList($this->prefixTable($table)), FALSE);
 	}
@@ -444,7 +454,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return array
 	 */
-	public function getFks($table): ?array
+	public function getFks(string $table): ?array
 	{
 		return $this->driverQuery($this->getSql()->fkList($table), FALSE);
 	}
@@ -455,7 +465,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return array
 	 */
-	public function getIndexes($table): ?array
+	public function getIndexes(string $table): ?array
 	{
 		return $this->driverQuery($this->getSql()->indexList($this->prefixTable($table)), FALSE);
 	}
@@ -471,6 +481,16 @@ abstract class AbstractDriver
 	}
 
 	/**
+	 * Get the version of the database engine
+	 *
+	 * @return string
+	 */
+	public function getVersion(): string
+	{
+		return $this->getAttribute(PDO::ATTR_SERVER_VERSION);
+	}
+
+	/**
 	 * Method to simplify retrieving db results for meta-data queries
 	 *
 	 * @param string|array|null $query
@@ -480,14 +500,14 @@ abstract class AbstractDriver
 	public function driverQuery($query, $filteredIndex=TRUE): ?array
 	{
 		// Call the appropriate method, if it exists
-		if (\is_string($query) && method_exists($this->sql, $query))
+		if (is_string($query) && method_exists($this->driverSQL, $query))
 		{
 			$query = $this->getSql()->$query();
 		}
 
 		// Return if the values are returned instead of a query,
 		// or if the query doesn't apply to the driver
-		if ( ! \is_string($query))
+		if ( ! is_string($query))
 		{
 			return $query;
 		}
@@ -498,7 +518,7 @@ abstract class AbstractDriver
 		$flag = $filteredIndex ? PDO::FETCH_NUM : PDO::FETCH_ASSOC;
 		$all = $res->fetchAll($flag);
 
-		return $filteredIndex ? \dbFilter($all, 0) : $all;
+		return $filteredIndex ? dbFilter($all, 0) : $all;
 	}
 
 	/**
@@ -526,7 +546,7 @@ abstract class AbstractDriver
 	 *
 	 * @param string $table
 	 * @param mixed $data
-	 * @return null|array<string|array|null>
+	 * @return array<string|array|null>
 	 */
 	public function insertBatch(string $table, array $data=[]): array
 	{
@@ -539,6 +559,7 @@ abstract class AbstractDriver
 		{
 			$vals = array_merge($vals, array_values($group));
 		}
+
 		$table = $this->quoteTable($table);
 		$fields = array_keys($firstRow);
 
@@ -561,15 +582,73 @@ abstract class AbstractDriver
 	 * Creates a batch update, and executes it.
 	 * Returns the number of affected rows
 	 *
-	 * @param string $table
-	 * @param array|object $data
-	 * @param string $where
-	 * @return int|null
+	 * @param string $table The table to update
+	 * @param array $data an array of update values
+	 * @param string $where The where key
+	 * @return array<string,array,int>
 	 */
-	public function updateBatch(string $table, $data, $where)
+	public function updateBatch(string $table, array $data, string $where): array
 	{
-		// @TODO implement
-		return NULL;
+		$affectedRows = 0;
+		$insertData = [];
+		$fieldLines = [];
+
+		$sql = 'UPDATE ' . $this->quoteTable($table) . ' SET ';
+
+		// Get the keys of the current set of data, except the one used to
+		// set the update condition
+		$fields = array_unique(
+			array_reduce($data, static function ($previous, $current) use (&$affectedRows, $where) {
+				$affectedRows++;
+				$keys = array_diff(array_keys($current), [$where]);
+
+				if ($previous === NULL)
+				{
+					return $keys;
+				}
+
+				return array_merge($previous, $keys);
+			})
+		);
+
+		// Create the CASE blocks for each data set
+		foreach ($fields as $field)
+		{
+			$line =  $this->quoteIdent($field) . " = CASE\n";
+
+			$cases = [];
+			foreach ($data as $case)
+			{
+				if (array_key_exists($field, $case))
+				{
+					$insertData[] = $case[$where];
+					$insertData[] = $case[$field];
+					$cases[] = 'WHEN ' . $this->quoteIdent($where) . ' =? '
+						. 'THEN ? ';
+				}
+			}
+
+			$line .= implode("\n", $cases) . "\n";
+			$line .= 'ELSE ' . $this->quoteIdent($field) . ' END';
+
+			$fieldLines[] = $line;
+		}
+
+		$sql .= implode(",\n", $fieldLines) . "\n";
+
+		$whereValues = array_column($data, $where);
+		foreach ($whereValues as $value)
+		{
+			$insertData[] = $value;
+		}
+
+		// Create the placeholders for the WHERE IN clause
+		$placeholders = array_fill(0, count($whereValues), '?');
+
+		$sql .= 'WHERE ' . $this->quoteIdent($where) . ' IN ';
+		$sql .= '(' . implode(',', $placeholders) . ')';
+
+		return [$sql, $insertData, $affectedRows];
 	}
 
 	/**
@@ -591,6 +670,18 @@ abstract class AbstractDriver
 	}
 
 	/**
+	 * Generate the returning clause for the current database
+	 *
+	 * @param string $query
+	 * @param string $select
+	 * @return string
+	 */
+	public function returning(string $query, string $select): string
+	{
+		return "{$query} RETURNING {$select}";
+	}
+
+	/**
 	 * Helper method for quote_ident
 	 *
 	 * @param mixed $str
@@ -602,7 +693,7 @@ abstract class AbstractDriver
 		// and is not already quoted before quoting
 		// that value, otherwise, return the original value
 		return (
-			\is_string($str)
+			is_string($str)
 			&& strpos($str, $this->escapeCharOpen) !== 0
 			&& strrpos($str, $this->escapeCharClose) !== 0
 		)

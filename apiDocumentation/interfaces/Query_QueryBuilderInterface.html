@@ -59,7 +59,7 @@
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="../source/QueryBuilderInterface.php.html#line22">Source</a>
+            <a href="../source/QueryBuilderInterface.php.html#line60">Source</a>
           </li>
         </ul>
       </nav>
@@ -77,6 +77,7 @@
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/selectSum.html">selectSum</a>()
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/distinct.html">distinct</a>()
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/explain.html">explain</a>()
+                    </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/table.html">table</a>()
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/from.html">from</a>()
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/like.html">like</a>()
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/orLike.html">orLike</a>()
@@ -100,16 +101,15 @@
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/orGroupStart.html">orGroupStart</a>()
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/orNotGroupStart.html">orNotGroupStart</a>()
                     </li><li>public <span title="QueryBuilderInterface">QueryBuilderInterface</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/groupEnd.html">groupEnd</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get.html">get</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/getWhere.html">getWhere</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/get.html">get</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/getWhere.html">getWhere</a>()
                     </li><li>public int <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/countAll.html">countAll</a>()
                     </li><li>public int <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/countAllResults.html">countAllResults</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/insert.html">insert</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/insert.html">insert</a>()
                     </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/insertBatch.html">insertBatch</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/replace.html">replace</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/update.html">update</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/updateBatch.html">updateBatch</a>()
-                    </li><li>public ?<span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/delete.html">delete</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/update.html">update</a>()
+                    </li><li>public ?int <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/updateBatch.html">updateBatch</a>()
+                    </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/delete.html">delete</a>()
                     </li><li>public string <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/getCompiledSelect.html">getCompiledSelect</a>()
                     </li><li>public string <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/getCompiledInsert.html">getCompiledInsert</a>()
                     </li><li>public string <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/getCompiledUpdate.html">getCompiledUpdate</a>()
@@ -118,6 +118,110 @@
                     </li></ul>
 
             }<br/></div>
+        <h2 id="violations">Violations</h2>
+        <div class="styled">
+          <h3>PHPMessDetector</h3>
+          <table class="styled">
+            <thead>
+              <tr>
+                <th>Line</th>
+                <th>Rule</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tr>
+              <td class="line">81</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectMax has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">81</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">90</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectMin has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">90</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">99</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectAvg has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">99</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">108</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectSum has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">108</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">402</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method countAllResults has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">462</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledSelect has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">471</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledInsert has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">480</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledUpdate has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">489</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledDelete has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+          </table>
+        </div>
         <h2 id="methods">Methods</h2>
         <div class="styled">
           <h4>public</h4>
@@ -186,8 +290,6 @@
                 — OR WHERE NOT IN (FOO) clause</li>
             <li id="orderBy"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/orderBy.html">orderBy()</a>
                 — Order the results by the selected field(s)</li>
-            <li id="replace"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/replace.html">replace()</a>
-                — Insertion with automatic overwrite, rather than attempted duplication</li>
             <li id="resetQuery"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/resetQuery.html">resetQuery()</a>
                 — Clear out the class variables, so the next query can be run</li>
             <li id="select"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/select.html">select()</a>
@@ -202,6 +304,8 @@
                 — Selects the sum of a field from a query</li>
             <li id="set"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/set.html">set()</a>
                 — Sets values for inserts / updates / deletes</li>
+            <li id="table"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/table.html">table()</a>
+                — Specify the database table to select from</li>
             <li id="update"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/update.html">update()</a>
                 — Creates an update clause, and executes it</li>
             <li id="updateBatch"><a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface/updateBatch.html">updateBatch()</a>
@@ -217,7 +321,7 @@
       </section>
     </div>
     <footer>
-      <span>Generated using phpDox 0.11.0-dev - Copyright (C) 2010 - 2018 by Arne Blankerts and Contributors</span>
+      <span>Generated using phpDox 0.12.0-dev - Copyright (C) 2010 - 2020 by Arne Blankerts and Contributors</span>
     </footer>
   </body>
 </html>
