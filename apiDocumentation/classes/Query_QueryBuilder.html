@@ -56,13 +56,16 @@
             <a href="#hierarchy">Hierarchy</a>
           </li>
           <li>
+            <a href="#violations">Violations</a>
+          </li>
+          <li>
             <a href="#members">Members</a>
           </li>
           <li>
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="../source/QueryBuilder.php.html#line26">Source</a>
+            <a href="../source/QueryBuilder.php.html#line27">Source</a>
           </li>
         </ul>
       </nav>
@@ -86,6 +89,7 @@
                     </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/returning.html">returning</a>()
                     </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/distinct.html">distinct</a>()
                     </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/explain.html">explain</a>()
+                    </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/table.html">table</a>()
                     </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/from.html">from</a>()
                     </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/like.html">like</a>()
                     </li><li>public <span title="QueryBuilder">QueryBuilder</span> <a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/orLike.html">orLike</a>()
@@ -143,6 +147,173 @@
               <a title="Query\QueryBuilderInterface" href="../interfaces/Query_QueryBuilderInterface.html">Query\QueryBuilderInterface</a>
             </li>
           </ul>
+        </div>
+        <h2 id="violations">Violations</h2>
+        <div class="styled">
+          <h3>PHPMessDetector</h3>
+          <table class="styled">
+            <thead>
+              <tr>
+                <th>Line</th>
+                <th>Rule</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tr>
+              <td class="line">80</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectMax has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">80</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">94</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectMin has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">94</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">108</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectAvg has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">108</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">122</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method selectSum has a boolean flag argument $as, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">122</td>
+              <td>
+                <a href="https://phpmd.org/rules/naming.html#shortvariable" target="_blank" title="Naming Rules">ShortVariable</a>
+              </td>
+              <td>Avoid variables with short names like $as. Configured minimum length is 3.</td>
+            </tr>
+            <tr>
+              <td class="line">387 - 389</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#elseexpression" target="_blank" title="Clean Code Rules">ElseExpression</a>
+              </td>
+              <td>The method set uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.</td>
+            </tr>
+            <tr>
+              <td class="line">454 - 456</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#elseexpression" target="_blank" title="Clean Code Rules">ElseExpression</a>
+              </td>
+              <td>The method groupBy uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.</td>
+            </tr>
+            <tr>
+              <td class="line">657</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method countAllResults has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">698</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">700</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">701</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">739</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">739</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$affectedRows' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">741</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$sql' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">742</td>
+              <td>
+                <a href="" target="_blank" title="Clean Code Rules">UndefinedVariable</a>
+              </td>
+              <td>Avoid using undefined variables such as '$affectedRows' which will lead to PHP notices.</td>
+            </tr>
+            <tr>
+              <td class="line">774</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledSelect has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">792</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledInsert has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">804</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledUpdate has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">816</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method getCompiledDelete has a boolean flag argument $reset, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+          </table>
         </div>
         <h2 id="members">Members</h2>
         <div class="styled members">
@@ -238,6 +409,8 @@
                 — Selects the sum of a field from a query</li>
             <li id="set"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/set.html">set()</a>
                 — Sets values for inserts / updates / deletes</li>
+            <li id="table"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/table.html">table()</a>
+                — Specify the database table to select from</li>
             <li id="update"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/update.html">update()</a>
                 — Creates an update clause, and executes it</li>
             <li id="updateBatch"><a title="Query\QueryBuilder" href="../classes/Query_QueryBuilder/updateBatch.html">updateBatch()</a>

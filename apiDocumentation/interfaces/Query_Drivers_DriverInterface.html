@@ -86,7 +86,7 @@
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getProcedures.html">getProcedures</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/getTriggers.html">getTriggers</a>()
                     </li><li>public string|array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quoteIdent.html">quoteIdent</a>()
-                    </li><li>public string|array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quoteTable.html">quoteTable</a>()
+                    </li><li>public string <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/quoteTable.html">quoteTable</a>()
                     </li><li>public <span title="PDOStatement">PDOStatement</span> <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/prepareExecute.html">prepareExecute</a>()
                     </li><li>public ?array <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/driverQuery.html">driverQuery</a>()
                     </li><li>public int <a title="Query\Drivers\DriverInterface" href="../interfaces/Query_Drivers_DriverInterface/affectedRows.html">affectedRows</a>()
@@ -104,6 +104,26 @@
                     </li></ul>
 
             }<br/></div>
+        <h2 id="violations">Violations</h2>
+        <div class="styled">
+          <h3>PHPMessDetector</h3>
+          <table class="styled">
+            <thead>
+              <tr>
+                <th>Line</th>
+                <th>Rule</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tr>
+              <td class="line">189</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method driverQuery has a boolean flag argument $filteredIndex, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+          </table>
+        </div>
         <h2 id="methods">Methods</h2>
         <div class="styled">
           <h4>public</h4>

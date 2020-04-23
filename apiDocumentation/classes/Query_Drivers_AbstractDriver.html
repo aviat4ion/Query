@@ -62,7 +62,7 @@
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="../source/Drivers/AbstractDriver.php.html#line30">Source</a>
+            <a href="../source/Drivers/AbstractDriver.php.html#line32">Source</a>
           </li>
         </ul>
       </nav>
@@ -145,31 +145,42 @@
         </div>
         <h2 id="violations">Violations</h2>
         <div class="styled">
-          <h3>Checkstyle</h3>
+          <h3>PHPMessDetector</h3>
           <table class="styled">
             <thead>
               <tr>
                 <th>Line</th>
-                <th>Column</th>
-                <th>Severity</th>
+                <th>Rule</th>
                 <th>Message</th>
               </tr>
             </thead>
             <tr>
-              <td class="line">333</td>
-              <td>23</td>
+              <td class="line">82 - 721</td>
               <td>
-                <span title="Generic.Arrays.DisallowLongArraySyntax.Found">error</span>
+                <a href="https://phpmd.org/rules/codesize.html#toomanypublicmethods" target="_blank" title="Code Size Rules">TooManyPublicMethods</a>
               </td>
-              <td>Short array syntax must be used to define arrays</td>
+              <td>The class AbstractDriver has 15 public methods. Consider refactoring AbstractDriver to keep number of public methods under 10.</td>
             </tr>
             <tr>
-              <td class="line">333</td>
-              <td>44</td>
+              <td class="line">82 - 721</td>
               <td>
-                <span title="Generic.Arrays.DisallowLongArraySyntax.Found">error</span>
+                <a href="https://phpmd.org/rules/codesize.html#excessiveclasscomplexity" target="_blank" title="Code Size Rules">ExcessiveClassComplexity</a>
               </td>
-              <td>Short array syntax must be used to define arrays</td>
+              <td>The class AbstractDriver has an overall complexity of 62 which is very high. The configured complexity threshold is 50.</td>
+            </tr>
+            <tr>
+              <td class="line">500</td>
+              <td>
+                <a href="https://phpmd.org/rules/cleancode.html#booleanargumentflag" target="_blank" title="Clean Code Rules">BooleanArgumentFlag</a>
+              </td>
+              <td>The method driverQuery has a boolean flag argument $filteredIndex, which is a certain sign of a Single Responsibility Principle violation.</td>
+            </tr>
+            <tr>
+              <td class="line">690 - 703</td>
+              <td>
+                <a href="#" target="_blank" title="Controversial Rules">CamelCaseMethodName</a>
+              </td>
+              <td>The method _quote is not named in camelCase.</td>
             </tr>
           </table>
         </div>
