@@ -15,11 +15,13 @@
  */
 namespace Query\Drivers;
 
-use function dbFilter;
-
 use InvalidArgumentException;
 use PDO;
 use PDOStatement;
+
+use function call_user_func_array;
+use function dbFilter;
+use function is_object;
 use function is_string;
 
 /**
@@ -127,11 +129,11 @@ abstract class AbstractDriver
 	{
 		if (
 			isset($this->$name)
-			&& \is_object($this->$name)
+			&& is_object($this->$name)
 			&& method_exists($this->$name, '__invoke')
 		)
 		{
-			return \call_user_func_array([$this->$name, '__invoke'], $args);
+			return call_user_func_array([$this->$name, '__invoke'], $args);
 		}
 
 		return NULL;
@@ -287,7 +289,7 @@ abstract class AbstractDriver
 	 * @param string $table
 	 * @return string
 	 */
-	public function quoteTable($table): string
+	public function quoteTable(string $table): string
 	{
 		$table = $this->prefixTable($table);
 
@@ -333,7 +335,7 @@ abstract class AbstractDriver
 		{
 			// Unquote the function
 			// Quote the inside identifiers
-			$raw = str_replace(array($f[0], $f[3]), array($f[1], $this->quoteIdent($f[3])), $raw);
+			$raw = str_replace([$f[0], $f[3]], [$f[1], $this->quoteIdent($f[3])], $raw);
 		}
 
 		return $raw;

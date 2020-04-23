@@ -124,10 +124,20 @@ interface QueryBuilderInterface {
 	/**
 	 * Specify the database table to select from
 	 *
-	 * @param string $tblname
+	 * Alias of `from` method to better match CodeIgniter 4
+	 *
+	 * @param string $tableName
 	 * @return self
 	 */
-	public function from(string $tblname): self;
+	public function table(string $tableName): self;
+
+	/**
+	 * Specify the database table to select from
+	 *
+	 * @param string $tableName
+	 * @return self
+	 */
+	public function from(string $tableName): self;
 
 	// --------------------------------------------------------------------------
 	// ! 'Like' methods
@@ -141,7 +151,7 @@ interface QueryBuilderInterface {
 	 * @param string $pos
 	 * @return self
 	 */
-	public function like(string $field, $values, string $pos='both'): self;
+	public function like(string $field, $values, string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates an OR Like clause
@@ -151,7 +161,7 @@ interface QueryBuilderInterface {
 	 * @param string $pos
 	 * @return self
 	 */
-	public function orLike(string $field, $values, string $pos='both'): self;
+	public function orLike(string $field, $values, string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a NOT LIKE clause
@@ -161,7 +171,7 @@ interface QueryBuilderInterface {
 	 * @param string $pos
 	 * @return self
 	 */
-	public function notLike(string $field, $values, string $pos='both'): self;
+	public function notLike(string $field, $values, string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a OR NOT LIKE clause
@@ -171,7 +181,7 @@ interface QueryBuilderInterface {
 	 * @param string $pos
 	 * @return self
 	 */
-	public function orNotLike(string $field, $values, string $pos='both'): self;
+	public function orNotLike(string $field, $values, string $pos=LikeType::BOTH): self;
 
 	// --------------------------------------------------------------------------
 	// ! Having methods
@@ -277,7 +287,7 @@ interface QueryBuilderInterface {
 	 * @param string $type
 	 * @return self
 	 */
-	public function join(string $table, string $condition, string $type=''): self;
+	public function join(string $table, string $condition, string $type=JoinType::INNER): self;
 
 	/**
 	 * Group the results by the selected field(s)

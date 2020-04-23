@@ -165,10 +165,10 @@ interface DriverInterface /* extends the interface of PDO */ {
 	/**
 	 * Quote database table name, and set prefix
 	 *
-	 * @param string|array $table
-	 * @return string|array
+	 * @param string $table
+	 * @return string
 	 */
-	public function quoteTable($table);
+	public function quoteTable(string $table): string;
 
 	/**
 	 * Create and execute a prepared statement with the provided parameters

@@ -17,6 +17,7 @@ namespace Query;
 
 use function is_array;
 use function is_int;
+use function mb_trim;
 
 use PDOStatement;
 
@@ -170,14 +171,27 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	/**
 	 * Specify the database table to select from
 	 *
-	 * @param string $tblname
+	 * Alias of `from` method to better match CodeIgniter 4
+	 *
+	 * @param string $tableName
 	 * @return self
 	 */
-	public function from(string $tblname): self
+	public function table(string $tableName): self
+	{
+		return $this->from($tableName);
+	}
+
+	/**
+	 * Specify the database table to select from
+	 *
+	 * @param string $tableName
+	 * @return self
+	 */
+	public function from(string $tableName): self
 	{
 		// Split identifiers on spaces
-		$identArray = explode(' ', \mb_trim($tblname));
-		$identArray = array_map('\\mb_trim', $identArray);
+		$identArray = explode(' ', mb_trim($tableName));
+		$identArray = array_map('mb_trim', $identArray);
 
 		// Quote the identifiers
 		$identArray[0] = $this->driver->quoteTable($identArray[0]);
@@ -201,7 +215,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @return self
 	 */
-	public function like(string $field, $val, string $pos='both'): self
+	public function like(string $field, $val, string $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos);
 	}
@@ -214,7 +228,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @return self
 	 */
-	public function orLike(string $field, $val, string $pos='both'): self
+	public function orLike(string $field, $val, string $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'LIKE', 'OR');
 	}
@@ -227,7 +241,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @return self
 	 */
-	public function notLike(string $field, $val, string $pos='both'): self
+	public function notLike(string $field, $val, string $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE');
 	}
@@ -240,7 +254,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	 * @param string $pos
 	 * @return self
 	 */
-	public function orNotLike(string $field, $val, string $pos='both'): self
+	public function orNotLike(string $field, $val, string $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
 	}

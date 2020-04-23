@@ -226,13 +226,15 @@ class QueryBuilderBase {
 		// Add the like string into the order map
 		$like = $field . " {$like} ?";
 
-		if ($pos === 'before')
+		if ($pos === LikeType::BEFORE)
 		{
 			$val = "%{$val}";
-		} elseif ($pos === 'after')
+		}
+		elseif ($pos === LikeType::AFTER)
 		{
 			$val = "{$val}%";
-		} else
+		}
+		else
 		{
 			$val = "%{$val}%";
 		}
