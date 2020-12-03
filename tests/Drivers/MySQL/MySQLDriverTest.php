@@ -154,6 +154,13 @@ SQL;
 
 	public function testCommitTransaction(): void
 	{
+		// Make sure we aren't already in a transaction
+		if (self::$db->inTransaction())
+		{
+			self::$db->commit();
+		}
+
+		$this->assertFalse(self::$db->inTransaction());
 		$this->assertTrue(self::$db->beginTransaction());
 
 		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (10, 12, 14)';
@@ -165,6 +172,13 @@ SQL;
 
 	public function testRollbackTransaction(): void
 	{
+		// Make sure we aren't already in a transaction
+		if (self::$db->inTransaction())
+		{
+			self::$db->commit();
+		}
+
+		$this->assertFalse(self::$db->inTransaction());
 		$this->assertTrue(self::$db->beginTransaction());
 
 		$sql = 'INSERT INTO `create_test` (`id`, `key`, `val`) VALUES (182, 96, 43)';

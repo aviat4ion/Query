@@ -59,9 +59,8 @@ final class ConnectionManager {
 	 * Prevent serialization of this object
 	 *
 	 * @throws DomainException
-	 * @return void
 	 */
-	public function __sleep(): void
+	public function __sleep()
 	{
 		throw new DomainException('No serializing of singleton');
 	}

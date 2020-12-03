@@ -1,7 +1,10 @@
-dist: xenial
+dist: bionic
 os: linux
 
-arch: amd64
+arch:
+ - amd64
+ - arm64
+ - ppc64le
 
 language: php
 
@@ -10,8 +13,10 @@ services:
   - postgresql
 
 php:
-  - 7.4
   - nightly
+  - '7.4'
+#  - '8.0'
+
 
 before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
@@ -31,4 +36,5 @@ after_script:
 
 jobs:
   allow_failures:
+    - arch: ppc64le
     - php: nightly
