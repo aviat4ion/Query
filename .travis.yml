@@ -36,4 +36,5 @@ after_script:
 
 jobs:
   allow_failures:
+    - arch: ppc64le
     - php: nightly
