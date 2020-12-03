@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-	beStrictAboutOutputDuringTests="false"
-	colors="true"
-	stopOnFailure="false"
-	bootstrap="./../tests/bootstrap.php"
-	verbose="true"
->
-	<filter>
-		<whitelist>
-			<directory suffix=".php">./../src/</directory>
-		</whitelist>
-	</filter>
-	<testsuites>
-		<testsuite name="CoreTests">
-			<file>./../tests/CoreTest.php</file>
-			<file>./../tests/ConnectionManagerTest.php</file>
-			<file>./../tests/QueryParserTest.php</file>
-		</testsuite>
-		<testsuite name="MySQL Tests">
-			<directory>./../tests/Drivers/MySQL/</directory>
-		</testsuite>
-		<testsuite name="PgSQL Tests">
-			<directory>./../tests/Drivers/PgSQL/</directory>
-		</testsuite>
-		<testsuite name="SQLite Tests">
-			<directory>./../tests/Drivers/SQLite/</directory>
-		</testsuite>
-	</testsuites>
-	<logging>
-		<log type="coverage-html" target="./../coverage"/>
-		<log type="coverage-clover" target="logs/clover.xml"/>
-		<log type="coverage-xml" lowUpperBound="85" highLowerBound="90" showUncoveredFiles="true" target="logs/coverage" />
-		<log type="junit" target="logs/junit.xml" />
-	</logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" beStrictAboutOutputDuringTests="false" colors="true" stopOnFailure="false" bootstrap="./../tests/bootstrap.php" verbose="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory suffix=".php">./../src/</directory>
+    </include>
+    <report>
+      <clover outputFile="logs/clover.xml"/>
+      <html outputDirectory="./../coverage"/>
+      <xml outputDirectory="logs/coverage"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="CoreTests">
+      <file>./../tests/CoreTest.php</file>
+      <file>./../tests/ConnectionManagerTest.php</file>
+      <file>./../tests/QueryParserTest.php</file>
+    </testsuite>
+    <testsuite name="MySQL Tests">
+      <directory>./../tests/Drivers/MySQL/</directory>
+    </testsuite>
+    <testsuite name="PgSQL Tests">
+      <directory>./../tests/Drivers/PgSQL/</directory>
+    </testsuite>
+    <testsuite name="SQLite Tests">
+      <directory>./../tests/Drivers/SQLite/</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="logs/junit.xml"/>
+  </logging>
 </phpunit>
