@@ -1,7 +1,10 @@
 dist: bionic
 os: linux
 
-arch: amd64
+arch:
+ - amd64
+ - arm64
+ - ppc64le
 
 language: php
 
