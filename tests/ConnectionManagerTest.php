@@ -91,8 +91,6 @@ class ConnectionManagerTest extends TestCase {
 		};
 
 		$conn = self::$instance->connect($params);
-		$this->assertInstanceOf(QueryBuilderInterface::class, $conn);
-
 
 		// Check that the connection just made is returned from the get_connection method
 		$this->assertEqual($conn, self::$instance->getConnection());
@@ -111,7 +109,6 @@ class ConnectionManagerTest extends TestCase {
 		];
 
 		$conn = self::$instance->connect($params);
-		$this->assertInstanceOf(QueryBuilderInterface::class, $conn);
 
 		$this->assertEqual($conn, self::$instance->getConnection('conn_manager'));
 	}
