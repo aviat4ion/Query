@@ -1,4 +1,4 @@
-dist: xenial
+dist: focal
 os: linux
 
 arch: amd64
@@ -10,8 +10,10 @@ services:
   - postgresql
 
 php:
-  - 7.4
-  - 8
+  - nightly
+  - '7.4'
+#  - '8.0'
+
 
 before_script:
   - psql -c 'DROP DATABASE IF EXISTS test;' -U postgres
