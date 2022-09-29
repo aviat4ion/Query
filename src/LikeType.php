@@ -19,7 +19,7 @@ namespace Query;
  * 'Enum' of join types
  */
 class LikeType {
-	public const BEFORE = 'before';
-	public const AFTER = 'after';
-	public const BOTH = 'both';
+	public final const BEFORE = 'before';
+	public final const AFTER = 'after';
+	public final const BOTH = 'both';
 }

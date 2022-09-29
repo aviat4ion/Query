@@ -25,9 +25,6 @@ class Util extends AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's data
-	 *
-	 * @param array $excluded
-	 * @return string
 	 */
 	public function backupData(array $excluded=[]): string
 	{
@@ -98,8 +95,6 @@ class Util extends AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's structure
-	 *
-	 * @return string
 	 */
 	public function backupStructure(): string
 	{

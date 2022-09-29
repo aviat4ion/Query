@@ -25,8 +25,6 @@ class Util extends AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's structure
-	 *
-	 * @return string
 	 */
 	public function backupStructure(): string
 	{
@@ -69,9 +67,6 @@ class Util extends AbstractUtil {
 
 	/**
 	 * Create an SQL backup file for the current database's data
-	 *
-	 * @param array $exclude
-	 * @return string
 	 */
 	public function backupData(array $exclude=[]): string
 	{
@@ -94,7 +89,7 @@ class Util extends AbstractUtil {
 			$rows = $res->fetchAll(PDO::FETCH_ASSOC);
 
 			// Skip empty tables
-			if (count($rows) < 1)
+			if ((is_countable($rows) ? count($rows) : 0) < 1)
 			{
 				continue;
 			}

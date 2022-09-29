@@ -29,21 +29,15 @@ class Driver extends AbstractDriver {
 	/**
 	 * SQLite has a truncate optimization,
 	 * but no support for the actual keyword
-	 * @var boolean
 	 */
 	protected bool $hasTruncate = FALSE;
 
 	/**
 	 * Open SQLite Database
-	 *
-	 * @param string $dsn
-	 * @param string $user
-	 * @param string $pass
-	 * @param array $driverOptions
 	 */
 	public function __construct(string $dsn, string $user=NULL, string $pass=NULL, array $driverOptions=[])
 	{
-		if (strpos($dsn, 'sqlite:') === FALSE)
+		if ( ! str_contains($dsn, 'sqlite:'))
 		{
 			$dsn = "sqlite:{$dsn}";
 		}
@@ -53,8 +47,6 @@ class Driver extends AbstractDriver {
 
 	/**
 	 * Return list of dbs for the current connection, if possible. Meaningless for SQLite.
-	 *
-	 * @return array | null
 	 */
 	public function getDbs(): ?array
 	{
@@ -64,7 +56,7 @@ class Driver extends AbstractDriver {
 	/**
 	 * List tables for the current database
 	 *
-	 * @return mixed
+	 * @return mixed[]
 	 */
 	public function getTables(): array
 	{
@@ -76,10 +68,9 @@ class Driver extends AbstractDriver {
 	/**
 	 * Retrieve foreign keys for the table
 	 *
-	 * @param string $table
-	 * @return array
+	 * @return array<int, array{child_column: mixed, parent_table: mixed, parent_column: mixed, update: mixed, delete: mixed}>
 	 */
-	public function getFks($table): array
+	public function getFks(string $table): array
 	{
 		$returnRows = [];
 
@@ -101,9 +92,7 @@ class Driver extends AbstractDriver {
 	 * Create sql for batch insert
 	 *
 	 * @codeCoverageIgnore
-	 * @param string $table
-	 * @param array $data
-	 * @return array
+	 * @return mixed[][]|string[]|null[]|string[]|null[]
 	 */
 	public function insertBatch(string $table, array $data=[]): array
 	{
@@ -148,10 +137,6 @@ class Driver extends AbstractDriver {
 
 	/**
 	 * Generate the returning clause for the current database
-	 *
-	 * @param string $query
-	 * @param string $select
-	 * @return string
 	 */
 	public function returning(string $query, string $select): string
 	{

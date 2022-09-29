@@ -23,16 +23,7 @@ use Query\Drivers\DriverInterface;
 class QueryParser {
 
 	/**
-	 * DB Driver
-	 *
-	 * @var DriverInterface
-	 */
-	private DriverInterface $db;
-
-	/**
 	 * Regex patterns for various syntax components
-	 *
-	 * @var array
 	 */
 	private array $matchPatterns = [
 		'function' => '([a-zA-Z0-9_]+\((.*?)\))',
@@ -42,8 +33,6 @@ class QueryParser {
 
 	/**
 	 * Regex matches
-	 *
-	 * @var array
 	 */
 	public array $matches = [
 		'functions' => [],
@@ -54,19 +43,15 @@ class QueryParser {
 
 	/**
 	 * Constructor/entry point into parser
-	 *
-	 * @param DriverInterface $db
 	 */
-	public function __construct(DriverInterface $db)
+	public function __construct(private DriverInterface $db)
 	{
-		$this->db = $db;
 	}
 
 	/**
 	 * Parser method for setting the parse string
 	 *
-	 * @param string $sql
-	 * @return array
+	 * @return mixed[][]
 	 */
 	public function parseJoin(string $sql): array
 	{
@@ -87,14 +72,11 @@ class QueryParser {
 
 	/**
 	 * Compiles a join condition after parsing
-	 *
-	 * @param string $condition
-	 * @return string
 	 */
 	public function compileJoin(string $condition): string
 	{
 		$parts = $this->parseJoin($condition);
-		$count = count($parts['identifiers']);
+		$count = is_countable($parts['identifiers']) ? count($parts['identifiers']) : 0;
 
 		// Go through and quote the identifiers
 		for($i=0; $i <= $count; $i++)
@@ -111,8 +93,7 @@ class QueryParser {
 	/**
 	 * Returns a more useful match array
 	 *
-	 * @param array $array
-	 * @return array
+	 * @return mixed[]
 	 */
 	protected function filterArray(array $array): array
 	{

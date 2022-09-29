@@ -21,25 +21,14 @@ namespace Query\Drivers;
 abstract class AbstractUtil {
 
 	/**
-	 * Reference to the current connection object
-	 * @var DriverInterface
-	 */
-	private DriverInterface $connection;
-
-	/**
 	 * Save a reference to the connection object for later use
-	 *
-	 * @param DriverInterface $connection
 	 */
-	public function __construct(DriverInterface $connection)
+	public function __construct(private DriverInterface $connection)
 	{
-		$this->connection = $connection;
 	}
 
 	/**
 	 * Get the driver object for the current connection
-	 *
-	 * @return DriverInterface
 	 */
 	public function getDriver(): DriverInterface
 	{
@@ -51,9 +40,7 @@ abstract class AbstractUtil {
 	 *
 	 * @param string $name
 	 * @param array $fields
-	 * @param array $constraints
 	 * @param bool $ifNotExists
-	 * @return string
 	 */
 	public function createTable($name, $fields, array $constraints=[], $ifNotExists=TRUE): string
 	{
@@ -93,7 +80,6 @@ abstract class AbstractUtil {
 	 * Drop the selected table
 	 *
 	 * @param string $name
-	 * @return string
 	 */
 	public function deleteTable($name): string
 	{
@@ -103,12 +89,10 @@ abstract class AbstractUtil {
 	// --------------------------------------------------------------------------
 	// ! Abstract Methods
 	// --------------------------------------------------------------------------
-
 	/**
 	 * Return an SQL file with the database table structure
 	 *
 	 * @abstract
-	 * @return string
 	 */
 	abstract public function backupStructure(): string;
 
@@ -116,7 +100,6 @@ abstract class AbstractUtil {
 	 * Return an SQL file with the database data as insert statements
 	 *
 	 * @abstract
-	 * @return string
 	 */
 	abstract public function backupData(): string;
 

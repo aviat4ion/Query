@@ -63,13 +63,11 @@ class QueryBuilderBase {
 
 	/**
 	 * Convenience property for connection management
-	 * @var string
 	 */
 	public string $connName = '';
 
 	/**
 	 * List of queries executed
-	 * @var array
 	 */
 	public array $queries = [
 		'total_time' => 0
@@ -77,50 +75,27 @@ class QueryBuilderBase {
 
 	/**
 	 * Whether to do only an explain on the query
-	 * @var bool
 	 */
 	protected bool $explain = FALSE;
 
 	/**
 	 * Whether to return data from a modification query
-	 * @var bool
 	 */
 	protected bool $returning = FALSE;
 
 	/**
-	 * The current database driver
-	 * @var DriverInterface
-	 */
-	protected ?DriverInterface $driver;
-
-	/**
-	 * Query parser class instance
-	 * @var QueryParser
-	 */
-	protected QueryParser $parser;
-
-	/**
 	 * Query Builder state
-	 * @var State
 	 */
 	protected State $state;
 
 	// --------------------------------------------------------------------------
 	// ! Methods
 	// --------------------------------------------------------------------------
-
 	/**
 	 * Constructor
-	 *
-	 * @param DriverInterface $driver
-	 * @param QueryParser $parser
 	 */
-	public function __construct(DriverInterface $driver, QueryParser $parser)
+	public function __construct(protected ?\Query\Drivers\DriverInterface $driver, protected QueryParser $parser)
 	{
-		// Inject driver and parser
-		$this->driver = $driver;
-		$this->parser = $parser;
-
 		// Create new State object
 		$this->state = new State();
 	}
@@ -138,8 +113,6 @@ class QueryBuilderBase {
 	 * Calls a function further down the inheritance chain.
 	 * 'Implements' methods on the driver object
 	 *
-	 * @param string $name
-	 * @param array $params
 	 * @return mixed
 	 * @throws BadMethodCallException
 	 */
@@ -155,8 +128,6 @@ class QueryBuilderBase {
 
 	/**
 	 * Clear out the class variables, so the next query can be run
-	 *
-	 * @return void
 	 */
 	public function resetQuery(): void
 	{
@@ -168,9 +139,7 @@ class QueryBuilderBase {
 	/**
 	 * Method to simplify select_ methods
 	 *
-	 * @param string $field
 	 * @param string|bool $as
-	 * @return string
 	 */
 	protected function _select(string $field, $as = FALSE): string
 	{
@@ -190,11 +159,6 @@ class QueryBuilderBase {
 
 	/**
 	 * Helper function for returning sql strings
-	 *
-	 * @param string $type
-	 * @param string $table
-	 * @param bool $reset
-	 * @return string
 	 */
 	protected function _getCompile(string $type, string $table, bool $reset): string
 	{
@@ -212,12 +176,7 @@ class QueryBuilderBase {
 	/**
 	 * Simplify 'like' methods
 	 *
-	 * @param string $field
 	 * @param mixed $val
-	 * @param string $pos
-	 * @param string $like
-	 * @param string $conj
-	 * @return self
 	 */
 	protected function _like(string $field, $val, string $pos, string $like = 'LIKE', string $conj = 'AND'): self
 	{
@@ -253,8 +212,6 @@ class QueryBuilderBase {
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @param string $conj
-	 * @return self
 	 */
 	protected function _having($key, $values = [], string $conj = 'AND'): self
 	{
@@ -289,7 +246,6 @@ class QueryBuilderBase {
 	 *
 	 * @param mixed $key
 	 * @param mixed $val
-	 * @return array
 	 */
 	protected function _where($key, $val = []): array
 	{
@@ -318,8 +274,6 @@ class QueryBuilderBase {
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @param string $defaultConj
-	 * @return self
 	 */
 	protected function _whereString($key, $values = [], string $defaultConj = 'AND'): self
 	{
@@ -364,12 +318,11 @@ class QueryBuilderBase {
 	 * @param mixed $val
 	 * @param string $in - The (not) in fragment
 	 * @param string $conj - The where in conjunction
-	 * @return self
 	 */
 	protected function _whereIn($key, $val = [], string $in = 'IN', string $conj = 'AND'): self
 	{
 		$key = $this->driver->quoteIdent($key);
-		$params = array_fill(0, count($val), '?');
+		$params = array_fill(0, is_countable($val) ? count($val) : 0, '?');
 		$this->state->appendWhereValues($val);
 
 		$conjunction = empty($this->state->getQueryMap()) ? ' WHERE ' : " {$conj} ";
@@ -383,12 +336,7 @@ class QueryBuilderBase {
 	/**
 	 * Executes the compiled query
 	 *
-	 * @param string $type
-	 * @param string $table
-	 * @param string $sql
 	 * @param array|null $vals
-	 * @param boolean $reset
-	 * @return PDOStatement
 	 */
 	protected function _run(string $type, string $table, string $sql = NULL, array $vals = NULL, bool $reset = TRUE): PDOStatement
 	{
@@ -425,11 +373,6 @@ class QueryBuilderBase {
 
 	/**
 	 * Convert the prepared statement into readable sql
-	 *
-	 * @param array $values
-	 * @param string $sql
-	 * @param int $totalTime
-	 * @return void
 	 */
 	protected function _appendQuery(array $values, string $sql, int $totalTime): void
 	{
@@ -439,9 +382,9 @@ class QueryBuilderBase {
 		// Quote string values
 		foreach ($evals as &$v)
 		{
-			$v = ( ! is_numeric($v))
-				? htmlentities($this->driver->quote($v), ENT_NOQUOTES, 'utf-8')
-				: $v;
+			$v = ( is_numeric($v))
+				? $v
+				: htmlentities($this->driver->quote($v), ENT_NOQUOTES, 'utf-8');
 		}
 		unset($v);
 
@@ -465,9 +408,6 @@ class QueryBuilderBase {
 	 * Sub-method for generating sql strings
 	 *
 	 * @codeCoverageIgnore
-	 * @param string $type
-	 * @param string $table
-	 * @return string
 	 */
 	protected function _compileType(string $type = QueryType::SELECT, string $table = ''): string
 	{
@@ -475,7 +415,7 @@ class QueryBuilderBase {
 		switch ($type)
 		{
 			case QueryType::INSERT:
-				$paramCount = count($setArrayKeys);
+				$paramCount = is_countable($setArrayKeys) ? count($setArrayKeys) : 0;
 				$params = array_fill(0, $paramCount, '?');
 				$sql = "INSERT INTO {$table} ("
 					. implode(',', $setArrayKeys)
@@ -512,10 +452,6 @@ class QueryBuilderBase {
 
 	/**
 	 * String together the sql statements for sending to the db
-	 *
-	 * @param string $type
-	 * @param string $table
-	 * @return string
 	 */
 	protected function _compile(string $type = '', string $table = ''): string
 	{
@@ -568,10 +504,6 @@ class QueryBuilderBase {
 
 	/**
 	 * Generate returning clause of query
-	 *
-	 * @param string $sql
-	 * @param string $type
-	 * @return string
 	 */
 	protected function _compileReturning(string $sql, string $type): string
 	{
@@ -597,8 +529,6 @@ class QueryBuilderBase {
 			switch ($type)
 			{
 				case QueryType::INSERT:
-					// @TODO figure out a good response for insert query
-					break;
 
 				case QueryType::UPDATE:
 					// @TODO figure out a good response for update query
@@ -606,8 +536,6 @@ class QueryBuilderBase {
 
 				case QueryType::INSERT_BATCH:
 				case QueryType::UPDATE_BATCH:
-					// @TODO figure out a good response for batch queries
-					break;
 
 				default:
 					// On Delete queries, what would we return?

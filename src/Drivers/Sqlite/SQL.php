@@ -25,9 +25,6 @@ class SQL extends AbstractSQL {
 
 	/**
 	 * Get the query plan for the sql query
-	 *
-	 * @param string $sql
-	 * @return string
 	 */
 	public function explain(string $sql): string
 	{
@@ -36,8 +33,6 @@ class SQL extends AbstractSQL {
 
 	/**
 	 * Random ordering keyword
-	 *
-	 * @return string
 	 */
 	public function random(): string
 	{
@@ -47,8 +42,6 @@ class SQL extends AbstractSQL {
 	/**
 	 * Returns sql to list other databases. Meaningless for SQLite, as this
 	 * just returns the database(s) that we are currently connected to.
-	 *
-	 * @return string
 	 */
 	public function dbList(): string
 	{
@@ -57,8 +50,6 @@ class SQL extends AbstractSQL {
 
 	/**
 	 * Returns sql to list tables
-	 *
-	 * @return string
 	 */
 	public function tableList(): string
 	{
@@ -89,8 +80,6 @@ SQL;
 
 	/**
 	 * Returns sql to list views
-	 *
-	 * @return string
 	 */
 	public function viewList(): string
 	{
@@ -101,8 +90,6 @@ SQL;
 
 	/**
 	 * Returns sql to list triggers
-	 *
-	 * @return string
 	 */
 	public function triggerList(): string
 	{
@@ -115,7 +102,6 @@ SQL;
 	 * Return sql to list functions
 	 *
 	 * @throws NotImplementedException
-	 * @return string
 	 */
 	public function functionList(): string
 	{
@@ -126,7 +112,6 @@ SQL;
 	 * Return sql to list stored procedures
 	 *
 	 * @throws NotImplementedException
-	 * @return string
 	 */
 	public function procedureList(): string
 	{
@@ -135,8 +120,6 @@ SQL;
 
 	/**
 	 * Return sql to list sequences
-	 *
-	 * @return string
 	 */
 	public function sequenceList(): string
 	{
@@ -155,42 +138,33 @@ SQL;
 
 	/**
 	 * SQL to show information about columns in a table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function columnList(string $table): string
 	{
 		return <<<SQL
-			PRAGMA table_info("$table")
+			PRAGMA table_info("{$table}")
 SQL;
 	}
 
 	/**
 	 * Get the list of foreign keys for the current
 	 * table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function fkList(string $table): string
 	{
 		return <<<SQL
-			PRAGMA foreign_key_list("$table")
+			PRAGMA foreign_key_list("{$table}")
 SQL;
 	}
 
 
 	/**
 	 * Get the list of indexes for the current table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function indexList(string $table): string
 	{
 		return <<<SQL
-			PRAGMA index_list("$table")
+			PRAGMA index_list("{$table}")
 SQL;
 	}
 }

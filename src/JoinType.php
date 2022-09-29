@@ -19,9 +19,9 @@ namespace Query;
  * 'Enum' of join types
  */
 class JoinType {
-	public const CROSS = 'cross';
-	public const INNER = 'inner';
-	public const OUTER = 'outer';
-	public const LEFT = 'left';
-	public const RIGHT = 'right';
+	public final const CROSS = 'cross';
+	public final const INNER = 'inner';
+	public final const OUTER = 'outer';
+	public final const LEFT = 'left';
+	public final const RIGHT = 'right';
 }

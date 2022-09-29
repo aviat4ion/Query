@@ -40,19 +40,12 @@ interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Constructor/Connection method
-	 *
-	 * @param string $dsn
-	 * @param string $username
-	 * @param string $password
-	 * @param array $driverOptions
 	 */
 	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $driverOptions = []);
 
 	/**
 	 * Simplifies prepared statements for database queries
 	 *
-	 * @param string $sql
-	 * @param array $data
 	 * @return PDOStatement|null
 	 * @throws InvalidArgumentException
 	 */
@@ -61,7 +54,6 @@ interface DriverInterface /* extends the interface of PDO */ {
 	/**
 	 * Retrieve column information for the current database table
 	 *
-	 * @param string $table
 	 * @return array
 	 */
 	public function getColumns(string $table): ?array;
@@ -76,7 +68,6 @@ interface DriverInterface /* extends the interface of PDO */ {
 	/**
 	 * Retrieve indexes for the table
 	 *
-	 * @param string $table
 	 * @return array
 	 */
 	public function getIndexes(string $table): ?array;
@@ -84,7 +75,6 @@ interface DriverInterface /* extends the interface of PDO */ {
 	/**
 	 * Retrieve foreign keys for the table
 	 *
-	 * @param string $table
 	 * @return array
 	 */
 	public function getFks(string $table): ?array;
@@ -156,26 +146,16 @@ interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Surrounds the string with the databases identifier escape characters
-	 *
-	 * @param string|array $ident
-	 * @return string|array
 	 */
-	public function quoteIdent($ident);
+	public function quoteIdent(string|array $ident): string|array;
 
 	/**
 	 * Quote database table name, and set prefix
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function quoteTable(string $table): string;
 
 	/**
 	 * Create and execute a prepared statement with the provided parameters
-	 *
-	 * @param string $sql
-	 * @param array $params
-	 * @return PDOStatement
 	 */
 	public function prepareExecute(string $sql, array $params): PDOStatement;
 
@@ -190,8 +170,6 @@ interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Returns number of rows affected by an INSERT, UPDATE, DELETE type query
-	 *
-	 * @return int
 	 */
 	public function affectedRows(): int;
 
@@ -205,81 +183,52 @@ interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Prefixes a table if it is not already prefixed
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function prefixTable(string $table): string;
 
 	/**
 	 * Create sql for batch insert
-	 *
-	 * @param string $table
-	 * @param array $data
-	 * @return array
 	 */
 	public function insertBatch(string $table, array $data=[]): array;
 
 	/**
 	 * Creates a batch update, and executes it.
 	 * Returns the number of affected rows
-	 *
-	 * @param string $table
-	 * @param array $data
-	 * @param string $where
-	 * @return array
 	 */
 	public function updateBatch(string $table, array $data, string $where): array;
 
 	/**
 	 * Empty the passed table
-	 *
-	 * @param string $table
-	 * @return PDOStatement
 	 */
 	public function truncate(string $table): PDOStatement;
 
 	/**
 	 * Get the SQL class for the current driver
-	 *
-	 * @return SQLInterface
 	 */
 	public function getSql(): SQLInterface;
 
 	/**
 	 * Get the Util class for the current driver
-	 *
-	 * @return AbstractUtil
 	 */
 	public function getUtil(): AbstractUtil;
 
 	/**
 	 * Get the version of the database engine
-	 *
-	 * @return string
 	 */
 	public function getVersion(): string;
 
 	/**
 	 * Get the last sql query executed
-	 *
-	 * @return string
 	 */
 	public function getLastQuery(): string;
 
 	/**
 	 * Set the last query sql
-	 *
-	 * @param string $queryString
-	 * @return void
 	 */
 	public function setLastQuery(string $queryString): void;
 
 	/**
 	 * Set the common table name prefix
-	 *
-	 * @param string $prefix
-	 * @return void
 	 */
 	public function setTablePrefix(string $prefix): void;
 }

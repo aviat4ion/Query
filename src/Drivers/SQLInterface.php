@@ -22,54 +22,36 @@ interface SQLInterface {
 
 	/**
 	 * Get database specific sql for limit clause
-	 *
-	 * @param string $sql
-	 * @param int $limit
-	 * @param int|null $offset
-	 * @return string
 	 */
 	public function limit(string $sql, int $limit, ?int $offset=NULL): string;
 
 	/**
 	 * Modify the query to get the query plan
-	 *
-	 * @param string $sql
-	 * @return string
 	 */
 	public function explain(string $sql): string;
 
 	/**
 	 * Get the sql for random ordering
-	 *
-	 * @return string
 	 */
 	public function random(): string;
 
 	/**
 	 * Returns sql to list other databases
-	 *
-	 * @return string
 	 */
 	public function dbList(): string;
 
 	/**
 	 * Returns sql to list tables
-	 *
-	 * @return string
 	 */
 	public function tableList(): string;
 
 	/**
 	 * Returns sql to list system tables
-	 *
-	 * @return string|array
 	 */
-	public function systemTableList();
+	public function systemTableList(): string|array;
 
 	/**
 	 * Returns sql to list views
-	 *
-	 * @return string
 	 */
 	public function viewList(): string;
 
@@ -103,34 +85,23 @@ interface SQLInterface {
 
 	/**
 	 * Return sql to list database field types
-	 *
-	 * @return string|array
 	 */
-	public function typeList();
+	public function typeList(): string|array;
 
 	/**
 	 * Get information about the columns in the
 	 * specified table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function columnList(string $table): string;
 
 	/**
 	 * Get the list of foreign keys for the current
 	 * table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function fkList(string $table): string;
 
 	/**
 	 * Get the list of indexes for the current table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function indexList(string $table): string;
 }

@@ -21,12 +21,8 @@ namespace {
 	/**
 	 * Global functions that don't really fit anywhere else
 	 */
-
 	/**
 	 * Multibyte-safe trim function
-	 *
-	 * @param string $string
-	 * @return string
 	 */
 	function mb_trim(string $string): string
 	{
@@ -36,9 +32,7 @@ namespace {
 	/**
 	 * Filter out db rows into one array
 	 *
-	 * @param array $array
 	 * @param mixed $index
-	 * @return array
 	 */
 	function dbFilter(array $array, $index): array
 	{
@@ -57,9 +51,6 @@ namespace {
 	 *
 	 * The $zipperInput array is an array of arrays indexed by their place in the output
 	 * array.
-	 *
-	 * @param array $zipperInput
-	 * @return array
 	 */
 	function arrayZipper(array $zipperInput): array
 	{
@@ -83,10 +74,6 @@ namespace {
 	/**
 	 * Determine whether a value in the passed array matches the pattern
 	 * passed
-	 *
-	 * @param array $array
-	 * @param string $pattern
-	 * @return bool
 	 */
 	function regexInArray(array $array, string $pattern): bool
 	{
@@ -97,7 +84,7 @@ namespace {
 
 		foreach ($array as $item)
 		{
-			if (is_scalar($item) && preg_match($pattern, $item))
+			if (is_scalar($item) && preg_match($pattern, (string) $item))
 			{
 				return TRUE;
 			}
@@ -113,11 +100,9 @@ namespace {
 	 * the array or object has an 'alias' parameter, passing that string to this
 	 * function will return that connection. Passing no parameters returns the last
 	 * connection created.
-	 *
-	 * @param string|object|array $params
-	 * @return QueryBuilderInterface|null
 	 */
-	function Query($params = ''): ?QueryBuilderInterface
+	function Query(string|object|array|null $params = ''): ?QueryBuilderInterface
+
 	{
 		if ($params === NULL)
 		{
@@ -127,7 +112,7 @@ namespace {
 		$manager = ConnectionManager::getInstance();
 
 		// If you are getting a previously created connection
-		if (is_scalar($params))
+		if (is_string($params))
 		{
 			return $manager->getConnection($params);
 		}

@@ -25,10 +25,7 @@ class SQL extends AbstractSQL {
 	/**
 	 * Limit clause
 	 *
-	 * @param string $sql
-	 * @param int $limit
 	 * @param int|boolean $offset
-	 * @return string
 	 */
 	public function limit(string $sql, int $limit, ?int $offset=NULL): string
 	{
@@ -42,9 +39,6 @@ class SQL extends AbstractSQL {
 
 	/**
 	 * Get the query plan for the sql query
-	 *
-	 * @param string $sql
-	 * @return string
 	 */
 	public function explain(string $sql): string
 	{
@@ -53,8 +47,6 @@ class SQL extends AbstractSQL {
 
 	/**
 	 * Random ordering keyword
-	 *
-	 * @return string
 	 */
 	public function random(): string
 	{
@@ -63,8 +55,6 @@ class SQL extends AbstractSQL {
 
 	/**
 	 * Returns sql to list other databases
-	 *
-	 * @return string
 	 */
 	public function dbList(): string
 	{
@@ -78,7 +68,6 @@ SQL;
 	 * Returns sql to list tables
 	 *
 	 * @param string $database
-	 * @return string
 	 */
 	public function tableList($database=''): string
 	{
@@ -94,8 +83,6 @@ SQL;
 
 	/**
 	 * Overridden in MySQL class
-	 *
-	 * @return string
 	 */
 	public function systemTableList(): string
 	{
@@ -107,8 +94,6 @@ SQL;
 
 	/**
 	 * Returns sql to list views
-	 *
-	 * @return string
 	 */
 	public function viewList(): string
 	{
@@ -117,8 +102,6 @@ SQL;
 
 	/**
 	 * Returns sql to list triggers
-	 *
-	 * @return string
 	 */
 	public function triggerList(): string
 	{
@@ -127,8 +110,6 @@ SQL;
 
 	/**
 	 * Return sql to list functions
-	 *
-	 * @return string
 	 */
 	public function functionList(): string
 	{
@@ -137,8 +118,6 @@ SQL;
 
 	/**
 	 * Return sql to list stored procedures
-	 *
-	 * @return string
 	 */
 	public function procedureList(): string
 	{
@@ -157,8 +136,6 @@ SQL;
 
 	/**
 	 * SQL to show list of field types
-	 *
-	 * @return string
 	 */
 	public function typeList(): string
 	{
@@ -167,9 +144,6 @@ SQL;
 
 	/**
 	 * SQL to show information about columns in a table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function columnList(string $table): string
 	{
@@ -179,9 +153,6 @@ SQL;
 	/**
 	 * Get the list of foreign keys for the current
 	 * table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function fkList(string $table): string
 	{
@@ -204,9 +175,6 @@ SQL;
 
 	/**
 	 * Get the list of indexes for the current table
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function indexList(string $table): string
 	{

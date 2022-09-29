@@ -26,15 +26,11 @@ class Driver extends AbstractDriver {
 
 	/**
 	 * Set the backtick as the MySQL escape character
-	 *
-	 * @var string
 	 */
 	protected string $escapeCharOpen = '`';
 
 	/**
 	 * Set the backtick as the MySQL escape character
-	 *
-	 * @var string
 	 */
 	protected string $escapeCharClose = '`';
 
@@ -42,10 +38,6 @@ class Driver extends AbstractDriver {
 	 * Connect to MySQL Database
 	 *
 	 * @codeCoverageIgnore
-	 * @param string $dsn
-	 * @param string $username
-	 * @param string $password
-	 * @param array $options
 	 */
 	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $options=[])
 	{
@@ -57,7 +49,7 @@ class Driver extends AbstractDriver {
 			]);
 		}
 
-		if (strpos($dsn, 'mysql') === FALSE)
+		if ( ! str_contains($dsn, 'mysql'))
 		{
 			$dsn = 'mysql:'.$dsn;
 		}
@@ -67,10 +59,6 @@ class Driver extends AbstractDriver {
 
 	/**
 	 * Generate the returning clause for the current database
-	 *
-	 * @param string $query
-	 * @param string $select
-	 * @return string
 	 */
 	public function returning(string $query, string $select): string
 	{

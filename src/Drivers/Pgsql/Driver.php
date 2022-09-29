@@ -26,14 +26,10 @@ class Driver extends AbstractDriver {
 	 * Connect to a PosgreSQL database
 	 *
 	 * @codeCoverageIgnore
-	 * @param string $dsn
-	 * @param string $username
-	 * @param string $password
-	 * @param array  $options
 	 */
 	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $options=[])
 	{
-		if (strpos($dsn, 'pgsql') === FALSE)
+		if ( ! str_contains($dsn, 'pgsql'))
 		{
 			$dsn = 'pgsql:'.$dsn;
 		}
@@ -60,10 +56,9 @@ SQL;
 	/**
 	 * Retrieve foreign keys for the table
 	 *
-	 * @param string $table
-	 * @return array
+	 * @return mixed[]|null
 	 */
-	public function getFks($table): array
+	public function getFks(string $table): array
 	{
 		$valueMap = [
 			'c' => 'CASCADE',

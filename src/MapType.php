@@ -19,10 +19,10 @@ namespace Query;
  * 'Enum' of query map types
  */
 class MapType {
-	public const GROUP_END = 'group_end';
-	public const GROUP_START = 'group_start';
-	public const JOIN = 'join';
-	public const LIKE = 'like';
-	public const WHERE = 'where';
-	public const WHERE_IN = 'where_in';
+	public final const GROUP_END = 'group_end';
+	public final const GROUP_START = 'group_start';
+	public final const JOIN = 'join';
+	public final const LIKE = 'like';
+	public final const WHERE = 'where';
+	public final const WHERE_IN = 'where_in';
 }

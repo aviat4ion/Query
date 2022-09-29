@@ -35,59 +35,46 @@ abstract class AbstractDriver
 
 	/**
 	 * Reference to the last executed query
-	 * @var PDOStatement
 	 */
 	protected PDOStatement $statement;
 
 	/**
 	 * Start character to escape identifiers
-	 * @var string
 	 */
 	protected string $escapeCharOpen = '"';
 
 	/**
 	 * End character to escape identifiers
-	 * @var string
 	 */
 	protected string $escapeCharClose = '"';
 
 	/**
 	 * Reference to sql class
-	 * @var SQLInterface
 	 */
 	protected SQLInterface $driverSQL;
 
 	/**
 	 * Reference to util class
-	 * @var AbstractUtil
 	 */
 	protected AbstractUtil $util;
 
 	/**
 	 * Last query executed
-	 * @var string
 	 */
 	protected string $lastQuery = '';
 
 	/**
 	 * Prefix to apply to table names
-	 * @var string
 	 */
 	protected string $tablePrefix = '';
 
 	/**
 	 * Whether the driver supports 'TRUNCATE'
-	 * @var boolean
 	 */
 	protected bool $hasTruncate = TRUE;
 
 	/**
 	 * PDO constructor wrapper
-	 *
-	 * @param string $dsn
-	 * @param string $username
-	 * @param string $password
-	 * @param array $driverOptions
 	 */
 	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $driverOptions=[])
 	{
@@ -100,13 +87,11 @@ abstract class AbstractDriver
 
 	/**
 	 * Loads the subclasses for the driver
-	 *
-	 * @return void
 	 */
 	protected function _loadSubClasses(): void
 	{
 		// Load the sql and util class for the driver
-		$thisClass = \get_class($this);
+		$thisClass = $this::class;
 		$nsArray = explode("\\", $thisClass);
 		array_pop($nsArray);
 		$driver = array_pop($nsArray);
@@ -121,8 +106,6 @@ abstract class AbstractDriver
 	 * Allow invoke to work on table object
 	 *
 	 * @codeCoverageIgnore
-	 * @param string $name
-	 * @param array $args
 	 * @return mixed
 	 */
 	public function __call(string $name, array $args = [])
@@ -142,11 +125,8 @@ abstract class AbstractDriver
 	// --------------------------------------------------------------------------
 	// ! Accessors / Mutators
 	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the last sql query executed
-	 *
-	 * @return string
 	 */
 	public function getLastQuery(): string
 	{
@@ -155,9 +135,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Set the last query sql
-	 *
-	 * @param string $queryString
-	 * @return void
 	 */
 	public function setLastQuery(string $queryString): void
 	{
@@ -166,8 +143,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Get the SQL class for the current driver
-	 *
-	 * @return SQLInterface
 	 */
 	public function getSql(): SQLInterface
 	{
@@ -176,8 +151,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Get the Util class for the current driver
-	 *
-	 * @return AbstractUtil
 	 */
 	public function getUtil(): AbstractUtil
 	{
@@ -186,9 +159,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Set the common table name prefix
-	 *
-	 * @param string $prefix
-	 * @return void
 	 */
 	public function setTablePrefix(string $prefix): void
 	{
@@ -198,12 +168,9 @@ abstract class AbstractDriver
 	// --------------------------------------------------------------------------
 	// ! Concrete functions that can be overridden in child classes
 	// --------------------------------------------------------------------------
-
 	/**
 	 * Simplifies prepared statements for database queries
 	 *
-	 * @param string $sql
-	 * @param array $data
 	 * @return PDOStatement | FALSE
 	 * @throws InvalidArgumentException
 	 */
@@ -230,10 +197,7 @@ abstract class AbstractDriver
 	/**
 	 * Create and execute a prepared statement with the provided parameters
 	 *
-	 * @param string $sql
-	 * @param array $params
 	 * @throws InvalidArgumentException
-	 * @return PDOStatement
 	 */
 	public function prepareExecute(string $sql, array $params): PDOStatement
 	{
@@ -245,8 +209,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Returns number of rows affected by an INSERT, UPDATE, DELETE type query
-	 *
-	 * @return int
 	 */
 	public function affectedRows(): int
 	{
@@ -256,8 +218,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Prefixes a table if it is not already prefixed
-	 * @param string $table
-	 * @return string
 	 */
 	public function prefixTable(string $table): string
 	{
@@ -285,9 +245,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Quote database table name, and set prefix
-	 *
-	 * @param string $table
-	 * @return string
 	 */
 	public function quoteTable(string $table): string
 	{
@@ -301,9 +258,8 @@ abstract class AbstractDriver
 	 * Surrounds the string with the databases identifier escape characters
 	 *
 	 * @param mixed $identifier
-	 * @return string|array
 	 */
-	public function quoteIdent($identifier)
+	public function quoteIdent($identifier): string|array
 	{
 		if (is_array($identifier))
 		{
@@ -314,7 +270,7 @@ abstract class AbstractDriver
 		$identifier = (string)$identifier;
 
 		// Handle comma-separated identifiers
-		if (strpos($identifier, ',') !== FALSE)
+		if (str_contains($identifier, ','))
 		{
 			$parts = array_map('mb_trim', explode(',', $identifier));
 			$parts = array_map([$this, __METHOD__], $parts);
@@ -440,7 +396,6 @@ abstract class AbstractDriver
 	/**
 	 * Retrieve column information for the current database table
 	 *
-	 * @param string $table
 	 * @return array
 	 */
 	public function getColumns(string $table): ?array
@@ -451,7 +406,6 @@ abstract class AbstractDriver
 	/**
 	 * Retrieve foreign keys for the table
 	 *
-	 * @param string $table
 	 * @return array
 	 */
 	public function getFks(string $table): ?array
@@ -462,7 +416,6 @@ abstract class AbstractDriver
 	/**
 	 * Retrieve indexes for the table
 	 *
-	 * @param string $table
 	 * @return array
 	 */
 	public function getIndexes(string $table): ?array
@@ -482,8 +435,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Get the version of the database engine
-	 *
-	 * @return string
 	 */
 	public function getVersion(): string
 	{
@@ -495,7 +446,6 @@ abstract class AbstractDriver
 	 *
 	 * @param string|array|null $query
 	 * @param bool $filteredIndex
-	 * @return array|null
 	 */
 	public function driverQuery($query, $filteredIndex=TRUE): ?array
 	{
@@ -525,7 +475,6 @@ abstract class AbstractDriver
 	 * Return the number of rows returned for a SELECT query
 	 *
 	 * @see http://us3.php.net/manual/en/pdostatement.rowcount.php#87110
-	 * @return int|null
 	 */
 	public function numRows(): ?int
 	{
@@ -544,7 +493,6 @@ abstract class AbstractDriver
 	/**
 	 * Create sql for batch insert
 	 *
-	 * @param string $table
 	 * @param mixed $data
 	 * @return array<string|array|null>
 	 */
@@ -557,7 +505,7 @@ abstract class AbstractDriver
 		$vals = [];
 		foreach($data as $group)
 		{
-			$vals = array_merge($vals, array_values($group));
+			$vals = [...$vals, ...array_values($group)];
 		}
 
 		$table = $this->quoteTable($table);
@@ -598,7 +546,7 @@ abstract class AbstractDriver
 		// Get the keys of the current set of data, except the one used to
 		// set the update condition
 		$fields = array_unique(
-			array_reduce($data, static function ($previous, $current) use (&$affectedRows, $where) {
+			array_reduce($data, static function ($previous, $current) use (&$affectedRows, $where): array {
 				$affectedRows++;
 				$keys = array_diff(array_keys($current), [$where]);
 
@@ -653,9 +601,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Empty the passed table
-	 *
-	 * @param string $table
-	 * @return PDOStatement
 	 */
 	public function truncate(string $table): PDOStatement
 	{
@@ -671,10 +616,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Generate the returning clause for the current database
-	 *
-	 * @param string $query
-	 * @param string $select
-	 * @return string
 	 */
 	public function returning(string $query, string $select): string
 	{
@@ -694,7 +635,7 @@ abstract class AbstractDriver
 		// that value, otherwise, return the original value
 		return (
 			is_string($str)
-			&& strpos($str, $this->escapeCharOpen) !== 0
+			&& ( ! str_starts_with($str, $this->escapeCharOpen))
 			&& strrpos($str, $this->escapeCharClose) !== 0
 		)
 			? "{$this->escapeCharOpen}{$str}{$this->escapeCharClose}"
@@ -704,14 +645,11 @@ abstract class AbstractDriver
 
 	/**
 	 * Sets the table prefix on the passed string
-	 *
-	 * @param string $str
-	 * @return string
 	 */
 	protected function _prefix(string $str): string
 	{
 		// Don't prefix an already prefixed table
-		if (strpos($str, $this->tablePrefix) !== FALSE)
+		if (str_contains($str, $this->tablePrefix))
 		{
 			return $str;
 		}

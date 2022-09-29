@@ -26,13 +26,11 @@ final class ConnectionManager {
 
 	/**
 	 * Map of named database connections
-	 * @var array
 	 */
 	private array $connections = [];
 
 	/**
 	 * Class instance variable
-	 * @var ConnectionManager|null
 	 */
 	private static ?ConnectionManager $instance = NULL;
 
@@ -69,7 +67,6 @@ final class ConnectionManager {
 	 * Make sure serialize/deserialize doesn't work
 	 *
 	 * @throws DomainException
-	 * @return void
 	 */
 	public function __wakeup(): void
 	{
@@ -80,7 +77,6 @@ final class ConnectionManager {
 	 * Return  a connection manager instance
 	 *
 	 * @staticvar null $instance
-	 * @return ConnectionManager
 	 */
 	public static function getInstance(): ConnectionManager
 	{
@@ -96,7 +92,6 @@ final class ConnectionManager {
 	 * Returns the connection specified by the name given
 	 *
 	 * @param string|array|object $name
-	 * @return QueryBuilderInterface
 	 * @throws Exception\NonExistentConnectionException
 	 */
 	public function getConnection($name = ''): QueryBuilderInterface
@@ -121,7 +116,6 @@ final class ConnectionManager {
 	 *
 	 * @param array|object $params
 	 * @throws Exception\BadDBDriverException
-	 * @return QueryBuilderInterface
 	 */
 	public function connect($params): QueryBuilderInterface
 	{
@@ -131,9 +125,9 @@ final class ConnectionManager {
 		$driver = "\\Query\\Drivers\\{$dbType}\\Driver";
 
 		// Create the database connection
-		$db =  ! empty($params->user)
-			? new $driver($dsn, $params->user, $params->pass, $options)
-			: new $driver($dsn, '', '', $options);
+		$db =  empty($params->user)
+			? new $driver($dsn, '', '', $options)
+			: new $driver($dsn, $params->user, $params->pass, $options);
 
 		// Set the table prefix, if it exists
 		if (isset($params->prefix))
@@ -162,8 +156,8 @@ final class ConnectionManager {
 	 * Parses params into a dsn and option array
 	 *
 	 * @param array|object $rawParams
-	 * @return array
 	 * @throws Exception\BadDBDriverException
+	 * @return mixed[]
 	 */
 	public function parseParams($rawParams): array
 	{
@@ -187,14 +181,7 @@ final class ConnectionManager {
 		}
 
 		// Create the dsn for the database to connect to
-		if(strtolower($dbType) === 'sqlite')
-		{
-			$dsn = $params->file;
-		}
-		else
-		{
-			$dsn = $this->createDsn($dbType, $params);
-		}
+		$dsn = strtolower($dbType) === 'sqlite' ? $params->file : $this->createDsn($dbType, $params);
 
 
 		return [$dsn, $dbType, $params, $options];
@@ -204,9 +191,6 @@ final class ConnectionManager {
 	 * Create the dsn from the db type and params
 	 *
 	 * @codeCoverageIgnore
-	 * @param string $dbType
-	 * @param stdClass $params
-	 * @return string
 	 */
 	private function createDsn(string $dbType, stdClass $params): string
 	{
