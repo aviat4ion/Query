@@ -67,14 +67,12 @@ FROM NUMBERS
 WHERE NUMBER > 100;
 
 -- TABLEs for testing CONSTRAINTs
-DROP TABLE IF EXISTS testconstraints;
-CREATE TABLE testconstraints (
+CREATE TABLE IF NOT EXISTS testconstraints (
   someid integer NOT NULL,
   somename varchar(10) NOT NULL,
   CONSTRAINT testconstraints_id_pk PRIMARY KEY (someid)
 );
-DROP TABLE IF EXISTS testconstraints2;
-CREATE TABLE testconstraints2 (
+CREATE TABLE IF NOT EXISTS testconstraints2 (
   ext_id integer NOT NULL,
   modified date,
   uniquefield varchar(10) NOT NULL,

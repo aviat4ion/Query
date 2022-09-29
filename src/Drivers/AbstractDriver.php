@@ -256,10 +256,8 @@ abstract class AbstractDriver
 
 	/**
 	 * Surrounds the string with the databases identifier escape characters
-	 *
-	 * @param mixed $identifier
 	 */
-	public function quoteIdent($identifier): string|array
+	public function quoteIdent(string|array $identifier): string|array
 	{
 		if (is_array($identifier))
 		{
@@ -267,7 +265,7 @@ abstract class AbstractDriver
 		}
 
 		// Make all the string-handling methods happy
-		$identifier = (string)$identifier;
+		// $identifier = (string)$identifier;
 
 		// Handle comma-separated identifiers
 		if (str_contains($identifier, ','))
@@ -299,8 +297,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return schemas for databases that list them
-	 *
-	 * @return array
 	 */
 	public function getSchemas(): ?array
 	{
@@ -310,8 +306,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of tables for the current database
-	 *
-	 * @return array
 	 */
 	public function getTables(): ?array
 	{
@@ -322,8 +316,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of dbs for the current connection, if possible
-	 *
-	 * @return array
 	 */
 	public function getDbs(): ?array
 	{
@@ -332,8 +324,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of views for the current database
-	 *
-	 * @return array
 	 */
 	public function getViews(): ?array
 	{
@@ -344,8 +334,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of sequences for the current database, if they exist
-	 *
-	 * @return array
 	 */
 	public function getSequences(): ?array
 	{
@@ -354,8 +342,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of functions for the current database
-	 *
-	 * @return array
 	 */
 	public function getFunctions(): ?array
 	{
@@ -364,8 +350,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of stored procedures for the current database
-	 *
-	 * @return array
 	 */
 	public function getProcedures(): ?array
 	{
@@ -374,8 +358,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of triggers for the current database
-	 *
-	 * @return array
 	 */
 	public function getTriggers(): ?array
 	{
@@ -385,8 +367,6 @@ abstract class AbstractDriver
 	/**
 	 * Retrieves an array of non-user-created tables for
 	 * the connection/database
-	 *
-	 * @return array
 	 */
 	public function getSystemTables(): ?array
 	{
@@ -395,8 +375,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Retrieve column information for the current database table
-	 *
-	 * @return array
 	 */
 	public function getColumns(string $table): ?array
 	{
@@ -405,8 +383,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Retrieve foreign keys for the table
-	 *
-	 * @return array
 	 */
 	public function getFks(string $table): ?array
 	{
@@ -415,8 +391,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Retrieve indexes for the table
-	 *
-	 * @return array
 	 */
 	public function getIndexes(string $table): ?array
 	{
@@ -425,8 +399,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Retrieve list of data types for the database
-	 *
-	 * @return array
 	 */
 	public function getTypes(): ?array
 	{

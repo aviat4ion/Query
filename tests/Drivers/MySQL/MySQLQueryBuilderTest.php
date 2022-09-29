@@ -75,11 +75,11 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 
 	public function testInsertReturning(): void
 	{
-		$this->markTestSkipped();
+		$this->markTestSkipped('Not implemented');
 	}
 
 	public function testUpdateReturning(): void
 	{
-		$this->markTestSkipped();
+		$this->markTestSkipped('Not implemented');
 	}
 }

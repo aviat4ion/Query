@@ -104,12 +104,9 @@ class Util extends AbstractUtil {
 			{
 				$row = array_values($row);
 
-				// Workaround for Quercus
-//				foreach($row as &$r)
-//				{
-//					$r = $driver->quote($r);
-//				}
-//				unset($r);
+				// Quote strings
+				$row = array_map(fn ($r) => is_string($r) ? $driver->quote($r) : $r, $row);
+
 				$row = array_map('trim', $row);
 
 				$rowString = 'INSERT INTO `'.trim($t).'` (`'.implode('`,`', $columns).'`) VALUES ('.implode(',', $row).');';

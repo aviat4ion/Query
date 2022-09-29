@@ -16,13 +16,13 @@
       <file>./../tests/ConnectionManagerTest.php</file>
       <file>./../tests/QueryParserTest.php</file>
     </testsuite>
-    <testsuite name="MySQL Tests">
+    <testsuite name="MySQL">
       <directory>./../tests/Drivers/MySQL/</directory>
     </testsuite>
-    <testsuite name="PgSQL Tests">
+    <testsuite name="PgSQL">
       <directory>./../tests/Drivers/PgSQL/</directory>
     </testsuite>
-    <testsuite name="SQLite Tests">
+    <testsuite name="SQLite">
       <directory>./../tests/Drivers/SQLite/</directory>
     </testsuite>
   </testsuites>

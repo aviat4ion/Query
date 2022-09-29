@@ -92,7 +92,7 @@ class Driver extends AbstractDriver {
 	 * Create sql for batch insert
 	 *
 	 * @codeCoverageIgnore
-	 * @return mixed[][]|string[]|null[]|string[]|null[]
+	 * @return array[]|string[]|null[]
 	 */
 	public function insertBatch(string $table, array $data=[]): array
 	{

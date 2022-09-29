@@ -70,7 +70,7 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 	public function testCreateTable(): void
 	{
-		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/pgsql.sql'));
+		// self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/pgsql.sql'));
 
 		// Drop the table(s) if they exist
 		$sql = 'DROP TABLE IF EXISTS "create_test"';

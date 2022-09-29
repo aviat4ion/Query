@@ -70,7 +70,7 @@ class MySQLDriverTest extends BaseDriverTest {
 			],
 			[
 				'id' => 'PRIMARY KEY'
-			]
+			],
 		);
 
 		self::$db->query($sql);

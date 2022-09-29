@@ -23,7 +23,7 @@ abstract class AbstractUtil {
 	/**
 	 * Save a reference to the connection object for later use
 	 */
-	public function __construct(private DriverInterface $connection)
+	public function __construct(private readonly DriverInterface $connection)
 	{
 	}
 
@@ -37,12 +37,8 @@ abstract class AbstractUtil {
 
 	/**
 	 * Convenience public function to generate sql for creating a db table
-	 *
-	 * @param string $name
-	 * @param array $fields
-	 * @param bool $ifNotExists
 	 */
-	public function createTable($name, $fields, array $constraints=[], $ifNotExists=TRUE): string
+	public function createTable(string $name, array $fields, array $constraints=[], bool $ifNotExists=TRUE): string
 	{
 		$existsStr = $ifNotExists ? ' IF NOT EXISTS ' : ' ';
 
@@ -78,10 +74,8 @@ abstract class AbstractUtil {
 
 	/**
 	 * Drop the selected table
-	 *
-	 * @param string $name
 	 */
-	public function deleteTable($name): string
+	public function deleteTable(string $name): string
 	{
 		return 'DROP TABLE IF EXISTS '.$this->getDriver()->quoteTable($name);
 	}
