@@ -94,7 +94,7 @@ class QueryBuilderBase {
 	/**
 	 * Constructor
 	 */
-	public function __construct(protected ?\Query\Drivers\DriverInterface $driver, protected QueryParser $parser)
+	public function __construct(protected ?DriverInterface $driver, protected QueryParser $parser)
 	{
 		// Create new State object
 		$this->state = new State();
@@ -526,13 +526,12 @@ class QueryBuilderBase {
 			}
 
 			// Generate the appropriate select query for the returning clause fallback
+			// @TODO figure out how to do a proper fallback
 			switch ($type)
 			{
 				case QueryType::INSERT:
 
 				case QueryType::UPDATE:
-					// @TODO figure out a good response for update query
-					break;
 
 				case QueryType::INSERT_BATCH:
 				case QueryType::UPDATE_BATCH:
