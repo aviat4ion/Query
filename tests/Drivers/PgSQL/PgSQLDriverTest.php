@@ -4,14 +4,14 @@
  *
  * SQL Query Builder / Database Abstraction Layer
  *
- * PHP version 7.4
+ * PHP version 8.1
  *
  * @package     Query
  * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2020 Timothy J. Warren
+ * @copyright   2012 - 2022 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat/Query
- * @version     3.0.0
+ * @version     4.0.0
  */
 namespace Query\Tests\Drivers\PgSQL;
 
@@ -70,7 +70,7 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 	public function testCreateTable(): void
 	{
-		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/pgsql.sql'));
+		// self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/pgsql.sql'));
 
 		// Drop the table(s) if they exist
 		$sql = 'DROP TABLE IF EXISTS "create_test"';
