@@ -18,11 +18,11 @@ namespace Query;
 /**
  * 'Enum' of query map types
  */
-class MapType {
-	public final const GROUP_END = 'group_end';
-	public final const GROUP_START = 'group_start';
-	public final const JOIN = 'join';
-	public final const LIKE = 'like';
-	public final const WHERE = 'where';
-	public final const WHERE_IN = 'where_in';
+enum MapType: string {
+	case GROUP_END = 'group_end';
+	case GROUP_START = 'group_start';
+	case JOIN = 'join';
+	case LIKE = 'like';
+	case WHERE = 'where';
+	case WHERE_IN = 'where_in';
 }

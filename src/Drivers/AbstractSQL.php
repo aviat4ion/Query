@@ -22,8 +22,6 @@ abstract class AbstractSQL implements SQLInterface {
 
 	/**
 	 * Limit clause
-	 *
-	 * @param int $offset
 	 */
 	public function limit(string $sql, int $limit, ?int $offset=NULL): string
 	{

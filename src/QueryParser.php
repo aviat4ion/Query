@@ -44,14 +44,14 @@ class QueryParser {
 	/**
 	 * Constructor/entry point into parser
 	 */
-	public function __construct(private DriverInterface $db)
+	public function __construct(private readonly DriverInterface $db)
 	{
 	}
 
 	/**
 	 * Parser method for setting the parse string
 	 *
-	 * @return mixed[][]
+	 * @return array[]
 	 */
 	public function parseJoin(string $sql): array
 	{
@@ -93,7 +93,7 @@ class QueryParser {
 	/**
 	 * Returns a more useful match array
 	 *
-	 * @return mixed[]
+	 * @return array
 	 */
 	protected function filterArray(array $array): array
 	{

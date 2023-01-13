@@ -16,12 +16,12 @@
 namespace Query;
 
 /**
- * 'Enum' of join types
+ * Enum of join types
  */
-class JoinType {
-	public final const CROSS = 'cross';
-	public final const INNER = 'inner';
-	public final const OUTER = 'outer';
-	public final const LEFT = 'left';
-	public final const RIGHT = 'right';
+enum JoinType: string {
+	case CROSS = 'cross';
+	case INNER = 'inner';
+	case OUTER = 'outer';
+	case LEFT = 'left';
+	case RIGHT = 'right';
 }

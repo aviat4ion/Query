@@ -170,9 +170,6 @@ abstract class AbstractDriver
 	// --------------------------------------------------------------------------
 	/**
 	 * Simplifies prepared statements for database queries
-	 *
-	 * @return PDOStatement | FALSE
-	 * @throws InvalidArgumentException
 	 */
 	public function prepareQuery(string $sql, array $data): PDOStatement
 	{
@@ -259,7 +256,7 @@ abstract class AbstractDriver
 	 *
 	 * @param mixed $identifier
 	 */
-	public function quoteIdent($identifier): string|array
+	public function quoteIdent(string|array $identifier): string|array
 	{
 		if (is_array($identifier))
 		{
@@ -299,8 +296,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return schemas for databases that list them
-	 *
-	 * @return array
 	 */
 	public function getSchemas(): ?array
 	{
@@ -310,8 +305,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of tables for the current database
-	 *
-	 * @return array
 	 */
 	public function getTables(): ?array
 	{
@@ -322,8 +315,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of dbs for the current connection, if possible
-	 *
-	 * @return array
 	 */
 	public function getDbs(): ?array
 	{
@@ -332,8 +323,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of views for the current database
-	 *
-	 * @return array
 	 */
 	public function getViews(): ?array
 	{
@@ -344,8 +333,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of sequences for the current database, if they exist
-	 *
-	 * @return array
 	 */
 	public function getSequences(): ?array
 	{
@@ -354,8 +341,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of functions for the current database
-	 *
-	 * @return array
 	 */
 	public function getFunctions(): ?array
 	{
@@ -364,8 +349,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of stored procedures for the current database
-	 *
-	 * @return array
 	 */
 	public function getProcedures(): ?array
 	{
@@ -374,8 +357,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of triggers for the current database
-	 *
-	 * @return array
 	 */
 	public function getTriggers(): ?array
 	{
@@ -385,8 +366,6 @@ abstract class AbstractDriver
 	/**
 	 * Retrieves an array of non-user-created tables for
 	 * the connection/database
-	 *
-	 * @return array
 	 */
 	public function getSystemTables(): ?array
 	{
@@ -395,8 +374,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Retrieve column information for the current database table
-	 *
-	 * @return array
 	 */
 	public function getColumns(string $table): ?array
 	{
@@ -405,8 +382,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Retrieve foreign keys for the table
-	 *
-	 * @return array
 	 */
 	public function getFks(string $table): ?array
 	{
@@ -415,8 +390,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Retrieve indexes for the table
-	 *
-	 * @return array
 	 */
 	public function getIndexes(string $table): ?array
 	{
@@ -425,8 +398,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Retrieve list of data types for the database
-	 *
-	 * @return array
 	 */
 	public function getTypes(): ?array
 	{
@@ -443,11 +414,8 @@ abstract class AbstractDriver
 
 	/**
 	 * Method to simplify retrieving db results for meta-data queries
-	 *
-	 * @param string|array|null $query
-	 * @param bool $filteredIndex
 	 */
-	public function driverQuery($query, $filteredIndex=TRUE): ?array
+	public function driverQuery(string|array $query, bool $filteredIndex=TRUE): ?array
 	{
 		// Call the appropriate method, if it exists
 		if (is_string($query) && method_exists($this->driverSQL, $query))
@@ -628,7 +596,7 @@ abstract class AbstractDriver
 	 * @param mixed $str
 	 * @return mixed
 	 */
-	public function _quote($str)
+	public function _quote(mixed $str): mixed
 	{
 		// Check that the current value is a string,
 		// and is not already quoted before quoting

@@ -25,7 +25,6 @@ use Query\Drivers\AbstractDriver;
  * SQLite specific class
  */
 class Driver extends AbstractDriver {
-
 	/**
 	 * SQLite has a truncate optimization,
 	 * but no support for the actual keyword
@@ -55,8 +54,6 @@ class Driver extends AbstractDriver {
 
 	/**
 	 * List tables for the current database
-	 *
-	 * @return mixed[]
 	 */
 	public function getTables(): array
 	{
@@ -92,7 +89,7 @@ class Driver extends AbstractDriver {
 	 * Create sql for batch insert
 	 *
 	 * @codeCoverageIgnore
-	 * @return mixed[][]|string[]|null[]|string[]|null[]
+	 * @return array[]|string[]|null[]
 	 */
 	public function insertBatch(string $table, array $data=[]): array
 	{

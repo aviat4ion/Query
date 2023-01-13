@@ -127,28 +127,28 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $values
 	 */
-	public function like(string $field, $values, string $pos=LikeType::BOTH): self;
+	public function like(string $field, mixed $values, LikeType $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates an OR Like clause
 	 *
 	 * @param mixed $values
 	 */
-	public function orLike(string $field, $values, string $pos=LikeType::BOTH): self;
+	public function orLike(string $field, mixed $values, LikeType $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a NOT LIKE clause
 	 *
 	 * @param mixed $values
 	 */
-	public function notLike(string $field, $values, string $pos=LikeType::BOTH): self;
+	public function notLike(string $field, mixed $values, LikeType $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a OR NOT LIKE clause
 	 *
 	 * @param mixed $values
 	 */
-	public function orNotLike(string $field, $values, string $pos=LikeType::BOTH): self;
+	public function orNotLike(string $field, mixed $values, LikeType $pos=LikeType::BOTH): self;
 
 	// --------------------------------------------------------------------------
 	// ! Having methods
@@ -159,7 +159,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $values
 	 */
-	public function having($key, $values=[]): self;
+	public function having(mixed $key, mixed $values=[]): self;
 
 	/**
 	 * Generates a 'Having' clause prefixed with 'OR'
@@ -167,7 +167,7 @@ interface QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $values
 	 */
-	public function orHaving($key, $values=[]): self;
+	public function orHaving(mixed $key, mixed $values=[]): self;
 
 	// --------------------------------------------------------------------------
 	// ! 'Where' methods
@@ -179,9 +179,8 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $key
 	 * @param mixed $values
-	 * @param bool $escape
 	 */
-	public function where($key, $values=[], $escape = NULL): self;
+	public function where(mixed $key, mixed $values=[]): self;
 
 	/**
 	 * Where clause prefixed with "OR"
@@ -189,15 +188,15 @@ interface QueryBuilderInterface {
 	 * @param string $key
 	 * @param mixed $values
 	 */
-	public function orWhere($key, $values=[]): self;
+	public function orWhere(mixed $key, mixed $values=[]): self;
 
 	/**
 	 * Where clause with 'IN' statement
 	 *
-	 * @param mixed $field
+	 * @param string $field
 	 * @param mixed $values
 	 */
-	public function whereIn($field, $values=[]): self;
+	public function whereIn(string $field, mixed $values=[]): self;
 
 	/**
 	 * Where in statement prefixed with "or"
@@ -205,7 +204,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 */
-	public function orWhereIn($field, $values=[]): self;
+	public function orWhereIn(string $field, mixed $values=[]): self;
 
 	/**
 	 * WHERE NOT IN (FOO) clause
@@ -213,7 +212,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 */
-	public function whereNotIn($field, $values=[]): self;
+	public function whereNotIn(string $field, mixed $values=[]): self;
 
 	/**
 	 * OR WHERE NOT IN (FOO) clause
@@ -221,7 +220,7 @@ interface QueryBuilderInterface {
 	 * @param string $field
 	 * @param mixed $values
 	 */
-	public function orWhereNotIn($field, $values=[]): self;
+	public function orWhereNotIn(string $field, mixed $values=[]): self;
 
 	// --------------------------------------------------------------------------
 	// ! Other Query Modifier methods
@@ -232,19 +231,19 @@ interface QueryBuilderInterface {
 	 * @param mixed $key
 	 * @param mixed $values
 	 */
-	public function set($key, $values = NULL): self;
+	public function set(mixed $key, mixed $values = NULL): self;
 
 	/**
 	 * Creates a join phrase in a compiled query
 	 */
-	public function join(string $table, string $condition, string $type=JoinType::INNER): self;
+	public function join(string $table, string $condition, JoinType $type=JoinType::INNER): self;
 
 	/**
 	 * Group the results by the selected field(s)
 	 *
 	 * @param mixed $field
 	 */
-	public function groupBy($field): self;
+	public function groupBy(mixed $field): self;
 
 	/**
 	 * Order the results by the selected field(s)
@@ -301,7 +300,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param array $where
 	 */
-	public function getWhere(string $table, $where=[], ?int $limit=NULL, ?int $offset=NULL): PDOStatement;
+	public function getWhere(string $table, array $where=[], ?int $limit=NULL, ?int $offset=NULL): PDOStatement;
 
 	/**
 	 * Retrieve the number of rows in the selected table
@@ -321,21 +320,21 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $data
 	 */
-	public function insert(string $table, $data=[]): PDOStatement;
+	public function insert(string $table, mixed $data=[]): PDOStatement;
 
 	/**
 	 * Creates and executes a batch insertion query
 	 *
 	 * @param array $data
 	 */
-	public function insertBatch(string $table, $data=[]): ?PDOStatement;
+	public function insertBatch(string $table, mixed $data=[]): ?PDOStatement;
 
 	/**
 	 * Creates an update clause, and executes it
 	 *
 	 * @param mixed $data
 	 */
-	public function update(string $table, $data=[]): PDOStatement;
+	public function update(string $table, mixed $data=[]): PDOStatement;
 
 	/**
 	 * Creates a batch update, and executes it.
@@ -352,7 +351,7 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $where
 	 */
-	public function delete(string $table, $where=''): PDOStatement;
+	public function delete(string $table, mixed $where=''): PDOStatement;
 
 	// --------------------------------------------------------------------------
 	// ! SQL Returning Methods

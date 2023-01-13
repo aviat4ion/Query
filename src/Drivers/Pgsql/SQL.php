@@ -107,8 +107,6 @@ SQL;
 
 	/**
 	 * Return sql to list functions
-	 *
-	 * @return string
 	 */
 	public function functionList(): ?string
 	{

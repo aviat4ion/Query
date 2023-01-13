@@ -18,8 +18,8 @@ namespace Query;
 /**
  * 'Enum' of join types
  */
-class LikeType {
-	public final const BEFORE = 'before';
-	public final const AFTER = 'after';
-	public final const BOTH = 'both';
+enum LikeType: string {
+	case BEFORE = 'before';
+	case AFTER = 'after';
+	case BOTH = 'both';
 }

@@ -24,8 +24,6 @@ class SQL extends AbstractSQL {
 
 	/**
 	 * Limit clause
-	 *
-	 * @param int|boolean $offset
 	 */
 	public function limit(string $sql, int $limit, ?int $offset=NULL): string
 	{
@@ -66,10 +64,8 @@ SQL;
 
 	/**
 	 * Returns sql to list tables
-	 *
-	 * @param string $database
 	 */
-	public function tableList($database=''): string
+	public function tableList(string $database=''): string
 	{
 		// @codeCoverageIgnoreStart
 		if ( ! empty($database))
@@ -126,8 +122,6 @@ SQL;
 
 	/**
 	 * Return sql to list sequences
-	 *
-	 * @return string
 	 */
 	public function sequenceList(): ?string
 	{

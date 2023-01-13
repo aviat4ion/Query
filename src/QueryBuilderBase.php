@@ -138,10 +138,8 @@ class QueryBuilderBase {
 
 	/**
 	 * Method to simplify select_ methods
-	 *
-	 * @param string|bool $as
 	 */
-	protected function _select(string $field, $as = FALSE): string
+	protected function _select(string $field, bool|string $as = FALSE): string
 	{
 		// Escape the identifiers
 		$field = $this->driver->quoteIdent($field);
@@ -160,7 +158,7 @@ class QueryBuilderBase {
 	/**
 	 * Helper function for returning sql strings
 	 */
-	protected function _getCompile(string $type, string $table, bool $reset): string
+	protected function _getCompile(QueryType $type, string $table, bool $reset): string
 	{
 		$sql = $this->_compile($type, $table);
 
@@ -175,10 +173,8 @@ class QueryBuilderBase {
 
 	/**
 	 * Simplify 'like' methods
-	 *
-	 * @param mixed $val
 	 */
-	protected function _like(string $field, $val, string $pos, string $like = 'LIKE', string $conj = 'AND'): self
+	protected function _like(string $field, mixed $val, LikeType $pos, string $like = 'LIKE', string $conj = 'AND'): self
 	{
 		$field = $this->driver->quoteIdent($field);
 
@@ -209,11 +205,8 @@ class QueryBuilderBase {
 
 	/**
 	 * Simplify building having clauses
-	 *
-	 * @param mixed $key
-	 * @param mixed $values
 	 */
-	protected function _having($key, $values = [], string $conj = 'AND'): self
+	protected function _having(mixed $key, mixed $values = [], string $conj = 'AND'): self
 	{
 		$where = $this->_where($key, $values);
 
@@ -243,11 +236,8 @@ class QueryBuilderBase {
 
 	/**
 	 * Do all the redundant stuff for where/having type methods
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
 	 */
-	protected function _where($key, $val = []): array
+	protected function _where(mixed $key, mixed $val = []): array
 	{
 		$where = [];
 		$pairs = [];
@@ -271,11 +261,8 @@ class QueryBuilderBase {
 
 	/**
 	 * Simplify generating where string
-	 *
-	 * @param mixed $key
-	 * @param mixed $values
 	 */
-	protected function _whereString($key, $values = [], string $defaultConj = 'AND'): self
+	protected function _whereString(mixed $key, mixed $values = [], string $defaultConj = 'AND'): self
 	{
 		// Create key/value placeholders
 		foreach ($this->_where($key, $values) as $f => $val)
@@ -319,7 +306,7 @@ class QueryBuilderBase {
 	 * @param string $in - The (not) in fragment
 	 * @param string $conj - The where in conjunction
 	 */
-	protected function _whereIn($key, $val = [], string $in = 'IN', string $conj = 'AND'): self
+	protected function _whereIn(mixed $key, mixed $val = [], string $in = 'IN', string $conj = 'AND'): self
 	{
 		$key = $this->driver->quoteIdent($key);
 		$params = array_fill(0, is_countable($val) ? count($val) : 0, '?');
@@ -338,7 +325,7 @@ class QueryBuilderBase {
 	 *
 	 * @param array|null $vals
 	 */
-	protected function _run(string $type, string $table, string $sql = NULL, array $vals = NULL, bool $reset = TRUE): PDOStatement
+	protected function _run(QueryType $type, string $table, string $sql = NULL, array $vals = NULL, bool $reset = TRUE): PDOStatement
 	{
 		if ($sql === NULL)
 		{
@@ -409,7 +396,7 @@ class QueryBuilderBase {
 	 *
 	 * @codeCoverageIgnore
 	 */
-	protected function _compileType(string $type = QueryType::SELECT, string $table = ''): string
+	protected function _compileType(QueryType $type = QueryType::SELECT, string $table = ''): string
 	{
 		$setArrayKeys = $this->state->getSetArrayKeys();
 		switch ($type)
@@ -453,7 +440,7 @@ class QueryBuilderBase {
 	/**
 	 * String together the sql statements for sending to the db
 	 */
-	protected function _compile(string $type = '', string $table = ''): string
+	protected function _compile(QueryType $type, string $table = ''): string
 	{
 		// Get the base clause for the query
 		$sql = $this->_compileType($type, $this->driver->quoteTable($table));
@@ -505,7 +492,7 @@ class QueryBuilderBase {
 	/**
 	 * Generate returning clause of query
 	 */
-	protected function _compileReturning(string $sql, string $type): string
+	protected function _compileReturning(string $sql, QueryType $type): string
 	{
 		if ($this->returning === FALSE)
 		{

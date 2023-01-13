@@ -169,10 +169,7 @@ class State {
 		return $this;
 	}
 
-	/**
-	 * @param mixed $orderArray
-	 */
-	public function setOrderArray(string $key, $orderArray): self
+	public function setOrderArray(string $key, mixed $orderArray): self
 	{
 		$this->orderArray[$key] = $orderArray;
 		return $this;
@@ -190,10 +187,7 @@ class State {
 		return $this;
 	}
 
-	/**
-	 * @param mixed $val
-	 */
-	public function appendWhereValues($val): self
+	public function appendWhereValues(mixed $val): self
 	{
 		if (is_array($val))
 		{
@@ -212,7 +206,7 @@ class State {
 	/**
 	 * Add an additional set of mapping pairs to a internal map
 	 */
-	public function appendMap(string $conjunction = '', string $string = '', string $type = ''): self
+	public function appendMap(string $conjunction = '', string $string = '', MapType $type = MapType::WHERE): self
 	{
 		$this->queryMap[] = [
 			'type' => $type,

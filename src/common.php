@@ -31,10 +31,8 @@ namespace {
 
 	/**
 	 * Filter out db rows into one array
-	 *
-	 * @param mixed $index
 	 */
-	function dbFilter(array $array, $index): array
+	function dbFilter(array $array, mixed $index): array
 	{
 		$newArray = [];
 

@@ -91,10 +91,10 @@ final class ConnectionManager {
 	/**
 	 * Returns the connection specified by the name given
 	 *
-	 * @param string|array|object $name
+	 * @param string $name
 	 * @throws Exception\NonExistentConnectionException
 	 */
-	public function getConnection($name = ''): QueryBuilderInterface
+	public function getConnection(string $name = ''): QueryBuilderInterface
 	{
 		// If the parameter is a string, use it as an array index
 		if (is_scalar($name) && isset($this->connections[$name]))
@@ -115,9 +115,9 @@ final class ConnectionManager {
 	 * Parse the passed parameters and return a connection
 	 *
 	 * @param array|object $params
-	 * @throws Exception\BadDBDriverException
+	 * @return QueryBuilderInterface
 	 */
-	public function connect($params): QueryBuilderInterface
+	public function connect(array|object $params): QueryBuilderInterface
 	{
 		[$dsn, $dbType, $params, $options] = $this->parseParams($params);
 
@@ -157,9 +157,9 @@ final class ConnectionManager {
 	 *
 	 * @param array|object $rawParams
 	 * @throws Exception\BadDBDriverException
-	 * @return mixed[]
+	 * @return array
 	 */
-	public function parseParams($rawParams): array
+	public function parseParams(array|object $rawParams): array
 	{
 		$params = (object) $rawParams;
 		$params->type = strtolower($params->type);

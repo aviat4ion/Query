@@ -57,29 +57,21 @@ interface SQLInterface {
 
 	/**
 	 * Returns sql to list triggers
-	 *
-	 * @return string
 	 */
 	public function triggerList(): ?string;
 
 	/**
 	 * Return sql to list functions
-	 *
-	 * @return string
 	 */
 	public function functionList(): ?string;
 
 	/**
 	 * Return sql to list stored procedures
-	 *
-	 * @return string
 	 */
 	public function procedureList(): ?string;
 
 	/**
 	 * Return sql to list sequences
-	 *
-	 * @return string
 	 */
 	public function sequenceList(): ?string;
 

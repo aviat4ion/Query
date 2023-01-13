@@ -187,40 +187,32 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	// --------------------------------------------------------------------------
 	/**
 	 * Creates a Like clause in the sql statement
-	 *
-	 * @param mixed $val
 	 */
-	public function like(string $field, $val, string $pos=LikeType::BOTH): self
+	public function like(string $field, mixed $val, LikeType $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos);
 	}
 
 	/**
 	 * Generates an OR Like clause
-	 *
-	 * @param mixed $val
 	 */
-	public function orLike(string $field, $val, string $pos=LikeType::BOTH): self
+	public function orLike(string $field, mixed $val, LikeType $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'LIKE', 'OR');
 	}
 
 	/**
 	 * Generates a NOT LIKE clause
-	 *
-	 * @param mixed $val
 	 */
-	public function notLike(string $field, $val, string $pos=LikeType::BOTH): self
+	public function notLike(string $field, mixed $val, LikeType $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE');
 	}
 
 	/**
 	 * Generates a OR NOT LIKE clause
-	 *
-	 * @param mixed $val
 	 */
-	public function orNotLike(string $field, $val, string $pos=LikeType::BOTH): self
+	public function orNotLike(string $field, mixed $val, LikeType $pos=LikeType::BOTH): self
 	{
 		return $this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
 	}
@@ -230,22 +222,16 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	// --------------------------------------------------------------------------
 	/**
 	 * Generates a 'Having' clause
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
 	 */
-	public function having($key, $val=[]): self
+	public function having(mixed $key, mixed $val=[]): self
 	{
 		return $this->_having($key, $val);
 	}
 
 	/**
 	 * Generates a 'Having' clause prefixed with 'OR'
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
 	 */
-	public function orHaving($key, $val=[]): self
+	public function orHaving(mixed $key, mixed $val=[]): self
 	{
 		return $this->_having($key, $val, 'OR');
 	}
@@ -257,67 +243,48 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	 * Specify condition(s) in the where clause of a query
 	 * Note: this function works with key / value, or a
 	 * passed array with key / value pairs
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
-	 * @param mixed $escape
 	 */
-	public function where($key, $val=[], $escape=NULL): self
+	public function where(mixed $key, mixed $val=[]): self
 	{
 		return $this->_whereString($key, $val);
 	}
 
 	/**
 	 * Where clause prefixed with "OR"
-	 *
-	 * @param string $key
-	 * @param mixed $val
 	 */
-	public function orWhere($key, $val=[]): self
+	public function orWhere(mixed $key, mixed $val=[]): self
 	{
 		return $this->_whereString($key, $val, 'OR');
 	}
 
 	/**
 	 * Where clause with 'IN' statement
-	 *
-	 * @param mixed $field
-	 * @param mixed $val
 	 */
-	public function whereIn($field, $val=[]): self
+	public function whereIn(string $field, mixed $val=[]): self
 	{
 		return $this->_whereIn($field, $val);
 	}
 
 	/**
 	 * Where in statement prefixed with "or"
-	 *
-	 * @param string $field
-	 * @param mixed $val
 	 */
-	public function orWhereIn($field, $val=[]): self
+	public function orWhereIn(string $field, mixed $val=[]): self
 	{
 		return $this->_whereIn($field, $val, 'IN', 'OR');
 	}
 
 	/**
 	 * WHERE NOT IN (FOO) clause
-	 *
-	 * @param string $field
-	 * @param mixed $val
 	 */
-	public function whereNotIn($field, $val=[]): self
+	public function whereNotIn(string $field, mixed $val=[]): self
 	{
 		return $this->_whereIn($field, $val, 'NOT IN');
 	}
 
 	/**
 	 * OR WHERE NOT IN (FOO) clause
-	 *
-	 * @param string $field
-	 * @param mixed $val
 	 */
-	public function orWhereNotIn($field, $val=[]): self
+	public function orWhereNotIn(string $field, mixed $val=[]): self
 	{
 		return $this->_whereIn($field, $val, 'NOT IN', 'OR');
 	}
@@ -327,11 +294,8 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	// --------------------------------------------------------------------------
 	/**
 	 * Sets values for inserts / updates / deletes
-	 *
-	 * @param mixed $key
-	 * @param mixed $val
 	 */
-	public function set($key, $val = NULL): self
+	public function set(mixed $key, mixed $val = NULL): self
 	{
 		$pairs = is_scalar($key) ? [$key => $val] : $key;
 
@@ -359,7 +323,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	/**
 	 * Creates a join phrase in a compiled query
 	 */
-	public function join(string $table, string $condition, string $type=''): self
+	public function join(string $table, string $condition, JoinType $type=JoinType::INNER): self
 	{
 		// Prefix and quote table name
 		$tableArr = explode(' ', mb_trim($table));
@@ -371,17 +335,15 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 		$parsedCondition = $this->parser->compileJoin($condition);
 		$condition = $table . ' ON ' . $parsedCondition;
 
-		$this->state->appendMap("\n" . strtoupper($type) . ' JOIN ', $condition, MapType::JOIN);
+		$this->state->appendMap("\n" . strtoupper($type->value) . ' JOIN ', $condition, MapType::JOIN);
 
 		return $this;
 	}
 
 	/**
 	 * Group the results by the selected field(s)
-	 *
-	 * @param mixed $field
 	 */
-	public function groupBy($field): self
+	public function groupBy(mixed $field): self
 	{
 		if ( ! is_scalar($field))
 		{
@@ -575,10 +537,8 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 
 	/**
 	 * Creates an insert clause, and executes it
-	 *
-	 * @param mixed $data
 	 */
-	public function insert(string $table, $data=[]): PDOStatement
+	public function insert(string $table, mixed $data=[]): PDOStatement
 	{
 		if ( ! empty($data))
 		{
@@ -590,9 +550,6 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 
 	/**
 	 * Creates and executes a batch insertion query
-	 *
-	 * @param array $data
-	 * @return PDOStatement
 	 */
 	public function insertBatch(string $table, $data=[]): ?PDOStatement
 	{
@@ -600,16 +557,14 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 		[$sql, $data] = $this->driver->insertBatch($table, $data);
 
 		return $sql !== NULL
-			? $this->_run('', $table, $sql, $data)
+			? $this->_run(QueryType::INSERT_BATCH, $table, $sql, $data)
 			: NULL;
 	}
 
 	/**
 	 * Creates an update clause, and executes it
-	 *
-	 * @param mixed $data
 	 */
-	public function update(string $table, $data=[]): PDOStatement
+	public function update(string $table, mixed $data=[]): PDOStatement
 	{
 		if ( ! empty($data))
 		{
@@ -633,16 +588,14 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 		// Get the generated values and sql string
 		[$sql, $data, $affectedRows] = $this->driver->updateBatch($table, $data, $where);
 
-		$this->_run('', $table, $sql, $data);
+		$this->_run(QueryType::UPDATE_BATCH, $table, $sql, $data);
 		return $affectedRows;
 	}
 
 	/**
 	 * Deletes data from a table
-	 *
-	 * @param mixed $where
 	 */
-	public function delete(string $table, $where=''): PDOStatement
+	public function delete(string $table, mixed $where=''): PDOStatement
 	{
 		// Set the where clause
 		if ( ! empty($where))

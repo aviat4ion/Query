@@ -39,8 +39,6 @@ class Driver extends AbstractDriver {
 
 	/**
 	 * Get a list of schemas for the current connection
-	 *
-	 * @return array
 	 */
 	public function getSchemas(): ?array
 	{
@@ -55,8 +53,6 @@ SQL;
 
 	/**
 	 * Retrieve foreign keys for the table
-	 *
-	 * @return mixed[]|null
 	 */
 	public function getFks(string $table): array
 	{

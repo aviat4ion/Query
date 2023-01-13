@@ -45,102 +45,73 @@ interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Simplifies prepared statements for database queries
-	 *
-	 * @return PDOStatement|null
-	 * @throws InvalidArgumentException
 	 */
 	public function prepareQuery(string $sql, array $data): PDOStatement;
 
 	/**
 	 * Retrieve column information for the current database table
-	 *
-	 * @return array
 	 */
 	public function getColumns(string $table): ?array;
 
 	/**
 	 * Retrieve list of data types for the database
-	 *
-	 * @return array
 	 */
 	public function getTypes(): ?array;
 
 	/**
 	 * Retrieve indexes for the table
-	 *
-	 * @return array
 	 */
 	public function getIndexes(string $table): ?array;
 
 	/**
 	 * Retrieve foreign keys for the table
-	 *
-	 * @return array
 	 */
 	public function getFks(string $table): ?array;
 
 	/**
 	 * Return list of tables for the current database
-	 *
-	 * @return array
 	 */
 	public function getTables(): ?array;
 
 	/**
 	 * Retrieves an array of non-user-created tables for
 	 * the connection/database
-	 *
-	 * @return array
 	 */
 	public function getSystemTables(): ?array;
 
 	/**
 	 * Return schemas for databases that list them. Returns
 	 * database list if schemas are databases for the current driver.
-	 *
-	 * @return array
 	 */
 	public function getSchemas(): ?array;
 
 	/**
 	 * Return list of dbs for the current connection, if possible
-	 *
-	 * @return array
 	 */
 	public function getDbs(): ?array;
 
 	/**
 	 * Return list of views for the current database
-	 *
-	 * @return array
 	 */
 	public function getViews(): ?array;
 
 	/**
 	 * Return list of sequences for the current database, if they exist
-	 *
-	 * @return array
 	 */
 	public function getSequences(): ?array;
 
 	/**
 	 * Return list of functions for the current database
-	 *
-	 * @return array
 	 */
 	public function getFunctions(): ?array;
 
 	/**
 	 * Return list of stored procedures for the current database
-	 *
-	 * @return array
 	 */
 	public function getProcedures(): ?array;
 
 	/**
 	 * Return list of triggers for the current database
-	 *
-	 * @return array
 	 */
 	public function getTriggers(): ?array;
 
@@ -161,12 +132,8 @@ interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Method to simplify retrieving db results for meta-data queries
-	 *
-	 * @param string|array|null $query
-	 * @param bool $filteredIndex
-	 * @return array
 	 */
-	public function driverQuery($query, $filteredIndex=TRUE): ?array;
+	public function driverQuery(string|array $query, bool $filteredIndex=TRUE): ?array;
 
 	/**
 	 * Returns number of rows affected by an INSERT, UPDATE, DELETE type query
@@ -176,8 +143,6 @@ interface DriverInterface /* extends the interface of PDO */ {
 	/**
 	 * Return the number of rows returned for a SELECT query
 	 * @see http://us3.php.net/manual/en/pdostatement.rowcount.php#87110
-	 *
-	 * @return int
 	 */
 	public function numRows(): ?int;
 
