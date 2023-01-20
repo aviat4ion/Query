@@ -25,7 +25,8 @@ enum JoinType: string {
 	case LEFT = 'left';
 	case RIGHT = 'right';
 
-	public static function parse(string|self $val): self {
+	public static function parse(string|self $val): self
+	{
 		if ($val instanceof self)
 		{
 			return $val;

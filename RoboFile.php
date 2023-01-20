@@ -105,7 +105,7 @@ class RoboFile extends Tasks {
 	 */
 	public function docs(): void
 	{
-		$this->_run(['vendor/bin/phpdox']);
+		$this->_run(['tools/phpdox/vendor/bin/phpdox']);
 	}
 
 	/**
@@ -128,18 +128,18 @@ class RoboFile extends Tasks {
 	 *
 	 * @param bool $report - if true, generates reports instead of direct output
 	 */
-	public function phpcs($report = FALSE): void
+	public function phpcs(bool $report = FALSE): void
 	{
 		$dir = __DIR__;
 
 		$report_cmd_parts = [
-			'vendor/bin/phpcs',
+			'tools/vendor/bin/phpcs',
 			"--standard=./build/CodeIgniter",
 			"--report-checkstyle=./build/logs/phpcs.xml",
 		];
 
 		$normal_cmd_parts = [
-			'vendor/bin/phpcs',
+			'tools/vendor/bin/phpcs',
 			"--standard=./build/CodeIgniter",
 		];
 
@@ -148,10 +148,10 @@ class RoboFile extends Tasks {
 		$this->_run($cmd_parts);
 	}
 
-	public function phpmd($report = FALSE): void
+	public function phpmd(bool $report = FALSE): void
 	{
 		$report_cmd_parts = [
-			'vendor/bin/phpmd',
+			'tools/vendor/bin/phpmd',
 			'./src',
 			'xml',
 			'cleancode,codesize,controversial,design,naming,unusedcode',
@@ -160,7 +160,7 @@ class RoboFile extends Tasks {
 		];
 
 		$normal_cmd_parts = [
-			'vendor/bin/phpmd',
+			'tools/vendor/bin/phpmd',
 			'./src',
 			'ansi',
 			'cleancode,codesize,controversial,design,naming,unusedcode',
@@ -181,7 +181,7 @@ class RoboFile extends Tasks {
 	{
 		// Command for generating reports
 		$report_cmd_parts = [
-			'vendor/bin/phploc',
+			'tools/vendor/bin/phploc',
 			'--count-tests',
 			'--log-csv=build/logs/phploc.csv',
 			'--log-xml=build/logs/phploc.xml',
@@ -191,7 +191,7 @@ class RoboFile extends Tasks {
 
 		// Command for generating direct output
 		$normal_cmd_parts = [
-			'vendor/bin/phploc',
+			'tools/vendor/bin/phploc',
 			'--count-tests',
 			'src',
 			'tests'
@@ -284,7 +284,7 @@ class RoboFile extends Tasks {
 	protected function phpcpdReport(): void
 	{
 		$cmd_parts = [
-			'vendor/bin/phpcpd',
+			'tools/vendor/bin/phpcpd',
 			'--log-pmd build/logs/pmd-cpd.xml',
 			'src'
 		];

@@ -23,7 +23,8 @@ enum LikeType: string {
 	case AFTER = 'after';
 	case BOTH = 'both';
 
-	public static function parse(string|self $val): self {
+	public static function parse(string|self $val): self
+	{
 		if ($val instanceof self)
 		{
 			return $val;

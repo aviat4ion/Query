@@ -32,15 +32,7 @@
 	"ext-pdo": "*"
   },
   "require-dev": {
-	"consolidation/robo": "^2.0.0",
-	"monolog/monolog": "^2.0.1",
-	"phploc/phploc": "^7.0",
-	"phpmd/phpmd": "^2.8",
-	"phpstan/phpstan": "^0.12.2",
-	"phpunit/phpunit": "^9.4",
-	"sebastian/phpcpd": "^6.0",
-	"simpletest/simpletest": "^1.1",
-	"squizlabs/php_codesniffer": "^3.0.0"
+	"phpunit/phpunit": "^9.4"
   },
   "autoload": {
 	"psr-4": {
@@ -56,11 +48,12 @@
 	}
   },
   "scripts": {
-	"build": "robo build",
-	"clean": "robo clean",
+	"build": "tools/vendor/bin/robo build",
+	"clean": "tools/vendor/bin/robo clean",
+	"docs": "php tools/phpDocumentor run --sourcecode",
 	"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build",
 	"pcov": "vendor/bin/phpunit -c build",
-	"phpstan": "phpstan analyse -l 3 -c phpstan.neon src tests",
+	"phpstan": "tools/vendor/bin/phpstan analyse -l 3 -c phpstan.neon src tests",
 	"test": "phpunit -c build --no-coverage"
   },
   "scripts-descriptions": {

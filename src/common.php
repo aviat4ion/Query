@@ -100,7 +100,6 @@ namespace {
 	 * connection created.
 	 */
 	function Query(string|object|array|null $params = ''): ?QueryBuilderInterface
-
 	{
 		if ($params === NULL)
 		{

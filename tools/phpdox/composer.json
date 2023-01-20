@@ -1,0 +1,5 @@
+{
+  "require": {
+	"theseer/phpdox": "^0.12.0"
+  }
+}
