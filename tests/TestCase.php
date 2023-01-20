@@ -7,8 +7,8 @@
  * PHP version 8.1
  *
  * @package     Query
- * @author      Timothy J. Warren <tim@timshomepage.net>
- * @copyright   2012 - 2022 Timothy J. Warren
+ * @author      Timothy J. Warren <tim@timshome.page>
+ * @copyright   2012 - 2023 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0

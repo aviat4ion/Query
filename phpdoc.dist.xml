@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor
+		configVersion="3"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="https://www.phpdoc.org"
+		xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/master/data/xsd/phpdoc.xsd"
+>
+	<paths>
+		<output>apiDocumentation</output>
+		<cache>build/cache</cache>
+	</paths>
+	<version number="4.0.0">
+		<api>
+			<source dsn=".">
+				<path>src</path>
+			</source>
+			<markers>
+				<marker>TODO</marker>
+				<marker>FIXME</marker>
+			</markers>
+			<default-package-name>Query</default-package-name>
+			<visibility>public</visibility>
+			<include-source>true</include-source>
+		</api>
+	</version>
+	<!-- <template name="clean" /> -->
+	<setting name="graphs.enabled" value="true"/>
+	<setting name="guides.enabled" value="true"/>
+</phpdocumentor>

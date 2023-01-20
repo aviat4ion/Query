@@ -10,7 +10,7 @@ A query builder/database abstraction layer, using prepared statements for securi
 
 ## Requirements
 * PDO extensions for the databases you wish to use
-* PHP 7.4 or later
+* PHP 8.1 or later
 
 ## Databases Supported
 
@@ -82,7 +82,7 @@ For specific query builder methods, see the [class documentation](https://gitdev
 
 Other database methods not directly involved in building queries, are also available from the query builder object.
 The methods available depend on the database, but common methods  are documented
-[here](https://gitdev.timshomepage.net/Query/apiDocumentation/classes/Query_Drivers_AbstractDriver.html#methods).
+[here](https://gitdev.timshomepage.net/Query/apiDocumentation/classes/Query-QueryBuilder.html).
 
 #### You can also run queries manually.
 
