@@ -22,4 +22,13 @@ enum LikeType: string {
 	case BEFORE = 'before';
 	case AFTER = 'after';
 	case BOTH = 'both';
+
+	public static function parse(string|self $val): self {
+		if ($val instanceof self)
+		{
+			return $val;
+		}
+
+		return self::from($val);
+	}
 }

@@ -339,6 +339,8 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of functions for the current database
+	 *
+	 * @deprecated Will be removed in next version
 	 */
 	public function getFunctions(): ?array
 	{
@@ -347,6 +349,8 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of stored procedures for the current database
+	 *
+	 * @deprecated Will be removed in next version
 	 */
 	public function getProcedures(): ?array
 	{
@@ -355,6 +359,8 @@ abstract class AbstractDriver
 
 	/**
 	 * Return list of triggers for the current database
+	 *
+	 * @deprecated Will be removed in next version
 	 */
 	public function getTriggers(): ?array
 	{

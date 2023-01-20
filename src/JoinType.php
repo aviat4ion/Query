@@ -24,4 +24,14 @@ enum JoinType: string {
 	case OUTER = 'outer';
 	case LEFT = 'left';
 	case RIGHT = 'right';
+
+	public static function parse(string|self $val): self {
+		if ($val instanceof self)
+		{
+			return $val;
+		}
+
+		return self::from($val);
+	}
 }
+

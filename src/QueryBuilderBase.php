@@ -33,15 +33,12 @@ use Query\Drivers\DriverInterface;
  * @method getColumns(string $table): array | null
  * @method getDbs(): array | null
  * @method getFks(string $table): array | null
- * @method getFunctions(): array | null
  * @method getIndexes(string $table): array | null
  * @method getLastQuery(): string
- * @method getProcedures(): array | null
  * @method getSchemas(): array | null
  * @method getSequences(): array | null
  * @method getSystemTables(): array | null
  * @method getTables(): array
- * @method getTriggers(): array | null
  * @method getTypes(): array | null
  * @method getUtil(): \Query\Drivers\AbstractUtil
  * @method getVersion(): string
@@ -284,10 +281,12 @@ class QueryBuilderBase {
 			if (empty($queryMap) || ( ! regexInArray($conjunctionList, "/^ ?\n?WHERE/i")))
 			{
 				$conj = "\nWHERE ";
-			} elseif ($lastItem['type'] === 'group_start')
+			}
+			elseif ($lastItem['type'] === MapType::GROUP_START)
 			{
 				$conj = '';
-			} else
+			}
+			else
 			{
 				$conj = " {$defaultConj} ";
 			}

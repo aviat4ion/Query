@@ -64,8 +64,6 @@ class Driver extends AbstractDriver {
 
 	/**
 	 * Retrieve foreign keys for the table
-	 *
-	 * @return array<int, array{child_column: mixed, parent_table: mixed, parent_column: mixed, update: mixed, delete: mixed}>
 	 */
 	public function getFks(string $table): array
 	{

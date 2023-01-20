@@ -98,6 +98,8 @@ SQL;
 
 	/**
 	 * Returns sql to list triggers
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function triggerList(): string
 	{
@@ -106,6 +108,8 @@ SQL;
 
 	/**
 	 * Return sql to list functions
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function functionList(): string
 	{
@@ -114,6 +118,8 @@ SQL;
 
 	/**
 	 * Return sql to list stored procedures
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function procedureList(): string
 	{

@@ -201,6 +201,16 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
+	public function testSelectTableGet(): void
+	{
+		$query = self::$db->select('id, key as k, val')
+			->table('test ct')
+			->where('id >', 1)
+			->get();
+
+		$this->assertIsA($query, 'PDOStatement');
+	}
+
 	public function testSelectFromLimitGet(): void
 	{
 		$query = self::$db->select('id, key as k, val')

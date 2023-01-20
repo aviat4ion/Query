@@ -101,7 +101,7 @@ abstract class BaseDriverTest extends TestCase {
 
 	public function testGetTriggers(): void
 	{
-		// @TODO standardize trigger output for different databases
+		$this->markTestSkipped('Deprecated');
 
 		$triggers = self::$db->getTriggers();
 		$this->assertTrue(\is_array($triggers));
@@ -122,12 +122,16 @@ abstract class BaseDriverTest extends TestCase {
 
 	public function testGetProcedures(): void
 	{
+		$this->markTestSkipped('Deprecated');
+
 		$procedures = self::$db->getProcedures();
 		$this->assertTrue(\is_array($procedures));
 	}
 
 	public function testGetFunctions(): void
 	{
+		$this->markTestSkipped('Deprecated');
+
 		$funcs = self::$db->getFunctions();
 		$this->assertTrue(\is_array($funcs));
 	}

@@ -127,28 +127,28 @@ interface QueryBuilderInterface {
 	 *
 	 * @param mixed $values
 	 */
-	public function like(string $field, mixed $values, LikeType $pos=LikeType::BOTH): self;
+	public function like(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates an OR Like clause
 	 *
 	 * @param mixed $values
 	 */
-	public function orLike(string $field, mixed $values, LikeType $pos=LikeType::BOTH): self;
+	public function orLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a NOT LIKE clause
 	 *
 	 * @param mixed $values
 	 */
-	public function notLike(string $field, mixed $values, LikeType $pos=LikeType::BOTH): self;
+	public function notLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a OR NOT LIKE clause
 	 *
 	 * @param mixed $values
 	 */
-	public function orNotLike(string $field, mixed $values, LikeType $pos=LikeType::BOTH): self;
+	public function orNotLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self;
 
 	// --------------------------------------------------------------------------
 	// ! Having methods
@@ -236,7 +236,7 @@ interface QueryBuilderInterface {
 	/**
 	 * Creates a join phrase in a compiled query
 	 */
-	public function join(string $table, string $condition, JoinType $type=JoinType::INNER): self;
+	public function join(string $table, string $condition, JoinType|string $type=JoinType::INNER): self;
 
 	/**
 	 * Group the results by the selected field(s)

@@ -102,16 +102,22 @@ interface DriverInterface /* extends the interface of PDO */ {
 
 	/**
 	 * Return list of functions for the current database
+	 *
+	 * @deprecated Will be removed in next version
 	 */
 	public function getFunctions(): ?array;
 
 	/**
 	 * Return list of stored procedures for the current database
+	 *
+	 * @deprecated Will be removed in next version
 	 */
 	public function getProcedures(): ?array;
 
 	/**
 	 * Return list of triggers for the current database
+	 *
+	 * @deprecated Will be removed in next version
 	 */
 	public function getTriggers(): ?array;
 

@@ -188,33 +188,33 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	/**
 	 * Creates a Like clause in the sql statement
 	 */
-	public function like(string $field, mixed $val, LikeType $pos=LikeType::BOTH): self
+	public function like(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self
 	{
-		return $this->_like($field, $val, $pos);
+		return $this->_like($field, $values, LikeType::parse($pos));
 	}
 
 	/**
 	 * Generates an OR Like clause
 	 */
-	public function orLike(string $field, mixed $val, LikeType $pos=LikeType::BOTH): self
+	public function orLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self
 	{
-		return $this->_like($field, $val, $pos, 'LIKE', 'OR');
+		return $this->_like($field, $values, LikeType::parse($pos), 'LIKE', 'OR');
 	}
 
 	/**
 	 * Generates a NOT LIKE clause
 	 */
-	public function notLike(string $field, mixed $val, LikeType $pos=LikeType::BOTH): self
+	public function notLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self
 	{
-		return $this->_like($field, $val, $pos, 'NOT LIKE');
+		return $this->_like($field, $values, LikeType::parse($pos), 'NOT LIKE');
 	}
 
 	/**
 	 * Generates a OR NOT LIKE clause
 	 */
-	public function orNotLike(string $field, mixed $val, LikeType $pos=LikeType::BOTH): self
+	public function orNotLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self
 	{
-		return $this->_like($field, $val, $pos, 'NOT LIKE', 'OR');
+		return $this->_like($field, $values, LikeType::parse($pos), 'NOT LIKE', 'OR');
 	}
 
 	// --------------------------------------------------------------------------
@@ -223,17 +223,17 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	/**
 	 * Generates a 'Having' clause
 	 */
-	public function having(mixed $key, mixed $val=[]): self
+	public function having(mixed $key, mixed $values=[]): self
 	{
-		return $this->_having($key, $val);
+		return $this->_having($key, $values);
 	}
 
 	/**
 	 * Generates a 'Having' clause prefixed with 'OR'
 	 */
-	public function orHaving(mixed $key, mixed $val=[]): self
+	public function orHaving(mixed $key, mixed $values=[]): self
 	{
-		return $this->_having($key, $val, 'OR');
+		return $this->_having($key, $values, 'OR');
 	}
 
 	// --------------------------------------------------------------------------
@@ -244,17 +244,17 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	 * Note: this function works with key / value, or a
 	 * passed array with key / value pairs
 	 */
-	public function where(mixed $key, mixed $val=[]): self
+	public function where(mixed $key, mixed $values=[]): self
 	{
-		return $this->_whereString($key, $val);
+		return $this->_whereString($key, $values);
 	}
 
 	/**
 	 * Where clause prefixed with "OR"
 	 */
-	public function orWhere(mixed $key, mixed $val=[]): self
+	public function orWhere(mixed $key, mixed $values=[]): self
 	{
-		return $this->_whereString($key, $val, 'OR');
+		return $this->_whereString($key, $values, 'OR');
 	}
 
 	/**
@@ -323,7 +323,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	/**
 	 * Creates a join phrase in a compiled query
 	 */
-	public function join(string $table, string $condition, JoinType $type=JoinType::INNER): self
+	public function join(string $table, string $condition, JoinType|string $type=JoinType::INNER): self
 	{
 		// Prefix and quote table name
 		$tableArr = explode(' ', mb_trim($table));
@@ -335,7 +335,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 		$parsedCondition = $this->parser->compileJoin($condition);
 		$condition = $table . ' ON ' . $parsedCondition;
 
-		$this->state->appendMap("\n" . strtoupper($type->value) . ' JOIN ', $condition, MapType::JOIN);
+		$this->state->appendMap("\n" . strtoupper(JoinType::parse($type)->value) . ' JOIN ', $condition, MapType::JOIN);
 
 		return $this;
 	}
@@ -490,7 +490,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 			$this->limit($limit, $offset);
 		}
 
-		return $this->_run('get', $table);
+		return $this->_run(QueryType::SELECT, $table);
 	}
 
 	/**
