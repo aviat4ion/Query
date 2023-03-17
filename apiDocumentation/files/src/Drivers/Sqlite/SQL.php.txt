@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Sqlite;
 
 use Query\Drivers\AbstractSQL;
@@ -21,8 +22,8 @@ use Query\Exception\NotImplementedException;
 /**
  * SQLite Specific SQL
  */
-class SQL extends AbstractSQL {
-
+class SQL extends AbstractSQL
+{
 	/**
 	 * Get the query plan for the sql query
 	 */
@@ -53,7 +54,7 @@ class SQL extends AbstractSQL {
 	 */
 	public function tableList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
             SELECT "name" FROM (
 				SELECT * FROM "sqlite_master" UNION ALL
 				SELECT * FROM "sqlite_temp_master"
@@ -74,7 +75,7 @@ SQL;
 		return [
 			'sqlite_master',
 			'sqlite_temp_master',
-			'sqlite_sequence'
+			'sqlite_sequence',
 		];
 	}
 
@@ -83,7 +84,7 @@ SQL;
 	 */
 	public function viewList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT "name" FROM "sqlite_master" WHERE "type" = 'view'
 SQL;
 	}
@@ -93,7 +94,7 @@ SQL;
 	 */
 	public function triggerList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT "name" FROM "sqlite_master" WHERE "type"='trigger'
 SQL;
 	}
@@ -156,7 +157,6 @@ SQL;
 			PRAGMA foreign_key_list("{$table}")
 SQL;
 	}
-
 
 	/**
 	 * Get the list of indexes for the current table

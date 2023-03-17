@@ -13,13 +13,14 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers;
 
 /**
  * Parent for database-specific syntax subclasses
  */
-abstract class AbstractSQL implements SQLInterface {
-
+abstract class AbstractSQL implements SQLInterface
+{
 	/**
 	 * Limit clause
 	 */

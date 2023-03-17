@@ -13,13 +13,16 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers;
+
+use function arrayZipper;
 
 /**
  * Abstract class defining database / table creation methods
  */
-abstract class AbstractUtil {
-
+abstract class AbstractUtil
+{
 	/**
 	 * Save a reference to the connection object for later use
 	 */
@@ -48,14 +51,15 @@ abstract class AbstractUtil {
 		// 		'constraint' => ...,
 		// 		'index' => ...,
 		// ]
-		$columnArray = \arrayZipper([
+		$columnArray = arrayZipper([
 			'type' => $fields,
-			'constraint' => $constraints
+			'constraint' => $constraints,
 		]);
 
 		// Join column definitions together
 		$columns = [];
-		foreach($columnArray as $n => $props)
+
+		foreach ($columnArray as $n => $props)
 		{
 			$str = $this->getDriver()->quoteIdent($n);
 			$str .= isset($props['type']) ? " {$props['type']}" : '';
@@ -65,7 +69,7 @@ abstract class AbstractUtil {
 		}
 
 		// Generate the sql for the creation of the table
-		$sql = 'CREATE TABLE'.$existsStr.$this->getDriver()->quoteTable($name).' (';
+		$sql = 'CREATE TABLE' . $existsStr . $this->getDriver()->quoteTable($name) . ' (';
 		$sql .= implode(', ', $columns);
 		$sql .= ')';
 
@@ -77,7 +81,7 @@ abstract class AbstractUtil {
 	 */
 	public function deleteTable(string $name): string
 	{
-		return 'DROP TABLE IF EXISTS '.$this->getDriver()->quoteTable($name);
+		return 'DROP TABLE IF EXISTS ' . $this->getDriver()->quoteTable($name);
 	}
 
 	// --------------------------------------------------------------------------
@@ -85,16 +89,11 @@ abstract class AbstractUtil {
 	// --------------------------------------------------------------------------
 	/**
 	 * Return an SQL file with the database table structure
-	 *
-	 * @abstract
 	 */
 	abstract public function backupStructure(): string;
 
 	/**
 	 * Return an SQL file with the database data as insert statements
-	 *
-	 * @abstract
 	 */
 	abstract public function backupData(): string;
-
 }

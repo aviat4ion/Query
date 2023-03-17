@@ -13,12 +13,14 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
 /**
  * Enum of query map types
  */
-enum MapType: string {
+enum MapType: string
+{
 	case GROUP_END = 'group_end';
 	case GROUP_START = 'group_start';
 	case JOIN = 'join';

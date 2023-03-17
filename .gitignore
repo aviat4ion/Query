@@ -148,3 +148,6 @@ docs/phpdoc*
 .project
 all_tests
 build/.phpunit.result.cache
+.phpunit.cache
+.php-cs-fixer.cache
+tools/phpDocumentor

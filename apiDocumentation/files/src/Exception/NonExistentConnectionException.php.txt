@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Exception;
 
 use InvalidArgumentException;
@@ -20,5 +21,6 @@ use InvalidArgumentException;
 /**
  * Exception for missing database connection
  */
-class NonExistentConnectionException extends InvalidArgumentException {
+class NonExistentConnectionException extends InvalidArgumentException
+{
 }

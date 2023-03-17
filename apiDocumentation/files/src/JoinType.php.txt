@@ -13,19 +13,22 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
 /**
  * Enum of join types
  */
-enum JoinType: string {
+enum JoinType: string
+{
 	case CROSS = 'cross';
 	case INNER = 'inner';
 	case OUTER = 'outer';
 	case LEFT = 'left';
 	case RIGHT = 'right';
 
-	public static function parse(string|self $val): self {
+	public static function parse(string|self $val): self
+	{
 		if ($val instanceof self)
 		{
 			return $val;
@@ -34,4 +37,3 @@ enum JoinType: string {
 		return self::from($val);
 	}
 }
-

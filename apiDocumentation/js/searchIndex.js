@@ -1218,12 +1218,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Query\\QueryBuilderBase\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructor",
+            "summary": "",
             "url": "classes/Query-QueryBuilderBase.html#method___construct"
         },                {
             "fqsen": "\\Query\\QueryBuilderBase\u003A\u003A__destruct\u0028\u0029",
             "name": "__destruct",
-            "summary": "Destructor",
+            "summary": "",
             "url": "classes/Query-QueryBuilderBase.html#method___destruct"
         },                {
             "fqsen": "\\Query\\QueryBuilderBase\u003A\u003A__call\u0028\u0029",

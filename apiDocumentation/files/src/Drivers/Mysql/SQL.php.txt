@@ -13,15 +13,17 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Mysql;
 
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use Query\Drivers\AbstractSQL;
 
 /**
  * MySQL specific SQL
  */
-class SQL extends AbstractSQL {
-
+class SQL extends AbstractSQL
+{
 	/**
 	 * Limit clause
 	 */
@@ -29,10 +31,10 @@ class SQL extends AbstractSQL {
 	{
 		if ( ! is_numeric($offset))
 		{
-			return $sql." LIMIT {$limit}";
+			return $sql . " LIMIT {$limit}";
 		}
 
-		return $sql." LIMIT {$offset}, {$limit}";
+		return $sql . " LIMIT {$offset}, {$limit}";
 	}
 
 	/**
@@ -56,10 +58,9 @@ class SQL extends AbstractSQL {
 	 */
 	public function dbList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')
 SQL;
-
 	}
 
 	/**
@@ -82,7 +83,7 @@ SQL;
 	 */
 	public function systemTableList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
 			WHERE `TABLE_SCHEMA`='information_schema'
 SQL;
@@ -98,9 +99,8 @@ SQL;
 
 	/**
 	 * Returns sql to list triggers
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	public function triggerList(): string
 	{
 		return 'SHOW TRIGGERS';
@@ -108,9 +108,8 @@ SQL;
 
 	/**
 	 * Return sql to list functions
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	public function functionList(): string
 	{
 		return 'SHOW FUNCTION STATUS';
@@ -118,9 +117,8 @@ SQL;
 
 	/**
 	 * Return sql to list stored procedures
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	public function procedureList(): string
 	{
 		return 'SHOW PROCEDURE STATUS';

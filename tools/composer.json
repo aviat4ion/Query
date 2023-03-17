@@ -1,10 +1,9 @@
 {
   "require": {
 	"consolidation/robo": "^4.0.0",
-	"phploc/phploc": "^7.0",
 	"phpmd/phpmd": "^2.8",
 	"phpstan/phpstan": "^1.9.14",
-	"sebastian/phpcpd": "^6.0",
-	"squizlabs/php_codesniffer": "^3.0.0"
+	"friendsofphp/php-cs-fixer": "^3.6",
+	"rector/rector": "^0.15.21"
   }
 }

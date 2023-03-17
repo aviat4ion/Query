@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
 use function is_array;
@@ -20,32 +21,33 @@ use function is_array;
 /**
  * Query builder state
  *
- * @method getSelectString(): string
  * @method getFromString(): string
- * @method getSetString(): string
- * @method getOrderString(): string
- * @method getGroupString(): string
- * @method getSetArrayKeys(): array
- * @method getOrderArray(): array
  * @method getGroupArray(): array
- * @method getValues(): array
- * @method getWhereValues(): array
+ * @method getGroupString(): string
+ * @method getHavingMap(): array
  * @method getLimit(): int|null
  * @method getOffset()
+ * @method getOrderArray(): array
+ * @method getOrderString(): string
  * @method getQueryMap(): array
- * @method getHavingMap(): array
+ * @method getSelectString(): string
+ * @method getSetArrayKeys(): array
+ * @method getSetString(): string
+ * @method getValues(): array
+ * @method getWhereValues(): array
  *
- * @method setSelectString(string $selectString): self
  * @method setFromString(string $fromString): self
- * @method setSetString(string $setString): self
- * @method setOrderString(string $orderString): self
- * @method setGroupString(string $groupString): self
- * @method setSetArrayKeys(array $arrayKeys): self
  * @method setGroupArray(array $array): self
+ * @method setGroupString(string $groupString): self
  * @method setLimit(int $limit): self
  * @method setOffset(?int $offset): self
+ * @method setOrderString(string $orderString): self
+ * @method setSelectString(string $selectString): self
+ * @method setSetArrayKeys(array $arrayKeys): self
+ * @method setSetString(string $setString): self
  */
-class State {
+class State
+{
 	// --------------------------------------------------------------------------
 	// ! SQL Clause Strings
 	// --------------------------------------------------------------------------
@@ -150,6 +152,7 @@ class State {
 			if (isset($this->$maybeProp))
 			{
 				$this->$maybeProp = $arguments[0];
+
 				return $this;
 			}
 		}
@@ -160,30 +163,35 @@ class State {
 	public function appendSelectString(string $str): self
 	{
 		$this->selectString .= $str;
+
 		return $this;
 	}
 
 	public function appendSetArrayKeys(array $setArrayKeys): self
 	{
 		$this->setArrayKeys = array_merge($this->setArrayKeys, $setArrayKeys);
+
 		return $this;
 	}
 
 	public function setOrderArray(string $key, mixed $orderArray): self
 	{
 		$this->orderArray[$key] = $orderArray;
+
 		return $this;
 	}
 
 	public function appendGroupArray(string $groupArray): self
 	{
 		$this->groupArray[] = $groupArray;
+
 		return $this;
 	}
 
 	public function appendValues(array $values): self
 	{
 		$this->values = array_merge($this->values, $values);
+
 		return $this;
 	}
 
@@ -191,7 +199,7 @@ class State {
 	{
 		if (is_array($val))
 		{
-			foreach($val as $v)
+			foreach ($val as $v)
 			{
 				$this->whereValues[] = $v;
 			}
@@ -200,6 +208,7 @@ class State {
 		}
 
 		$this->whereValues[] = $val;
+
 		return $this;
 	}
 
@@ -211,14 +220,16 @@ class State {
 		$this->queryMap[] = [
 			'type' => $type,
 			'conjunction' => $conjunction,
-			'string' => $string
+			'string' => $string,
 		];
+
 		return $this;
 	}
 
 	public function appendHavingMap(array $item): self
 	{
 		$this->havingMap[] = $item;
+
 		return $this;
 	}
 }

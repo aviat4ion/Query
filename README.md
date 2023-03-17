@@ -2,8 +2,6 @@
 
 A query builder/database abstraction layer, using prepared statements for security.
 
-[![Code Coverage](https://scrutinizer-ci.com/g/aviat4ion/Query/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/aviat4ion/Query/?branch=develop)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aviat4ion/Query/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/aviat4ion/Query/?branch=develop)
 [![Latest Stable Version](https://poser.pugx.org/aviat/query/v/stable.png)](https://packagist.org/packages/aviat/query)
 [![Total Downloads](https://poser.pugx.org/aviat/query/downloads.png)](https://packagist.org/packages/aviat/query)
 [![Latest Unstable Version](https://poser.pugx.org/aviat/query/v/unstable.png)](https://packagist.org/packages/aviat/query)

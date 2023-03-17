@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Mysql;
 
 use PDO;
@@ -21,8 +22,8 @@ use Query\Drivers\AbstractUtil;
 /**
  * MySQL-specific backup, import and creation methods
  */
-class Util extends AbstractUtil {
-
+class Util extends AbstractUtil
+{
 	/**
 	 * Create an SQL backup file for the current database's structure
 	 */
@@ -34,7 +35,7 @@ class Util extends AbstractUtil {
 		$driver = $this->getDriver();
 		$dbs = $driver->getDbs();
 
-		foreach($dbs as &$d)
+		foreach ($dbs as &$d)
 		{
 			// Skip built-in dbs
 			// @codeCoverageIgnoreStart
@@ -47,7 +48,7 @@ class Util extends AbstractUtil {
 			// Get the list of tables
 			$tables = $driver->driverQuery("SHOW TABLES FROM `{$d}`", TRUE);
 
-			foreach($tables as $table)
+			foreach ($tables as $table)
 			{
 				$array = $driver->driverQuery("SHOW CREATE TABLE `{$d}`.`{$table}`", FALSE);
 				$row = current($array);
@@ -56,7 +57,6 @@ class Util extends AbstractUtil {
 				{
 					continue;
 				}
-
 
 				$string[] = $row['Create Table'];
 			}
@@ -74,7 +74,7 @@ class Util extends AbstractUtil {
 		$tables = $driver->getTables();
 
 		// Filter out the tables you don't want
-		if( ! empty($exclude))
+		if ( ! empty($exclude))
 		{
 			$tables = array_diff($tables, $exclude);
 		}
@@ -82,7 +82,7 @@ class Util extends AbstractUtil {
 		$outputSql = '';
 
 		// Select the rows from each Table
-		foreach($tables as $t)
+		foreach ($tables as $t)
 		{
 			$sql = "SELECT * FROM `{$t}`";
 			$res = $driver->query($sql);
@@ -100,22 +100,22 @@ class Util extends AbstractUtil {
 			$insertRows = [];
 
 			// Create the insert statements
-			foreach($rows as $row)
+			foreach ($rows as $row)
 			{
 				$row = array_values($row);
 
 				// Quote strings
-				$row = array_map(fn ($r) => is_string($r) ? $driver->quote($r) : $r, $row);
+				$row = array_map(static fn ($r) => is_string($r) ? $driver->quote($r) : $r, $row);
 				$row = array_map('trim', $row);
 
-				$rowString = 'INSERT INTO `'.trim($t).'` (`'.implode('`,`', $columns).'`) VALUES ('.implode(',', $row).');';
+				$rowString = 'INSERT INTO `' . trim((string) $t) . '` (`' . implode('`,`', $columns) . '`) VALUES (' . implode(',', $row) . ');';
 
 				$row = NULL;
 
 				$insertRows[] = $rowString;
 			}
 
-			$outputSql .= "\n\n".implode("\n", $insertRows)."\n";
+			$outputSql .= "\n\n" . implode("\n", $insertRows) . "\n";
 		}
 
 		return $outputSql;

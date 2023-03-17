@@ -48,8 +48,6 @@
 	}
   },
   "scripts": {
-	"build": "tools/vendor/bin/robo build",
-	"clean": "tools/vendor/bin/robo clean",
 	"docs": "php tools/phpDocumentor run --sourcecode",
 	"coverage": "php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude=\"~vendor~\" ./vendor/bin/phpunit -c build",
 	"pcov": "vendor/bin/phpunit -c build",
