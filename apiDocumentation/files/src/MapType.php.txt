@@ -11,7 +11,7 @@
  * @copyright   2012 - 2023 Timothy J. Warren
  * @license     http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link        https://git.timshomepage.net/aviat/Query
- * @version     4.0.0
+ * @version     4.1.0
  */
 
 namespace Query;
