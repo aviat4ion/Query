@@ -13,14 +13,16 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
-use function regexInArray;
-
 use BadMethodCallException;
+
 use PDO;
 use PDOStatement;
 use Query\Drivers\DriverInterface;
+use function is_string;
+use function regexInArray;
 
 /**
  * @method affectedRows(): int
@@ -56,8 +58,8 @@ use Query\Drivers\DriverInterface;
  * @method setTablePrefix(string $prefix): void
  * @method truncate(string $table): PDOStatement
  */
-class QueryBuilderBase {
-
+class QueryBuilderBase
+{
 	/**
 	 * Convenience property for connection management
 	 */
@@ -67,7 +69,7 @@ class QueryBuilderBase {
 	 * List of queries executed
 	 */
 	public array $queries = [
-		'total_time' => 0
+		'total_time' => 0,
 	];
 
 	/**
@@ -110,8 +112,8 @@ class QueryBuilderBase {
 	 * Calls a function further down the inheritance chain.
 	 * 'Implements' methods on the driver object
 	 *
-	 * @return mixed
 	 * @throws BadMethodCallException
+	 * @return mixed
 	 */
 	public function __call(string $name, array $params)
 	{
@@ -141,7 +143,7 @@ class QueryBuilderBase {
 		// Escape the identifiers
 		$field = $this->driver->quoteIdent($field);
 
-		if ( ! \is_string($as))
+		if ( ! is_string($as))
 		{
 			// @codeCoverageIgnoreStart
 			return $field;
@@ -149,6 +151,7 @@ class QueryBuilderBase {
 		}
 
 		$as = $this->driver->quoteIdent($as);
+
 		return "({$field}) AS {$as} ";
 	}
 
@@ -224,7 +227,7 @@ class QueryBuilderBase {
 				'conjunction' => empty($this->state->getHavingMap())
 					? ' HAVING '
 					: " {$conj} ",
-				'string' => $item
+				'string' => $item,
 			]);
 		}
 
@@ -242,7 +245,8 @@ class QueryBuilderBase {
 		if (is_scalar($key))
 		{
 			$pairs[$key] = $val;
-		} else
+		}
+		else
 		{
 			$pairs = $key;
 		}
@@ -300,8 +304,6 @@ class QueryBuilderBase {
 	/**
 	 * Simplify where_in methods
 	 *
-	 * @param mixed $key
-	 * @param mixed $val
 	 * @param string $in - The (not) in fragment
 	 * @param string $conj - The where in conjunction
 	 */
@@ -321,10 +323,8 @@ class QueryBuilderBase {
 
 	/**
 	 * Executes the compiled query
-	 *
-	 * @param array|null $vals
 	 */
-	protected function _run(QueryType $type, string $table, string $sql = NULL, array $vals = NULL, bool $reset = TRUE): PDOStatement
+	protected function _run(QueryType $type, string $table, ?string $sql = NULL, ?array $vals = NULL, bool $reset = TRUE): PDOStatement
 	{
 		if ($sql === NULL)
 		{
@@ -346,7 +346,7 @@ class QueryBuilderBase {
 		$totalTime = number_format($endTime - $startTime, 5);
 
 		// Add this query to the list of executed queries
-		$this->_appendQuery($vals, $sql, (int)$totalTime);
+		$this->_appendQuery($vals, $sql, (int) $totalTime);
 
 		// Reset class state for next query
 		if ($reset)
@@ -368,7 +368,7 @@ class QueryBuilderBase {
 		// Quote string values
 		foreach ($evals as &$v)
 		{
-			$v = ( is_numeric($v))
+			$v = (is_numeric($v))
 				? $v
 				: htmlentities($this->driver->quote($v), ENT_NOQUOTES, 'utf-8');
 		}
@@ -381,7 +381,7 @@ class QueryBuilderBase {
 		// Add the interpreted query to the list of executed queries
 		$this->queries[] = [
 			'time' => $totalTime,
-			'sql' => sprintf(...$evals)
+			'sql' => sprintf(...$evals),
 		];
 
 		$this->queries['total_time'] += $totalTime;
@@ -398,6 +398,7 @@ class QueryBuilderBase {
 	protected function _compileType(QueryType $type = QueryType::SELECT, string $table = ''): string
 	{
 		$setArrayKeys = $this->state->getSetArrayKeys();
+
 		switch ($type)
 		{
 			case QueryType::INSERT:
@@ -454,7 +455,7 @@ class QueryBuilderBase {
 		// Set each type of subclause
 		foreach ($clauses as $clause)
 		{
-			$func = 'get' . ucFirst($clause);
+			$func = 'get' . ucfirst($clause);
 			$param = $this->state->$func();
 			if (is_array($param))
 			{
@@ -462,7 +463,8 @@ class QueryBuilderBase {
 				{
 					$sql .= $q['conjunction'] . $q['string'];
 				}
-			} else
+			}
+			else
 			{
 				$sql .= $param;
 			}

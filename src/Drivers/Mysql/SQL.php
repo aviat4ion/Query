@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Mysql;
 
 use Query\Drivers\AbstractSQL;
@@ -20,8 +21,8 @@ use Query\Drivers\AbstractSQL;
 /**
  * MySQL specific SQL
  */
-class SQL extends AbstractSQL {
-
+class SQL extends AbstractSQL
+{
 	/**
 	 * Limit clause
 	 */
@@ -29,10 +30,10 @@ class SQL extends AbstractSQL {
 	{
 		if ( ! is_numeric($offset))
 		{
-			return $sql." LIMIT {$limit}";
+			return $sql . " LIMIT {$limit}";
 		}
 
-		return $sql." LIMIT {$offset}, {$limit}";
+		return $sql . " LIMIT {$offset}, {$limit}";
 	}
 
 	/**
@@ -56,10 +57,9 @@ class SQL extends AbstractSQL {
 	 */
 	public function dbList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SHOW DATABASES WHERE `Database` NOT IN ('information_schema','mysql')
 SQL;
-
 	}
 
 	/**
@@ -82,7 +82,7 @@ SQL;
 	 */
 	public function systemTableList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT `TABLE_NAME` FROM `information_schema`.`TABLES`
 			WHERE `TABLE_SCHEMA`='information_schema'
 SQL;

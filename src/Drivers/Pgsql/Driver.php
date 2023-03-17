@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Pgsql;
 
 use Query\Drivers\AbstractDriver;
@@ -20,18 +21,18 @@ use Query\Drivers\AbstractDriver;
 /**
  * PostgreSQL specific class
  */
-class Driver extends AbstractDriver {
-
+class Driver extends AbstractDriver
+{
 	/**
 	 * Connect to a PosgreSQL database
 	 *
 	 * @codeCoverageIgnore
 	 */
-	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $options=[])
+	public function __construct(string $dsn, ?string $username=NULL, ?string $password=NULL, array $options=[])
 	{
 		if ( ! str_contains($dsn, 'pgsql'))
 		{
-			$dsn = 'pgsql:'.$dsn;
+			$dsn = 'pgsql:' . $dsn;
 		}
 
 		parent::__construct($dsn, $username, $password, $options);
@@ -63,9 +64,9 @@ SQL;
 
 		$keys = parent::getFks($table);
 
-		foreach($keys as &$key)
+		foreach ($keys as &$key)
 		{
-			foreach(['update', 'delete'] AS $type)
+			foreach (['update', 'delete'] as $type)
 			{
 				if ( ! isset($valueMap[$key[$type]]))
 				{

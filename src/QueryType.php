@@ -13,12 +13,14 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
 /**
  * Enum of query types
  */
-enum QueryType: string {
+enum QueryType: string
+{
 	case SELECT = 'select';
 	case INSERT = 'insert';
 	case INSERT_BATCH = 'insert_batch';

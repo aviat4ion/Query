@@ -13,9 +13,9 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers;
 
-use InvalidArgumentException;
 use PDO;
 use PDOStatement;
 
@@ -36,12 +36,12 @@ use PDOStatement;
  * @method rollback(): bool
  * @method setAttribute(int $attribute, $value): bool
  */
-interface DriverInterface /* extends the interface of PDO */ {
-
+interface DriverInterface // extends the interface of PDO
+{
 	/**
 	 * Constructor/Connection method
 	 */
-	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $driverOptions = []);
+	public function __construct(string $dsn, ?string $username=NULL, ?string $password=NULL, array $driverOptions = []);
 
 	/**
 	 * Simplifies prepared statements for database queries

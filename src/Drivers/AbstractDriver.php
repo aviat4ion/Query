@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers;
 
 use InvalidArgumentException;
@@ -29,10 +30,8 @@ use function is_string;
  *
  * Extends PDO to simplify cross-database issues
  */
-abstract class AbstractDriver
-	extends PDO
-	implements DriverInterface {
-
+abstract class AbstractDriver extends PDO implements DriverInterface
+{
 	/**
 	 * Reference to the last executed query
 	 */
@@ -76,30 +75,13 @@ abstract class AbstractDriver
 	/**
 	 * PDO constructor wrapper
 	 */
-	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $driverOptions=[])
+	public function __construct(string $dsn, ?string $username=NULL, ?string $password=NULL, array $driverOptions=[])
 	{
 		// Set PDO to display errors as exceptions, and apply driver options
 		$driverOptions[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 		parent::__construct($dsn, $username, $password, $driverOptions);
 
 		$this->_loadSubClasses();
-	}
-
-	/**
-	 * Loads the subclasses for the driver
-	 */
-	protected function _loadSubClasses(): void
-	{
-		// Load the sql and util class for the driver
-		$thisClass = $this::class;
-		$nsArray = explode("\\", $thisClass);
-		array_pop($nsArray);
-		$driver = array_pop($nsArray);
-		$sqlClass = __NAMESPACE__ . "\\{$driver}\\SQL";
-		$utilClass = __NAMESPACE__ . "\\{$driver}\\Util";
-
-		$this->driverSQL = new $sqlClass();
-		$this->util = new $utilClass($this);
 	}
 
 	/**
@@ -114,12 +96,28 @@ abstract class AbstractDriver
 			isset($this->$name)
 			&& is_object($this->$name)
 			&& method_exists($this->$name, '__invoke')
-		)
-		{
+		) {
 			return call_user_func_array([$this->$name, '__invoke'], $args);
 		}
 
 		return NULL;
+	}
+
+	/**
+	 * Loads the subclasses for the driver
+	 */
+	protected function _loadSubClasses(): void
+	{
+		// Load the sql and util class for the driver
+		$thisClass = $this::class;
+		$nsArray = explode('\\', $thisClass);
+		array_pop($nsArray);
+		$driver = array_pop($nsArray);
+		$sqlClass = __NAMESPACE__ . "\\{$driver}\\SQL";
+		$utilClass = __NAMESPACE__ . "\\{$driver}\\Util";
+
+		$this->driverSQL = new $sqlClass();
+		$this->util = new $utilClass($this);
 	}
 
 	// --------------------------------------------------------------------------
@@ -177,11 +175,11 @@ abstract class AbstractDriver
 		$this->statement = $this->prepare($sql);
 
 		// Bind the parameters
-		foreach($data as $k => $value)
+		foreach ($data as $k => $value)
 		{
 			// Parameters are 1-based, the data is 0-based
 			// So, if the key is numeric, add 1
-			if(is_numeric($k))
+			if (is_numeric($k))
 			{
 				$k++;
 			}
@@ -282,7 +280,8 @@ abstract class AbstractDriver
 		// Fix functions
 		$funcs = [];
 		preg_match_all("#{$this->escapeCharOpen}([a-zA-Z0-9_]+(\((.*?)\))){$this->escapeCharClose}#iu", $raw, $funcs, PREG_SET_ORDER);
-		foreach($funcs as $f)
+
+		foreach ($funcs as $f)
 		{
 			// Unquote the function
 			// Quote the inside identifiers
@@ -308,6 +307,7 @@ abstract class AbstractDriver
 	{
 		$tables = $this->driverQuery('tableList');
 		natsort($tables);
+
 		return $tables;
 	}
 
@@ -326,6 +326,7 @@ abstract class AbstractDriver
 	{
 		$views = $this->driverQuery('viewList');
 		sort($views);
+
 		return $views;
 	}
 
@@ -456,6 +457,7 @@ abstract class AbstractDriver
 		if (preg_match($regex, $this->lastQuery, $output) > 0)
 		{
 			$stmt = $this->query("SELECT COUNT(*) FROM {$output[1]}");
+
 			return (int) $stmt->fetchColumn();
 		}
 
@@ -472,7 +474,8 @@ abstract class AbstractDriver
 
 		// Values for insertion
 		$vals = [];
-		foreach($data as $group)
+
+		foreach ($data as $group)
 		{
 			$vals = [...$vals, ...array_values($group)];
 		}
@@ -533,6 +536,7 @@ abstract class AbstractDriver
 			$line =  $this->quoteIdent($field) . " = CASE\n";
 
 			$cases = [];
+
 			foreach ($data as $case)
 			{
 				if (array_key_exists($field, $case))
@@ -553,6 +557,7 @@ abstract class AbstractDriver
 		$sql .= implode(",\n", $fieldLines) . "\n";
 
 		$whereValues = array_column($data, $where);
+
 		foreach ($whereValues as $value)
 		{
 			$insertData[] = $value;
@@ -579,6 +584,7 @@ abstract class AbstractDriver
 		$sql .= $this->quoteTable($table);
 
 		$this->statement = $this->query($sql);
+
 		return $this->statement;
 	}
 
@@ -592,9 +598,6 @@ abstract class AbstractDriver
 
 	/**
 	 * Helper method for quote_ident
-	 *
-	 * @param mixed $str
-	 * @return mixed
 	 */
 	public function _quote(mixed $str): mixed
 	{
@@ -608,7 +611,6 @@ abstract class AbstractDriver
 		)
 			? "{$this->escapeCharOpen}{$str}{$this->escapeCharClose}"
 			: $str;
-
 	}
 
 	/**

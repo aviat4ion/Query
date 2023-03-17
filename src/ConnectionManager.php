@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
 use DomainException;
@@ -22,8 +23,8 @@ use stdClass;
  * Connection manager class to manage connections for the
  * Query method
  */
-final class ConnectionManager {
-
+final class ConnectionManager
+{
 	/**
 	 * Map of named database connections
 	 */
@@ -91,7 +92,6 @@ final class ConnectionManager {
 	/**
 	 * Returns the connection specified by the name given
 	 *
-	 * @param string $name
 	 * @throws Exception\NonExistentConnectionException
 	 */
 	public function getConnection(string $name = ''): QueryBuilderInterface
@@ -113,9 +113,6 @@ final class ConnectionManager {
 
 	/**
 	 * Parse the passed parameters and return a connection
-	 *
-	 * @param array|object $params
-	 * @return QueryBuilderInterface
 	 */
 	public function connect(array|object $params): QueryBuilderInterface
 	{
@@ -138,7 +135,6 @@ final class ConnectionManager {
 		// Create Query Builder object
 		$conn = new QueryBuilder($db, new QueryParser($db));
 
-
 		// Save it for later
 		if (isset($params->alias))
 		{
@@ -155,9 +151,7 @@ final class ConnectionManager {
 	/**
 	 * Parses params into a dsn and option array
 	 *
-	 * @param array|object $rawParams
 	 * @throws Exception\BadDBDriverException
-	 * @return array
 	 */
 	public function parseParams(array|object $rawParams): array
 	{
@@ -182,7 +176,6 @@ final class ConnectionManager {
 
 		// Create the dsn for the database to connect to
 		$dsn = strtolower($dbType) === 'sqlite' ? $params->file : $this->createDsn($dbType, $params);
-
 
 		return [$dsn, $dbType, $params, $options];
 	}
@@ -209,12 +202,12 @@ final class ConnectionManager {
 			'prefix' => 'prefix',
 			'options' => 'options',
 			'database' => 'database',
-			'alias' => 'alias'
+			'alias' => 'alias',
 		];
 
-		foreach($params as $key => $val)
+		foreach ($params as $key => $val)
 		{
-			if (( ! array_key_exists($key, $skip)) &&  ! empty($val))
+			if (( ! array_key_exists($key, $skip)) && ! empty($val))
 			{
 				$pairs[] = implode('=', [$key, $val]);
 			}

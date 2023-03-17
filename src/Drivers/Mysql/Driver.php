@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Mysql;
 
 use PDO;
@@ -22,8 +23,8 @@ use function defined;
 /**
  * MySQL specific class
  */
-class Driver extends AbstractDriver {
-
+class Driver extends AbstractDriver
+{
 	/**
 	 * Set the backtick as the MySQL escape character
 	 */
@@ -39,7 +40,7 @@ class Driver extends AbstractDriver {
 	 *
 	 * @codeCoverageIgnore
 	 */
-	public function __construct(string $dsn, string $username=NULL, string $password=NULL, array $options=[])
+	public function __construct(string $dsn, ?string $username=NULL, ?string $password=NULL, array $options=[])
 	{
 		// Set the charset to UTF-8
 		if (defined('\\PDO::MYSQL_ATTR_INIT_COMMAND'))
@@ -51,7 +52,7 @@ class Driver extends AbstractDriver {
 
 		if ( ! str_contains($dsn, 'mysql'))
 		{
-			$dsn = 'mysql:'.$dsn;
+			$dsn = 'mysql:' . $dsn;
 		}
 
 		parent::__construct($dsn, $username, $password, $options);
@@ -67,7 +68,7 @@ class Driver extends AbstractDriver {
 		if (
 			stripos($query, 'insert') !== FALSE
 			&& version_compare($this->getVersion(), '10.5.0', '>=')
-		){
+		) {
 			return parent::returning($query, $select);
 		}
 
@@ -75,7 +76,7 @@ class Driver extends AbstractDriver {
 		if (
 			stripos($query, 'delete') !== FALSE
 			&& version_compare($this->getVersion(), '10.0.5', '>=')
-		){
+		) {
 			return parent::returning($query, $select);
 		}
 

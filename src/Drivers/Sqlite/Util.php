@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Sqlite;
 
 use PDO;
@@ -21,8 +22,8 @@ use Query\Drivers\AbstractUtil;
 /**
  * SQLite-specific backup, import and creation methods
  */
-class Util extends AbstractUtil {
-
+class Util extends AbstractUtil
+{
 	/**
 	 * Create an SQL backup file for the current database's data
 	 */
@@ -33,9 +34,9 @@ class Util extends AbstractUtil {
 				FROM "sqlite_master"
 				WHERE "type"=\'table\'';
 
-		if( ! empty($excluded))
+		if ( ! empty($excluded))
 		{
-			$sql .= " AND \"name\" NOT IN('".implode("','", $excluded)."')";
+			$sql .= " AND \"name\" NOT IN('" . implode("','", $excluded) . "')";
 		}
 
 		$res = $this->getDriver()->query($sql);
@@ -46,9 +47,9 @@ class Util extends AbstractUtil {
 		$outputSql = '';
 
 		// Get the data for each object
-		foreach($result as $r)
+		foreach ($result as $r)
 		{
-			$sql = 'SELECT * FROM "'.$r['name'].'"';
+			$sql = 'SELECT * FROM "' . $r['name'] . '"';
 			$res = $this->getDriver()->query($sql);
 			$objRes = $res->fetchAll(PDO::FETCH_ASSOC);
 
@@ -66,7 +67,7 @@ class Util extends AbstractUtil {
 			$insertRows = [];
 
 			// Create the insert statements
-			foreach($objRes as $row)
+			foreach ($objRes as $row)
 			{
 				$row = array_values($row);
 
@@ -78,7 +79,7 @@ class Util extends AbstractUtil {
 						: $this->getDriver()->quote($row[$i]);
 				}
 
-				$rowString = 'INSERT INTO "'.$r['name'].'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
+				$rowString = 'INSERT INTO "' . $r['name'] . '" ("' . implode('","', $columns) . '") VALUES (' . implode(',', $row) . ');';
 
 				unset($row);
 
@@ -87,7 +88,7 @@ class Util extends AbstractUtil {
 
 			unset($objRes);
 
-			$outputSql .= "\n\n".implode("\n", $insertRows);
+			$outputSql .= "\n\n" . implode("\n", $insertRows);
 		}
 
 		return $outputSql;
@@ -105,7 +106,7 @@ class Util extends AbstractUtil {
 
 		$sqlArray = [];
 
-		foreach($result as $r)
+		foreach ($result as $r)
 		{
 			$sqlArray[] = $r['sql'];
 		}

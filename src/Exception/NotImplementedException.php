@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Exception;
 
 use BadMethodCallException;
@@ -20,5 +21,6 @@ use BadMethodCallException;
 /**
  * Exception for non-implemented method
  */
-class NotImplementedException extends BadMethodCallException{
+class NotImplementedException extends BadMethodCallException
+{
 }

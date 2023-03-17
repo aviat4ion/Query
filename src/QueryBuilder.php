@@ -13,18 +13,20 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
+use PDOStatement;
 use function is_array;
 use function is_int;
-use function mb_trim;
 
-use PDOStatement;
+use function mb_trim;
 
 /**
  * Convenience class for creating sql queries
  */
-class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
+class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface
+{
 	// --------------------------------------------------------------------------
 	// ! Select Queries
 	// --------------------------------------------------------------------------
@@ -69,48 +71,52 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	/**
 	 * Selects the maximum value of a field from a query
 	 *
-	 * @param string|bool $as
+	 * @param bool|string $as
 	 */
 	public function selectMax(string $field, $as=FALSE): self
 	{
 		// Create the select string
-		$this->state->appendSelectString(' MAX'.$this->_select($field, $as));
+		$this->state->appendSelectString(' MAX' . $this->_select($field, $as));
+
 		return $this;
 	}
 
 	/**
 	 * Selects the minimum value of a field from a query
 	 *
-	 * @param string|bool $as
+	 * @param bool|string $as
 	 */
 	public function selectMin(string $field, $as=FALSE): self
 	{
 		// Create the select string
-		$this->state->appendSelectString(' MIN'.$this->_select($field, $as));
+		$this->state->appendSelectString(' MIN' . $this->_select($field, $as));
+
 		return $this;
 	}
 
 	/**
 	 * Selects the average value of a field from a query
 	 *
-	 * @param string|bool $as
+	 * @param bool|string $as
 	 */
 	public function selectAvg(string $field, $as=FALSE): self
 	{
 		// Create the select string
-		$this->state->appendSelectString(' AVG'.$this->_select($field, $as));
+		$this->state->appendSelectString(' AVG' . $this->_select($field, $as));
+
 		return $this;
 	}
 
 	/**
 	 * Selects the sum of a field from a query
 	 *
-	 * @param string|bool $as
+	 * @param bool|string $as
 	 */
 	public function selectSum(string $field, $as=FALSE): self
 	{
 		// Create the select string
-		$this->state->appendSelectString(' SUM'.$this->_select($field, $as));
+		$this->state->appendSelectString(' SUM' . $this->_select($field, $as));
+
 		return $this;
 	}
 
@@ -139,6 +145,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	{
 		// Prepend the keyword to the select string
 		$this->state->setSelectString(' DISTINCT' . $this->state->getSelectString());
+
 		return $this;
 	}
 
@@ -148,6 +155,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	public function explain(): self
 	{
 		$this->explain = TRUE;
+
 		return $this;
 	}
 
@@ -155,8 +163,6 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	 * Specify the database table to select from
 	 *
 	 * Alias of `from` method to better match CodeIgniter 4
-	 *
-	 * @param string $tableName
 	 */
 	public function table(string $tableName): self
 	{
@@ -383,15 +389,15 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 		$orderClauses = [];
 
 		// Flatten key/val pairs into an array of space-separated pairs
-		foreach($this->state->getOrderArray() as $k => $v)
+		foreach ($this->state->getOrderArray() as $k => $v)
 		{
 			$orderClauses[] = $k . ' ' . strtoupper($v);
 		}
 
 		// Set the final string
 		$orderString =  isset($rand)
-			? "\nORDER BY".$rand
-			: "\nORDER BY ".implode(', ', $orderClauses);
+			? "\nORDER BY" . $rand
+			: "\nORDER BY " . implode(', ', $orderClauses);
 
 		$this->state->setOrderString($orderString);
 
@@ -512,8 +518,9 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 	 */
 	public function countAll(string $table): int
 	{
-		$sql = 'SELECT * FROM '.$this->driver->quoteTable($table);
+		$sql = 'SELECT * FROM ' . $this->driver->quoteTable($table);
 		$res = $this->driver->query($sql);
+
 		return (int) (is_countable($res->fetchAll()) ? count($res->fetchAll()) : 0);
 	}
 
@@ -589,6 +596,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface {
 		[$sql, $data, $affectedRows] = $this->driver->updateBatch($table, $data, $where);
 
 		$this->_run(QueryType::UPDATE_BATCH, $table, $sql, $data);
+
 		return $affectedRows;
 	}
 

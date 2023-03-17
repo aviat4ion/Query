@@ -13,12 +13,14 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
 /**
  * 'Enum' of join types
  */
-enum LikeType: string {
+enum LikeType: string
+{
 	case BEFORE = 'before';
 	case AFTER = 'after';
 	case BOTH = 'both';

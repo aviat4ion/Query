@@ -13,18 +13,20 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Sqlite;
 
-use function is_array;
-
 use InvalidArgumentException;
+
 use PDO;
 use Query\Drivers\AbstractDriver;
+use function is_array;
 
 /**
  * SQLite specific class
  */
-class Driver extends AbstractDriver {
+class Driver extends AbstractDriver
+{
 	/**
 	 * SQLite has a truncate optimization,
 	 * but no support for the actual keyword
@@ -34,7 +36,7 @@ class Driver extends AbstractDriver {
 	/**
 	 * Open SQLite Database
 	 */
-	public function __construct(string $dsn, string $user=NULL, string $pass=NULL, array $driverOptions=[])
+	public function __construct(string $dsn, ?string $user=NULL, ?string $pass=NULL, array $driverOptions=[])
 	{
 		if ( ! str_contains($dsn, 'sqlite:'))
 		{
@@ -59,6 +61,7 @@ class Driver extends AbstractDriver {
 	{
 		$sql = $this->getSql()->tableList();
 		$res = $this->query($sql);
+
 		return dbFilter($res->fetchAll(PDO::FETCH_ASSOC), 'name');
 	}
 
@@ -69,14 +72,14 @@ class Driver extends AbstractDriver {
 	{
 		$returnRows = [];
 
-		foreach(parent::getFks($table) as $row)
+		foreach (parent::getFks($table) as $row)
 		{
 			$returnRows[] = [
 				'child_column' => $row['from'],
 				'parent_table' => $row['table'],
 				'parent_column' => $row['to'],
 				'update' => $row['on_update'],
-				'delete' => $row['on_delete']
+				'delete' => $row['on_delete'],
 			];
 		}
 
@@ -87,7 +90,7 @@ class Driver extends AbstractDriver {
 	 * Create sql for batch insert
 	 *
 	 * @codeCoverageIgnore
-	 * @return array[]|string[]|null[]
+	 * @return array[]|null[]|string[]
 	 */
 	public function insertBatch(string $table, array $data=[]): array
 	{
@@ -115,13 +118,14 @@ class Driver extends AbstractDriver {
 		// Create a key-value mapping for each field
 		$first = array_shift($data);
 		$cols = [];
-		foreach($first as $colName => $datum)
+
+		foreach ($first as $colName => $datum)
 		{
 			$cols[] = $this->_quote($datum) . ' AS ' . $this->quoteIdent($colName);
 		}
 		$sql .= 'SELECT ' . implode(', ', $cols) . "\n";
 
-		foreach($data as $union)
+		foreach ($data as $union)
 		{
 			$vals = array_map([$this, 'quote'], $union);
 			$sql .= 'UNION SELECT ' . implode(',', $vals) . "\n";

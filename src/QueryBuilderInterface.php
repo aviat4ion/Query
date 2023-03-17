@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query;
 
 use PDO;
@@ -57,8 +58,8 @@ use PDOStatement;
  * @method setTablePrefix(string $prefix): void
  * @method truncate(string $table): PDOStatement
  */
-interface QueryBuilderInterface {
-
+interface QueryBuilderInterface
+{
 	// --------------------------------------------------------------------------
 	// ! Select Queries
 	// --------------------------------------------------------------------------
@@ -70,28 +71,28 @@ interface QueryBuilderInterface {
 	/**
 	 * Selects the maximum value of a field from a query
 	 *
-	 * @param string|bool $as
+	 * @param bool|string $as
 	 */
 	public function selectMax(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the minimum value of a field from a query
 	 *
-	 * @param string|bool $as
+	 * @param bool|string $as
 	 */
 	public function selectMin(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the average value of a field from a query
 	 *
-	 * @param string|bool $as
+	 * @param bool|string $as
 	 */
 	public function selectAvg(string $field, $as=FALSE): self;
 
 	/**
 	 * Selects the sum of a field from a query
 	 *
-	 * @param string|bool $as
+	 * @param bool|string $as
 	 */
 	public function selectSum(string $field, $as=FALSE): self;
 
@@ -109,8 +110,6 @@ interface QueryBuilderInterface {
 	 * Specify the database table to select from
 	 *
 	 * Alias of `from` method to better match CodeIgniter 4
-	 *
-	 * @param string $tableName
 	 */
 	public function table(string $tableName): self;
 
@@ -124,29 +123,21 @@ interface QueryBuilderInterface {
 	// --------------------------------------------------------------------------
 	/**
 	 * Creates a Like clause in the sql statement
-	 *
-	 * @param mixed $values
 	 */
 	public function like(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates an OR Like clause
-	 *
-	 * @param mixed $values
 	 */
 	public function orLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a NOT LIKE clause
-	 *
-	 * @param mixed $values
 	 */
 	public function notLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self;
 
 	/**
 	 * Generates a OR NOT LIKE clause
-	 *
-	 * @param mixed $values
 	 */
 	public function orNotLike(string $field, mixed $values, LikeType|string $pos=LikeType::BOTH): self;
 
@@ -155,17 +146,11 @@ interface QueryBuilderInterface {
 	// --------------------------------------------------------------------------
 	/**
 	 * Generates a 'Having' clause
-	 *
-	 * @param mixed $key
-	 * @param mixed $values
 	 */
 	public function having(mixed $key, mixed $values=[]): self;
 
 	/**
 	 * Generates a 'Having' clause prefixed with 'OR'
-	 *
-	 * @param mixed $key
-	 * @param mixed $values
 	 */
 	public function orHaving(mixed $key, mixed $values=[]): self;
 
@@ -176,9 +161,6 @@ interface QueryBuilderInterface {
 	 * Specify condition(s) in the where clause of a query
 	 * Note: this function works with key / value, or a
 	 * passed array with key / value pairs
-	 *
-	 * @param mixed $key
-	 * @param mixed $values
 	 */
 	public function where(mixed $key, mixed $values=[]): self;
 
@@ -186,39 +168,26 @@ interface QueryBuilderInterface {
 	 * Where clause prefixed with "OR"
 	 *
 	 * @param string $key
-	 * @param mixed $values
 	 */
 	public function orWhere(mixed $key, mixed $values=[]): self;
 
 	/**
 	 * Where clause with 'IN' statement
-	 *
-	 * @param string $field
-	 * @param mixed $values
 	 */
 	public function whereIn(string $field, mixed $values=[]): self;
 
 	/**
 	 * Where in statement prefixed with "or"
-	 *
-	 * @param string $field
-	 * @param mixed $values
 	 */
 	public function orWhereIn(string $field, mixed $values=[]): self;
 
 	/**
 	 * WHERE NOT IN (FOO) clause
-	 *
-	 * @param string $field
-	 * @param mixed $values
 	 */
 	public function whereNotIn(string $field, mixed $values=[]): self;
 
 	/**
 	 * OR WHERE NOT IN (FOO) clause
-	 *
-	 * @param string $field
-	 * @param mixed $values
 	 */
 	public function orWhereNotIn(string $field, mixed $values=[]): self;
 
@@ -228,7 +197,6 @@ interface QueryBuilderInterface {
 	/**
 	 * Sets values for inserts / updates / deletes
 	 *
-	 * @param mixed $key
 	 * @param mixed $values
 	 */
 	public function set(mixed $key, mixed $values = NULL): self;
@@ -240,8 +208,6 @@ interface QueryBuilderInterface {
 
 	/**
 	 * Group the results by the selected field(s)
-	 *
-	 * @param mixed $field
 	 */
 	public function groupBy(mixed $field): self;
 
@@ -297,8 +263,6 @@ interface QueryBuilderInterface {
 
 	/**
 	 * Convenience method for get() with a where clause
-	 *
-	 * @param array $where
 	 */
 	public function getWhere(string $table, array $where=[], ?int $limit=NULL, ?int $offset=NULL): PDOStatement;
 
@@ -317,8 +281,6 @@ interface QueryBuilderInterface {
 
 	/**
 	 * Creates an insert clause, and executes it
-	 *
-	 * @param mixed $data
 	 */
 	public function insert(string $table, mixed $data=[]): PDOStatement;
 
@@ -331,8 +293,6 @@ interface QueryBuilderInterface {
 
 	/**
 	 * Creates an update clause, and executes it
-	 *
-	 * @param mixed $data
 	 */
 	public function update(string $table, mixed $data=[]): PDOStatement;
 
@@ -348,8 +308,6 @@ interface QueryBuilderInterface {
 
 	/**
 	 * Deletes data from a table
-	 *
-	 * @param mixed $where
 	 */
 	public function delete(string $table, mixed $where=''): PDOStatement;
 

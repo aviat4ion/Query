@@ -13,13 +13,14 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers;
 
 /**
  * Interface for database-specific syntax subclasses
  */
-interface SQLInterface {
-
+interface SQLInterface
+{
 	/**
 	 * Get database specific sql for limit clause
 	 */

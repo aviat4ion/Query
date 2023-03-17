@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Pgsql;
 
 use Query\Drivers\AbstractSQL;
@@ -20,8 +21,8 @@ use Query\Drivers\AbstractSQL;
 /**
  * PostgreSQL specific SQL
  */
-class SQL extends AbstractSQL {
-
+class SQL extends AbstractSQL
+{
 	/**
 	 * Get the query plan for the sql query
 	 */
@@ -43,7 +44,7 @@ class SQL extends AbstractSQL {
 	 */
 	public function dbList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT "datname" FROM "pg_database"
 			WHERE "datname" NOT IN ('template0','template1')
 			ORDER BY "datname" ASC
@@ -55,7 +56,7 @@ SQL;
 	 */
 	public function tableList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT "table_name"
 			FROM "information_schema"."tables"
 			WHERE "table_type" = 'BASE TABLE'
@@ -69,7 +70,7 @@ SQL;
 	 */
 	public function systemTableList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT "table_name"
 			FROM "information_schema"."tables"
 			WHERE "table_type" = 'BASE TABLE'
@@ -83,7 +84,7 @@ SQL;
 	 */
 	public function viewList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 		 	SELECT "viewname" FROM "pg_views"
 			WHERE "schemaname" NOT IN
 				('pg_catalog', 'information_schema')
@@ -97,7 +98,7 @@ SQL;
 	 */
 	public function triggerList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT *
 			FROM "information_schema"."triggers"
 			WHERE "trigger_schema" NOT IN
@@ -118,7 +119,7 @@ SQL;
 	 */
 	public function procedureList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT "routine_name"
 			FROM "information_schema"."routines"
 			WHERE "specific_schema" NOT IN
@@ -132,7 +133,7 @@ SQL;
 	 */
 	public function sequenceList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT "c"."relname"
 			FROM "pg_class" "c"
 			WHERE "c"."relkind" = 'S'
@@ -164,7 +165,7 @@ SQL;
 	 */
 	public function typeList(): string
 	{
-		return <<<SQL
+		return <<<'SQL'
 			SELECT "typname" FROM "pg_catalog"."pg_type"
 			WHERE "typname" !~ '^pg_|_'
 			AND "typtype" = 'b'

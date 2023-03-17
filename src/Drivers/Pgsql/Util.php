@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Drivers\Pgsql;
 
 use PDO;
@@ -21,8 +22,8 @@ use Query\Drivers\AbstractUtil;
 /**
  * Postgres-specific backup, import and creation methods
  */
-class Util extends AbstractUtil {
-
+class Util extends AbstractUtil
+{
 	/**
 	 * Create an SQL backup file for the current database's structure
 	 */
@@ -40,7 +41,7 @@ class Util extends AbstractUtil {
 		$tables = $this->getDriver()->getTables();
 
 		// Filter out the tables you don't want
-		if( ! empty($exclude))
+		if ( ! empty($exclude))
 		{
 			$tables = array_diff($tables, $exclude);
 		}
@@ -48,9 +49,9 @@ class Util extends AbstractUtil {
 		$outputSql = '';
 
 		// Get the data for each object
-		foreach($tables as $t)
+		foreach ($tables as $t)
 		{
-			$sql = 'SELECT * FROM "'.trim($t).'"';
+			$sql = 'SELECT * FROM "' . trim($t) . '"';
 			$res = $this->getDriver()->query($sql);
 			$objRes = $res->fetchAll(PDO::FETCH_ASSOC);
 
@@ -68,7 +69,7 @@ class Util extends AbstractUtil {
 			$insertRows = [];
 
 			// Create the insert statements
-			foreach($objRes as $row)
+			foreach ($objRes as $row)
 			{
 				$row = array_values($row);
 
@@ -76,8 +77,7 @@ class Util extends AbstractUtil {
 				$row = array_map([$this->getDriver(), 'quote'], $row);
 				$row = array_map('trim', $row);
 
-
-				$rowString = 'INSERT INTO "'.trim($t).'" ("'.implode('","', $columns).'") VALUES ('.implode(',', $row).');';
+				$rowString = 'INSERT INTO "' . trim($t) . '" ("' . implode('","', $columns) . '") VALUES (' . implode(',', $row) . ');';
 
 				$row = NULL;
 
@@ -86,7 +86,7 @@ class Util extends AbstractUtil {
 
 			$objRes = NULL;
 
-			$outputSql .= "\n\n".implode("\n", $insertRows)."\n";
+			$outputSql .= "\n\n" . implode("\n", $insertRows) . "\n";
 		}
 
 		return $outputSql;
