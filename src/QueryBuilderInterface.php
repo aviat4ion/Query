@@ -70,31 +70,23 @@ interface QueryBuilderInterface
 
 	/**
 	 * Selects the maximum value of a field from a query
-	 *
-	 * @param bool|string $as
 	 */
-	public function selectMax(string $field, $as=FALSE): self;
+	public function selectMax(string $field, bool|string $as=FALSE): self;
 
 	/**
 	 * Selects the minimum value of a field from a query
-	 *
-	 * @param bool|string $as
 	 */
-	public function selectMin(string $field, $as=FALSE): self;
+	public function selectMin(string $field, bool|string $as=FALSE): self;
 
 	/**
 	 * Selects the average value of a field from a query
-	 *
-	 * @param bool|string $as
 	 */
-	public function selectAvg(string $field, $as=FALSE): self;
+	public function selectAvg(string $field, bool|string $as=FALSE): self;
 
 	/**
 	 * Selects the sum of a field from a query
-	 *
-	 * @param bool|string $as
 	 */
-	public function selectSum(string $field, $as=FALSE): self;
+	public function selectSum(string $field, bool|string $as=FALSE): self;
 
 	/**
 	 * Adds the 'distinct' keyword to a query
@@ -196,8 +188,6 @@ interface QueryBuilderInterface
 	// --------------------------------------------------------------------------
 	/**
 	 * Sets values for inserts / updates / deletes
-	 *
-	 * @param mixed $values
 	 */
 	public function set(mixed $key, mixed $values = NULL): self;
 

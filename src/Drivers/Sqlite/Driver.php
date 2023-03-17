@@ -17,8 +17,9 @@
 namespace Query\Drivers\Sqlite;
 
 use InvalidArgumentException;
-
 use PDO;
+
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use Query\Drivers\AbstractDriver;
 use function is_array;
 
@@ -89,9 +90,9 @@ class Driver extends AbstractDriver
 	/**
 	 * Create sql for batch insert
 	 *
-	 * @codeCoverageIgnore
 	 * @return array[]|null[]|string[]
 	 */
+	#[CodeCoverageIgnore]
 	public function insertBatch(string $table, array $data=[]): array
 	{
 		// If greater than version 3.7.11, supports the same syntax as

@@ -19,6 +19,7 @@ namespace Query\Drivers;
 use InvalidArgumentException;
 use PDO;
 use PDOStatement;
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 
 use function call_user_func_array;
 use function dbFilter;
@@ -87,9 +88,9 @@ abstract class AbstractDriver extends PDO implements DriverInterface
 	/**
 	 * Allow invoke to work on table object
 	 *
-	 * @codeCoverageIgnore
 	 * @return mixed
 	 */
+	#[CodeCoverageIgnore]
 	public function __call(string $name, array $args = [])
 	{
 		if (
@@ -109,7 +110,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface
 	protected function _loadSubClasses(): void
 	{
 		// Load the sql and util class for the driver
-		$thisClass = $this::class;
+		$thisClass = static::class;
 		$nsArray = explode('\\', $thisClass);
 		array_pop($nsArray);
 		$driver = array_pop($nsArray);
@@ -256,7 +257,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface
 	{
 		if (is_array($identifier))
 		{
-			return array_map([$this, __METHOD__], $identifier);
+			return array_map(__METHOD__, $identifier);
 		}
 
 		// Make all the string-handling methods happy
@@ -266,7 +267,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface
 		if (str_contains($identifier, ','))
 		{
 			$parts = array_map('mb_trim', explode(',', $identifier));
-			$parts = array_map([$this, __METHOD__], $parts);
+			$parts = array_map(__METHOD__, $parts);
 			$identifier = implode(',', $parts);
 		}
 
@@ -275,7 +276,7 @@ abstract class AbstractDriver extends PDO implements DriverInterface
 		$hiers = array_map('mb_trim', $hiers);
 
 		// Re-compile the string
-		$raw = implode('.', array_map([$this, '_quote'], $hiers));
+		$raw = implode('.', array_map($this->_quote(...), $hiers));
 
 		// Fix functions
 		$funcs = [];

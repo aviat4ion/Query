@@ -17,9 +17,10 @@
 namespace Query;
 
 use BadMethodCallException;
-
 use PDO;
+
 use PDOStatement;
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use Query\Drivers\DriverInterface;
 use function is_string;
 use function regexInArray;
@@ -90,19 +91,13 @@ class QueryBuilderBase
 	// --------------------------------------------------------------------------
 	// ! Methods
 	// --------------------------------------------------------------------------
-	/**
-	 * Constructor
-	 */
 	public function __construct(protected ?DriverInterface $driver, protected QueryParser $parser)
 	{
 		// Create new State object
 		$this->state = new State();
 	}
 
-	/**
-	 * Destructor
-	 * @codeCoverageIgnore
-	 */
+	#[CodeCoverageIgnore]
 	public function __destruct()
 	{
 		$this->driver = NULL;
@@ -370,7 +365,7 @@ class QueryBuilderBase
 		{
 			$v = (is_numeric($v))
 				? $v
-				: htmlentities($this->driver->quote($v), ENT_NOQUOTES, 'utf-8');
+				: htmlentities((string) $this->driver->quote($v), ENT_NOQUOTES, 'utf-8');
 		}
 		unset($v);
 
@@ -392,9 +387,8 @@ class QueryBuilderBase
 
 	/**
 	 * Sub-method for generating sql strings
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	protected function _compileType(QueryType $type = QueryType::SELECT, string $table = ''): string
 	{
 		$setArrayKeys = $this->state->getSetArrayKeys();

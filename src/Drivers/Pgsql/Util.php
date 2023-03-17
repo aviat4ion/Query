@@ -51,7 +51,7 @@ class Util extends AbstractUtil
 		// Get the data for each object
 		foreach ($tables as $t)
 		{
-			$sql = 'SELECT * FROM "' . trim($t) . '"';
+			$sql = 'SELECT * FROM "' . trim((string) $t) . '"';
 			$res = $this->getDriver()->query($sql);
 			$objRes = $res->fetchAll(PDO::FETCH_ASSOC);
 
@@ -77,7 +77,7 @@ class Util extends AbstractUtil
 				$row = array_map([$this->getDriver(), 'quote'], $row);
 				$row = array_map('trim', $row);
 
-				$rowString = 'INSERT INTO "' . trim($t) . '" ("' . implode('","', $columns) . '") VALUES (' . implode(',', $row) . ');';
+				$rowString = 'INSERT INTO "' . trim((string) $t) . '" ("' . implode('","', $columns) . '") VALUES (' . implode(',', $row) . ');';
 
 				$row = NULL;
 

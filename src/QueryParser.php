@@ -66,7 +66,7 @@ class QueryParser
 		preg_match_all($fullPattern, $sql, $this->matches['combined'], PREG_SET_ORDER);
 
 		// Go through the matches, and get the most relevant matches
-		$this->matches = array_map([$this, 'filterArray'], $this->matches);
+		$this->matches = array_map($this->filterArray(...), $this->matches);
 
 		return $this->matches;
 	}

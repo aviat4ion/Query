@@ -16,6 +16,7 @@
 
 namespace Query\Drivers\Pgsql;
 
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use Query\Drivers\AbstractDriver;
 
 /**
@@ -25,9 +26,8 @@ class Driver extends AbstractDriver
 {
 	/**
 	 * Connect to a PosgreSQL database
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	public function __construct(string $dsn, ?string $username=NULL, ?string $password=NULL, array $options=[])
 	{
 		if ( ! str_contains($dsn, 'pgsql'))

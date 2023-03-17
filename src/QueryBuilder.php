@@ -70,10 +70,8 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface
 
 	/**
 	 * Selects the maximum value of a field from a query
-	 *
-	 * @param bool|string $as
 	 */
-	public function selectMax(string $field, $as=FALSE): self
+	public function selectMax(string $field, bool|string $as=FALSE): self
 	{
 		// Create the select string
 		$this->state->appendSelectString(' MAX' . $this->_select($field, $as));
@@ -83,10 +81,8 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface
 
 	/**
 	 * Selects the minimum value of a field from a query
-	 *
-	 * @param bool|string $as
 	 */
-	public function selectMin(string $field, $as=FALSE): self
+	public function selectMin(string $field, bool|string $as=FALSE): self
 	{
 		// Create the select string
 		$this->state->appendSelectString(' MIN' . $this->_select($field, $as));
@@ -96,10 +92,8 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface
 
 	/**
 	 * Selects the average value of a field from a query
-	 *
-	 * @param bool|string $as
 	 */
-	public function selectAvg(string $field, $as=FALSE): self
+	public function selectAvg(string $field, bool|string $as=FALSE): self
 	{
 		// Create the select string
 		$this->state->appendSelectString(' AVG' . $this->_select($field, $as));
@@ -109,10 +103,8 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface
 
 	/**
 	 * Selects the sum of a field from a query
-	 *
-	 * @param bool|string $as
 	 */
-	public function selectSum(string $field, $as=FALSE): self
+	public function selectSum(string $field, bool|string $as=FALSE): self
 	{
 		// Create the select string
 		$this->state->appendSelectString(' SUM' . $this->_select($field, $as));
@@ -391,7 +383,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface
 		// Flatten key/val pairs into an array of space-separated pairs
 		foreach ($this->state->getOrderArray() as $k => $v)
 		{
-			$orderClauses[] = $k . ' ' . strtoupper($v);
+			$orderClauses[] = $k . ' ' . strtoupper((string) $v);
 		}
 
 		// Set the final string
@@ -558,7 +550,7 @@ class QueryBuilder extends QueryBuilderBase implements QueryBuilderInterface
 	/**
 	 * Creates and executes a batch insertion query
 	 */
-	public function insertBatch(string $table, $data=[]): ?PDOStatement
+	public function insertBatch(string $table, mixed $data=[]): ?PDOStatement
 	{
 		// Get the generated values and sql string
 		[$sql, $data] = $this->driver->insertBatch($table, $data);

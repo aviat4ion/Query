@@ -17,6 +17,7 @@
 namespace Query\Drivers\Mysql;
 
 use PDO;
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use Query\Drivers\AbstractDriver;
 use function defined;
 
@@ -37,9 +38,8 @@ class Driver extends AbstractDriver
 
 	/**
 	 * Connect to MySQL Database
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	public function __construct(string $dsn, ?string $username=NULL, ?string $password=NULL, array $options=[])
 	{
 		// Set the charset to UTF-8

@@ -16,6 +16,7 @@
 
 namespace Query\Drivers\Mysql;
 
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use Query\Drivers\AbstractSQL;
 
 /**
@@ -98,9 +99,8 @@ SQL;
 
 	/**
 	 * Returns sql to list triggers
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	public function triggerList(): string
 	{
 		return 'SHOW TRIGGERS';
@@ -108,9 +108,8 @@ SQL;
 
 	/**
 	 * Return sql to list functions
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	public function functionList(): string
 	{
 		return 'SHOW FUNCTION STATUS';
@@ -118,9 +117,8 @@ SQL;
 
 	/**
 	 * Return sql to list stored procedures
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	public function procedureList(): string
 	{
 		return 'SHOW PROCEDURE STATUS';

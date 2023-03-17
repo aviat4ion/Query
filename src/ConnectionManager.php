@@ -17,6 +17,8 @@
 namespace Query;
 
 use DomainException;
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
+use Query\Exception\{BadDBDriverException, NonExistentConnectionException};
 use stdClass;
 
 /**
@@ -37,8 +39,8 @@ final class ConnectionManager
 
 	/**
 	 * Private constructor to prevent multiple instances
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	private function __construct()
 	{
 	}
@@ -108,7 +110,7 @@ final class ConnectionManager
 		}
 
 		// You should actually connect before trying to get a connection...
-		throw new Exception\NonExistentConnectionException('The specified connection does not exist');
+		throw new NonExistentConnectionException('The specified connection does not exist');
 	}
 
 	/**
@@ -118,7 +120,7 @@ final class ConnectionManager
 	{
 		[$dsn, $dbType, $params, $options] = $this->parseParams($params);
 
-		$dbType = ucfirst($dbType);
+		$dbType = ucfirst((string) $dbType);
 		$driver = "\\Query\\Drivers\\{$dbType}\\Driver";
 
 		// Create the database connection
@@ -156,14 +158,14 @@ final class ConnectionManager
 	public function parseParams(array|object $rawParams): array
 	{
 		$params = (object) $rawParams;
-		$params->type = strtolower($params->type);
+		$params->type = strtolower((string) $params->type);
 		$dbType = ($params->type === 'postgresql') ? 'pgsql' : $params->type;
 		$dbType = ucfirst($dbType);
 
 		// Make sure the class exists
 		if ( ! class_exists("\\Query\\Drivers\\{$dbType}\\Driver"))
 		{
-			throw new Exception\BadDBDriverException('Database driver does not exist, or is not supported');
+			throw new BadDBDriverException('Database driver does not exist, or is not supported');
 		}
 
 		// Set additional PDO options
@@ -182,9 +184,8 @@ final class ConnectionManager
 
 	/**
 	 * Create the dsn from the db type and params
-	 *
-	 * @codeCoverageIgnore
 	 */
+	#[CodeCoverageIgnore]
 	private function createDsn(string $dbType, stdClass $params): string
 	{
 		$pairs = [];

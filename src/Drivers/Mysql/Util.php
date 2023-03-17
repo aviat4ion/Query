@@ -108,7 +108,7 @@ class Util extends AbstractUtil
 				$row = array_map(static fn ($r) => is_string($r) ? $driver->quote($r) : $r, $row);
 				$row = array_map('trim', $row);
 
-				$rowString = 'INSERT INTO `' . trim($t) . '` (`' . implode('`,`', $columns) . '`) VALUES (' . implode(',', $row) . ');';
+				$rowString = 'INSERT INTO `' . trim((string) $t) . '` (`' . implode('`,`', $columns) . '`) VALUES (' . implode(',', $row) . ');';
 
 				$row = NULL;
 
