@@ -21,7 +21,7 @@ use Query\QueryBuilderInterface;
 /**
  * Parent Database Test Class
  */
-abstract class BaseDriverTest extends TestCase
+abstract class BaseDriverTest extends BaseTestCase
 {
 	/**
 	 * @var QueryBuilderInterface|null
@@ -80,7 +80,7 @@ abstract class BaseDriverTest extends TestCase
 		]];
 
 		$keys = self::$db->getFks('testconstraints2');
-		$this->assertEqual($expected, $keys);
+		$this->assertEquals($expected, $keys);
 	}
 
 	public function testGetIndexes(): void
@@ -119,7 +119,7 @@ abstract class BaseDriverTest extends TestCase
 		$expected = ['newtable_seq'];
 
 		$this->assertIsArray($seqs);
-		$this->assertEqual($expected, $seqs);
+		$this->assertEquals($expected, $seqs);
 	}
 
 	public function testGetProcedures(): void

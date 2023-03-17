@@ -79,7 +79,7 @@ INSERT INTO "create_test" ("id","key","val") VALUES (587,1,2);
 INSERT INTO "create_test" ("id","key","val") VALUES (999,'''ring''','''sale''');
 SQL;
 		$expectedArray = explode("\n", $expected);
-		$this->assertEqual($expectedArray, $sqlArray);
+		$this->assertEquals($expectedArray, $sqlArray);
 	}*/
 
 	public function testBackupStructure(): void
@@ -154,7 +154,7 @@ SQL;
 		$expectedArray = explode("\n", $expected);
 		$resultArray = explode("\n", $sql);
 
-		$this->assertEqual($expectedArray, $resultArray);
+		$this->assertEquals($expectedArray, $resultArray);
 	}
 
 	public function testDeleteTable(): void
@@ -254,7 +254,7 @@ SQL;
 	public function testGetDBs(): void
 	{
 		$driverSQL = self::$db->getSql()->dbList();
-		$this->assertEqual('', $driverSQL);
+		$this->assertEquals('', $driverSQL);
 
 		$this->assertNull(self::$db->getDbs());
 	}

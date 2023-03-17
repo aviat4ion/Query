@@ -22,10 +22,8 @@ use function regexInArray;
 
 /**
  * CoreTest class - Compatibility and core functionality tests
- *
- * @extends UnitTestCase
  */
-class CoreTest extends TestCase
+class CoreTest extends BaseTestCase
 {
 	/**
 	 * TestHasPDO function.

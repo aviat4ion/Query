@@ -39,6 +39,6 @@ function get_json_config()
 $path = QTEST_DIR . QDS . 'db_files' . QDS . 'test_sqlite.db';
 @unlink($path);
 
-require_once __DIR__ . '/TestCase.php';
+require_once __DIR__ . '/BaseTestCase.php';
 
 // End of bootstrap.php

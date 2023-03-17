@@ -24,7 +24,7 @@ use Query\QueryBuilderInterface;
 /**
  * Query builder parent test class
  */
-abstract class BaseQueryBuilderTest extends TestCase
+abstract class BaseQueryBuilderTest extends BaseTestCase
 {
 	/**
 	 * @var QueryBuilderInterface|null
@@ -91,7 +91,7 @@ abstract class BaseQueryBuilderTest extends TestCase
 		$query = self::$db->get('test');
 		$numrows = count($query->fetchAll(PDO::FETCH_NUM));
 
-		$this->assertEqual(self::$db->numRows(), $numrows);
+		$this->assertEquals(self::$db->numRows(), $numrows);
 	}
 
 	public function testGetLimit(): void
@@ -583,7 +583,7 @@ abstract class BaseQueryBuilderTest extends TestCase
 		$row = $query->fetch(PDO::FETCH_ASSOC);
 
 		$this->assertIsA($query, 'PDOStatement');
-		$this->assertEqual([
+		$this->assertEquals([
 			'id' => 99,
 			'key' => 84,
 			'val' => 120,
@@ -647,7 +647,7 @@ abstract class BaseQueryBuilderTest extends TestCase
 
 		$this->assertIsA($query, 'PDOStatement');
 		$row = $query->fetch(PDO::FETCH_ASSOC);
-		$this->assertEqual([
+		$this->assertEquals([
 			'key' => 'gogle',
 		], $row, json_encode($query->errorInfo()));
 
@@ -840,6 +840,6 @@ abstract class BaseQueryBuilderTest extends TestCase
 		])->insert('test');
 
 		$res = self::$db->numRows();
-		$this->assertEqual(NULL, $res);
+		$this->assertNull($res);
 	}
 }

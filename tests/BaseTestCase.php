@@ -13,35 +13,31 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests;
 
-use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Base class for TestCases
  */
-class TestCase extends PHPUnit_TestCase {
-
+abstract class BaseTestCase extends TestCase
+{
 	/**
 	 * Wrapper for Simpletest's assertEqual
 	 *
 	 * @param mixed $expected
 	 * @param mixed $actual
-	 * @param string $message
 	 */
-	public function assertEqual($expected, $actual, $message='')
-	{
-		$this->assertEquals($expected, $actual, $message);
-	}
+//	public function assertEqual($expected, $actual, $message='')
+//	{
+//		$this->assertEquals($expected, $actual, $message);
+//	}
 
 	/**
 	 * Wrapper for SimpleTest's assertIsA
-	 *
-	 * @param mixed $object
-	 * @param string $type
-	 * @param string $message
 	 */
-	public function assertIsA($object, $type, $message='')
+	public function assertIsA(mixed $object, string $type, string $message='')
 	{
 		$this->assertTrue(is_a($object, $type), $message);
 	}
@@ -53,20 +49,20 @@ class TestCase extends PHPUnit_TestCase {
 	 * @param mixed $second
 	 * @param string $message
 	 */
-	public function assertReference($first, $second, $message='')
-	{
-		if (\is_object($first))
-		{
-			$res = ($first === $second);
-		}
-		else
-		{
-			$temp = $first;
-			$first = uniqid('test', TRUE);
-			$isRef = ($first === $second);
-			$first = $temp;
-			$res = $isRef;
-		}
-		$this->assertTrue($res, $message);
-	}
+//	public function assertReference($first, $second, $message='')
+//	{
+//		if (\is_object($first))
+//		{
+//			$res = ($first === $second);
+//		}
+//		else
+//		{
+//			$temp = $first;
+//			$first = uniqid('test', TRUE);
+//			$isRef = ($first === $second);
+//			$first = $temp;
+//			$res = $isRef;
+//		}
+//		$this->assertTrue($res, $message);
+//	}
 }

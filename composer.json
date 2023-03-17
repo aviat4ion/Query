@@ -32,7 +32,7 @@
 	"ext-pdo": "*"
   },
   "require-dev": {
-	"phpunit/phpunit": "^9.4"
+	"phpunit/phpunit": "^10.0.16"
   },
   "autoload": {
 	"psr-4": {
@@ -51,7 +51,7 @@
 	"build": "tools/vendor/bin/robo build",
 	"clean": "tools/vendor/bin/robo clean",
 	"docs": "php tools/phpDocumentor run --sourcecode",
-	"coverage": "phpdbg -qrr -- vendor/bin/phpunit -c build",
+	"coverage": "php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude=\"~vendor~\" ./vendor/bin/phpunit -c build",
 	"pcov": "vendor/bin/phpunit -c build",
 	"phpstan": "tools/vendor/bin/phpstan analyse -l 3 -c phpstan.neon src tests",
 	"test": "phpunit -c build --no-coverage"

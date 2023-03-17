@@ -19,7 +19,7 @@ namespace Query\Tests;
 use DomainException;
 use Query\{ConnectionManager, QueryBuilderInterface};
 
-class ConnectionManagerTest extends TestCase
+class ConnectionManagerTest extends BaseTestCase
 {
 	protected static $instance;
 
@@ -77,7 +77,7 @@ class ConnectionManagerTest extends TestCase
 			['foo' => 'bar'],
 		];
 
-		$this->assertEqual($expected, self::$instance->parseParams($params));
+		$this->assertEquals($expected, self::$instance->parseParams($params));
 	}
 
 	public function testConnect(): void
@@ -94,7 +94,7 @@ class ConnectionManagerTest extends TestCase
 		$conn = self::$instance->connect($params);
 
 		// Check that the connection just made is returned from the get_connection method
-		$this->assertEqual($conn, self::$instance->getConnection());
+		$this->assertEquals($conn, self::$instance->getConnection());
 	}
 
 	public function testGetConnection(): void
@@ -111,7 +111,7 @@ class ConnectionManagerTest extends TestCase
 
 		$conn = self::$instance->connect($params);
 
-		$this->assertEqual($conn, self::$instance->getConnection('conn_manager'));
+		$this->assertEquals($conn, self::$instance->getConnection('conn_manager'));
 	}
 }
 // End of connection_manager_test.php
