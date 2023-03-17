@@ -13,21 +13,23 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests;
 
-use Query\QueryParser;
 use Query\Drivers\Sqlite\Driver;
+use Query\QueryParser;
 
 /**
  * Tests for the Query Parser
  */
-class QueryParserTest extends TestCase {
+class QueryParserTest extends TestCase
+{
 	/**
 	 * @var QueryParser
 	 */
 	protected $parser;
 
-	public function setUp(): void
+	protected function setUp(): void
 	{
 		$db = new Driver('sqlite::memory:');
 		$this->parser = new QueryParser($db);
@@ -37,7 +39,7 @@ class QueryParserTest extends TestCase {
 	{
 		$matches = $this->parser->parseJoin('table1.field1=table2.field2');
 		$this->assertEqual($matches['combined'], [
-			'table1.field1', '=', 'table2.field2'
+			'table1.field1', '=', 'table2.field2',
 		]);
 	}
 
@@ -45,7 +47,7 @@ class QueryParserTest extends TestCase {
 	{
 		$matches = $this->parser->parseJoin('db1.table1.field1!=db2.table2.field2');
 		$this->assertEqual($matches['combined'], [
-			'db1.table1.field1','!=','db2.table2.field2'
+			'db1.table1.field1', '!=', 'db2.table2.field2',
 		]);
 	}
 
@@ -53,7 +55,7 @@ class QueryParserTest extends TestCase {
 	{
 		$matches = $this->parser->parseJoin('table_1.field1 = tab_le2.field_2');
 		$this->assertEqual($matches['combined'], [
-			'table_1.field1', '=', 'tab_le2.field_2'
+			'table_1.field1', '=', 'tab_le2.field_2',
 		]);
 	}
 
@@ -61,7 +63,7 @@ class QueryParserTest extends TestCase {
 	{
 		$matches = $this->parser->parseJoin('table1.field1 > SUM(3+5)');
 		$this->assertEqual($matches['combined'], [
-			'table1.field1', '>', 'SUM(3+5)'
+			'table1.field1', '>', 'SUM(3+5)',
 		]);
 	}
 }

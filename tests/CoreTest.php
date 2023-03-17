@@ -13,29 +13,27 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests;
 
+use PDO;
 use function Query;
 use function regexInArray;
-use PDO;
 
 /**
  * CoreTest class - Compatibility and core functionality tests
  *
  * @extends UnitTestCase
  */
-class CoreTest extends TestCase {
+class CoreTest extends TestCase
+{
 	/**
 	 * TestHasPDO function.
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function testHasPDO(): void
 	{
 		// PDO class exists
 		$this->assertTrue(class_exists('PDO'));
-
 
 		// Make sure at least one of the supported drivers is enabled
 		$supported = [

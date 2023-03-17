@@ -13,13 +13,14 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests;
 
 use DomainException;
 use Query\{ConnectionManager, QueryBuilderInterface};
 
-class ConnectionManagerTest extends TestCase {
-
+class ConnectionManagerTest extends TestCase
+{
 	protected static $instance;
 
 	public static function setUpBeforeClass(): void
@@ -65,7 +66,7 @@ class ConnectionManagerTest extends TestCase {
 			public $type = 'sqlite';
 			public $file = ':memory:';
 			public $options = [
-				'foo' => 'bar'
+				'foo' => 'bar',
 			];
 		};
 
@@ -73,7 +74,7 @@ class ConnectionManagerTest extends TestCase {
 			':memory:',
 			'Sqlite',
 			$params,
-			['foo' => 'bar']
+			['foo' => 'bar'],
 		];
 
 		$this->assertEqual($expected, self::$instance->parseParams($params));
@@ -86,7 +87,7 @@ class ConnectionManagerTest extends TestCase {
 			public $file = ':memory:';
 			public $prefix = 'create_';
 			public $options = [
-				'foo' => 'bar'
+				'foo' => 'bar',
 			];
 		};
 
@@ -104,8 +105,8 @@ class ConnectionManagerTest extends TestCase {
 			'prefix' => 'create_',
 			'alias' => 'conn_manager',
 			'options' => [
-				'foo' => 'bar'
-			]
+				'foo' => 'bar',
+			],
 		];
 
 		$conn = self::$instance->connect($params);

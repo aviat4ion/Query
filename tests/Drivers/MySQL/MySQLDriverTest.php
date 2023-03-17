@@ -13,20 +13,22 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests\Drivers\MySQL;
 
 use PDO;
 use Query\Drivers\Mysql\Driver;
 use Query\Tests\BaseDriverTest;
 use TypeError;
+use UnitTestCase;
 
 /**
  * MySQLTest class.
  *
  * @requires extension pdo_mysql
  */
-class MySQLDriverTest extends BaseDriverTest {
-
+class MySQLDriverTest extends BaseDriverTest
+{
 	public static function setUpBeforeClass(): void
 	{
 		$params = get_json_config();
@@ -35,12 +37,12 @@ class MySQLDriverTest extends BaseDriverTest {
 			self::$db = new Driver('host=127.0.0.1;port=3306;dbname=test', 'root');
 		}
 		// Attempt to connect, if there is a test config file
-		else if ($params !== FALSE)
+		elseif ($params !== FALSE)
 		{
 			$params = $params->mysql;
 
 			self::$db = new Driver("mysql:host={$params->host};dbname={$params->database}", $params->user, $params->pass, [
-				PDO::ATTR_PERSISTENT => TRUE
+				PDO::ATTR_PERSISTENT => TRUE,
 			]);
 		}
 
@@ -59,31 +61,33 @@ class MySQLDriverTest extends BaseDriverTest {
 
 	public function testCreateTable(): void
 	{
-		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/mysql.sql'));
+		self::$db->exec(file_get_contents(QTEST_DIR . '/db_files/mysql.sql'));
 
 		//Attempt to create the table
-		$sql = self::$db->getUtil()->createTable('test',
+		$sql = self::$db->getUtil()->createTable(
+			'test',
 			[
 				'id' => 'int(10)',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
 			],
 			[
-				'id' => 'PRIMARY KEY'
+				'id' => 'PRIMARY KEY',
 			],
 		);
 
 		self::$db->query($sql);
 
 		//Attempt to create the table
-		$sql = self::$db->getUtil()->createTable('join',
+		$sql = self::$db->getUtil()->createTable(
+			'join',
 			[
 				'id' => 'int(10)',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
 			],
 			[
-				'id' => 'PRIMARY KEY'
+				'id' => 'PRIMARY KEY',
 			]
 		);
 		self::$db->query($sql);
@@ -92,9 +96,7 @@ class MySQLDriverTest extends BaseDriverTest {
 		$dbs = self::$db->getTables();
 
 		$this->assertTrue(\in_array('create_test', $dbs, TRUE));
-
 	}
-
 
 	public function testTruncate(): void
 	{
@@ -107,7 +109,7 @@ class MySQLDriverTest extends BaseDriverTest {
 
 	public function testPreparedStatements(): void
 	{
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
@@ -116,40 +118,38 @@ SQL;
 		$res = $statement->execute();
 
 		$this->assertTrue($res);
-
 	}
 
 	public function testBadPreparedStatement(): void
 	{
-		if (is_a($this, \UnitTestCase::class))
+		if (is_a($this, UnitTestCase::class))
 		{
 			$this->markTestSkipped();
+
 			return;
 		}
 
 		$this->expectException(TypeError::class);
 
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
 
 		self::$db->prepareQuery($sql, 'foo');
-
 	}
 
 	public function testPrepareExecute(): void
 	{
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 			INSERT INTO `create_test` (`id`, `key`, `val`)
 			VALUES (?,?,?)
 SQL;
 		$res = self::$db->prepareExecute($sql, [
-			2, 'works', 'also?'
+			2, 'works', 'also?',
 		]);
 
 		$this->assertInstanceOf('PDOStatement', $res);
-
 	}
 
 	public function testCommitTransaction(): void
@@ -190,7 +190,7 @@ SQL;
 
 	public function testGetSchemas(): void
 	{
-		$this->assertTrue(in_array('test', self::$db->getSchemas()));
+		$this->assertTrue(in_array('test', self::$db->getSchemas(), TRUE));
 	}
 
 	public function testGetSequences(): void
@@ -200,6 +200,6 @@ SQL;
 
 	public function testBackup(): void
 	{
-		$this->assertTrue(\is_string(self::$db->getUtil()->backupStructure()));
+		$this->assertIsString(self::$db->getUtil()->backupStructure());
 	}
 }

@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests;
 
 use Query\QueryBuilderInterface;
@@ -20,8 +21,8 @@ use Query\QueryBuilderInterface;
 /**
  * Parent Database Test Class
  */
-abstract class BaseDriverTest extends TestCase {
-
+abstract class BaseDriverTest extends TestCase
+{
 	/**
 	 * @var QueryBuilderInterface|null
 	 */
@@ -37,34 +38,34 @@ abstract class BaseDriverTest extends TestCase {
 	public function testGetTables(): void
 	{
 		$tables = self::$db->getTables();
-		$this->assertTrue(\is_array($tables));
+		$this->assertIsArray($tables);
 		$this->assertTrue( ! empty($tables));
 	}
 
 	public function testGetSystemTables(): void
 	{
 		$tables = self::$db->getSystemTables();
-		$this->assertTrue(\is_array($tables));
+		$this->assertIsArray($tables);
 		$this->assertTrue( ! empty($tables));
 	}
 
 	public function testBackupData(): void
 	{
-		$this->assertTrue(\is_string(self::$db->getUtil()->backupData(['create_delete', FALSE])));
-		$this->assertTrue(\is_string(self::$db->getUtil()->backupData(['create_delete', TRUE])));
+		$this->assertIsString(self::$db->getUtil()->backupData(['create_delete', FALSE]));
+		$this->assertIsString(self::$db->getUtil()->backupData(['create_delete', TRUE]));
 	}
 
 	public function testGetColumns(): void
 	{
 		$cols = self::$db->getColumns('test');
-		$this->assertTrue(\is_array($cols));
+		$this->assertIsArray($cols);
 		$this->assertTrue( ! empty($cols));
 	}
 
 	public function testGetTypes(): void
 	{
 		$types = self::$db->getTypes();
-		$this->assertTrue(\is_array($types));
+		$this->assertIsArray($types);
 		$this->assertTrue( ! empty($types));
 	}
 
@@ -75,7 +76,7 @@ abstract class BaseDriverTest extends TestCase {
 			'parent_table' => 'testconstraints',
 			'parent_column' => 'someid',
 			'update' => 'CASCADE',
-			'delete' => 'CASCADE'
+			'delete' => 'CASCADE',
 		]];
 
 		$keys = self::$db->getFks('testconstraints2');
@@ -85,14 +86,15 @@ abstract class BaseDriverTest extends TestCase {
 	public function testGetIndexes(): void
 	{
 		$keys = self::$db->getIndexes('test');
-		$this->assertTrue(\is_array($keys));
+		$this->assertIsArray($keys);
 	}
 
 	public function testGetViews(): void
 	{
 		$views = self::$db->getViews();
 
-		$this->assertTrue(\is_array($views));
+		$this->assertIsArray($views);
+
 		foreach (['numbersview', 'testview'] as $searchView)
 		{
 			$this->assertTrue(in_array($searchView, $views, TRUE));
@@ -104,7 +106,7 @@ abstract class BaseDriverTest extends TestCase {
 		$this->markTestSkipped('Deprecated');
 
 		$triggers = self::$db->getTriggers();
-		$this->assertTrue(\is_array($triggers));
+		$this->assertIsArray($triggers);
 	}
 
 	public function testGetSequences(): void
@@ -116,7 +118,7 @@ abstract class BaseDriverTest extends TestCase {
 
 		$expected = ['newtable_seq'];
 
-		$this->assertTrue(\is_array($seqs));
+		$this->assertIsArray($seqs);
 		$this->assertEqual($expected, $seqs);
 	}
 
@@ -125,7 +127,7 @@ abstract class BaseDriverTest extends TestCase {
 		$this->markTestSkipped('Deprecated');
 
 		$procedures = self::$db->getProcedures();
-		$this->assertTrue(\is_array($procedures));
+		$this->assertIsArray($procedures);
 	}
 
 	public function testGetFunctions(): void
@@ -133,14 +135,14 @@ abstract class BaseDriverTest extends TestCase {
 		$this->markTestSkipped('Deprecated');
 
 		$funcs = self::$db->getFunctions();
-		$this->assertTrue(\is_array($funcs));
+		$this->assertIsArray($funcs);
 	}
 
 	public function testGetVersion(): void
 	{
 		$version = self::$db->getVersion();
-		$this->assertTrue(is_string($version));
-		$this->assertTrue(strlen($version) > 0);
+		$this->assertIsString($version);
+		$this->assertTrue($version !== '');
 	}
 }
 // End of db_test.php

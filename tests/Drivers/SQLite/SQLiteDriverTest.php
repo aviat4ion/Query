@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests\Drivers\SQLite;
 
 use PDO;
@@ -26,8 +27,8 @@ use Query\Tests\BaseDriverTest;
  * @extends DBTest
  * @requires extension pdo_sqlite
  */
-class SQLiteDriverTest extends BaseDriverTest {
-
+class SQLiteDriverTest extends BaseDriverTest
+{
 	public static function setupBeforeClass(): void
 	{
 		$params = [
@@ -36,8 +37,8 @@ class SQLiteDriverTest extends BaseDriverTest {
 			'prefix' => 'create_',
 			'alias' => 'test_sqlite',
 			'options' => [
-				PDO::ATTR_PERSISTENT => TRUE
-			]
+				PDO::ATTR_PERSISTENT => TRUE,
+			],
 		];
 
 		self::$db = Query($params);
@@ -50,7 +51,7 @@ class SQLiteDriverTest extends BaseDriverTest {
 
 	public function testCreateTable(): void
 	{
-		self::$db->exec(file_get_contents(QTEST_DIR.'/db_files/sqlite.sql'));
+		self::$db->exec(file_get_contents(QTEST_DIR . '/db_files/sqlite.sql'));
 
 		//Check
 		$dbs = self::$db->getTables();
@@ -84,7 +85,7 @@ SQL;
 	public function testBackupStructure(): void
 	{
 		$sql = mb_trim(self::$db->getUtil()->backupStructure());
-		$expected = <<<SQL
+		$expected = <<<'SQL'
 CREATE TABLE "create_test" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "key" TEXT, "val" TEXT);
 CREATE TABLE sqlite_sequence(name,seq);
 CREATE TABLE "create_join" ("id" INTEGER PRIMARY KEY, "key" TEXT, "val" TEXT);
@@ -164,7 +165,7 @@ SQL;
 
 		//Check
 		$dbs = self::$db->getTables();
-		$this->assertFalse(in_array('create_delete', $dbs));
+		$this->assertFalse(in_array('create_delete', $dbs, TRUE));
 	}
 
 	// --------------------------------------------------------------------------
@@ -175,7 +176,7 @@ SQL;
 	{
 		$class = Driver::class;
 
-		$db = new $class(QTEST_DIR.QDS.'db_files'.QDS.'test_sqlite.db');
+		$db = new $class(QTEST_DIR . QDS . 'db_files' . QDS . 'test_sqlite.db');
 
 		$this->assertIsA($db, $class);
 
@@ -190,7 +191,7 @@ SQL;
 
 	public function testPreparedStatements(): void
 	{
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
@@ -204,18 +205,18 @@ SQL;
 		$this->assertEquals([
 			'id' => 1,
 			'key' => 'boogers',
-			'val' => 'Gross'
+			'val' => 'Gross',
 		], $res);
 	}
 
 	public function testPrepareExecute(): void
 	{
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
 		self::$db->prepareExecute($sql, [
-			2, 'works', 'also?'
+			2, 'works', 'also?',
 		]);
 
 		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=2')
@@ -224,7 +225,7 @@ SQL;
 		$this->assertEquals([
 			'id' => 2,
 			'key' => 'works',
-			'val' => 'also?'
+			'val' => 'also?',
 		], $res);
 	}
 
@@ -270,7 +271,7 @@ SQL;
 	public function testGetSystemTables(): void
 	{
 		$sql = self::$db->getSystemTables();
-		$this->assertTrue(\is_array($sql));
+		$this->assertIsArray($sql);
 	}
 
 	public function testGetSequences(): void

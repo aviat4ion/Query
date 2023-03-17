@@ -13,16 +13,18 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests\Drivers\MySQL;
 
 use PDO;
 use Query\Tests\BaseQueryBuilderTest;
+use function in_array;
 
 /**
  * @requires extension pdo_mysql
  */
-class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
-
+class MySQLQueryBuilderTest extends BaseQueryBuilderTest
+{
 	public static function setUpBeforeClass(): void
 	{
 		$params = get_json_config();
@@ -35,11 +37,11 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 				'prefix' => 'create_',
 				'user' => 'root',
 				'pass' => NULL,
-				'type' => 'mysql'
+				'type' => 'mysql',
 			];
 		}
 		// Attempt to connect, if there is a test config file
-		else if ($params !== FALSE)
+		elseif ($params !== FALSE)
 		{
 			$params = $params->mysql;
 			$params->type = 'MySQL';
@@ -52,7 +54,7 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 
 	public function testExists(): void
 	{
-		$this->assertTrue(\in_array('mysql', PDO::getAvailableDrivers(), TRUE));
+		$this->assertTrue(in_array('mysql', PDO::getAvailableDrivers(), TRUE));
 	}
 
 	public function testQueryExplain(): void
@@ -68,9 +70,9 @@ class MySQLQueryBuilderTest extends BaseQueryBuilderTest {
 		// The exact results are version dependent
 		// The important thing is that there is an array
 		// of results returned
-		$this->assertTrue(\is_array($res));
+		$this->assertIsArray($res);
 		$this->assertTrue(count(array_keys($res[0])) > 1);
-		$this->assertTrue(array_key_exists('table', $res[0]));
+		$this->assertArrayHasKey('table', $res[0]);
 	}
 
 	public function testInsertReturning(): void

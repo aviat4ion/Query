@@ -13,16 +13,18 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests\Drivers\PgSQL;
 
 use PDO;
 use Query\Tests\BaseQueryBuilderTest;
+use function in_array;
 
 /**
  * @requires extension pdo_pgsql
  */
-class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
-
+class PgSQLQueryBuilderTest extends BaseQueryBuilderTest
+{
 	public static function setUpBeforeClass(): void
 	{
 		$params = get_json_config();
@@ -35,11 +37,11 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 				'user' => 'postgres',
 				'pass' => '',
 				'type' => 'pgsql',
-				'prefix' => 'create_'
+				'prefix' => 'create_',
 			];
 		}
 		// Attempt to connect, if there is a test config file
-		else if ($params !== FALSE)
+		elseif ($params !== FALSE)
 		{
 			$params = $params->pgsql;
 			$params->type = 'pgsql';
@@ -52,18 +54,18 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		self::$db = Query($params);
 	}
 
-	public function setUp(): void
- 	{
- 		// If the database isn't installed, skip the tests
-		if ( ! \in_array('pgsql', PDO::getAvailableDrivers(), TRUE))
+	protected function setUp(): void
+	{
+		// If the database isn't installed, skip the tests
+		if ( ! in_array('pgsql', PDO::getAvailableDrivers(), TRUE))
 		{
 			$this->markTestSkipped('Postgres extension for PDO not loaded');
 		}
- 	}
+	}
 
 	public function testExists(): void
 	{
-		$this->assertTrue(\in_array('pgsql', PDO::getAvailableDrivers(), TRUE));
+		$this->assertTrue(in_array('pgsql', PDO::getAvailableDrivers(), TRUE));
 	}
 
 	public function testQueryExplain(): void
@@ -79,31 +81,31 @@ class PgSQLQueryBuilderTest extends BaseQueryBuilderTest {
 		// The exact results are version dependent
 		// The important thing is that there is an array
 		// of results returned
-		$this->assertTrue(\is_array($res));
+		$this->assertIsArray($res);
 		$this->assertTrue(count($res) > 1);
-		$this->assertTrue(array_key_exists('QUERY PLAN', $res[0]));
+		$this->assertArrayHasKey('QUERY PLAN', $res[0]);
 
 		/*$expected = array (
 		  array (
-		    'QUERY PLAN' => 'Limit  (cost=6.31..10.54 rows=2 width=68)',
+			'QUERY PLAN' => 'Limit  (cost=6.31..10.54 rows=2 width=68)',
 		  ),
 		  array (
-		    'QUERY PLAN' => '  Output: id, key, val',
+			'QUERY PLAN' => '  Output: id, key, val',
 		  ),
 		  array (
-		    'QUERY PLAN' => '  ->  Bitmap Heap Scan on public.create_test  (cost=4.19..12.66 rows=4 width=68)',
+			'QUERY PLAN' => '  ->  Bitmap Heap Scan on public.create_test  (cost=4.19..12.66 rows=4 width=68)',
 		  ),
 		  array (
-		    'QUERY PLAN' => '        Output: id, key, val',
+			'QUERY PLAN' => '        Output: id, key, val',
 		  ),
 		  array (
-		    'QUERY PLAN' => '        Recheck Cond: ((create_test.id > 1) AND (create_test.id < 900))',
+			'QUERY PLAN' => '        Recheck Cond: ((create_test.id > 1) AND (create_test.id < 900))',
 		  ),
 		  array (
-		    'QUERY PLAN' => '        ->  Bitmap Index Scan on create_test_pkey  (cost=0.00..4.19 rows=4 width=0)',
+			'QUERY PLAN' => '        ->  Bitmap Index Scan on create_test_pkey  (cost=0.00..4.19 rows=4 width=0)',
 		  ),
 		  array (
-		    'QUERY PLAN' => '              Index Cond: ((create_test.id > 1) AND (create_test.id < 900))',
+			'QUERY PLAN' => '              Index Cond: ((create_test.id > 1) AND (create_test.id < 900))',
 		  ),
 		);
 

@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests\Drivers\SQLite;
 
 use PDO;
@@ -23,8 +24,8 @@ use Query\Tests\BaseQueryBuilderTest;
  *
  * @requires extension pdo_sqlite
  */
- class SQLiteQueryBuilderTest extends BaseQueryBuilderTest {
-
+class SQLiteQueryBuilderTest extends BaseQueryBuilderTest
+{
 	public static function setUpBeforeClass(): void
 	{
 		// Defined in the SQLiteTest.php file
@@ -48,7 +49,7 @@ use Query\Tests\BaseQueryBuilderTest;
 
 		$res = $query->fetchAll(PDO::FETCH_ASSOC);
 		$actualDetail = $res[0]['detail'];
-		$this->assertTrue(is_string($actualDetail));
+		$this->assertIsString($actualDetail);
 
 		/* $expectedPossibilities = [
 			'TABLE create_test USING PRIMARY KEY',
@@ -77,11 +78,11 @@ use Query\Tests\BaseQueryBuilderTest;
 
 	 public function testInsertReturning(): void
 	 {
-		 $this->markTestSkipped('Not implemented');
+	 	$this->markTestSkipped('Not implemented');
 	 }
 
 	 public function testUpdateReturning(): void
 	 {
-		 $this->markTestSkipped('Not implemented');
+	 	$this->markTestSkipped('Not implemented');
 	 }
 }

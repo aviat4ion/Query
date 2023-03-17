@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests;
 
 use BadMethodCallException;
@@ -23,8 +24,8 @@ use Query\QueryBuilderInterface;
 /**
  * Query builder parent test class
  */
-abstract class BaseQueryBuilderTest extends TestCase {
-
+abstract class BaseQueryBuilderTest extends TestCase
+{
 	/**
 	 * @var QueryBuilderInterface|null
 	 */
@@ -75,7 +76,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 		$lastQuery = self::$db->getLastQuery();
-		$this->assertTrue(\is_string($lastQuery));
+		$this->assertIsString($lastQuery);
 	}
 
 	public function testPrefixGet(): void
@@ -137,6 +138,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+
 	// ! Select tests
 	public function testSelectWhereGet(): void
 	{
@@ -255,6 +257,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+
 	// ! Grouping tests
 	public function testGroup(): void
 	{
@@ -350,6 +353,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+
 	// ! Where In tests
 	public function testWhereIn(): void
 	{
@@ -389,6 +393,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 
 		$this->assertIsA($query, 'PDOStatement');
 	}
+
 	// ! Query modifier tests
 	public function testOrderBy(): void
 	{
@@ -398,7 +403,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			->where('id <', 9000)
 			->orderBy('id', 'DESC')
 			->orderBy('k', 'ASC')
-			->limit(5,2)
+			->limit(5, 2)
 			->get();
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -411,7 +416,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			->where('id >', 0)
 			->where('id <', 9000)
 			->orderBy('id', 'rand')
-			->limit(5,2)
+			->limit(5, 2)
 			->get();
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -424,10 +429,10 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			->where('id >', 0)
 			->where('id <', 9000)
 			->groupBy('k')
-			->groupBy(['id','val'])
+			->groupBy(['id', 'val'])
 			->orderBy('id', 'DESC')
 			->orderBy('k', 'ASC')
-			->limit(5,2)
+			->limit(5, 2)
 			->get();
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -537,7 +542,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			->join('join cj', 'cj.id=ct.id', 'inner')
 			->where([
 				'ct.id < ' => 3,
-				'ct.key' => 'foo'
+				'ct.key' => 'foo',
 			])
 			->get();
 
@@ -616,7 +621,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			->update('test', [
 				'id' => 7,
 				'key' => 'gogle',
-				'val' => 'non-word'
+				'val' => 'non-word',
 			]);
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -635,7 +640,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			->set([
 				'id' => 7,
 				'key' => 'gogle',
-				'val' => 'non-word'
+				'val' => 'non-word',
 			])
 			->returning('key')
 			->update('test');
@@ -661,13 +666,13 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			[
 				'id' => 480,
 				'key' => 49,
-				'val' => '7x7'
+				'val' => '7x7',
 			],
 			[
 				'id' => 890,
 				'key' => 100,
-				'val' => '10x10'
-			]
+				'val' => '10x10',
+			],
 		];
 
 		$affectedRows = self::$db->updateBatch('test', $data, 'id');
@@ -679,7 +684,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$array = [
 			'id' => 22,
 			'key' => 'gogle',
-			'val' => 'non-word'
+			'val' => 'non-word',
 		];
 
 		$query = self::$db->set($array)
@@ -707,7 +712,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$this->assertIsA($query, 'PDOStatement');
 	}
 
-	public function testDeleteReturning():void
+	public function testDeleteReturning(): void
 	{
 		$query = self::$db->returning()->delete('test', ['id' => 99]);
 
@@ -718,7 +723,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 	{
 		$query = self::$db->delete('test', [
 			'id' => 5,
-			'key' => 'gogle'
+			'key' => 'gogle',
 		]);
 
 		$this->assertIsA($query, 'PDOStatement');
@@ -729,14 +734,14 @@ abstract class BaseQueryBuilderTest extends TestCase {
 	{
 		$query = self::$db->countAll('test');
 
-		$this->assertTrue(is_numeric($query));
+		$this->assertIsNumeric($query);
 	}
 
 	public function testCountAllResults(): void
 	{
 		$query = self::$db->countAllResults('test');
 
-		$this->assertTrue(is_numeric($query));
+		$this->assertIsNumeric($query);
 	}
 
 	public function testCountAllResults2(): void
@@ -748,13 +753,13 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			->limit(2, 1)
 			->countAllResults();
 
-		$this->assertTrue(is_numeric($query));
+		$this->assertIsNumeric($query);
 	}
 
 	public function testNumRows(): void
 	{
 		self::$db->get('test');
-		$this->assertTrue(is_numeric(self::$db->numRows()));
+		$this->assertIsNumeric(self::$db->numRows());
 	}
 
 	// ! Compiled Query tests
@@ -764,7 +769,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$qbRes = self::$db->get('test');
 		$sqlRes = self::$db->query($sql);
 
-		$this->assertIsA($qbRes,'PDOStatement', 'Query Builder Result is a PDO Statement');
+		$this->assertIsA($qbRes, 'PDOStatement', 'Query Builder Result is a PDO Statement');
 		$this->assertIsA($sqlRes, 'PDOStatement', 'SQL Result is a PDO Statement');
 		//$this->assertEquals($qbRes, $sqlRes);
 	}
@@ -774,10 +779,10 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$sql = self::$db->set([
 			'id' => 4,
 			'key' => 'foo',
-			'val' => 'baz'
+			'val' => 'baz',
 		])->getCompiledUpdate('test');
 
-		$this->assertTrue(\is_string($sql));
+		$this->assertIsString($sql);
 	}
 
 	public function testGetCompiledInsert(): void
@@ -785,10 +790,10 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$sql = self::$db->set([
 			'id' => 4,
 			'key' => 'foo',
-			'val' => 'baz'
+			'val' => 'baz',
 		])->getCompiledInsert('test');
 
-		$this->assertTrue(\is_string($sql));
+		$this->assertIsString($sql);
 	}
 
 	public function testGetCompiledDelete(): void
@@ -796,8 +801,9 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		$sql = self::$db->where('id', 4)
 			->getCompiledDelete('test');
 
-		$this->assertTrue(\is_string($sql));
+		$this->assertIsString($sql);
 	}
+
 	// ! Error tests
 	/**
 	 * Handles invalid drivers
@@ -810,7 +816,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 			'database' => 'test',
 			'user' => 'root',
 			'pass' => NULL,
-			'type' => 'QGYFHGEG'
+			'type' => 'QGYFHGEG',
 		];
 
 		$this->expectException(BadDBDriverException::class);
@@ -830,7 +836,7 @@ abstract class BaseQueryBuilderTest extends TestCase {
 		self::$db->set([
 			'id' => 999,
 			'key' => 'ring',
-			'val' => 'sale'
+			'val' => 'sale',
 		])->insert('test');
 
 		$res = self::$db->numRows();

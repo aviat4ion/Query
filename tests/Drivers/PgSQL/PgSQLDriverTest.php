@@ -13,12 +13,14 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace Query\Tests\Drivers\PgSQL;
 
 use PDO;
 use Query\Drivers\Pgsql\Driver;
 use Query\Tests\BaseDriverTest;
 use TypeError;
+use UnitTestCase;
 
 /**
  * PgTest class.
@@ -26,10 +28,10 @@ use TypeError;
  * @extends DBTest
  * @requires extension pdo_pgsql
  */
-class PgSQLDriverTest extends BaseDriverTest {
-
-	public function setUp(): void
-    {
+class PgSQLDriverTest extends BaseDriverTest
+{
+	protected function setUp(): void
+	{
 		// If the database isn't installed, skip the tests
 		if ( ! class_exists(Driver::class))
 		{
@@ -39,14 +41,13 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 	public static function setUpBeforeClass(): void
 	{
-
 		$params = get_json_config();
 		if ($var = getenv('TRAVIS'))
 		{
 			self::$db = new Driver('host=127.0.0.1;port=5432;dbname=test', 'postgres');
 		}
 		// Attempt to connect, if there is a test config file
-		else if ($params !== FALSE)
+		elseif ($params !== FALSE)
 		{
 			$params = $params->pgsql;
 			self::$db = new Driver("pgsql:host={$params->host};dbname={$params->database};port=5432", $params->user, $params->pass);
@@ -63,7 +64,10 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 	public function testConnection(): void
 	{
-		if (empty(self::$db))  return;
+		if (empty(self::$db))
+		{
+			return;
+		}
 
 		$this->assertIsA(self::$db, Driver::class);
 	}
@@ -78,30 +82,31 @@ class PgSQLDriverTest extends BaseDriverTest {
 		$sql = 'DROP TABLE IF EXISTS "create_join"';
 		self::$db->query($sql);
 
-
 		//Attempt to create the table
-		$sql = self::$db->getUtil()->createTable('create_test',
+		$sql = self::$db->getUtil()->createTable(
+			'create_test',
 			[
 				'id' => 'integer',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
 			],
 			[
-				'id' => 'PRIMARY KEY'
+				'id' => 'PRIMARY KEY',
 			]
 		);
 
 		self::$db->query($sql);
 
 		//Attempt to create the table
-		$sql = self::$db->getUtil()->createTable('create_join',
+		$sql = self::$db->getUtil()->createTable(
+			'create_join',
 			[
 				'id' => 'integer',
 				'key' => 'TEXT',
 				'val' => 'TEXT',
 			],
 			[
-				'id' => 'PRIMARY KEY'
+				'id' => 'PRIMARY KEY',
 			]
 		);
 		self::$db->query($sql);
@@ -115,7 +120,6 @@ class PgSQLDriverTest extends BaseDriverTest {
 		//Check
 		$dbs = self::$db->getTables();
 		$this->assertTrue(in_array('create_test', $dbs, TRUE));
-
 	}
 
 	public function testTruncate(): void
@@ -129,11 +133,11 @@ class PgSQLDriverTest extends BaseDriverTest {
 
 	public function testPreparedStatements(): void
 	{
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
-		$statement = self::$db->prepareQuery($sql, [1,'boogers', 'Gross']);
+		$statement = self::$db->prepareQuery($sql, [1, 'boogers', 'Gross']);
 
 		$statement->execute();
 
@@ -143,21 +147,22 @@ SQL;
 		$this->assertEquals([
 			'id' => 1,
 			'key' => 'boogers',
-			'val' => 'Gross'
+			'val' => 'Gross',
 		], $res);
 	}
 
 	public function testBadPreparedStatement(): void
 	{
-		if (is_a($this, \UnitTestCase::class))
+		if (is_a($this, UnitTestCase::class))
 		{
 			$this->markTestSkipped();
+
 			return;
 		}
 
 		$this->expectException(TypeError::class);
 
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
@@ -167,14 +172,17 @@ SQL;
 
 	public function testPrepareExecute(): void
 	{
-		if (empty(self::$db))  return;
+		if (empty(self::$db))
+		{
+			return;
+		}
 
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 			INSERT INTO "create_test" ("id", "key", "val")
 			VALUES (?,?,?)
 SQL;
 		self::$db->prepareExecute($sql, [
-			2, 'works', 'also?'
+			2, 'works', 'also?',
 		]);
 
 		$res = self::$db->query('SELECT * FROM "create_test" WHERE "id"=2')
@@ -183,13 +191,16 @@ SQL;
 		$this->assertEquals([
 			'id' => 2,
 			'key' => 'works',
-			'val' => 'also?'
+			'val' => 'also?',
 		], $res);
 	}
 
 	public function testCommitTransaction(): void
 	{
-		if (empty(self::$db))  return;
+		if (empty(self::$db))
+		{
+			return;
+		}
 
 		self::$db->beginTransaction();
 
@@ -202,7 +213,10 @@ SQL;
 
 	public function testRollbackTransaction(): void
 	{
-		if (empty(self::$db))  return;
+		if (empty(self::$db))
+		{
+			return;
+		}
 
 		self::$db->beginTransaction();
 
@@ -215,12 +229,12 @@ SQL;
 
 	public function testGetSchemas(): void
 	{
-		$this->assertTrue(\is_array(self::$db->getSchemas()));
+		$this->assertIsArray(self::$db->getSchemas());
 	}
 
 	public function testGetDBs(): void
 	{
-		$this->assertTrue(\is_array(self::$db->getDbs()));
+		$this->assertIsArray(self::$db->getDbs());
 	}
 
 	public function testGetFunctions(): void

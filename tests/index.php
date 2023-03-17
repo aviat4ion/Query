@@ -13,6 +13,7 @@
  * @link        https://git.timshomepage.net/aviat/Query
  * @version     4.0.0
  */
+
 namespace {
 	/**
 	 * Unit test bootstrap - Using php simpletest
@@ -26,14 +27,14 @@ namespace {
 }
 
 namespace Query\Tests {
-
 	/**
 	 * Base class for TestCases
 	 */
-	abstract class TestCase extends \UnitTestCase {
+	abstract class TestCase extends \UnitTestCase
+	{
 		public function __construct()
 		{
-			$class = \get_class($this);
+			$class = static::class;
 
 			if (PHP_SAPI !== 'cli')
 			{
@@ -41,7 +42,8 @@ namespace Query\Tests {
 				flush();
 			}
 
-			if (method_exists($class, 'setupBeforeClass')) {
+			if (method_exists($class, 'setupBeforeClass'))
+			{
 				$class::setupBeforeClass();
 			}
 
@@ -50,9 +52,10 @@ namespace Query\Tests {
 
 		public function __destruct()
 		{
-			$class = \get_class($this);
+			$class = static::class;
 
-			if (method_exists($class, 'tearDownAfterClass')) {
+			if (method_exists($class, 'tearDownAfterClass'))
+			{
 				$class::tearDownAfterClass();
 			}
 		}
@@ -60,8 +63,6 @@ namespace Query\Tests {
 		/**
 		 * Define assertInstanceOf for simpletest
 		 *
-		 * @param $expected
-		 * @param $actual
 		 * @param string $message
 		 */
 		public function assertInstanceOf($expected, $actual, $message = '')
@@ -111,16 +112,19 @@ namespace Query\Tests {
 /**
  * Load the test suites
  */
+
 namespace {
 	function get_json_config()
 	{
 		$files = [
 			__DIR__ . '/settings.json',
-			__DIR__ . '/settings.json.dist'
+			__DIR__ . '/settings.json.dist',
 		];
 
-		foreach ($files as $file) {
-			if (is_file($file)) {
+		foreach ($files as $file)
+		{
+			if (is_file($file))
+			{
 				return json_decode(file_get_contents($file));
 			}
 		}
@@ -130,7 +134,7 @@ namespace {
 
 	// Include db tests
 	// Load db classes based on capability
-	$testPath = QTEST_DIR.'/Drivers/';
+	$testPath = QTEST_DIR . '/Drivers/';
 
 	// Require base testing classes
 	require_once QTEST_DIR . '/CoreTest.php';
@@ -145,7 +149,7 @@ namespace {
 	];
 
 	// Determine which testcases to load
-	foreach($driverTestMap as $name => $doLoad)
+	foreach ($driverTestMap as $name => $doLoad)
 	{
 		$path = $testPath . $name;
 
@@ -156,6 +160,5 @@ namespace {
 		}
 	}
 }
-
 
 // End of index.php
