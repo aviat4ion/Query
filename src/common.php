@@ -19,12 +19,16 @@ use Query\{ConnectionManager, QueryBuilderInterface};
 /**
  * Global functions that don't really fit anywhere else
  */
-/**
- * Multibyte-safe trim function
- */
-function mb_trim(string $string): string
+
+if ( ! function_exists('mb_trim'))
 {
-	return preg_replace('/(^\s+)|(\s+$)/u', '', $string);
+	/**
+	 * Multibyte-safe trim function
+	 */
+	function mb_trim(string $string): string
+	{
+		return preg_replace('/(^\s+)|(\s+$)/u', '', $string);
+	}
 }
 
 /**
